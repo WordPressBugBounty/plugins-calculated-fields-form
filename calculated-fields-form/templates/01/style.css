@@ -1,0 +1,96 @@
+body{--cff_main_slider_color:#204a70;}
+.cp_cff_letter{background:#E4E4E4; padding:10px;position:relative;}
+.cp_cff_letter *{font-family:system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";}
+.cp_cff_letter #fbuilder .cff-popup-container{border-radius:4px;}
+.cp_cff_letter #fbuilder .cff-popup-container .cff-popup-title{font-weight:600;}
+.cp_cff_letter::before,
+.cp_cff_letter #fbuilder .cff-popup-container:before{background:repeating-linear-gradient(-45deg,rgba(0, 0, 0, 0) 20px,rgba(0, 0, 0, 0) 40px,#DF6C4F 40px,#DF6C4F 60px);width:100%;height:10px;display:block;content:" ";position:absolute;left:0;top:0;}
+.cp_cff_letter #fbuilder .cff-popup-container:before {border-top-left-radius:4px;border-top-right-radius:4px;height:5px;}
+.cp_cff_letter #fbuilder{}
+.cp_cff_letter #fbuilder h1,
+.cp_cff_letter #fbuilder h2,
+.cp_cff_letter #fbuilder h3,
+.cp_cff_letter #fbuilder h4,
+.cp_cff_letter #fbuilder h5,
+.cp_cff_letter #fbuilder h6,
+.cp_cff_letter #fbuilder .fform p{color:#204a70;}
+.cp_cff_letter #fbuilder .fform .cff-form-title{font-size:2em;}
+.cp_cff_letter #fbuilder .fform .cff-form-description{font-size:1.2em;font-weight:400;}
+.cp_cff_letter #fbuilder .fform *{text-align:center;}
+.cp_cff_letter #fbuilder input[type="password"],
+.cp_cff_letter #fbuilder input[type="date"],
+.cp_cff_letter #fbuilder input[type="datetime"],
+.cp_cff_letter #fbuilder input[type="email"],
+.cp_cff_letter #fbuilder input[type="search"],
+.cp_cff_letter #fbuilder input[type="time"],
+.cp_cff_letter #fbuilder input[type="url"],
+.cp_cff_letter #fbuilder select,
+.cp_cff_letter #fbuilder textarea,
+.cp_cff_letter #fbuilder input[type="text"],
+.cp_cff_letter #fbuilder input[type="number"],
+.cp_cff_letter #fbuilder input[type="file"]{border-bottom:1px solid #bbb;border-top:1px solid #999;border-left:1px solid #bbb;border-right:1px solid #bbb;padding-top:5px;padding-bottom:5px;font-size:14px;-webkit-box-shadow:#fdfdfd 0px 1px 1px;color:#333;padding-left:10px; padding-right:10px;min-height:40px;border-radius:4px;}
+.cp_cff_letter #fbuilder .select2-selection{border-bottom:1px solid #bbb;border-top:1px solid #999;border-left:1px solid #bbb;border-right:1px solid #bbb;font-size:14px;-webkit-box-shadow:#fdfdfd 0px 1px 1px;color:#333;min-height:40px;border-radius:4px;}
+.cp_cff_letter #fbuilder .select2-selection__arrow{min-height:34px;}
+.cp_cff_letter #fbuilder .large{width:100%;}
+@media screen and (min-width:740px),print{
+	.cp_cff_letter #fbuilder .medium {width:50%;}
+	.cp_cff_letter #fbuilder .small {width:25%;}
+}
+@media screen and (max-width:640px){
+	.cp_cff_letter #fbuilder .medium,
+	.cp_cff_letter #fbuilder .small {width:100%;}
+}
+.cp_cff_letter #fbuilder{text-shadow:0px 1px 0px #fff;}
+.cp_cff_letter #fbuilder legend,
+.cp_cff_letter #fbuilder fieldset{border:1px solid #C4C4C4;border-radius:4px;}
+.cp_cff_letter #fbuilder legend{background:#FFF;}
+.cp_cff_letter #fbuilder .cff-sectionbreak-field .section_break{border:0;}
+.cp_cff_letter #fbuilder .cff-sectionbreak-field label:not(:empty){font-size:1.3em;margin-top:20px;border-bottom:1px solid #C4C4C4;display:block;}
+.cp_cff_letter #fbuilder .cff-record-btn,
+.cp_cff_letter #fbuilder button:not([class*="trumbowyg"]),
+.cp_cff_letter #fbuilder input[type="button"],
+.cp_cff_letter #fbuilder input[type="reset"],
+.cp_cff_letter .cff-spinner .cff-spinner-down,
+.cp_cff_letter .cff-spinner .cff-spinner-up,
+.cp_cff_letter #fbuilder .pbSubmit,
+.cp_cff_letter #fbuilder .pbPrevious,
+.cp_cff_letter #fbuilder .pbNext{color:#fff;font-size:13px;font-weight:500;text-shadow:none;background:#3b679e;border-radius:4px;padding:5px 40px;border:0;min-height:35px;display:inline-flex;justify-content:center;align-items:center;}
+.cp_cff_letter #fbuilder .cff-record-btn{justify-content:flex-start;}
+.cp_cff_letter #fbuilder .cff-record-error{text-shadow:none;border-radius:4px;padding:5px 20px;}
+.cp_cff_letter #fbuilder .cff-record-btn:hover,
+.cp_cff_letter #fbuilder button:not([class*="trumbowyg"]):hover,
+.cp_cff_letter #fbuilder input[type="button"]:hover,
+.cp_cff_letter #fbuilder input[type="reset"]:hover,
+.cp_cff_letter .cff-spinner .cff-spinner-down:hover,
+.cp_cff_letter .cff-spinner .cff-spinner-up:hover,
+.cp_cff_letter #fbuilder .pbSubmit:hover,
+.cp_cff_letter #fbuilder .pbPrevious:hover,
+.cp_cff_letter #fbuilder .pbNext:hover{background:#325887;}
+.cp_cff_letter #fbuilder .cff-record-btn:active,
+.cp_cff_letter #fbuilder button:not([class*="trumbowyg"]):active,
+.cp_cff_letter #fbuilder input[type="button"]:active,
+.cp_cff_letter #fbuilder input[type="reset"]:active,
+.cp_cff_letter .cff-spinner .cff-spinner-down:active,
+.cp_cff_letter .cff-spinner .cff-spinner-up:active,
+.cp_cff_letter #fbuilder .pbSubmit:active,
+.cp_cff_letter #fbuilder .pbPrevious:active,
+.cp_cff_letter #fbuilder .pbNext:active{background:#294c78;}
+.cp_cff_letter #fbuilder .cff-spinner .cff-spinner-down,
+.cp_cff_letter #fbuilder .cff-spinner .cff-spinner-up{padding:0px;}
+.cp_cff_letter #fbuilder .slider{ border:1px solid #bbb;}
+.cp_cff_letter #fbuilder .ui-slider-range{background:rgba(125, 185, 232, .7);}
+.cp_cff_letter #fbuilder .ui-slider-handle{background:#3b679e;border:1px solid #204a70;}
+.cp_cff_letter #fbuilder .ui-slider-handle:hover{background:#325887;}
+.cp_cff_letter #fbuilder .ui-slider-handle:active{background:#294c78;}
+.cp_cff_letter #fbuilder .cff-slider-field .mark{background:#bbb;}
+.cp_cff_letter #fbuilder .discount-container{margin-top:10px;font-weight:bold;}
+.cp_cff_letter #fbuilder .cff-switch-container input:checked+span.cff-switch{background:#5684bc;}
+.cp_cff_letter #fbuilder span.files-list img{border-color:#bbb;}
+.cp_cff_letter #fbuilder .select2-dropdown .select2-search__field{width:100% !important;}
+.cp_cff_letter #fbuilder .select2-dropdown,
+.cp_cff_letter #fbuilder .select2-selection--multiple,
+.cp_cff_letter #fbuilder .select2-selection--single{border-bottom:1px solid #bbb;border-top:1px solid #999;border-left:1px solid #bbb;border-right:1px solid #bbb;border-radius:4px;}
+.cp_cff_letter #fbuilder .select2-dropdown *{text-shadow:none;}
+.cp_cff_letter #fbuilder .select2-results__option--highlighted{background:#2c85d4;}
+.cp_cff_letter #fbuilder .apply-coupon{background:url(3936976.png) no-repeat;width:35px;height:35px;background-size:contain;}
+.cp_cff_letter #fbuilder .apply-coupon:hover{transform:scale(1.1);}
