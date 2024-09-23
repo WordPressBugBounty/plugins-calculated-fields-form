@@ -297,14 +297,27 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				if ( ! is_null( $form_data ) ) {
 					$value = $this->_settings['form_structure'] = $form_data; // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 				}
-			} elseif ( // If the texts where not defined previously or the thank you page is empty populate them with the default values.
-				(
-					'vs_all_texts' == $option ||
-					'fp_return_page' == $option
-				) &&
-				empty( $value )
-			) {
-				$value = $default;
+			} elseif ( $option == 'vs_all_texts' ) { // If the texts where not defined previously or the thank you page is empty populate them with the default values.
+				error_reporting( E_ERROR | E_PARSE );
+
+				global $cpcff_default_texts_array;
+
+				$value = empty( $value ) ? $default : $value;
+
+				if ( is_string( $value ) ) {
+					$value = unserialize( $value );
+				}
+
+				if ( is_array( $value ) ) {
+					$value = CPCFF_AUXILIARY::array_replace_recursive(
+						$cpcff_default_texts_array,
+						$value
+					);
+				} else {
+					$value = $cpcff_default_texts_array;
+				}
+			} elseif ( $option == 'fp_return_page' ) {
+				$value = empty( $value ) ? $default : $value;
 			} elseif (
 				in_array( $option, [ 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height' ] )
 			) {

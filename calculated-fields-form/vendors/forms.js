@@ -225,6 +225,11 @@ cff_forms_templates = {
             "description": "Calculate the net salary based on gross salary and country.",
             "id": 53
         }, {
+            "title": "Biance Wall",
+            "category": "Financial",
+            "description": "Real-time market data for all trading pairs on the Binance exchange.",
+            "id": 56
+        }, {
             "title": "Transportation Cost",
             "category": "Transportation",
             "description": "Basic algorithm to calculate transportation cost.",

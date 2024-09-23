@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.37';
+	$.fbuilder['version'] = '5.2.38';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -260,7 +260,13 @@
 						if(items[i].usedInEquations) {
 							var equations = [];
 							for( var j in items[i].usedInEquations )
-								if( getField(items[i].usedInEquations[j].result)['dynamicEval'] ) equations.push( items[i].usedInEquations[j] );
+								if(
+									getField(items[i].usedInEquations[j].result)['dynamicEval'] ||
+									(
+										'force_all' in $.fbuilder['forms'][id] &&
+										$.fbuilder['forms'][id]['force_all']
+									)
+								) equations.push( items[i].usedInEquations[j] );
 							if ( equations.length )
 								$.fbuilder['calculator'].enqueueEquation(id, equations);
 						}
@@ -303,18 +309,74 @@
 
 			if(id in cpcff_default)
 			{
+				// Initialize variables.
 				data = cpcff_default[id];
 				id = '_'+id;
 				formObj = $.fbuilder['forms'][id];
 				f = $('#'+formObj['formId']);
 				_eval_equations = f.attr('data-evalequations') || o.evalequations;
 				f.attr('data-evalequations',0);
+
+				// Selecting the default options in DS fields while they load.
+				let still_loading = true;
+
+				$(document).on('input', '#fbuilder :input', function(evt){
+					still_loading = false;
+				});
+
+				$(document).on('cff-data-filled', function(evt){
+					if ( ! still_loading ) return true; // The data are being loaded from data source by the user action.
+					try {
+						let n = $(evt.target).attr('id').match( /(fieldname\d+)_(\d+)/);
+						if (
+							n &&
+							n[2] in cpcff_default &&
+							n[1] in cpcff_default[n[2]]
+						) {
+							let f = getField( n[1], '#cp_calculatedfieldsf_pform_'+n[2] );
+							if(
+								f &&
+								'setVal' in f &&
+								JSON.stringify(f.val('vt', true)) != JSON.stringify(cpcff_default[n[2]][n[1]])
+							) {
+								f.setVal( cpcff_default[n[2]][n[1]], false, true );
+							}
+						}
+					} catch (err){ console_log(err); }
+				});
+				// ...End.
+
+				// Assign the values to non-ds fields.
 				for( var fieldId in data )
 				{
 					item = formObj.getItem(fieldId+id);
-					try{ if('setVal' in item) item.setVal(data[fieldId], true, true); $('[name*="'+item.name+'"]').trigger('trigger_ds'); }
-					catch(err){}
+					try {
+						if(
+							item &&
+							! ( 'isDatasource' in item ) &&
+							'setVal' in item &&
+							JSON.stringify(item.val('vt', true)) != JSON.stringify(data[fieldId])
+						) item.setVal(data[fieldId], false, true);
+					} catch(err){}
 				}
+
+				// Assign the values to ds fields.
+				for( var fieldId in data )
+				{
+					item = formObj.getItem(fieldId+id);
+					try {
+						if(
+							item &&
+							'isDatasource' in item &&
+							'setVal' in item &&
+							JSON.stringify(item.val('vt', true)) != JSON.stringify(data[fieldId])
+						) {
+							item.setVal(data[fieldId], false, true);
+							$('[name*="'+item.name+'"]').trigger('trigger_ds');
+						}
+					} catch(err){}
+				}
+
 				f.attr('data-evalequations', _eval_equations);
 				$.fbuilder.showHideDep({'formIdentifier' : o.identifier});
 				f.trigger('cff-loaded-defaults');
@@ -625,6 +687,7 @@
                         if('csslayout' in items[i] && /\bignorefield\b/i.test(items[i]['csslayout']))
                             IGNOREFIELD(items[i].name, items[i].form_identifier);
 					}
+
 					theForm.form_tag.removeData('first_time');
 					// Evaluate delayed script in cached forms:
 					$('script[type="cff-script"]').each(function(){

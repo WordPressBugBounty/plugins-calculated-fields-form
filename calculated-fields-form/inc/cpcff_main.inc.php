@@ -655,7 +655,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 							$nV = ( is_numeric( $v ) ) ? $v : json_encode( $v ); // Sanitizing the attribute's value.
 							if ( is_scalar( $i ) ) {
 								$i        = preg_replace( '/[^a-z0-9_\-]/i', '', $i );
-								$content .= 'try{ if( ! ( "cff_var" in window ) )	window["cff_var"] = {}; window["cff_var"]["' . $i . '"]=' . $nV . '; if(typeof ' . $i . '_arr == "undefined") ' . $i . '_arr={}; ' . $i . '_arr["_' . self::$form_counter . '"]=' . $nV . '; }catch( err ){}';
+								$content .= 'try{ if( ! ( "cff_var" in window ) )	window["cff_var"] = {}; window["cff_var"]["' . $i . '"]=' . $nV . '; if(typeof window["' . $i . '_arr"] == "undefined") window["' . $i . '_arr"]={}; window["' . $i . '_arr"]["_' . self::$form_counter . '"]=' . $nV . '; }catch( err ){}';
 							}
 						}
 					}
@@ -925,20 +925,13 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @return string $json
 		 */
 		private function _get_form_configuration( $formid ) {
-			global $cpcff_default_texts_array;
 			$form_obj       = $this->get_form( $formid );
 			$previous_label = $form_obj->get_option( 'vs_text_previousbtn', 'Previous' );
 			$previous_label = ( '' == $previous_label ? 'Previous' : $previous_label );
 			$next_label     = $form_obj->get_option( 'vs_text_nextbtn', 'Next' );
 			$next_label     = ( '' == $next_label ? 'Next' : $next_label );
 
-			$cpcff_texts_array = $form_obj->get_option( 'vs_all_texts', $cpcff_default_texts_array );
-			$cpcff_texts_array = CPCFF_AUXILIARY::array_replace_recursive(
-				$cpcff_default_texts_array,
-				( is_string( $cpcff_texts_array ) && is_array( unserialize( $cpcff_texts_array ) ) )
-					? unserialize( $cpcff_texts_array )
-					: ( ( is_array( $cpcff_texts_array ) ) ? $cpcff_texts_array : array() )
-			);
+			$cpcff_texts_array = $form_obj->get_option('vs_all_texts', []);
 
 			$obj = array(
 				'pub'        => true,

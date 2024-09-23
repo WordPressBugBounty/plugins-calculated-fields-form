@@ -75,16 +75,18 @@
 										aux();
 									}
                                 }
-								else if( me.sType == 'reset' ) {
+
+								if( me.sType == 'reset' ) {
 									RESETFORM(e[0].form);
 									setTimeout(function(){ eval(me.sOnclick); }, 55);
 								} else {
 									eval(me.sOnclick);
-									if(me.sType == 'print')
-									{
-										fbuilderjQuery.fbuilder.currentFormId = f.attr('id');
-										PRINTFORM(me.sMultipage);
-									}
+								}
+
+								if(me.sType == 'print')
+								{
+									fbuilderjQuery.fbuilder.currentFormId = f.attr('id');
+									PRINTFORM(me.sMultipage);
 								}
                             }
                   );

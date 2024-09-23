@@ -638,6 +638,10 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 					}
 				}
 
+				if ( $item == 'final_price' && ! empty( $params['final_price_formatted'] ) ) {
+					$value = $params['final_price_formatted'];
+				}
+
 				if ( isset( $tags[ $item ] ) ) {
 					$label      = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'title' ) ) ? $fields[ $item ]->title : '';
 					$shortlabel = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'shortlabel' ) ) ? $fields[ $item ]->shortlabel : '';

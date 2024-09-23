@@ -770,11 +770,14 @@ body{
 #fbuilder .cff-popup-header:not(:empty){
 	border-bottom:1px solid #CACACA;
 	min-height:24px;
+	display:table;
 }
 #fbuilder .cff-popup-title{margin:0;}
 #fbuilder .cff-popup-fields{
+	margin:0 0 10px 0;
 	padding:10px;
 	overflow:auto;
+	flex-grow:1;
 }
 #fbuilder .cff-popup-modal{
 	top:0;

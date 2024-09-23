@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.37
+Stable tag: 5.2.38
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,15 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.38 =
+
+* Modifies the set_minDate and set_maxDate methods in the date/time controls to update the field values.
+* Automatically recalculates calculated fields, regardless of manual evaluation settings, when needed.
+* Modifies the module that allows assigning the default fields' values at the runtime.
+* Format the final price properly after applying the discounts ( Professional, Developer, and Platinum plugin versions).
+* Allows replacing the discount applied text from the form settings ( Professional, Developer, and Platinum plugin versions).
+* Adjusts PayPal Checkout add-on to enable the use of transaction_id tags with them, not just PayPal Standard (Platinum plugin version)
+
 = 5.2.37 =
 
 * Enhanced field appearance in the form builder
@@ -489,11 +498,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies DropDown control settings, replacing the select2 option label for a more intuitive text.
 * Modifies the ENABLEEQUATIONS, DISABLEEQUATIONS, and EVALEQUATIONS operations to improve the form identification in pages with multiple forms.
 * Modifies the Users Permissions add-on to include the Lost Password link in the log-in form (Developer and Platinum plugin versions).
-
-= 5.2.32 =
-
-* Modifies the container fields to avoid Hidden, Hidden DS,  and RecordSet DS controls affecting the columns' format.
-* Modifies the Phone controls to adjust its width.
-* Modifies the IRR operation by implementing more robust convergence methods (Developer and Platinum plugin versions)
-* Implements new PayPal Checkout add-on improvements (Platinum plugin distribution).
-* Modifies the Verification Code add-on to allow verifying both email addresses and phone numbers (Platinum plugin version).

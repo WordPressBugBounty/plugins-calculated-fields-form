@@ -273,7 +273,7 @@
 					if(e.length)
 					{
 						e.datepicker('option', 'minDate', (ignore) ? null : v);
-						if( e.has('.datepicker-container') ) { f = e; e = e.siblings('.date-component'); }
+						if( e.hasClass('datepicker-container') ) { f = e; e = e.siblings('.date-component'); }
 						if(e.val() != '') e.trigger('change');
 						else if( f ) f.find('.ui-state-active').removeClass('ui-state-active');
 					}
@@ -284,7 +284,7 @@
 					if(e.length)
 					{
 						e.datepicker('option', 'maxDate', (ignore) ? null : v);
-						if( e.has('.datepicker-container') ) { f = e; e = e.siblings('.date-component'); }
+						if( e.hasClass('datepicker-container') ) { f = e; e = e.siblings('.date-component'); }
 						if(e.val() != '') e.trigger('change');
 						else if( f ) f.find('.ui-state-active').removeClass('ui-state-active');
 					}

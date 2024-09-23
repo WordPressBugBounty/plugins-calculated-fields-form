@@ -42,15 +42,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
 	echo "<div id='setting-error-settings_updated' class='updated settings-error'> <p><strong>" . esc_html__( 'Settings saved', 'calculated-fields-form' ) . '</strong></p></div>';
 }
 
-global $cpcff_default_texts_array;
-$cpcff_texts_array = $form_obj->get_option( 'vs_all_texts', $cpcff_default_texts_array );
-$cpcff_texts_array = CPCFF_AUXILIARY::array_replace_recursive(
-	$cpcff_default_texts_array,
-	( is_string( $cpcff_texts_array ) && is_array( unserialize( $cpcff_texts_array ) ) )
-			? unserialize( $cpcff_texts_array )
-			: ( ( is_array( $cpcff_texts_array ) ) ? $cpcff_texts_array : array() )
-);
-
+$cpcff_texts_array = $form_obj->get_option( 'vs_all_texts', [] );
 
 $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="#metabox_define_texts">' . esc_html__( 'Texts definition', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;

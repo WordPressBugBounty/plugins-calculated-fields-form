@@ -505,6 +505,10 @@
 							if(form.length)
 							{
 								var fSec  = form.attr('id').match(/_\d+$/)[0];
+
+								$.fbuilder.forms[fSec]['force_all'] = force_all;
+								form.find(':input').one('input', function(){ $.fbuilder.forms[fSec]['force_all'] = false; });
+
 								if(enqueued)
 								{
 									this.processQueue(fSec);
@@ -542,8 +546,13 @@
 								if(item && typeof item['usedInEquations'] != 'undefined')
 								{
 									for(var i in item.usedInEquations) {
-										if(getField(item.usedInEquations[i].result)['dynamicEval'])
-											me.enqueueEquation(fSec, [item.usedInEquations[i]]);
+										if(
+											getField(item.usedInEquations[i].result)['dynamicEval'] ||
+											(
+												'force_all' in $.fbuilder['forms'][fSec] &&
+												$.fbuilder['forms'][fSec]['force_all']
+											)
+										) me.enqueueEquation(fSec, [item.usedInEquations[i]]);
 									}
 									me.processQueue(fSec);
 								}

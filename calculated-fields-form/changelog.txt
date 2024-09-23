@@ -1,5 +1,14 @@
 == Changelog ==
 
+= 5.2.38 =
+
+* Modifies the set_minDate and set_maxDate methods in the date/time controls to update the field values.
+* Automatically recalculates calculated fields, regardless of manual evaluation settings, when needed.
+* Modifies the module that allows assigning the default fields' values at the runtime.
+* Format the final price properly after applying the discounts ( Professional, Developer, and Platinum plugin versions).
+* Allows replacing the discount applied text from the form settings ( Professional, Developer, and Platinum plugin versions).
+* Adjusts PayPal Checkout add-on to enable the use of transaction_id tags with them, not just PayPal Standard (Platinum plugin version)
+
 = 5.2.37 =
 
 * Enhanced field appearance in the form builder
