@@ -87,6 +87,8 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 		private static function _db_structure() {
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
+			if ( false === get_option( 'CP_CALCULATEDFIELDSF_VERSION' ) ) set_transient( 'cff-video-tutorial', 1, 60*60 );
+
 			update_option('CP_CALCULATEDFIELDSF_VERSION', CP_CALCULATEDFIELDSF_VERSION);
 
 			self::_db_backup();

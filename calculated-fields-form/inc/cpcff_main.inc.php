@@ -127,6 +127,17 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			// Run the initialization code.
 			add_action( 'init', array( $this, 'init' ), 1 );
 
+			// Redirect after first time installation.
+			add_action( 'activated_plugin', function($p1, $p2){
+				if ( get_transient('cff-video-tutorial') ) {
+					$redirect_url = admin_url( 'admin.php?page=cp_calculated_fields_form' );
+					wp_safe_redirect(
+						esc_url( $redirect_url )
+					);
+					exit;
+				}
+			}, 10, 2 );
+
 			// Run the initialization code of widgets.
 			add_action( 'widgets_init', array( $this, 'widgets_init' ), 1 );
 

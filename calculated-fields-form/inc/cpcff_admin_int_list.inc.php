@@ -145,6 +145,7 @@ if ( $message ) {
 
 ?>
 <div class="wrap">
+<div style="text-align:right;"><?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?></div>
 <?php
 if ( get_option( 'cff-t-f', 0 ) ) :
 	?>
@@ -371,21 +372,20 @@ function cp_update_default_settings(e)
 			</form>
 		<?php
 
-		$pages_links = paginate_links(
-			array(
-				'base'      => 'admin.php?page=cp_calculated_fields_form%_%',
-				'format'    => '&page-number=%#%',
-				'total'     => $total_pages,
-				'current'   => $current_page,
-				'show_all'  => false,
-				'end_size'  => 1,
-				'mid_size'  => 2,
-				'prev_next' => true,
-				'prev_text' => __( '&laquo; Previous' ),
-				'next_text' => __( 'Next &raquo;' ),
-				'type'      => 'plain',
-				'add_args'  => false,
-			)
+        $pages_links = str_ireplace( ['class="', 'current'], ['style="margin-left:5px;" class="button ', 'current button-primary'], paginate_links( array(
+			'base'      => 'admin.php?page=cp_calculated_fields_form%_%',
+			'format'    => '&page-number=%#%',
+			'total'     => $total_pages,
+			'current'   => $current_page,
+			'show_all'  => false,
+			'end_size'  => 1,
+			'mid_size'  => 2,
+			'prev_next' => true,
+			'prev_text' => __( '&laquo; Previous' ),
+			'next_text' => __( 'Next &raquo;' ),
+			'type'      => 'plain',
+			'add_args'  => false,
+            ) )
 		);
 
 		print $pages_links; // phpcs:ignore WordPress.Security.EscapeOutput
@@ -407,7 +407,7 @@ function cp_update_default_settings(e)
 			}
 			?></span></h3>
 			<div class="inside" style="overflow-x:auto;">
-				<table cellspacing="10" class="cff-custom-table cff-forms-list">
+                <table cellspacing="10" class="cff-custom-table cff-forms-list wp-list-table widefat striped table-view-list">
 					<thead>
 						<tr>
 							<th align="left"><a href="?page=cp_calculated_fields_form&orderby=id" <?php
@@ -446,10 +446,27 @@ function cp_update_default_settings(e)
 					$_rows_count = count( $myrows );
 					for ( $items_index = max( 0, ( $current_page - 1 ) * $records_per_page ); $items_index < min( $current_page * $records_per_page, $_rows_count ); $items_index++ ) {
 						$item = $myrows[ $items_index ];
+						$form_name = sanitize_text_field( $item->form_name );
+
+						// If empty form name, use title.
+						if ( empty( $form_name )  ) {
+							$form_structure = $wpdb->get_var( $wpdb->prepare( 'SELECT form_structure FROM '. $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE id=%d', $item->id ) );
+							if (
+								! empty( $form_structure ) &&
+								false !== ( $form_structure = json_decode( $form_structure, true ) ) &&
+								! empty( $form_structure[1] ) &&
+								is_array( $form_structure[1] ) &&
+								! empty( $form_structure[1][0] ) &&
+								is_array( $form_structure[1][0] ) &&
+								! empty( $form_structure[1][0]['title'] )
+							) {
+								$form_name = sanitize_text_field( $form_structure[1][0]['title'] );
+							}
+						}
 						?>
 						<tr>
 							<td nowrap><?php echo esc_html( $item->id ); ?></td>
-							<td nowrap><input type="text" name="calname_<?php echo esc_attr( $item->id ); ?>" id="calname_<?php echo esc_attr( $item->id ); ?>" value="<?php echo esc_attr( $item->form_name ); ?>" onkeyup="cp_renameItem_keyup(event, <?php echo esc_js( $item->id ); ?>);" /></td>
+							<td nowrap><input type="text" name="calname_<?php echo esc_attr( $item->id ); ?>" id="calname_<?php echo esc_attr( $item->id ); ?>" value="<?php echo esc_attr( $form_name ); ?>" onkeyup="cp_renameItem_keyup(event, <?php echo esc_js( $item->id ); ?>);" /></td>
 							<td nowrap>
 								<input type="button" name="calupdate_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Rename', 'calculated-fields-form' ); ?>" onclick="cp_updateItem(<?php echo esc_attr( $item->id ); ?>);" class="button-secondary" />
 								<input type="button" name="calmanage_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Build', 'calculated-fields-form' ); ?>" onclick="cp_manageSettings(<?php echo esc_attr( $item->id ); ?>);" class="button-primary" style="padding-left:30px;padding-right:30px" title="<?php esc_attr_e( 'Ctrl+Click to open in new tab', 'calculated-fields-form' ); ?>" />
@@ -481,7 +498,7 @@ function cp_update_default_settings(e)
 		</div>
 		<?php
 		if ( ! empty( $pages_links ) ) {
-			print '<div style="text-align: right;margin-bottom: 20px;">' . $pages_links . '</div>'; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                print '<div style="text-align: right;margin-bottom: 20px;"><div style="display:inline-block;">' . $pages_links . '</div><div style="display:block;clear:both;"></div></div>'; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		?>
 

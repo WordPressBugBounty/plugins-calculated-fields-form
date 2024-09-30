@@ -313,6 +313,19 @@ jQuery(function()
 													key: 'cpcff_iframe_label'
 												},
 												cpcff_gutenberg_editor_config['labels']['iframe']
+											),
+											el(
+												'div',
+												{
+													key: 'cpcff_iframe_description',
+													style:{
+														padding: '10px',
+														border: '1px solid #F0AD4E',
+														background: '#fffaf4',
+														marginTop: '10px'
+													}
+												},
+												cpcff_gutenberg_editor_config['labels']['iframe_description']
 											)
 										),
 										el(

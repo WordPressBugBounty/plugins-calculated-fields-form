@@ -78,7 +78,10 @@ jQuery(function () {
 					data = cff_forms_templates[j];
 					for (var i in data) {
 
-						categories[data[i]['category']] = '<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this,\'' + data[i]['category'] + '\')">' + data[i]['category'] + '</a></li>';
+						let templates_categories = data[i]['category'].split('|');
+						for ( let j in templates_categories ) {
+							categories[templates_categories[j]] = '<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this,\'' + templates_categories[j] + '\')">' + templates_categories[j] + '</a></li>';
+						}
 
 						tmp = $(form_tpl);
 						if (version_n[version] < version_n[j]) {
@@ -102,7 +105,7 @@ jQuery(function () {
 						tmp.attr('data-category', data[i]['category']);
 						tmp.find('.cff-form-library-form-title').text(data[i]['title']);
 						tmp.find('.cff-form-library-form-description').text(data[i]['description']);
-						tmp.find('.cff-form-library-form-category').text(data[i]['category']);
+                        tmp.find('.cff-form-library-form-category').text(data[i]['category'].replace(/\|/g, ', '));
 
 						tmp.appendTo('.cff-form-library-main');
 					}
@@ -153,7 +156,7 @@ jQuery(function () {
             $('.cff-form-library-form').show();
         } else {
             $('.cff-form-library-form').hide();
-            $('.cff-form-library-form[data-category="' + category + '"]').show();
+            $('.cff-form-library-form[data-category*="' + category + '"]').show();
         }
     };
 

@@ -58,7 +58,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 ?>
 <div class="wrap">
 	<div style="text-align:right;float:right;display:inline-block;">
-		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a>
+		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?>
 	</div>
 	<h1 class="cff-form-name">
 	<?php
@@ -504,7 +505,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Message', 'calculated-fields-form' ); ?></th>
 							<td>
-								<textarea type="text" name="fp_message" rows="6" class="width75"><?php echo esc_textarea( $form_obj->get_option( 'fp_message', CP_CALCULATEDFIELDSF_DEFAULT_fp_message ) ); ?></textarea>
+								<textarea type="text" name="fp_message" rows="6" class="width75" style="resize:vertical;"><?php echo esc_textarea( $form_obj->get_option( 'fp_message', CP_CALCULATEDFIELDSF_DEFAULT_fp_message ) ); ?></textarea>
 								<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="cff-expand-mssg width75">
 									<p><?php esc_html_e( 'The plugin replaces the <%INFO%> tag in the email content with a summary of the information collected by the form. However, you can customize the email content and design by combining the fields and HTML tags. Learn more about the fields and informative tags supported by the notification emails by visiting the link:', 'calculated-fields-form' ); ?> <a href="https://cff.dwbooster.com/documentation#special-tags" target="_blank"><?php esc_html_e( 'Fields and informative tags', 'calculated-fields-form' ); ?></a></p>
 								</div>
@@ -796,7 +797,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Message', 'calculated-fields-form' ); ?></th>
-							<td><textarea type="text" name="cu_message" rows="6" class="width75"><?php echo esc_textarea( $form_obj->get_option( 'cu_message', CP_CALCULATEDFIELDSF_DEFAULT_cu_message ) ); ?></textarea></td>
+							<td><textarea type="text" name="cu_message" rows="6" class="width75" style="resize:vertical;"><?php echo esc_textarea( $form_obj->get_option( 'cu_message', CP_CALCULATEDFIELDSF_DEFAULT_cu_message ) ); ?></textarea></td>
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Attach static file', 'calculated-fields-form' ); ?></th>

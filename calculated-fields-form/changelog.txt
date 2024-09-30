@@ -1,5 +1,19 @@
 == Changelog ==
 
+= 5.2.41 =
+
+* Fixes a conflict with Elementor.
+
+= 5.2.40 =
+= 5.2.39 =
+
+* Improves the plugin settings page.
+* Implements new predefined forms for cryptocurrencies.
+* Improves the areas for entering the notification email content.
+* Implements additional solutions when optimizers or cache-managing plugins affect the loading forms process.
+* Modifies the WebHook and SalesForce add-ons to support the same fields and informative tags supported by the notification emails (Developer and Platinum plugin versions).
+* Fixes some minor errors in the PDF Generator settings (Platinum plugin version)
+
 = 5.2.38 =
 
 * Modifies the set_minDate and set_maxDate methods in the date/time controls to update the field values.

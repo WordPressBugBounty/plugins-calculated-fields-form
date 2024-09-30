@@ -91,6 +91,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 					'templates'		=> __('Templates (form design)', 'calculated-fields-form'),
 					'attributes'    => __( 'Additional attributes', 'calculated-fields-form' ),
 					'iframe'        => __( 'Load form into an iframe', 'calculated-fields-form' ),
+					'iframe_description' => __('If you are using a cache management or website optimization plugin and the form is not displaying on the public website, please check the box labeled "Load form into an iframe." This will help ensure that the form is properly rendered for users.', 'calculated-fields-form'),
 					'edit_form'     => __( 'Edit form', 'calculated-fields-form' ),
 				),
 			);

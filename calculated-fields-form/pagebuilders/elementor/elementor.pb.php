@@ -84,6 +84,15 @@ class Elementor_CFF_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'iframe',
+			array(
+				'label' =>  __('Load form into an iframe', 'calculated-fields-form'),
+				'type' => Controls_Manager::SWITCHER,
+				'description' => __('If you are using a cache management or website optimization plugin and the form is not displaying on the public website, please check the box labeled "Load form into an iframe." This will help ensure that the form is properly rendered for users.', 'calculated-fields-form')
+			)
+		);
+
+		$this->add_control(
 			'templates',
 			array(
 				'label' 	=>  __('Apply template', 'calculated-fields-form'),
@@ -123,17 +132,21 @@ class Elementor_CFF_Widget extends Widget_Base {
 
 	private function _get_shortcode() {
 		$settings  	= $this->get_settings_for_display();
-		$attrs     	= sanitize_text_field( $settings['attrs'] );
-		$template 	= sanitize_text_field($settings['templates']);
+
+		$form		= ! empty( $settings['form'] ) && is_numeric( $settings['form'] ) ? intval( $settings['form'] ) : 0;
+		$attrs     	= ! empty( $settings['attrs']  ) ? sanitize_text_field( $settings['attrs'] ) : '';
+		$iframe 	= ! empty( $settings['iframe'] ) ? ' iframe="1"' : '';
+		$template 	= ! empty( $settings['templates'] ) ? sanitize_text_field($settings['templates']) : '';
 
 		if ( ! empty( $attrs ) ) {
 			$attrs = ' ' . $attrs;
 		}
+
 		if ( ! empty( $template ) ) {
 			$template = ' template="' . esc_attr( $template ) . '"';
 		}
 
-		return '[CP_CALCULATED_FIELDS id="' . @intval( $settings['form'] ) . '"' . $attrs . $template . ']';
+		return '[CP_CALCULATED_FIELDS id="' . $form . '"' . $attrs . $template . $iframe . ']';
 	} // End _get_shortcode
 
 	protected function render() {
