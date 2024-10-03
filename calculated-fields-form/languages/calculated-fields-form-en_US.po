@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-09-27 23:21+0200\n"
-"PO-Revision-Date: 2024-09-27 23:22+0200\n"
+"POT-Creation-Date: 2024-10-03 19:34+0200\n"
+"PO-Revision-Date: 2024-10-03 19:34+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -429,7 +429,7 @@ msgid "Request Custom Modifications"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:554 inc/cpcff_admin_int.inc.php:911
-#: inc/cpcff_admin_int_list.inc.php:609 inc/cpcff_main.inc.php:256
+#: inc/cpcff_admin_int_list.inc.php:609 inc/cpcff_main.inc.php:252
 msgid "Help"
 msgstr ""
 
@@ -696,7 +696,7 @@ msgstr ""
 msgid "AI Assistant (Experimental Feature)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:919 inc/cpcff_main.inc.php:254
+#: inc/cpcff_admin_int.inc.php:919 inc/cpcff_main.inc.php:250
 msgid "Settings"
 msgstr ""
 
@@ -790,7 +790,7 @@ msgstr ""
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:12
 #: pagebuilders/beaverbuilder/cffvar/cffvar/cffvar.php:11
 #: pagebuilders/beaverbuilder/cffvar/cffvar/cffvar.php:12
-#: pagebuilders/divi/cff.pb.php:9 pagebuilders/elementor/elementor.pb.php:42
+#: pagebuilders/divi/cff.pb.php:9 pagebuilders/elementor/elementor.pb.php:40
 msgid "Calculated Fields Form"
 msgstr ""
 
@@ -1090,7 +1090,7 @@ msgstr ""
 msgid "Calculated Fields Form Marketplace"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:609 inc/cpcff_main.inc.php:255
+#: inc/cpcff_admin_int_list.inc.php:609 inc/cpcff_main.inc.php:251
 msgid "Upgrade"
 msgstr ""
 
@@ -1171,15 +1171,15 @@ msgid ""
 "settings."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:253
+#: inc/cpcff_main.inc.php:249
 msgid "Request custom changes"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:272
+#: inc/cpcff_main.inc.php:268
 msgid "Insert Calculated Fields Form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:272
+#: inc/cpcff_main.inc.php:268
 msgid "Create a JavaScript var from POST, GET, SESSION, or COOKIE var"
 msgstr ""
 
@@ -1194,7 +1194,7 @@ msgid ""
 msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:89
-#: pagebuilders/elementor/elementor.pb.php:69
+#: pagebuilders/elementor/elementor.pb.php:67
 msgid "Select a form"
 msgstr ""
 
@@ -1208,17 +1208,17 @@ msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:92
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:39
-#: pagebuilders/divi/cff.pb.php:49 pagebuilders/elementor/elementor.pb.php:80
+#: pagebuilders/divi/cff.pb.php:49 pagebuilders/elementor/elementor.pb.php:78
 msgid "Additional attributes"
 msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:93
-#: pagebuilders/elementor/elementor.pb.php:91
+#: pagebuilders/elementor/elementor.pb.php:89
 msgid "Load form into an iframe"
 msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:94
-#: pagebuilders/elementor/elementor.pb.php:93
+#: pagebuilders/elementor/elementor.pb.php:91
 msgid ""
 "If you are using a cache management or website optimization plugin and the "
 "form is not displaying on the public website, please check the box labeled "
@@ -1228,7 +1228,7 @@ msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:95
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:44
-#: pagebuilders/elementor/elementor.pb.php:124
+#: pagebuilders/elementor/elementor.pb.php:122
 #: pagebuilders/siteorigin/siteorigin-cpcff/fields/cff-button.class.php:14
 msgid "Edit form"
 msgstr ""
@@ -1271,6 +1271,14 @@ msgstr ""
 
 #: inc/cpcff_video_tutorial.inc.php:19
 msgid "Financial"
+msgstr ""
+
+#: inc/cpcff_video_tutorial.inc.php:20
+msgid "Fields dependency"
+msgstr ""
+
+#: inc/cpcff_video_tutorial.inc.php:20
+msgid "Dependencies"
 msgstr ""
 
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:22
@@ -1348,19 +1356,19 @@ msgstr ""
 msgid "Select the form."
 msgstr ""
 
-#: pagebuilders/elementor/elementor.pb.php:100
+#: pagebuilders/elementor/elementor.pb.php:98
 msgid "Apply template"
 msgstr ""
 
-#: pagebuilders/elementor/elementor.pb.php:220
+#: pagebuilders/elementor/elementor.pb.php:221
 msgid "Variable Shortcode"
 msgstr ""
 
-#: pagebuilders/elementor/elementor.pb.php:227
+#: pagebuilders/elementor/elementor.pb.php:228
 msgid "Variable shortcode"
 msgstr ""
 
-#: pagebuilders/elementor/elementor.pb.php:232
+#: pagebuilders/elementor/elementor.pb.php:233
 msgid "I need help [+]"
 msgstr ""
 

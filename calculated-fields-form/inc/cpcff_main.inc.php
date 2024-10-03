@@ -119,6 +119,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			$this->_activate_deactivate();
 
 			// Load the language file.
+			add_action( 'after_setup_theme', function(){ load_plugin_textdomain( 'calculated-fields-form', false, dirname( CP_CALCULATEDFIELDSF_BASE_NAME ) . '/languages/' ); } );
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 
 			// Instanciate the AMP object.
@@ -169,9 +170,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		public function plugins_loaded() {
 			// Fix different troubleshoots.
 			$this->troubleshoots();
-
-			// Load the language file.
-			$this->_textdomain();
 
 			// Load controls scripts.
 			$this->_load_controls_scrips();
@@ -874,17 +872,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			register_deactivation_hook( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH, array( 'CPCFF_INSTALLER', 'uninstall' ) );
 			add_action( 'wpmu_new_blog', array( 'CPCFF_INSTALLER', 'new_blog' ), 10, 6 );
 		} // End _activate_deactivate.
-
-		/**
-		 * Loads the language file.
-		 *
-		 * Loads the language file associated to the plugin, and creates the textdomain.
-		 *
-		 * @return void.
-		 */
-		private function _textdomain() {
-			load_plugin_textdomain( 'calculated-fields-form', false, dirname( CP_CALCULATEDFIELDSF_BASE_NAME ) . '/languages/' );
-		} // End _textdomain.
 
 		/**
 		 * Loads the controls scripts.

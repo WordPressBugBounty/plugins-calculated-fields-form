@@ -238,7 +238,12 @@ cff_forms_templates = {
             "title": "CoinDesk Bitcoin Price",
             "category": "Financial|Crypto",
             "description": "Calculate the value of your bitcoins in other currencies.",
-            "id": 57
+            "id": 58
+        }, {
+            "title": "Cryptocurrency Market Data",
+            "category": "Financial|Crypto",
+            "description": "Calculate cryptocurrency prices with CoinGecko. Choose your preferred currency for accurate conversions.",
+            "id": 59
         }, {
             "title": "Transportation Cost",
             "category": "Transportation",

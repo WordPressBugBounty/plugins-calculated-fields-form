@@ -48,8 +48,56 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 
 			include_once dirname( $this->plugin_file ) . '/feedback/feedback.html';
 
-			if ( 0 == get_option( 'cff-t-d', 0 ) ) {
-				print '<code style="display:none;"><script>jQuery(document).on("mousedown", "#cp_cff_feedback_deactivatebtn", function(evt){ if(typeof cff_trial_flag!="undefined") return; cff_trial_flag=true; evt.stopPropagation(); evt.preventDefault(); if( jQuery("[value=\'temporary-deactivation\']:checked").length == 0 && confirm("Do you want to install the Trial plugin distribution instead of deactiving the free one? The Trial distribution offers several features of the Professional version.") ) { window.location.href="admin.php?page=cp_calculated_fields_form&cff-install-trial=1"; return false; } else { jQuery("#cp_cff_feedback_deactivatebtn").click(); }});</script></code>';
+			if ( 1 !== get_option( 'cff-t-f', 0 ) ) {
+?>
+<code style="display:none;"><script>jQuery(document).on("mousedown", "#cp_cff_feedback_deactivatebtn", function(evt){
+			let $ = jQuery;
+			if ( typeof cff_trial_flag != "undefined" ) return;
+			cff_trial_flag=true;
+			evt.stopPropagation();
+			evt.preventDefault();
+			if ( $("[value='temporary-deactivation']:checked").length == 0 ) {
+				let html = $('<div>Do you want to <span style="font-size:1.5em;color:#006494;">install the Trial plugin distribution</span> instead of deactiving the free one? The Trial distribution <span style="font-size:1.4em;color:#006494;">offers several features of the Professional version</span>.</div>');
+				html.appendTo('body');
+				let dlg = html.dialog(
+					{
+						title:'Commercial Trial Installation',
+						width:'500',
+						dialogClass: 'wp-dialog',
+						modal: true,
+						close: function(event, ui)
+							{
+								jQuery("#cp_cff_feedback_deactivatebtn").click();
+								$(this).dialog("close");
+								$(this).remove();
+							},
+						closeOnEscape: true,
+						buttons: [
+							{
+								text: "Yes Install",
+								class: 'button-primary',
+								click: function()
+								{
+									dlg.siblings().css('pointer-events', 'none');
+									window.location.href="admin.php?page=cp_calculated_fields_form&cff-install-trial=1";
+								}
+							},
+							{
+								text: "No",
+								click: function()
+								{
+									dlg.siblings().css('pointer-events', 'none');
+									jQuery("#cp_cff_feedback_deactivatebtn").click();
+								}
+							}
+						]
+					}
+				); // End dialog
+			} else {
+				jQuery("#cp_cff_feedback_deactivatebtn").click();
+			}
+		});</script></code>
+<?php
 			}
 		} // End feedback_interface.
 

@@ -41,7 +41,7 @@
 		if( typeof date != 'undefined' ){
 			if( typeof date == 'number' ){
 				// d = new Date(Math.ceil(date*86400000));
-				if ( date < 1 ) {
+				if ( -1 < date && date < 1 ) {
 					d.setMilliseconds(0);
 					d.setHours(0);
 					d.setMinutes(0);
@@ -566,7 +566,7 @@
 	// GETDATETIMESTRING( date_object, return_format ) Return the date object as a string representation determined by the return_format argument
 	lib.GETDATETIMESTRING = function( date, format ){
 	  if( typeof format == 'undefined' ) format = default_format;
-
+	  date = _getDateObj( date, format );
 	  if( date && date.valid() ){
 		var m = date.getMonth() + 1,
 			d = date.getDate(),

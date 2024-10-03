@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.41
+Stable tag: 5.2.42
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,15 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.42 =
+
+* Modifies the loading process of the language files to ensure compatibility with WP 6.7.
+* Improves the Date/Time Operations module.
+* Modifest the plugin deactivation process (free plugin distribution).
+* Implements additional predefined forms for Cryptocurrency operations.
+* Fixes minor issues in Text Area control.
+* Publishes new video tutorial.
+
 = 5.2.41 =
 
 * Fixes a conflict with Elementor.
@@ -486,11 +495,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Resolved minor issue with the calculate button's animation in certain scenarios
 * Modified date/time operations module to avoid empty date fields impacting operation results
 * Adjusted Stripe and Stripe Checkout add-ons to enable the use of transaction_id tags with them, not just PayPal (Platinum plugin version)
-
-= 5.2.36 =
-
-* Modernizes the predefined designs starting by the template 01.
-* Updates the module that retrieves the page URL to accurately identify the correct URL when the form is loaded within an iframe.
-* Adjusts the HTML Content control to prevent contained tags from impacting the form builder.
-* Enhances the functionality of the Phone control.
-* Eliminates redundant vendor libraries.

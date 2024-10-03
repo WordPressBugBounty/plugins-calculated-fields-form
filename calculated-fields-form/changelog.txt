@@ -1,5 +1,14 @@
 == Changelog ==
 
+= 5.2.42 =
+
+* Modifies the loading process of the language files to ensure compatibility with WP 6.7.
+* Improves the Date/Time Operations module.
+* Modifest the plugin deactivation process (free plugin distribution).
+* Implements additional predefined forms for Cryptocurrency operations.
+* Fixes minor issues in Text Area control.
+* Publishes new video tutorial.
+
 = 5.2.41 =
 
 * Fixes a conflict with Elementor.

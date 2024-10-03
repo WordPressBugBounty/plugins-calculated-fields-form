@@ -40,8 +40,8 @@
 					if(e.length)
 					{
 						var v = $.fbuilder.parseValStr(e.val(), raw, no_quotes);
-						if(!raw) v = v.replace(/[\n\r]+/g, ' ');
-						else if(!no_quotes) v = v.replace(/^"/, "`").replace(/"$/, "`");
+						if(!raw) v = String(v).replace(/[\n\r]+/g, ' ');
+						else if(!no_quotes) v = String(v).replace(/^"/, "`").replace(/"$/, "`");
 						return v;
 					}
 					return 0;
