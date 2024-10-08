@@ -110,6 +110,11 @@ cff_forms_templates = {
             "description": "Booking form based on date interval, number of people, rooms, and additional services.",
             "id": 44
         }, {
+            "title": "Holidays",
+            "category": "Dates Operations",
+            "description": "Retrieves the list of holidays for specific countries and years from Nager.Date",
+            "id": 60
+        }, {
             "title": "Ideal Weight Calculator",
             "category": "Health",
             "description": "Uses a simple formula but with a conditional rule (if male or female).",

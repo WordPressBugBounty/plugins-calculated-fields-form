@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.42';
+	$.fbuilder['version'] = '5.2.43';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -15,7 +15,7 @@
 
 	$.fbuilder['htmlDecode'] = window['cff_html_decode'] = function(value)
 	{
-		return (/&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test(value)) ? $('<div/>').html(value).text() : value;
+		return String((/&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test(value)) ? $('<div/>').html(value).text() : value).replace(/(\b)\_style(\b)/gi, '$1style$2');
 	};
 
 	$.fbuilder['sanitize'] = window['cff_sanitize'] = function(value)

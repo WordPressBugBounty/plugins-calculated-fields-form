@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.42
+Stable tag: 5.2.43
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.43 =
+
+* Allows using style attributes in the fields' labels, instructions for users, or HTML content fields.
+* Fixes an issue with the search box in DropDown fields when the load scripts method in the troubleshoots area was configured as direct.
+* Implements a new predefined form that retrieves holidays from the Nager.Date service.
+
 = 5.2.42 =
 
 * Modifies the loading process of the language files to ensure compatibility with WP 6.7.
@@ -486,12 +492,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Format the final price properly after applying the discounts ( Professional, Developer, and Platinum plugin versions).
 * Allows replacing the discount applied text from the form settings ( Professional, Developer, and Platinum plugin versions).
 * Adjusts PayPal Checkout add-on to enable the use of transaction_id tags with them, not just PayPal Standard (Platinum plugin version)
-
-= 5.2.37 =
-
-* Enhanced field appearance in the form builder
-* Improved predefined design template 02
-* Corrected slider control to prevent improper value assignments from affecting the field
-* Resolved minor issue with the calculate button's animation in certain scenarios
-* Modified date/time operations module to avoid empty date fields impacting operation results
-* Adjusted Stripe and Stripe Checkout add-ons to enable the use of transaction_id tags with them, not just PayPal (Platinum plugin version)
