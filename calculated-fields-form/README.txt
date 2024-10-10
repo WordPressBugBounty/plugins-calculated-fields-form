@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.43
+Stable tag: 5.2.44
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.44 =
+
+* Enhances the plugin security by implementing specific server-side validation rules per control type.
+
 = 5.2.43 =
 
 * Allows using style attributes in the fields' labels, instructions for users, or HTML content fields.
@@ -483,12 +487,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Implements additional solutions when optimizers or cache-managing plugins affect the loading forms process.
 * Modifies the WebHook and SalesForce add-ons to support the same fields and informative tags supported by the notification emails (Developer and Platinum plugin versions).
 * Fixes some minor errors in the PDF Generator settings (Platinum plugin version)
-
-= 5.2.38 =
-
-* Modifies the set_minDate and set_maxDate methods in the date/time controls to update the field values.
-* Automatically recalculates calculated fields, regardless of manual evaluation settings, when needed.
-* Modifies the module that allows assigning the default fields' values at the runtime.
-* Format the final price properly after applying the discounts ( Professional, Developer, and Platinum plugin versions).
-* Allows replacing the discount applied text from the form settings ( Professional, Developer, and Platinum plugin versions).
-* Adjusts PayPal Checkout add-on to enable the use of transaction_id tags with them, not just PayPal Standard (Platinum plugin version)

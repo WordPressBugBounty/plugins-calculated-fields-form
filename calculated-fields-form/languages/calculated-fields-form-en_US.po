@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-10-03 19:34+0200\n"
-"PO-Revision-Date: 2024-10-03 19:34+0200\n"
+"POT-Creation-Date: 2024-10-10 12:03+0200\n"
+"PO-Revision-Date: 2024-10-10 12:03+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -19,15 +19,23 @@ msgstr ""
 msgid "Form Preview"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:177
+#: cp_calculatedfieldsf_free.php:224
+msgid "The"
+msgstr ""
+
+#: cp_calculatedfieldsf_free.php:224
+msgid "value is invalid"
+msgstr ""
+
+#: cp_calculatedfieldsf_free.php:235
 msgid "At least a required field is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:275
+#: cp_calculatedfieldsf_free.php:333
 msgid "Failed security check"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:315
+#: cp_calculatedfieldsf_free.php:373
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the database structure. Please, go to the plugins "
@@ -36,7 +44,7 @@ msgid ""
 "please <a href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:326
+#: cp_calculatedfieldsf_free.php:384
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the form structure. Please, try to save the data "

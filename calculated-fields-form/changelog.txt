@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.2.44 =
+
+* Enhances the plugin security by implementing specific server-side validation rules per control type.
+
 = 5.2.43 =
 
 * Allows using style attributes in the fields' labels, instructions for users, or HTML content fields.

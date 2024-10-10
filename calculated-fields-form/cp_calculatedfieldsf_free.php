@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.2.43
+ * Version: 5.2.44
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.2.43' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.2.44' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -168,10 +168,68 @@ function cp_calculated_fields_form_check_posted_data() {
 					foreach ( $_POST as $item => $value ) {
 						$fieldname = str_replace( $sequence, '', $item );
 						if ( isset( $fields[ $fieldname ] ) ) {
+							$current_field = $fields[$fieldname];
+							// Sanitize the values based on their settings and type.
+							if(
+								property_exists($current_field,'ftype') &&
+								! empty( $value )
+							) {
+								$invalid_format = false;
+								switch( strtolower($current_field->ftype) ) {
+									case 'femail':
+									case 'femailds':
+										$value = sanitize_email( $value );
+										if ( empty( $value ) ) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fphone':
+									case 'fPhoneds':
+										if ( ! preg_match( '/^\+?[^\-\d]+$/', $value ) ) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fnumber':
+									case 'fnumberds':
+										if ( 'digits' === $current_field->dformat ) {
+											if ( preg_match( '/[^\d]/', $value ) ) {
+												$invalid_format = true;
+											}
+										} elseif ( preg_match( '/^[^\d]*$/', $value ) ) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fcurrency':
+									case 'fcurrencyds':
+									case 'fslider':
+										if ( preg_match( '/^[^\d]*$/', $value ) ) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fcolor':
+										if ( ! preg_match( '/#?[0-9,a-f]{6,9}/i', $value ) ) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fdate':
+									case 'fdateds':
+										if ( ! preg_match( '/^(\d{2,4}[^\d]\d{2}[^\d]\d{2,4})?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value ) ) {
+											$invalid_format = true;
+										}
+										break;
+								}
+
+								if ( $invalid_format ) {
+									$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
+									print ( esc_html__('The', 'calculated-fields-form') . ' ' . ( ! empty( $_title ) ? $_title : $fieldname ) . ' ' . esc_html__('value is invalid', 'calculated-fields-form') );
+									exit;
+								}
+							}
+
 							// Check if the field is required and it is empty.
 							if (
-								property_exists( $fields[ $fieldname ], 'required' ) &&
-								! empty( $fields[ $fieldname ]->required ) &&
+								property_exists( $current_field, 'required' ) &&
+								! empty( $current_field->required ) &&
 								'' === $value
 							) {
 								esc_html_e( 'At least a required field is empty', 'calculated-fields-form' );
@@ -179,7 +237,7 @@ function cp_calculated_fields_form_check_posted_data() {
 							}
 
 							// Processing the title and value to include in the summary.
-							$_title = property_exists( $fields[ $fieldname ], 'title' ) ? CPCFF_AUXILIARY::sanitize( $fields[ $fieldname ]->title ) : '';
+							$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
 							$_title = preg_replace( array( '/^\s+/', '/\s*\:*\s*$/' ), '', $_title );
 
 							$params[ $fieldname ] = CPCFF_AUXILIARY::sanitize( $value );
