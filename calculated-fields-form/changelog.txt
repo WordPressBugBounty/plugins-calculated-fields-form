@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.2.45 =
+
+* Fixes a typo.
+
 = 5.2.44 =
 
 * Enhances the plugin security by implementing specific server-side validation rules per control type.

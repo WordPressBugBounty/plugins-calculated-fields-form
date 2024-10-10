@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.44
+Stable tag: 5.2.45
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.45 =
+
+* Fixes a typo.
+
 = 5.2.44 =
 
 * Enhances the plugin security by implementing specific server-side validation rules per control type.
@@ -477,13 +481,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.41 =
 
 * Fixes a conflict with Elementor.
-
-= 5.2.40 =
-= 5.2.39 =
-
-* Improves the plugin settings page.
-* Implements new predefined forms for cryptocurrencies.
-* Improves the areas for entering the notification email content.
-* Implements additional solutions when optimizers or cache-managing plugins affect the loading forms process.
-* Modifies the WebHook and SalesForce add-ons to support the same fields and informative tags supported by the notification emails (Developer and Platinum plugin versions).
-* Fixes some minor errors in the PDF Generator settings (Platinum plugin version)
