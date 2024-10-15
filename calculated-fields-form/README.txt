@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.46
+Stable tag: 5.2.47
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,7 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.47 =
 = 5.2.46 =
 
 * Fixes a security issue (Special thanks to Max Boll and the WordFence Team for reporting the issue). Now, it includes a new attribute in fields' settings to accept HTML code in their values.

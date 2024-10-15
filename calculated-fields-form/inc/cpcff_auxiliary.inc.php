@@ -332,6 +332,16 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			return $array1;
 		} // End array_replace_recursive.
 
+		public static function array_map_recursive( $array, $callback ) {
+			return array_map(function($value) use ($callback) {
+				if (is_array($value)) {
+					return self::recursive_array_map($value, $callback);
+				} else {
+					return $callback($value);
+				}
+			}, $array);
+		} // End array_map_recursive
+
 		public static function replace_params_into_url( $url, $params = array() ) {
 			try {
 				if (

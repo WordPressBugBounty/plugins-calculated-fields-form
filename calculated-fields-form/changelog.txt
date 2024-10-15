@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.2.47 =
 = 5.2.46 =
 
 * Fixes a security issue (Special thanks to Max Boll and the WordFence Team for reporting the issue). Now, it includes a new attribute in fields' settings to accept HTML code in their values.

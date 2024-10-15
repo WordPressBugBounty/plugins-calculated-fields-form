@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.2.46
+ * Version: 5.2.47
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.2.46' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.2.47' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -175,69 +175,70 @@ function cp_calculated_fields_form_check_posted_data() {
 								! empty( $value )
 							) {
 								$invalid_format = false;
-								switch( strtolower($current_field->ftype) ) {
-									case 'femail':
-									case 'femailds':
-										$value = sanitize_email( $value );
-										if ( empty( $value ) ) {
-											$invalid_format = true;
+
+								$ftype = strtolower($current_field->ftype);
+								if ( $ftype == 'ftextarea' || $ftype == 'ftextareads' ) {
+									if (
+										! property_exists( $current_field,'accept_html' ) ||
+										! $current_field->accept_html
+									) {
+										$value = sanitize_textarea_field( wp_unslash( $value ) );
+									}
+								} else {
+									if (
+										! property_exists( $current_field,'accept_html' ) ||
+										! $current_field->accept_html
+									) {
+										if ( is_array( $value ) ) {
+											$value = CPCFF_AUXILIARY::array_map_recursive( $value, function( $v ) { return sanitize_text_field( wp_unslash( $v ) ); } );
+										} else {
+											$value = sanitize_text_field( wp_unslash( $value ) );
 										}
-										break;
-									case 'fphone':
-									case 'fPhoneds':
-										if ( ! preg_match( '/^\+?[\-\d]+$/', $value ) ) {
-											$invalid_format = true;
-										}
-										break;
-									case 'fnumber':
-									case 'fnumberds':
-										if ( 'digits' === $current_field->dformat ) {
-											if ( preg_match( '/[^\d]/', $value ) ) {
+									}
+
+									switch( $ftype ) {
+										case 'femail':
+										case 'femailds':
+											$value = sanitize_email( $value );
+											if ( empty( $value ) ) {
 												$invalid_format = true;
 											}
-										} elseif ( preg_match( '/^[^\d]*$/', $value ) ) {
-											$invalid_format = true;
-										}
-										break;
-									case 'fcurrency':
-									case 'fcurrencyds':
-									case 'fslider':
-										if ( preg_match( '/^[^\d]*$/', $value ) ) {
-											$invalid_format = true;
-										}
-										break;
-									case 'fcolor':
-										if ( ! preg_match( '/#?[0-9,a-f]{6,9}/i', $value ) ) {
-											$invalid_format = true;
-										}
-										break;
-									case 'fdate':
-									case 'fdateds':
-										if ( ! preg_match( '/^(\d{2,4}[^\d]\d{2}[^\d]\d{2,4})?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value ) ) {
-											$invalid_format = true;
-										}
-										break;
-									case 'ftextarea':
-									case 'ftextareads':
-										if (
-											! property_exists( $current_field,'accept_html' ) ||
-											! $current_field->accept_html
-										) {
-											$value = sanitize_textarea_field( $value );
-										}
-										break;
-									default:
-										if (
-											! property_exists( $current_field,'accept_html' ) ||
-											! $current_field->accept_html
-										) {
-											if ( is_array( $value ) ) {
-												$value = array_map( function( $v ) { return sanitize_text_field( wp_unslash( $v ) ); }, $value );
-											} else {
-												$value = sanitize_text_field( $value );
+											break;
+										case 'fphone':
+										case 'fPhoneds':
+											if ( ! preg_match( '/^\+?[\-\d]+$/', $value ) ) {
+												$invalid_format = true;
 											}
-										}
-										break;
+											break;
+										case 'fnumber':
+										case 'fnumberds':
+											if ( 'digits' === $current_field->dformat ) {
+												if ( preg_match( '/[^\d]/', $value ) ) {
+													$invalid_format = true;
+												}
+											} elseif ( preg_match( '/^[^\d]*$/', $value ) ) {
+												$invalid_format = true;
+											}
+											break;
+										case 'fcurrency':
+										case 'fcurrencyds':
+										case 'fslider':
+											if ( preg_match( '/^[^\d]*$/', $value ) ) {
+												$invalid_format = true;
+											}
+											break;
+										case 'fcolor':
+											if ( ! preg_match( '/#?[0-9,a-f]{6,9}/i', $value ) ) {
+												$invalid_format = true;
+											}
+											break;
+										case 'fdate':
+										case 'fdateds':
+											if ( ! preg_match( '/^(\d{2,4}[^\d]\d{2}[^\d]\d{2,4})?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value ) ) {
+												$invalid_format = true;
+											}
+											break;
+									}
 								}
 
 								if ( $invalid_format ) {
