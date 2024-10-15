@@ -14,6 +14,7 @@
 			title:"Hidden",
 			ftype:"fhidden",
 			exclude:false,
+			accept_html:false,
 			predefined:"",
 			initAdv: function(){ delete this.advanced; },
 			display:function( css_class )

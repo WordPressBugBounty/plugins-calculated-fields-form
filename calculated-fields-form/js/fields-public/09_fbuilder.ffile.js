@@ -37,7 +37,7 @@
 					{
 						if(this.optional(element)) return true;
 						else{
-							param = typeof param === "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
+							param = ( typeof param === "string" && param != "image/*" ) ? param.replace(/,/g, '|') : "png|jpe?g|gif";
 							var regExpObj = new RegExp(".("+param+")$", "i");
 							for(var i = 0, h = element.files.length; i < h; i++)
 								if(!element.files[i].name.match(regExpObj)) return false;

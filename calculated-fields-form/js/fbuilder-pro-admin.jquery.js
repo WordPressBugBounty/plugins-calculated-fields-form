@@ -1203,6 +1203,10 @@
 		{
 			return '<label><input type="checkbox" name="sExclude" id="sExclude" '+((v)?"checked":"")+'>Exclude from submission</label>';
 		},
+		showAcceptHTML: function(v)
+		{
+			return '<label><input type="checkbox" name="sAccept_HTML" id="sAccept_HTML" '+((v)?"checked":"")+'>Accept submitting HTML as field value</label>';
+		},
 		showSelect2: function(v)
 		{
 			return '<label><input type="checkbox" name="sSelect2" id="sSelect2" '+((v)?"checked":"")+'>Include a search box (Experimental)</label>';
@@ -1451,6 +1455,12 @@
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
+				$("#sAccept_HTML").on("click", {obj: this}, function(e)
+					{
+						e.data.obj.accept_html = $(this).is(':checked');
+						$.fbuilder.reloadItems( {'field': e.data.obj} );
+					});
+
 				$("#sUserhelp").on("keyup", {obj: this}, function(e)
 					{
 						e.data.obj.userhelp = $(this).val();
@@ -1583,6 +1593,7 @@
 				var result = '';
                 if(typeof this.autocomplete != 'undefined') result += $.fbuilder.showSettings.showAutocomplete(this.autocomplete);
 				if(typeof this.required != 'undefined') result += $.fbuilder.showSettings.showRequired(this.required);
+				if(typeof this.accept_html != 'undefined') result += $.fbuilder.showSettings.showAcceptHTML(this.accept_html);
 				if(typeof this.exclude != 'undefined')  result += $.fbuilder.showSettings.showExclude(this.exclude);
 				if(typeof this.select2 != 'undefined')  result += $.fbuilder.showSettings.showSelect2(this.select2);
 				if(typeof this.readonly != 'undefined') result += $.fbuilder.showSettings.showReadonly(this.readonly);

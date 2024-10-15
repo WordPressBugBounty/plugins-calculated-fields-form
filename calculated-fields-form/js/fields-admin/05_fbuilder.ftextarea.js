@@ -18,6 +18,7 @@
 			predefinedClick:false,
 			required:false,
 			exclude:false,
+			accept_html:false,
 			readonly:false,
 			size:"medium",
 			minlength:"",

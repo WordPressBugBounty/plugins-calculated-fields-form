@@ -19,6 +19,7 @@
 			predefined:"",
 			required:false,
 			exclude:false,
+			accept_html:false,
 			size:"medium",
             eq:"",
             min:"",

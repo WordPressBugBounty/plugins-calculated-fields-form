@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.2.45
+ * Version: 5.2.46
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.2.45' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.2.46' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -217,6 +217,27 @@ function cp_calculated_fields_form_check_posted_data() {
 											$invalid_format = true;
 										}
 										break;
+									case 'ftextarea':
+									case 'ftextareads':
+										if (
+											! property_exists( $current_field,'accept_html' ) ||
+											! $current_field->accept_html
+										) {
+											$value = sanitize_textarea_field( $value );
+										}
+										break;
+									default:
+										if (
+											! property_exists( $current_field,'accept_html' ) ||
+											! $current_field->accept_html
+										) {
+											if ( is_array( $value ) ) {
+												$value = array_map( function( $v ) { return sanitize_text_field( wp_unslash( $v ) ); }, $value );
+											} else {
+												$value = sanitize_text_field( $value );
+											}
+										}
+										break;
 								}
 
 								if ( $invalid_format ) {
@@ -230,7 +251,7 @@ function cp_calculated_fields_form_check_posted_data() {
 							if (
 								property_exists( $current_field, 'required' ) &&
 								! empty( $current_field->required ) &&
-								'' === $value
+								( '' === $value || ( is_array( $value ) && count( $value ) == 0 ) )
 							) {
 								esc_html_e( 'At least a required field is empty', 'calculated-fields-form' );
 								exit;

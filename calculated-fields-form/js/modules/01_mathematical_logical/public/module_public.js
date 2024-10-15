@@ -114,7 +114,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
                         {
                             var f = Math.pow(10,pr);
                             num = Math.round(num*f)/f;
-                            return num.toFixed(pr);
+                            return (Math.floor(num) == num && if_not_integer) ? num : num.toFixed(pr);
                         }
 					}
 					return num;

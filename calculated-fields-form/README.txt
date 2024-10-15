@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.45
+Stable tag: 5.2.46
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.46 =
+
+* Fixes a security issue (Special thanks to Max Boll and the WordFence Team for reporting the issue). Now, it includes a new attribute in fields' settings to accept HTML code in their values.
+* Modifies the PREC operation.
+* Fixes a minor issue in the QRCode control.
+* Allows including the from_page information in the exported CSV files (Professional, Developer, and Platinum plugin versions).
+
 = 5.2.45 =
 
 * Fixes a typo.
@@ -477,7 +484,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Implements additional predefined forms for Cryptocurrency operations.
 * Fixes minor issues in Text Area control.
 * Publishes new video tutorial.
-
-= 5.2.41 =
-
-* Fixes a conflict with Elementor.

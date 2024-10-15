@@ -16,6 +16,7 @@
 			layout:"one_column",
 			required:false,
 			exclude:false,
+			accept_html:false,
             readonly:false,
 			toSubmit:'text',
 			choiceSelected:"",

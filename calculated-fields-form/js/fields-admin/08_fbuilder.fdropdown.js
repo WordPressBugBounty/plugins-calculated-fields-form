@@ -16,6 +16,7 @@
 			size:"medium",
 			required:false,
 			exclude:false,
+			accept_html:false,
 			toSubmit:'text',
 			merge:0,
 			choiceSelected:"",
