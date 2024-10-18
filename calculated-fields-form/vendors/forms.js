@@ -200,6 +200,11 @@ cff_forms_templates = {
             "description": "Get the European countries VAT.",
             "id": 14
         }, {
+            "title": "Check VAT Number",
+            "category": "Financial",
+            "description": "Checks the validity of a VAT number and displays additional details about the company.",
+            "id": 61
+        }, {
             "title": "Pay Raise Percent Calculator",
             "category": "Financial",
             "description": "Allows users to easily determine their pay raise/decrease percentage, salary differentials, and more.",

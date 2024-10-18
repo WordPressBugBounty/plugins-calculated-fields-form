@@ -655,7 +655,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				if ( isset( $tags[ $item ] ) ) {
 					$label      = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'title' ) ) ? $fields[ $item ]->title : '';
 					$shortlabel = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'shortlabel' ) ) ? $fields[ $item ]->shortlabel : '';
-					$value      = ( ! empty( $value ) || is_numeric( $value ) && 0 == $value ) ? ( ( is_array( $value ) ) ? implode( ', ', $value ) : $value ) : '';
+					$value      = ( ! empty( $value ) || is_numeric( $value ) && 0 == $value ) ? ( ( is_array( $value ) ) ? implode( ( ! empty( $tags[ $item ][0] ) && ! empty( $tags[ $item ][0]['choices_separator'] ) ? $tags[ $item ][0]['choices_separator'] : ", " ), $value ) : $value ) : '';
 
 					if ( 'html' == $format ) {
 						$label      = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $label );
@@ -677,6 +677,14 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 						) {
 							switch ( $tagData['tag'] ) {
 								case $item:
+									if ( strtolower( $item )  == 'itemnumber' ) {
+										self::_single_replacement(
+											$tagData,
+											($postid ? ((isset($tagData['length']) && is_numeric($tagData['length'])) ? sprintf("%0{$tagData['length']}d", $postid) : $postid) : ''),
+											$text
+										);
+										break;
+									}
 									if ( preg_match( '/_url(s?)$/i', $item ) && ! empty( $tagData['in_tag'] ) ) {
 										$value  = preg_split( '/\n+/', $value );
 										$in_tag = strtolower( $tagData['in_tag'] );
@@ -882,7 +890,9 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 					$tag['after'] = ( preg_match( '/after\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : '';
 
-					$tag['separator'] = ( preg_match( '/separator\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : '';
+					$tag['choices_separator'] = ( preg_match( "/choices_separator\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i",  $value, $match ) ) ? $match[1] : '';
+
+					$tag['separator'] = ( preg_match( '/\bseparator\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : '';
 
 					$tag['in_tag'] = ( preg_match( '/in_tag\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? trim( $match[1] ) : '';
 

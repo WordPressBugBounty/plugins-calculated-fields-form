@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.47
+Stable tag: 5.2.48
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.48 =
+
+* Accepts the choices_separator attribute in the checkbox and multi-select dropdown fields' tags to configure the choices separator in the notification emails.
+* Fixes a warning message processing the phone fields.
+* Implements a new predefined form to verify VAT numbers.
+* Implements the RATE operation in the Financial Operations Module (Developer and Platinum versions).
+* Modifies the Signature add-on (Platinum plugin version).
+
 = 5.2.47 =
 = 5.2.46 =
 
@@ -476,12 +484,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Allows using style attributes in the fields' labels, instructions for users, or HTML content fields.
 * Fixes an issue with the search box in DropDown fields when the load scripts method in the troubleshoots area was configured as direct.
 * Implements a new predefined form that retrieves holidays from the Nager.Date service.
-
-= 5.2.42 =
-
-* Modifies the loading process of the language files to ensure compatibility with WP 6.7.
-* Improves the Date/Time Operations module.
-* Modifest the plugin deactivation process (free plugin distribution).
-* Implements additional predefined forms for Cryptocurrency operations.
-* Fixes minor issues in Text Area control.
-* Publishes new video tutorial.

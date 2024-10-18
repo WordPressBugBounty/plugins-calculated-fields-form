@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.48 =
+
+* Accepts the choices_separator attribute in the checkbox and multi-select dropdown fields' tags to configure the choices separator in the notification emails.
+* Fixes a warning message processing the phone fields.
+* Implements a new predefined form to verify VAT numbers.
+* Implements the RATE operation in the Financial Operations Module (Developer and Platinum versions).
+* Modifies the Signature add-on (Platinum plugin version).
+
 = 5.2.47 =
 = 5.2.46 =
 
