@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.48
+Stable tag: 5.2.49
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.49 =
+
+* Upgrades the jquery.validator library.
+
 = 5.2.48 =
 
 * Accepts the choices_separator attribute in the checkbox and multi-select dropdown fields' tags to configure the choices separator in the notification emails.
@@ -478,9 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.44 =
 
 * Enhances the plugin security by implementing specific server-side validation rules per control type.
-
-= 5.2.43 =
-
-* Allows using style attributes in the fields' labels, instructions for users, or HTML content fields.
-* Fixes an issue with the search box in DropDown fields when the load scripts method in the troubleshoots area was configured as direct.
-* Implements a new predefined form that retrieves holidays from the Nager.Date service.
