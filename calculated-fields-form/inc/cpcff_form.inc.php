@@ -319,7 +319,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			} elseif ( $option == 'fp_return_page' ) {
 				$value = empty( $value ) ? $default : $value;
 			} elseif (
-				in_array( $option, [ 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height' ] )
+				in_array( $option, [ 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_thanks_mssg' ] )
 			) {
 				if ( isset( $this->_settings['extra'][ $option ] ) ) {
 					$value = $this->_settings['extra'][ $option ];
@@ -404,6 +404,10 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			}
 			if ( isset( $params['cu_reply_to_emails'] ) ) {
 				$extra['cu_reply_to_emails'] = trim( $params['cu_reply_to_emails'] );
+			}
+			$extra['fp_ajax'] = isset( $params['fp_ajax'] ) ? 1 : 0;
+			if( isset( $params['fp_thanks_mssg'] ) ) {
+				$extra['fp_thanks_mssg'] = sanitize_textarea_field( $params['fp_thanks_mssg'] );
 			}
 
 			$data = array(

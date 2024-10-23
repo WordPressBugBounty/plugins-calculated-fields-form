@@ -30,6 +30,14 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		public static $form_counter = 0;
 
 		/**
+		 * Counter of iframes in a same page
+		 * Metaclass property.
+		 *
+		 * @var int $iframe_counter
+		 */
+		public static $iframe_counter = 0;
+
+		/**
 		 * Instance of the CPCFF_MAIN class
 		 * Metaclass property to implement a singleton.
 		 *
@@ -90,12 +98,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 */
 		private $_amp;
 
-		/**
-		 * List of nonces for iframe loaded forms
-		 * Instance property.
-		 */
-		private $_iframe_nonces;
-
 		private $mail_obj;
 
 		/**
@@ -111,9 +113,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 			// Initializes the $_plugin_url property.
 			$this->_plugin_url = plugin_dir_url( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH );
-
-			// Initialize $_iframe_nonces.
-			$this->_iframe_nonces = array();
 
 			// Plugin activation/deactivation.
 			$this->_activate_deactivate();
@@ -593,12 +592,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$id         = $atts['id']; // Alias for the $atts[ 'id' ] variable.
 				$form_template = ! empty( $atts[ 'template' ] ) ? trim( $atts[ 'template' ] ) : '';
 				if ( ! empty( $atts['iframe'] ) ) {
-					if ( ! isset( $this->_iframe_nonces[ $id ] ) ) {
-						$this->_iframe_nonces[ $id ] = wp_create_nonce( 'cff-iframe-nonce-' . $id );
-					}
 					$form_obj = $this->get_form( $id );
 					$url  = CPCFF_AUXILIARY::site_url( true );
-					$url .= ( strpos( $url, '?' ) === false ? '?' : '&' ) . 'cff-form=' . $id . '&cff-form-target=_top&_nonce=' . $this->_iframe_nonces[ $id ] . ( ! empty( $form_template ) ? '&template=' . urlencode( $form_template ) : '' );
+					$url .= ( strpos( $url, '?' ) === false ? '/?' : '&' ) . 'cff-form=' . $id .  ( ! empty( $form_template ) ? '&template=' . urlencode( $form_template ) : '' );
 
 					// The attributes excepting "id", "iframe", "template", and "asynchronous" are converted in javascript variables with global scope
 					if ( count( $atts ) > 1 ) {
@@ -610,8 +606,21 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						}
 					}
 
-					$iframe_id  = uniqid( 'cff-iframe-' );
-					$iframe_tag = '<script type="text/javascript">window.addEventListener("message", function(e) { if ("data" in e && typeof e.data == "object" && ! Array.isArray(e.data) && "cff_height" in e.data && "cff_iframe" in e.data) {try{ let el = document.getElementById(e.data.cff_iframe); el.style.height = e.data.cff_height + "px";el.style.minHeight="auto"; if( "parent" in window ) parent.postMessage({sentinel: "amp",type:"embed-size",height: e.data.cff_height+25}, "*"); }catch(err){}}}, false);</script><iframe ' . ' id="' . $iframe_id . '"';
+					$iframe_id  = 'cff-iframe-' . ++self::$iframe_counter;
+					$iframe_tag = '<script type="text/javascript">window.addEventListener("message", function(e) {
+							if ("data" in e && typeof e.data == "object" && ! Array.isArray(e.data) && "cff_height" in e.data && "cff_iframe" in e.data) {
+								try{
+									let el = document.getElementById(e.data.cff_iframe);
+									el.style.height = e.data.cff_height + "px";
+									el.style.minHeight="auto";
+									if( "parent" in window ) parent.postMessage({sentinel: "amp",type:"embed-size",height: e.data.cff_height+25}, "*");
+								} catch(err){}
+							}
+						}, false);
+						window.addEventListener("load", function() {
+							let el = document.getElementById("' . $iframe_id . '");
+							if(el && el.hasAttribute("data-cff-src")) el.setAttribute("src", el.getAttribute("data-cff-src"));
+						});</script><iframe ' . ' id="' . $iframe_id . '"';
 
 					if ( ! empty( $form_obj ) ) {
 						$iframe_tag = $form_obj->get_height( '#' . $iframe_id ) . $iframe_tag;
@@ -619,11 +628,14 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 					$url .= ( strpos( $url, '?' ) === false ? '?' : '&' ) . 'cff_iframe=' . $iframe_id;
 
+					set_transient( $id . '|' . $iframe_id, 1, 60*60 );
+
 					if ( ! empty( $atts['asynchronous'] ) ) {
-						$iframe_tag = '<script>window.addEventListener("load", function(){let el = document.getElementById("' . $iframe_id . '"); if(el) el.setAttribute("src", el.getAttribute("data-cff-src"));});</script>' . $iframe_tag . ' src="about:blank" data-cff-src="' . esc_attr( $url ) . '"';
+						$iframe_tag	 .= ' src="about:blank" data-cff-src="' . esc_attr( $url ) . '"';
 					} else {
 						$iframe_tag .= ' src="' . esc_attr( $url ) . '"';
 					}
+
 					$iframe_tag .= ' style="border:none;width:100%;overflow-y:hidden;" onload="try{this.width=this.contentWindow.document.body.scrollWidth;this.height=this.contentWindow.document.body.scrollHeight+40;this.style.minHeight=\'auto\';}catch(err){}" scrolling="no"></iframe>';
 
 					return $iframe_tag;

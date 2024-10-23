@@ -423,6 +423,26 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 								</div>
 							</td>
 						</tr>
+						<tr valign="top">
+							<td colspan="2" style="text-align:center;">
+								<?php esc_html_e( '- OR -', 'calculated-fields-form' ); ?>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th></th>
+							<td>
+								<label><input type="checkbox" name="fp_ajax" value="1" <?php echo $form_obj->get_option('fp_ajax', 0) ? 'CHECKED' : ''; ?> />
+								<?php esc_html_e( 'Submit the form using AJAX instead of redirecting the user to the thank you page.', 'calculated-fields-form' ); ?></label>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php esc_html_e( 'Thank you message', 'calculated-fields-form' ); ?></th>
+							<td>
+								<textarea name="fp_thanks_mssg" class="width75" style="" rows="4"><?php
+								print esc_textarea( $form_obj->get_option('fp_thanks_mssg', '') );
+								?></textarea>
+							</td>
+						</tr>
 					</table>
 
 					<div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e( 'Up to form structure', 'calculated-fields-form' ); ?></a></div>

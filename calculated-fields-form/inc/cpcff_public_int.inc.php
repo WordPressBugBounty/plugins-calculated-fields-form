@@ -82,19 +82,20 @@ if ( ! empty( $atts ) && ! empty( $atts['class'] ) ) {
 	echo ' ' . esc_attr( $atts['class'] );
 }
 ?>" <?php
-// If the form shortcode was configured to be opened into an iframe.
-if ( isset( $_REQUEST['cff-form-target'] ) ) {
-	$cff_form_target = sanitize_text_field( wp_unslash( $_REQUEST['cff-form-target'] ) );
-	if ( ! empty( $cff_form_target ) ) {
-		print ' target="' . esc_attr( $cff_form_target ) . '"';
-	}
-}
-
 // Direction.
 if ( property_exists( $form_data[1][0], 'direction' ) ) {
 	print ' dir="' . esc_attr( $form_data[1][0]->direction ) . '"';
 }
 ?> data-nonce="<?php print esc_attr( CFF_AUXILIARY_NONCE ); ?>">
+<?php
+	// Submit form via AJAX.
+	if ( $form_obj->get_option('fp_ajax', 0) ) {
+		print '<iframe name="cff_iframe_for_submission_' . CPCFF_MAIN::$form_counter . '" id="cff_iframe_for_submission_' . CPCFF_MAIN::$form_counter . '" style="display:none;"></iframe>';
+		if ( ! empty( $form_obj->get_option('fp_thanks_mssg', '') ) ) {
+			print '<div class="cff-thanks-message" style="display:none;">' . esc_html( $form_obj->get_option('fp_thanks_mssg', '') ) . '</div>';
+		}
+	}
+?>
 <input type="hidden" name="cp_calculatedfieldsf_pform_psequence" value="_<?php echo esc_attr( CPCFF_MAIN::$form_counter ); ?>" />
 <input type="hidden" name="cp_calculatedfieldsf_id" value="<?php echo esc_attr( $id ); ?>" />
 <input type="hidden" name="cp_ref_page" value="<?php echo esc_attr( CPCFF_AUXILIARY::site_url() ); ?>" />
@@ -128,7 +129,7 @@ if ( property_exists( $form_data[1][0], 'direction' ) ) {
 </form>
 	<?php
 	// If the form shortcode was configured to be opened into an iframe adjust iframe size.
-	if ( isset( $_REQUEST['cff-form-target'] ) ) :
+	if ( isset( $_REQUEST['cff_iframe'] ) ):
 		?>
 	<style>.cff-form{width:100%;overflow-x:auto;box-sizing: border-box;}</style>
 	<?php

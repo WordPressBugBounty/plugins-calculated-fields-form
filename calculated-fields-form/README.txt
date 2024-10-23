@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.49
+Stable tag: 5.2.50
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.50 =
+
+* Includes a new pair of attributes in the form settings, allowing users to submit the form without being redirected to the thank you page.
+* Modifies the module that loads the forms into iFrame tags. The previous version generates a different URL every time.
+* Modifies the module that registers the form height.
+* Fixes some issues in the RATE operation in the Financial Operations Module (Developer and Platinum plugin versions).
+* Updates the Users Permissions add-on to enable administrators to access, edit, and delete submissions from anonymous users on the public website (Developer and Platinum plugin versions).
+
 = 5.2.49 =
 
 * Upgrades the jquery.validator library.
@@ -478,7 +486,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.45 =
 
 * Fixes a typo.
-
-= 5.2.44 =
-
-* Enhances the plugin security by implementing specific server-side validation rules per control type.

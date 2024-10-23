@@ -51,7 +51,7 @@
                 }
                 else return false;
             }
-			if(typeof _form == 'undefined' && typeof _field == 'string' && _field.match(/fieldname\d+(_\d+)/)) _form = _field.match(/fieldname\d+(_\d+)/)[1];
+			if ( typeof _form == 'undefined' || ( typeof _field == 'string' && _field.match(/fieldname\d+(_\d+)/) ) ) _form = _field.match(/fieldname\d+(_\d+)/)[1];
             return $.fbuilder['forms'][_getForm(_form)].getItem(_field);
         } catch (err) { return false; }
 	}

@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.2.49
+ * Version: 5.2.50
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.2.49' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.2.50' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -54,20 +54,35 @@ add_action( 'init', 'cp_calculated_fields_form_direct_form_access', 1 );
 // ------------------------------------------.
 
 function cp_calculated_fields_form_direct_form_access() {
+	$in_iframe = function ( $form_id ) {
+		// The form is loaded into an iFrame tag.
+		if (
+			! empty($_GET['cff_iframe']) &&
+			preg_match( '/^cff-iframe-\d+$/', $_GET['cff_iframe'] )
+		) {
+			if(
+				get_transient( $form_id . '|' . $_GET['cff_iframe'] )
+			) {
+				return ( isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) !== false );
+			} else {
+				delete_transient( $form_id . '|' . $_GET['cff_iframe'] );
+			}
+		}
+	};
+
 	if (
 		! empty( $_GET['cff-form'] ) &&
 		is_numeric( $_GET['cff-form'] ) &&
-		intval( $_GET['cff-form'] ) &&
+		0 != ( $form_id = intval( $_GET['cff-form'] ) ) &&
 		(
 			( get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS ) ) ||
 			(
-				! empty( $_GET['_nonce'] ) &&
-				wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_nonce'] ) ), 'cff-iframe-nonce-' . intval( $_GET['cff-form'] ) )
+				$in_iframe( $form_id )
 			)
 		)
 	) {
 		$cpcff_main     = CPCFF_MAIN::instance();
-		$shortcode_atts = array( 'id' => intval( $_GET['cff-form'] ) );
+		$shortcode_atts = array( 'id' => $form_id );
 
 		foreach ( $_GET as $_param_name => $_param_value ) {
 			$_param_name  = sanitize_text_field( wp_unslash( $_param_name ) );

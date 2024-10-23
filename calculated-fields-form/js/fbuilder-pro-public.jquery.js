@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.49';
+	$.fbuilder['version'] = '5.2.50';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -643,7 +643,7 @@
 				if( !opt.cached && opt.setCache)
 				{
 					// Set Cache
-					var url  = document.location.href,
+					var url  = document.location.href.split('?')[0],
 						data = {
 							'cffaction' : 'cff_cache',
 							'cache'	 : form_tag.html().replace( /\n+/g, '' ),
@@ -949,7 +949,7 @@
 										frameElement.height = h;
 									}
 									// Update iframe height
-									if( 'parent' in window ) {
+									if( 'parent' in window && window.parent != window ) {
 										parent.postMessage({cff_height: h, cff_iframe: getURLParameter('cff_iframe', 0)}, '*');
 									}
 								};
@@ -971,7 +971,7 @@
 										if(opt.evalequations) fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
 										try {
 											$.post(
-												document.location.href,
+												document.location.href.split('?')[0],
 												{
 													'cffaction'     : 'cff_register_height',
 													'form_height'	: f.height(),
@@ -1140,7 +1140,16 @@
 				form.find('.cpcff-recordset,.cff-exclude :input,[id^="form_structure_"]')
 					.add(form.find('.ignore')).attr('cff-disabled', 1).prop('disabled', true);
 				disabling_form();
-
+				if ($('#cff_iframe_for_submission'+form_identifier).length) {
+					form.attr('target', 'cff_iframe_for_submission'+form_identifier);
+					$(document).one('cff-form-submitted', function(){
+						form.find( '.cff-thanks-message' ).fadeIn(400);
+						$(document).one('click', function(){ $('.cff-thanks-message').hide(); });
+					});
+				}
+				if ( form.attr( 'target' ) == undefined && window.self !== window.top ) {
+					form.attr( 'target', '_top' );
+				}
 				if (form.attr('target') != undefined && NOT(IN(form.attr('target').toLowerCase(), ['_blank', '_self', '_top', '']))) {
 					$('[name="' + form.prop('target') + '"]').one('load', function () {
 						form.find('[cff-val-bk]').each(function () {
