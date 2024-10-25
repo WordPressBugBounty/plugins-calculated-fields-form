@@ -77,6 +77,17 @@
 	lib.getURLParameters = lib.geturlparameters = lib.GETURLPARAMETERS = function(url){
 		var qs = url ? url.split('?')[1] : window.location.search.slice(1),
 			obj = {};
+
+		function aux (v, to_lower) {
+			to_lower = to_lower || false;
+			if ( Array.isArray(v) ) {
+				for ( let i in v ) {
+					v[i] = aux(v[i], to_lower);
+				}
+			} else if ( typeof v == 'string') return (to_lower ? decodeURIComponent(v).toLowerCase() : decodeURIComponent(v)).replace(/\+/g, ' ');
+			return v;
+		}
+
 		if(qs)
 		{
 			qs = qs.split('#')[0];
@@ -87,9 +98,8 @@
 					paramName = a[0],
 					paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
 
-				paramName = paramName.toLowerCase();
-				if (typeof paramName === 'string') paramName = decodeURIComponent(paramName);
-				if (typeof paramValue === 'string') paramValue = decodeURIComponent(paramValue);
+				paramName = aux(paramName, true);
+				paramValue = aux(paramValue);
 
 				if (paramName.match(/\[(\d+)?\]$/))
 				{

@@ -370,7 +370,9 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 									} else {
 										$replacement = '';
 									}
-									$param_value = str_replace( $matches[0][ $index ], $replacement, $param_value );
+
+									$param_value = is_scalar($replacement) ? str_replace( $matches[0][ $index ], $replacement, $param_value ) : $replacement;
+
 								}
 								$query_params[ $param_name ] = $param_value;
 							}

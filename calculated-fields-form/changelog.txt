@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.51 =
+
+* Allows passing arrays as parameter values to the thank you page URL.
+* Modifies the getURLParameters in the URL Operations module.
+* Modifies the getField operation in the Managing Fields Operations module.
+
 = 5.2.50 =
 
 * Includes a new pair of attributes in the form settings, allowing users to submit the form without being redirected to the thank you page.

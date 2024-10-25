@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.50
+Stable tag: 5.2.51
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.51 =
+
+* Allows passing arrays as parameter values to the thank you page URL.
+* Modifies the getURLParameters in the URL Operations module.
+* Modifies the getField operation in the Managing Fields Operations module.
+
 = 5.2.50 =
 
 * Includes a new pair of attributes in the form settings, allowing users to submit the form without being redirected to the thank you page.
@@ -482,7 +488,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the PREC operation.
 * Fixes a minor issue in the QRCode control.
 * Allows including the from_page information in the exported CSV files (Professional, Developer, and Platinum plugin versions).
-
-= 5.2.45 =
-
-* Fixes a typo.
