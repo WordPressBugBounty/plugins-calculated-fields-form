@@ -19,8 +19,11 @@
 			accept_html:false,
             readonly:false,
 			toSubmit:'text',
+
 			merge:1,
 			onoff:0,
+			quantity:0,
+
 			max:-1,
 			min:-1,
 			maxError:"Check no more than {0} boxes",
@@ -197,6 +200,7 @@
 							{s:'[name="sToSubmit"]', e:"click", l:"toSubmit"},
 							{s:'[name="sMerge"]', e:"change", l:"merge", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sOnOff"]', e:"change", l:"onoff", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
+							{s:'[name="sQuantity"]', e:"change", l:"quantity", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sMax"]', e:"change keyup", l:"max", f: function(el){
 								var v = el.val();
 								return ($.fbuilder.isNumeric(v)) ? Math.round(v) : -1;
@@ -229,7 +233,8 @@
 			mergeValues: function()
 				{
 					return '<div class="choicesSet"><label><input type="checkbox" name="sMerge" '+((this.merge) ? ' CHECKED ' : '')+'/> Merge ticked up options (sum or concatenation) or their values are returned as an array.</label></div>'+
-					'<div class="choicesSet"><label><input type="checkbox" name="sOnOff" '+((this.onoff) ? ' CHECKED ' : '')+'/> Display as on/off switch.</label></div>';
+					'<div class="choicesSet"><label><input type="checkbox" name="sOnOff" '+((this.onoff) ? ' CHECKED ' : '')+'/> Display as on/off switch.</label></div>'+
+					'<div class="choicesSet"><label><input type="checkbox" name="sQuantity" '+((this.quantity) ? ' CHECKED ' : '')+'/> Include quantity boxes.</label></div>';
 				},
 			attributeToSubmit: function()
 				{

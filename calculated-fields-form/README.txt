@@ -3,8 +3,8 @@ Contributors: codepeople
 Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
-Tested up to: 6.6
-Stable tag: 5.2.51
+Tested up to: 6.7
+Stable tag: 5.2.52
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.52 =
+
+* Allows entering associate a quantity box with every checkbox field choice.
+* Modifies the Summary control to support the changes in the checkbox control.
+* Includes the async parameter in the loading=async parameter when loading the Google Maps API for distance operations (Developer and Platinum plugin versions) and Google Places add-on (Platinum plugin version).
+
 = 5.2.51 =
 
 * Allows passing arrays as parameter values to the thank you page URL.
@@ -480,11 +486,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Implements a new predefined form to verify VAT numbers.
 * Implements the RATE operation in the Financial Operations Module (Developer and Platinum versions).
 * Modifies the Signature add-on (Platinum plugin version).
-
-= 5.2.47 =
-= 5.2.46 =
-
-* Fixes a security issue (Special thanks to Max Boll and the WordFence Team for reporting the issue). Now, it includes a new attribute in fields' settings to accept HTML code in their values.
-* Modifies the PREC operation.
-* Fixes a minor issue in the QRCode control.
-* Allows including the from_page information in the exported CSV files (Professional, Developer, and Platinum plugin versions).

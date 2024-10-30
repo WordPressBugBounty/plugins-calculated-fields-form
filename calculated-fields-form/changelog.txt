@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.52 =
+
+* Allows entering associate a quantity box with every checkbox field choice.
+* Modifies the Summary control to support the changes in the checkbox control.
+* Includes the async parameter in the loading=async parameter when loading the Google Maps API for distance operations (Developer and Platinum plugin versions) and Google Places add-on (Platinum plugin version).
+
 = 5.2.51 =
 
 * Allows passing arrays as parameter values to the thank you page URL.

@@ -57,10 +57,11 @@
                 },
 			update:function()
 				{
-					for (var j = 0, k = this.fieldsArray.length; j < k; j++)
+					let me = this;
+					for (let j in me.fieldsArray )
 					{
-						var i  = this.fieldsArray[j],
-							e  = $('[id="'+i+'"],[id^="'+i+'_rb"],[id^="'+i+'_cb"]'),
+						var i  = me.fieldsArray[j],
+							e  = $('[id="'+i+'"],[id^="'+i+'_rb"],[id^="'+i+'_cb"]:not([type="number"])'),
 							tt = $('[ref="'+i+'"]');
 
 						if(e.length && tt.length)
@@ -93,7 +94,8 @@
 									{
 										if(e.attr('vt'))
 										{
-											v.push(e.attr('vt'));
+											let q = $('[id="'+e.attr('id')+'_quantity"]');
+											v.push(e.attr('vt')+(q.length ? ' ('+Math.max(q.val(),1)+')' : ''));
 										}
 										else if( e.attr( 'summary' ) )
 										{
@@ -118,10 +120,14 @@
 													$.each(e[0].files, function(i,o){f.push(o.name);});
 													v.push(f.join(', '));
 												}
-												else
+												else if( ! e.hasClass( 'cpefb_error message' ) )
 												{
 													var c = $('[id="'+i+'_caption"]');
-													v.push((c.length && !/^\s*$/.test(c.html())) ? c.html() : e.val());
+													v.push(
+														(c.length && !/^\s*$/.test(c.html())) ?
+														c.html() :
+														e.val()
+													);
 												}
 											}
 										}

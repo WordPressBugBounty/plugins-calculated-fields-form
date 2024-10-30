@@ -609,7 +609,7 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 
 	.cff_form_builder .postbox select,
 	.cff_form_builder .postbox textarea,
-	.cff_form_builder .postbox input[type=text],
+	.cff_form_builder .postbox input[type=text]:not(.choice_text):not(.choice_value),
 	.cff_form_builder .postbox input[type=number],
 	.cff_form_builder .postbox input[type=password]{display:block;width:100% !important;margin-bottom:5px;}
     .cff_form_builder .postbox input[type=checkbox],
@@ -635,6 +635,7 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 	table.form-table tbody{display:block;width:100% !important;}
 
     .choice-ctrls{top:0px;}
+	.choicesEdit:has(.choice_optgroup) input[type=text]{width:calc( 50% - 60px );-webkit-width:calc( 50% - 60px );-moz-width:calc( 50% - 60px );width:-o-calc( 50% - 60px );}
 }
 @media only screen and (max-width: 480px){
 	.cff-custom-table input[type="button"]{margin:5px 0 !important; width:100% !important;display:block !important;max-width:100%;}

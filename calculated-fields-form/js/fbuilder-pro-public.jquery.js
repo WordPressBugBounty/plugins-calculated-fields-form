@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.51';
+	$.fbuilder['version'] = '5.2.52';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1134,8 +1134,9 @@
 					e.attr('cff-val-bk', e.val()).val(e.attr('vt'));
 				});
 				form.find('input[vt]').each(function () {
-					let e = $(this);
-					e.attr('cff-val-bk', e.val()).val(e.attr('vt'));
+					let e = $(this),
+						q = $('[id="'+e.attr('id')+'_quantity"]');
+                    e.attr('cff-val-bk', e.val()).val(e.attr('vt')+(q.length ? ' ('+Math.max(1, q.val())+')' : ''));
 				});
 				form.find('.cpcff-recordset,.cff-exclude :input,[id^="form_structure_"]')
 					.add(form.find('.ignore')).attr('cff-disabled', 1).prop('disabled', true);

@@ -10,6 +10,7 @@
             readonly:false,
 			merge:1,
             onoff:0,
+			quantity:0,
 			max:-1,
 			min:-1,
 			maxError:"Check no more than {0} boxes",
@@ -40,8 +41,12 @@
 
 						str += '<div class="'+this.layout+'"><label for="'+this.name+'_cb'+i+'" '+(!this.tooltipIcon && this.userhelpTooltip && this.userhelp && this.userhelp.length ? 'uh="'+cff_esc_attr(this.userhelp)+'"' : '')+'><input aria-label="'+cff_esc_attr(this.choices[i])+'" name="'+this.name+'[]" id="'+this.name+'_cb'+i+'" class="field '+classDep+' group '+((this.required || 0 < this.min)?" required":"")+'" value="'+cff_esc_attr(this.choicesVal[i])+'" vt="'+cff_esc_attr((this.toSubmit == 'text') ? this.choices[i] : this.choicesVal[i])+'" type="checkbox" '+(this.readonly ? ' onclick="return false;" ' : '')+((this.choiceSelected[i])?"checked":"")+'/> '+
                         (this.onoff ? '<span class="cff-switch"></span>': '') +
-                        '<span>'+
-                        cff_html_decode(this.choices[i])+'</span></label></div>';
+                        '<span>'+cff_html_decode(this.choices[i])+'</span>'+
+						(
+						    this.quantity ?
+							'<span class="cff-checkbox-field-quantity"><input type="number" min="1" value="1" id="'+this.name+'_cb'+i+'_quantity" /></span>' : ''
+						) +
+						'</label></div>';
 					}
 					return '<div class="fields '+cff_esc_attr(this.csslayout)+(this.onoff ? ' cff-switch-container' : '')+' '+this.name+' cff-checkbox-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+this.title+''+((this.required || 0 < this.min)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<div class="clearer"></div>'+(!this.userhelpTooltip ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+this.userhelp+'</span>' : '')+'</div><div class="clearer"></div></div>';
 				},
@@ -76,6 +81,13 @@
 
 					if( m.readonly ) {
 						$('[id*="'+m.name+'_"][_onclick]').each(function(){$(this).attr('onclick', $(this).attr('_onclick'));});
+					}
+
+					if( m.quantity ) {
+						$(document).on('input', '[type="number"][id*="'+m.name+'_"]', function(){
+							let base_id = $(this).attr('id').replace(/_quantity/, '');
+							$('#'+base_id).trigger('change');
+						});
 					}
 
 					if(0 < m.max && 0 < m.min && m.max < m.min){
@@ -149,7 +161,7 @@
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var v, me = this, m = me.merge && !raw,
+					var v, me = this, m = me.merge && !raw, q = me.quantity,
 						e = $('[id*="'+me.name+'_"]:checked:not(.ignore)');
 
 					if(!m) v = [];
@@ -158,6 +170,10 @@
 						e.each(function(){
 							var t = (m) ? $.fbuilder.parseVal(this.value) : $.fbuilder.parseValStr((raw == 'vt') ? this.getAttribute('vt') : this.value, raw, no_quotes);
 							if(!$.fbuilder.isNumeric(t)) t = t.replace(/^"/,'').replace(/"$/,'');
+
+							if( q && $.fbuilder.isNumeric(t) ) t = t*Math.max( $('#'+this.id+'_quantity').val(), 1 );
+							else if( q ) t += ' ('+ Math.max( $('#'+this.id+'_quantity').val(), 1 ) +')';
+
 							if(m) v = (v)?v+t:t;
 							else v.push(t);
 						});
@@ -166,21 +182,40 @@
 				},
 			setVal:function(v, nochange, _default)
 				{
+					let t, me = this, n = me.name, c = 0, e;
+					let aux	= function(v, attr) {
+						let result;
+						if (me.quantity) {
+							let v_parts = /^(.*)(\s\((\d+)\))$/.exec(v);
+							if( v_parts && typeof v_parts[3] != 'undefined' ) {
+								result = $('[type="checkbox"][id*="'+n+'_"]['+attr+'="'+v_parts[1]+'"]');
+								if ( result.length ) {
+									$( '[id="'+result.attr('id')+'_quantity"]' ).val(v_parts[3]);
+								}
+							}
+						}
+
+						if (!result || !result.length) {
+							result = $('[type="checkbox"][id*="'+n+'_"]['+attr+'="'+v+'"]');
+						}
+
+						return result;
+					};
+
                     _default = _default || false;
                     nochange = nochange || false;
 
-					var t, n = this.name, c = 0, e;
 					if(!Array.isArray(v)) v = [v];
 					$('[id*="'+n+'_"]').prop('checked', false);
-					for(var i in v)
+					for(let i in v)
 					{
 						t = (new String(v[i])).replace(/(['"])/g, "\\$1");
-                        if(0 < this.max && this.max < c+1) break;
-                        if(_default) e = $('[id*="'+n+'_"][vt="'+t+'"]');
-                        if(!_default || !e.length) e = $('[id*="'+n+'_"][value="'+t+'"]');
+                        if(0 < me.max && me.max < c+1) break;
+                        if(_default) e = aux(t, 'vt');
+                        if(!_default || !e.length)  e = aux(t, 'value');
                         if(e.length){ e.prop('checked', true);c++;}
 					}
-                    this.enable_disable();
+                    me.enable_disable();
 					if(!nochange) $('[id*="'+n+'_"]').trigger('change');
 				},
 			setChoices:function(choices)
@@ -188,7 +223,7 @@
 					if($.isPlainObject(choices))
 					{
 						var me = this,
-                            bk = me.val(true);
+                            bk = me.val('vt');
 						if('texts' in choices && Array.isArray(choices.texts)) me.choices = choices.texts;
 						if('values' in choices && Array.isArray(choices.values)) me.choicesVal = choices.values;
 						if('dependencies' in choices && Array.isArray(choices.dependencies))
@@ -214,7 +249,14 @@
                         {
                             try{ bk[j] = JSON.parse(bk[j]); }catch(err){}
                         }
-						me.setVal(bk, bk.every(function(e){ return me.choicesVal.indexOf(e) > -1; }));
+						me.setVal(bk, bk.every(function(e){ return me.choicesVal.indexOf(e) > -1; }), true);
+						if(me.quantity && 'quantities' in choices && Array.isArray(choices.quantities)) {
+							$('[type="number"][id*="'+me.name+'"]').each(function(i, e){
+								if( !isNaN(choices.quantities[i]) && 1 < choices.quantities[i]*1 ) {
+									$(this).val(choices.quantities[i]*1).change();
+								}
+							});
+						}
 					}
 				},
 			getIndex:function()
