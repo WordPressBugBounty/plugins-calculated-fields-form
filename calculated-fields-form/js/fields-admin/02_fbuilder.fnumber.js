@@ -38,7 +38,9 @@
 				},
 				getFormattedValue:function(value)
 				{
+					value = String(value).trim();
 					if(value == '') return value;
+					if(/^fieldname\d+$/i.test(value)) return value.toLowerCase();
 					var ts = this.thousandSeparator,
 						ds = ((ds=String(this.decimalSymbol).trim()) !== '') ? ds : '.',
 						v = $.fbuilder.parseVal(value, ts, ds),

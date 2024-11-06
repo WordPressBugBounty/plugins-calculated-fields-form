@@ -572,9 +572,12 @@ body{
 #fbuilder .cff-switch:before{content: " ";position:absolute;background:white;border-radius:50px;height:18px;width:18px;top:2px;left:2px;}
 #fbuilder .cff-switch-container input:checked+span.cff-switch{background:#2196F3;}
 #fbuilder .cff-switch-container input:checked+span.cff-switch:before{right:2px !important;left:auto !important}
-#fbuilder label:has(.cff-checkbox-field-quantity){position:relative;}
+#fbuilder label:has(.cff-checkbox-field-quantity){position:relative;min-height:42px;}
 #fbuilder .cff-checkbox-field-quantity{text-align:right;display:table-cell;}
 #fbuilder .cff-checkbox-field-quantity input{max-width:100px;margin-left:10px !important;margin-bottom:0 !important;}
+
+#fbuilder .cff-quantity-when-ticked .cff-checkbox-field-quantity{visibility:hidden;}
+#fbuilder .cff-quantity-when-ticked:has(input:checked) .cff-checkbox-field-quantity{visibility:visible;}
 
 #fbuilder .slider-type-components::after{clear:both;content:'';display: block;margin-bottom: 15px;}
 #fbuilder .slider-type-left-component{width:50%;padding-right:10px;clear:none;float:left;margin-left:-10px;}

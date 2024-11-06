@@ -23,6 +23,7 @@
 			merge:1,
 			onoff:0,
 			quantity:0,
+			quantity_when_ticked:0,
 
 			max:-1,
 			min:-1,
@@ -201,6 +202,7 @@
 							{s:'[name="sMerge"]', e:"change", l:"merge", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sOnOff"]', e:"change", l:"onoff", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sQuantity"]', e:"change", l:"quantity", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
+							{s:'[name="sQuantityWhenTicked"]', e:"change", l:"quantity_when_ticked", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sMax"]', e:"change keyup", l:"max", f: function(el){
 								var v = el.val();
 								return ($.fbuilder.isNumeric(v)) ? Math.round(v) : -1;
@@ -234,7 +236,7 @@
 				{
 					return '<div class="choicesSet"><label><input type="checkbox" name="sMerge" '+((this.merge) ? ' CHECKED ' : '')+'/> Merge ticked up options (sum or concatenation) or their values are returned as an array.</label></div>'+
 					'<div class="choicesSet"><label><input type="checkbox" name="sOnOff" '+((this.onoff) ? ' CHECKED ' : '')+'/> Display as on/off switch.</label></div>'+
-					'<div class="choicesSet"><label><input type="checkbox" name="sQuantity" '+((this.quantity) ? ' CHECKED ' : '')+'/> Include quantity boxes.</label></div>';
+					'<div class="choicesSet"><label><input type="checkbox" name="sQuantity" '+((this.quantity) ? ' CHECKED ' : '')+'/> Include quantity boxes.</label><label><input type="checkbox" name="sQuantityWhenTicked" '+((this.quantity_when_ticked) ? ' CHECKED ' : '')+'/> Display when choice ticked.</label></div>';
 				},
 			attributeToSubmit: function()
 				{

@@ -41,7 +41,7 @@
 							v = String( me.predefined ).trim();
 
 						if(me.predefinedClick || !me.formatDynamically) return v;
-
+						if(/^fieldname\d+$/i.test(v)) return v.toLowerCase();
 						me.centSeparator = String(me.centSeparator).trim();
 						if( /^\s*$/.test( me.centSeparator ) ) me.centSeparator = '.';
 

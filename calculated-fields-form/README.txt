@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.52
+Stable tag: 5.2.53
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.53 =
+
+* Allows configuring the quantity boxes in checkbox fields to display only when the corresponding choice is ticked.
+* Fixes a minor issue in the Number and Currency fields in the form builder when default values are set to other fields.
+* Modifies Template 06 by darker blue to increase the contrast ratio, thereby improving the Google score.
+
 = 5.2.52 =
 
 * Allows entering associate a quantity box with every checkbox field choice.
@@ -478,11 +484,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.49 =
 
 * Upgrades the jquery.validator library.
-
-= 5.2.48 =
-
-* Accepts the choices_separator attribute in the checkbox and multi-select dropdown fields' tags to configure the choices separator in the notification emails.
-* Fixes a warning message processing the phone fields.
-* Implements a new predefined form to verify VAT numbers.
-* Implements the RATE operation in the Financial Operations Module (Developer and Platinum versions).
-* Modifies the Signature add-on (Platinum plugin version).
