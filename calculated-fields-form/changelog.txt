@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.2.54 =
+
+* Include a new predefined form to obtain the visitors' details.
+* Includes new video tutorials.
+* Modifies the RecordSet DS field to support Secured Custom Fields (Developer and Platinum versions).
+* Modifies the Sendinblue add-on (Platinum version).
+
 = 5.2.53 =
 
 * Allows configuring the quantity boxes in checkbox fields to display only when the corresponding choice is ticked.

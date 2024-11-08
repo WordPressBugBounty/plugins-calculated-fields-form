@@ -75,6 +75,11 @@ cff_forms_templates = {
             "description": "Collects automobiles' makes, models, and other information. It uses datalists to facilitate data entry for users.",
             "id": 31
         }, {
+            "title": "Visitor Details",
+            "category": "Basic Operations",
+            "description": "Identifies the IP address, region, coordinates, timezone, country, city, and other details of the form visitor.",
+            "id": 62
+        }, {
             "title": "Simple Accommodation Booking",
             "category": "Dates Operations",
             "description": "Gives a quote for a stay in a hotel based in the check-in date, check-out date and some optional services.",

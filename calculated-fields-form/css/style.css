@@ -841,5 +841,6 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 	white-space:nowrap;
 }
 .cff-video-tutorial-thumbnail{width:100px;padding:5px;border:1px solid #dadada;margin:5px;flex-shrink:0;}
-.cff-video-tutorial-thumbnail a{text-decoration:none;display:block;line-height:0;}
+.cff-video-tutorial-thumbnail a{text-decoration:none;display:block;text-decoration:none!important;box-shadow:none!important;}
+.cff-video-tutorial-thumbnail a:has(img){line-height:0;}
 .cff-video-tutorial-thumbnail img{width:100%;}

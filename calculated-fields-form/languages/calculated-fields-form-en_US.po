@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-10-24 00:05+0200\n"
-"PO-Revision-Date: 2024-10-24 00:05+0200\n"
+"POT-Creation-Date: 2024-11-08 23:32+0100\n"
+"PO-Revision-Date: 2024-11-08 23:32+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1120,11 +1120,11 @@ msgstr ""
 msgid "Click to expand"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:784
+#: inc/cpcff_auxiliary.inc.php:786
 msgid "Paid"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:784
+#: inc/cpcff_auxiliary.inc.php:786
 msgid "Not Paid"
 msgstr ""
 
@@ -1288,18 +1288,26 @@ msgid "Design"
 msgstr ""
 
 #: inc/cpcff_video_tutorial.inc.php:19
-msgid "Advanced calculator"
+msgid "WooCommerce Integration"
 msgstr ""
 
 #: inc/cpcff_video_tutorial.inc.php:19
+msgid "WooCommerce"
+msgstr ""
+
+#: inc/cpcff_video_tutorial.inc.php:20
+msgid "Advanced calculator"
+msgstr ""
+
+#: inc/cpcff_video_tutorial.inc.php:20
 msgid "Financial"
 msgstr ""
 
-#: inc/cpcff_video_tutorial.inc.php:20
+#: inc/cpcff_video_tutorial.inc.php:21
 msgid "Fields dependency"
 msgstr ""
 
-#: inc/cpcff_video_tutorial.inc.php:20
+#: inc/cpcff_video_tutorial.inc.php:21
 msgid "Dependencies"
 msgstr ""
 
@@ -1454,6 +1462,6 @@ msgstr ""
 
 #: pagebuilders/siteorigin/siteorigin-cpcff/siteorigin-cpcff.php:46
 msgid ""
-"Pass additional attributes to the form. Ex: attr_name=\"attr_value\" "
-"(optional)"
+"Pass additional attributes to the form. Ex: "
+"attr_name=\"attr_value\" (optional)"
 msgstr ""

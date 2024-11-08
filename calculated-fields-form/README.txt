@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.53
+Stable tag: 5.2.54
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.54 =
+
+* Include a new predefined form to obtain the visitors' details.
+* Includes new video tutorials.
+* Modifies the RecordSet DS field to support Secured Custom Fields (Developer and Platinum versions).
+* Modifies the Sendinblue add-on (Platinum version).
+
 = 5.2.53 =
 
 * Allows configuring the quantity boxes in checkbox fields to display only when the corresponding choice is ticked.
@@ -480,7 +487,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the module that registers the form height.
 * Fixes some issues in the RATE operation in the Financial Operations Module (Developer and Platinum plugin versions).
 * Updates the Users Permissions add-on to enable administrators to access, edit, and delete submissions from anonymous users on the public website (Developer and Platinum plugin versions).
-
-= 5.2.49 =
-
-* Upgrades the jquery.validator library.
