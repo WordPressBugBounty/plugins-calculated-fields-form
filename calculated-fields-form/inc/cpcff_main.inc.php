@@ -537,9 +537,17 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				} elseif ( ! empty( $atts['page'] ) ) {
 					print '<!DOCTYPE html><html><head profile="http://gmpg.org/xfn/11">' .
 					( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ) .
-					'<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>';
+					'<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1">';
+
+					do_action( 'cpcff_wp_head', ( ! empty( $atts['shortcode_atts']['id'] ) ? $atts['shortcode_atts']['id'] : 0 ) );
+
+					print '</head><body>';
 					print $message; // phpcs:ignore WordPress.Security.EscapeOutput
-					print '<style>body>*:not(form){visibility: hidden; width: 0; height: 0;} .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *{visibility: visible; width: auto; height: auto;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ) . '</body></html>'; // phpcs:ignore WordPress.Security.EscapeOutput
+					print '<style>body>*:not(form){visibility: hidden; width: 0; height: 0;} .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *{visibility: visible; width: auto; height: auto;}</style>'.apply_filters('cpcff_form_preview_resources', ''); // phpcs:ignore WordPress.Security.EscapeOutput
+
+					do_action( 'cpcff_wp_footer', ( ! empty( $atts['shortcode_atts']['id'] ) ? $atts['shortcode_atts']['id'] : 0 ) );
+
+					print '</body></html>';
 					exit;
 				} else {
 					print $message; // phpcs:ignore WordPress.Security.EscapeOutput

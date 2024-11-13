@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.55 =
+
+* It is the first step in enhancing the accessibility of the forms builder.
+* Introduces two new actions, cpcff_wp_head, and cpcff_wp_footer, which are triggered when forms are loaded directly, either through their URL or within an iframe tag, allowing for the inclusion of additional resources.
+* Implements the WEEKNUM2 operation. Unlike WEEKNUM, it considers the weekday of the first day of the year.
+
 = 5.2.54 =
 
 * Include a new predefined form to obtain the visitors' details.

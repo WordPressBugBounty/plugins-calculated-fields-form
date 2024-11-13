@@ -111,7 +111,7 @@
             display:function( css_class )
 				{
 					css_class = css_class || '';
-					return '<div class="fields fmark '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Media')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div>'+this.showColumnIcon()+'<label>'+this[ '_display_'+this.sMediaType ]()+'</label><span class="uh">'+this.data[ this.sMediaType ][ 'sFigcaption' ]+'</span><div class="clearer"></div></div>';
+					return '<div class="fields fmark '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Media')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<label>'+this[ '_display_'+this.sMediaType ]()+'</label><span class="uh">'+this.data[ this.sMediaType ][ 'sFigcaption' ]+'</span><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

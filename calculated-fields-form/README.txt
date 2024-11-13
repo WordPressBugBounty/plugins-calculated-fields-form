@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.54
+Stable tag: 5.2.55
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.55 =
+
+* It is the first step in enhancing the accessibility of the forms builder.
+* Introduces two new actions, cpcff_wp_head, and cpcff_wp_footer, which are triggered when forms are loaded directly, either through their URL or within an iframe tag, allowing for the inclusion of additional resources.
+* Implements the WEEKNUM2 operation. Unlike WEEKNUM, it considers the weekday of the first day of the year.
+
 = 5.2.54 =
 
 * Include a new predefined form to obtain the visitors' details.
@@ -479,11 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Allows passing arrays as parameter values to the thank you page URL.
 * Modifies the getURLParameters in the URL Operations module.
 * Modifies the getField operation in the Managing Fields Operations module.
-
-= 5.2.50 =
-
-* Includes a new pair of attributes in the form settings, allowing users to submit the form without being redirected to the thank you page.
-* Modifies the module that loads the forms into iFrame tags. The previous version generates a different URL every time.
-* Modifies the module that registers the form height.
-* Fixes some issues in the RATE operation in the Financial Operations Module (Developer and Platinum plugin versions).
-* Updates the Users Permissions add-on to enable administrators to access, edit, and delete submissions from anonymous users on the public website (Developer and Platinum plugin versions).

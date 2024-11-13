@@ -45,7 +45,7 @@
 						max_time_formatted = ( hours ? ( hours < 10 ? '0' + hours : hours ) + ':' : '' ) + ( minutes < 10 ? '0' + minutes : minutes ) + ':' + ( seconds < 10 ? '0' + seconds : seconds ),
 						time_formatted = ( hours ? '00:' : '')+'00:00';
 
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Recording')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+cff_sanitize(this.title)+''+((this.required)?"*":"")+'</label><div class="dfield">'+
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Recording')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label>'+cff_sanitize(this.title)+''+((this.required)?"*":"")+'</label><div class="dfield">'+
 					this.showColumnIcon()+
 					'<div class="cff-record-btn">'+cff_sanitize(this.record_label)+'</div>' +
 					( this.preview ? '<div class="cff-record-play-btn"></div>' : '' ) +

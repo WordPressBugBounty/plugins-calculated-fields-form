@@ -208,7 +208,7 @@
 				for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
 				{
 					var index = categoryList[ i ].typeList[ j ];
-					$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'">'+typeList[ index ].name+'</div>');
+					$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+typeList[ index ].name+'</div>');
 				}
 			}
 		}
@@ -413,7 +413,7 @@
 					{
 						if( typeof template[ 'thumbnail' ] != 'undefined' )
 						{
-							thumbnail = '<img src="' + template[ 'thumbnail' ] + '">';
+							thumbnail = '<img src="' + template[ 'thumbnail' ] + '" alt="'+ cff_esc_attr( 'title' in template ? template['title'] : 'Template thumbnail' )+'">';
 						}
 						if( typeof template[ 'description' ] != 'undefined' )
 						{
@@ -522,14 +522,14 @@
 				// Handle events
 				$(document).on('click', '.fields .remove', function(evt){
 					evt.stopPropagation();
-					$.fbuilder[ 'removeItem' ]($(this).parent().attr("id").replace("field-",""));
+					$.fbuilder[ 'removeItem' ]($(this).closest('.fields').attr("id").replace("field-",""));
 					items = $.grep( items, function( e ){ return (e != 0 ); } );
 					$.fbuilder.reloadItems();
 				});
 
 				$(document).on('click', '.fields .copy', function(evt){
 					evt.stopPropagation();
-					$.fbuilder[ 'duplicateItem' ]($(this).parent().attr("id").replace("field-",""));
+					$.fbuilder[ 'duplicateItem' ]($(this).closest('.fields').attr("id").replace("field-",""));
 					$('#tabs').tabs("option", "active", 0);
 					$.fbuilder.reloadItems();
 				});
@@ -829,7 +829,7 @@
 							selected = 'SELECTED';
 							if( typeof $.fbuilder.showSettings.formTemplateDic[i].thumbnail != 'undefined' )
 							{
-								thumbnail = '<img src="'+$.fbuilder.showSettings.formTemplateDic[i].thumbnail+'">';
+								thumbnail = '<img src="'+$.fbuilder.showSettings.formTemplateDic[i].thumbnail+'" alt="' + cff_esc_attr( 'title' in $.fbuilder.showSettings.formTemplateDic[i] ? $.fbuilder.showSettings.formTemplateDic[i]['title'] : 'Template thumbnail') + '">';
 							}
 
 							if( typeof $.fbuilder.showSettings.formTemplateDic[i].description != 'undefined' )
@@ -849,12 +849,12 @@
 					'<div class="cff-field-settings-tabs-bodies">'+
 						'<div class="cff-field-settings-tab-body-basic cff-field-settings-tab-body-active">';
 
-					str += '<div><label>Form Category</label><input type="text" class="large" name="calculated-fields-form-category-mirror" id="calculated-fields-form-category-mirror" value="'+cff_esc_attr( $('[name="calculated-fields-form-category"]').val() )+'" list="calculated-fields-form-categories" /></div>'+
-					'<div><label>Form Name (Title)</label><input type="text" class="large" name="fTitle" id="fTitle" value="'+cff_esc_attr(me.title)+'" /></div>'+
-					'<div><label>Form Name Tag</label><select class="large" id="fTitleTag" name="fTitleTag">'+
+					str += '<div><label for="calculated-fields-form-category-mirror">Form Category</label><input type="text" class="large" name="calculated-fields-form-category-mirror" id="calculated-fields-form-category-mirror" value="'+cff_esc_attr( $('[name="calculated-fields-form-category"]').val() )+'" list="calculated-fields-form-categories" /></div>'+
+					'<div><label for="fTitle">Form Name (Title)</label><input type="text" class="large" name="fTitle" id="fTitle" value="'+cff_esc_attr(me.title)+'" /></div>'+
+					'<div><label for="fTitleTag">Form Name Tag</label><select class="large" id="fTitleTag" name="fTitleTag">'+
 					['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].reduce(function(o, t){ return o += '<option value="'+t+'" '+(t == me.titletag ? 'SELECTED' : '')+'>'+t+'</option>';}, '')+
 					'</select></div>'+
-					'<div><label>Description</label><textarea class="large" name="fDescription" id="fDescription">'+cff_esc_attr(me.description)+'</textarea></div>'+
+					'<div><label for="fDescription">Description</label><textarea class="large" name="fDescription" id="fDescription">'+cff_esc_attr(me.description)+'</textarea></div>'+
 
 					'<div><label>Text Align</label>'+
 					'<div class="cff-radio-group-ctrl">'+
@@ -863,13 +863,13 @@
 					'<label><input type="radio" name="fTextAlign" value="center" '+(me.textalign == 'center' ? 'checked' : '')+'><span>Center</span></label>'+
 					'<label><input type="radio" name="fTextAlign" value="right" '+(me.textalign == 'right' ? 'checked' : '')+'><span>Right</span></label></div></div>'+
 
-					'<div style="margin-top:10px;"><label style="display:inline-block;">Text Color</label> <input type="color" id="fHeaderColor" name="fHeaderColor" '+( me.headertextcolor !== '' ?  'value="'+cff_esc_attr( me.headertextcolor )+'"' : '')+'></div>'+
+					'<div style="margin-top:10px;"><label for="fHeaderColor" style="display:inline-block;">Text Color</label> <input type="color" id="fHeaderColor" name="fHeaderColor" '+( me.headertextcolor !== '' ?  'value="'+cff_esc_attr( me.headertextcolor )+'"' : '')+'></div>'+
 					/* General Settings */
 					'<hr style="margin-top:10px;" />'+
 					'<h3>Form Settings</h3>'+
-					'<div><label>Label Placement</label><select name="fLayout" id="fLayout" class="large">'+layout+'</select></div>'+
-					'<div><label>Direction</label><select name="fDirection" id="fDirection" class="large"><option value="ltr" '+(me.direction == 'ltr' ? 'SELECTED' : '')+'>LTR</option><option value="rtl" '+(me.direction == 'rtl' ? 'SELECTED' : '')+'>RTL</option></select></div>'+
-					'<div><label><input type="checkbox" name="fLoadingAnimation" id="fLoadingAnimation" '+( ( me.loading_animation ) ? 'CHECKED' : '' )+' /> Display loading form animation</label></div><div><label><input type="checkbox" name="fAutocomplete" id="fAutocomplete" '+( ( me.autocomplete ) ? 'CHECKED' : '' )+' /> Enable autocompletion</label></div><div><label><input type="checkbox" name="fPersistence" id="fPersistence" '+( ( me.persistence ) ? 'CHECKED' : '' )+' /> Enable the browser\'s persistence (the data are stored locally on browser)</label></div>';
+					'<div><label for="fLayout">Label Placement</label><select name="fLayout" id="fLayout" class="large">'+layout+'</select></div>'+
+					'<div><label for="fDirection">Direction</label><select name="fDirection" id="fDirection" class="large"><option value="ltr" '+(me.direction == 'ltr' ? 'SELECTED' : '')+'>LTR</option><option value="rtl" '+(me.direction == 'rtl' ? 'SELECTED' : '')+'>RTL</option></select></div>'+
+					'<div><label for="fLoadingAnimation"><input type="checkbox" name="fLoadingAnimation" id="fLoadingAnimation" '+( ( me.loading_animation ) ? 'CHECKED' : '' )+' /> Display loading form animation</label></div><div><label><input type="checkbox" name="fAutocomplete" id="fAutocomplete" '+( ( me.autocomplete ) ? 'CHECKED' : '' )+' /> Enable autocompletion</label></div><div><label><input type="checkbox" name="fPersistence" id="fPersistence" '+( ( me.persistence ) ? 'CHECKED' : '' )+' /> Enable the browser\'s persistence (the data are stored locally on browser)</label></div>';
 
 					if(typeof $.fbuilder.controls[ 'fCalculated' ] != 'undefined')
 					{
@@ -881,9 +881,9 @@
 						str += '<hr />';
 					}
 
-					str += '<div><label>Form Template</label><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><div style="text-align:center;padding:10px 0;"><span id="fTemplateThumbnail">'+thumbnail+'</span><div></div><span  id="fTemplateDescription">'+description+'</span></div>'+
+					str += '<div><label for="fTemplate">Form Template</label><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><div style="text-align:center;padding:10px 0;"><span id="fTemplateThumbnail">'+thumbnail+'</span><div></div><span  id="fTemplateDescription">'+description+'</span></div>'+
                     '<div><label><input type="checkbox" name="fAnimateForm" id="fAnimateForm" '+( ( me.animate_form ) ? 'CHECKED' : '' )+' /> Animate page breaks in multipage forms, and dependencies</label></div>'+
-                    '<div><label>Animation effect</label><select name="fAnimationEffect" id="fAnimationEffect" class="large">'+
+                    '<div><label for="fAnimationEffect">Animation effect</label><select name="fAnimationEffect" id="fAnimationEffect" class="large">'+
 					'<option value="fade" '+( (me.animation_effect == 'fade') ? 'SELECTED' : '' )+'>Fade</option>'+
 					'<option value="slide" '+( (me.animation_effect == 'slide') ? 'SELECTED' : '' )+'>Slide</option>'+
 					'</select></div>';
@@ -891,7 +891,7 @@
 					str += '<!-- Embed Basic Extra --></div>'+
 						'<div class="cff-field-settings-tab-body-advanced">' +
 						$.fbuilder['showAdvancedSettings']( this ) +
-						'<div class="cff-editor-container"><label><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design <i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
+						'<div class="cff-editor-container"><label for="fCustomStyles"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design <i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
 						'</div>'+
 					'</div>';
 
@@ -1269,9 +1269,9 @@
 			value = value || '';
 
 			output += '<div class="css-rule" style="margin-top:3px;">'+
-				'<div class="column width50"><input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_rule][]" value="'+cff_esc_attr(rule)+'" class="large" placeholder="CSS rule" list="cff-css-rules-datalist"></div>'+
+				'<div class="column width50"><input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_rule][]" value="'+cff_esc_attr(rule)+'" class="large" placeholder="CSS rule" list="cff-css-rules-datalist" aria-label="CSS rule name"></div>'+
 				'<div class="column width50">'+
-				'<input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_value][]" value="'+cff_esc_attr(value)+'" placeholder="CSS value" style="width:calc( 100% - 30px ) !important;">'+
+				'<input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_value][]" value="'+cff_esc_attr(value)+'" placeholder="CSS value" style="width:calc( 100% - 30px ) !important;"  aria-label="CSS rule value">'+
 				'<input type="button" data-cff-css-component="'+cff_esc_attr(component)+'" value="-" class="button-secondary cff-css-rule-delete">'+
 				'</div>'+
 				'<div class="clearer"></div>'+
@@ -1298,7 +1298,7 @@
 				for ( let i in components ) {
 					c = components[i];
 					if ( 'label' in c ) {
-						output += '<label>' + c['label'] + '</label>';
+						output += '<div>' + c['label'] + '</div>';
 					}
 					output += '<hr><div id="cff-css-rules-container-'+i+'">';
 					if ( 'rules' in c ) {
@@ -1364,6 +1364,11 @@
 				}
 			},
 			controlLabel:function( l ){ return this.name + ' - ' + l; },
+			iconsContainer: function( i, d ){
+				i = i || '';
+				d = d || true;
+				return '<div class="cff-field-controls">'+i+(d ? '<div title="Duplicate" class="copy ui-icon ui-icon-copy "></div>' : '')+'<div title="Delete" class="remove ui-icon ui-icon-trash "></div></div>';
+			},
 			init:function(){},
 			initAdv:function(){},
 			editItemEvents:function( e )

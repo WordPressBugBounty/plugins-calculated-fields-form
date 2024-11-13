@@ -96,7 +96,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						if ( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) == 0 ) :
 							esc_html_e( 'Revisions', 'calculated-fields-form' );
 							?>
-							<select name="cff_revision_list">
+							<select name="cff_revision_list" aria-label="<?php esc_attr_e( 'Form revisions list', 'calculated-fields-form' ); ?>">
 							<?php
 								print '<option value="0">' . esc_html__( 'Select a revision', 'calculated-fields-form' ) . '</option>';
 								$revisions_obj = $form_obj->get_revisions();
@@ -115,8 +115,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						&nbsp;|&nbsp;
 						<input type="button" name="cff_ai_assistant" id="cff_ai_assistant" class="button" value="<?php esc_attr_e( 'AI Assistant', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery('#cff-ai-assistant-container').show();" style="float:none;" />
 						<div class="cff-form-builder-extend-shrink">
-							<button type="button" name="cff_expand_btn" class="button-secondary" title="<?php esc_attr_e( 'Fullscreen', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Fullscreen', 'calculated-fields-form' ); ?></button>
-							<button type="button" name="cff_shrink_btn" class="button-secondary" title="<?php esc_attr_e( 'Shrink', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Shrink', 'calculated-fields-form' ); ?></button>
+							<button type="button" name="cff_expand_btn" class="button-secondary" title="<?php esc_attr_e( 'Set form builder fullscreen', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Fullscreen', 'calculated-fields-form' ); ?></button>
+							<button type="button" name="cff_shrink_btn" class="button-secondary" title="<?php esc_attr_e( 'Taking form builder out of fullscreen mode', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Shrink', 'calculated-fields-form' ); ?></button>
 						</div>
 					</div>
 					<div class="clearer"></div>
@@ -267,7 +267,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				<?php
 				if ( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) == 0 ) :
 					?>
-					| <input type="checkbox" name="cff-revisions-in-preview"
+					| <label><input type="checkbox" name="cff-revisions-in-preview"
 					<?php
 					if ( get_option( 'CP_CALCULATEDFIELDSF_REVISIONS_IN_PREVIEW', true ) ) {
 						print 'CHECKED';}
@@ -275,6 +275,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						/>
 					<?php
 					esc_html_e( 'Generate revisions in the form preview as well', 'calculated-fields-form' );
+					?></label><?php
 				endif;
 				?>
 			</p>

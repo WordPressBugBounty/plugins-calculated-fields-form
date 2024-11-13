@@ -107,7 +107,8 @@
     box-sizing: border-box;
 }
 #fbuilder .fields .ui-icon:hover{color: #135e96;}
-#fbuilder .fields .ui-icon:not(.ui-icon-play):hover{transform: scale(1.3);}
+#fbuilder .fields .ui-icon:not(.ui-icon-play):hover{transform: scale(1.1);}
+#fbuilder .fields .ui-icon.ui-icon-grip-dotted-vertical:hover{transform: scale(1.3);}
 #fbuilder .fields .ui-icon.ui-icon-trash:hover{color: #ca0404;}
 
 #fieldlist{flex: 1 1 auto;}
@@ -238,11 +239,8 @@
 #fbuilder .fields .collapse,
 #fbuilder .fields .uncollapse,
 #fbuilder .fields .remove,
-#fbuilder .fields .copy{position:absolute;bottom:0;display:none;background-color:#fff;cursor:pointer;right:0;}
-
-#fbuilder .fields .collapse{right:40px;}
-#fbuilder .fields .uncollapse{right:40px;}
-#fbuilder .fields .copy{right:20px;}
+#fbuilder .fields .copy{position:relative;display:none;background-color:#fff;cursor:pointer; font-size:17px;}
+#fbuilder .fields .cff-field-controls{display:none;position:absolute;bottom:5px;right:5px;background:rgba(255,255,255,.5);border:1px solid #0293e2;border-radius:5px;padding:5px;z-index:999;}
 
 #fbuilder legend{ border:1px solid #CDCDCD; background:#FFF; margin-left:5px; padding: 0 5px; }
 #fbuilder .fcontainer{ border:1px solid #CDCDCD;min-height:67px;padding:10px 5px;position:relative;border-radius:2px;}
@@ -308,7 +306,8 @@ input [readonly] {background-color: #f00;}
 #fbuilder .fform.ui-selected,
 #fbuilder .fields.ui-selected{background-color:#f0f0f1;box-shadow: 0 0 0 1px #0293e2;
 	border-radius: 2px;}
-#fbuilder .fields.ui-selected .arrow,#fbuilder .fields.ui-selected>.remove,#fbuilder .fields.ui-selected>.copy,#fbuilder .fields.ui-selected>.collapse,#fbuilder .fields.ui-selected.collapsed>.uncollapse{display:inline}
+#fbuilder .fields.ui-selected .arrow,#fbuilder .fields.ui-selected>.cff-field-controls,#fbuilder .fields.ui-selected>.cff-field-controls>.remove,#fbuilder .fields.ui-selected>.cff-field-controls>.copy,#fbuilder .fields.ui-selected:not(.collapsed)>.cff-field-controls>.collapse,#fbuilder .fields.ui-selected.collapsed>.cff-field-controls>.uncollapse{display:inline-block;}
+
 #fbuilder .fields.collapsed>.dfield>.fcontainer{border-color: rgba(255,201,38,.75);}
 #fbuilder .collapsed-label{padding-top:10px;padding-bottom:10px;}
 #fbuilder .fields:not(.collapsed)>.dfield>.fcontainer>.collapsed-label{display:none;}
@@ -340,7 +339,9 @@ input [readonly] {background-color: #f00;}
 #fbuilder .fform h4{font-size:1.3em;}
 #fbuilder .fform h5{font-size:1em;}
 #fbuilder .fform h6{font-size:0.8em;}
-input.disabled {background: #fff;color: #888;cursor: default;}
+#fbuilder .fields input.disabled,
+#fbuilder .fields select.disabled,
+#fbuilder .fields textarea.disabled {background: #fff;color: #333;cursor: default;}
 #fbuilder .fields .disabled{pointer-events:none;}
 label1{display:inline}
 input.small, select.small, textarea.small, .small{width:25%}

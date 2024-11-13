@@ -204,13 +204,9 @@
 		return r;
 	};
 
-	// WEEKDAY( date_string, date_format_string )
-	lib.WEEKNUM	= function( date, format, leading_zeros ){
-		var tmp = _processArguments.apply( null, arguments );
-        date 			= tmp[ 'date' ];
-        format 			= tmp[ 'format' ];
-        leading_zeros 	= tmp[ 'leading_zeros' ];
+	// WEEKNUM( date_string, date_format_string, leading_zeros )
 
+	function _weeknum_base(date, format, leading_zeros, version) {
 		var d   	= _getDateObj( date, format ), i, n,
 			r 		= false;
 
@@ -218,11 +214,33 @@
 
 			i = new Date(d.getFullYear(), 0, 1, 0, 0, 0, 0);
 			n = ( d - i ) / ( 24 * 60 * 60 * 1000 );
-			r = Math.max( Math.ceil( (n+1) / 7 ), 1 );
+			if (version == 1) {
+				r = Math.max( Math.ceil( (n+1) / 7 ), 1 );
+			} else {
+				let w = lib.WEEKDAY(i);
+				r = Math.max( Math.ceil( (n+w) / 7 ), 1 ) % 52;
+			}
 			if ( leading_zeros ) r = _leadingZeros( r );
 
 		}
 		return r;
+	};
+
+	lib.WEEKNUM	= function( date, format, leading_zeros ){
+		var tmp = _processArguments.apply( null, arguments );
+        date 			= tmp[ 'date' ];
+        format 			= tmp[ 'format' ];
+        leading_zeros 	= tmp[ 'leading_zeros' ];
+		return _weeknum_base(date, format, leading_zeros, 1);
+	};
+
+	lib.WEEKNUM2	= function( date, format, leading_zeros ){
+		var tmp = _processArguments.apply( null, arguments );
+        date 			= tmp[ 'date' ];
+        format 			= tmp[ 'format' ];
+        leading_zeros 	= tmp[ 'leading_zeros' ];
+		return _weeknum_base(date, format, leading_zeros, 2);
+
 	};
 
 	// HOURS( datetime_string, datetime_format_string )

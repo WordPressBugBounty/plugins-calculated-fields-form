@@ -67,9 +67,10 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					var me = this,
+					let me = this,
 						dformat = me.dformat.replace(/\//g, me.dseparator);
-					return '<div class="fields '+me.name+' '+this.ftype+' '+css_class+'" id="field'+me.form_identifier+'-'+me.index+'" title="'+me.controlLabel('Date Time')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+me.title+''+((me.required)?"*":"")+' ('+dformat+')</label><div class="dfield">'+this.showColumnIcon()+'<input class="field disabled '+me.size+'" type="text" value="'+cff_esc_attr(me.predefined)+'"/><span class="uh">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
+					let id = 'field'+me.form_identifier+'-'+me.index;
+					return '<div class="fields '+me.name+' '+me.ftype+' '+css_class+'" id="'+id+'" title="'+me.controlLabel('Date Time')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+me.iconsContainer()+'<label for="'+id+'-box">'+me.title+''+((me.required)?"*":"")+' ('+dformat+')</label><div class="dfield">'+me.showColumnIcon()+'<input id="'+id+'-box" class="field disabled '+me.size+'" type="text" value="'+cff_esc_attr(me.predefined)+'"/><span class="uh">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
