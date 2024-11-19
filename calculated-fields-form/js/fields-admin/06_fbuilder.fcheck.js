@@ -245,12 +245,12 @@
 			minChoices: function()
 				{
 					return '<label style="margin-bottom:10px;"><input type="number" name="sMin" value="'+(($.fbuilder.isNumeric(this.min) && 0<=this.min) ? this.min : '')+'" style="max-width:60px;" /> Minimum number of choices to be ticked.</label>'+
-					'<input type="text" name="sMinError" class="large" value="'+cff_esc_attr(cff_html_decode(this.minError))+'" placeholder="Min choices error messages" />';
+					'<input type="text" name="sMinError" class="large" value="'+cff_esc_attr(cff_html_decode(this.minError))+'" placeholder="Min choices error messages" aria-label="Min error message" />';
 				},
 			maxChoices: function()
 				{
 					return '<label style="margin-bottom:10px;"><input type="number" name="sMax" value="'+(($.fbuilder.isNumeric(this.max) && 0<=this.max) ? this.max : '')+'" style="max-width:60px;" min="1" /> Maximum number of choices to be ticked.</label>'+
-					'<input type="text" name="sMaxError" class="large" value="'+cff_esc_attr(cff_html_decode(this.maxError))+'" placeholder="Max choices error messages" />';
+					'<input type="text" name="sMaxError" class="large" value="'+cff_esc_attr(cff_html_decode(this.maxError))+'" placeholder="Max choices error messages" aria-label="Max error message" />';
 				},
 			showChoiceIntance: function()
 				{
@@ -271,19 +271,19 @@
 					for (var i=0;i<l.length;i++)
 					{
 						str1 = '';
-						str += '<div class="choicesEdit"><input class="choice_check" i="'+i+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+' title="Choice selected by default" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+cff_esc_attr(cff_html_decode(l[i]))+'"/><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+cff_esc_attr(cff_html_decode(lv[i]))+'"/><div class="choice-ctrls"><a class="choice_down ui-icon ui-icon-arrowthick-1-s" i="'+i+'" n="'+(l.length-1)+'" title="Down"></a><a class="choice_up ui-icon ui-icon-arrowthick-1-n" i="'+i+'" title="Up"></a><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div></div>';
+						str += '<div class="choicesEdit"><input class="choice_check" i="'+i+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+' title="Choice selected by default" aria-label="Select choice by default" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+cff_esc_attr(cff_html_decode(l[i]))+'" aria-label="Choice text" /><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+cff_esc_attr(cff_html_decode(lv[i]))+'" aria-label="Choice value" /><div class="choice-ctrls"><a class="choice_down ui-icon ui-icon-arrowthick-1-s" i="'+i+'" n="'+(l.length-1)+'" title="Down"></a><a class="choice_up ui-icon ui-icon-arrowthick-1-n" i="'+i+'" title="Up"></a><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div></div>';
 						j = d[i].length;
 						if(j)
 						{
 							while(j--)
 							{
-								str1 = '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" ></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>'+str1;
+								str1 = '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="'+d[i][j]+'" aria-label="Dependent field"></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>'+str1;
 							}
 							str += str1;
 						}
 						else
 						{
-							str += '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="" ></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
+							str += '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="" aria-label="Dependent field"></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
 						}
 					}
 					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices<a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+this.mergeValues()+this.attributeToSubmit()+'<hr style="margin-top:20px;margin-bottom:20px;" />'+this.minChoices()+this.maxChoices()+'</div>';

@@ -542,13 +542,13 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			$attachments = array();
 
 			// Remove empty blocks.
-			while ( preg_match( '/<%\s*fieldname(\d+)_block\s*(?:(?!%>).)*%>/', $text, $matches ) ) {
+			while ( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_block\s*(?:(?!%>).)*%>/", $text, $matches ) ) {
 				$tags   = self::_extract_tags( $matches[0] );
 				$tags   = array_pop( $tags );
 				$tags   = array_pop( $tags );
 				$remove = false;
-				if ( isset( $params[ 'fieldname' . $matches[1] ] ) ) {
-					$tmp_param = $params[ 'fieldname' . $matches[1] ];
+				if ( isset( $params[ $matches[1] ] ) ) {
+					$tmp_param = $params[ $matches[1] ];
 					$value     = is_array( $tmp_param ) ? implode( ',', $tmp_param ) : $tmp_param;
 					$value     = trim( $value );
 
@@ -571,22 +571,22 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 				if ( $remove ) {
 					$from = strpos( $text, $matches[0] );
-					if ( preg_match( '/<%\s*fieldname(' . $matches[1] . ')_endblock\s*%>/', $text, $matches_end ) ) {
+					if ( preg_match( '/<%\s*' . $matches[1] . '_endblock\s*%>/', $text, $matches_end ) ) {
 						$length = strpos( $text, $matches_end[0] ) + strlen( $matches_end[0] ) - $from;
 					} else {
 						$length = strlen( $matches[0] );
 					}
 					$text = substr_replace( $text, '', $from, $length );
 				} else {
-					$text = preg_replace( array( '/' . preg_quote( $matches[0] ) . '/', '/<%\s*fieldname' . $matches[1] . '_endblock\s*%>/' ), '', $text, 1 );
+					$text = preg_replace( array( '/' . preg_quote( $matches[0] ) . '/', '/<%\s*' . $matches[1] . '_endblock\s*%>/' ), '', $text, 1 );
 				}
 			}
 
 			// Remove empty nonblocks.
-			while ( preg_match( '/<%\s*fieldname(\d+)_nonblock\s*%>/', $text, $matches ) ) {
+			while ( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_nonblock\s*%>/", $text, $matches ) ) {
 				$remove = false;
-				if ( isset( $params[ 'fieldname' . $matches[1] ] ) ) {
-					$tmp_param = $params[ 'fieldname' . $matches[1] ];
+				if ( isset( $params[ $matches[1] ] ) ) {
+					$tmp_param = $params[ $matches[1] ];
 					$value     = is_array( $tmp_param ) ? implode( ',', $tmp_param ) : $tmp_param;
 					$value     = trim( $value );
 					if ( '' != $value ) {
@@ -596,14 +596,14 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 				if ( $remove ) {
 					$from = strpos( $text, $matches[0] );
-					if ( preg_match( '/<%\s*fieldname(' . $matches[1] . ')_endnonblock\s*%>/', $text, $matches_end ) ) {
+					if ( preg_match( '/<%\s*' . $matches[1] . '_endnonblock\s*%>/', $text, $matches_end ) ) {
 						$length = strpos( $text, $matches_end[0] ) + strlen( $matches_end[0] ) - $from;
 					} else {
 						$length = strlen( $matches[0] );
 					}
 					$text = substr_replace( $text, '', $from, $length );
 				} else {
-					$text = preg_replace( array( '/' . preg_quote( $matches[0] ) . '/', '/<%\s*fieldname' . $matches[1] . '_endnonblock\s*%>/' ), '', $text, 1 );
+					$text = preg_replace( array( '/' . preg_quote( $matches[0] ) . '/', '/<%\s*' . $matches[1] . '_endnonblock\s*%>/' ), '', $text, 1 );
 				}
 			}
 
@@ -861,7 +861,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 			if (
 				preg_match_all(
-					"/<%(info|fieldname\d+|fieldname\d+_label|fieldname\d+_block|fieldname\d+_endblock|fieldname\d+_shortlabel|fieldname\d+_value|fieldname\d+_url|fieldname\d+_urls|fieldname\d+_path|fieldname\d+_paths|coupon|couponcode|itemnumber|formid|subscription_id|transaction_id|final_price|payment_option|ipaddress|from_page|form_name|form_title|form_description|thank_you_page|currentdate_mmddyyyy|currentdate_ddmmyyyy|currenttime|submissiondate_mmddyyyy|submissiondate_ddmmyyyy|submissiontime|payment_status)\b(?:(?!%>).)*%>/i",
+					"/<%(info|fieldname\d+|fieldname\d+_label|fieldname\d+_block|fieldname\d+_endblock|fieldname\d+_shortlabel|fieldname\d+_value|fieldname\d+_url|fieldname\d+_urls|fieldname\d+_path|fieldname\d+_paths|coupon|coupon_block|coupon_endblock|couponcode|itemnumber|formid|subscription_id|transaction_id|final_price|final_price_block|final_price_endblock|payment_option|payment_option_block|payment_option_endblock|ipaddress|from_page|form_name|form_title|form_description|thank_you_page|currentdate_mmddyyyy|currentdate_ddmmyyyy|currenttime|submissiondate_mmddyyyy|submissiondate_ddmmyyyy|submissiontime|payment_status|payment_status_block|payment_status_endblock)\b(?:(?!%>).)*%>/i",
 					$text,
 					$matches
 				)

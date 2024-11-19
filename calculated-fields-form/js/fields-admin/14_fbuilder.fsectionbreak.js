@@ -24,7 +24,7 @@
 				},
 			showTitle: function()
 				{
-					return '<label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(this.title)+'</textarea>';
+					return '<label for="sTitle">Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(this.title)+'</textarea>';
 				},
 			editItemEvents:function()
 				{

@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.57 =
+
+* Enhances the accessibility of the forms builder.
+* Modifies the forms builder styles.
+* Implements new block/endblock tags pairs in the notification emails and thank you pages for coupon, payment_status, and payment_option.
+* Enhances the WooCommerce add-on (Developer and Platinum plugin versions).
+* Modifies the iCal, MailPoet, PDF Generator, PrintFriendly and Stripe add-ons (Platinum plugin version).
+
 = 5.2.56 =
 = 5.2.55 =
 

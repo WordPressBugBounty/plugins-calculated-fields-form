@@ -45,7 +45,7 @@
 				},
 			showTitle: function(v)
 				{
-					return '<label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(v)+'</textarea>';
+					return '<label for="sTitle">Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(v)+'</textarea>';
 				},
 			showRequired: function(v)
 				{
@@ -55,15 +55,15 @@
 			showUserhelp: function(){ return ''; },
 			showValue:function()
 				{
-					return '<label>Value</label><input class="large" type="text" name="sValue" id="sValue" value="'+cff_esc_attr(this.value)+'">';
+					return '<label for="sValue">Value</label><input class="large" type="text" name="sValue" id="sValue" value="'+cff_esc_attr(this.value)+'">';
 				},
 			showURL:function()
 				{
-					return '<label>URL to the Consent and Acknowledgement page</label><input class="large" type="text" name="sURL" id="sURL" value="'+cff_esc_attr(this.url)+'">';
+					return '<label for="sURL">URL to the Consent and Acknowledgement page</label><input class="large" type="text" name="sURL" id="sURL" value="'+cff_esc_attr(this.url)+'">';
 				},
 			showMessage:function()
 				{
-					return '<label>- or - enter the Consent and Acknowledgement text</label><textarea class="large" name="sMessage" id="sMessage" style="height:150px;">'+cff_esc_attr(this.message)+'</textarea>';
+					return '<label for="sMessage">- or - enter the Consent and Acknowledgement text</label><textarea class="large" name="sMessage" id="sMessage" style="height:150px;">'+cff_esc_attr(this.message)+'</textarea>';
 				},
 			showCsslayout:function()
 				{

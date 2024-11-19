@@ -28,7 +28,7 @@ function cp_calculatedfieldsf_form_cache() {
 
 			if ( $result  = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM `' . $table_name . '` WHERE id=%d', $form_id ), ARRAY_A ) ) {
 				if ( ! array_key_exists( 'extra', $result ) ) {
-					$wpdb->query( "ALTER TABLE  `" . $table_name . "` ADD `extra` longtext" );
+					$wpdb->query( "ALTER TABLE  `" . $table_name . "` ADD `extra` LONGTEXT" );
 				}
 
 				if ( ! empty( $result['extra'] ) ) {

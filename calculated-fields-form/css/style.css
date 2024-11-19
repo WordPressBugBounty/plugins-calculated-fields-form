@@ -315,6 +315,8 @@ input [readonly] {background-color: #f00;}
 #fbuilder .fields.collapsed>.dfield>.fcontainer>.fieldscontainer{display:none;}
 #fbuilder .fform.ui-over,
 #fbuilder .fields.ui-over{box-shadow: 0 0 0 1px #0293e2;border-radius:2px;}
+
+#fbuilder .fields.fmark .cff-empty-image,
 #fbuilder .fields.fmark img:not([src]){
 	display:inline-block;
 	background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAADwElEQVR4nO3dvWsUQRzG8SfkDl8QiUEEC8HCwsIiYGQ4IjaKSaO9jY0WWqSxSCGCmIBBiKAmiopGIca/U34wwePYu9vdmdl5dvf5woLo3Rjvw+7szt6dgFJKKRUvB+A7gM8AViOOq2q0AOAbgL9+OwIwqjOQitfXMRChEHTL7xlCIZtHJlH+ALid+wfrc0IhTCiECYUwoRAmlEzZGdUegKWSKNoQ9BqUAhEK+ECEAj4QoYAPZFaa6KuXFMQSChmIJRQyEEsoZCCWUMhALKGQgVhCIQOxhEIGYgmFDMQSChmIJRQyEEsoZCDwb7pjfYvREMAGgG0Av/xmv173f9ZJEFaUZQC7M1Zkd/1jOgnChjKcgzGOMuwqCBPKRgmMk+1+l0FYUHYqgNic0mkQhrOvwwog9tjOg+RGOawA8rMvIDkPXzs6ZHGhrGtS//9prTMEKMMKp72Drh6yDOMJgHcAzhOgLPf5wnARwObY+CwoA3+dse0netve+N+LsWdQgpwCsFXwd7wivk6JHQ3IWQCvC8b/AuAK8XVKJ0HskPS2YOwPAC6VeL7rEEp2kIsA3heMa3PHhQrjuI6gZAW5DOBTwZg2cZ6rMZ7rAEo2kKsFX0Jg20sApwPGdS1HyQJyHcCPgrFeRLqn4FqM0jjIir/9OTnOM38NEivXUpRGQYquG2x75K/OYzeKeJ1i33x04LfVLoDcBXA8BSNlLsKeMjlGyj2tEZAHBRjH/vZoE7kAlGmfLE6FkhRkwe8Bk8+xf+AdNJurgTLvY94pUJKBGMbTgsf/9hN7jkYV5pRpj029dpYEZDCxYnuy2QrpDeTNldhTpj1mrYGzt+gg01Zs7Xsar4EjN+NFnYVR5vlUINNWbPf9MglTo8BDUqql/2ggoSu2OXIlJu21is8P3VOigMRasc2Rm3Fau1bz+SEowSDTVmx3aq7Y5sgFvqgxUYJBilZst/zk3qZGgXNCrDklGGRy24x80z9Vi6QoUUGeR16xTZXz89sS4eErGsjjRCu2sXNjL9geIUowiC0SPkQ7GhW8ULtkh69gkHtoR6s1XqAcKMEgbemg5gvbNEovQY4qnvk0idIbkBWPsl/zFmxTKL0BiVETZ18CIUMRCBmKQGqWak4RCNmeIhBylLn1+SwrB8rcBNIsytwEknaiF0jkst8PUWT3Q1RclGAQbUj6f3IJBFwoAgEXikDAhaIS1tYPonY6JxS+hEKYUAgTCmFCadEq8c3cP1ifGxWg2HvIFBGKfb2hypwdpj76vUOHLKWUUojVPzkdWwGfZ5+dAAAAAElFTkSuQmCC") no-repeat;
@@ -553,7 +555,8 @@ textarea {resize: none}
 #metabox_captcha_settings td{vertical-align:top;}
 
 a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer;}
-.working_dates input[type='checkbox']{width:8%}
+.working_dates input[type='checkbox']{min-width:15px;margin-left:15px;}
+.working_dates input[type='checkbox']:first-of-type{margin-left:0;}
 .form-builder .ui-button-text {
     display: block !important;
 }

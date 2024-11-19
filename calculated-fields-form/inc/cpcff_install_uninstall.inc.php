@@ -138,7 +138,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				fp_message mediumtext,
 				fp_emailformat VARCHAR(10) DEFAULT '' NOT NULL,
 				cu_enable_copy_to_user VARCHAR(10) DEFAULT '' NOT NULL,
-				cu_user_email_field TEXT DEFAULT '' NOT NULL,
+				cu_user_email_field TEXT,
 				cu_subject TEXT,
 				cu_message mediumtext,
 				cu_emailformat VARCHAR(10) DEFAULT '' NOT NULL,
@@ -157,7 +157,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				vs_text_submitbtn VARCHAR(250) DEFAULT '' NOT NULL,
 				vs_text_previousbtn VARCHAR(250) DEFAULT '' NOT NULL,
 				vs_text_nextbtn VARCHAR(250) DEFAULT '' NOT NULL,
-				vs_all_texts text DEFAULT '' NOT NULL,
+				vs_all_texts TEXT,
 				enable_paypal varchar(10) DEFAULT '' NOT NULL,
 				enable_submit varchar(10) DEFAULT 'no' NOT NULL,
 				paypal_notiemails varchar(10) DEFAULT '' NOT NULL,
@@ -190,7 +190,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				cv_text_enter_valid_captcha VARCHAR(200) DEFAULT '' NOT NULL,
 				category VARCHAR(250),
 				extra LONGTEXT,
-				cache longtext DEFAULT '' NOT NULL,
+				cache LONGTEXT,
 				cu_user_email_bcc_field VARCHAR(250),
 				UNIQUE KEY id (id)
 				) $charset_collate ENGINE=InnoDB ROW_FORMAT=DYNAMIC;";
@@ -200,7 +200,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				formid mediumint(9) NOT NULL,
 				time datetime,
-				revision longtext NOT NULL,
+				revision LONGTEXT,
 				UNIQUE KEY id (id)
 				) $charset_collate;";
 

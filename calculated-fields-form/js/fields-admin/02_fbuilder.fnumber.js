@@ -125,12 +125,12 @@
 						}
 
 						return '<div><label><input type="checkbox" name="sSpinner" id="sSpinner" '+( (this.spinner) ? 'CHECKED' : '')+'> Display spinner buttons</label></div>'+
-						'<div><label>Number Format</label><select name="sFormat" id="sFormat">'+str+'</select></div>'+
+						'<div><label for="sFormat">Number Format</label><select name="sFormat" id="sFormat">'+str+'</select></div>'+
 						'<div class="fnumber-hint" '+((df != 'percent') ? 'style="display:none;"' : '')+'><i>The field value in the equations would be its decimal representation. Ex. 10% would be 0.1</i></div>'+
-						'<div class="fnumber-symbols" '+((df == 'digits') ? 'style="display:none;"' : '')+'><label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+cff_esc_attr(this.decimalSymbol)+'" /><label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sThousandSeparator" id="sThousandSeparator" class="large" value="'+cff_esc_attr(this.thousandSeparator)+'" /></div>'+
+						'<div class="fnumber-symbols" '+((df == 'digits') ? 'style="display:none;"' : '')+'><label for="sDecimalSymbol">Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+cff_esc_attr(this.decimalSymbol)+'" /><label for="sThousandSeparator">Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sThousandSeparator" id="sThousandSeparator" class="large" value="'+cff_esc_attr(this.thousandSeparator)+'" /></div>'+
 						'<div class="fnumber-prefix-postfix-symbols" '+((df != 'number') ? 'style="display:none;"' : '')+'>'+
-						'<label>Prefix Symbol</label><input type="text" name="sPrefix" id="sPrefix" value="'+cff_esc_attr(this.prefix)+'" class="large">'+
-						'<label>Postfix Symbol</label><input type="text" name="sPostfix" id="sPostfix" value="'+cff_esc_attr(this.postfix)+'" class="large">'+
+						'<label for="sPrefix">Prefix Symbol</label><input type="text" name="sPrefix" id="sPrefix" value="'+cff_esc_attr(this.prefix)+'" class="large">'+
+						'<label for="sPostfix">Postfix Symbol</label><input type="text" name="sPostfix" id="sPostfix" value="'+cff_esc_attr(this.postfix)+'" class="large">'+
 						'</div>'+
 						'<div class="fnumber-symbols" '+((df == 'digits') ? 'style="display:none;"' : '')+'><label class="column width50"><input type="checkbox" name="sFormatDynamically" id="sFormatDynamically" '+( (this.formatDynamically) ? 'CHECKED' : '')+'> Format dynamically to</label>'+
 						'<label class="column width50"><input type="checkbox" name="sTwoDecimals" id="sTwoDecimals" '+( (this.twoDecimals) ? 'CHECKED' : '')+'> two decimal places</label>'+
@@ -138,6 +138,6 @@
 					},
 				showRangeIntance: function()
 					{
-						return '<div class="column width30"><label>Min</label><input type="text" name="sMin" id="sMin" value="'+cff_esc_attr(this.min)+'" class="large"></div><div class="column width30"><label>Max</label><input type="text" name="sMax" id="sMax" value="'+cff_esc_attr(this.max)+'" class="large"></div><div class="column width30"><label>Step</label><input type="text" name="sStep" id="sStep" value="'+cff_esc_attr(this.step)+'" placeholder="1 by default" class="large"></div><div class="clearer"><i>It is possible to associate other fields in the form to the attributes "min" and "max". Ex: fieldname1</i></div>';
+						return '<div class="column width30"><label for="sMin">Min</label><input type="text" name="sMin" id="sMin" value="'+cff_esc_attr(this.min)+'" class="large"></div><div class="column width30"><label for="sMax">Max</label><input type="text" name="sMax" id="sMax" value="'+cff_esc_attr(this.max)+'" class="large"></div><div class="column width30"><label for="sStep">Step</label><input type="text" name="sStep" id="sStep" value="'+cff_esc_attr(this.step)+'" placeholder="1 by default" class="large"></div><div class="clearer"><i>It is possible to associate other fields in the form to the attributes "min" and "max". Ex: fieldname1</i></div>';
 					}
 		});

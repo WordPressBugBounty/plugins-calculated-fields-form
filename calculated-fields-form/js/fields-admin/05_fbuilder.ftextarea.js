@@ -45,6 +45,6 @@
 				},
 			showSpecialDataInstance: function()
 				{
-					return '<div class="column width50"><label>Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label>Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer"></div><label>Number of rows</label><input type="text" name="sRows" id="sRows" value="'+cff_esc_attr(this.rows)+'" />';
+					return '<div class="column width50"><label for="sMinlength">Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label for="sMaxlength">Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer"></div><label for="sRows">Number of rows</label><input type="text" name="sRows" id="sRows" value="'+cff_esc_attr(this.rows)+'" />';
 				}
 	});

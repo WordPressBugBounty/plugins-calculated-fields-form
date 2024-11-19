@@ -1159,7 +1159,7 @@
 		showTitle: function(v, l)
 		{
 			l = l || 'default';
-			return '<label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(v)+'</textarea>'+
+			return '<label for="sTitle">Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(v)+'</textarea>'+
 					'<div><label>Label Placement</label>'+
 					'<div class="cff-radio-group-ctrl">'+
 					'<label><input type="radio" name="sFieldLayout" value="default" '+(l == 'default' ? 'checked' : '')+'><span>Default</span></label>'+
@@ -1169,20 +1169,20 @@
 		},
 		showShortLabel: function( v )
 		{
-			return '<div><label>Short label (optional) [<a class="helpfbuilder" text="The short label is used at title for the column when exporting the form data to CSV files.\n\nIf the short label is empty then, the field label will be used for the CSV file.">help?</a>] :</label><input type="text" class="large" name="sShortlabel" id="sShortlabel" value="'+cff_esc_attr(v)+'" /></div>';
+			return '<div><label for="sShortlabel">Short label (optional) [<a class="helpfbuilder" text="The short label is used at title for the column when exporting the form data to CSV files.\n\nIf the short label is empty then, the field label will be used for the CSV file.">help?</a>] :</label><input type="text" class="large" name="sShortlabel" id="sShortlabel" value="'+cff_esc_attr(v)+'" /></div>';
 		},
 		showName: function( v )
 		{
-			return '<div><label>Field name, tag for the message:</label><input type="text" readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+cff_esc_attr(v)+'%&gt;" />'+
-				   '<input style="display:none" readonly="readonly" class="large" name="sName" id="sName" value="'+cff_esc_attr(v)+'" /></div>';
+			return '<div><label for="sNametag">Field name, tag for the message:</label><input type="text" readonly="readonly" class="large" name="sNametag" id="sNametag" value="&lt;%'+cff_esc_attr(v)+'%&gt;" />'+
+				   '<input style="display:none" readonly="readonly" class="large" name="sName" aria-label="Field name" id="sName" value="'+cff_esc_attr(v)+'" /></div>';
 		},
 		showPredefined: function(v,c)
 		{
-			return '<div><label>Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+cff_esc_attr(v)+'</textarea><br /><i>It is possible to use another field in the form as predefined value. Ex: fieldname1</i><label><input type="checkbox" name="sPredefinedClick" id="sPredefinedClick" '+((c)?"checked":"")+' value="1" > Use predefined value as placeholder.</label></div>';
+			return '<div><label for="sPredefined">Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+cff_esc_attr(v)+'</textarea><br /><i>It is possible to use another field in the form as predefined value. Ex: fieldname1</i><label><input type="checkbox" name="sPredefinedClick" id="sPredefinedClick" '+((c)?"checked":"")+' value="1" > Use predefined value as placeholder.</label></div>';
 		},
 		showEqualTo: function(v,name)
 		{
-			return '<div><label>Equal to [<a class="helpfbuilder" text="Use this field to create password confirmation field or email confirmation fields.\n\nSpecify this setting ONLY into the confirmation field, not in the original field.">help?</a>]</label><select class="equalTo" name="sEqualTo" id="sEqualTo" dvalue="'+cff_esc_attr(v)+'" dname="'+cff_esc_attr(name)+'"></select></div>';
+			return '<div><label for="sEqualTo">Equal to [<a class="helpfbuilder" text="Use this field to create password confirmation field or email confirmation fields.\n\nSpecify this setting ONLY into the confirmation field, not in the original field.">help?</a>]</label><select class="equalTo" name="sEqualTo" id="sEqualTo" dvalue="'+cff_esc_attr(v)+'" dname="'+cff_esc_attr(name)+'"></select></div>';
 		},
 		showAutocomplete: function(v)
 		{
@@ -1192,7 +1192,7 @@
             {
                 options += '<option value="'+cff_esc_attr(values[i])+'" '+(values[i] == v ? 'SELECTED' : '')+'>'+cff_esc_attr(values[i])+'</option>';
             }
-			return '<div><label>Autocomplete</label>'+
+			return '<div><label for="sAutocomplete">Autocomplete</label>'+
             '<select class="large" name="sAutocomplete" id="sAutocomplete">'+options+'</select><br><i>The field attribute takes precedence over the form settings.</i></div>';
 		},
 		showRequired: function(v)
@@ -1236,19 +1236,19 @@
 			{
 				str += '<option value="'+cff_esc_attr(this.layoutList[i].id)+'" '+((this.layoutList[i].id==v)?"selected":"")+'>'+cff_esc_attr(this.layoutList[i].name)+'</option>';
 			}
-			return '<label>Field Layout</label><select name="sLayout" id="sLayout">'+str+'</select>';
+			return '<label for="sLayout">Field Layout</label><select name="sLayout" id="sLayout">'+str+'</select>';
 		},
 		showUserhelp: function(v,a,c,i)
 		{
 			return '<hr>'+
-			'<label>Instructions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+cff_esc_attr(v)+'</textarea><label class="column"><input type="checkbox" name="sUserhelpTooltip" id="sUserhelpTooltip" '+((c)?"checked":"")+' value="1" > Show as floating tooltip&nbsp;&nbsp;</label><label class="column"><input type="checkbox" name="sTooltipIcon" id="sTooltipIcon" '+((i)?"checked":"")+' value="1" > Display on icon</label><div class="clearer"></div>'+
-			'<label>Audio Tutorial</label>'+
+			'<label for="sUserhelp">Instructions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+cff_esc_attr(v)+'</textarea><label class="column"><input type="checkbox" name="sUserhelpTooltip" id="sUserhelpTooltip" '+((c)?"checked":"")+' value="1" > Show as floating tooltip&nbsp;&nbsp;</label><label class="column"><input type="checkbox" name="sTooltipIcon" id="sTooltipIcon" '+((i)?"checked":"")+' value="1" > Display on icon</label><div class="clearer"></div>'+
+			'<label for="sAudioSrc">Audio Tutorial</label>'+
 			'<div><input type="text" style="width:70%;" name="sAudioSrc" id="sAudioSrc" value="'+cff_esc_attr(a)+'"><input id="sSelectAudioBtn" type="button" value="Browse" style="width:28%;" class="button-secondary" /></div>'+
 			'<hr>';
 		},
 		showCsslayout: function(v)
 		{
-			return '<div><label>Add Css Layout Keywords</label><input type="text" class="large" name="sCsslayout" id="sCsslayout" value="'+cff_esc_attr(v)+'" /></div>';
+			return '<div><label for="sCsslayout">Add Css Layout Keywords</label><input type="text" class="large" name="sCsslayout" id="sCsslayout" value="'+cff_esc_attr(v)+'" /></div>';
 		}
 	};
 
@@ -1683,7 +1683,7 @@
 			{
 				if(typeof this._developerNotes != 'undefined')
 				{
-					return '<hr><label>Developer Notes</label><textarea class="large" name="sDeveloperNotes" id="sDeveloperNotes">'+cff_esc_attr(this._developerNotes)+'</textarea><div class="clearer"><span class="uh">Developer notes. Only visible in the Form Builder</span></div><hr>';
+					return '<hr><label for="sDeveloperNotes">Developer Notes</label><textarea class="large" name="sDeveloperNotes" id="sDeveloperNotes">'+cff_esc_attr(this._developerNotes)+'</textarea><div class="clearer"><span class="uh">Developer notes. Only visible in the Form Builder</span></div><hr>';
 				}
 				else
 				{

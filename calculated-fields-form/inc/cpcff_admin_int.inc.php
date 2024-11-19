@@ -96,7 +96,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						if ( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) == 0 ) :
 							esc_html_e( 'Revisions', 'calculated-fields-form' );
 							?>
-							<select name="cff_revision_list" aria-label="<?php esc_attr_e( 'Form revisions list', 'calculated-fields-form' ); ?>">
+							<select name="cff_revision_list" aria-label="<?php esc_attr_e( 'Form revisions list', 'calculated-fields-form' ); ?>" style="width:initial;">
 							<?php
 								print '<option value="0">' . esc_html__( 'Select a revision', 'calculated-fields-form' ) . '</option>';
 								$revisions_obj = $form_obj->get_revisions();

@@ -28,11 +28,11 @@
 				},
 			showTitle: function(f)
 				{
-					return '<div><label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(this.title)+'</textarea><span class="uh">The field label is only for the admin section, never for the public page</span></div>';
+					return '<div><label for="sTitle">Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(this.title)+'</textarea><span>The field label is only for the admin section, never for the public page</span></div>';
 				},
 			showUserhelp:function(){ return ''; },
 			showPredefined: function()
 				{
-					return '<div><label>Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+cff_esc_attr(this.predefined)+'</textarea></div>';
+					return '<div><label for="sPredefined">Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+cff_esc_attr(this.predefined)+'</textarea></div>';
 				}
 	});

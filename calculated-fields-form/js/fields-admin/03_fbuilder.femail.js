@@ -60,7 +60,7 @@
                         return '<a class="button-primary large" href="https://cff-bundles.dwbooster.com/product/email-validator" target="_blank" style="text-align:center;margin-top:10px;">Advanced email validator [+]</a>';
                     }
 
-					var str = '<label>Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div><label>Error message when the regular expression fails</label><input type="text" name="sRegExpMssg" id="sRegExpMssg" value="'+cff_esc_attr(this.regExpMssg)+'" class="large" /><div class="cff-email-validator">'+(
+					var str = '<label for="sRegExp">Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div><label for="sRegExpMssg">Error message when the regular expression fails</label><input type="text" name="sRegExpMssg" id="sRegExpMssg" value="'+cff_esc_attr(this.regExpMssg)+'" class="large" /><div class="cff-email-validator">'+(
                         ('cff-email-validator-checked' in $.fbuilder && !$.fbuilder['cff-email-validator-checked']) ? email_validator_link() : ''
                     )+'</div>';
 

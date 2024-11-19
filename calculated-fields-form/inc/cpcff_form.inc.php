@@ -284,7 +284,10 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			$value = $default;
 			$this->_get_settings();
 
-			if ( isset( $this->_settings[ $option ] ) ) {
+			if (
+				isset( $this->_settings[ $option ] ) &&
+				! is_null( $this->_settings[ $option ] )
+			) {
 				$value = @$this->_settings[ $option ];
 			}
 

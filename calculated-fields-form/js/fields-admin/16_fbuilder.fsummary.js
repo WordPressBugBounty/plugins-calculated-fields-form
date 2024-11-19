@@ -56,8 +56,8 @@
 					var str = '',
 						items = this.fBuild.getItems(), t = '';
 
-					str += '<label>Fields to display on summary</label><input type="text" name="sFields" id="sFields" class="large" value="'+cff_esc_attr(this.fields)+'">'+
-					'<label>Select field and press the plus button</label><select name="sSelectedField" id="sSelectedField" class="large">';
+					str += '<label for="sFields">Fields to display on summary</label><input type="text" name="sFields" id="sFields" class="large" value="'+cff_esc_attr(this.fields)+'">'+
+					'<label for="sSelectedField">Select field and press the plus button</label><select name="sSelectedField" id="sSelectedField" class="large">';
 
 					for(var i=0; i<items.length; i++)
 					{
@@ -68,8 +68,8 @@
 					}
 					str += '</select><div style="margin-top:10px;"><input type="button" value="Add field +" name="sPlusBtn" id="sPlusBtn" style="padding:3px 10px;" class="button-secondary" /></div>'+
 					'<label>Exclude empty fields: <input type="checkbox" id="sExcludeEmpty" name="sExcludeEmpty" '+((this.exclude_empty) ? 'CHECKED' : '')+'/></label>'+
-					'<label>Classname for fields titles</label><input type="text" class="large" name="sTitleClassname" id="sTitleClassname" value="'+cff_esc_attr(this.titleClassname)+'">'+
-					'<label>Classname for fields values</label><input type="text" class="large" name="sValueClassname" id="sValueClassname" value="'+cff_esc_attr(this.valueClassname)+'">';
+					'<label for="sTitleClassname">Classname for fields titles</label><input type="text" class="large" name="sTitleClassname" id="sTitleClassname" value="'+cff_esc_attr(this.titleClassname)+'">'+
+					'<label for="sValueClassname">Classname for fields values</label><input type="text" class="large" name="sValueClassname" id="sValueClassname" value="'+cff_esc_attr(this.valueClassname)+'">';
 
 					return str;
 				}

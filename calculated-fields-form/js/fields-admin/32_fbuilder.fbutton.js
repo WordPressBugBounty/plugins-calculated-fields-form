@@ -28,7 +28,7 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Button')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<input type="button" class="button-secondary disabled" disabled value="'+cff_esc_attr(this.sValue)+'"><span class="uh">'+this.userhelp+'</span><div class="clearer"></div></div>';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Button')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<input type="button" class="button-secondary disabled" disabled value="'+cff_esc_attr(this.sValue)+'"><div>'+this.userhelp+'</div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -76,12 +76,12 @@
                 },
             _showValueSettings: function()
                 {
-                    return '<label>Value</label><input type="text" class="large" name="sValue" id="sValue" value="'+cff_esc_attr(this.sValue)+'" />';
+                    return '<label for="sValue">Value</label><input type="text" class="large" name="sValue" id="sValue" value="'+cff_esc_attr(this.sValue)+'" />';
                 },
             _showOnclickSettings: function()
                 {
-                    return '<label>OnClick event</label><textarea class="large" name="sOnclick" id="sOnclick">'+cff_esc_attr(this.sOnclick)+'</textarea><div class="clearer"><i>To transform the button into a submit button, enter the onclick event: <b>jQuery(this.form).submit();</b></i></div>'+
-                    '<label>OnMouseDown event</label><textarea class="large" name="sOnmousedown" id="sOnmousedown">'+cff_esc_attr(this.sOnmousedown)+'</textarea>';
+                    return '<label for="sOnclick">OnClick event</label><textarea class="large" name="sOnclick" id="sOnclick">'+cff_esc_attr(this.sOnclick)+'</textarea><div class="clearer"><i>To transform the button into a submit button, enter the onclick event: <b>jQuery(this.form).submit();</b></i></div>'+
+                    '<label for="sOnmousedown">OnMouseDown event</label><textarea class="large" name="sOnmousedown" id="sOnmousedown">'+cff_esc_attr(this.sOnmousedown)+'</textarea>';
                 },
             showTitle: function(){ return ''; },
             showShortLabel: function(){ return ''; }

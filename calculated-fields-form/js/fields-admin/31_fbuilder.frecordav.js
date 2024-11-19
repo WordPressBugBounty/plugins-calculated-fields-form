@@ -75,20 +75,20 @@
 
 					'<label><input type="checkbox" id="sPreview" name="sPreview" '+((typeof this.preview != 'undefined' && this.preview) ? 'CHECKED' : '')+'" /> Audio and video preview</label>'+
 
-					'<div class="column width50"><label>Video Width</label><input type="text" name="sVideoWidth" id="sVideoWidth" value="'+cff_esc_attr(this.video_width)+'"  class="large" /></div>'+
+					'<div class="column width50"><label for="sVideoWidth">Video Width</label><input type="text" name="sVideoWidth" id="sVideoWidth" value="'+cff_esc_attr(this.video_width)+'"  class="large" /></div>'+
 
-					'<div class="column width50"><label>Video Height</label><input type="text" name="sVideoHeight" id="sVideoHeight" value="'+cff_esc_attr(this.video_height)+'"  class="large" /></div>'+
+					'<div class="column width50"><label for="sVideoHeight">Video Height</label><input type="text" name="sVideoHeight" id="sVideoHeight" value="'+cff_esc_attr(this.video_height)+'"  class="large" /></div>'+
 
 					'<div class="clearer"></div>'+
 
-					'<label>Max Length (in seconds)</label><input type="number" name="sMaxTime" id="sMaxTime" value="'+cff_esc_attr(this.max_time ? this.max_time : '')+'"  class="width50" /><div class="clearer"><i>Maximum allowed recording time in seconds. A value of 60 means 1 minute.</i></div>'+
+					'<label for="sMaxTime">Max Length (in seconds)</label><input type="number" name="sMaxTime" id="sMaxTime" value="'+cff_esc_attr(this.max_time ? this.max_time : '')+'"  class="width50" /><div class="clearer"><i>Maximum allowed recording time in seconds. A value of 60 means 1 minute.</i></div>'+
 
 					'<label><input type="checkbox" name="sBeepSound" id="sBeepSound" '+(this.beep ? 'CHECKED' : '')+' /> Beep Sound</label><div class="clearer"><i>Will play a beep sound to notify that the recording time is up.</i></div><hr>'+
 
 					'<label>Labels<label>'+
-					'<div class="column width50"><label>Record Button</label><input type="text" name="sRecordLabel" id="sRecordLabel" value="'+cff_esc_attr(this.record_label)+'" class="large" /></div>'+
-					'<div class="column width50"><label>Stop Button</label><input type="text" name="sStopLabel" id="sStopLabel" value="'+cff_esc_attr(this.stop_label)+'" class="large" /></div><div class="clearer"></div>'+
-					'<div><label>Status Message</label><input type="text" name="sStatusMessage" id="sStatusMessage" value="'+cff_esc_attr(this.status_message)+'" class="large" /></div>';
+					'<div class="column width50"><label for="sRecordLabel">Record Button</label><input type="text" name="sRecordLabel" id="sRecordLabel" value="'+cff_esc_attr(this.record_label)+'" class="large" /></div>'+
+					'<div class="column width50"><label for="sStopLabel">Stop Button</label><input type="text" name="sStopLabel" id="sStopLabel" value="'+cff_esc_attr(this.stop_label)+'" class="large" /></div><div class="clearer"></div>'+
+					'<div><label for="sStatusMessage">Status Message</label><input type="text" name="sStatusMessage" id="sStatusMessage" value="'+cff_esc_attr(this.status_message)+'" class="large" /></div>';
 				}
 		}
 	);

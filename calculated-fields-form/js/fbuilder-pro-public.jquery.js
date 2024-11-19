@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.56';
+	$.fbuilder['version'] = '5.2.57';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -934,8 +934,8 @@
 							   theForm = new fform();
 							   theForm = $.extend(theForm,d[1][0]);
 
-							   opt.evalequations = d[1][0][ 'evalequations' ];
-							   opt.evalequations_delay = (typeof d[1][0][ 'evalequations_delay' ] != 'undefined' && d[1][0][ 'evalequations_delay' ] ) ? 1 : 0;
+							   opt.evalequations = 'evalequations' in d[1][0] ? d[1][0][ 'evalequations' ] : 1;
+							   opt.evalequations_delay = 'evalequations_delay' in d[1][0] ? d[1][0][ 'evalequations_delay' ] : 0;
 							   opt.cached   = (typeof d[ 1 ][ 'cached' ] != 'undefined' && d[ 1 ][ 'cached' ] ) ? true : false;
 							   opt.setCache = (!this.cached && typeof d[ 1 ][ 'setCache' ] != 'undefined' && d[ 1 ][ 'setCache' ]) ? true : false;
 

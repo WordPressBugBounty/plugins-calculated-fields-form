@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.56
+Stable tag: 5.2.57
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.57 =
+
+* Enhances the accessibility of the forms builder.
+* Modifies the forms builder styles.
+* Implements new block/endblock tags pairs in the notification emails and thank you pages for coupon, payment_status, and payment_option.
+* Enhances the WooCommerce add-on (Developer and Platinum plugin versions).
+* Modifies the iCal, MailPoet, PDF Generator, PrintFriendly and Stripe add-ons (Platinum plugin version).
+
 = 5.2.56 =
 = 5.2.55 =
 
@@ -480,9 +488,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Allows entering associate a quantity box with every checkbox field choice.
 * Modifies the Summary control to support the changes in the checkbox control.
 * Includes the async parameter in the loading=async parameter when loading the Google Maps API for distance operations (Developer and Platinum plugin versions) and Google Places add-on (Platinum plugin version).
-
-= 5.2.51 =
-
-* Allows passing arrays as parameter values to the thank you page URL.
-* Modifies the getURLParameters in the URL Operations module.
-* Modifies the getField operation in the Managing Fields Operations module.

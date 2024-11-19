@@ -255,7 +255,7 @@
 						r += '<option value="'+cff_esc_attr(ops[i]['value'])+'" '+((op == ops[i]['value']) ? 'SELECTED' : '')+'>'+ops[i]['text']+'</option>';
 					}
 
-					return '<select i="'+cff_esc_attr(indx)+'" class="cf_dependence_operator">'+r+'</select>';
+					return '<select i="'+cff_esc_attr(indx)+'" class="cf_dependence_operator" aria-label="Dependency operator">'+r+'</select>';
 				}
 
 				var r = '';
@@ -280,7 +280,7 @@
 								value = parts[2];
 							}
 
-							r += '<div class="cff-dependency-rule"><div style="position:relative;"><span style="font-weight:bold;">If value is</span><span class="cf_dependence_edition" i="'+i+'" >'+setOperator(i, operator)+' <input type="text" i="'+i+'" class="cf_dependence_value" value="'+cff_esc_attr(value)+'" /></span><div class="choice-ctrls"><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a></div><div style="text-align:right;"><a i="'+i+'" class="displayComplexRule" href="#">Edit rule manually</a></div></div>';
+							r += '<div class="cff-dependency-rule"><div style="position:relative;"><span style="font-weight:bold;">If value is</span><span class="cf_dependence_edition" i="'+i+'" >'+setOperator(i, operator)+' <input type="text" i="'+i+'" class="cf_dependence_value" value="'+cff_esc_attr(value)+'" aria-label="Dependency value" /></span><div class="choice-ctrls"><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a></div><div style="text-align:right;"><a i="'+i+'" class="displayComplexRule" href="#">Edit rule manually</a></div></div>';
 						}
 						r += '<div>';
 						$.each(o.fields, function(j, v)
@@ -297,7 +297,7 @@
 										opt += '<option value="'+items[k].name+'" '+((items[k].name == v) ? 'selected="SELECTED"' : '')+'>'+items[k].name+('' != t ? ' ('+cff_esc_attr(t)+')' : '')+'</option>';
 									}
 								}
-								r += '<div style="position:relative;" class="cff-dependency-item"><span>If rule is valid show:</span> <select class="cf_dependence_field" i="'+i+'" j="'+j+'" >'+opt+'</select><div class="choice-ctrls"><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
+								r += '<div style="position:relative;" class="cff-dependency-item"><span>If rule is valid show:</span> <select class="cf_dependence_field" i="'+i+'" j="'+j+'" aria-label="Dependent field">'+opt+'</select><div class="choice-ctrls"><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
 							});
 						r += '</div></div>';
 					});
@@ -323,7 +323,7 @@
 			},
         showRangeIntance: function()
             {
-                return '<div class="clearer"></div><div class="column width50"><label>Min</label><input type="text" name="sMin" id="sMin" value="'+cff_esc_attr(this.min)+'" class="large"></div><div class="column width50"><label>Max</label><input type="text" name="sMax" id="sMax" value="'+cff_esc_attr(this.max)+'" class="large"></div><div class="clearer"></div>';
+                return '<div class="clearer"></div><div class="column width50"><label for="sMin">Min</label><input type="text" name="sMin" id="sMin" value="'+cff_esc_attr(this.min)+'" class="large"></div><div class="column width50"><label for="sMax">Max</label><input type="text" name="sMax" id="sMax" value="'+cff_esc_attr(this.max)+'" class="large"></div><div class="clearer"></div>';
             },
 		showEqEditor:function(eq)
 			{
@@ -365,7 +365,7 @@
 							},
 						loadToolbarList : function()
 							{
-								var out = '<select id="sToolbarList" onchange="'+tools+'.loadToolbar(this.options[this.selectedIndex].value);'+tools+'.loadTutorial(this.options[this.selectedIndex].value);">';
+								var out = '<select id="sToolbarList" onchange="'+tools+'.loadToolbar(this.options[this.selectedIndex].value);'+tools+'.loadTutorial(this.options[this.selectedIndex].value);" aria-label="Operations modules">';
 
 								if($.fbuilder['modules'])
 								{
@@ -419,9 +419,9 @@
 							}
 					};
 
-                    var out = '<label>Set Equation</label><textarea class="large" name="sEq" id="sEq" style="height:150px;">'+me.eq+'</textarea>'+
+                    var out = '<label for="sEq">Set Equation</label><textarea class="large" name="sEq" id="sEq" style="height:150px;">'+me.eq+'</textarea>'+
 					'<div id="sAdvancedEditor" title="The Advance Editor is still in experimental state">Advanced Equation\'s Editor</div>'+
-					'<label>Operands <div style="float:right;"><a href="https://cff.dwbooster.com/documentation#modules" target="_blank">Read equation tutorial</a></div></label><div class="groupBox"><select id="sFieldList">';
+					'<label for="sFieldList">Operands <div style="float:right;"><a href="https://cff.dwbooster.com/documentation#modules" target="_blank">Read equation tutorial</a></div></label><div class="groupBox"><select id="sFieldList">';
 
                     var items = this.fBuild.getItems(),
 						invalidFields = { 'fSectionBreak':1, 'fPageBreak':1, 'fsummary':1, 'ffieldset':1, 'fdiv':1, 'fMedia':1, 'fButton':1, 'fhtml':1, 'ffile':1 }, t = '';
@@ -443,7 +443,7 @@
 							out += '<option value="'+cff_esc_attr(fName)+'">'+item['name']+(('' != t) ? '('+cff_esc_attr(t)+')' : '')+'</option>';
 						}
 					}
-                    out += '</select><input type="button" value="+" class="eq_btn button-secondary" onclick="'+tools+'.setField();" /></div><label>Operators</label><div style="text-align:center;" class="groupBox"><div style="text-align:left;">'+$.fbuilder.controls['fCalculated']['tools'].loadToolbarList()+'<span id="sEqModuleTutorial">'+$.fbuilder.controls['fCalculated']['tools'].loadTutorial(default_toolbar)+'</span></div><div id="sEqButtonsContainer" style="margin-top:10px;">'+$.fbuilder.controls['fCalculated']['tools'].loadToolbar(default_toolbar)+'</div><div id="sEqTipsContainer" style="background-color:#DFEFFF;border:1px solid #C2D7EF;padding:5px;margin:5px;display:none;text-align:left;"></div><div style="padding-top:20px;" class="large"><input type="button" class="button-primary large" onclick="window.open(\'https://cff-bundles.dwbooster.com/?category[]=operations\',\'_blank\');" value="More operations [+]" /></div></div><label>Symbol to display at beginning of calculated field</label><input type="text" name="sPrefix" id="sPrefix" class="large" value="'+cff_esc_attr(me.prefix)+'" /><label><input type="checkbox" id="sCurrency" name="sCurrency" '+((me.currency) ? 'CHECKED' : '')+' /> it is a currency</label><label>Symbol to display at the end of calculated field</label><input type="text" name="sSuffix" id="sSuffix" class="large" value="'+cff_esc_attr(me.suffix)+'" /><label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+cff_esc_attr(me.decimalsymbol)+'" /><label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+cff_esc_attr(me.groupingsymbol)+'" />';
+                    out += '</select><input type="button" value="+" class="eq_btn button-secondary" onclick="'+tools+'.setField();" /></div><label>Operators</label><div style="text-align:center;" class="groupBox"><div style="text-align:left;">'+$.fbuilder.controls['fCalculated']['tools'].loadToolbarList()+'<span id="sEqModuleTutorial">'+$.fbuilder.controls['fCalculated']['tools'].loadTutorial(default_toolbar)+'</span></div><div id="sEqButtonsContainer" style="margin-top:10px;">'+$.fbuilder.controls['fCalculated']['tools'].loadToolbar(default_toolbar)+'</div><div id="sEqTipsContainer" style="background-color:#DFEFFF;border:1px solid #C2D7EF;padding:5px;margin:5px;display:none;text-align:left;"></div><div style="padding-top:20px;" class="large"><input type="button" class="button-primary large" onclick="window.open(\'https://cff-bundles.dwbooster.com/?category[]=operations\',\'_blank\');" value="More operations [+]" /></div></div><label for="sPrefix">Symbol to display at beginning of calculated field</label><input type="text" name="sPrefix" id="sPrefix" class="large" value="'+cff_esc_attr(me.prefix)+'" /><label><input type="checkbox" id="sCurrency" name="sCurrency" '+((me.currency) ? 'CHECKED' : '')+' /> it is a currency</label><label for="sSuffix">Symbol to display at the end of calculated field</label><input type="text" name="sSuffix" id="sSuffix" class="large" value="'+cff_esc_attr(me.suffix)+'" /><label for="sDecimalSymbol">Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+cff_esc_attr(me.decimalsymbol)+'" /><label for="sGroupingSymbol">Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+cff_esc_attr(me.groupingsymbol)+'" />';
 
                     return out;
 			}

@@ -75,7 +75,7 @@
 				},
 			showContent:function()
 				{
-					return '<div class="cff-editor-container"><label style="display:block;"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
+					return '<div class="cff-editor-container"><label style="display:block;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
 				},
 			showAllSettings:function()
 				{
