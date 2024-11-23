@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.57
+Stable tag: 5.2.58
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.58 =
+
+* Modifies the module that processes the default values.
+* Fixes a minor issue with the phone control.
+* Include a new predefined form for listing universities.
+* Improves the User Registration add-on (Developer and Platinum plugin versions).
+* Fixes an issue in the Brevo add-on (Platinum plugin version).
+
 = 5.2.57 =
 
 * Enhances the accessibility of the forms builder.
@@ -482,9 +490,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Allows configuring the quantity boxes in checkbox fields to display only when the corresponding choice is ticked.
 * Fixes a minor issue in the Number and Currency fields in the form builder when default values are set to other fields.
 * Modifies Template 06 by darker blue to increase the contrast ratio, thereby improving the Google score.
-
-= 5.2.52 =
-
-* Allows entering associate a quantity box with every checkbox field choice.
-* Modifies the Summary control to support the changes in the checkbox control.
-* Includes the async parameter in the loading=async parameter when loading the Google Maps API for distance operations (Developer and Platinum plugin versions) and Google Places add-on (Platinum plugin version).

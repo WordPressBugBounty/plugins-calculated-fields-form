@@ -827,7 +827,16 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			}
 
 			if ( 'html' == $format ) {
+				$base_code = [];
+				while ( preg_match( '/<script\b[^>]*>(.*?)<\/script>/is', $text, $matches ) ) {
+					$index = count( $base_code );
+					$base_code[] = $matches[0];
+					$text = str_replace( $matches[0], 'cff-javascript-block-placeholder-' . $index, $text );
+				}
 				$text = str_replace( "\n", '<br>', $text );
+				foreach ( $base_code as $index => $base_code_block ) {
+					$text = str_replace( 'cff-javascript-block-placeholder-' . $index, $base_code_block, $text );
+				}
 			}
 
 			$text = str_ireplace( '&amp;', '&', $text );

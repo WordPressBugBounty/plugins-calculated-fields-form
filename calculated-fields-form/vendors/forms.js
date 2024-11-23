@@ -269,6 +269,11 @@ cff_forms_templates = {
             "category": "Transportation",
             "description": "Select a truck for a move based on the weight and volume of the load.",
             "id": 51
+        }, {
+            "title": "List of Universities",
+            "category": "Education",
+            "description": "Compile a comprehensive list of the existing universities in each country.",
+            "id": 63
         }
     ],
     "pro": [

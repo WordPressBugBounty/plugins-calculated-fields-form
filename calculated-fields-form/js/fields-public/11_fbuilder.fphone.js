@@ -31,7 +31,7 @@
 			_on_change_events:function()
 				{
 					var me = this;
-					$('input[id*="'+me.name+'_"]').each(function(){
+					$(':input[id*="'+me.name+'_"]').each(function(){
 						el = $(this);
 						el.on('change', function(){
 							var v = '';
@@ -181,7 +181,7 @@
 						});
 
 					me._on_change_events();
-                    $('#'+me.name+'_0').trigger('change');
+					$('#'+me.name+'_0').trigger('change');
 					if (me.countryComponent && me.dynamic) {
 						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); });
 						me._input_boxes( true );

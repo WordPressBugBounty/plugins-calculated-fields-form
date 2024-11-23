@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.58 =
+
+* Modifies the module that processes the default values.
+* Fixes a minor issue with the phone control.
+* Include a new predefined form for listing universities.
+* Improves the User Registration add-on (Developer and Platinum plugin versions).
+* Fixes an issue in the Brevo add-on (Platinum plugin version).
+
 = 5.2.57 =
 
 * Enhances the accessibility of the forms builder.
