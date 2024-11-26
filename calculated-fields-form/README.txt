@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.58
+Stable tag: 5.2.59
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.59 =
+
+* Updates template 04 to address accessibility issues, such as improving the contrast between background and button colors, as well as the text colors for user instructions.
+* Modifies the settings of the print button to include additional information about class names used to exclude fields or form elements from printing.
+* Modifies the advanced equations editor to hide the sidebar on small devices' screens.
+* Improves accessibility in the form builder.
+
 = 5.2.58 =
 
 * Modifies the module that processes the default values.
@@ -484,9 +491,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Includes new video tutorials.
 * Modifies the RecordSet DS field to support Secured Custom Fields (Developer and Platinum versions).
 * Modifies the Sendinblue add-on (Platinum version).
-
-= 5.2.53 =
-
-* Allows configuring the quantity boxes in checkbox fields to display only when the corresponding choice is ticked.
-* Fixes a minor issue in the Number and Currency fields in the form builder when default values are set to other fields.
-* Modifies Template 06 by darker blue to increase the contrast ratio, thereby improving the Google score.

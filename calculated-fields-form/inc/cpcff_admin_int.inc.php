@@ -285,22 +285,22 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				<div class="inside">
 					<table class="form-table">
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Submit button label (text)', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_submitbtn" class="width75" value="<?php
+							<th scope="row"><label for="vs_text_submitbtn"><?php esc_html_e( 'Submit button label (text)', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_submitbtn" name="vs_text_submitbtn" class="width75" value="<?php
 							$label = $form_obj->get_option( 'vs_text_submitbtn', 'Submit' );
 							echo esc_attr( '' == $label ? 'Submit' : $label );
 							?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Previous button label (text)', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_previousbtn" class="width75" value="<?php
+							<th scope="row"><label for="vs_text_previousbtn"><?php esc_html_e( 'Previous button label (text)', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_previousbtn" name="vs_text_previousbtn" class="width75" value="<?php
 							$label = $form_obj->get_option( 'vs_text_previousbtn', 'Previous' );
 							echo esc_attr( '' == $label ? 'Previous' : $label );
 							?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Next button label (text)', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_nextbtn" class="width75" value="<?php
+							<th scope="row"><label for="vs_text_nextbtn"><?php esc_html_e( 'Next button label (text)', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_nextbtn" name="vs_text_nextbtn" class="width75" value="<?php
 							$label = $form_obj->get_option( 'vs_text_nextbtn', 'Next' );
 							echo esc_attr( '' == $label ? 'Next' : $label );
 							?>" /></td>
@@ -317,8 +317,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							if ( 'errors' !== $cpcff_text_index && isset( $cpcff_text_attr['label'] ) ) {
 								print '
 								<tr valign="top">
-									<th scope="row">' . esc_html( $cpcff_text_attr['label'] ) . ':</th>
-									<td><input type="text" name="cpcff_text_array[' . esc_attr( $cpcff_text_index ) . '][text]" class="width75" value="' . esc_attr( $cpcff_text_attr['text'] ) . '" /></td>
+									<th scope="row"><label for="cpcff_text_array['.$cpcff_text_index.'][text]">' . esc_html( $cpcff_text_attr['label'] ) . ':</label></th>
+									<td><input type="text" id="cpcff_text_array[' . esc_attr( $cpcff_text_index ) . '][text]" name="cpcff_text_array[' . esc_attr( $cpcff_text_index ) . '][text]" class="width75" value="' . esc_attr( $cpcff_text_attr['text'] ) . '" /></td>
 								</tr>
 								';
 							}
@@ -334,40 +334,40 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				<div class="inside">
 					<table class="form-table">
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"is required" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_is_required" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required ) ); ?>" /></td>
+							<th scope="row"><label for="vs_text_is_required"><?php esc_html_e( '"is required" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_is_required" name="vs_text_is_required" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required ) ); ?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"is email" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_is_email" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email ) ); ?>" /></td>
+							<th scope="row"><label for="vs_text_is_email"><?php esc_html_e( '"is email" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_is_email" name="vs_text_is_email" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_is_email', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email ) ); ?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"is valid captcha" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="cv_text_enter_valid_captcha" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'cv_text_enter_valid_captcha', CP_CALCULATEDFIELDSF_DEFAULT_cv_text_enter_valid_captcha ) ); ?>" /></td>
+							<th scope="row"><label for="cv_text_enter_valid_captcha"><?php esc_html_e( '"is valid captcha" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="cv_text_enter_valid_captcha" name="cv_text_enter_valid_captcha" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'cv_text_enter_valid_captcha', CP_CALCULATEDFIELDSF_DEFAULT_cv_text_enter_valid_captcha ) ); ?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"is valid date (mm/dd/yyyy)" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_datemmddyyyy" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy ) ); ?>" /></td>
+							<th scope="row"><label for="vs_text_datemmddyyyy"><?php esc_html_e( '"is valid date (mm/dd/yyyy)" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_datemmddyyyy" name="vs_text_datemmddyyyy" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_datemmddyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy ) ); ?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"is valid date (dd/mm/yyyy)" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_dateddmmyyyy" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy ) ); ?>" /></td>
+							<th scope="row"><label for="vs_text_dateddmmyyyy"><?php esc_html_e( '"is valid date (dd/mm/yyyy)" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_dateddmmyyyy" name="vs_text_dateddmmyyyy" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_dateddmmyyyy', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_dateddmmyyyy ) ); ?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"is number" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_number" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number ) ); ?>" /></td>
+							<th scope="row"><label for="vs_text_number"><?php esc_html_e( '"is number" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_number" name="vs_text_number" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_number', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_number ) ); ?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"only digits" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_digits" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits ) ); ?>" /></td>
+							<th scope="row"><label for="vs_text_digits"><?php esc_html_e( '"only digits" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_digits" name="vs_text_digits" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_digits', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits ) ); ?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"under maximum" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_max" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max ) ); ?>" /></td>
+							<th scope="row"><label for="vs_text_max"><?php esc_html_e( '"under maximum" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_max" name="vs_text_max" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_max', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max ) ); ?>" /></td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( '"over minimum" text', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="vs_text_min" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min ) ); ?>" /></td>
+							<th scope="row"><label for="vs_text_min"><?php esc_html_e( '"over minimum" text', 'calculated-fields-form' ); ?>:</label></th>
+							<td><input type="text" id="vs_text_min" name="vs_text_min" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'vs_text_min', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min ) ); ?>" /></td>
 						</tr>
 						<?php
 						// Display all other text fields.
@@ -376,8 +376,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 								if ( isset( $cpcff_text_attr['label'] ) ) {
 									print '
 									<tr valign="top">
-										<th scope="row">' . esc_html( $cpcff_text_attr['label'] ) . ':</th>
-										<td><input type="text" name="cpcff_text_array[errors][' . esc_attr( $cpcff_text_index ) . '][text]" class="width75" value="' . esc_attr( $cpcff_text_attr['text'] ) . '" /></td>
+										<th scope="row"><label for="cpcff_text_array[errors][' . esc_attr( $cpcff_text_index ) .'][text]">' . esc_html( $cpcff_text_attr['label'] ) . ':</label></th>
+										<td><input type="text" id="cpcff_text_array[errors][' . esc_attr( $cpcff_text_index ) . '][text]" name="cpcff_text_array[errors][' . esc_attr( $cpcff_text_index ) . '][text]" class="width75" value="' . esc_attr( $cpcff_text_attr['text'] ) . '" /></td>
 									</tr>
 									';
 								}
@@ -397,12 +397,12 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				<div class="inside">
 					<table class="form-table">
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Display submit button?', 'calculated-fields-form' ); ?></th>
+							<th scope="row"><label for="enable_submit"><?php esc_html_e( 'Display submit button?', 'calculated-fields-form' ); ?></label></th>
 							<td>
 								<?php
 								$option = $form_obj->get_option( 'enable_submit', CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button );
 								?>
-								<select name="enable_submit">
+								<select id="enable_submit" name="enable_submit">
 									<option value="" <?php
 									if ( '' == $option ) {
 										echo ' selected';}
@@ -415,9 +415,9 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Thank you page (after sending the message)', 'calculated-fields-form' ); ?></th>
+							<th scope="row"><label for="fp_return_page"><?php esc_html_e( 'Thank you page (after sending the message)', 'calculated-fields-form' ); ?></label></th>
 							<td>
-								<input type="text" name="fp_return_page" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page ) ); ?>" /><br />
+								<input type="text" id="fp_return_page" name="fp_return_page" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page ) ); ?>" /><br />
 								<p><i><?php esc_html_e( 'Enter <%from_page%> to reload the form page after submission.', 'calculated-fields-form'); ?></i></p>
 								<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="cff-expand-mssg width75">
 									<p><?php esc_html_e( 'Commercial plugin versions allow you to include a summary of the information collected by the form on the "Thank You Page" content.', 'calculated-fields-form' ); ?> <a href="https://cff.dwbooster.com/download" target="_blank" class="button-primary"><?php esc_html_e( 'Upgrade Now', 'calculated-fields-form' ); ?></a></p>
@@ -430,16 +430,16 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							</td>
 						</tr>
 						<tr valign="top">
-							<th></th>
+							<td></td>
 							<td>
 								<label><input type="checkbox" name="fp_ajax" value="1" <?php echo $form_obj->get_option('fp_ajax', 0) ? 'CHECKED' : ''; ?> />
 								<?php esc_html_e( 'Submit the form using AJAX instead of redirecting the user to the thank you page.', 'calculated-fields-form' ); ?></label>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Thank you message', 'calculated-fields-form' ); ?></th>
+							<th scope="row"><label for="fp_thanks_mssg"><?php esc_html_e( 'Thank you message', 'calculated-fields-form' ); ?></label></th>
 							<td>
-								<textarea name="fp_thanks_mssg" class="width75" style="" rows="4"><?php
+								<textarea id="fp_thanks_mssg" name="fp_thanks_mssg" class="width75" style="" rows="4"><?php
 								print esc_textarea( $form_obj->get_option('fp_thanks_mssg', '') );
 								?></textarea>
 							</td>

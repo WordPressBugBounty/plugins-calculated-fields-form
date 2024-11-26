@@ -71,7 +71,10 @@
                     }
 					r += '<div class="clear"></div>';
 					r += '<div '+((this.sType != 'calculate') ? 'style="display:none;"' : '')+'><label><input type="checkbox" id="sLoading" '+((this.sLoading) ? 'CHECKED' : '')+' > display "calculation in progress" indicator</label></div>';
-					r += '<div '+((this.sType != 'print') ? 'style="display:none;"' : '')+'><label><input type="checkbox" id="sMultipage" '+((this.sMultipage) ? 'CHECKED' : '')+' > print all pages in multipage form</label><br><i>Assign the class names <b>cff-page-break-before</b> and <b>cff-page-break-after</b> to the fields where page breaks are to be included in the printed version of the form.</i></div>';
+					r += '<div '+((this.sType != 'print') ? 'style="display:none;"' : '')+'><label><input type="checkbox" id="sMultipage" '+((this.sMultipage) ? 'CHECKED' : '')+' > print all pages in multipage form</label><br>'+
+					'<b>(*)</b> <i>Assign the class names <b>cff-page-break-before</b> and <b>cff-page-break-after</b> to the fields where page breaks are to be included in the printed version of the form.</i><br>'+
+					'<b>(*)</b> <i>Assign the <b>cff-no-print</b> class name to the fields you want to hide from the form printed version.</i>'+
+					'</div>';
                     return '<label>Select button type</label>'+r+'<div class="clearer"></div>';
                 },
             _showValueSettings: function()
