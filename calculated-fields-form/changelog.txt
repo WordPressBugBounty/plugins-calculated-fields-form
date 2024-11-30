@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.2.60 =
+
+* Includes a new predefined form to improve typing.
+
 = 5.2.59 =
 
 * Updates template 04 to address accessibility issues, such as improving the contrast between background and button colors, as well as the text colors for user instructions.

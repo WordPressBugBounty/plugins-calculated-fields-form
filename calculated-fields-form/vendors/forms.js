@@ -274,6 +274,11 @@ cff_forms_templates = {
             "category": "Education",
             "description": "Compile a comprehensive list of the existing universities in each country.",
             "id": 63
+        }, {
+            "title": "Typewriter",
+            "category": "Education",
+            "description": "Perfect your typing performance.",
+            "id": 64
         }
     ],
     "pro": [

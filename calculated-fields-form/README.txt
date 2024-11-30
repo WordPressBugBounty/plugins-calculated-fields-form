@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.59
+Stable tag: 5.2.60
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.60 =
+
+* Includes a new predefined form to improve typing.
+
 = 5.2.59 =
 
 * Updates template 04 to address accessibility issues, such as improving the contrast between background and button colors, as well as the text colors for user instructions.
@@ -484,10 +488,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * It is the first step in enhancing the accessibility of the forms builder.
 * Introduces two new actions, cpcff_wp_head, and cpcff_wp_footer, which are triggered when forms are loaded directly, either through their URL or within an iframe tag, allowing for the inclusion of additional resources.
 * Implements the WEEKNUM2 operation. Unlike WEEKNUM, it considers the weekday of the first day of the year.
-
-= 5.2.54 =
-
-* Include a new predefined form to obtain the visitors' details.
-* Includes new video tutorials.
-* Modifies the RecordSet DS field to support Secured Custom Fields (Developer and Platinum versions).
-* Modifies the Sendinblue add-on (Platinum version).
