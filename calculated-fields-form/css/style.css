@@ -154,6 +154,9 @@
 .ctrlsColumn.expanded{min-width:380px;width:75%;position:absolute;}
 .ctrlsColumn .expand-shrink{float:right;margin:8px 5px 0px 0px;cursor:pointer;}
 .dashboardColumn{ width:calc(100% - 400px); }
+.dashboardColumn img,
+.dashboardColumn video,
+.dashboardColumn audio{max-width:100%;}
 .width100{width:100%}
 .width75{width:75%}
 .width50{width:50%}
@@ -510,6 +513,37 @@ textarea {resize: none}
 .cff-ai-assistant-answer-row::-webkit-scrollbar-corner,
 .cff-ai-assistant-answer-row ::-webkit-scrollbar-corner {
 	background: transparent;
+}
+
+.cff-save-controls-floating-popup {
+	display:none;
+	z-index: 999999;
+	background: white;
+	border: 1px solid #c3c4c7;
+	border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+	padding:5px 10px 10px 10px;
+	position:fixed;
+	right:0;
+	top:50%;
+	transform:translateY(-50%);
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
+	min-width:170px;
+}
+.cff-save-controls-popup-title {
+	white-space:nowrap;
+	padding-bottom:5px;
+	font-weight:600;
+}
+.cff-save-controls-floating-popup #save3{width:100%; text-align:center;}
+.cff-save-controls-floating-popup .cff-message {
+    border-left: 4px solid #00a32a;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    font-weight: 600;
 }
 
 .form-builder #tabs .ui-tabs-anchor{padding-left:8px; padding-right:8px;}

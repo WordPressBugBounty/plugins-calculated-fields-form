@@ -1906,7 +1906,7 @@
 	window['cff_getScrollForURL'] = function( symbol ) {
 		symbol = symbol || '&';
 		let output = '';
-		if('scrollY' in window) output = symbol + '&scrolly='+window.scrollY+'&scrollx='+window.scrollX;
+		if('scrollY' in window) output = symbol + 'scrolly='+window.scrollY+'&scrollx='+window.scrollX;
 		return output;
 	};
 
@@ -1916,7 +1916,7 @@
 			const urlParams = new URLSearchParams(window.location.search);
 			const scroll_x = urlParams.get('scrollx');
 			const scroll_y = urlParams.get('scrolly');
-			if ( scroll_x && scroll_y && 'scrollTo' in window) {
+			if ( scroll_x && scroll_y && 'scrollTo' in window && ( ! $('.form-builder-error-messages').length || $('.form-builder-error-messages:empty').length ) ) {
 				window.scrollTo(scroll_x, scroll_y);
 			}
 		} catch(err){}

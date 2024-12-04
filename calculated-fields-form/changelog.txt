@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.61 =
+
+* Modifies the Phone control.
+* Improves the form performance.
+* Makes the save button more accessible in the forms builder.
+* Improves the forms cache (Professional, Developer, and Platinum plugin versions).
+* Modifies the CFFCHART operation (Developer and Platinum plugin versions).
+
 = 5.2.60 =
 
 * Includes a new predefined form to improve typing.

@@ -38,8 +38,10 @@ if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' == $_SERVER['REQUEST_METHOD']
 	}
 }
 
+$message = '';
 if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf_post_options'] ) ) {
-	echo "<div id='setting-error-settings_updated' class='updated settings-error'> <p><strong>" . esc_html__( 'Settings saved', 'calculated-fields-form' ) . '</strong></p></div>';
+	$message = esc_html__( 'Settings saved', 'calculated-fields-form' );
+	echo "<div id='setting-error-settings_updated' class='updated settings-error'> <p><strong>" . $message . '</strong></p></div>';
 }
 
 $cpcff_texts_array = $form_obj->get_option( 'vs_all_texts', [] );
@@ -142,28 +144,42 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							{
 								function calculatedFieldsFormReady()
 								{
+									let $ = $calculatedfieldsfQuery;
 									/* Nav sections menu */
-									$calculatedfieldsfQuery('.cff-navigation-sections-menu a').on( 'mouseup', function(){
-										if( $calculatedfieldsfQuery(this).prop('target') != '_blank' )
-											$calculatedfieldsfQuery('#metabox_form_structure').removeClass('fullscreen');
+									$('.cff-navigation-sections-menu a').on( 'mouseup', function(){
+										if( $(this).prop('target') != '_blank' )
+											$('#metabox_form_structure').removeClass('fullscreen');
 									});
+									/* Floating save button code */
+									function _showHideSaveButtonPopUp() {
+										let wt = $(window).scrollTop();
+										let et = $('.cff-save-controls-frame').offset().top + $('.cff-save-controls-frame').outerHeight();
+										let b1 = $('#save1').offset().top;
+										if ( et < wt && ( b1 < 0 || wt + $(window).height() <= b1 ) && !$('#metabox_form_structure.fullscreen').length ) {
+											$('.cff-save-controls-floating-popup').show('slow');
+										} else {
+											$('.cff-save-controls-floating-popup').hide('slow');
+										}
+									};
+									$(window).on('scroll', _showHideSaveButtonPopUp);
+									_showHideSaveButtonPopUp();
+									setTimeout( function(){ $('.cff-save-controls-floating-popup .cff-message').hide('slow'); }, 2000 );
 									/* Revisions code */
-									$calculatedfieldsfQuery('[name="cff_apply_revision"]').on( 'click',
+									$('[name="cff_apply_revision"]').on( 'click',
 										function(){
-											var revision = $calculatedfieldsfQuery('[name="cff_revision_list"]').val();
+											var revision = $('[name="cff_revision_list"]').val();
 											if(revision*1)
 											{
 												result = window.confirm('<?php print esc_js( __( 'The action will load the revision selected, the data are not stored will be lose. Do you want continue?', 'calculated-fields-form' ) ); ?>');
 												if(result)
 												{
-													$calculatedfieldsfQuery('<form method="post" action="<?php echo esc_attr( $admin_url ); ?>" id="cpformconf" name="cpformconf" class="cff_form_builder"><input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_form_settings_nonce ); ?>" /><input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo esc_attr( CP_CALCULATEDFIELDSF_ID ); ?>" /><input type="hidden" name="cpcff_revision_to_apply" value="'+esc_attr( revision )+'"></form>').appendTo('body').submit();
+													$('<form method="post" action="<?php echo esc_attr( $admin_url ); ?>" id="cpformconf" name="cpformconf" class="cff_form_builder"><input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_form_settings_nonce ); ?>" /><input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo esc_attr( CP_CALCULATEDFIELDSF_ID ); ?>" /><input type="hidden" name="cpcff_revision_to_apply" value="'+esc_attr( revision )+'"></form>').appendTo('body').submit();
 												}
 											}
 										}
 									);
 
-									// Form builder code.
-
+									/* Form builder code */
 									var f;
 									function run_fbuilder($)
 									{
@@ -172,27 +188,26 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 										f.fBuild.loadData( "form_structure", "templates" );
 									};
 
-									if(!('fbuilder' in $calculatedfieldsfQuery.fn))
+									if(!('fbuilder' in $.fn))
 									{
-										$calculatedfieldsfQuery.getScript(
+										$.getScript(
 											location.protocol + '//' + location.host + location.pathname+'?page=cp_calculated_fields_form&cp_cff_resources=admin',
 											function(){run_fbuilder(fbuilderjQuery);}
 										);
 									}
 									else
 									{
-										run_fbuilder($calculatedfieldsfQuery);
+										run_fbuilder($);
 									}
 
-									$calculatedfieldsfQuery(".itemForm").on( 'click', function() {
-										f.fBuild.addItem($calculatedfieldsfQuery(this).attr("id"));
+									$(".itemForm").on( 'click', function() {
+										f.fBuild.addItem($(this).attr("id"));
 									})
 									.draggable({
 										connectToSortable: '#fbuilder #fieldlist',
 										delay: 100,
 										helper: function() {
-											var $ = $calculatedfieldsfQuery,
-												e = $(this),
+											var e = $(this),
 												width = e.outerWidth(),
 												text = e.text(),
 												type = e.attr('id'),
@@ -205,7 +220,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 										scroll: false,
 										opacity: 1,
 										containment: 'document',
-										stop: function(){$calculatedfieldsfQuery('.ctrlsColumn .itemForm').removeClass('button-primary');}
+										stop: function(){$('.ctrlsColumn .itemForm').removeClass('button-primary');}
 									});
 
 									jQuery(".metabox_disabled_section .inside")
@@ -261,9 +276,9 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					</div>
 				</div>
 			</div>
-			<p>
-				<input type="submit" name="save" id="save2" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>"  title="Saves the form's structure and settings and creates a revision" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
-				<input type="button" name="previewbtn" id="previewbtn" class="button-primary" value="<?php esc_attr_e( 'Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="Saves the form's structure only, and opens a preview windows" />
+			<p class="cff-save-controls-frame">
+				<input type="submit" name="save" id="save2" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>"  title="<?php esc_attr_e("Saves the form's structure and settings and creates a revision", 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
+				<input type="button" name="previewbtn" id="previewbtn" class="button-primary" value="<?php esc_attr_e( 'Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="<?php esc_attr_e("Saves the form's structure only, and opens a preview windows", 'calculated-fields-form'); ?>" />
 				<?php
 				if ( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) == 0 ) :
 					?>
@@ -279,6 +294,11 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				endif;
 				?>
 			</p>
+			<div class="cff-save-controls-floating-popup">
+				<div class="cff-message"><?php echo $message; ?></div>
+				<div class="cff-save-controls-popup-title"><?php esc_attr_e('Save form settings', 'calculated-fields-form'); ?></div>
+				<input type="submit" name="save" id="save3" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>"  title="<?php esc_attr_e("Saves the form's structure and settings and creates a revision", 'calculated-fields-form'); ?>" onclick="this.form.action+=cff_getScrollForURL();fbuilderjQuery.fbuilder.delete_form_preview_window();" />
+			</div>
 			<?php print $section_nav_bar; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<div id="metabox_define_texts" class="postbox cff-metabox <?php print esc_attr( $cpcff_main->metabox_status( 'metabox_define_texts' ) ); ?>" style="margin-top:20px;">
 				<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Define Texts', 'calculated-fields-form' ); ?></span></h3>
@@ -569,7 +589,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 			</div>
 
 			<p class="submit">
-				<input type="submit" name="save" id="save1" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>" title="Saves the form's structure and settings and creates a revision" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
+				<input type="submit" name="save" id="save1" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>" title="<?php esc_attr_e("Saves the form's structure and settings and creates a revision", 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
 			</p>
 
 			[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]

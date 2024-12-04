@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-11-08 23:32+0100\n"
-"PO-Revision-Date: 2024-11-08 23:32+0100\n"
+"POT-Creation-Date: 2024-12-04 15:14+0100\n"
+"PO-Revision-Date: 2024-12-04 15:14+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -53,305 +53,326 @@ msgid ""
 "href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:42
+#: inc/cpcff_admin_int.inc.php:43
 msgid "Settings saved"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:48
+#: inc/cpcff_admin_int.inc.php:50
 msgid "Texts definition"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:49
+#: inc/cpcff_admin_int.inc.php:51
 msgid "Error texts"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:50
+#: inc/cpcff_admin_int.inc.php:52
 msgid "Submit button and thank you page"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:51
+#: inc/cpcff_admin_int.inc.php:53
 msgid "Notification email"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:52
+#: inc/cpcff_admin_int.inc.php:54
 msgid "Commercial Features"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:53
+#: inc/cpcff_admin_int.inc.php:55
 msgid "General payment settings"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:54
+#: inc/cpcff_admin_int.inc.php:56
 msgid "PayPal integration"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:55
+#: inc/cpcff_admin_int.inc.php:57
 msgid "Email copy to user"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:56
+#: inc/cpcff_admin_int.inc.php:58
 msgid "Captcha settings"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:61
+#: inc/cpcff_admin_int.inc.php:63
 msgid "Back to forms list..."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:66 pagebuilders/divi/cff.pb.php:13
+#: inc/cpcff_admin_int.inc.php:68 pagebuilders/divi/cff.pb.php:13
 msgid "Form"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:72
+#: inc/cpcff_admin_int.inc.php:74
 msgid "Direct form URL"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:90
+#: inc/cpcff_admin_int.inc.php:92
 msgid ""
 "* Different form styles available on the tab Form Settings &gt;&gt; Form "
 "Template"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:97
+#: inc/cpcff_admin_int.inc.php:99
 msgid "Revisions"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:101
+msgid "Form revisions list"
+msgstr ""
+
+#: inc/cpcff_admin_int.inc.php:103
 msgid "Select a revision"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:109
+#: inc/cpcff_admin_int.inc.php:111
 msgid "Load Revision"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:113
+#: inc/cpcff_admin_int.inc.php:115
 msgid "Fields List"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:114
+#: inc/cpcff_admin_int.inc.php:116
 msgid "Save and Preview"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:114
+#: inc/cpcff_admin_int.inc.php:116 inc/cpcff_admin_int.inc.php:281
 msgid "Saves the form's structure only, and opens a preview windows"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:116
+#: inc/cpcff_admin_int.inc.php:118
 msgid "AI Assistant"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:118
+#: inc/cpcff_admin_int.inc.php:120
+msgid "Set form builder fullscreen"
+msgstr ""
+
+#: inc/cpcff_admin_int.inc.php:120
 msgid "Fullscreen"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:119
+#: inc/cpcff_admin_int.inc.php:121
+msgid "Taking form builder out of fullscreen mode"
+msgstr ""
+
+#: inc/cpcff_admin_int.inc.php:121
 msgid "Shrink"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:133
+#: inc/cpcff_admin_int.inc.php:135
 msgid ""
 "If the form isn't loading on the public website, try inserting its shortcode "
 "with the iframe attribute set to 1:"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:133
+#: inc/cpcff_admin_int.inc.php:135
 msgid ""
 "For server-side processing like sending email copy to users, you'll need the "
 "<a href=\"https://cff.dwbooster.com/download\" target=\"_blank\">Commercial "
 "versions</a> of the plugin."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:156
+#: inc/cpcff_admin_int.inc.php:173
 msgid ""
 "The action will load the revision selected, the data are not stored will be "
 "lose. Do you want continue?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:213
+#: inc/cpcff_admin_int.inc.php:228
 msgid ""
 "These features aren't available in this version. Do you want to open the "
 "plugin's page to check other versions?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:247
+#: inc/cpcff_admin_int.inc.php:262
 msgid "Add a Field"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:248
+#: inc/cpcff_admin_int.inc.php:263
 msgid "Field Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:249
+#: inc/cpcff_admin_int.inc.php:264
 msgid "Form Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:265 inc/cpcff_admin_int.inc.php:571
-#: inc/cpcff_admin_int.inc.php:928
+#: inc/cpcff_admin_int.inc.php:280 inc/cpcff_admin_int.inc.php:300
+#: inc/cpcff_admin_int.inc.php:592 inc/cpcff_admin_int.inc.php:949
 msgid "Save Changes"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:266 inc/cpcff_admin_int.inc.php:872
+#: inc/cpcff_admin_int.inc.php:280 inc/cpcff_admin_int.inc.php:300
+#: inc/cpcff_admin_int.inc.php:592
+msgid "Saves the form's structure and settings and creates a revision"
+msgstr ""
+
+#: inc/cpcff_admin_int.inc.php:281 inc/cpcff_admin_int.inc.php:893
 msgid "Preview"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:277
+#: inc/cpcff_admin_int.inc.php:292
 msgid "Generate revisions in the form preview as well"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:283
+#: inc/cpcff_admin_int.inc.php:299
+msgid "Save form settings"
+msgstr ""
+
+#: inc/cpcff_admin_int.inc.php:304
 msgid "Define Texts"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:287
+#: inc/cpcff_admin_int.inc.php:308
 msgid "Submit button label (text)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:294
+#: inc/cpcff_admin_int.inc.php:315
 msgid "Previous button label (text)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:301
+#: inc/cpcff_admin_int.inc.php:322
 msgid "Next button label (text)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:309
+#: inc/cpcff_admin_int.inc.php:330
 msgid ""
 "- The styles can be applied into any of the CSS files of your theme or into "
 "the CSS file <em>\"calculated-fields-form\\css\\stylepublic.css\"</em>."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:310
+#: inc/cpcff_admin_int.inc.php:331
 msgid ""
 "- For general CSS styles modifications to the form and samples <a "
 "href=\"https://cff.dwbooster.com/faq#q82\" target=\"_blank\">check this FAQ</"
 "a>."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:327 inc/cpcff_admin_int.inc.php:387
-#: inc/cpcff_admin_int.inc.php:448 inc/cpcff_admin_int.inc.php:556
-#: inc/cpcff_admin_int.inc.php:642 inc/cpcff_admin_int.inc.php:758
-#: inc/cpcff_admin_int.inc.php:832 inc/cpcff_admin_int.inc.php:917
+#: inc/cpcff_admin_int.inc.php:348 inc/cpcff_admin_int.inc.php:408
+#: inc/cpcff_admin_int.inc.php:469 inc/cpcff_admin_int.inc.php:577
+#: inc/cpcff_admin_int.inc.php:663 inc/cpcff_admin_int.inc.php:779
+#: inc/cpcff_admin_int.inc.php:853 inc/cpcff_admin_int.inc.php:938
 msgid "Up to form structure"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:332
+#: inc/cpcff_admin_int.inc.php:353
 msgid "Validation Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:336
+#: inc/cpcff_admin_int.inc.php:357
 msgid "\"is required\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:340
+#: inc/cpcff_admin_int.inc.php:361
 msgid "\"is email\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:344
+#: inc/cpcff_admin_int.inc.php:365
 msgid "\"is valid captcha\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:348
+#: inc/cpcff_admin_int.inc.php:369
 msgid "\"is valid date (mm/dd/yyyy)\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:352
+#: inc/cpcff_admin_int.inc.php:373
 msgid "\"is valid date (dd/mm/yyyy)\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:356
+#: inc/cpcff_admin_int.inc.php:377
 msgid "\"is number\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:360
+#: inc/cpcff_admin_int.inc.php:381
 msgid "\"only digits\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:364
+#: inc/cpcff_admin_int.inc.php:385
 msgid "\"under maximum\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:368
+#: inc/cpcff_admin_int.inc.php:389
 msgid "\"over minimum\" text"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:391
+#: inc/cpcff_admin_int.inc.php:412
 msgid "Form Processing"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:395
+#: inc/cpcff_admin_int.inc.php:416
 msgid "Submit Button and Thank You Page"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:399
+#: inc/cpcff_admin_int.inc.php:420
 msgid "Display submit button?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:408 inc/cpcff_admin_int.inc.php:486
-#: inc/cpcff_admin_int.inc.php:505 inc/cpcff_admin_int.inc.php:774
-#: inc/cpcff_admin_int.inc.php:848
+#: inc/cpcff_admin_int.inc.php:429 inc/cpcff_admin_int.inc.php:507
+#: inc/cpcff_admin_int.inc.php:526 inc/cpcff_admin_int.inc.php:795
+#: inc/cpcff_admin_int.inc.php:869
 msgid "Yes"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:412 inc/cpcff_admin_int.inc.php:490
-#: inc/cpcff_admin_int.inc.php:501 inc/cpcff_admin_int.inc.php:654
-#: inc/cpcff_admin_int.inc.php:778 inc/cpcff_admin_int.inc.php:852
+#: inc/cpcff_admin_int.inc.php:433 inc/cpcff_admin_int.inc.php:511
+#: inc/cpcff_admin_int.inc.php:522 inc/cpcff_admin_int.inc.php:675
+#: inc/cpcff_admin_int.inc.php:799 inc/cpcff_admin_int.inc.php:873
 msgid "No"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:417
+#: inc/cpcff_admin_int.inc.php:438
 msgid "Thank you page (after sending the message)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:420
+#: inc/cpcff_admin_int.inc.php:441
 msgid "Enter <%from_page%> to reload the form page after submission."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:422
+#: inc/cpcff_admin_int.inc.php:443
 msgid ""
 "Commercial plugin versions allow you to include a summary of the information "
 "collected by the form on the \"Thank You Page\" content."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:422
+#: inc/cpcff_admin_int.inc.php:443
 msgid "Upgrade Now"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:428
+#: inc/cpcff_admin_int.inc.php:449
 msgid "- OR -"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:435
+#: inc/cpcff_admin_int.inc.php:456
 msgid ""
 "Submit the form using AJAX instead of redirecting the user to the thank you "
 "page."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:439
+#: inc/cpcff_admin_int.inc.php:460
 msgid "Thank you message"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:453
+#: inc/cpcff_admin_int.inc.php:474
 msgid "Form Processing / Email Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:457
+#: inc/cpcff_admin_int.inc.php:478
 msgid "\"From\" email"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:461
+#: inc/cpcff_admin_int.inc.php:482
 msgid "Destination emails (comma separated)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:464
+#: inc/cpcff_admin_int.inc.php:485
 msgid ""
 "If you do not want to receive emails, please leave the \"destination\" "
 "attribute blank."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:468 inc/cpcff_admin_int.inc.php:792
+#: inc/cpcff_admin_int.inc.php:489 inc/cpcff_admin_int.inc.php:813
 msgid "Reply-To (comma separated)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:471
+#: inc/cpcff_admin_int.inc.php:492
 msgid ""
 "Please enter the email fields' tags separated by commas (e.g., "
 "<%fieldname1%>,<%fieldname2%>). If the attribute is left empty, the plugin "
@@ -359,41 +380,41 @@ msgid ""
 "attribute in the \"Email Copy to User\" section."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:475 inc/cpcff_admin_int.inc.php:799
+#: inc/cpcff_admin_int.inc.php:496 inc/cpcff_admin_int.inc.php:820
 msgid "Email subject"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:479
+#: inc/cpcff_admin_int.inc.php:500
 msgid "Include additional information?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:491
+#: inc/cpcff_admin_int.inc.php:512
 msgid ""
 "If the \"No\" option is selected the plugin won't capture the IP address of "
 "users."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:495
+#: inc/cpcff_admin_int.inc.php:516
 msgid "Include attachments?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:510 inc/cpcff_admin_int.inc.php:803
+#: inc/cpcff_admin_int.inc.php:531 inc/cpcff_admin_int.inc.php:824
 msgid "Email format?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:517 inc/cpcff_admin_int.inc.php:810
+#: inc/cpcff_admin_int.inc.php:538 inc/cpcff_admin_int.inc.php:831
 msgid "Plain Text (default)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:521 inc/cpcff_admin_int.inc.php:814
+#: inc/cpcff_admin_int.inc.php:542 inc/cpcff_admin_int.inc.php:835
 msgid "HTML (use html in the textarea below)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:526 inc/cpcff_admin_int.inc.php:819
+#: inc/cpcff_admin_int.inc.php:547 inc/cpcff_admin_int.inc.php:840
 msgid "Message"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:530
+#: inc/cpcff_admin_int.inc.php:551
 msgid ""
 "The plugin replaces the <%INFO%> tag in the email content with a summary of "
 "the information collected by the form. However, you can customize the email "
@@ -402,24 +423,24 @@ msgid ""
 "visiting the link:"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:530
+#: inc/cpcff_admin_int.inc.php:551
 msgid "Fields and informative tags"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:535 inc/cpcff_admin_int.inc.php:823
+#: inc/cpcff_admin_int.inc.php:556 inc/cpcff_admin_int.inc.php:844
 msgid "Attach static file"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:538 inc/cpcff_admin_int.inc.php:826
+#: inc/cpcff_admin_int.inc.php:559 inc/cpcff_admin_int.inc.php:847
 msgid "Select file"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:539
+#: inc/cpcff_admin_int.inc.php:560
 msgid ""
 "Enter the path to a static file you wish to attach to the notification email."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:548
+#: inc/cpcff_admin_int.inc.php:569
 msgid ""
 "If you or your users do not receive the notification emails, they are "
 "probably being blocked by the web server. If so, install any of the SMTP "
@@ -427,17 +448,17 @@ msgid ""
 "configure it to use your hosting provider's SMTP server."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:561
+#: inc/cpcff_admin_int.inc.php:582
 msgid "Note"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:563
+#: inc/cpcff_admin_int.inc.php:584
 msgid ""
 "To display the form in a post/page, enter your shortcode in the post/page "
 "content:"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:565
+#: inc/cpcff_admin_int.inc.php:586
 msgid ""
 "The CFF plugin implements widgets and blocks to allow inserting the form "
 "visually with the most popular page builders such as Gutenberg Editor, "
@@ -445,336 +466,336 @@ msgid ""
 "Divi, and for the other page builders insert the shortcode directly."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:574 inc/cpcff_admin_int.inc.php:931
+#: inc/cpcff_admin_int.inc.php:595 inc/cpcff_admin_int.inc.php:952
 #: inc/cpcff_admin_int_list.inc.php:609
 msgid "Request Custom Modifications"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:574 inc/cpcff_admin_int.inc.php:931
+#: inc/cpcff_admin_int.inc.php:595 inc/cpcff_admin_int.inc.php:952
 #: inc/cpcff_admin_int_list.inc.php:609 inc/cpcff_main.inc.php:251
 msgid "Help"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:582
+#: inc/cpcff_admin_int.inc.php:603
 msgid ""
 "The following features are available in the commercial version of the <a "
 "href=\"https://cff.dwbooster.com/download\" target=\"_blank\" style=\"text-"
 "decoration:none;\">\"Calculated Fields Form\"</a>"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:583
+#: inc/cpcff_admin_int.inc.php:604
 msgid "Pay only ONCE, use it FOREVER"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:594
+#: inc/cpcff_admin_int.inc.php:615
 msgid "Payment Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:599
+#: inc/cpcff_admin_int.inc.php:620
 msgid "Request cost"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:604
+#: inc/cpcff_admin_int.inc.php:625
 msgid "Currency"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:606
+#: inc/cpcff_admin_int.inc.php:627
 msgid "United States dollar"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:606
+#: inc/cpcff_admin_int.inc.php:627
 msgid "Pound sterling"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:606
+#: inc/cpcff_admin_int.inc.php:627
 msgid "PayPal Currency Codes"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:611
+#: inc/cpcff_admin_int.inc.php:632
 msgid "Base amount"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:612
+#: inc/cpcff_admin_int.inc.php:633
 msgid ""
 "Minimum amount to charge. If the final price is lesser than this number, the "
 "base amount will be applied."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:617
+#: inc/cpcff_admin_int.inc.php:638
 msgid "Product name"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:622
+#: inc/cpcff_admin_int.inc.php:643
 msgid "Discount Codes"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:624
+#: inc/cpcff_admin_int.inc.php:645
 msgid "This feature isn't available in this version."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:626
+#: inc/cpcff_admin_int.inc.php:647
 msgid "Add new discount code"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:628
+#: inc/cpcff_admin_int.inc.php:649
 msgid "Code"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:629
+#: inc/cpcff_admin_int.inc.php:650
 msgid "Discount"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:631
+#: inc/cpcff_admin_int.inc.php:652
 msgid "Percent"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:632
+#: inc/cpcff_admin_int.inc.php:653
 msgid "Fixed Value"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:634
+#: inc/cpcff_admin_int.inc.php:655
 msgid "Valid until"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:635
+#: inc/cpcff_admin_int.inc.php:656
 msgid "Add"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:637
+#: inc/cpcff_admin_int.inc.php:658
 msgid "Note: Expiration date based in server time. Server time now is"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:647
+#: inc/cpcff_admin_int.inc.php:668
 msgid "Paypal Payment Configuration"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:651
+#: inc/cpcff_admin_int.inc.php:672
 msgid "Enable Paypal Payments?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:656
+#: inc/cpcff_admin_int.inc.php:677
 msgid ""
 "Note: If \"Optional\" is selected, a radiobutton will appear in the form to "
 "select if the payment will be made with PayPal or not."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:658
+#: inc/cpcff_admin_int.inc.php:679
 msgid "Label for the \"<strong>Pay with PayPal</strong>\" option"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:665
+#: inc/cpcff_admin_int.inc.php:686
 msgid "Paypal Mode"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:671
+#: inc/cpcff_admin_int.inc.php:692
 msgid "Production - real payments processed"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:675
+#: inc/cpcff_admin_int.inc.php:696
 msgid "SandBox - PayPal testing sandbox area"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:681
+#: inc/cpcff_admin_int.inc.php:702
 msgid "Paypal email"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:686
+#: inc/cpcff_admin_int.inc.php:707
 msgid "A $0 amount to pay means"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:692
+#: inc/cpcff_admin_int.inc.php:713
 msgid "Let the user enter any amount at PayPal (Ex. for a donation)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:696
+#: inc/cpcff_admin_int.inc.php:717
 msgid "Don't require any payment. Form is submitted skiping the PayPal page."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:702
+#: inc/cpcff_admin_int.inc.php:723
 msgid "Paypal language"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:707
+#: inc/cpcff_admin_int.inc.php:728
 msgid "Payment frequency"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:715
+#: inc/cpcff_admin_int.inc.php:736
 msgid "One time payment (default option, user is billed only once)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:719
+#: inc/cpcff_admin_int.inc.php:740
 msgid "Bill the user every 1 month"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:723
+#: inc/cpcff_admin_int.inc.php:744
 msgid "Bill the user every 3 months"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:727
+#: inc/cpcff_admin_int.inc.php:748
 msgid "Bill the user every 6 months"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:731
+#: inc/cpcff_admin_int.inc.php:752
 msgid "Bill the user every 12 months"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:737
+#: inc/cpcff_admin_int.inc.php:758
 msgid "Paypal prompt buyers for shipping address"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:744
+#: inc/cpcff_admin_int.inc.php:765
 msgid "Do not prompt for an address"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:748
+#: inc/cpcff_admin_int.inc.php:769
 msgid "Prompt for an address, but do not require one"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:752
+#: inc/cpcff_admin_int.inc.php:773
 msgid "Prompt for an address and require one"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:763
+#: inc/cpcff_admin_int.inc.php:784
 msgid "Email Copy to User"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:767
+#: inc/cpcff_admin_int.inc.php:788
 msgid "Send confirmation/thank you message to user?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:783
+#: inc/cpcff_admin_int.inc.php:804
 msgid "Email field on the form"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:787
+#: inc/cpcff_admin_int.inc.php:808
 msgid "BCC"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:789
+#: inc/cpcff_admin_int.inc.php:810
 msgid "Email address for Blind Carbon Copy."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:795
+#: inc/cpcff_admin_int.inc.php:816
 msgid ""
 "Kindly input email addresses separated by commas. If the field is left "
 "empty, the plugin will use the email address provided in the \"From\" "
 "attribute within the \"Form Processing / Email Settings\" section."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:827
+#: inc/cpcff_admin_int.inc.php:848
 msgid ""
 "Enter the path to a static file you wish to attach to the copy to user email."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:837
+#: inc/cpcff_admin_int.inc.php:858
 msgid "Captcha Verification"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:841
+#: inc/cpcff_admin_int.inc.php:862
 msgid "Use Captcha Verification?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:858
+#: inc/cpcff_admin_int.inc.php:879
 msgid "Width"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:860
+#: inc/cpcff_admin_int.inc.php:881
 msgid "Height"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:862
+#: inc/cpcff_admin_int.inc.php:883
 msgid "Chars"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:867
+#: inc/cpcff_admin_int.inc.php:888
 msgid "Min font size"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:869
+#: inc/cpcff_admin_int.inc.php:890
 msgid "Max font size"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:873
+#: inc/cpcff_admin_int.inc.php:894
 msgid "security code"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:879
+#: inc/cpcff_admin_int.inc.php:900
 msgid "Noise"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:881
+#: inc/cpcff_admin_int.inc.php:902
 msgid "Noise Length"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:886
+#: inc/cpcff_admin_int.inc.php:907
 msgid "Background"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:893
+#: inc/cpcff_admin_int.inc.php:914
 msgid "Font"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:937
+#: inc/cpcff_admin_int.inc.php:958
 msgid "AI Assistant (Experimental Feature)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:939 inc/cpcff_main.inc.php:249
+#: inc/cpcff_admin_int.inc.php:960 inc/cpcff_main.inc.php:249
 msgid "Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:939
+#: inc/cpcff_admin_int.inc.php:960
 msgid "Assistant"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:940
+#: inc/cpcff_admin_int.inc.php:961
 msgid "Close"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:950
+#: inc/cpcff_admin_int.inc.php:971
 msgid "Enter OpenAI API key"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:952
+#: inc/cpcff_admin_int.inc.php:973
 msgid "OpenAI API Key"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:953
+#: inc/cpcff_admin_int.inc.php:974
 msgid "Save"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:955 inc/cpcff_openai.inc.php:41
+#: inc/cpcff_admin_int.inc.php:976 inc/cpcff_openai.inc.php:41
 msgid "OpenAI API Key is required"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:957
+#: inc/cpcff_admin_int.inc.php:978
 msgid "Instructions for use"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:959
+#: inc/cpcff_admin_int.inc.php:980
 msgid "Create an OpenAI account at"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:960
+#: inc/cpcff_admin_int.inc.php:981
 msgid "Create an API key at"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:961
+#: inc/cpcff_admin_int.inc.php:982
 msgid "Enter the API Key through the input box and press the Save button"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:970
+#: inc/cpcff_admin_int.inc.php:991
 msgid "Please, enter your questions"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:972
+#: inc/cpcff_admin_int.inc.php:993
 msgid "Your question"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:973
+#: inc/cpcff_admin_int.inc.php:994
 msgid "Send"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:975
+#: inc/cpcff_admin_int.inc.php:996
 msgid "Please, enter your question"
 msgstr ""
 

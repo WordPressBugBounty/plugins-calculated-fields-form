@@ -78,6 +78,9 @@ if ( ! empty( $form_data ) ) {
 if ( ! empty( $form_data[1][0] ) && ! empty( $form_data[1][0]->persistence ) ) {
 	echo ' persist-form';
 }
+if ( ! empty( $form_data[1][0] ) && property_exists( $form_data[1][0], 'formtemplate' ) && ! empty( $form_data[1][0]->formtemplate ) ) {
+	echo ' ' . esc_attr( $form_data[ 1 ][ 0 ]->formtemplate );
+}
 if ( ! empty( $atts ) && ! empty( $atts['class'] ) ) {
 	echo ' ' . esc_attr( $atts['class'] );
 }

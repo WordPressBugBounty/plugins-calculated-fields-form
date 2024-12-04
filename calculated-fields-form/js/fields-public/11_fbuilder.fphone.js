@@ -103,12 +103,16 @@
 					if ( ! silent ) $(':input[id*="'+me.name+'"]').valid();
 					me._on_change_events();
 				},
+			init:function()
+				{
+					var me  = this;
+					me.predefined = String(me._getAttr('predefined', true)).trim().replace(/\s/g, '');
+                    me.dformat = String(me.dformat).trim().replace(/\s+/g, ' ');
+					if(!me.countries.length) me.countries = Object.keys(me.country_db);
+				},
 			show:function()
 				{
                     var me  = this;
-
-					me.predefined = String(me._getAttr('predefined', true)).trim().replace(/\s/g, '');
-                    me.dformat = String(me.dformat).trim().replace(/\s+/g, ' ');
 
 					var str  = "",
 						tmpv = me.predefined,
@@ -122,7 +126,6 @@
                     if(me.countryComponent) {
 						let db = {}, countries;
 
-						if(!me.countries.length) me.countries = Object.keys(me.country_db);
 						for( let i in me.countries ) {
 							if ( me.countries[i] in me.country_db )
 								db[me.countries[i]] = me.country_db[me.countries[i]];

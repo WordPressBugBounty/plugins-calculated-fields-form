@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.60';
+	$.fbuilder['version'] = '5.2.61';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1273,6 +1273,10 @@
 				value = Array.isArray(value) ? value.join(', ') : value;
 				if(typeof value == 'string') {
 					value = value.replace(/\\\\/g, "\\").replace(/\\'/g, "'").replace(/\\"/g, '"');
+					// Patch for signatures and charts
+					if( /^data\:image\/png;base64\,/i.test(value) ) {
+						value = '<img src="'+value+'">';
+					}
 				}
 				tags.each(function(){$(this).html(value);});
 			}

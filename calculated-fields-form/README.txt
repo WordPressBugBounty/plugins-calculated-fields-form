@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.60
+Stable tag: 5.2.61
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.61 =
+
+* Modifies the Phone control.
+* Improves the form performance.
+* Makes the save button more accessible in the forms builder.
+* Improves the forms cache (Professional, Developer, and Platinum plugin versions).
+* Modifies the CFFCHART operation (Developer and Platinum plugin versions).
+
 = 5.2.60 =
 
 * Includes a new predefined form to improve typing.
@@ -481,10 +489,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Implements new block/endblock tags pairs in the notification emails and thank you pages for coupon, payment_status, and payment_option.
 * Enhances the WooCommerce add-on (Developer and Platinum plugin versions).
 * Modifies the iCal, MailPoet, PDF Generator, PrintFriendly and Stripe add-ons (Platinum plugin version).
-
-= 5.2.56 =
-= 5.2.55 =
-
-* It is the first step in enhancing the accessibility of the forms builder.
-* Introduces two new actions, cpcff_wp_head, and cpcff_wp_footer, which are triggered when forms are loaded directly, either through their URL or within an iframe tag, allowing for the inclusion of additional resources.
-* Implements the WEEKNUM2 operation. Unlike WEEKNUM, it considers the weekday of the first day of the year.
