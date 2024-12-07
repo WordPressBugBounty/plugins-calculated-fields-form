@@ -13,7 +13,7 @@
 			rearrange: 0,
 			show:function()
 				{
-                    return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-fieldset-field cff-container-field '+((this.collapsible) ? 'cff-collapsible'+((this.selfClosing) ? ' cff-selfclosing' : '')+((this.defaultCollapsed) ?  ' cff-collapsed' : '') : '')+'" id="field'+this.form_identifier+'-'+this.index+'"><FIELDSET style="'+cff_esc_attr(this.getCSSComponent('container'))+'">'+((!/^\s*$/.test(this.title) || this.collapsible) ? '<LEGEND style="'+cff_esc_attr(this.getCSSComponent('legend'))+'">'+this.title+'</LEGEND>' : '')+'<div id="'+this.name+'"></div></FIELDSET><div class="clearer"></div></div>';
+                    return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-fieldset-field cff-container-field '+((this.collapsible) ? 'cff-collapsible'+((this.selfClosing) ? ' cff-selfclosing' : '')+((this.defaultCollapsed) ?  ' cff-collapsed' : '') : '')+'" id="field'+this.form_identifier+'-'+this.index+'"><FIELDSET style="'+cff_esc_attr(this.getCSSComponent('container'))+'">'+((!/^\s*$/.test(this.title) || this.collapsible) ? '<LEGEND style="'+cff_esc_attr(this.getCSSComponent('legend'))+'">'+cff_sanitize(this.title, true)+'</LEGEND>' : '')+'<div id="'+this.name+'"></div></FIELDSET><div class="clearer"></div></div>';
 				},
 			after_show: function()
 				{

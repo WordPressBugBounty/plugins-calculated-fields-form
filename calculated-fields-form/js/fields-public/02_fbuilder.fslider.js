@@ -89,15 +89,18 @@
 								vlf = me._setThousandsSeparator(vl),
 								vrf = me._setThousandsSeparator(vr);
 
-							$('.'+me.name).find('.cff-slider-tooltip-value').first().html(vlf);
-							$('.'+me.name).find('.cff-slider-tooltip-value').last().html(vrf);
-							$('#'+me.name+'_component_left').val(vlf);
-							$('#'+me.name+'_component_right').val(vrf);
-							$('#'+me.name).val('['+vl+','+vr+']').attr('vt', '['+vlf+','+vrf+']');
+							$('.'+me.name).find('.cff-slider-tooltip-value').first().html(cff_sanitize(vlf, true));
+							$('.'+me.name).find('.cff-slider-tooltip-value').last().html(cff_sanitize(vrf, true));
+							$('#'+me.name+'_component_left').val(cff_esc_attr(vlf));
+							$('#'+me.name+'_component_right').val(cff_esc_attr(vrf));
+							$('#'+me.name).val('['+vl+','+vr+']').attr('vt', '['+cff_esc_attr(vlf)+','+cff_esc_attr(vrf)+']');
 							$('#'+me.name+'_caption').html(
-								me.caption
-								  .replace(/\{\s*0\s*\}/, vlf)
-								  .replace(/\{\s*0\s*\}/, vrf)
+								cff_sanitize(
+									me.caption
+									.replace(/\{\s*0\s*\}/, vlf)
+									.replace(/\{\s*0\s*\}/, vrf)
+									, true
+								 )
 							);
 						}
 						else
@@ -105,11 +108,14 @@
 							var v  = ( typeof val != 'undefined' && val !== null ) ? val : $('#'+me.name+'_slider').slider('value'),
 								vf = me._setThousandsSeparator(v);
 
-							$('.'+me.name).find('.cff-slider-tooltip-value').first().html(vf);
-							$('#'+me.name).val(v).attr('vt', vf);
-							$('#'+me.name+'_component_center').val(vf);
+							$('.'+me.name).find('.cff-slider-tooltip-value').first().html(cff_sanitize(vf, true));
+							$('#'+me.name).val(v).attr('vt', cff_esc_attr(vf));
+							$('#'+me.name+'_component_center').val(cff_esc_attr(vf));
 							$('#'+me.name+'_caption').html(
-								me.caption.replace(/\{\s*0\s*\}/g, vf)
+								cff_sanitize(
+									me.caption.replace(/\{\s*0\s*\}/g, vf)
+									, true
+								)
 							);
 						}
 						if(!nochange) $('#'+me.name).trigger('change');
@@ -204,25 +210,25 @@
 
 							var str = '';
 							if(me.typeValues)
-								str += '<div class="slider-type-components '+me.size+'">'+
+								str += '<div class="slider-type-components '+cff_esc_attr(me.size)+'">'+
 								((me.range) ? component('left')+component('right') : component('center'))+
 								'</div>';
 							return str;
 						};
 						me.predefined = (/^\s*$/.test(me.predefined)) ? me.min : me._toNumber(me._getAttr('predefined'));
 						return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-slider-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'">'+
-							'<label style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+me.title+'</label>'+
+							'<label style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+'</label>'+
 							'<div class="dfield slider-container">'+
 								typeValuesComponents()+
 								'<input id="'+me.name+'" name="'+me.name+'" class="field" type="hidden" value="'+cff_esc_attr(me.predefined)+'"/>'+
 								'<div id="'+me.name+'_slider" class="slider '+me.size+'"></div>'+
-								'<div class="corner-captions '+me.size+'">'+
-									'<span class="left-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_left'))+'">'+me.minCaption+'</span>'+
-									'<span class="right-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_right'))+'">'+me.maxCaption+'</span>'+
+								'<div class="corner-captions '+cff_esc_attr(me.size)+'">'+
+									'<span class="left-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_left'))+'">'+cff_sanitize(me.minCaption, true)+'</span>'+
+									'<span class="right-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_right'))+'">'+cff_sanitize(me.maxCaption, true)+'</span>'+
 									'<div id="'+me.name+'_caption" class="slider-caption" style="'+cff_esc_attr(me.getCSSComponent('caption'))+'"></div>'+
 									'<div class="clearer"></div>'+
 								'</div>'+
-								'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+me.userhelp+'</span>'+
+								'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span>'+
 							'</div>'+
 							'<div class="clearer"></div>'+
 						'</div>';
@@ -259,7 +265,7 @@
 					{
 						try{
 							var e = $('.'+this.name+' .left-corner');
-							e.html(this.minCaption.replace(/\{\s*0\s*\}/, v));
+							e.html(cff_sanitize(this.minCaption.replace(/\{\s*0\s*\}/, v), true));
 						}
 						catch(err){}
 					},
@@ -267,7 +273,7 @@
 					{
 						try{
 							var e = $('.'+this.name+' .right-corner');
-							e.html(this.maxCaption.replace(/\{\s*0\s*\}/, v));
+							e.html(cff_sanitize(this.maxCaption.replace(/\{\s*0\s*\}/, v), true));
 						}
 						catch(err){}
 					},
@@ -275,13 +281,13 @@
 					{
 						try{
 							if(ignore) v = this.step;
-							else this.step = v;
+							else this.step = this._toNumber(v);
 
 							if(this.logarithmic) { // TO CHECK
 								this.calc_step = v;
 								v = Math.min(v,1);
 							}
-							$('[id="'+this.name+'_slider"]').slider("option", "step", v);
+							$('[id="'+this.name+'_slider"]').slider("option", "step", cff_esc_attr(v));
 						}
 						catch(err){}
 					},
@@ -304,9 +310,9 @@
 						var me  = this,
 							opt = {
 								range: (me.range != false) ? me.range : "min",
-								min  : me._getAttr('min'),
-								max  : me._getAttr('max'),
-								step : me._getAttr('step')
+								min  : me._toNumber(me._getAttr('min')),
+								max  : me._toNumber(me._getAttr('max')),
+								step : me._toNumber(me._getAttr('step'))
 							};
 
 						me.set_min_caption(opt.min);

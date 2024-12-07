@@ -93,13 +93,13 @@
                     if( String( d.sWidth ).trim() ) s.push( 'width:'+esc( d.sWidth )+';' );
                     if( isV && String( d.sHeight ).trim() ) s.push( 'height:'+esc( d.sHeight )+';' );
                     if( isV && String( d.sPoster ).trim() ) a.push( 'poster="'+esc( d.sPoster )+'"' );
-                    if( String( d.sSrc ).trim() ) a.push( 'src="'+esc( d.sSrc )+'"' );
-                    if( d.sAutoplay ) a.push( 'autoplay' );
+                    /* if( String( d.sSrc ).trim() ) a.push( 'src="'+esc( d.sSrc )+'"' ); */
+                    /* if( d.sAutoplay ) a.push( 'autoplay' ); */
                     if( d.sControls ) a.push( 'controls' );
                     if( d.sLoop ) a.push( 'loop' );
                     if( d.sMuted ) a.push( 'muted' );
 					if( d.sHideDownload ) a.push( 'controlsList="nodownload"' );
-                    a.push( 'preload="'+esc( d.sPreload )+'"' );
+                    a.push( 'preload="none"' );
 
                     return '<'+t+' '+a.join(' ')+' cff_style="'+s.join(' ')+'">'+((String(d.sSrcAlt).trim()) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+d.sFallback+'</p></'+t+'>';
                 },

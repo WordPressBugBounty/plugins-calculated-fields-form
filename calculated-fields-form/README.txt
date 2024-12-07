@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.61
+Stable tag: 5.2.62
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.62 =
+
+* Strengthens the security of the plugin. Special thanks to Dmitrii penetration tester in CleanTalk inc and Animesh Gaurav Security Researcher for WPScan and Jetpack for their invaluable contributions.
+
 = 5.2.61 =
 
 * Modifies the Phone control.
@@ -481,11 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Include a new predefined form for listing universities.
 * Improves the User Registration add-on (Developer and Platinum plugin versions).
 * Fixes an issue in the Brevo add-on (Platinum plugin version).
-
-= 5.2.57 =
-
-* Enhances the accessibility of the forms builder.
-* Modifies the forms builder styles.
-* Implements new block/endblock tags pairs in the notification emails and thank you pages for coupon, payment_status, and payment_option.
-* Enhances the WooCommerce add-on (Developer and Platinum plugin versions).
-* Modifies the iCal, MailPoet, PDF Generator, PrintFriendly and Stripe add-ons (Platinum plugin version).

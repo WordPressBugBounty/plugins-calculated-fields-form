@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.61';
+	$.fbuilder['version'] = '5.2.62';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -15,15 +15,18 @@
 
 	$.fbuilder['htmlDecode'] = window['cff_html_decode'] = function(value)
 	{
-		return String((/&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test(value)) ? $('<div/>').html(value).text() : value).replace(/(\b)\_style(\b)/gi, '$1style$2');
+		return cff_sanitize(String((/&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test(value)) ? $('<div/>').html(value).text() : value).replace(/(\b)\_style(\b)/gi, '$1style$2'));
 	};
 
-	$.fbuilder['sanitize'] = window['cff_sanitize'] = function(value)
+	$.fbuilder['sanitize'] = window['cff_sanitize'] = function(value, controls)
 	{
-        if(typeof value == 'string')
+        if(typeof value == 'string') {
             value = value.replace(/<script\b.*\bscript>/ig, '')
                          .replace(/<script[^>]*>/ig, '')
 						 .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=");
+
+			if(typeof controls != 'undefined' && controls) value = value.replace(/<\/?(textarea|input|button|checkbox|radio|select|option)[^>]*>/gi, '');
+		}
 		return value;
 	};
 
@@ -233,7 +236,7 @@
 					});
 
 					if(mssg.length) {
-						$( 'body' ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' ).one('click', $.fbuilder.closeErrorDlg);
+						$( 'body' ).append( '<div class="cff-error-dlg">'+cff_sanitize(mssg.join('<br>'), true)+'</div>' ).one('click', $.fbuilder.closeErrorDlg);
 					}
 				}
 
@@ -455,6 +458,10 @@
 		opt.messages.dateyyyymmdd = opt.messages.datemmddyyyy;
 		opt.messages.dateyyyyddmm = opt.messages.dateddmmyyyy;
 
+		for( let message in opt.messages ) {
+			opt.messages[message] = cff_sanitize(opt.messages[message], true);
+		}
+
 		$.extend($.validator.messages, opt.messages);
 
 		$("#cp_calculatedfieldsf_pform"+opt.identifier).validate({
@@ -565,7 +572,7 @@
 								var uh = items[i].jQueryRef();
 								if(items[i].userhelp && items[i].userhelp.length)
 								{
-									var uh_content = '<div data-uh-styles="'+cff_esc_attr(items[i].getCSSComponent('help').replace(/<[^>]*>/g, ''))+'">'+items[i].userhelp+'</div>';
+									var uh_content = cff_sanitize('<div data-uh-styles="'+cff_esc_attr(items[i].getCSSComponent('help').replace(/<[^>]*>/g, ''))+'">'+items[i].userhelp+'</div>', true);
 
 									if(items[i].tooltipIcon) $('<span class="cff-help-icon"></span>').attr('uh', uh_content).appendTo($(uh.children('label')[0] || uh));
 									else{
@@ -605,8 +612,8 @@
 
                             $(this).wrapInner('<fieldset></fieldset>')
                             .find('fieldset:eq(0)')
-                            .prepend('<legend>'+opt.messages.pageof.replace( /\{\s*\d+\s*\}/, (index+1) ).replace( /\{\s*\d+\s*\}/, (page+1) )+'</legend>')
-                            .append(code+'<div class="pbPrevious" tabindex="0">'+opt.messages.previous+'</div><div class="pbNext" tabindex="0">'+opt.messages.next+'</div>'+bSubmit+'<div class="clearer"></div>');
+                            .prepend('<legend>'+cff_sanitize(opt.messages.pageof.replace( /\{\s*\d+\s*\}/, (index+1) ).replace( /\{\s*\d+\s*\}/, (page+1) ), true)+'</legend>')
+                            .append(code+'<div class="pbPrevious" tabindex="0">'+cff_sanitize(opt.messages.previous, true)+'</div><div class="pbNext" tabindex="0">'+cff_sanitize(opt.messages.next, true)+'</div>'+cff_sanitize(bSubmit, true)+'<div class="clearer"></div>');
 						});
 					}
 
@@ -792,8 +799,8 @@
 					$.fbuilder['getCSSComponent'](this, 'buttons', true, '#'+form_id+' .pbNext,#'+form_id+' .pbPrevious,#'+form_id+' .pbSubmit', id);
 					$.fbuilder['getCSSComponent'](this, 'buttons_hover', true, '#'+form_id+' .pbNext:hover,#'+form_id+' .pbPrevious:hover,#'+form_id+' .pbSubmit:hover', id);
 
-				    return ( id in $.fbuilder.css ? '<style>' + $.fbuilder.css[id].join('') + '</style>' : '') + // Include the fields CSS
-					'<div class="fform" id="field">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'title'))+'">'+this.title+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'description'))+'">'+this.description+'</span>' : '' )+'</div>';
+				    return ( id in $.fbuilder.css ? '<style>' + cff_sanitize($.fbuilder.css[id].join(''), true) + '</style>' : '') + // Include the fields CSS
+					'<div class="fform" id="field">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'title'))+'">'+cff_sanitize(this.title, true)+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'description'))+'">'+cff_sanitize(this.description, true)+'</span>' : '' )+'</div>';
 				},
                 after_show:function( id ){
                     // Common validators
@@ -813,7 +820,7 @@
 
 									return this.optional(el) || r.test(v) || ($.fbuilder.isNumeric(v) && (!e.noCents || v === FLOOR(v)));
 								},
-								$.validator.messages['currency']
+								cff_sanitize( $.validator.messages['currency'], true )
 							);
                         $.validator.methods.number = function(v, el)
 							{
@@ -1039,21 +1046,25 @@
 							s = String(s).trim();
 							if(!$.fbuilder.isNumeric(s.charAt(0)))
 							{
-								$(document)[i]('change depEvent', s, function(evt){
-									if(me['set_'+attr]) me['set_'+attr](me._getAttr(attr), $(evt.target).hasClass('ignore'));
-								});
+								try {
+									$(document)[i]('change depEvent', s, function(evt){
+										if(me['set_'+attr]) me['set_'+attr](me._getAttr(attr), $(evt.target).hasClass('ignore'));
+									});
+								} catch( err ) {}
 
-                                $(document)['one']('showHideDepEvent', function(evt,formId){
-                                    try
-                                    {
-                                        if(me['set_'+attr])
-                                        {
-                                            me['set_'+attr](me._getAttr(attr), $(s).hasClass('ignore'));
-                                            $('#'+formId).validate().resetForm();
-                                        }
-                                    }
-                                    catch(err){}
-								});
+								try {
+									$(document)['one']('showHideDepEvent', function(evt,formId){
+										try
+										{
+											if(me['set_'+attr])
+											{
+												me['set_'+attr](me._getAttr(attr), $(s).hasClass('ignore'));
+												$('#'+formId).validate().resetForm();
+											}
+										}
+										catch(err){}
+									});
+								} catch( err ) {}
 							}
 						}
 					},
@@ -1081,7 +1092,7 @@
 				setVal:function( v, nochange )
 				{
 					var e = $( "[id='" + this.name + "']" );
-					e.val( v );
+					e.val( cff_sanitize(v) );
 					if(!nochange) e.trigger('change');
 				},
 				setPlaceholder:function( v )
@@ -1278,7 +1289,7 @@
 						value = '<img src="'+value+'">';
 					}
 				}
-				tags.each(function(){$(this).html(value);});
+				tags.each(function(){$(this).html(cff_sanitize(value, true));});
 			}
 		} catch( err ) {}
 	};

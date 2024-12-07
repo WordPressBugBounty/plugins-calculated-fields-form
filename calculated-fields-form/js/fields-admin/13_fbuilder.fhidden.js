@@ -20,7 +20,7 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Hidden')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<label>'+this.title+'</label><span class="uh">'+this.predefined+'</span><div class="clearer"></div></div>';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Hidden')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<label>'+cff_sanitize(this.title, true)+'</label><span class="uh">'+cff_sanitize(this.predefined, true)+'</span><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

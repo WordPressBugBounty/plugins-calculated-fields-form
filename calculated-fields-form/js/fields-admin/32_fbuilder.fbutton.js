@@ -28,7 +28,7 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Button')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<input type="button" class="button-secondary disabled" disabled value="'+cff_esc_attr(this.sValue)+'"><div>'+this.userhelp+'</div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Button')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<input type="button" class="button-secondary disabled" disabled value="'+cff_esc_attr(this.sValue)+'"><div>'+cff_sanitize(this.userhelp, true)+'</div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

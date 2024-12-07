@@ -20,6 +20,10 @@
 			showDep:false,
 			init:function(){
 				this.getCSSComponent('choice', true, '#fbuilder .'+this.name+' .dfield label', this.form_identifier);
+				if(isNaN(this.min*1)) this.min = -1;
+				this.min *= 1;
+				if(isNaN(this.max*1)) this.max = -1;
+				this.max *= 1;
 			},
 			show:function()
 				{
@@ -49,7 +53,7 @@
 						) +
 						'</label></div>';
 					}
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+(this.onoff ? ' cff-switch-container' : '')+' '+this.name+' cff-checkbox-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+this.title+''+((this.required || 0 < this.min)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<div class="clearer"></div>'+(!this.userhelpTooltip ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+this.userhelp+'</span>' : '')+'</div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+(this.onoff ? ' cff-switch-container' : '')+' '+this.name+' cff-checkbox-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required || 0 < this.min)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<div class="clearer"></div>'+(!this.userhelpTooltip ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span>' : '')+'</div><div class="clearer"></div></div>';
 				},
             enable_disable:function( e )
                 {
@@ -98,9 +102,9 @@
 					}
 
                     if(0 < m.max)
-                        $('[id*="'+m.name+'_"]').rules('add',{maxlength:m.max, messages:{maxlength:m.maxError}});
+                        $('[id*="'+m.name+'_"]').rules('add',{maxlength:m.max, messages:{maxlength:cff_sanitize(m.maxError, true)}});
                     if(0 < m.min)
-                        $('[id*="'+m.name+'_"]').rules('add',{minlength:m.min, messages:{minlength:m.minError}});
+                        $('[id*="'+m.name+'_"]').rules('add',{minlength:m.min, messages:{minlength:cff_sanitize(m.minError, true)}});
                 },
 			showHideDep:function(toShow, toHide, hiddenByContainer, interval)
 				{

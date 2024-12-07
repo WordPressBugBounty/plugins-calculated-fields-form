@@ -40,7 +40,7 @@
 				{
 					var e = $('[id="'+this.name+'"]');
 					if(rmv) e.removeAttr('min');
-					else e.attr('min', v);
+					else if(!isNaN(v*1)) e.attr('min', v);
 					if(!e.hasClass('cpefb_error')) e.removeClass('required');
 					e.valid();
                     if(this.required) e.addClass('required');
@@ -49,7 +49,7 @@
 				{
 					var e = $('[id="'+this.name+'"]');
 					if(rmv) e.removeAttr('max');
-					else e.attr('max', v);
+					else if(!isNaN(v*1)) e.attr('max', v);
 					if(!e.hasClass('cpefb_error')) e.removeClass('required');
 					e.valid();
                     if(this.required) e.addClass('required');
@@ -104,11 +104,11 @@
 			show:function()
 				{
 					this.predefined = this._getAttr('predefined', true);
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+(this.spinner ? 'cff-spinner ' : '')+this.name+' cff-currency-field" id="field'+this.form_identifier+'-'+this.index+'"  style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+
-					(this.spinner ? '<div class="cff-spinner-components-container '+this.size+'"><button type="button" class="cff-spinner-down" style="'+cff_esc_attr(this.getCSSComponent('spinner_left'))+'">-</button>' : '')+
-					'<input '+((this.numberpad) ? 'inputmode="decimal"' : '')+' aria-label="'+cff_esc_attr(this.title)+'" '+((this.readonly)? 'readonly' : '')+' id="'+this.name+'" name="'+this.name+'" class="field cffcurrency '+(this.spinner ? 'large' : this.size)+((this.required)?" required":"")+'" type="text" value="'+cff_esc_attr((this.formatDynamically) ? this.getFormattedValue(this.predefined) : this.predefined)+'" '+((!/^\s*$/.test(this.min)) ? 'min="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('min'), this.thousandSeparator, this.centSeparator))+'" ' : '')+((!/^\s*$/.test(this.max)) ? ' max="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('max'), this.thousandSeparator, this.centSeparator))+'" ' : '')+((!/^\s*$/.test(this.step)) ? ' step="'+cff_esc_attr(this._getAttr('step', true))+'" ' : '')+' style="'+cff_esc_attr(this.getCSSComponent('input'))+'" />'+
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+(this.spinner ? 'cff-spinner ' : '')+this.name+' cff-currency-field" id="field'+this.form_identifier+'-'+this.index+'"  style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+
+					(this.spinner ? '<div class="cff-spinner-components-container '+cff_esc_attr(this.size)+'"><button type="button" class="cff-spinner-down" style="'+cff_esc_attr(this.getCSSComponent('spinner_left'))+'">-</button>' : '')+
+					'<input '+((this.numberpad) ? 'inputmode="decimal"' : '')+' aria-label="'+cff_esc_attr(this.title)+'" '+((this.readonly)? 'readonly' : '')+' id="'+this.name+'" name="'+this.name+'" class="field cffcurrency '+(this.spinner ? 'large' : cff_esc_attr(this.size))+((this.required)?" required":"")+'" type="text" value="'+cff_esc_attr((this.formatDynamically) ? this.getFormattedValue(this.predefined) : this.predefined)+'" '+((!/^\s*$/.test(this.min)) ? 'min="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('min'), this.thousandSeparator, this.centSeparator))+'" ' : '')+((!/^\s*$/.test(this.max)) ? ' max="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('max'), this.thousandSeparator, this.centSeparator))+'" ' : '')+((!/^\s*$/.test(this.step)) ? ' step="'+cff_esc_attr(this._getAttr('step', true))+'" ' : '')+' style="'+cff_esc_attr(this.getCSSComponent('input'))+'" />'+
 					(this.spinner ? '<button type="button" class="cff-spinner-up" style="'+cff_esc_attr(this.getCSSComponent('spinner_right'))+'">+</button></div>' : '')+
-					'<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+					'<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{

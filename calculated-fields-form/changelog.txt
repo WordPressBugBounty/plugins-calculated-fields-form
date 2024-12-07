@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.2.62 =
+
+* Strengthens the security of the plugin. Special thanks to Dmitrii penetration tester in CleanTalk inc and Animesh Gaurav Security Researcher for WPScan and Jetpack for their invaluable contributions.
+
 = 5.2.61 =
 
 * Modifies the Phone control.

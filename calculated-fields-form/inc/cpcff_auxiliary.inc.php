@@ -426,7 +426,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				}
 				return $v;
 			} else {
-				return preg_replace( array( '/<\s*script\b.*\bscript\s*>/i', '/<\s*script[^>]*>/i' ), '', $v );
+                return preg_replace( array( '/<\s*script\b.*\bscript\s*>/i', '/<\s*script[^>]*>/i', '/(\b)(on[a-z]+)\s*=/i' ), array( '', '', '$1_$2=' ), $v );
 			}
 		} // End stripscript_recursive.
 

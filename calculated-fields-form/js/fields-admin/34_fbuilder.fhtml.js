@@ -13,6 +13,7 @@
 		{
 			ftype:"fhtml",
 			_developerNotes:'',
+			allowscript:-1,
 			fcontent: "",
 			initAdv:function(){
 					delete this.advanced.css['label'];
@@ -22,14 +23,21 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					let content = $('<div/>').html(this.fcontent).find('script,style').remove().end().html();
+					let content = this.fcontent
+									.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, '')
+									.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, '')
+									.replace(/(\b)(on[a-z]+)\s*=/gi, "$1_$2=");
+					content = cff_sanitize($('<div/>').html(content).find('script,style').remove().end().html());
 					content = /^\s*$/.test(content) ? '&lt;HTML&gt;' : content.replace( /<\s*(input|textarea|button|select|radio|checkbox)(\b)/ig, '<$1 disabled $2' );
 
 					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+' fhtml" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('HTML Content')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer('', false)+'<span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span>'+this.showColumnIcon()+'<div class="fhtml-content">'+content+'</div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
-					var evt=[{s:"#sContent",e:"change keyup", l:"fcontent"}];
+					var evt=[
+						{s:'[name="sAllowscript"]', e:"change", l:"allowscript", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
+						{s:"#sContent",e:"change keyup", l:"fcontent"}
+					];
 					$.fbuilder.controls['ffields'].prototype.editItemEvents.call(this,evt);
 
 					// Code Editor
@@ -75,7 +83,14 @@
 				},
 			showContent:function()
 				{
-					return '<div class="cff-editor-container"><label style="display:block;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
+					if( this.allowscript == -1 ) {
+						this.allowscript = 0;
+						if( /(<script\b)|(\bon[a-z]+\s*=)/i.test( this.fcontent ) ) {
+							this.allowscript = 1;
+						}
+						$('[name="sAllowscript"]').change();
+					}
+					return '<div><label><input type="checkbox" name="sAllowscript" id="sAllowscript" '+(this.allowscript ? 'CHECKED' : '')+'> Accept JavaScript code in content</label><hr /></div><div class="cff-editor-container"><label style="display:block;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
 				},
 			showAllSettings:function()
 				{

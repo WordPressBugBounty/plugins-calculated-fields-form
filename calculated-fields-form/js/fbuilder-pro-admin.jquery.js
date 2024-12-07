@@ -58,7 +58,7 @@
 		f.append('<input type="hidden" name="preview" value="1" />');
 
 		setTimeout(function(){
-			f.submit();
+			f.trigger('submit');
 			f.attr( 'target', '_self' ).find( 'input[name="preview"]').remove();
 			delete cff_form_preview_window_flag;
 			cff_form_preview_window.focus();
@@ -115,9 +115,9 @@
 		return value;
 	};
 
-    $.fbuilder['sanitize'] = window['cff_sanitize'] = function(value)
+    $.fbuilder['sanitize'] = window['cff_sanitize'] = function(value, controls)
 	{
-        if(typeof value == 'string')
+        if(typeof value == 'string') {
             value = value.replace(/<script\b.*\bscript>/ig, '')
                          .replace(/<script[^>]*>/ig, '')
                          .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=")
@@ -125,6 +125,10 @@
                          .replace(/<style[^>]*>/ig, '')
                          .replace(/(\b)style\s*=/ig, "$1_style=")
                          .replace(/(\b)cff_style\s*=/ig, "$1style=");
+
+			if(typeof controls != 'undefined' && controls) value = value.replace(/<\/?(textarea|input|button|checkbox|radio|select|option)[^>]*>/gi, '');
+		}
+
 		return value;
 	};
 
@@ -194,13 +198,13 @@
 		let title_margin = '0';
 		for ( var i in categoryList )
 		{
-			$("#tabs-1").append('<div style="clear:both;"></div><div style="margin-top:' + title_margin + '">'+categoryList[ i ].title+'</div><hr />');
+			$("#tabs-1").append('<div style="clear:both;"></div><div style="margin-top:' + title_margin + '">'+cff_sanitize(categoryList[ i ].title, true)+'</div><hr />');
 
 			title_margin = '20px;';
 
 			if( typeof categoryList[ i ][ 'description' ] != 'undefined' && !/^\s*$/.test( categoryList[ i ][ 'description' ] ) )
 			{
-				$("#tabs-1").append('<div style="clear:both;"></div><div class="category-description">'+categoryList[ i ].description+'</div>');
+				$("#tabs-1").append('<div style="clear:both;"></div><div class="category-description">'+cff_sanitize(categoryList[ i ].description, true)+'</div>');
 			}
 
 			if( typeof categoryList[ i ][ 'typeList' ]  != 'undefined' )
@@ -208,7 +212,7 @@
 				for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
 				{
 					var index = categoryList[ i ].typeList[ j ];
-					$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+typeList[ index ].name+'</div>');
+					$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
 				}
 			}
 		}
@@ -413,7 +417,7 @@
 					{
 						if( typeof template[ 'thumbnail' ] != 'undefined' )
 						{
-							thumbnail = '<img src="' + template[ 'thumbnail' ] + '" alt="'+ cff_esc_attr( 'title' in template ? template['title'] : 'Template thumbnail' )+'">';
+							thumbnail = '<img src="' + cff_esc_attr(template[ 'thumbnail' ]) + '" alt="'+ cff_esc_attr( 'title' in template ? template['title'] : 'Template thumbnail' )+'">';
 						}
 						if( typeof template[ 'description' ] != 'undefined' )
 						{
@@ -421,7 +425,7 @@
 						}
 					}
 					$( '#fTemplateThumbnail' ).html( thumbnail );
-					$( '#fTemplateDescription' ).html( description );
+					$( '#fTemplateDescription' ).html( cff_sanitize(description, true) );
 					$.fbuilder.reloadItems({'form':1});
 				});
 
@@ -714,24 +718,24 @@
 						// Email fields
 						if (item.ftype=="femail" || item.ftype=="femailds")
 						{
-							email_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( cu_user_email_fields_list.indexOf( item.name ) != -1 ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+' ('+cff_sanitize(item.title)+')')+'</option>';
+							email_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( cu_user_email_fields_list.indexOf( item.name ) != -1 ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+' ('+cff_sanitize(item.title, true)+')')+'</option>';
 						}
 						else
 						{
 							// Request cost fields
                             if(!/(femail)|(fdate)|(ffile)|(fpassword)|(fphone)|(fsectionbreak)|(fpagebreak)|(fsummary)|(fcontainer)|(ffieldset)|(fdiv)|(fmedia)|(fbutton)|(fhtml)|(frecordsetds)|(fcommentarea)/i.test(item.ftype))
 							{
-                                cost_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == request_cost ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+'('+cff_sanitize(item.title)+')')+'</option>'
+                                cost_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == request_cost ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+'('+cff_sanitize(item.title, true)+')')+'</option>'
 							}
 
 							// Recurrent Payments
                             if (item.ftype=="fradio" || item.ftype=="fdropdown" || item.ftype=="fCalculated")
 							{
-                                recurrent_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == paypal_recurrent_field ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+' ('+cff_sanitize(item.title)+')')+'</option>';
+                                recurrent_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == paypal_recurrent_field ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+' ('+cff_sanitize(item.title, true)+')')+'</option>';
 							}
 
 							// Times Intervals
-                            interval_fields_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == paypal_price_field ) ? "selected" : "" )+'>'+cff_esc_attr(cff_sanitize(item.title))+'</option>';
+                            interval_fields_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == paypal_price_field ) ? "selected" : "" )+'>'+cff_esc_attr(cff_sanitize(item.title, true))+'</option>';
 						}
 					}
 					$("#fieldlist").html( playlist_html );
@@ -800,7 +804,7 @@
 						title = '{ Form Title and Description Here }';
 					}
 
-					return '<div class="fform '+empty_class+'" id="field"><div class="arrow ui-icon ui-icon-play "></div><'+this.titletag+' style="'+css+'">'+cff_sanitize(title)+'</'+this.titletag+'><span style="display:block;'+css+'">'+cff_sanitize(description)+'</span></div>';
+					return '<div class="fform '+empty_class+'" id="field"><div class="arrow ui-icon ui-icon-play "></div><'+this.titletag+' style="'+css+'">'+cff_sanitize(title, true)+'</'+this.titletag+'><span style="display:block;'+css+'">'+cff_sanitize(description, true)+'</span></div>';
 				},
 
 				showAllSettings:function()
@@ -829,7 +833,7 @@
 							selected = 'SELECTED';
 							if( typeof $.fbuilder.showSettings.formTemplateDic[i].thumbnail != 'undefined' )
 							{
-								thumbnail = '<img src="'+$.fbuilder.showSettings.formTemplateDic[i].thumbnail+'" alt="' + cff_esc_attr( 'title' in $.fbuilder.showSettings.formTemplateDic[i] ? $.fbuilder.showSettings.formTemplateDic[i]['title'] : 'Template thumbnail') + '">';
+								thumbnail = '<img src="'+cff_esc_attr($.fbuilder.showSettings.formTemplateDic[i].thumbnail)+'" alt="' + cff_esc_attr( 'title' in $.fbuilder.showSettings.formTemplateDic[i] ? $.fbuilder.showSettings.formTemplateDic[i]['title'] : 'Template thumbnail') + '">';
 							}
 
 							if( typeof $.fbuilder.showSettings.formTemplateDic[i].description != 'undefined' )
@@ -881,7 +885,7 @@
 						str += '<hr />';
 					}
 
-					str += '<div><label for="fTemplate">Form Template</label><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><div style="text-align:center;padding:10px 0;"><span id="fTemplateThumbnail">'+thumbnail+'</span><div></div><span  id="fTemplateDescription">'+description+'</span></div>'+
+					str += '<div><label for="fTemplate">Form Template</label><select name="fTemplate" id="fTemplate" class="large">'+template+'</select></div><div style="text-align:center;padding:10px 0;"><span id="fTemplateThumbnail">'+thumbnail+'</span><div></div><span  id="fTemplateDescription">'+cff_sanitize(description, true)+'</span></div>'+
                     '<div><label><input type="checkbox" name="fAnimateForm" id="fAnimateForm" '+( ( me.animate_form ) ? 'CHECKED' : '' )+' /> Animate page breaks in multipage forms, and dependencies</label></div>'+
                     '<div><label for="fAnimationEffect">Animation effect</label><select name="fAnimationEffect" id="fAnimationEffect" class="large">'+
 					'<option value="fade" '+( (me.animation_effect == 'fade') ? 'SELECTED' : '' )+'>Fade</option>'+
@@ -1298,7 +1302,7 @@
 				for ( let i in components ) {
 					c = components[i];
 					if ( 'label' in c ) {
-						output += '<div>' + c['label'] + '</div>';
+						output += '<div>' + cff_sanitize(c['label'], true) + '</div>';
 					}
 					output += '<hr><div id="cff-css-rules-container-'+i+'">';
 					if ( 'rules' in c ) {
@@ -1320,10 +1324,10 @@
 
 		css[c]['rules'] = {};
 		$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(i, e){
-			let css_rule = cff_sanitize( String(this.value).trim() ), v;
+			let css_rule = cff_esc_attr( String(this.value).trim() ), v;
 			if ( css_rule == '' ) return;
 			v = String( $('[data-cff-css-component="'+c+'"][name^="advanced[css][css_value]"]:eq('+i+')').val() ).trim();
-			v = cff_sanitize( v.replace(/[\{\}]/g, '') );
+			v = cff_esc_attr( v.replace(/[\{\}]/g, '') );
 			css[c]['rules'][css_rule] = v;
 		});
 		e.advanced.css = css;
@@ -1864,7 +1868,7 @@
 							eanswer    = $('<div class="cff-ai-assistance-answer-frame ' + css_class + '"></div>');
 
 						equestion.text( question );
-						eanswer.html( data_obj['message'] );
+						eanswer.html( cff_sanitize(data_obj['message'], true) );
 						if( data_obj['type'] == 'mssg') {
 							$('[name="cff-openai-question"]').val('');
 						}

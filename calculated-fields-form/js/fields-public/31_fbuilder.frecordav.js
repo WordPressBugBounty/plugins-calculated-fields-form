@@ -44,19 +44,19 @@
 						time_formatted = ( this._has_hours_component() ? '00:' : '')+'00:00';
 
 					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-record-av-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'">' +
-					'<label for="'+this.name+'_record_btn" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label>' +
+					'<label for="'+this.name+'_record_btn" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label>' +
 					'<div class="dfield">' +
 					'<input type="file" id="'+this.name+'" name="'+this.name+'[]" class="hide-strong" />' +
 					'<div class="cff-record-controls-container">' +
-					'<div class="cff-record-btn" id="'+this.name+'_record_btn">'+cff_sanitize(this.record_label)+'</div>' +
+					'<div class="cff-record-btn" id="'+this.name+'_record_btn">'+cff_sanitize(this.record_label, true)+'</div>' +
 					( this.preview ? '<div class="cff-record-play-btn hide-strong" id="'+this.name+'_play_btn"></div>' : '' ) +
-					( this.max_time ? '<div class="cff-record-time" id="'+this.name+'_record_time">'+time_formatted+'</div><div class="cff-record-max-time">'+max_time_formatted+'</div>' : '' ) +
+					( this.max_time ? '<div class="cff-record-time" id="'+this.name+'_record_time">'+cff_sanitize(time_formatted, true)+'</div><div class="cff-record-max-time">'+cff_sanitize(max_time_formatted, true)+'</div>' : '' ) +
 					'</div>' +
 					'<div class="clearer"></div>' +
-					'<div class="cff-record-status hide-strong" id="'+this.name+'_record_status">'+cff_sanitize(this.status_message)+'</div>' +
+					'<div class="cff-record-status hide-strong" id="'+this.name+'_record_status">'+cff_sanitize(this.status_message, true)+'</div>' +
 					( this.preview ? (this._is_video() ? '<video id="'+this.name+'_media" width="'+cff_esc_attr(this.video_width)+'" height="'+cff_esc_attr(this.video_height)+'" class="hide-strong" style="margin-top:20px;" preload="metadata" style="'+cff_esc_attr(this.getCSSComponent('video'))+'"></video>': '<audio id="'+this.name+'_media" class="hide-strong" style="'+cff_esc_attr(this.getCSSComponent('audio'))+'"></audio>') : '' ) +
 					'<div class="clearer"></div>' +
-					'<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+					'<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer" /></div>';
 				},
 			after_show:function()
 			{
@@ -187,7 +187,7 @@
 								}, 1000);
 							},
 							function(err){
-								$('.'+me.name+' .dfield').html('<div class="cff-record-error">'+err.name+'</div>');
+								$('.'+me.name+' .dfield').html('<div class="cff-record-error">'+cff_sanitize(err.name, true)+'</div>');
 							}
 						);
 					}

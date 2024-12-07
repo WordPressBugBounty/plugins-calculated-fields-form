@@ -52,7 +52,7 @@
 					this.init();
 					let affectedFields = $.fbuilder.checkDeletedFields(this.eq);
 					let id = 'field'+this.form_identifier+'-'+this.index;
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+(affectedFields != '' ? ' cff-error' : '')+'" id="'+id+'" title="'+this.controlLabel(affectedFields)+'"><span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input id="'+id+'-box" class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+(affectedFields != '' ? ' cff-error' : '')+'" id="'+id+'" title="'+this.controlLabel(affectedFields)+'"><span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input id="'+id+'-box" class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -374,7 +374,7 @@
 										var module = $.fbuilder['modules'][m];
 										for(var toolbar in module['toolbars'])
 										{
-											out += '<option value="'+m+'|'+toolbar+'" '+((default_toolbar == m+'|'+toolbar) ? 'SELECTED' : '')+'>'+module['toolbars'][toolbar]['label']+'</options>';
+											out += '<option value="'+cff_esc_attr(m+'|'+toolbar)+'" '+((default_toolbar == m+'|'+toolbar) ? 'SELECTED' : '')+'>'+cff_esc_attr(module['toolbars'][toolbar]['label'])+'</options>';
 										}
 									}
 								}
@@ -419,7 +419,7 @@
 							}
 					};
 
-                    var out = '<label for="sEq">Set Equation</label><textarea class="large" name="sEq" id="sEq" style="height:150px;">'+me.eq+'</textarea>'+
+                    var out = '<label for="sEq">Set Equation</label><textarea class="large" name="sEq" id="sEq" style="height:150px;">'+cff_esc_attr(me.eq)+'</textarea>'+
 					'<div id="sAdvancedEditor" title="The Advance Editor is still in experimental state">Advanced Equation\'s Editor</div>'+
 					'<label for="sFieldList">Operands <div style="float:right;"><a href="https://cff.dwbooster.com/documentation#modules" target="_blank">Read equation tutorial</a></div></label><div class="groupBox"><select id="sFieldList">';
 

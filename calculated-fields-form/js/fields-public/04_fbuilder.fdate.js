@@ -272,7 +272,9 @@
 					var e = $('[id*="'+this.name+'_"].hasDatepicker'), f;
 					if(e.length)
 					{
-						e.datepicker('option', 'minDate', (ignore) ? null : v);
+						try {
+							e.datepicker('option', 'minDate', (ignore) ? null : ( (typeof v == 'string') ? cff_esc_attr(v) : v ));
+						}catch(err){ e.datepicker('option', 'minDate', null); }
 						if( e.hasClass('datepicker-container') ) { f = e; e = e.siblings('.date-component'); }
 						if(e.val() != '') e.trigger('change');
 						else if( f ) f.find('.ui-state-active').removeClass('ui-state-active');
@@ -283,7 +285,9 @@
 					var e = $('[id*="'+this.name+'_"].hasDatepicker'), f;
 					if(e.length)
 					{
-						e.datepicker('option', 'maxDate', (ignore) ? null : v);
+						try {
+							e.datepicker('option', 'maxDate', (ignore) ? null : ( (typeof v == 'string') ? cff_esc_attr(v) : v ));
+						}catch (err){ e.datepicker('option', 'maxDate', null); }
 						if( e.hasClass('datepicker-container') ) { f = e; e = e.siblings('.date-component'); }
 						if(e.val() != '') e.trigger('change');
 						else if( f ) f.find('.ui-state-active').removeClass('ui-state-active');
@@ -323,7 +327,9 @@
 					if(me.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: me.dropdownRange});
 					p = $.extend(p, {beforeShowDay:function(d){return [me._validateDate(d), ""];}});
 					if(me.defaultDate != "") p.defaultDate = me.defaultDate;
-					dp.datepicker(p);
+					try {
+						dp.datepicker(p);
+					} catch(err) {}
                     if(!me.predefinedClick || !!init == false) dp.datepicker("setDate", dd);
                     if(!me._validateDate()){ dp.datepicker("setDate", ''); $("#"+me.name+"_datepicker_container .ui-state-active").removeClass('ui-state-active');}
 				},
@@ -332,9 +338,11 @@
 					var me 			= this,
 						_setValue 	= function(f, v, m)
 						{
-							v = Math.min(v*1, m*1);
-							v = (v < 10) ? 0+''+v : v;
-							$('#'+f+' [value="'+v+'"]').prop('selected', true);
+							if ( !isNaN(v*1) ) {
+								v = Math.min(v*1, m*1);
+								v = (v < 10) ? 0+''+v : v;
+								$('#'+f+' [value="'+v+'"]').prop('selected', true);
+							}
 						};
 
 					if(me.showTimepicker)
@@ -382,12 +390,12 @@
 					else{ date_tag_type = 'hidden'; if( ! me.alwaysVisible ) disabled='disabled';}
                     if(me.showTimepicker) format_label.push('HH:mm');
 					this.predefined = this._getAttr('predefined');
-					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-date-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label '+(me.showDatepicker ? 'for="'+n+'_date"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+me.title+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length) ? ' <span class="dformat">('+format_label.join(' ')+')</span>' : '')+'</label><div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" value="'+cff_esc_attr(me.predefined)+'"/>'+
+					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-date-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label '+(me.showDatepicker ? 'for="'+n+'_date"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length) ? ' <span class="dformat">('+cff_sanitize(format_label.join(' '), true)+')</span>' : '')+'</label><div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" value="'+cff_esc_attr(me.predefined)+'"/>'+
 
-					'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="'+date_tag_class+' date-component" type="'+date_tag_type+'" '+attr+'="'+cff_esc_attr(me.predefined)+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+(me.errorMssg != '' ? ' data-msg="'+cff_esc_attr(me.errorMssg)+'"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('date'))+'" />'+
+					'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="'+cff_esc_attr(date_tag_class)+' date-component" type="'+date_tag_type+'" '+attr+'="'+cff_esc_attr(me.predefined)+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+(me.errorMssg != '' ? ' data-msg="'+cff_esc_attr(me.errorMssg)+'"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('date'))+'" />'+
 
 					(me.alwaysVisible && me.showDatepicker ? '<div id="'+n+'_datepicker_container" class="datepicker-container"></div>' : '')+
-					((me.showTimepicker) ? ' '+me.get_hours()+me.get_minutes()+' '+me.get_ampm() : '')+'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
+					((me.showTimepicker) ? ' '+me.get_hours()+me.get_minutes()+' '+me.get_ampm() : '')+'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{

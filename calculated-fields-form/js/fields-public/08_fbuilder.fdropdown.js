@@ -53,12 +53,12 @@
 						}
 						else
 						{
-							str += '<option '+((this.choiceSelected == c[i]+' - '+cv[i])?"selected":"")+' '+((classDep != '') ? 'class="'+classDep+'"' : '')+' value="'+cff_esc_attr(cv[i])+'" vt="'+cff_esc_attr((this.toSubmit=='text') ? c[i] : cv[i])+'" data-i="'+i+'">'+cff_esc_attr(cff_sanitize(c[i]))+'</option>';
+							str += '<option '+((this.choiceSelected == c[i]+' - '+cv[i])?"selected":"")+' '+((classDep != '') ? 'class="'+classDep+'"' : '')+' value="'+cff_esc_attr(cv[i])+'" vt="'+cff_esc_attr((this.toSubmit=='text') ? c[i] : cv[i])+'" data-i="'+i+'">'+cff_esc_attr(cff_sanitize(c[i], true))+'</option>';
 						}
 					}
 					if(op_o) str += '</optgroup>';
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-dropdown-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label>'+
-					'<div class="dfield"><select aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+((this.multiple)? '[]':'')+'" class="field '+((classDep != '') ? ' depItemSel ' : '')+this.size+((this.required)?' required':'')+'" '+((this.multiple == true)?' multiple="multiple" size="'+((this.vChoices) ? this.vChoices : 1)+'"':'')+' style="'+cff_esc_attr(this.getCSSComponent('dropdown'))+'">'+str+'</select><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-dropdown-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label>'+
+					'<div class="dfield"><select aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+((this.multiple)? '[]':'')+'" class="field '+((classDep != '') ? ' depItemSel ' : '')+cff_esc_attr(this.size)+((this.required)?' required':'')+'" '+((this.multiple == true)?' multiple="multiple" size="'+((this.vChoices) ? cff_esc_attr(this.vChoices) : 1)+'"':'')+' style="'+cff_esc_attr(this.getCSSComponent('dropdown'))+'">'+str+'</select><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
             after_show:function()
                 {
@@ -84,7 +84,7 @@
                             $(document).ready(function(){
 								if('select2' in $.fn) {
 									$('#'+me.name).select2({'dropdownParent':$('#'+me.name).next('.cff-select2-container')});
-									$('#'+me.name).parent().find('.select2-container').addClass(me.size);
+									$('#'+me.name).parent().find('.select2-container').addClass(cff_esc_attr(me.size));
 								}
 							});
                     }

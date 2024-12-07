@@ -87,7 +87,7 @@
                     if(d.sHideDownload) a.push('controlsList="nodownload"');
                     a.push('preload="'+esc(d.sPreload)+'"');
 
-                    return '<'+t+' '+a.join(' ')+' style="'+s.join(' ')+'" style="'+cff_esc_attr(this.getCSSComponent(isV ? 'video' : 'audio'))+'">'+((String(d.sSrcAlt).trim()) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+d.sFallback+'</p></'+t+'>';
+                    return '<'+t+' '+a.join(' ')+' style="'+s.join(' ')+'" style="'+esc(this.getCSSComponent(isV ? 'video' : 'audio'))+'">'+((String(d.sSrcAlt).trim()) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+cff_sanitize(d.sFallback, true)+'</p></'+t+'>';
                 },
             _show_audio: function()
                 {
@@ -99,7 +99,7 @@
                 },
             show:function()
 				{
-						return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-media-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><div class="clearer"><div class="field" id="'+this.name+'">'+this['_show_'+this.sMediaType]()+'</div></div><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('caption'))+'">'+this.data[this.sMediaType].sFigcaption+'</span><div class="clearer"></div></div>';
+						return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-media-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><div class="clearer"><div class="field" id="'+this.name+'">'+this['_show_'+this.sMediaType]()+'</div></div><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('caption'))+'">'+cff_sanitize(this.data[this.sMediaType].sFigcaption, true)+'</span><div class="clearer"></div></div>';
 				}
 		}
 	);

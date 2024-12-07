@@ -88,7 +88,7 @@
 							'<input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required && n) ? ' required ' : '')+'" size="'+w+'" maxlength="'+w+'" minlength="'+n+'" '+(me.readonly?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" value="'+cff_esc_attr(v)+'" '+
 							(placeholder ? 'placeholder="'+cff_esc_attr( predefined.substring(0,w))+'" ' : '')
 							+' />'+
-							'<div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+symbol.repeat(w)+'</div>'+
+							'<div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+cff_sanitize(symbol.repeat(w), true)+'</div>'+
 							'</div>';
 							predefined = predefined.substring(w);
 							c++;
@@ -107,7 +107,7 @@
 				{
 					var me  = this;
 					me.predefined = String(me._getAttr('predefined', true)).trim().replace(/\s/g, '');
-                    me.dformat = String(me.dformat).trim().replace(/\s+/g, ' ');
+                    me.dformat = cff_esc_attr(String(me.dformat).trim().replace(/\s+/g, ' '));
 					if(!me.countries.length) me.countries = Object.keys(me.country_db);
 				},
 			show:function()
@@ -152,7 +152,7 @@
 
                         for(let i in countries) {
 							let prefix = db[countries[i]]['prefix'];
-							str += '<option value="'+prefix+'" '+(me.defaultCountry == countries[i] ? 'SELECTED' : '')+'>'+(me.toDisplay == 'iso' ? countries[i] : prefix)+'</option>';
+							str += '<option value="'+cff_esc_attr(prefix)+'" '+(me.defaultCountry == countries[i] ? 'SELECTED' : '')+'>'+cff_esc_attr(me.toDisplay == 'iso' ? countries[i] : prefix)+'</option>';
 						}
                         str += '</select></div>';
                         c++;
@@ -162,7 +162,7 @@
 					{
 						let l = tmp[i].length;
 
-						str += '<div class="uh_phone" style="width:calc( ( 100% - '+cw+'px ) / '+Math.max(1, nc)+' * '+Math.max(1, l)+');"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+l+'" '+attr+'="'+tmpv.substring(0,l)+'" maxlength="'+l+'" minlength="'+l+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" /><div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+tmp[i]+'</div></div>';
+						str += '<div class="uh_phone" style="width:calc( ( 100% - '+cw+'px ) / '+Math.max(1, nc)+' * '+Math.max(1, l)+');"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+cff_esc_attr(l)+'" '+attr+'="'+cff_esc_attr(tmpv.substring(0,l))+'" maxlength="'+cff_esc_attr(l)+'" minlength="'+cff_esc_attr(l)+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" /><div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+cff_sanitize(tmp[i], true)+'</div></div>';
 
 						tmpv = tmpv.substring(l);
 						c++;
@@ -170,7 +170,7 @@
 
 					str += '</div>';
 
-					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-phone-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label for="'+me.name+'" style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+me.title+''+((me.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input type="hidden" id="'+me.name+'" name="'+me.name+'" class="field" />'+str+'<div class="clearer"></div><span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-phone-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label for="'+me.name+'" style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+''+((me.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input type="hidden" id="'+me.name+'" name="'+me.name+'" class="field" />'+str+'<div class="clearer"></div><span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
             after_show: function()
 				{
@@ -231,7 +231,7 @@
 						return o;
 					}; // End setPrefix.
 
-					v = String(v).trim();
+					v = cff_esc_attr(String(v).trim());
 					$('[name="'+me.name+'"]').val(v);
 					$('input[id*="'+me.name+'_"]').val('');
                     if(v.length) {
