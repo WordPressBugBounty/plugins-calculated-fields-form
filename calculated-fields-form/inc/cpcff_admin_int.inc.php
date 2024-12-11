@@ -298,6 +298,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				<div class="cff-message"><?php echo $message; ?></div>
 				<div class="cff-save-controls-popup-title"><?php esc_attr_e('Save form settings', 'calculated-fields-form'); ?></div>
 				<input type="submit" name="save" id="save3" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>"  title="<?php esc_attr_e("Saves the form's structure and settings and creates a revision", 'calculated-fields-form'); ?>" onclick="this.form.action+=cff_getScrollForURL();fbuilderjQuery.fbuilder.delete_form_preview_window();" />
+				<div class="cff-goto-top" style="text-align:center;margin-top:5px;"><a href="#cpformconf"><?php _e('Up to form structure', 'calculated-fields-form'); ?></a></div>
 			</div>
 			<?php print $section_nav_bar; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<div id="metabox_define_texts" class="postbox cff-metabox <?php print esc_attr( $cpcff_main->metabox_status( 'metabox_define_texts' ) ); ?>" style="margin-top:20px;">

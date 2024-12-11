@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.62
+Stable tag: 5.2.63
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.63 =
+
+* Completes malformed HTML tags.
+* Encloses the form context buttons (Previous and Next page buttons, and the submit button) in a div tag with the cff-form-buttons-container class name to make positioning them easier.
+* Fixes a minor issue formatting the calculated field values when they are entered manually.
+* Includes a 'go to top' link in the floating frame with the save settings button in the form builder.
+
 = 5.2.62 =
 
 * Strengthens the security of the plugin. Special thanks to Dmitrii penetration tester in CleanTalk inc and Animesh Gaurav Security Researcher for WPScan and Jetpack for their invaluable contributions.
@@ -477,11 +484,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the settings of the print button to include additional information about class names used to exclude fields or form elements from printing.
 * Modifies the advanced equations editor to hide the sidebar on small devices' screens.
 * Improves accessibility in the form builder.
-
-= 5.2.58 =
-
-* Modifies the module that processes the default values.
-* Fixes a minor issue with the phone control.
-* Include a new predefined form for listing universities.
-* Improves the User Registration add-on (Developer and Platinum plugin versions).
-* Fixes an issue in the Brevo add-on (Platinum plugin version).

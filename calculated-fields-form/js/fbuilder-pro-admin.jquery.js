@@ -127,6 +127,8 @@
                          .replace(/(\b)cff_style\s*=/ig, "$1style=");
 
 			if(typeof controls != 'undefined' && controls) value = value.replace(/<\/?(textarea|input|button|checkbox|radio|select|option)[^>]*>/gi, '');
+
+			value = $('<div></div>').append(value).html();
 		}
 
 		return value;

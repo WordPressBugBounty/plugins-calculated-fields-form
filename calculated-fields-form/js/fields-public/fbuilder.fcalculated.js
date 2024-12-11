@@ -25,8 +25,8 @@
 			validate:false,
 			_onEquationsQueueEmpty : function( evt )
 				{
-					var me = evt.data.obj;
-					if( ! me.noEvalIfManual ) $('[id="' + me.name + '"]').data('manually', 0);
+//					var me = evt.data.obj;
+//					if( ! me.noEvalIfManual ) $('[id="' + me.name + '"]').data('manually', 0);
 				},
             configuration : function()
                 {
@@ -94,8 +94,8 @@
                         {
 							e.data('manually', 1);
 							e.data('bk', e.val());
-							$(document).off('equationsQueueEmpty', me._onEquationsQueueEmpty);
-							$(document).one('equationsQueueEmpty', {obj: me}, me._onEquationsQueueEmpty);
+//							$(document).off('equationsQueueEmpty', me._onEquationsQueueEmpty);
+//							$(document).one('equationsQueueEmpty', {obj: me}, me._onEquationsQueueEmpty);
 							e.trigger('calcualtedfield_changed');
                         }
                     }).on('change', function(){
@@ -103,8 +103,7 @@
                             e.data('manually') &&
                             e.data('manually') == 1 &&
                             me.formatDynamically
-						)
-                        {
+						) {
                             var v = (me.val(true, true)+'').replace( new RegExp( '[^\\-\\d'+me.decimalsymbol.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')+']', 'g' ), '' ).replace(/[^\d\-]/g, '.');
                             this.value = $.fbuilder.calculator.format(v, me.configuration());
 

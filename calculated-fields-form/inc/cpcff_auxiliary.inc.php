@@ -158,7 +158,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				foreach ( $v as $k => $v2 ) {
 					$v[ $k ] = self::sanitize( $v2, $allow_cff_fields_tags );
 				}
-			} else {
+			} else if( is_string( $v ) ) {
 				$allowed_tags = wp_kses_allowed_html( 'post' );
 				if ( is_array( $allowed_tags ) ) {
 					unset( $allowed_tags['script'] );

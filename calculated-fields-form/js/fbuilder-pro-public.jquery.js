@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.62';
+	$.fbuilder['version'] = '5.2.63';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -26,6 +26,8 @@
 						 .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=");
 
 			if(typeof controls != 'undefined' && controls) value = value.replace(/<\/?(textarea|input|button|checkbox|radio|select|option)[^>]*>/gi, '');
+
+			value = $('<div></div>').append(value).html();
 		}
 		return value;
 	};
@@ -518,7 +520,7 @@
 				if( !opt.cached )
 				{
 					page_tag = $('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
-                    header_tag.html($.fbuilder.sanitize(theForm.show( opt.identifier )));
+                    header_tag.html(cff_sanitize(theForm.show( opt.identifier )));
 					fieldlist_tag.addClass(theForm.formlayout).append(page_tag);
 
 					for(i; i<items.length; i++)
@@ -532,7 +534,7 @@
 						}
 						else
 						{
-							page_tag.append((items[i].ftype != 'fhtml') ? $.fbuilder.sanitize(items[i].show()) : items[i].show());
+							page_tag.append((items[i].ftype != 'fhtml') ? cff_sanitize(items[i].show()) : items[i].show());
 							if (items[i].predefinedClick)
 							{
 								page_tag.find("#"+items[i].name).attr({placeholder: items[i].predefined, value: ""});
@@ -613,7 +615,7 @@
                             $(this).wrapInner('<fieldset></fieldset>')
                             .find('fieldset:eq(0)')
                             .prepend('<legend>'+cff_sanitize(opt.messages.pageof.replace( /\{\s*\d+\s*\}/, (index+1) ).replace( /\{\s*\d+\s*\}/, (page+1) ), true)+'</legend>')
-                            .append(code+'<div class="pbPrevious" tabindex="0">'+cff_sanitize(opt.messages.previous, true)+'</div><div class="pbNext" tabindex="0">'+cff_sanitize(opt.messages.next, true)+'</div>'+cff_sanitize(bSubmit, true)+'<div class="clearer"></div>');
+                            .append(code+'<div class="cff-form-buttons-container"><div class="pbPrevious" tabindex="0">'+cff_sanitize(opt.messages.previous, true)+'</div><div class="pbNext" tabindex="0">'+cff_sanitize(opt.messages.next, true)+'</div>'+cff_sanitize(bSubmit, true)+'</div><div class="clearer"></div>');
 						});
 					}
 
@@ -644,7 +646,7 @@
                 }
 				else
 				{
-					if( !opt.cached ) $(".pb"+page, fieldlist_tag).append(getCaptchaHTML()+getSubmitHTML());
+					if( !opt.cached ) $(".pb"+page, fieldlist_tag).append(getCaptchaHTML()+'<div class="cff-form-buttons-container">'+getSubmitHTML()+'</div>');
 				}
 
 				if( !opt.cached && opt.setCache)

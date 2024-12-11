@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.2.63 =
+
+* Completes malformed HTML tags.
+* Encloses the form context buttons (Previous and Next page buttons, and the submit button) in a div tag with the cff-form-buttons-container class name to make positioning them easier.
+* Fixes a minor issue formatting the calculated field values when they are entered manually.
+* Includes a 'go to top' link in the floating frame with the save settings button in the form builder.
+
 = 5.2.62 =
 
 * Strengthens the security of the plugin. Special thanks to Dmitrii penetration tester in CleanTalk inc and Animesh Gaurav Security Researcher for WPScan and Jetpack for their invaluable contributions.

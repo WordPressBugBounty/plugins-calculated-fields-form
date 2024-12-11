@@ -504,9 +504,10 @@ body{
 *[dir="rtl"] #fbuilder .cpp_form {text-align:right;}
 #fbuilder .pbreak{display:none;}
 #fbuilder .pbreak.pb0{display:block;}
+#fbuilder .cff-form-buttons-container{clear:both;display:block;}
 #fbuilder .pbPrevious,
 #fbuilder .pbNext,
-#fbuilder .pbSubmit{background:#ccc;color:#000;display:block;float:left;cursor:pointer;margin:10px 5px 0px 5px;padding:5px 30px;min-height:30px;}
+#fbuilder .pbSubmit{background:#ccc;color:#000;display:inline-block;cursor:pointer;margin:10px 5px 0px 5px;padding:5px 30px;min-height:30px;}
 #fbuilder button,
 #fbuilder input[type="button"],
 #fbuilder input[type="reset"],
@@ -514,7 +515,7 @@ body{
 #fbuilder .submitbtn-disabled{cursor:not-allowed;opacity:0.5;pointer-events:none;}
 *[dir="rtl"] #fbuilder .pbreak .pbPrevious,
 *[dir="rtl"] #fbuilder .pbreak .pbNext,
-*[dir="rtl"] #fbuilder .pbSubmit{float:right;margin:10px 0 0 10px;}
+*[dir="rtl"] #fbuilder .pbSubmit{margin:10px 0 0 10px;}
 
 #fbuilder .pbreak.pb0 .pbPrevious,
 #fbuilder .pbreak.pbEnd .pbNext{display:none !important;}
