@@ -228,8 +228,13 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 					foreach ( $keys as $k ) {
 						$v->$k = sanitize_attributes( $v->$k, $k );
 					}
-				} elseif ( is_string( $v ) && ! in_array( $i, array( 'fcontent', 'eq', 'customstyles', 'rule' ) ) ) {
-					$v = htmlspecialchars_decode( CPCFF_AUXILIARY::sanitize( $v, true, true ) );
+				} elseif ( is_string( $v )  ) {
+					if ( ! in_array( $i, array( 'fcontent', 'eq', 'customstyles', 'rule' ) ) ) {
+						// $v = CPCFF_AUXILIARY::sanitize( htmlspecialchars_decode( $v ), true, true );
+						$v = CPCFF_AUXILIARY::sanitize( $v, true, true );
+					}  elseif ( in_array( $i, array( 'customstyles', 'rule' ) ) ) {
+						$v = str_replace( '&gt;', '>', wp_kses( $v, 'strip') );
+					}
 				}
 
 				return $v;

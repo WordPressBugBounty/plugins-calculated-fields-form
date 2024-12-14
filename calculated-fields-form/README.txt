@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.63
+Stable tag: 5.2.64
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,15 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.64 =
+
+* Reimplemented the sanitization module on both the server and client sides to prevent developers from entering unauthorized tags and events. Special thanks to Dmitrii, penetration tester at CleanTalk Inc., for his invaluable contributions.
+* Redesigned the Captcha module to ensure that only captcha images associated with existing forms are generated, while also restricting attribute values for enhanced security. A heartfelt thank you to Max Boll (_b0lli) and Tiffany T. at WordFence for their support and expertise.
+* Introduced a new cff-collapsible event that triggers each time a collapsible fieldset control is either collapsed or expanded. The accompanying callback function will receive a parameter indicating the fieldset's state: true for expanded and false for collapsed.
+* Added a new option in the "Troubleshoot Area & General Settings" section that allows users to render only the visible forms on the page, or all forms, to enhance page loading performance.
+* Resolved minor issues related to the styles in the Form Builder.
+* Corrected a minor positioning issue with the error message tooltip in the acceptance control, improving user experience.
+
 = 5.2.63 =
 
 * Completes malformed HTML tags.
@@ -477,10 +486,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.60 =
 
 * Includes a new predefined form to improve typing.
-
-= 5.2.59 =
-
-* Updates template 04 to address accessibility issues, such as improving the contrast between background and button colors, as well as the text colors for user instructions.
-* Modifies the settings of the print button to include additional information about class names used to exclude fields or form elements from printing.
-* Modifies the advanced equations editor to hide the sidebar on small devices' screens.
-* Improves accessibility in the form builder.

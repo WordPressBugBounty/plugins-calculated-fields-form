@@ -136,7 +136,11 @@
 
 	$.fbuilder['htmlDecode'] = window['cff_html_decode'] = function(value)
 	{
-		if( /&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test( value ) ) value = $( '<div/>' ).html( value ).text();
+		value = String(value)
+				.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, '')
+				.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, '')
+				.replace(/(\b)(on[a-z]+)\s*=/gi, "$1_$2=");
+		if( /&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test( value ) ) value = $( '<div/>' ).html( value ).html();
 		return value;
 	};
 

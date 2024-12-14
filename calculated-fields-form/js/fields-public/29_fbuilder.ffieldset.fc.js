@@ -24,9 +24,14 @@
 							if(p.length)
                             {
                                 p.toggleClass('cff-collapsed');
+								p.trigger('cff-collapsible', ! p.hasClass('cff-collapsed')); // Attribute is_open
                                 if(!p.hasClass('cff-collapsed'))
                                 {
-                                    p.siblings('.cff-selfclosing').addClass('cff-collapsed');
+                                    p.siblings('.cff-selfclosing').each(function(){
+										let e = $(this);
+										if ( ! e.hasClass('cff-collapsed') )
+											$(this).addClass('cff-collapsed').trigger('cff-collapsible', false);
+									});
                                 }
                             }
 						}

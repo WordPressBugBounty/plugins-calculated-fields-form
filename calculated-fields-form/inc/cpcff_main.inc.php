@@ -548,9 +548,11 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					do_action( 'cpcff_wp_footer', ( ! empty( $atts['shortcode_atts']['id'] ) ? $atts['shortcode_atts']['id'] : 0 ) );
 
 					print '</body></html>';
+					remove_all_actions('shutdown');
 					exit;
 				} else {
 					print $message; // phpcs:ignore WordPress.Security.EscapeOutput
+					remove_all_actions('shutdown');
 					exit;
 				}
 			}
@@ -1141,6 +1143,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					// Some "WP Rocket" functions can be use with "WP-Optimize".
 					add_filter( 'wp-optimize-minify-blacklist', 'CPCFF_MAIN::rocket_exclude_js' );
 					add_filter( 'wp-optimize-minify-default-exclusions', 'CPCFF_MAIN::rocket_exclude_js' );
+					add_filter( 'rocket_preload_exclude_urls', function( $regexes ) {
+						$regexes[] = '.*cff-form.*';
+						return $regexes;
+					});
 				}
 				add_filter( 'rocket_excluded_inline_js_content', 'CPCFF_MAIN::rocket_exclude_inline_js' );
 				add_filter( 'rocket_defer_inline_exclusions', 'CPCFF_MAIN::rocket_exclude_inline_js' );

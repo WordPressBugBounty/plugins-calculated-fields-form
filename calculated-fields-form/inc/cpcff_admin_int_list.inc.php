@@ -103,9 +103,15 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 	update_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', ( isset( $_GET['df'] ) && '1' == $_GET['df'] ? 1 : 0 ) );
 	update_option( 'CP_CALCULATEDFIELDSF_AMP', ( isset( $_GET['amp'] ) && '1' == $_GET['amp'] ? 1 : 0 ) );
 
+	$bk_ov = get_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', 1 );
+    update_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', ( isset( $_GET['ov'] ) && '1' == $_GET['ov'] ? 1 : 0 ) );
+
 	$public_js_path = CP_CALCULATEDFIELDSF_BASE_PATH . '/js/cache/all.js';
 	try {
-		if ( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) == false ) {
+		if (
+			get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) == false ||
+			get_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', 1 ) != $bk_ov
+		) {
 			if ( file_exists( $public_js_path ) ) {
 				unlink( $public_js_path );
 			}
@@ -240,11 +246,12 @@ function cp_updateConfig()
 			jsc = (document.getElementById("ccjscache").checked) ? 1 : 0,
 			optm = (document.getElementById("ccoptimizationplugin").checked) ? 1 : 0,
 			df  = (document.getElementById("ccdirectform").checked) ? 1 : 0,
+			ov  = (document.getElementById("cconlyvisible").checked) ? 1 : 0,
 			amp = (document.getElementById("ccampform").checked) ? 1 : 0,
 			ecr = (document.getElementById("ccexcludecrawler").checked) ? 1 : 0,
 			em  = (document.getElementById("ccencodingemail").checked) ? 1 : 0;
 
-		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&amp='+amp+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
+		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&ov='+ov+'&amp='+amp+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
 	}
 }
 
@@ -584,6 +591,8 @@ function cp_update_default_settings(e)
 					<br /><br />
 					<input type="checkbox" name="ccjscache" id="ccjscache" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Activate Javascript Cache', 'calculated-fields-form' ); ?>
 					<br /><br />
+                    <input type="checkbox" name="cconlyvisible" id="cconlyvisible" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', true ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Render only the visible forms to improve page performance', 'calculated-fields-form' ); ?>
+                    <br /><br />
 					<input type="checkbox" name="ccdirectform" id="ccdirectform" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Allows to access the forms directly', 'calculated-fields-form' ); ?>
 					<br /><br />
 					<input type="checkbox" name="ccampform" id="ccampform" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_AMP', CP_CALCULATEDFIELDSF_AMP ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Allows to access the forms from amp pages', 'calculated-fields-form' ); ?>

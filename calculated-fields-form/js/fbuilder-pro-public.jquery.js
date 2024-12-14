@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.63';
+	$.fbuilder['version'] = '5.2.64';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -8,14 +8,18 @@
 	$.fbuilder['htmlEncode'] = window['cff_esc_attr'] = function(value)
 	{
 		return $('<div/>').text(value).html()
-				.replace(/"/g, "&quot;")
-				.replace(/&amp;lt;/g, '&lt;')
-				.replace(/&amp;gt;/g, '&gt;');
+				.replace(/"/g, "&quot;");
+				//.replace(/&amp;lt;/g, '&lt;')
+				//.replace(/&amp;gt;/g, '&gt;');
 	};
 
 	$.fbuilder['htmlDecode'] = window['cff_html_decode'] = function(value)
 	{
-		return cff_sanitize(String((/&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test(value)) ? $('<div/>').html(value).text() : value).replace(/(\b)\_style(\b)/gi, '$1style$2'));
+		value = String(value)
+				.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, '')
+				.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, '')
+				.replace(/(\b)(on[a-z]+)\s*=/gi, "$1_$2=");
+		return cff_sanitize(String((/&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test(value)) ? $('<div/>').html(value).html() : value).replace(/(\b)\_style(\b)/gi, '$1style$2'), true);
 	};
 
 	$.fbuilder['sanitize'] = window['cff_sanitize'] = function(value, controls)
@@ -1144,12 +1148,12 @@
 				});
 				form.find('select option[vt]').each(function () {
 					let e = $(this);
-					e.attr('cff-val-bk', e.val()).val(e.attr('vt'));
+					e.attr('cff-val-bk', e.val()).val( cff_sanitize(e.attr('vt'), true) );
 				});
 				form.find('input[vt]').each(function () {
 					let e = $(this),
 						q = $('[id="'+e.attr('id')+'_quantity"]');
-                    e.attr('cff-val-bk', e.val()).val(e.attr('vt')+(q.length ? ' ('+Math.max(1, q.val())+')' : ''));
+                    e.attr('cff-val-bk', e.val()).val(cff_sanitize(e.attr('vt'), true)+(q.length ? ' ('+Math.max(1, q.val())+')' : ''));
 				});
 				form.find('.cpcff-recordset,.cff-exclude :input,[id^="form_structure_"]')
 					.add(form.find('.ignore')).attr('cff-disabled', 1).prop('disabled', true);
@@ -1197,12 +1201,9 @@
 					mssg = [];
 				errorList.forEach( (e) => {
 					try {
-						let aux = function(v){
-								return $( '<div></div>' ).html(v).text();
-							},
-							l = getField( e.element.name.match(/fieldname\d+_\d+/)[0] ).title;
-						l = aux(l).replace(/\:\s*$/, '');
-						l = '<b>'+(l.length  ? l+': ' : '')+'</b>'+aux(e.message);
+						let l = getField( e.element.name.match(/fieldname\d+_\d+/)[0] ).title;
+						l = cff_sanitize(l, true).replace(/\:\s*$/, '');
+						l = '<b>'+(l.length  ? l+': ' : '')+'</b>'+cff_sanitize(e.message, true);
 						mssg.push( l );
 					} catch(err){}
 				} );

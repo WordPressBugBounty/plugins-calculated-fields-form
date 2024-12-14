@@ -133,7 +133,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					?>
 					</div>
 					<p style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;box-sizing:border-box;"><span style="font-weight:600;"><?php esc_html_e( 'If the form isn\'t loading on the public website, try inserting its shortcode with the iframe attribute set to 1:', 'calculated-fields-form' ); ?> [CP_CALCULATED_FIELDS id="<?php print esc_html(CP_CALCULATEDFIELDSF_ID); ?>" iframe="1"]</span><br /><?php _e( 'For server-side processing like sending email copy to users, you\'ll need the <a href="https://cff.dwbooster.com/download" target="_blank">Commercial versions</a> of the plugin.', 'calculated-fields-form' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
-					<input type="hidden" name="form_structure" id="form_structure" value="<?php print esc_attr( preg_replace( '/&quot;/i', '&amp;quot;', json_encode( $form_obj->get_option( 'form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure ) ) ) ); ?>" />
+					<input type="hidden" name="form_structure" id="form_structure" value="<?php print esc_attr( preg_replace( '/&(quot|lt|gt);/i', '&amp;$1;', json_encode( $form_obj->get_option( 'form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure ) ) ) ); ?>" />
 					<input type="hidden" name="templates" id="templates" value="<?php print esc_attr( json_encode( CPCFF_TEMPLATES::load_templates() ) ); ?>" />
 					<link href="<?php print esc_attr( plugins_url( '/vendors/jquery-ui/jquery-ui.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" />
 					<link href="<?php print esc_attr( plugins_url( '/vendors/jquery-ui/jquery-ui-1.12.icon-font.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" />
@@ -878,43 +878,43 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Width', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" readonly=readonly name="cv_width" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_width', CP_CALCULATEDFIELDSF_DEFAULT_cv_width ) ); ?>"  onblur="generateCaptcha();"  /></td>
+							<td><input type="number" readonly=readonly name="cv_width" size="10" max="300" value="<?php echo esc_attr( $form_obj->get_option( 'cv_width', CP_CALCULATEDFIELDSF_DEFAULT_cv_width ) ); ?>" /></td>
 							<th scope="row"><?php esc_html_e( 'Height', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" readonly=readonly name="cv_height" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_height', CP_CALCULATEDFIELDSF_DEFAULT_cv_height ) ); ?>" onblur="generateCaptcha();"  /></td>
+							<td><input type="number" readonly=readonly name="cv_height" size="10" max="300" value="<?php echo esc_attr( $form_obj->get_option( 'cv_height', CP_CALCULATEDFIELDSF_DEFAULT_cv_height ) ); ?>" /></td>
 							<th scope="row"><?php esc_html_e( 'Chars', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" readonly=readonly name="cv_chars" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_chars', CP_CALCULATEDFIELDSF_DEFAULT_cv_chars ) ); ?>" onblur="generateCaptcha();"  /></td>
+							<td><input type="number" readonly=readonly name="cv_chars" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_chars', CP_CALCULATEDFIELDSF_DEFAULT_cv_chars ) ); ?>" /></td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Min font size', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" readonly=readonly name="cv_min_font_size" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_min_font_size', CP_CALCULATEDFIELDSF_DEFAULT_cv_min_font_size ) ); ?>" onblur="generateCaptcha();"  /></td>
+							<td><input type="number" readonly=readonly name="cv_min_font_size" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_min_font_size', CP_CALCULATEDFIELDSF_DEFAULT_cv_min_font_size ) ); ?>" /></td>
 							<th scope="row"><?php esc_html_e( 'Max font size', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" readonly=readonly name="cv_max_font_size" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_max_font_size', CP_CALCULATEDFIELDSF_DEFAULT_cv_max_font_size ) ); ?>" onblur="generateCaptcha();"  /></td>
+							<td><input type="number" readonly=readonly name="cv_max_font_size" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_max_font_size', CP_CALCULATEDFIELDSF_DEFAULT_cv_max_font_size ) ); ?>" /></td>
 							<td colspan="2" rowspan="">
 								<?php esc_html_e( 'Preview', 'calculated-fields-form' ); ?>:<br /><br />
-								<img src="<?php echo esc_url( plugins_url( '/captcha/captcha.php', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); ?>"  id="captchaimg" alt="<?php esc_attr_e( 'security code', 'calculated-fields-form' ); ?>" border="0" class="skip-lazy" />
+								<img src="<?php echo esc_url( plugins_url( '/captcha/captcha.png', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); ?>"  id="captchaimg" alt="<?php esc_attr_e( 'security code', 'calculated-fields-form' ); ?>" border="0" class="skip-lazy" />
 							</td>
 						</tr>
 
 
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Noise', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" readonly=readonly name="cv_noise" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_noise', CP_CALCULATEDFIELDSF_DEFAULT_cv_noise ) ); ?>" onblur="generateCaptcha();" /></td>
+							<td><input type="number" readonly=readonly name="cv_noise" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_noise', CP_CALCULATEDFIELDSF_DEFAULT_cv_noise ) ); ?>" /></td>
 							<th scope="row"><?php esc_html_e( 'Noise Length', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" readonly=readonly name="cv_noise_length" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_noise_length', CP_CALCULATEDFIELDSF_DEFAULT_cv_noise_length ) ); ?>" onblur="generateCaptcha();" /></td>
+							<td><input type="number" readonly=readonly name="cv_noise_length" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_noise_length', CP_CALCULATEDFIELDSF_DEFAULT_cv_noise_length ) ); ?>" /></td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Background', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" readonly=readonly name="cv_background" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_background', CP_CALCULATEDFIELDSF_DEFAULT_cv_background ) ); ?>" onblur="generateCaptcha();" /></td>
+							<td><input type="text" readonly=readonly name="cv_background" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_background', CP_CALCULATEDFIELDSF_DEFAULT_cv_background ) ); ?>" /></td>
 							<th scope="row">Border:</th>
-							<td><input type="text" readonly=readonly name="cv_border" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_border', CP_CALCULATEDFIELDSF_DEFAULT_cv_border ) ); ?>" onblur="generateCaptcha();" /></td>
+							<td><input type="text" readonly=readonly name="cv_border" size="10" value="<?php echo esc_attr( $form_obj->get_option( 'cv_border', CP_CALCULATEDFIELDSF_DEFAULT_cv_border ) ); ?>" /></td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Font', 'calculated-fields-form' ); ?>:</th>
 							<td>
-								<select name="cv_font" onchange="generateCaptcha();" >
+								<select name="cv_font">
 									<option value="font-1.ttf" <?php
 									if ( 'font-1.ttf' == $form_obj->get_option( 'cv_font', CP_CALCULATEDFIELDSF_DEFAULT_cv_font ) ) {
 										echo ' selected';}
@@ -1025,25 +1025,3 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<!-- OpenAI Assistant - End -->
 
 </div>
-<script type="text/javascript">
-	function generateCaptcha()
-	{
-		var  d=new Date(),
-			f = document.cpformconf,
-			qs = "?width="+f.cv_width.value;
-
-		qs += "&height="+f.cv_height.value;
-		qs += "&letter_count="+f.cv_chars.value;
-		qs += "&min_size="+f.cv_min_font_size.value;
-		qs += "&max_size="+f.cv_max_font_size.value;
-		qs += "&noise="+f.cv_noise.value;
-		qs += "&noiselength="+f.cv_noise_length.value;
-		qs += "&bcolor="+f.cv_background.value;
-		qs += "&border="+f.cv_border.value;
-		qs += "&font="+f.cv_font.options[f.cv_font.selectedIndex].value;
-		qs += "&rand="+d;
-
-		document.getElementById("captchaimg").src= "<?php echo esc_url( plugins_url( '/captcha/captcha.php', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); ?>"+qs;
-	}
-	generateCaptcha();
-</script>

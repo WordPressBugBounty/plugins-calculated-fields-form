@@ -43,9 +43,9 @@
 						];
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this, evt);
 				},
-			showTitle: function(v)
+			showTitle: function()
 				{
-					return '<label for="sTitle">Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(v)+'</textarea>';
+					return '<label for="sTitle">Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(this.title)+'</textarea>';
 				},
 			showRequired: function(v)
 				{

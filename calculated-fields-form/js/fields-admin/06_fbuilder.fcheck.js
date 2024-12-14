@@ -41,7 +41,7 @@
 					this.choiceSelected = new Array(false,false,false);
 					this.choicesDep = new Array(new Array(),new Array(),new Array());
 				},
-			showRangeIntance:function(){},
+			showRangeIntance:function(){ return ''; },
 			display:function( css_class )
 				{
 					css_class = css_class || '';

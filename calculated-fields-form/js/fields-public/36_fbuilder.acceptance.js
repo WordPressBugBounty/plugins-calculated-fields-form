@@ -14,7 +14,7 @@
 				{
 					var me = this,
 						dlg = '',
-						label = me.title;
+						label = cff_html_decode(me.title);
 
 					if(!/^\s*$/.test(me.url))
 					{
@@ -29,8 +29,8 @@
 					'<div class="one_column"><label for="'+me.name+'"><input aria-label="'+cff_esc_attr(me.title)+'" name="'+me.name+'" id="'+me.name+'" class="field required" value="'+cff_esc_attr(me.value)+'" vt="'+cff_esc_attr((/^\s*$/.test(me.value)) ? me.title : me.value)+'" type="checkbox" /> '+
                     (me.onoff ? '<span class="cff-switch"></span>': '') +
                     '<span>'+
-					cff_html_decode(label)+''+((me.required)?'<span class="r">*</span>':'')+
-					'</span></label></div>'+dlg+'</div><div class="clearer"></div></div>';
+					label+''+((me.required)?'<span class="r">*</span>':'')+
+					'</span></label></div>'+dlg+'<span class="uh"></span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{

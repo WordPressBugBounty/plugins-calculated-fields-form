@@ -75,7 +75,7 @@ try {
 						$("#fbuilder"+fnum).attr('data-processed') == undefined
 					)
 					{
-						if($("#fbuilder"+fnum).is(':visible'))
+                        if($("#fbuilder"+fnum).is(':visible') || <?php print ( get_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', true) ? 'false' : 'true' ); ?>)
 						{
 							var f = $("#fbuilder"+fnum).fbuilder(( typeof cp_calculatedfieldsf_fbuilder_config.obj == 'string' ) ?  JSON.parse(cp_calculatedfieldsf_fbuilder_config.obj) : cp_calculatedfieldsf_fbuilder_config.obj );
 							f.attr('data-processed', 1);

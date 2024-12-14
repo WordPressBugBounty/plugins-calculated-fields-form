@@ -364,13 +364,13 @@ textarea {resize: none}
 .top_aligned .fields .dfield,
 #fieldlist .top_aligned.fields .dfield{float:none;width:100%;}
 
-.left_aligned .fields label,
-#fieldlist .left_aligned.fields label{float:left;width:31%}
+.left_aligned .fields>label,
+#fieldlist .left_aligned.fields>label{float:left;width:31%}
 .left_aligned .fields .dfield,
 #fieldlist .left_aligned.fields .dfield{float:left;width:65%;}
 
-.right_aligned .fields label,
-#fieldlist .right_aligned.fields label{float:left;width:31%;text-align:right;padding:3px 3px 0px 0px}
+.right_aligned .fields>label,
+#fieldlist .right_aligned.fields>label{float:left;width:31%;text-align:right;padding:3px 3px 0px 0px}
 .right_aligned .fields .dfield,
 #fieldlist .right_aligned.fields .dfield{float:left;width:65%}
 
