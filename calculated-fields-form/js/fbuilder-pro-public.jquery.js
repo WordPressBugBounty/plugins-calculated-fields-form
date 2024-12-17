@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.64';
+	$.fbuilder['version'] = '5.3.0';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -314,7 +314,7 @@
 		{
 			var $ = fbuilderjQuery,
 				id = o.identifier.replace(/[^\d]/g, ''),
-				item, data, formObj, f, _eval_equations;
+				item, data, formObj, f;
 
 			if(id in cpcff_default)
 			{
@@ -323,8 +323,6 @@
 				id = '_'+id;
 				formObj = $.fbuilder['forms'][id];
 				f = $('#'+formObj['formId']);
-				_eval_equations = f.attr('data-evalequations') || o.evalequations;
-				f.attr('data-evalequations',0);
 
 				// Selecting the default options in DS fields while they load.
 				let still_loading = true;
@@ -386,8 +384,6 @@
 					} catch(err){}
 				}
 
-				f.attr('data-evalequations', _eval_equations);
-				$.fbuilder.showHideDep({'formIdentifier' : o.identifier});
 				f.trigger('cff-loaded-defaults');
 			}
 		}
@@ -724,13 +720,6 @@
 
 					setTimeout(
 						function(){
-							$.fbuilder.showHideDep(
-								{
-									'formIdentifier' : opt.identifier
-								}
-							);
-							$('.cff-processing-form').remove();
-
 							if ( 'form_tag' in theForm ) {
 								theForm.form_tag.trigger( 'formReady', [theForm.form_tag.attr('id'), theForm.form_tag, theForm] );
 							}
@@ -966,22 +955,29 @@
 										parent.postMessage({cff_height: h, cff_iframe: getURLParameter('cff_iframe', 0)}, '*');
 									}
 								};
-								return function(evt,fid2){
+								return function(evt, fid2, form_tag, form_obj){
 									if ( fid == fid2 ){
-										let f = $('#'+fid);
-										f.css({'height':'auto', 'minHeight':'auto'});
+										let f = form_tag;
+
+										// Disable the dynamic evaluation of the equations until complete the loading process.
+										let eval_equations_bk = f.attr('data-evalequations') ?  Math.max( opt.evalequations*1, f.attr( 'data-evalequations')*1 ) : opt.evalequations; // 2024-12-16
+										f.attr('data-evalequations', 0);
+
+										f.attr('data-loadingdefaults', 1);
 										$.fbuilder.cpcffLoadDefaults( opt );
 
-										f.attr(
-											'data-evalequations',
-											(
-												f.attr( 'data-evalequations') == undefined ?
-												opt.evalequations :
-												Math.max( opt.evalequations*1, f.attr( 'data-evalequations')*1 )
-											)
-										);
+										$.fbuilder.showHideDep( { 'formIdentifier' : opt.identifier } );
 
-										if(opt.evalequations) fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
+										f.css({'height':'auto', 'minHeight':'auto'});
+
+										if( opt.evalequations ) {
+											fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
+										}
+
+										f.removeAttr('data-loadingdefaults');
+										f.attr('data-evalequations', eval_equations_bk);
+										$('.cff-processing-form', f).remove(); // 2024-12-16
+
 										try {
 											$.post(
 												document.location.href.split('?')[0],
@@ -1076,6 +1072,7 @@
 					},
 				getField: function(f){return $.fbuilder['forms'][this.form_identifier].getItem(f);},
 				jQueryRef: function(){return $('.'+this.name);},
+				domRef: function(){return this.jQueryRef()[0];},
 				show:function()
 					{
 						return 'Not available yet';

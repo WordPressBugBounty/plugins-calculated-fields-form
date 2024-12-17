@@ -707,7 +707,13 @@
 							evalequations*1 == 0 &&
 							(
                                 !(t.hasClass('codepeoplecalculatedfield') && evt.type == 'change') ||
-                                (t.hasClass('codepeoplecalculatedfield') && t.data('manually') == 1)
+                                (
+									t.hasClass('codepeoplecalculatedfield') &&
+									(
+										t.data('manually') == 1 ||
+										f.attr('data-loadingdefaults')
+									)
+								)
                          )
 						)
                         {
@@ -747,19 +753,16 @@
 				$(document).on('showHideDepEvent', function(evt, form_identifier)
 					{
 						// If evalequations = 0 the equations shouldn't be evaluated dynamically
-						var f, evalequations, first_time;
+						var f, evalequations;
 						if(form_identifier) f = $('#'+form_identifier);
 						else f = $('[id*="cp_calculatedfieldsf_pform_"]:eq(0)');
 
 						if(f.length)
 						{
-							first_time = (typeof f.data('first_time') == 'undefined');
-							f.data('first_time', 0);
 							evalequations = f.attr('data-evalequations');
 							if(typeof evalequations == 'undefined' || evalequations*1 == 1)
 							{
-								if(first_time) obj.defaultCalc('#'+f.attr('id'));
-								else obj.defaultCalc('#'+f.attr('id'), true);
+								obj.defaultCalc('#'+f.attr('id'), true);
 							}
 						}
                     });

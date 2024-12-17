@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.2.64
+Stable tag: 5.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.0 =
+
+* Reimplemented the module that evaluates the equations to improve the loading forms performance.
+* Adds the new domRef module to the getField returned object to access the field dom object.
+* Adds the LANGUAGE operation to the Location Operations module to get the user language based on the browser's language.
+* Corrected a minor issue in the Instructions Text controls.
+* Improves the Signature add-on (Platinum plugin version).
+
 = 5.2.64 =
 
 * Reimplemented the sanitization module on both the server and client sides to prevent developers from entering unauthorized tags and events. Special thanks to Dmitrii, penetration tester at CleanTalk Inc., for his invaluable contributions.
@@ -474,15 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.62 =
 
 * Strengthens the security of the plugin. Special thanks to Dmitrii penetration tester in CleanTalk inc and Animesh Gaurav Security Researcher for WPScan and Jetpack for their invaluable contributions.
-
-= 5.2.61 =
-
-* Modifies the Phone control.
-* Improves the form performance.
-* Makes the save button more accessible in the forms builder.
-* Improves the forms cache (Professional, Developer, and Platinum plugin versions).
-* Modifies the CFFCHART operation (Developer and Platinum plugin versions).
-
-= 5.2.60 =
-
-* Includes a new predefined form to improve typing.

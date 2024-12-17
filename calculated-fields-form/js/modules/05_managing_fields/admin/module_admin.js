@@ -21,12 +21,12 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
 							{
 								"value" : "GOTOFIELD",
 								"code" : "GOTOFIELD(",
-								"tip" : "<p>Jumps to a field in the form. <strong>GOTOPAGE( field, form object )</strong></p><p><b>field</b>, integer number corresponding to the number component in the field name or the field name (required parameter).<br><b>form object</b>, an optional parameter corresponding to the form where the field is.<br>In the context of the equation, call the operation passing only the number component in the field name,<br>Ex. <b>GOTOFIELD (2);</b><br>But if the operation is called from the onclick event of a button, the form object is required,<br>Ex. <b>GOTOFIELD (&quot;fieldname2&quot;, this.form);</b></p>"
+								"tip" : "<p>Jumps to a field in the form. <strong>GOTOPAGE( field, form object )</strong></p><p><b>field</b>, integer number corresponding to the number component in the field name or the field name (required parameter).<br><b>form object</b>, an optional parameter corresponding to the form where the field is.<br>In the context of the equation, call the operation passing only the number component in the field name,<br>E.g. <b>GOTOFIELD (2);</b><br>But if the operation is called from the onclick event of a button, the form object is required,<br>E.g. <b>GOTOFIELD (&quot;fieldname2&quot;, this.form);</b></p>"
 							},
 							{
 								"value" : "GOTOPAGE",
 								"code" : "GOTOPAGE(",
-								"tip" : "<p>Jumps to a page in a multipage form. <strong>GOTOPAGE( page, form object )</strong></p><p><b>page</b>, integer corresponding to the page index, starting at zero (required parameter).<br><b>form object</b>, optional parameter corresponding to the multipage form.<br>In the context of the equation, call the operation passing only the page index,<br>Ex. <b>GOTOPAGE (2);</b><br>But if the operation is called from the onclick event of a button, the form object is required,<br>Ex. <b>GOTOPAGE (2, this.form);</b></p>"
+								"tip" : "<p>Jumps to a page in a multipage form. <strong>GOTOPAGE( page, form object )</strong></p><p><b>page</b>, integer corresponding to the page index, starting at zero (required parameter).<br><b>form object</b>, optional parameter corresponding to the multipage form.<br>In the context of the equation, call the operation passing only the page index,<br>E.g. <b>GOTOPAGE (2);</b><br>But if the operation is called from the onclick event of a button, the form object is required,<br>E.g. <b>GOTOPAGE (2, this.form);</b></p>"
 							},
 							{
 								"value" : "IGNOREFIELD",
@@ -66,27 +66,27 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
 							{
 								"value" : "VALIDFIELD",
 								"code" : "VALIDFIELD(",
-								"tip" : "<p>Checks if the field value is valid or not. <b>VALIDFIELD( field name or number, form object or selector, silent )</b></p><p>The first parameter is required. It is the name of the field to validate (Ex. fieldname123|n) or its numeric components (Ex. 123). The second parameter would be a form object or a selector with the reference to the form. If this is null, or not passed to the operation, the plugin validates the field in the first form on the page. The third parameter is a boolean (true or false), and allows us to validate the field without displaying error messages:</p><p><b>VALIDFIELD(fieldname1|n);</b> or<br> <b>VALIDFIELD(fieldname1|n, &quot;cp_calculatedfieldsf_pform_1&quot;, true);</b></p>"
+								"tip" : "<p>Checks if the field value is valid or not. <b>VALIDFIELD( field name or number, form object or selector, silent )</b></p><p>The first parameter is required. It is the name of the field to validate (E.g. fieldname123|n) or its numeric components (E.g. 123). The second parameter would be a form object or a selector with the reference to the form. If this is null, or not passed to the operation, the plugin validates the field in the first form on the page. The third parameter is a boolean (true or false), and allows us to validate the field without displaying error messages:</p><p><b>VALIDFIELD(fieldname1|n);</b> or<br> <b>VALIDFIELD(fieldname1|n, &quot;cp_calculatedfieldsf_pform_1&quot;, true);</b></p>"
 							},
 							{
 								"value" : "DISABLEEQUATIONS",
 								"code" : "DISABLEEQUATIONS(",
-								"tip" : "<p>Allows to disable dynamic evaluation of equations. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, disables evaluation of equations on all forms on the page. Ex: DISABLEEQUATIONS();</p>"
+								"tip" : "<p>Allows to disable dynamic evaluation of equations. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, disables evaluation of equations on all forms on the page. E.g. DISABLEEQUATIONS();</p>"
 							},
 							{
 								"value" : "ENABLEEQUATIONS",
 								"code" : "ENABLEEQUATIONS(",
-								"tip" : "<p>Allows to enable dynamic evaluation of equations. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, enables evaluation of equations on all forms on the page. Ex: ENABLEEQUATIONS();</p>"
+								"tip" : "<p>Allows to enable dynamic evaluation of equations. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, enables evaluation of equations on all forms on the page. E.g. ENABLEEQUATIONS();</p>"
 							},
 							{
 								"value" : "EVALEQUATIONS",
 								"code" : "EVALEQUATIONS(",
-								"tip" : "<p>Evaluates the form equations. Requires as parameter the form object. Ex: EVALEQUATIONS(form);</p>"
+								"tip" : "<p>Evaluates the form equations. Requires as parameter the form object. E.g. EVALEQUATIONS(form);</p>"
 							},
 							{
 								"value" : "EVALEQUATION",
 								"code" : "EVALEQUATION(",
-								"tip" : "<p>Evaluate a specific equation. It receives two parameters, the field name (or the numeric part of the field name) and the form object. If the form object is missing, the plugin evaluates the equation in the active form or first form on the page. Ex: EVALEQUATION(&quot;fieldname1&quot;, form); or EVALEQUATION(1, form);</p>"
+								"tip" : "<p>Evaluate a specific equation. It receives two parameters, the field name (or the numeric part of the field name) and the form object. If the form object is missing, the plugin evaluates the equation in the active form or first form on the page. E.g. EVALEQUATION(&quot;fieldname1&quot;, form); or EVALEQUATION(1, form);</p>"
 							},
                             {
 								"value" : "COPYFIELDVALUE",
@@ -106,17 +106,17 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
                             {
 								"value" : "PRINTFORM",
 								"code" : "PRINTFORM(",
-								"tip" : "<p>Print the form only. Passing the true or 1 as the PRINTFORM parameter, it prints every page in a multipage form. Ex. PRINTFORM(); or PRINTFORM(true); for printing all pages in multipage form.</p>"
+								"tip" : "<p>Print the form only. Passing the true or 1 as the PRINTFORM parameter, it prints every page in a multipage form. E.g. PRINTFORM(); or PRINTFORM(true); for printing all pages in multipage form.</p>"
 							},
                             {
 								"value" : "RESETFORM",
 								"code" : "RESETFORM(",
-								"tip" : "<p>Resets the form to the original fields values. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, it resets all forms on the page. Ex: RESETFORM();</p>"
+								"tip" : "<p>Resets the form to the original fields values. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, it resets all forms on the page. E.g. RESETFORM();</p>"
 							},
 							{
 								"value" : "CFFSANITIZE",
 								"code" : "CFFSANITIZE(",
-								"tip" : "<p>Sanitize a value. Allows to espace every HTML tag in the value, or sanitize the script tags and events only.<br>Ex: CFFSANITIZE(fieldname1);<br>CFFSANITIZE(fieldname1, true);</p>"
+								"tip" : "<p>Sanitize a value. Allows to espace every HTML tag in the value, or sanitize the script tags and events only.<br>E.g. CFFSANITIZE(fieldname1);<br>CFFSANITIZE(fieldname1, true);</p>"
 							}
 						]
 		}

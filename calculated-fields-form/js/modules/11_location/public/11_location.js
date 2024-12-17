@@ -112,6 +112,18 @@
         }
     }
 
+	if (window.LANGUAGE == undefined) {
+        lib.LANGUAGE = lib.language = function () {
+			let lang = '';
+            try {
+                lang = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+            } catch (err) {
+                console.log(err);
+            }
+            return lang;
+        }
+    }
+
     root.CF_LOCATION = lib;
 
 })(this);

@@ -392,7 +392,7 @@ function cp_update_default_settings(e)
 			'next_text' => __( 'Next &raquo;' ),
 			'type'      => 'plain',
 			'add_args'  => false,
-            ) )
+            ) ) ?? ''
 		);
 
 		print $pages_links; // phpcs:ignore WordPress.Security.EscapeOutput

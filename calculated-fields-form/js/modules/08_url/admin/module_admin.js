@@ -26,12 +26,12 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'url' ] = {
 							{
 								"value" : "getURLHash",
 								"code" : "getURLHash()",
-								"tip" : "<p>Returns # followed by the fragment identifier of the current page URL, or empty text. getURLHash accepts an optional parameter to removes the hash (#) symbol.<br>Ex. https://www.website.com/page#position<br><strong>getURLHash()</strong> returns <strong>#position</strong><br><strong>getURLHash(true)</strong> returns <strong>position</strong></p>"
+								"tip" : "<p>Returns # followed by the fragment identifier of the current page URL, or empty text. getURLHash accepts an optional parameter to removes the hash (#) symbol.<br>E.g. https://www.website.com/page#position<br><strong>getURLHash()</strong> returns <strong>#position</strong><br><strong>getURLHash(true)</strong> returns <strong>position</strong></p>"
 							},
 							{
 								"value" : "getURLPath",
 								"code" : "getURLPath()",
-								"tip" : "<p>Returns the initial / symbol followed by the path of the current page URL, or empty text. getURLPath accepts an optional parameter to removes the leading and trailing slash (/) symbols.<br>Ex. https://www.website.com/pages/page1/<br><strong>getURLPath()</strong> returns <strong>/pages/page1/</strong><br><strong>getURLPath(true)</strong> returns <strong>pages/page1</strong></p>"
+								"tip" : "<p>Returns the initial / symbol followed by the path of the current page URL, or empty text. getURLPath accepts an optional parameter to removes the leading and trailing slash (/) symbols.<br>E.g. https://www.website.com/pages/page1/<br><strong>getURLPath()</strong> returns <strong>/pages/page1/</strong><br><strong>getURLPath(true)</strong> returns <strong>pages/page1</strong></p>"
 							},
 							{
 								"value" : "getURLParameters",
