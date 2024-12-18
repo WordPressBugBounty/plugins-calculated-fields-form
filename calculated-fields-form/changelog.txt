@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.1 =
+
+* Fixes an issue with the form advanced settings CSS rules.
+
 = 5.3.0 =
 
 * Reimplemented the module that evaluates the equations to improve the loading forms performance.

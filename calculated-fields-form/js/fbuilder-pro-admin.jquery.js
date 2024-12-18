@@ -773,7 +773,9 @@
 			};
 
 		var fform=function(){};
-		$.extend(fform.prototype,
+		$.extend(
+			true,
+			fform.prototype,
 			{
 				title:"Untitled Form",
 				titletag:"H2",
@@ -815,6 +817,7 @@
 
 				showAllSettings:function()
 				{
+					this.initAdv();
 					var me 			= this,
 						layout 	    = '',
 						template    = '<option value="">Use default template</option>',
@@ -822,8 +825,6 @@
 						description = '',
 						selected    = '',
 						str 		= '';
-
-					me.initAdv();
 
 					for ( var i = 0; i< $.fbuilder.showSettings.formlayoutList.length; i++ )
 					{
@@ -1126,8 +1127,8 @@
 						   obj.fBuild = fBuild;
 						   items[items.length] = obj;
 						}
-						theForm = new fform();
-						theForm = $.extend(theForm,structure[1][0]);
+						theForm = (typeof theForm != 'undefined' ) ? theForm : new fform();
+						theForm = $.extend(true, {}, theForm, structure[1][0]);
 						$.fbuilder.reloadItems();
 					}
 				}
