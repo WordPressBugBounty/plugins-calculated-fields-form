@@ -53,7 +53,7 @@
 						}
 						else
 						{
-							str += '<option '+((this.choiceSelected == c[i]+' - '+cv[i])?"selected":"")+' '+((classDep != '') ? 'class="'+classDep+'"' : '')+' value="'+cff_esc_attr(cv[i])+'" vt="'+cff_esc_attr((this.toSubmit=='text') ? c[i] : cv[i])+'" data-i="'+i+'">'+cff_esc_attr(cff_sanitize(c[i], true))+'</option>';
+							str += '<option '+((this.choiceSelected == c[i]+' - '+cv[i])?"selected":"")+' '+((classDep != '') ? 'class="'+classDep+'"' : '')+' value="'+cff_esc_attr(cv[i])+'" vt="'+cff_esc_attr((this.toSubmit=='text') ? c[i] : cv[i])+'" data-i="'+i+'">'+cff_esc_attr(c[i])+'</option>';
 						}
 					}
 					if(op_o) str += '</optgroup>';
@@ -67,7 +67,7 @@
                     {
                         function formatState(state)
                         {
-							return !state.id ? state.text : $('<span style="display:inline-flex;align-items:center">'+state.text+'</span>');
+							return !state.id ? state.text : $('<span>'+state.text+'</span>');
                         };
 
                         $('#'+me.name).after('<span class="cff-select2-container '+me.size+'"></span>');

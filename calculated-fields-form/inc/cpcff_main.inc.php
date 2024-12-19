@@ -441,6 +441,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					);
 
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_caret', plugins_url( '/vendors/jquery.caret.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'jquery' ), CP_CALCULATEDFIELDSF_VERSION );
+					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_purify', plugins_url( '/vendors/purify.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_style( 'cp_calculatedfieldsf_builder_style', plugins_url( '/css/style.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_style( 'cp_calculatedfieldsf_builder_library_style', plugins_url( '/css/stylelibrary.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'cp_calculatedfieldsf_builder_style' ), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_style( 'jquery-style', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css', array(), CP_CALCULATEDFIELDSF_VERSION );
@@ -548,10 +549,16 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					do_action( 'cpcff_wp_footer', ( ! empty( $atts['shortcode_atts']['id'] ) ? $atts['shortcode_atts']['id'] : 0 ) );
 
 					print '</body></html>';
+					if ( function_exists( 'wp_ob_end_flush_all' ) ) {
+						wp_ob_end_flush_all();
+					}
 					remove_all_actions('shutdown');
 					exit;
 				} else {
 					print $message; // phpcs:ignore WordPress.Security.EscapeOutput
+					if ( function_exists( 'wp_ob_end_flush_all' ) ) {
+						wp_ob_end_flush_all();
+					}
 					remove_all_actions('shutdown');
 					exit;
 				}
@@ -1029,7 +1036,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				wp_deregister_script( 'cp_calculatedfieldsf_validate_script' );
 				wp_register_script( 'cp_calculatedfieldsf_validate_script', plugins_url( '/vendors/jquery.validate.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'jquery' ), 'pro' );
 				wp_enqueue_script( 'cp_calculatedfieldsf_builder_script', $public_js_path, array( 'jquery', 'jquery-ui-core', 'jquery-ui-button', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-tooltip', 'cp_calculatedfieldsf_validate_script', 'jquery-ui-datepicker', 'jquery-ui-slider' ), CP_CALCULATEDFIELDSF_VERSION, true );
-
+				wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_purify', plugins_url( '/vendors/purify.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 				wp_localize_script( 'cp_calculatedfieldsf_builder_script', 'cp_calculatedfieldsf_fbuilder_config_' . self::$form_counter, array( 'obj' => $config_json ) );
 			} else {
 				// This code won't be used in most cases. This code is for preventing problems in wrong WP themes and conflicts with third party plugins.
@@ -1073,6 +1080,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					?>
 					<script type='text/javascript'> if( typeof fbuilderjQuery == 'undefined' && typeof jQuery != 'undefined' ) fbuilderjQuery = jQuery;</script>
 					<script type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/jquery.validate.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
+					<script type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/purify.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
 					<script type='text/javascript' src='<?php echo esc_attr( $public_js_path . ( ( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ) . 'ver=' . CP_CALCULATEDFIELDSF_VERSION ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
 					<?php
 				}

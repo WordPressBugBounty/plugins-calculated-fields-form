@@ -118,17 +118,25 @@
     $.fbuilder['sanitize'] = window['cff_sanitize'] = function(value, controls)
 	{
         if(typeof value == 'string') {
-            value = value.replace(/<script\b.*\bscript>/ig, '')
-                         .replace(/<script[^>]*>/ig, '')
-                         .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=")
-						 .replace(/<style\b.*\bstyle>/ig, '')
-                         .replace(/<style[^>]*>/ig, '')
-                         .replace(/(\b)style\s*=/ig, "$1_style=")
-                         .replace(/(\b)cff_style\s*=/ig, "$1style=");
-
 			if(typeof controls != 'undefined' && controls) value = value.replace(/<\/?(textarea|input|button|checkbox|radio|select|option)[^>]*>/gi, '');
 
-			value = $('<div></div>').append(value).html();
+			if ('DOMPurify' in window) {
+				let forbid_tags = ['style', 'script', 'link'];
+				if (typeof controls != 'undefined' && controls) {
+					forbid_tags = forbid_tags.concat(['textarea', 'input', 'button', 'checkbox', 'radio', 'select', 'option']);
+				}
+				value = DOMPurify.sanitize(value, {FORBID_TAGS: forbid_tags, FORBID_ATTR: ['style']});
+			} else {
+				value = value.replace(/<script\b.*\bscript>/ig, '')
+							 .replace(/<script[^>]*>/ig, '')
+							 .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=")
+							 .replace(/<style\b.*\bstyle>/ig, '')
+							 .replace(/<style[^>]*>/ig, '')
+							 .replace(/(\b)style\s*=/ig, "$1_style=")
+							 .replace(/(\b)cff_style\s*=/ig, "$1style=");
+
+				value = $('<div></div>').append(value).html();
+			}
 		}
 
 		return value;

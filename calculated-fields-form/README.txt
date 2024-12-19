@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.1
+Stable tag: 5.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.2 =
+
+* Normalize HTML tags.
+* Modifies the HTML Content field.
+* Fixes an issue with symbols in dropdown fields.
+
 = 5.3.1 =
 
 * Fixes an issue with the form advanced settings CSS rules.
@@ -475,10 +481,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Added a new option in the "Troubleshoot Area & General Settings" section that allows users to render only the visible forms on the page, or all forms, to enhance page loading performance.
 * Resolved minor issues related to the styles in the Form Builder.
 * Corrected a minor positioning issue with the error message tooltip in the acceptance control, improving user experience.
-
-= 5.2.63 =
-
-* Completes malformed HTML tags.
-* Encloses the form context buttons (Previous and Next page buttons, and the submit button) in a div tag with the cff-form-buttons-container class name to make positioning them easier.
-* Fixes a minor issue formatting the calculated field values when they are entered manually.
-* Includes a 'go to top' link in the floating frame with the save settings button in the form builder.

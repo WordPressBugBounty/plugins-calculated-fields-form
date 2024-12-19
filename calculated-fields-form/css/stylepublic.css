@@ -712,8 +712,10 @@ body{
 #fbuilder .cff-dropdown-field .select2 span img,
 #fbuilder .cff-dropdown-field .select2-dropdown span img{height:20px;margin-right:5px;}
 
-#fbuilder .select2-selection--single .select2-selection__rendered,
-#fbuilder .select2-selection--single .select2-selection__rendered span{white-space:nowrap !important;text-overflow:ellipsis;max-width:100%;display:block !important;overflow:hidden;}
+#fbuilder .select2-selection--single .select2-selection__rendered{display:flex;align-items:center;}
+#fbuilder .select2-selection--single .select2-selection__rendered span{white-space:nowrap;max-width:calc( 100% - 24px );overflow:hidden;text-overflow:ellipsis;display:block;}
+#fbuilder .select2-selection--multiple .select2-selection__rendered .select2-selection__choice{display:flex; align-items:center;}
+#fbuilder .select2-selection--multiple .select2-selection__rendered span{display:inline-flex; align-items:center;}
 
 /* VIEWERS */
 #fbuilder .cff-image-viewer{max-width:100%;}

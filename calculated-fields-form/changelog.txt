@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.2 =
+
+* Normalize HTML tags.
+* Modifies the HTML Content field.
+* Fixes an issue with symbols in dropdown fields.
+
 = 5.3.1 =
 
 * Fixes an issue with the form advanced settings CSS rules.

@@ -34,9 +34,26 @@
 				},
 			editItemEvents:function()
 				{
+					let addRemoveMessage = function(){
+						let l = $('[for="sAllowscript"]');
+						l.find('.cff-warning').remove();
+						if (
+							! $('[name="sAllowscript"]:checked').length &&
+							/(<\s*script(\b[^>]*)*>)|((\b)(on[a-z]+)\s*=)|(<\s*style(\b[^>]*)*>)|(<\s*link(\b[^>]*)*>)/i.test($('#sContent').val())
+						) {
+							l.append('<div class="cff-warning">Your content includes advanced code. Please enable the "Accept advanced code in content" option to prevent its removal.</div>');
+						}
+					};
+					addRemoveMessage();
 					var evt=[
-						{s:'[name="sAllowscript"]', e:"change", l:"allowscript", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
-						{s:"#sContent",e:"change keyup", l:"fcontent"}
+						{s:'[name="sAllowscript"]', e:"change", l:"allowscript", f: function(el){
+							addRemoveMessage();
+							return (el.is(':checked')) ? 1 : 0;}
+						},
+						{s:"#sContent",e:"change keyup", l:"fcontent", f: function(el){
+							addRemoveMessage();
+							return el.val();
+						}}
 					];
 					$.fbuilder.controls['ffields'].prototype.editItemEvents.call(this,evt);
 
@@ -85,12 +102,12 @@
 				{
 					if( this.allowscript == -1 ) {
 						this.allowscript = 0;
-						if( /(<script\b)|(\bon[a-z]+\s*=)/i.test( this.fcontent ) ) {
+						if( /(<script\b)|(\bon[a-z]+\s*=)|(<style\b)|(<link\b)/i.test( this.fcontent ) ) {
 							this.allowscript = 1;
 						}
 						$('[name="sAllowscript"]').change();
 					}
-					return '<div><label><input type="checkbox" name="sAllowscript" id="sAllowscript" '+(this.allowscript ? 'CHECKED' : '')+'> Accept JavaScript code in content</label><hr /></div><div class="cff-editor-container"><label style="display:block;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
+					return '<div><label for="sAllowscript"><input type="checkbox" name="sAllowscript" id="sAllowscript" '+(this.allowscript ? 'CHECKED' : '')+'> Accept advanced code in content as JavaScript code</label><hr /></div><div class="cff-editor-container"><label style="display:block;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
 				},
 			showAllSettings:function()
 				{

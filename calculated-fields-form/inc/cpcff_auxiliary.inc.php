@@ -162,6 +162,13 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				$allowed_tags = wp_kses_allowed_html( 'post' );
 				if ( is_array( $allowed_tags ) ) {
 					unset( $allowed_tags['script'] );
+					unset( $allowed_tags['button'] );
+					unset( $allowed_tags['radio'] );
+					unset( $allowed_tags['checkbox'] );
+					unset( $allowed_tags['select'] );
+					unset( $allowed_tags['textarea'] );
+					unset( $allowed_tags['input'] );
+					unset( $allowed_tags['form'] );
 				}
 				add_filter(
 					'safecss_filter_attr_allow_css',
@@ -187,6 +194,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				}
 
 				// $v = str_ireplace( '&amp;', '&', $v );
+				if ( function_exists( 'force_balance_tags' ) ) $v = force_balance_tags( $v );
 
 				/* Recovers the <% and %> symbols. */
 				if ( $allow_cff_fields_tags ) {

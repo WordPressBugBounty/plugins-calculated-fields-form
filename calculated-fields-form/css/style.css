@@ -742,6 +742,7 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 
 .cp-blink-me {animation: cp_blinker 2s linear infinite;text-transform: uppercase;}
 .cff-compatibility-warning {/* animation: cp_blinker 4s linear infinite; */ margin-bottom: 20px;font-size:1.3em;}
+.cff-warning {margin-top: 10px;color:#fc6756;}
 @keyframes cp_blinker{50% {opacity: 0;}}
 
 /**** Market Place ****/

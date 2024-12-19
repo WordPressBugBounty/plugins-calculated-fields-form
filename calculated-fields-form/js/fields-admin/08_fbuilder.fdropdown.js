@@ -51,14 +51,14 @@
 							if (e.data.obj.choices[$(this).attr("i")] == e.data.obj.choicesVal[$(this).attr("i")])
 							{
 								$("#"+$(this).attr("id")+"V"+$(this).attr("i")).val($(this).val());
-								e.data.obj.choicesVal[$(this).attr("i")]= cff_sanitize($(this).val());
+								e.data.obj.choicesVal[$(this).attr("i")]= $(this).val();
 							}
-							e.data.obj.choices[$(this).attr("i")]= cff_sanitize($(this).val());
+							e.data.obj.choices[$(this).attr("i")]= $(this).val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
 					$(".choice_value").on("change keyup", {obj: this}, function(e)
 						{
-							e.data.obj.choicesVal[$(this).attr("i")]= cff_sanitize($(this).val());
+							e.data.obj.choicesVal[$(this).attr("i")]= $(this).val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
 					$(".choice_optgroup").on("change", {obj: this}, function(e)

@@ -218,21 +218,31 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 		 */
 		public static function sanitize_structure( $structure ) {
 
-			function sanitize_attributes( $v, $i = '' ) { // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+			function sanitize_attributes( $v, $i = '', $arr = [] ) { // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
 				if ( is_array( $v ) ) {
 					foreach ( $v as $k => $v1 ) {
-						$v[ $k ] = sanitize_attributes( $v1, $k );
+						$v[ $k ] = sanitize_attributes( $v1, $k, $v );
 					}
 				} elseif ( is_object( $v ) ) {
 					$keys = array_keys( get_object_vars( $v ) );
 					foreach ( $keys as $k ) {
-						$v->$k = sanitize_attributes( $v->$k, $k );
+						$v->$k = sanitize_attributes( $v->$k, $k, (array) $v );
 					}
 				} elseif ( is_string( $v )  ) {
-					if ( ! in_array( $i, array( 'fcontent', 'eq', 'customstyles', 'rule' ) ) ) {
+					if (
+						! in_array( $i, array( 'eq', 'fcontent', 'customstyles', 'rule' ) ) ||
+						(
+							'fcontent' == $i && ( ! isset( $arr['allowscript'] ) || 0 == $arr['allowscript'] )
+						)
+					) {
 						// $v = CPCFF_AUXILIARY::sanitize( htmlspecialchars_decode( $v ), true, true );
+						$v = str_replace( '&', 'cff___amp', $v );
 						$v = CPCFF_AUXILIARY::sanitize( $v, true, true );
-					}  elseif ( in_array( $i, array( 'customstyles', 'rule' ) ) ) {
+ 						$v = str_ireplace( ['&lt;', '&gt;', '&amp;'], ['<', '>', '&'], $v );
+ 						$v = str_replace( 'cff___amp', '&', $v );
+					} elseif ( 'fcontent' == $i ) {
+						if ( function_exists( 'force_balance_tags' ) ) $v = force_balance_tags( $v );
+					} elseif ( 'customstyles' == $i ) {
 						$v = str_replace( '&gt;', '>', wp_kses( $v, 'strip') );
 					}
 				}
