@@ -395,13 +395,13 @@ body{
 }
 
 #fbuilder .one_column{width:100%;}
-#fbuilder .two_column{float:left;width:48%;}
-#fbuilder .three_column{float:left;width:30%;}
+#fbuilder .two_column{float:left;width:48%;margin-right:2%;}
+#fbuilder .three_column{float:left;width:30%;margin-right:2%;}
 #fbuilder .side_by_side{float:left; margin-right:10px;}
 
-*[dir="rtl"] #fbuilder .two_column{float:right;}
-*[dir="rtl"] #fbuilder .three_column{float:right;}
-*[dir="rtl"] #fbuilder .side_by_side{float:right; margin-left:10px;}
+*[dir="rtl"] #fbuilder .two_column{float:right;margin-right:initial;margin-left:2%;}
+*[dir="rtl"] #fbuilder .three_column{float:right;margin-right:initial;margin-left:2%;}
+*[dir="rtl"] #fbuilder .side_by_side{float:right; margin-left:10px;margin-right:initial;}
 
 
 #fbuilder .dfield{position:relative;}

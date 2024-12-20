@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.3';
+	$.fbuilder['version'] = '5.3.4';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -357,7 +357,7 @@
 								f.setVal( cpcff_default[n[2]][n[1]], false, true );
 							}
 						}
-					} catch (err){ console_log(err); }
+					} catch (err){ if('console' in window) console.log(err); }
 				});
 				// ...End.
 
@@ -483,7 +483,7 @@
 					var _parent = element.closest( '.uh_phone,.dfield' ),
 						_uh =  _parent.find( 'span.uh:visible' ),
 						_arg = {'position' : 'absolute'},
-						_t  = _parent.find('input[type="button"],input[type="reset"],input[type="text"],input[type="number"],input[type="email"],input[type="file"],input[type="color"],input[type="date"],input[type="password"],input[type="email"],select,textarea');
+						_t  = _parent.find('input[type="button"],input[type="reset"],input[type="text"],input[type="number"]:not([id$="_quantity"]),input[type="email"],input[type="file"],input[type="color"],input[type="date"],input[type="password"],input[type="email"],select,textarea');
 
 						try{
 							if(_t.length) _arg['left'] = _t.first()[0].offsetLeft;
@@ -528,7 +528,7 @@
 				if( !opt.cached )
 				{
 					page_tag = $('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
-                    header_tag.html(cff_sanitize(theForm.show( opt.identifier )));
+                    header_tag.html(theForm.show( opt.identifier ));
 					fieldlist_tag.addClass(theForm.formlayout).append(page_tag);
 
 					for(i; i<items.length; i++)
@@ -542,7 +542,7 @@
 						}
 						else
 						{
-							page_tag.append((items[i].ftype != 'fhtml') ? cff_sanitize(items[i].show()) : items[i].show());
+							page_tag.append(items[i].show());
 							if (items[i].predefinedClick)
 							{
 								page_tag.find("#"+items[i].name).attr({placeholder: items[i].predefined, value: ""});
@@ -582,7 +582,7 @@
 								var uh = items[i].jQueryRef();
 								if(items[i].userhelp && items[i].userhelp.length)
 								{
-									var uh_content = cff_sanitize('<div data-uh-styles="'+cff_esc_attr(items[i].getCSSComponent('help').replace(/<[^>]*>/g, ''))+'">'+items[i].userhelp+'</div>', true);
+									var uh_content = '<div data-uh-styles="'+cff_esc_attr(items[i].getCSSComponent('help').replace(/<[^>]*>/g, ''))+'">'+cff_sanitize(items[i].userhelp, true)+'</div>';
 
 									if(items[i].tooltipIcon) $('<span class="cff-help-icon"></span>').attr('uh', uh_content).appendTo($(uh.children('label')[0] || uh));
 									else{

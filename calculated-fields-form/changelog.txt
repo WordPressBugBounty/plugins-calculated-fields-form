@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.3.4 =
 = 5.3.3 =
 
 * Fixes a conflict with Elementor cache.

@@ -102,9 +102,9 @@
 					}
 
                     if(0 < m.max)
-                        $('[id*="'+m.name+'_"]').rules('add',{maxlength:m.max, messages:{maxlength:cff_sanitize(m.maxError, true)}});
+                        $('[id*="'+m.name+'_"][type="checkbox"]').rules('add',{maxlength:m.max, messages:{maxlength:cff_sanitize(m.maxError, true)}});
                     if(0 < m.min)
-                        $('[id*="'+m.name+'_"]').rules('add',{minlength:m.min, messages:{minlength:cff_sanitize(m.minError, true)}});
+                        $('[id*="'+m.name+'_"][type="checkbox"]').rules('add',{minlength:m.min, messages:{minlength:cff_sanitize(m.minError, true)}});
                 },
 			showHideDep:function(toShow, toHide, hiddenByContainer, interval)
 				{

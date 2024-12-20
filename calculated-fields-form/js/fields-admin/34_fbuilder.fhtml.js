@@ -23,14 +23,14 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					let content = this.fcontent
+					let content = cff_sanitize(this.fcontent
 									.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, '')
 									.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, '')
-									.replace(/(\b)(on[a-z]+)\s*=/gi, "$1_$2=");
-					content = cff_sanitize($('<div/>').html(content).find('script,style').remove().end().html());
+									.replace(/(\b)(on[a-z]+)\s*=/gi, "$1_$2="));
+					// content = cff_sanitize($('<div/>').html(content).find('script,style').remove().end().html());
 					content = /^\s*$/.test(content) ? '&lt;HTML&gt;' : content.replace( /<\s*(input|textarea|button|select|radio|checkbox)(\b)/ig, '<$1 disabled $2' );
 
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+' fhtml" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('HTML Content')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer('', false)+'<span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span>'+this.showColumnIcon()+'<div class="fhtml-content">'+content+'</div><div class="clearer"></div></div>';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+' fhtml" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('HTML Content')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer('', false)+'<span class="developer-note">'+cff_esc_attr(this._developerNotes)+'</span>'+this.showColumnIcon()+'<div class="fhtml-content">'+content+'</div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

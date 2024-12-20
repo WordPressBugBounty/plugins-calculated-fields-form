@@ -42,7 +42,7 @@
 					'<div class="cff-popup-header">'+(this.title.length ? '<' + this.titletag+ ' class="cff-popup-title">'+cff_sanitize(this.title, true)+'</' + this.titletag+ '>' : '')+
 					(this.close_button ? '<div class="cff-popup-close ui-icon ui-icon-close"></div>' : '')+
 					'</div>'+
-					'<div class="fcontainer">'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer"></div></div>';
+					'<div class="fcontainer">'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<span class="developer-note">'+cff_esc_attr(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
