@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.2';
+	$.fbuilder['version'] = '5.3.3';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1038,10 +1038,9 @@
 						f = (/^fieldname\d+$/i.test(v)) ? me.getField(v) : false;
 						if(f)
 						{
-							v = f.val();
-							if(f.ftype == 'fdate') return v ? new Date(v*86400000) : '';
-							if(!raw && $.fbuilder.isNumeric(v)) return parseFloat(v);
-							return (new String(v)).replace(/^"+/, '').replace(/"+$/, '');
+							v = f.val(raw, true);
+							if(!raw && $.fbuilder.isNumeric(v)) v = parseFloat(v);
+							if(f.ftype == 'fdate' && $.fbuilder.isNumeric(v) && v) v = CDATE(v, me.dformat);
 						}
 						return v;
 					},

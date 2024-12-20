@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.2
+ * Version: 5.3.3
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.2' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.3' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -49,6 +49,15 @@ CPCFF_MAIN::instance(); // Main plugin's object.
 
 add_action( 'init', 'cp_calculated_fields_form_check_posted_data', 11 );
 add_action( 'init', 'cp_calculated_fields_form_direct_form_access', 1 );
+add_action( 'init', function(){
+	add_filter( 'get_post_metadata', function( $v, $object_id, $meta_key, $single, $meta_type ){
+		if ( '_elementor_element_cache' == $meta_key ) {
+			global $wpdb;
+			if ( $wpdb->get_var( $wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->postmeta . ' WHERE post_id=%d AND meta_key="_elementor_element_cache" AND meta_value LIKE "%calculatedfields%";', $object_id ) ) ) return false;
+		}
+		return $v;
+	}, 10, 5 );
+} );
 
 // functions
 // ------------------------------------------.
