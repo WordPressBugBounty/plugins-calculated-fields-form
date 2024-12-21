@@ -262,6 +262,11 @@
 				var items = this.fBuild.getItems();
 				$.each(this.dependencies, function (i, o)
 					{
+						if('rule' in o && typeof o.rule == 'string' ){
+							o.rule = o.rule.replace(/value\s*&lt;/g, 'value<')
+										   .replace(/value\s*&gt;/g, 'value>');
+							me.dependencies[i] = o;
+						}
 						if(o.complex)
 						{
 							r += '<div class="cff-dependency-rule"><div style="position:relative;"><span style="font-weight:bold;">If value is</span><span class="cf_dependence_edition" i="'+i+'" ><input class="cf_dependence_rule" type="text" i="'+i+'" value="'+cff_esc_attr(o.rule)+'" /></span><div class="choice-ctrls"><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this dependency."></a></div><div style="text-align:right;position:relative;"><span style="float:left;">Ex: value==10</span><a href="#" class="displayWizard" i="'+i+'">Edit through wizard</a><br />(The rule entered will lost)</div></div>';

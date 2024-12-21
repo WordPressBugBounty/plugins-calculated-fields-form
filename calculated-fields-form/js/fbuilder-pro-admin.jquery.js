@@ -257,7 +257,7 @@
                 {
 					$('#tabs-2').html( items[id].showAllSettings() );
 					if ( scrollTopFlag ) $('#tabs-2')[0].scrollTop = 0;
-                } catch (e) {}
+                } catch (e) { if( 'console' in window ) console.log(e); }
 				items[id].editItemEvents();
 				setTimeout(function(){try{$('#tabs-2 .choicesSet select:visible, #tabs-2 .cf_dependence_field:visible, #tabs-2 #sSelectedField, #tabs-2 #sFieldList').chosen({search_contains: true});}catch(e){}}, 50);
 			};

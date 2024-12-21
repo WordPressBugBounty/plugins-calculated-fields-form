@@ -458,7 +458,11 @@
 									try
 									{
 										// Get the rule and evaluate
-										var rule = eval(dependencies[i].rule.replace(/value\|r/gi, values.raw).replace(/value/gi, values.value));
+										var rule = eval(dependencies[i].rule.replace(/value\s*&lt;/gi, 'value<')
+																			.replace(/value\s*&gt;/gi, 'value>')
+																			.replace(/value\|r/gi, values.raw)
+																			.replace(/value/gi, values.value)
+										);
 										$.each(dependencies[i].fields, function(j, e)
 											{
 												if(e != '')

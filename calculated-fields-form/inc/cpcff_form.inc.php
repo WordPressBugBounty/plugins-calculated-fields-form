@@ -240,8 +240,6 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						$v = CPCFF_AUXILIARY::sanitize( $v, true, true );
  						$v = str_ireplace( ['&lt;', '&gt;', '&amp;'], ['<', '>', '&'], $v );
  						$v = str_replace( 'cff___amp', '&', $v );
-					} elseif ( 'fcontent' == $i ) {
-						if ( function_exists( 'force_balance_tags' ) ) $v = force_balance_tags( $v );
 					} elseif ( 'customstyles' == $i ) {
 						$v = str_replace( '&gt;', '>', wp_kses( $v, 'strip') );
 					}
