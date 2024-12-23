@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.6 =
+
+* Updates the form validation process to provide users with immediate feedback on incorrect values or required fields.
+* Makes minor adjustments to the processing of calculated field equations.
+* Enhances the HTML Content control to offer more detailed information to form developers regarding its content.
+
 = 5.3.5 =
 = 5.3.4 =
 = 5.3.3 =

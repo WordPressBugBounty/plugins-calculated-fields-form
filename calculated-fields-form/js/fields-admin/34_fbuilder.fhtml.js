@@ -27,7 +27,7 @@
 									.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, '')
 									.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, '')
 									.replace(/(\b)(on[a-z]+)\s*=/gi, "$1_$2="));
-					// content = cff_sanitize($('<div/>').html(content).find('script,style').remove().end().html());
+
 					content = /^\s*$/.test(content) ? '&lt;HTML&gt;' : content.replace( /<\s*(input|textarea|button|select|radio|checkbox)(\b)/ig, '<$1 disabled $2' );
 
 					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+' fhtml" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('HTML Content')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer('', false)+'<span class="developer-note">'+cff_esc_attr(this._developerNotes)+'</span>'+this.showColumnIcon()+'<div class="fhtml-content">'+content+'</div><div class="clearer"></div></div>';
@@ -39,7 +39,7 @@
 						l.find('.cff-warning').remove();
 						if (
 							! $('[name="sAllowscript"]:checked').length &&
-							/(<\s*script(\b[^>]*)*>)|((\b)(on[a-z]+)\s*=)|(<\s*style(\b[^>]*)*>)|(<\s*link(\b[^>]*)*>)/i.test($('#sContent').val())
+							/(\b(on[a-z]+)\s*=)|(<\s*(?:script|style|link|textarea|select|input|button|checkbox|radio)\b)/i.test($('#sContent').val())
 						) {
 							l.append('<div class="cff-warning">Your content includes advanced code. Please enable the "Accept advanced code in content" option to prevent its removal.</div>');
 						}
@@ -102,7 +102,7 @@
 				{
 					if( this.allowscript == -1 ) {
 						this.allowscript = 0;
-						if( /(<script\b)|(\bon[a-z]+\s*=)|(<style\b)|(<link\b)/i.test( this.fcontent ) ) {
+						if( /(<script\b)|(\bon[a-z]+\s*=)|(<style\b)|(<link\b)|(<textarea\b)|(<select\b)|(<input\b)|(<button\b)|(<checkbox\b)|(<radio\b)/i.test( this.fcontent ) ) {
 							this.allowscript = 1;
 						}
 						$('[name="sAllowscript"]').change();

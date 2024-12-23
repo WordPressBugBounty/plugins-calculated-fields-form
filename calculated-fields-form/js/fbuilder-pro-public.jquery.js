@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.5';
+	$.fbuilder['version'] = '5.3.6';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -883,8 +883,15 @@
 						.attr( 'data-animate_form', this.animate_form )
 						.attr( 'data-animation_effect', this.animation_effect )
 						.attr( 'autocomplete', ( ( this.autocomplete ) ? 'on' : 'off' ) )
-						.find( 'input,select' )
-						.on( 'blur',  function(){ try{ if(!$(this).is(':file')) $(this).valid(); }catch(e){};} );
+						.find( 'input,select,textarea' )
+						.on( 'blur change',  function(evt){
+							if( 'name' in evt.target ) { // Prevent processing validation in both events at once.
+								if ( window['cff_error_processing'+evt.target.name] ) return;
+								window['cff_error_processing'+evt.target.name] = true;
+								setTimeout(function(){ delete window['cff_error_processing'+evt.target.name]; }, 10);
+							}
+							try{ if(!$(this).is(':file')) $(this).valid(); }catch(e){};
+						});
 
 					if(!this.autocomplete) form.find('input[name*="fieldname"]:not([autocomplete])').attr('autocomplete', 'new-password');
 

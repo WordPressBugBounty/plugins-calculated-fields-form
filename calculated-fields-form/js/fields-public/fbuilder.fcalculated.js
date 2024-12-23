@@ -307,7 +307,7 @@
 							field_regexp = new RegExp('(fieldname\\d+'+suffix+')(_[cr]b\\d+)?(\\|[rnv])?([\\D\\b])','i');
 
 						$.fbuilder['currentFormId'] = $.fbuilder['forms'][suffix].formId;
-						eq = eq.replace( /(ACTIVATEFIELD|IGNOREFIELD|HIDEFIELD|SHOWFIELD)\(([^\)]*)/ig, '$1($2,"'+$.fbuilder['forms'][suffix].formId+'"' );
+						/* eq = eq.replace( /(ACTIVATEFIELD|IGNOREFIELD|HIDEFIELD|SHOWFIELD)\(([^\)]*)/ig, '$1($2,"'+$.fbuilder['forms'][suffix].formId+'"' ); */
 						eq = '('+eq+')';
 						while (_match = field_regexp.exec(eq))
 						{
