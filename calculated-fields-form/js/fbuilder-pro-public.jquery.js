@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.6';
+	$.fbuilder['version'] = '5.3.7';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -982,6 +982,7 @@
 										$.fbuilder.cpcffLoadDefaults( opt );
 
 										$.fbuilder.showHideDep( { 'formIdentifier' : opt.identifier } );
+										f.removeAttr('data-loadingdefaults');
 
 										f.css({'height':'auto', 'minHeight':'auto'});
 
@@ -989,7 +990,6 @@
 											fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
 										}
 
-										f.removeAttr('data-loadingdefaults');
 										f.attr('data-evalequations', eval_equations_bk);
 										$('.cff-processing-form', f).remove(); // 2024-12-16
 

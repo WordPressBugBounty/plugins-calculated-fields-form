@@ -59,7 +59,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
  </div>';
 ?>
 <div class="wrap">
-	<div style="text-align:right;float:right;display:inline-block;">
+	<div style="text-align:right;float:right;display:flex;align-items:center;margin-bottom:10px;">
+		<a href="admin.php?page=cp_calculated_fields_form_sub_new" class="button-secondary"><?php esc_html_e( 'Add New', 'calculated-fields-form' ); ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?>
 	</div>

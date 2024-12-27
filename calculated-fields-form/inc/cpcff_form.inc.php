@@ -229,10 +229,11 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						$v->$k = sanitize_attributes( $v->$k, $k, (array) $v );
 					}
 				} elseif ( is_string( $v )  ) {
+					$i_l = strtolower( $i );
 					if (
-						! in_array( $i, array( 'eq', 'fcontent', 'customstyles', 'rule' ) ) ||
+						! in_array( $i_l, array( 'eq', 'fcontent', 'customstyles', 'rule', 'sonclick', 'sonmousedown' ) ) ||
 						(
-							'fcontent' == $i && ( ! isset( $arr['allowscript'] ) || 0 == $arr['allowscript'] )
+							'fcontent' == $i_l && ( ! isset( $arr['allowscript'] ) || 0 == $arr['allowscript'] )
 						)
 					) {
 						// $v = CPCFF_AUXILIARY::sanitize( htmlspecialchars_decode( $v ), true, true );
@@ -240,7 +241,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						$v = CPCFF_AUXILIARY::sanitize( $v, true, true );
  						$v = str_ireplace( ['&lt;', '&gt;', '&amp;'], ['<', '>', '&'], $v );
  						$v = str_replace( 'cff___amp', '&', $v );
-					} elseif ( 'customstyles' == $i ) {
+					} elseif ( 'customstyles' == $i_l ) {
 						$v = str_replace( '&gt;', '>', wp_kses( $v, 'strip') );
 					}
 				}

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.6
+Stable tag: 5.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -454,6 +454,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 17. WebHook add-on, and its integration with Zapier
 
 == Changelog ==
+
+= 5.3.7 =
+
+* Enhances the user experience by placing the "Add New Form" button directly above the form builder for easier access.
+* Updates the phone control to prevent duplicate prefixes from being entered.
+* Improves the process for evaluating default equations to prevent multiple evaluations.
+* Activates the auto-update feature in the plugin commercial distributions.
 
 = 5.3.6 =
 

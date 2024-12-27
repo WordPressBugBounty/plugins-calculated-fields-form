@@ -128,7 +128,11 @@
 
 						for( let i in me.countries ) {
 							if ( me.countries[i] in me.country_db )
-								db[me.countries[i]] = me.country_db[me.countries[i]];
+								if( me.toDisplay == 'iso' ) {
+									if ( ! ( me.countries[i] in db ) )
+										db[me.countries[i]] = me.country_db[me.countries[i]];
+								} else if ( ! ( me.country_db[me.countries[i]]['prefix'] in db ) )
+									db[me.country_db[me.countries[i]]['prefix']] = me.country_db[me.countries[i]];
 						}
 						countries = JSON.parse(JSON.stringify(me.countries));
 
@@ -150,9 +154,11 @@
 							countries = countries.sort();
 						}
 
+						let defaultCountry = me.toDisplay == 'iso' ? me.defaultCountry : me.country_db[me.defaultCountry]['prefix'];
+
                         for(let i in countries) {
 							let prefix = db[countries[i]]['prefix'];
-							str += '<option value="'+cff_esc_attr(prefix)+'" '+(me.defaultCountry == countries[i] ? 'SELECTED' : '')+'>'+cff_esc_attr(me.toDisplay == 'iso' ? countries[i] : prefix)+'</option>';
+							str += '<option value="'+cff_esc_attr(prefix)+'" '+(defaultCountry == countries[i] ? 'SELECTED' : '')+'>'+cff_esc_attr(me.toDisplay == 'iso' ? countries[i] : prefix)+'</option>';
 						}
                         str += '</select></div>';
                         c++;
