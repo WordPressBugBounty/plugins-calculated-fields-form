@@ -38,7 +38,7 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Popup')+'" cff_style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer('<div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div>')+'<div class="dfield" cff_style="width:100%;">'+
+					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Popup')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer('<div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div>')+'<div class="dfield" style="width:100%;">'+
 					'<div class="cff-popup-header">'+(this.title.length ? '<' + this.titletag+ ' class="cff-popup-title">'+cff_sanitize(this.title, true)+'</' + this.titletag+ '>' : '')+
 					(this.close_button ? '<div class="cff-popup-close ui-icon ui-icon-close"></div>' : '')+
 					'</div>'+

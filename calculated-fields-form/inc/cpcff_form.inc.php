@@ -229,12 +229,10 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						$v->$k = sanitize_attributes( $v->$k, $k, (array) $v );
 					}
 				} elseif ( is_string( $v )  ) {
+					$v = preg_replace( '/(\b)_style\s*=/i', '$1style=', $v);
 					$i_l = strtolower( $i );
 					if (
-						! in_array( $i_l, array( 'eq', 'fcontent', 'customstyles', 'rule', 'sonclick', 'sonmousedown' ) ) ||
-						(
-							'fcontent' == $i_l && ( ! isset( $arr['allowscript'] ) || 0 == $arr['allowscript'] )
-						)
+						! in_array( $i_l, array( 'eq', 'fcontent', 'customstyles', 'rule', 'sonclick', 'sonmousedown' ) )
 					) {
 						// $v = CPCFF_AUXILIARY::sanitize( htmlspecialchars_decode( $v ), true, true );
 						$v = str_replace( '&', 'cff___amp', $v );

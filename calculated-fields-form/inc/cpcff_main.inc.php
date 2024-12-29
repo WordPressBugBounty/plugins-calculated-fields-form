@@ -247,7 +247,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$links,
 				'<a href="https://cff.dwbooster.com/customization" target="_blank">' . __( 'Request custom changes' ) . '</a>',
 				'<a href="admin.php?page=cp_calculated_fields_form">' . __( 'Settings' ) . '</a>',
-				'<a href="https://cff.dwbooster.com/download" target="_blank">' . __( 'Upgrade' ) . '</a>',
+				'<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#93003f;font-weight:700;">' . __( 'Upgrade' ) . '*</a>',
 				'<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank">' . __( 'Help' ) . '</a>'
 			);
 			return $links;

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.7';
+	$.fbuilder['version'] = '5.3.8';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -33,10 +33,38 @@
 					forbid_tags = forbid_tags.concat(['textarea', 'input', 'button', 'checkbox', 'radio', 'select', 'option']);
 				}
 				value = DOMPurify.sanitize(value, {FORBID_TAGS: forbid_tags});
+			} else if ( 'DOMParser' in window ) {
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(value, 'text/html');
+
+				// Remove all script, style, and link tags.
+				const tags = doc.querySelectorAll('script,style,link');
+				tags.forEach(tag => tag.remove());
+
+				// Remove all form controls.
+				if (typeof controls != 'undefined' && controls) {
+					const ctr_tags = doc.querySelectorAll('textarea,input,button,checkbox,radio,select,option');
+					ctr_tags.forEach(tag => tag.remove());
+				}
+
+				// Remove all event handlers and inline style attributes.
+				const elements = doc.querySelectorAll('*');
+				elements.forEach(element => {
+					for (const attr of element.getAttributeNames()) {
+						if (attr.startsWith('on')) {
+							element.removeAttribute(attr);
+						}
+					}
+				});
+
+				value = doc.documentElement.getElementsByTagName('BODY')[0].innerHTML;
 			} else {
 				value = value.replace(/<script\b.*\bscript>/ig, '')
 							 .replace(/<script[^>]*>/ig, '')
-							 .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=");
+							 .replace(/<link[^>]*>/ig, '')
+							 .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=")
+							 .replace(/<style\b.*\bstyle>/ig, '')
+							 .replace(/<style[^>]*>/ig, '');
 
 				value = $('<div></div>').append(value).html();
 			}

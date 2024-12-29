@@ -126,9 +126,36 @@
 					forbid_tags = forbid_tags.concat(['textarea', 'input', 'button', 'checkbox', 'radio', 'select', 'option']);
 				}
 				value = DOMPurify.sanitize(value, {FORBID_TAGS: forbid_tags, FORBID_ATTR: ['style']});
+			} else if ('DOMParser' in window) {
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(value, 'text/html');
+
+				// Remove all script, style, and link tags.
+				const tags = doc.querySelectorAll('script,style,link');
+				tags.forEach(tag => tag.remove());
+
+				// Remove all form controls.
+				if (typeof controls != 'undefined' && controls) {
+					const ctr_tags = doc.querySelectorAll('textarea,input,button,checkbox,radio,select,option');
+					ctr_tags.forEach(tag => tag.remove());
+				}
+
+				// Remove all event handlers and inline style attributes.
+				const elements = doc.querySelectorAll('*');
+				elements.forEach(element => {
+					for (const attr of element.getAttributeNames()) {
+						if (attr.startsWith('on')) {
+							element.removeAttribute(attr);
+						}
+					}
+					element.removeAttribute('style');
+				});
+
+				value = doc.documentElement.getElementsByTagName('BODY')[0].innerHTML;
 			} else {
 				value = value.replace(/<script\b.*\bscript>/ig, '')
 							 .replace(/<script[^>]*>/ig, '')
+							 .replace(/<link[^>]*>/ig, '')
 							 .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=")
 							 .replace(/<style\b.*\bstyle>/ig, '')
 							 .replace(/<style[^>]*>/ig, '')
@@ -642,7 +669,7 @@
 					if( typeof field[ 'display' ] != 'undefined' )
 					{
 						var e  = $('.'+field['name']),
-							n  = $(cff_sanitize(field.display()).replace(/(\b)fields(\b)/i, '$1fields$2'+('fieldlayout' in field && field.fieldlayout != 'default' ? ' '+field.fieldlayout : ''))),
+							n  = $(field.display().replace(/(\b)fields(\b)/i, '$1fields$2'+('fieldlayout' in field && field.fieldlayout != 'default' ? ' '+field.fieldlayout : ''))),
 							as = true; // Call after_show
 
 						if( n.find( '.dfield:eq(0)>.fcontainer>.fieldscontainer').length )
@@ -713,22 +740,8 @@
 						fieldsIndex[ item.name ] = i;
 
 						if( i == selected && $('#tabs').tabs("option", "active") != 1 ) $.fbuilder[ 'editItem' ]( i );
-						playlist_html += cff_sanitize(item.display( i == selected ? 'ui-selected' : '' )).replace(/(\b)fields(\b)/i, '$1fields$2'+('fieldlayout' in item && item.fieldlayout != 'default' ? ' '+item.fieldlayout : ''));
-/*
-						$("#fieldlist").append(cff_sanitize(item.display()).replace(/(\b)fields(\b)/i, '$1fields$2'+('fieldlayout' in item && item.fieldlayout != 'default' ? ' '+item.fieldlayout : '')));
-						if ( i == selected )
-						{
-							$("#field-"+i).addClass("ui-selected");
-							if( $('#tabs').tabs("option", "active") != 1 )
-							{
-								$.fbuilder[ 'editItem' ]( i );
-							}
-						}
-						else
-						{
-							$("#field-"+i).removeClass("ui-selected");
-						}
-*/
+						playlist_html += item.display( i == selected ? 'ui-selected' : '' ).replace(/(\b)fields(\b)/i, '$1fields$2'+('fieldlayout' in item && item.fieldlayout != 'default' ? ' '+item.fieldlayout : ''));
+
 						// Email fields
 						if (item.ftype=="femail" || item.ftype=="femailds")
 						{

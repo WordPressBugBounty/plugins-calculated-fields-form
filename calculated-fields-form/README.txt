@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.7
+Stable tag: 5.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -454,6 +454,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 17. WebHook add-on, and its integration with Zapier
 
 == Changelog ==
+
+= 5.3.8 =
+
+* Updated the HTML Content control to ensure consistency between its appearance in the form builder and the public-facing form.
+* Implemented minor enhancements to the DropDown, Radio Buttons, Checkbox, and container controls for improved functionality and user experience.
+* Modified the Autocomplete Places add-on to trigger a place_changed event when a user selects a location from the list, passing the place properties as the second parameter (specific to the Platinum plugin version).
 
 = 5.3.7 =
 

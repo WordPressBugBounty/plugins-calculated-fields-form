@@ -40,7 +40,7 @@
 					var str = "";
 					for (var i=0;i<this.choices.length;i++)
 					{
-						str += '<div class="'+this.layout+'"><label><input disabled class="field disabled" type="radio" i="'+i+'"  '+(( this.choices[i]+' - '+this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> '+cff_html_decode(this.choices[i])+'</label></div>';
+						str += '<div class="'+this.layout+'"><label><input disabled class="field disabled" type="radio" i="'+i+'"  '+(( this.choices[i]+' - '+this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> '+cff_sanitize(this.choices[i])+'</label></div>';
 					}
 					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Radio Buttons')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label>'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+str+'<span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
@@ -51,14 +51,14 @@
 							if (e.data.obj.choices[$(this).attr("i")] == e.data.obj.choicesVal[$(this).attr("i")])
 							{
 								$("#"+$(this).attr("id")+"V"+$(this).attr("i")).val($(this).val());
-								e.data.obj.choicesVal[$(this).attr("i")]= cff_sanitize($(this).val());
+								e.data.obj.choicesVal[$(this).attr("i")]= $(this).val();
 							}
-							e.data.obj.choices[$(this).attr("i")]= cff_sanitize($(this).val());
+							e.data.obj.choices[$(this).attr("i")]= $(this).val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
 					$(".choice_value").on("change keyup", {obj: this}, function(e)
 						{
-							e.data.obj.choicesVal[$(this).attr("i")]= cff_sanitize($(this).val());
+							e.data.obj.choicesVal[$(this).attr("i")]= $(this).val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
 					$(".choice_radio").on("mousedown", function(){$(this).data('previous-status', $(this).is(':checked'));});

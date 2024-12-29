@@ -23,10 +23,7 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					let content = cff_sanitize(this.fcontent
-									.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, '')
-									.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, '')
-									.replace(/(\b)(on[a-z]+)\s*=/gi, "$1_$2="));
+					let content = cff_sanitize( this.fcontent, ( this.allowscript == -1 || this.allowscript ) ? false : true );
 
 					content = /^\s*$/.test(content) ? '&lt;HTML&gt;' : content.replace( /<\s*(input|textarea|button|select|radio|checkbox)(\b)/ig, '<$1 disabled $2' );
 
