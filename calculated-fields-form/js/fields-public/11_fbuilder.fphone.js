@@ -154,7 +154,7 @@
 							countries = countries.sort();
 						}
 
-						let defaultCountry = me.toDisplay == 'iso' ? me.defaultCountry : me.country_db[me.defaultCountry]['prefix'];
+						let defaultCountry = ( me.toDisplay != 'iso' &&  me.defaultCountry in me.country_db ) ? me.country_db[me.defaultCountry]['prefix'] : me.defaultCountry;
 
                         for(let i in countries) {
 							let prefix = db[countries[i]]['prefix'];

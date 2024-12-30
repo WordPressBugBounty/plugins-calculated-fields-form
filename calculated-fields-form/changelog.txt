@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.10 =
+
+* Fixes an issue in the Phone control.
+
 = 5.3.9 =
 = 5.3.8 =
 
