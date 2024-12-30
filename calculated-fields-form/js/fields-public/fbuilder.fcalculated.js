@@ -324,7 +324,7 @@
 								{
 									r = (_match[3]) ? ((_match[3] == '|v') ? 'vt' : ((_match[3] == '|r') ? true : false)) : false;
 									v = field.val(r);
-									if(typeof v == 'object' && typeof window.JSON != 'undefined') v = JSON.stringify(v);
+									if(typeof v == 'object' && typeof window.JSON != 'undefined') v = JSON.stringify(v).replace(/\\\\\\/g, '\\');
 									else if( r !== true && $.fbuilder.isNumeric(v)) v = '('+v+')';
 								}
 							}

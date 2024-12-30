@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.8';
+	$.fbuilder['version'] = '5.3.9';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -21,6 +21,16 @@
 				.replace(/(\b)(on[a-z]+)\s*=/gi, "$1_$2=");
 		return cff_sanitize(String((/&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);?/ig.test(value)) ? $('<div/>').html(value).html() : value).replace(/(\b)\_style(\b)/gi, '$1style$2'), true);
 	};
+
+	if ('DOMPurify' in window) {
+		DOMPurify.addHook('uponSanitizeAttribute', function(currentNode, hookEvent, config) {
+			if (currentNode.tagName === 'A' && currentNode.hasAttribute('target')) {
+				// Preserve the target attribute.
+				hookEvent.forceKeepAttr = true;
+				currentNode.setAttribute('rel', 'noopener noreferrer');
+			}
+		});
+	}
 
 	$.fbuilder['sanitize'] = window['cff_sanitize'] = function(value, controls)
 	{

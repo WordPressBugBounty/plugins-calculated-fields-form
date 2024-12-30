@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.3.9 =
 = 5.3.8 =
 
 * Updated the HTML Content control to ensure consistency between its appearance in the form builder and the public-facing form.

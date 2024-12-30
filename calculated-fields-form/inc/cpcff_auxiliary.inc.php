@@ -619,9 +619,6 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 			if ( 'html' == $format ) {
 				$text    = str_replace( "\n", '', $text );
-
-				// 2024-12-14
-				// $summary = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $summary );
 			}
 
 			// Replace the INFO tags.
@@ -668,13 +665,6 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 					$label      = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'title' ) ) ? $fields[ $item ]->title : '';
 					$shortlabel = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'shortlabel' ) ) ? $fields[ $item ]->shortlabel : '';
 					$value      = ( ! empty( $value ) || is_numeric( $value ) && 0 == $value ) ? ( ( is_array( $value ) ) ? implode( ( ! empty( $tags[ $item ][0] ) && ! empty( $tags[ $item ][0]['choices_separator'] ) ? $tags[ $item ][0]['choices_separator'] : ", " ), $value ) : $value ) : '';
-
-					// 2024-12-14
-					/* if ( 'html' == $format ) {
-						$label      = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $label );
-						$shortlabel = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $shortlabel );
-						$value      = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $value );
-					} */
 
 					foreach ( $tags[ $item ] as $tagData ) {
 						if (
@@ -750,12 +740,6 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 						if ( isset( $fields[ $item ] ) && ( 'fCommentArea' == $fields[ $item ]->ftype || 'fSectionBreak' == $fields[ $item ]->ftype ) ) {
 							$label      = ( property_exists( $fields[ $item ], 'title' ) ) ? $fields[ $item ]->title : '';
 							$shortlabel = ( property_exists( $fields[ $item ], 'shortlabel' ) ) ? $fields[ $item ]->shortlabel : '';
-
-							// 2024-12-14
-							/* if ( 'html' == $format ) {
-								$label      = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $label );
-								$shortlabel = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $shortlabel );
-							} */
 
 							switch ( $tagData['tag'] ) {
 								case $item:
@@ -852,10 +836,12 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				}
 			}
 
-			// $text = str_ireplace( '&amp;', '&', $text ); // 2024-12-14
-
+			$text = apply_filters( 'cpcff_custom_tags', $text, $postid );
+			if ( 'html' !== $format ) {
+				$text = htmlspecialchars_decode( $text ); // 2024-12-30
+			}
 			return array(
-				'text'  => apply_filters( 'cpcff_custom_tags', $text, $postid ),
+				'text'  => $text,
 				'files' => $attachments,
 			);
 		} // End parsing_fields_on_text.

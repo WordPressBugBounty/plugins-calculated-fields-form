@@ -234,9 +234,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 					if (
 						! in_array( $i_l, array( 'eq', 'fcontent', 'customstyles', 'rule', 'sonclick', 'sonmousedown' ) )
 					) {
-						// $v = CPCFF_AUXILIARY::sanitize( htmlspecialchars_decode( $v ), true, true );
 						$v = str_replace( '&', 'cff___amp', $v );
-						$v = CPCFF_AUXILIARY::sanitize( $v, true, true );
+						$v = CPCFF_AUXILIARY::sanitize( wp_slash($v), true, true );
  						$v = str_ireplace( ['&lt;', '&gt;', '&amp;'], ['<', '>', '&'], $v );
  						$v = str_replace( 'cff___amp', '&', $v );
 					} elseif ( 'customstyles' == $i_l ) {
