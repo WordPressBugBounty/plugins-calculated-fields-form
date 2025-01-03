@@ -69,6 +69,30 @@
 
 					if(!/^\s*$/.test(eq))
                     {
+						// This code ensures you pass to form identifier as the last operation parameter.
+						let  indexes_array = Array.from(
+							eq.matchAll( /\b(GETFIELD|ACTIVATEFIELD|IGNOREFIELD|ISIGNORED|SHOWFIELD|HIDEFIELD|EVALEQUATION|GOTOPAGE|GOTOFIELD|COPYFIELDVALUE)\(/ig ),
+							m => m.index
+						);
+
+						for( let i = indexes_array.length - 1; 0 <= i; i-- ) {
+							let j = indexes_array[i]+1;
+							let c = 0;
+							while( eq[j] ) {
+								if( eq[j] == '(' ) c++;
+								else if ( eq[j] == ')' ) {
+									c--;
+									if(c < 0) break;
+									else if (c == 0) {
+										eq = eq.slice(0,j)+',"'+me.form_identifier+'"'+eq.slice(j);
+										break;
+									}
+								}
+								j++;
+							}
+						}
+						// End.
+
                         $.fbuilder.calculator.addEquation(me, eq, dependencies, me.form_identifier);
                     }
 
@@ -307,7 +331,7 @@
 							field_regexp = new RegExp('(fieldname\\d+'+suffix+')(_[cr]b\\d+)?(\\|[rnv])?([\\D\\b])','i');
 
 						$.fbuilder['currentFormId'] = $.fbuilder['forms'][suffix].formId;
-						/* eq = eq.replace( /(ACTIVATEFIELD|IGNOREFIELD|HIDEFIELD|SHOWFIELD)\(([^\)]*)/ig, '$1($2,"'+$.fbuilder['forms'][suffix].formId+'"' ); */
+
 						eq = '('+eq+')';
 						while (_match = field_regexp.exec(eq))
 						{
@@ -589,7 +613,7 @@
 									var field = $('[id="'+eq_obj.result+'"]'),
 										result = _calculate(eq_obj.equation,  eq_obj.identifier,  eq_obj.result),
 										bk =  field.data('bk');
-
+									delete ( $.fbuilder['currentEq'] );
 									field.val((result !== false) ? me.format(result, eq_obj.resultField.configuration()) : '');
 									if(bk != field.val())
 									{

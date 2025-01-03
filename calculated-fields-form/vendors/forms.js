@@ -241,22 +241,22 @@ cff_forms_templates = {
             "id": 53
         }, {
             "title": "Biance Wall",
-            "category": "Financial|Crypto",
+            "category": "Financial|Crypto|Service",
             "description": "Real-time market data for all trading pairs on the Binance exchange.",
             "id": 56
         }, {
             "title": "CoinCap Wall",
-            "category": "Financial|Crypto",
+            "category": "Financial|Crypto|Service",
             "description": "Real-time cryptocurrency prices.",
             "id": 57
         }, {
             "title": "CoinDesk Bitcoin Price",
-            "category": "Financial|Crypto",
+            "category": "Financial|Crypto|Service",
             "description": "Calculate the value of your bitcoins in other currencies.",
             "id": 58
         }, {
             "title": "Cryptocurrency Market Data",
-            "category": "Financial|Crypto",
+            "category": "Financial|Crypto|Service",
             "description": "Calculate cryptocurrency prices with CoinGecko. Choose your preferred currency for accurate conversions.",
             "id": 59
         }, {
@@ -279,6 +279,11 @@ cff_forms_templates = {
             "category": "Education",
             "description": "Perfect your typing performance.",
             "id": 64
+        }, {
+            "title": "Openwhyd Playlist",
+            "category": "Service",
+            "description": "Loads the media playlist from the Openwhyd service.",
+            "id": 65
         }
     ],
     "pro": [

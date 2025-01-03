@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.11 =
+
+* Enhances the module responsible for evaluating equations to improve its capability to utilize fields from other forms on the same page.
+* Introduces a new predefined form that retrieves information from third-party services.
+
 = 5.3.10 =
 
 * Fixes an issue in the Phone control.

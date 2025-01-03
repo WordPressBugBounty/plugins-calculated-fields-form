@@ -108,6 +108,7 @@
 					_fi &&
 					'currentFormId' in $.fbuilder &&
 					'currentEq' in $.fbuilder &&
+					'identifier' in $.fbuilder['currentEq'] &&
 					$.fbuilder['currentEq']['identifier'] != _fo
 				){
 					var _eqResultField = $.fbuilder[ 'currentEq' ][ 'result' ];

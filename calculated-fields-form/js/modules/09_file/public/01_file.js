@@ -14,12 +14,14 @@
 
     function eval_equation(eq)
     {
-        $.fbuilder.calculator.enqueueEquation(eq.identifier, [eq]);
-        $.fbuilder.calculator.removePending(eq.identifier);
-        if(
-            !(eq.identifier in $.fbuilder.calculator.processing_queue) ||
-            !$.fbuilder.calculator.processing_queue[eq.identifier]
-        ) $.fbuilder.calculator.processQueue(eq.identifier);
+		if ( typeof eq == 'object' && 'identifier' in eq ) {
+			$.fbuilder.calculator.enqueueEquation(eq.identifier, [eq]);
+			$.fbuilder.calculator.removePending(eq.identifier);
+			if(
+				!(eq.identifier in $.fbuilder.calculator.processing_queue) ||
+				!$.fbuilder.calculator.processing_queue[eq.identifier]
+			) $.fbuilder.calculator.processQueue(eq.identifier);
+		}
     }
 
 	function _getField(fieldname, form)

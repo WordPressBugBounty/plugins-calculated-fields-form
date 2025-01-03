@@ -29,14 +29,17 @@
 			aux	= (function(eq, index){
 				return function(value){
 					lib.records[index] = value;
-					$.fbuilder.calculator.enqueueEquation(eq.identifier, [eq]);
-					$.fbuilder.calculator.removePending(eq.identifier);
-					if(
-                        !(eq.identifier in $.fbuilder.calculator.processing_queue) ||
-                        !$.fbuilder.calculator.processing_queue[eq.identifier]
-                    )
-					{
-						$.fbuilder.calculator.processQueue(eq.identifier);
+
+					if ( typeof eq == 'object' && 'identifier' in eq ) {
+						$.fbuilder.calculator.enqueueEquation(eq.identifier, [eq]);
+						$.fbuilder.calculator.removePending(eq.identifier);
+						if(
+							!(eq.identifier in $.fbuilder.calculator.processing_queue) ||
+							!$.fbuilder.calculator.processing_queue[eq.identifier]
+						)
+						{
+							$.fbuilder.calculator.processQueue(eq.identifier);
+						}
 					}
 				};
 			})($.fbuilder['currentEq'], index),
@@ -44,7 +47,9 @@
 
 		args.shift();
 		args.push(aux);
-		$.fbuilder.calculator.addPending($.fbuilder['currentEq']['identifier']);
+		if ( typeof $.fbuilder['currentEq'] == 'object' && 'identifier' in $.fbuilder['currentEq'] ) {
+			$.fbuilder.calculator.addPending($.fbuilder['currentEq']['identifier']);
+		}
         setTimeout(function(){f.apply(null, args);},5);
 	};
 
