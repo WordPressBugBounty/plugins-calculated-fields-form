@@ -118,7 +118,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			$this->_activate_deactivate();
 
 			// Load the language file.
-			add_action( 'after_setup_theme', function(){ load_plugin_textdomain( 'calculated-fields-form', false, dirname( CP_CALCULATEDFIELDSF_BASE_NAME ) . '/languages/' ); } );
+			add_action( 'init', function(){ load_plugin_textdomain( 'calculated-fields-form', false, dirname( CP_CALCULATEDFIELDSF_BASE_NAME ) . '/languages/' ); } );
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 
 			// Instanciate the AMP object.

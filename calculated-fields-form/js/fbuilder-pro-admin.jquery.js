@@ -3,6 +3,16 @@
 	$.fbuilder[ 'controls' ] = {};
 	$.fbuilder[ 'deletedFields' ] = {};
 
+	window.addEventListener('beforeunload', function (e) {
+		// Check if there are unsaved changes
+		if ( $.fbuilder[ 'formWasModified' ] ) {
+			const confirmationMessage = 'Changes you made may not be saved.';
+			e.returnValue = confirmationMessage;
+			return confirmationMessage;
+		}
+	});
+
+	$.fbuilder[ 'formWasModified' ] = false;
 	$.fbuilder[ 'displayedDuplicateContainerMessage' ] = false;
 	$.fbuilder[ 'duplicateContainerMessage' ] = 'Note: If the container field being duplicated includes calculated fields or fields with dependency rules, the equations and dependencies rules in the new fields are exactly the same equations and dependency rules than in the original fields.';
 
@@ -59,6 +69,7 @@
 
 		setTimeout(function(){
 			f.trigger('submit');
+			$.fbuilder['formWasModified'] = false; // Form changes where saved.
 			f.attr( 'target', '_self' ).find( 'input[name="preview"]').remove();
 			delete cff_form_preview_window_flag;
 			cff_form_preview_window.focus();
@@ -1087,7 +1098,9 @@
 					if( typeof global_varible_save_data != 'undefined' )
 					{
 						// If the global_varible_save_data exists clear the form-builder-error-messages
+						// And register the form has been edited.
 						$( '.form-builder-error-messages' ).html( '' );
+						$.fbuilder['formWasModified'] = true;
 					}
 					else
 					{

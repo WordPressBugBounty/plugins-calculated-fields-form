@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.12 =
+
+* Prevents developers from closing the form builder without saving any modifications made to the form.
+* Resolves a notice by ensuring the language files are properly loaded.
+* Updates the Verification Code add-on to prevent the code from being sent to the email address if it matches the logged-in user's email (available in Developer and Platinum versions).
+
 = 5.3.11 =
 
 * Enhances the module responsible for evaluating equations to improve its capability to utilize fields from other forms on the same page.
