@@ -282,7 +282,8 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 								'json' == strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) &&
 								false != ( $time = filemtime( $dirname . '/' . $file ) ) &&
 								10 * 24 * 60 * 60 < ( time() - $time ) &&
-								file_exists( $dirname . '/' . $file )
+								file_exists( $dirname . '/' . $file ) &&
+								is_writable( $dirname . '/' . $file )
 							) {
 								unlink( $dirname . '/' . $file );
 							}

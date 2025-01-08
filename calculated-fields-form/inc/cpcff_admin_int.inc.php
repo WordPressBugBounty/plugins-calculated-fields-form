@@ -174,7 +174,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 												result = window.confirm('<?php print esc_js( __( 'The action will load the revision selected, the data are not stored will be lose. Do you want continue?', 'calculated-fields-form' ) ); ?>');
 												if(result)
 												{
-													$('<form method="post" action="<?php echo esc_attr( $admin_url ); ?>" id="cpformconf" name="cpformconf" class="cff_form_builder"><input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_form_settings_nonce ); ?>" /><input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo esc_attr( CP_CALCULATEDFIELDSF_ID ); ?>" /><input type="hidden" name="cpcff_revision_to_apply" value="'+esc_attr( revision )+'"></form>').appendTo('body').submit();
+													try {
+														if('fbuilder' in $) $.fbuilder['formWasModified'] = false; // Form changes where saved.
+													} catch ( err ) {}
+													$('<form method="post" action="<?php echo esc_attr( $admin_url ); ?>" id="cpformconf" name="cpformconf" class="cff_form_builder"><input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_form_settings_nonce ); ?>" /><input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo esc_attr( CP_CALCULATEDFIELDSF_ID ); ?>" /><input type="hidden" name="cpcff_revision_to_apply" value="'+cff_esc_attr( revision )+'"></form>').appendTo('body').submit();
 												}
 											}
 										}
@@ -948,7 +951,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 		</div>
 
 		<p class="submit">
-			<input type="submit" name="save" id="save" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>"  title="Saves the form's structure and settings" />
+			<input type="submit" name="save" id="save" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>"  title="Saves the form's structure and settings" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
 		</p>
 
 		[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]

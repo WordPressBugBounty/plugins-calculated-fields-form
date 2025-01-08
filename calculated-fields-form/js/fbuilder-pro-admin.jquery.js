@@ -43,6 +43,7 @@
 	};
 
 	$.fbuilder[ 'delete_form_preview_window' ] = function( e ){
+		$.fbuilder['formWasModified'] = false; // Form changes where saved.
 		if('cff_form_preview_window' in window) {
 			cff_form_preview_window.close();
 			delete cff_form_preview_window;

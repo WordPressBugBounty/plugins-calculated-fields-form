@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.13 =
+
+* Resolves a compatibility issue with WordPress versions prior to 5.5.
+* Addresses an issue with the confirmation dialog that appears when saving changes to the form.
+
 = 5.3.12 =
 
 * Prevents developers from closing the form builder without saving any modifications made to the form.
