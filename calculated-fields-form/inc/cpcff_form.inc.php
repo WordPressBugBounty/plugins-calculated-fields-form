@@ -62,6 +62,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			$this->_settings      = array();
 			$this->_fields        = array();
 			$this->_revisions_obj = new CPCFF_REVISIONS( $this );
+			add_action( 'cpcff_wp_head', array( $this, 'get_page_header' ) );
 		} // End __construct.
 
 		/**
@@ -395,6 +396,29 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			}
 			return $output;
 		} // End get_height.
+
+		public function get_page_header( $p = 0 ) {
+			$output = '';
+			$form_structure = $this->get_option('form_structure', array());
+			if (
+				! empty( $form_structure ) &&
+				is_array( $form_structure ) &&
+				! empty( $form_structure[1] ) &&
+				is_array( $form_structure[1] ) &&
+				! empty( $form_structure[1][0] ) &&
+				is_object( $form_structure[1][0] )
+			) {
+				if ( ! empty ( $form_structure[1][0]->title ) ) {
+					$output .= '<title>' . wp_strip_all_tags( $form_structure[1][0]->title ) . '</title>';
+				}
+
+				if ( ! empty ( $form_structure[1][0]->description ) ) {
+					$output .= '<meta name="description" content="' . esc_attr( $form_structure[1][0]->description ) . '">';
+				}
+			}
+
+			print $output;
+		} // End get_page_header.
 
 		public function save_settings( $params ) {
 			global $wpdb, $cpcff_default_texts_array;

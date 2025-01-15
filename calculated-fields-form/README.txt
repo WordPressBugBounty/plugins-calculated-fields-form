@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.14
+Stable tag: 5.3.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.15 =
+
+* Improve the SEO score when forms are accessed directly or embedded within an iframe.
+
 = 5.3.14 =
 
 * Introduces a new attribute in the form settings that enables the form to be reset after submission via AJAX.
@@ -490,10 +494,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Updated the HTML Content control to ensure consistency between its appearance in the form builder and the public-facing form.
 * Implemented minor enhancements to the DropDown, Radio Buttons, Checkbox, and container controls for improved functionality and user experience.
 * Modified the Autocomplete Places add-on to trigger a place_changed event when a user selects a location from the list, passing the place properties as the second parameter (specific to the Platinum plugin version).
-
-= 5.3.7 =
-
-* Enhances the user experience by placing the "Add New Form" button directly above the form builder for easier access.
-* Updates the phone control to prevent duplicate prefixes from being entered.
-* Improves the process for evaluating default equations to prevent multiple evaluations.
-* Activates the auto-update feature in the plugin commercial distributions.

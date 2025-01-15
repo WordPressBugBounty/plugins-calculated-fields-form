@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.15 =
+
+* Improve the SEO score when forms are accessed directly or embedded within an iframe.
+
 = 5.3.14 =
 
 * Introduces a new attribute in the form settings that enables the form to be reset after submission via AJAX.
