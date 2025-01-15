@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.13
+Stable tag: 5.3.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,15 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.14 =
+
+* Introduces a new attribute in the form settings that enables the form to be reset after submission via AJAX.
+* Improves the visual presentation of radio buttons and checkboxes on smaller screens, such as mobile devices.
+* Resolves an issue with the font family used in captcha images for the Professional, Developer, and Platinum versions.
+* Updates the WooCommerce add-on for the Developer and Platinum versions.
+* Enhances the DISTANCE operations module for the Developer and Platinum versions.
+* Revamps the SagePay add-on for the Platinum version.
+
 = 5.3.13 =
 
 * Resolves a compatibility issue with WordPress versions prior to 5.5.
@@ -488,9 +497,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Updates the phone control to prevent duplicate prefixes from being entered.
 * Improves the process for evaluating default equations to prevent multiple evaluations.
 * Activates the auto-update feature in the plugin commercial distributions.
-
-= 5.3.6 =
-
-* Updates the form validation process to provide users with immediate feedback on incorrect values or required fields.
-* Makes minor adjustments to the processing of calculated field equations.
-* Enhances the HTML Content control to offer more detailed information to form developers regarding its content.

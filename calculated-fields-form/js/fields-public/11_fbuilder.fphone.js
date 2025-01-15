@@ -190,7 +190,7 @@
 						});
 
 					me._on_change_events();
-					$('#'+me.name+'_0').trigger('change');
+					$('select#'+me.name+'_0').trigger('change');
 					if (me.countryComponent && me.dynamic) {
 						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); });
 						me._input_boxes( true );

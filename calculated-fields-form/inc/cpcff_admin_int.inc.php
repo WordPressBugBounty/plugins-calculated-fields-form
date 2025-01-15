@@ -458,7 +458,9 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							<td></td>
 							<td>
 								<label><input type="checkbox" name="fp_ajax" value="1" <?php echo $form_obj->get_option('fp_ajax', 0) ? 'CHECKED' : ''; ?> />
-								<?php esc_html_e( 'Submit the form using AJAX instead of redirecting the user to the thank you page.', 'calculated-fields-form' ); ?></label>
+								<?php esc_html_e( 'Submit the form using AJAX instead of redirecting the user to the thank you page.', 'calculated-fields-form' ); ?></label><br />
+								<label><input type="checkbox" name="fp_ajax_reset_form" value="1" <?php echo $form_obj->get_option('fp_ajax_reset_form', 0) ? 'CHECKED' : ''; ?> />
+								<?php esc_html_e( "Reset the fields' values after submitting the form using AJAX.", 'calculated-fields-form' ); ?></label>
 							</td>
 						</tr>
 						<tr valign="top">

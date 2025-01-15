@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.13';
+	$.fbuilder['version'] = '5.3.14';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1212,6 +1212,9 @@
 					$(document).one('cff-form-submitted', function(){
 						form.find( '.cff-thanks-message' ).fadeIn(400);
 						$(document).one('click', function(){ $('.cff-thanks-message').hide(); });
+						if ( $('#cff_iframe_for_submission'+form_identifier).attr('data-cff-reset') == 1 ) {
+							RESETFORM( form );
+						}
 					});
 				}
 				if ( form.attr( 'target' ) == undefined && window.self !== window.top ) {

@@ -389,11 +389,6 @@ body{
 
 /* END NEW COLUMNS SYSTEM */
 
-@media screen and (max-width: 640px){
-    #fbuilder .small,
-	#fbuilder .medium{width:100% !important;}
-}
-
 #fbuilder .one_column{width:100%;}
 #fbuilder .two_column{float:left;width:48%;margin-right:2%;}
 #fbuilder .three_column{float:left;width:30%;margin-right:2%;}
@@ -403,6 +398,12 @@ body{
 *[dir="rtl"] #fbuilder .three_column{float:right;margin-right:initial;margin-left:2%;}
 *[dir="rtl"] #fbuilder .side_by_side{float:right; margin-left:10px;margin-right:initial;}
 
+@media screen and (max-width: 640px){
+    #fbuilder .small,
+	#fbuilder .medium{width:100% !important;}
+	#fbuilder .two_column,
+	#fbuilder .three_column{width:100%;margin-right:0;margin-left:0;}
+}
 
 #fbuilder .dfield{position:relative;}
 
