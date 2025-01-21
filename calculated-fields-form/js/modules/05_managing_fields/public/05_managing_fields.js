@@ -246,11 +246,23 @@
 		fbuilderjQuery('[id="cp_calculatedfieldsf_pform' + _f + '"]').attr('data-evalequations',0);
 	};
 
+	lib.disableequation = lib.DISABLEEQUATION = function(_field, _form)
+	{
+		var f = _getField(_field, _form);
+		if(f && 'dynamicEval' in f) f.dynamicEval = false;
+	};
+
 	lib.enableequations = lib.ENABLEEQUATIONS = function(f)
 	{
 		f = f || '_1';
 		let _f = _getForm(f);
 		fbuilderjQuery('[id="cp_calculatedfieldsf_pform' + _f + '"]').attr('data-evalequations',1);
+	};
+
+	lib.enableequation = lib.ENABLEEQUATION = function(_field, _form)
+	{
+		var f = _getField(_field, _form);
+		if(f && 'dynamicEval' in f) f.dynamicEval = true;
 	};
 
 	lib.EVALEQUATIONS = lib.evalequations = function(f)

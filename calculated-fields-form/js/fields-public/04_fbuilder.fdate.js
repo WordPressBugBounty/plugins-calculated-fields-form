@@ -38,6 +38,7 @@
 			stepHour: 1,
 			stepMinute: 1,
 			defaultTime:"",
+			timeErrorMssg:"",
 
 			// Labels
 			ariaHourLabel: 'hours',
@@ -253,6 +254,24 @@
 					}
 					return str;
 				},
+			set_minTime:function(v, ignore)
+				{
+					let me = this;
+					if(me.showTimepicker && typeof v == 'object' )
+					{
+						if ( 'hour' in v && ! isNaN( v.hour * 1 ) ) me.minHour = Math.min(23, Math.max(0,v.hour * 1));
+						if ( 'minutes' in v && ! isNaN( v.minutes * 1 ) ) me.minMinute = Math.min(59, Math.max(0,v.minutes * 1));
+					}
+				},
+			set_maxTime:function(v, ignore)
+				{
+					let me = this;
+					if(me.showTimepicker && typeof v == 'object' )
+					{
+						if ( 'hour' in v && ! isNaN( v.hour * 1 ) ) me.maxHour = Math.min(23, Math.max(0,v.hour * 1));
+						if ( 'minutes' in v && ! isNaN( v.minutes * 1 ) ) me.maxMinute = Math.min(59, Math.max(0,v.minutes * 1));
+					}
+				},
 			set_dateTime:function(nochange)
 				{
 					var me = this,
@@ -401,16 +420,38 @@
 				{
 					var me = this,
 						date_format = 'date'+me.dformat.replace(/[^a-z]/ig,""),
-						validator = function(v, e)
+						_aux = function( e ){
+							let p = e.name.replace(/_(date|hours|minutes|ampm)/i, '').split('_'),
+								o = $.fbuilder.forms['_'+p[1]].getItem(p[0]);
+							return o;
+						},
+						date_validator = function(v, e)
 						{
 							try
 							{
-								var p = e.name.replace('_date', '').split('_'),
-									i = $.fbuilder.forms['_'+p[1]].getItem(p[0]),
-									o = me._get_regexp(),
+								var i = _aux( e ),
+									o = i._get_regexp(),
 									d = $($(e).hasClass('hasDatepicker') ? e : $(e).siblings('.hasDatepicker:eq(0)')).datepicker('getDate');
 
-								if(i != null) return this.optional(e) || (i._validateDate() && (new RegExp(o.r)).test(v) && i._validateTime() && DATEOBJ(v, me.dformat).getTime() == d.getTime());
+								if(i) return this.optional(e) ||
+								(
+									i._validateDate() &&
+									(new RegExp(o.r)).test(v) &&
+									DATEOBJ(v, me.dformat).getTime() == d.getTime()
+								);
+								return true;
+							}
+							catch(er)
+							{
+								return false;
+							}
+						},
+						time_validator = function(v, e)
+						{
+							try
+							{
+								var i = _aux( e );
+								if(i && i.showTimepicker) return i._validateTime();
 								return true;
 							}
 							catch(er)
@@ -419,8 +460,13 @@
 							}
 						};
 
-                    if(!(date_format in $.validator.methods)) $.validator.addMethod(date_format, validator);
-
+                    if(!(date_format in $.validator.methods)) $.validator.addMethod(date_format, date_validator);
+                    if(!('time_component' in $.validator.methods)) $.validator.addMethod('time_component', time_validator);
+					if(me.showTimepicker) {
+						$('#'+me.name+'_hours,#'+me.name+'_minutes,#'+me.name+'_ampm').on('change', function(){
+							$('#'+me.name+'_hours,#'+me.name+'_minutes,#'+me.name+'_ampm').valid();
+						}).each(function(){$(this).rules('add', {'time_component': true, 'messages' : {'time_component': me.timeErrorMssg}});});
+					}
 					me.set_DefaultDate(true);
 					me.set_DefaultTime();
 					me._set_Events();

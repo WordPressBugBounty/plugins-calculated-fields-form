@@ -566,7 +566,7 @@ textarea {resize: none}
 .form-builder #sFieldList_chosen .chosen-single span{line-height:30px;}
 
 .eq_btn{min-width:45px;}
-#sEqButtonsContainer .eq_btn{max-width:135px;overflow:hidden;text-overflow:ellipsis;margin:2px;}
+#sEqButtonsContainer .eq_btn{max-width:160px;overflow:hidden;text-overflow:ellipsis;margin:2px;}
 .form-builder #sFieldList,
 .form-builder #sToolbarList{width: calc( 100% - 50px );width: -webkit-calc( 100% - 50px );width: -moz-calc( 100% - 50px );width: -o-calc( 100% - 50x );}
 #sAdvancedEditor,

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.15
+Stable tag: 5.3.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.16 =
+
+* Enables validation of time components within date and time controls.
+* Introduces two new operations: DISABLEEQUATION and ENABLEEQUATION, to deactivate or activate equations in specific calculated fields.
+* Resolves an issue affecting quantity boxes in checkbox and radio button controls when the switch format is enabled.
+* Features a new video tutorial.
+* Updates the DS fields in both the Developer and Platinum plugin versions.
+
 = 5.3.15 =
 
 * Improve the SEO score when forms are accessed directly or embedded within an iframe.
@@ -487,10 +495,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.10 =
 
 * Fixes an issue in the Phone control.
-
-= 5.3.9 =
-= 5.3.8 =
-
-* Updated the HTML Content control to ensure consistency between its appearance in the form builder and the public-facing form.
-* Implemented minor enhancements to the DropDown, Radio Buttons, Checkbox, and container controls for improved functionality and user experience.
-* Modified the Autocomplete Places add-on to trigger a place_changed event when a user selects a location from the list, passing the place properties as the second parameter (specific to the Platinum plugin version).

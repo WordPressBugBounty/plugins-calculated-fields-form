@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-01-15 01:42+0100\n"
-"PO-Revision-Date: 2025-01-15 01:42+0100\n"
+"POT-Creation-Date: 2025-01-21 02:09+0100\n"
+"PO-Revision-Date: 2025-01-21 02:09+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -1330,18 +1330,26 @@ msgid "WooCommerce"
 msgstr ""
 
 #: inc/cpcff_video_tutorial.inc.php:20
-msgid "Advanced calculator"
+msgid "PDF Generator"
 msgstr ""
 
 #: inc/cpcff_video_tutorial.inc.php:20
+msgid "PDF/Invoice"
+msgstr ""
+
+#: inc/cpcff_video_tutorial.inc.php:21
+msgid "Advanced calculator"
+msgstr ""
+
+#: inc/cpcff_video_tutorial.inc.php:21
 msgid "Financial"
 msgstr ""
 
-#: inc/cpcff_video_tutorial.inc.php:21
+#: inc/cpcff_video_tutorial.inc.php:22
 msgid "Fields dependency"
 msgstr ""
 
-#: inc/cpcff_video_tutorial.inc.php:21
+#: inc/cpcff_video_tutorial.inc.php:22
 msgid "Dependencies"
 msgstr ""
 

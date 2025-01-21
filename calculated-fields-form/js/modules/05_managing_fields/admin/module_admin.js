@@ -74,9 +74,19 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
 								"tip" : "<p>Allows to disable dynamic evaluation of equations. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, disables evaluation of equations on all forms on the page. E.g. DISABLEEQUATIONS();</p>"
 							},
 							{
+								"value" : "DISABLEEQUATION",
+								"code" : "DISABLEEQUATION(",
+								"tip" : "<p>Deactivate the equation in a specific calculated field.  <strong>DISABLEEQUATION( # or fieldname#, form or form selector )</strong>. The first parameter is required. It is the numeric part of the field name or the field name. The second parameter would be a form object or a selector with the form reference. For example: DISABLEEQUATION(1); and DISABLEEQUATION(fieldname1|n); in the equations context or DISABLEEQUATION(&quot;fieldname1&quot;); in anothe place.</p>"
+							},
+							{
 								"value" : "ENABLEEQUATIONS",
 								"code" : "ENABLEEQUATIONS(",
 								"tip" : "<p>Allows to enable dynamic evaluation of equations. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, enables evaluation of equations on all forms on the page. E.g. ENABLEEQUATIONS();</p>"
+							},
+							{
+								"value" : "ENABLEEQUATION",
+								"code" : "ENABLEEQUATION(",
+								"tip" : "<p>Enable the equation in a specific calculated field.  <strong>ENABLEEQUATION( # or fieldname#, form or form selector )</strong>. The first parameter is required. It is the numeric part of the field name or the field name. The second parameter would be a form object or a selector with the form reference. For example: ENABLEEQUATION(1); and ENABLEEQUATION(fieldname1|n); in the equations context or ENABLEEQUATION(&quot;fieldname1&quot;); in anothe place.</p>"
 							},
 							{
 								"value" : "EVALEQUATIONS",

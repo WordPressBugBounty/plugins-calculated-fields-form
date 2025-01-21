@@ -43,6 +43,8 @@
 			showDatepicker: true,
 			showTimepicker: false,
 
+			timeErrorMssg:"",
+
 			ariaHourLabel: 'hours',
 			ariaMinuteLabel: 'minutes',
 			ariaAMPMLabel: 'am or pm',
@@ -108,6 +110,7 @@
 							{s:"#sMondayFirstDay",e:"click", l:"mondayFirstDay", f:function(el){return el.is(':checked');}},
 							{s:"#sAlwaysVisible",e:"click", l:"alwaysVisible", f:function(el){return el.is(':checked');}},
 							{s:"#sAriaAMPMLabel",e:"change keyup", l:"ariaAMPMLabel"},
+							{s:"#sTimeErrorMssg",e:"change keyup", l:"timeErrorMssg"},
 							{s:"#sAriaHourLabel",e:"change keyup", l:"ariaHourLabel"},
 							{s:"#sAriaMinuteLabel",e:"change keyup", l:"ariaMinuteLabel"},
 							{s:"#sMinHour",e:"change keyup", l:"minHour", x:1},
@@ -182,6 +185,7 @@
 					'<label for="sAriaHourLabel">Label for hours in screen readers</label><input type="text" class="large" name="sAriaHourLabel" id="sAriaHourLabel" value="'+cff_esc_attr(this.ariaHourLabel)+'" />'+
 					'<label for="sAriaMinuteLabel">Label for minutes in screen readers</label><input type="text" class="large" name="sAriaMinuteLabel" id="sAriaMinuteLabel" value="'+cff_esc_attr(this.ariaMinuteLabel)+'" />'+
 					'<label for="sAriaAMPMLabel">Label for am/pm component in screen readers</label><input type="text" class="large" name="sAriaAMPMLabel" id="sAriaAMPMLabel" value="'+cff_esc_attr(this.ariaAMPMLabel)+'" />'+
+					'<label for="sTimeErrorMssg">Time error message</label><input type="text" class="large" name="sTimeErrorMssg" id="sTimeErrorMssg" value="'+cff_esc_attr(this.timeErrorMssg)+'" />'+
 					'</div>'+
 					'<hr></hr>';
 				}
