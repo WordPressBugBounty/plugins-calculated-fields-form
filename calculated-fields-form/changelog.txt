@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.17 =
+
+* Addresses an inconsistency in the validation of date fields.
+* Introduces a new predefined form for loading metadata from Archive.org.
+
 = 5.3.16 =
 
 * Enables validation of time components within date and time controls.

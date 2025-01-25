@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.16
+Stable tag: 5.3.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.17 =
+
+* Addresses an inconsistency in the validation of date fields.
+* Introduces a new predefined form for loading metadata from Archive.org.
+
 = 5.3.16 =
 
 * Enables validation of time components within date and time controls.
@@ -491,7 +496,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Enhances the module responsible for evaluating equations to improve its capability to utilize fields from other forms on the same page.
 * Introduces a new predefined form that retrieves information from third-party services.
-
-= 5.3.10 =
-
-* Fixes an issue in the Phone control.

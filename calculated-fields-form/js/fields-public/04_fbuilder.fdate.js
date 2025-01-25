@@ -261,6 +261,7 @@
 					{
 						if ( 'hour' in v && ! isNaN( v.hour * 1 ) ) me.minHour = Math.min(23, Math.max(0,v.hour * 1));
 						if ( 'minutes' in v && ! isNaN( v.minutes * 1 ) ) me.minMinute = Math.min(59, Math.max(0,v.minutes * 1));
+						$('#'+me.name+'_hours,#'+me.name+'_minutes,#'+me.name+'_ampm').each((i,e)=>{$(e).valid();});
 					}
 				},
 			set_maxTime:function(v, ignore)
@@ -270,6 +271,7 @@
 					{
 						if ( 'hour' in v && ! isNaN( v.hour * 1 ) ) me.maxHour = Math.min(23, Math.max(0,v.hour * 1));
 						if ( 'minutes' in v && ! isNaN( v.minutes * 1 ) ) me.maxMinute = Math.min(59, Math.max(0,v.minutes * 1));
+						$('#'+me.name+'_hours,#'+me.name+'_minutes,#'+me.name+'_ampm').each((i,e)=>{$(e).valid();});
 					}
 				},
 			set_dateTime:function(nochange)
@@ -421,7 +423,7 @@
 					var me = this,
 						date_format = 'date'+me.dformat.replace(/[^a-z]/ig,""),
 						_aux = function( e ){
-							let p = e.name.replace(/_(date|hours|minutes|ampm)/i, '').split('_'),
+							let p = e.id.replace(/_(date|hours|minutes|ampm)/i, '').split('_'),
 								o = $.fbuilder.forms['_'+p[1]].getItem(p[0]);
 							return o;
 						},
@@ -462,15 +464,17 @@
 
                     if(!(date_format in $.validator.methods)) $.validator.addMethod(date_format, date_validator);
                     if(!('time_component' in $.validator.methods)) $.validator.addMethod('time_component', time_validator);
-					if(me.showTimepicker) {
-						$('#'+me.name+'_hours,#'+me.name+'_minutes,#'+me.name+'_ampm').on('change', function(){
-							$('#'+me.name+'_hours,#'+me.name+'_minutes,#'+me.name+'_ampm').valid();
-						}).each(function(){$(this).rules('add', {'time_component': true, 'messages' : {'time_component': me.timeErrorMssg}});});
-					}
+					$('#'+me.name+'_hours,#'+me.name+'_minutes,#'+me.name+'_ampm').each(function(){$(this).rules('add', {'time_component': true, 'messages' : {'time_component': me.timeErrorMssg}});});
+
 					me.set_DefaultDate(true);
 					me.set_DefaultTime();
 					me._set_Events();
 					me.set_dateTime();
+
+					$('#'+me.name).on('change', function(){
+						$('#'+me.name+'_date,#'+me.name+'_hours,#'+me.name+'_minutes,#'+me.name+'_ampm').each((i,e)=>{$(e).valid();});
+					});
+
 				},
 			val:function(raw, no_quotes)
 				{

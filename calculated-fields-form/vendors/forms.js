@@ -284,6 +284,11 @@ cff_forms_templates = {
             "category": "Service",
             "description": "Loads the media playlist from the Openwhyd service.",
             "id": 65
+        }, {
+            "title": "Archive.org",
+            "category": "Service",
+            "description": "Search for metadata in Archive.org.",
+            "id": 66
         }
     ],
     "pro": [
