@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.17';
+	$.fbuilder['version'] = '5.3.18';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1241,16 +1241,20 @@
 
 		form.validate().settings.ignore = '.ignore';
 		if (!form.valid()) {
-			let page = $('.cpefb_error:not(.message):not(.ignore):eq(0)').closest('.pbreak').attr('page') * 1;
+			let page = $('.cpefb_error:not(.message):not(.ignore):eq(0)').closest('.pbreak').attr('page') * 1,
+				mssg = [];
 			gotopage(page, form);
 			form.trigger('cff-form-validation', false);
 			enabling_form();
 			$( '.cff-error-dlg' ).remove();
 			$( document ).off('click', $.fbuilder.closeErrorDlg);
-			setTimeout(function(){ $( document ).on('click', $.fbuilder.closeErrorDlg); }, 500);
+			setTimeout(function(){
+				if ( mssg.length ) {
+					$( 'body' ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' );
+				}
+				$( document ).on('click', $.fbuilder.closeErrorDlg); }, 50);
 			try {
-				let errorList = form.validate().errorList,
-					mssg = [];
+				let errorList = form.validate().errorList;
 				errorList.forEach( (e) => {
 					try {
 						let l = getField( e.element.name.match(/fieldname\d+_\d+/)[0] ).title;
@@ -1259,9 +1263,6 @@
 						mssg.push( l );
 					} catch(err){}
 				} );
-				if ( mssg.length ) {
-					$( 'body' ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' );
-				}
 			} catch ( err ) {}
 			return false;
 		}

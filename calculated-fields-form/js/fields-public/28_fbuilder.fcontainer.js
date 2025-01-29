@@ -2,6 +2,7 @@
 	$.fbuilder.controls['fcontainer'].prototype = {
 		fields:[],
 		columns:1,
+		align:"top",
 		rearrange: 0,
 		after_show: function(e)
 			{
@@ -9,15 +10,21 @@
 					to_ignore = 0; // Ignores the RecordSet DS and Hidden fields.
                 for(var i = 0, h = this.fields.length; i < h; i++)
 				{
+					let flag = true;
 					f = $('.fields.'+this.fields[i]+this.form_identifier);
 					if( f.hasClass('cff-hidden-field') ) { to_ignore++; }
 					f = f.detach();
 					if(this.columns > 1)
 					{
 						f.addClass('column'+this.columns);
-						if( ( i - to_ignore ) % this.columns == 0 && ! this.rearrange ) f.css('clear', 'left');
+						if( ( i - to_ignore ) % this.columns == 0 && ! this.rearrange ) {
+							f.css('clear', 'left');
+							f.appendTo(e);
+							f.before('<div style="width:100%;"></div>');
+							flag = false;
+						}
 					}
-					f.appendTo(e);
+					if ( flag ) f.appendTo(e);
 				}
 			},
 		showHideDep:function(toShow, toHide, hiddenByContainer, interval)

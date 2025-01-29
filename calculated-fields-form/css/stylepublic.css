@@ -478,7 +478,7 @@ body{
 #fbuilder .ui-datepicker select.ui-datepicker-month,
 #fbuilder .ui-datepicker select.ui-datepicker-year{width:45% !important;min-height:auto !important;padding:initial !important; margin:initial !important;}
 #fbuilder .ui-datepicker a{box-shadow:none;}
-#fbuilder .datepicker-container{margin-bottom:10px;}
+#fbuilder .datepicker-container+.time-component{margin-top:10px;}
 
 #fbuilder .cff-file-field input[type="file"]{max-width: calc( 100% - 30px);}
 #fbuilder span.files-list,
@@ -532,6 +532,8 @@ body{
 #fbuilder .captcha img{cursor:pointer;}
 #fbuilder .cff-recaptcha{overflow: hidden !important;}
 
+@media (min-width:710px){#fbuilder .cff-align-container-bottom{display:flex;flex-wrap:wrap;align-items:flex-end;}}
+
 #fbuilder .cff-repeater-field .cff-repeater-field-add{margin-right:10px;}
 #fbuilder .cff-repeater-field .cff-repeater-field-btn:not(.cff-repeater-btn-label){
     padding-left:10px;
@@ -558,11 +560,12 @@ body{
 #fbuilder input[type="checkbox"]{-webkit-appearance:checkbox!important;}
 #fbuilder input[type="radio"]{-webkit-appearance:radio!important;}
 
-#fbuilder .cff-date-field input,
-#fbuilder .cff-date-field select,
-#fbuilder  .select2-selection{margin-bottom:5px;}
-#fbuilder .cff-date-field .hours-component{margin-right:3px;}
-#fbuilder .cff-date-field .minutes-component{margin-left:3px;}
+#fbuilder .cff-date-field .cff-date-field-components:not(:has(.ui-datepicker-inline)){display:flex;flex-direction:row;gap:5px;}
+#fbuilder .cff-date-field .date-component{flex-grow:1;width:100%;}
+#fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .hours-component{margin-right:5px;}
+#fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .minutes-component{margin-left:5px;}
+#fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .ampm-component{margin-left:5px;}
+#fbuilder .cff-date-field .time-component{display:flex;gap:5px;align-items:center;}
 
 #fbuilder .cff-checkbox-field .dfield,
 #fbuilder .cff-radiobutton-field .dfield{display:flex;flex-wrap: wrap;width:100%;}

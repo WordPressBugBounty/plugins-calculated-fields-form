@@ -404,19 +404,22 @@
 						format_label   	= [],
 						date_tag_type  	= 'text',
 						disabled		= '',
-						date_tag_class 	= 'field date'+me.dformat.replace(/[^a-z]/ig,"")+' '+me.size+((me.required && me.showDatepicker)?' required': '');
+						date_tag_class 	= 'field date'+me.dformat.replace(/[^a-z]/ig,"")+' '+((me.required && me.showDatepicker)?' required': '');
 
                     if(me.predefinedClick) attr = 'placeholder';
                     if(me.showDatepicker && ! me.alwaysVisible) format_label.push(me.dformat);
 					else{ date_tag_type = 'hidden'; if( ! me.alwaysVisible ) disabled='disabled';}
                     if(me.showTimepicker) format_label.push('HH:mm');
 					let predefined = this._getAttr('predefined') || '';
-					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-date-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label '+(me.showDatepicker ? 'for="'+n+'_date"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length) ? ' <span class="dformat">('+cff_sanitize(format_label.join(' '), true)+')</span>' : '')+'</label><div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" value="'+cff_esc_attr(predefined)+'"/>'+
+					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-date-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label '+(me.showDatepicker ? 'for="'+n+'_date"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length) ? ' <span class="dformat">('+cff_sanitize(format_label.join(' '), true)+')</span>' : '')+'</label>'+
+					'<div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" value="'+cff_esc_attr(predefined)+'"/>'+
+					'<div class="cff-date-field-components '+me.size+'">'+
+						'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="'+cff_esc_attr(date_tag_class)+' date-component" type="'+date_tag_type+'" '+attr+'="'+cff_esc_attr(predefined)+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+(me.errorMssg != '' ? ' data-msg="'+cff_esc_attr(me.errorMssg)+'"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('date'))+'" />'+
 
-					'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="'+cff_esc_attr(date_tag_class)+' date-component" type="'+date_tag_type+'" '+attr+'="'+cff_esc_attr(predefined)+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+(me.errorMssg != '' ? ' data-msg="'+cff_esc_attr(me.errorMssg)+'"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('date'))+'" />'+
-
-					(me.alwaysVisible && me.showDatepicker ? '<div id="'+n+'_datepicker_container" class="datepicker-container"></div>' : '')+
-					((me.showTimepicker) ? ' '+me.get_hours()+me.get_minutes()+' '+me.get_ampm() : '')+'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+						(me.alwaysVisible && me.showDatepicker ? '<div id="'+n+'_datepicker_container" class="datepicker-container"></div>' : '')+
+						((me.showTimepicker) ? ' <div class="time-component">'+me.get_hours()+me.get_minutes()+' '+me.get_ampm()+'</div>' : '')+
+					'</div>'+
+					'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{

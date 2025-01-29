@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.18 =
+
+* Enhances the Date/Time control to improve the alignment between the date and time components for a more cohesive user experience.
+* Updates the container fields—DIV, FIELDSET, and POPUP—by introducing a new attribute that facilitates better alignment of the contained fields with one another.
+* Revamps the validation popup to make it easier to identify which validation rules have failed, including for hidden fields.
+
 = 5.3.17 =
 
 * Addresses an inconsistency in the validation of date fields.
