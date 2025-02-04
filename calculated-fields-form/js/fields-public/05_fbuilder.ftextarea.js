@@ -49,9 +49,10 @@
 				},
 			setVal:function( v, nochange )
 				{
-					var e = $( "[id='" + this.name + "']" );
+					let e 	= $( "[id='" + this.name + "']" ),
+						bk 	= e.val();
 					e.val( String(v).replace(/<(\s*\/\s*)?textarea(\s*\/\s*)?>/gi, '') );
-					if(!nochange) e.trigger('change');
+					if ( ! nochange && bk !== e.val() ) e.trigger('change');
 				}
 		}
 	);

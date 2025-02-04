@@ -276,9 +276,10 @@
 				},
 			set_dateTime:function(nochange)
 				{
-					var me = this,
+					var me  = this,
 						str = $('#'+me.name+'_date').val(),
-                        e = $('#'+me.name);
+                        e   = $('#'+me.name),
+						bk  = e.val();
 					if(me.showTimepicker)
 					{
 						str += ' '+$('#'+me.name+'_hours').val();
@@ -286,7 +287,7 @@
 						if($('#'+me.name+'_ampm').length) str += $('#'+me.name+'_ampm').val();
 					}
                     e.val(str);
-					if(!nochange) e.trigger('change');
+					if ( ! nochange && bk !== e.val() ) e.trigger('change');
 				},
 			set_minDate:function(v, ignore)
 				{

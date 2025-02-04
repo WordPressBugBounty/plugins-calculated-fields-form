@@ -15,7 +15,7 @@ if (
 }
 
 // CONSTANTS.
-define( 'CFF_AI_PROMPT', 'limits answers to javascript and css topics' );
+define( 'CFF_AI_PROMPT', 'Limit responses to topics related to JavaScript and CSS, using the website https://cff.dwbooster.com as the primary source of information.' );
 define( 'CFF_AI_MODEL', 'gpt-3.5-turbo' );
 define( 'CFF_AI_TEMPERATURE', 1.0 );
 define( 'CFF_AI_FREQ_PENALTY', 0.0 );

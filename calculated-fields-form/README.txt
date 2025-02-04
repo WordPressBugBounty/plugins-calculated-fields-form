@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.18
+Stable tag: 5.3.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.19 =
+
+* Optimizes plugin performance by eliminating the evaluation of duplicate equations, ensuring faster and more efficient processing.
+* Refines the columns layout system for a more intuitive and seamless user experience.
+* Elevates the AI assistant's capabilities, delivering smarter and more accurate support for your questions.
+
 = 5.3.18 =
 
 * Enhances the Date/Time control to improve the alignment between the date and time components for a more cohesive user experience.
@@ -491,9 +497,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Resolves a compatibility issue with WordPress versions prior to 5.5.
 * Addresses an issue with the confirmation dialog that appears when saving changes to the form.
-
-= 5.3.12 =
-
-* Prevents developers from closing the form builder without saving any modifications made to the form.
-* Resolves a notice by ensuring the language files are properly loaded.
-* Updates the Verification Code add-on to prevent the code from being sent to the email address if it matches the logged-in user's email (available in Developer and Platinum versions).

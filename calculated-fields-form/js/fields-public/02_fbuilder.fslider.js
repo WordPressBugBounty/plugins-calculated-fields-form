@@ -121,9 +121,9 @@
 						if(!nochange) $('#'+me.name).trigger('change');
 					},
 				_toNumber:function(n){
-					n = $.fbuilder.parseVal(n, this.thousandSeparator, this.centSeparator);
-					return (new String(n)).replace(/[^\-\d\.]/g,'')*1;
-				},
+						n = $.fbuilder.parseVal(n, this.thousandSeparator, this.centSeparator);
+						return (new String(n)).replace(/[^\-\d\.]/g,'')*1;
+					},
 				init:function()
 					{
 						this.min  = (/^\s*$/.test(this.min)) ? 0   : String(this.min).trim();
@@ -233,6 +233,8 @@
 							'<div class="clearer"></div>'+
 						'</div>';
 					},
+				get_min:function(){ return $('[id="'+this.name+'_slider"]').slider('option', 'min'); },
+				get_max:function(){ return $('[id="'+this.name+'_slider"]').slider('option', 'max'); },
 				set_min:function(v, ignore)
 					{
 						try{
@@ -374,21 +376,27 @@
 					},
 				setVal:function(v, nochange)
 					{
+						let me = this;
+						function _aux(v) { return Math.min( Math.max( v, me.get_min() ), me.get_max() ); };
 						try{ v = JSON.parse(v); }catch(err){}
 						try{
 
 							// Fix values format.
 							if ( Array.isArray(v) ) {
-								for ( let i in v ) {
-									v[i] = this._toNumber(v[i]);
-								}
+								v = v.map(k => _aux(me._toNumber(k)));
+								v.sort((a,b)=>a-b).splice(2);
 							} else {
-								v = this._toNumber(v);
+								v = me._toNumber(v);
+								v = _aux(v);
 							}
 
-							$('[name="'+this.name+'"]').val(v);
-							$('#'+this.name+'_slider').slider(((Array.isArray(v)) ? 'values' : 'value'), (this.logarithmic ? this._inverse(v) : v) );
-							this._setFieldValue(v, nochange);
+							let e = $('[name="'+me.name+'"]'),
+								bk = e[0].value;
+
+							e.val(v);
+
+							$('#'+me.name+'_slider').slider(((Array.isArray(v)) ? 'values' : 'value'), (me.logarithmic ? me._inverse(v) : v) );
+							me._setFieldValue(v, nochange || bk === e[0].value || bk === '['+e[0].value+']');
 						}catch(err){}
 					}
 		});

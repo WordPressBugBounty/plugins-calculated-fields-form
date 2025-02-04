@@ -178,6 +178,11 @@
                     nochange = nochange || false;
 					if(!Array.isArray(v)) v = [v];
 					var t, e, n = this.name, selector;
+
+					let bk = JSON.stringify(this.val(true)),
+						bk_vt = JSON.stringify(this.val('vt'));
+
+					$('[id="'+n+'"] OPTION').prop('selected', false);
 					for(var i in v)
 					{
 						t = (new String(v[i])).replace(/(['"])/g, "\\$1");
@@ -185,7 +190,13 @@
                         if(!_default || !e.length) e = $('[id="'+n+'"] OPTION[value="'+t+'"]');
                         if(e.length) e.prop('selected', true);
 					}
-					if(!nochange) $('[id="'+n+'"]').trigger('change');
+					if (
+						! nochange &&
+						(
+							bk !== JSON.stringify( this.val( true ) ) ||
+							bk_vt !== JSON.stringify( this.val( 'vt' ) )
+						)
+					) $('[id="'+n+'"]').trigger('change');
 				},
 			setChoices:function(choices)
 				{

@@ -145,12 +145,22 @@
                     nochange = nochange || false;
 
 					var t = (new String(v)).replace(/(['"])/g, "\\$1"), n = this.name, e;
+
+					let bk = JSON.stringify(this.val(true)),
+						bk_vt = JSON.stringify(this.val('vt'));
+
 					$('[id*="'+n+'_"]').prop('checked', false);
                     if(_default) e = $('[id*="'+n+'_"][vt="'+t+'"]');
                     if(!_default || !e.length) e = $('[id*="'+n+'_"][value="'+t+'"]');
                     if(e.length) e.prop('checked', true);
 					this.initStatus();
-					if(!nochange) $('[id*="'+n+'_"]').trigger('change');
+					if(
+						! nochange &&
+						(
+							bk !== JSON.stringify( this.val( true ) ) ||
+							bk_vt !== JSON.stringify( this.val( 'vt' ) )
+						)
+					) $('[id*="'+n+'_"]:eq(0)').trigger('change');
 				},
 			setChoices:function(choices)
 				{

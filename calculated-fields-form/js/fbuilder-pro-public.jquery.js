@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.18';
+	$.fbuilder['version'] = '5.3.19';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1146,9 +1146,11 @@
 				},
 				setVal:function( v, nochange )
 				{
-					var e = $( "[id='" + this.name + "']" );
+					let e = $( "[id='" + this.name + "']" ),
+						bk = e.val();
+
 					e.val( cff_sanitize(v) );
-					if(!nochange) e.trigger('change');
+					if ( !nochange && bk !== e.val() ) e.trigger('change');
 				},
 				setPlaceholder:function( v )
 				{

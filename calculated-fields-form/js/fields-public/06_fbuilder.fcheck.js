@@ -191,7 +191,7 @@
 					let aux	= function(v, attr) {
 						let result;
 						if (me.quantity) {
-							let v_parts = /^(.*)(\s\((\d+)\))$/.exec(v);
+							let v_parts = /^(.*)(\s*\((\d+)\))$/.exec(v);
 							if( v_parts && typeof v_parts[3] != 'undefined' ) {
 								result = $('[type="checkbox"][id*="'+n+'_"]['+attr+'="'+v_parts[1]+'"]');
 								if ( result.length ) {
@@ -211,6 +211,10 @@
                     nochange = nochange || false;
 
 					if(!Array.isArray(v)) v = [v];
+
+					let bk = JSON.stringify(me.val(true)),
+						bk_vt = JSON.stringify(me.val('vt'));
+
 					$('[id*="'+n+'_"]').prop('checked', false);
 					for(let i in v)
 					{
@@ -221,7 +225,13 @@
                         if(e.length){ e.prop('checked', true);c++;}
 					}
                     me.enable_disable();
-					if(!nochange) $('[id*="'+n+'_"]').trigger('change');
+					if (
+						! nochange &&
+						(
+							bk !== JSON.stringify( me.val( true ) ) ||
+							bk_vt !== JSON.stringify( me.val( 'vt' ) )
+						)
+					) $('[id*="'+n+'_"]:eq(0)').trigger('change');
 				},
 			setChoices:function(choices)
 				{
