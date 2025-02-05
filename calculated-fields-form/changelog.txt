@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.21 =
+
+* Fixes a minor conflict of column1 class styles into container with display:flex.
+
 = 5.3.20 =
 = 5.3.19 =
 

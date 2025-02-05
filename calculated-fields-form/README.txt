@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.20
+Stable tag: 5.3.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.21 =
+
+* Fixes a minor conflict of column1 class styles into container with display:flex.
+
 = 5.3.20 =
 = 5.3.19 =
 
@@ -493,8 +497,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Updates the WooCommerce add-on for the Developer and Platinum versions.
 * Enhances the DISTANCE operations module for the Developer and Platinum versions.
 * Revamps the SagePay add-on for the Platinum version.
-
-= 5.3.13 =
-
-* Resolves a compatibility issue with WordPress versions prior to 5.5.
-* Addresses an issue with the confirmation dialog that appears when saving changes to the form.
