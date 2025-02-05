@@ -50,7 +50,7 @@
 				( this.modal ? '<div class="cff-popup-modal">' : '' )+
 					'<div class="cff-popup-container" style="' + w + h + p + (this.resizing ? 'overflow:auto;resize:both;' : '')+cff_esc_attr(this.getCSSComponent('content'))+'">'+
 					'<div class="cff-popup-header"  style="'+cff_esc_attr(this.getCSSComponent('header'))+'"><'+this.titletag+' class="cff-popup-title" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+(this.close_button ? '</'+this.titletag+'><div class="cff-popup-close ui-icon ui-icon-close" title="close" style="'+cff_esc_attr(this.getCSSComponent('close'))+'"></div>' : '')+'</div>'+
-					'<div id="'+this.name+'" class="cff-popup-fields '+ ( 1 < this.columns && this.align == 'bottom' ? 'cff-align-container-bottom' : '' ) +'"></div>'+
+					'<div id="'+this.name+'" class="cff-popup-fields '+ ( this.align == 'bottom' ? 'cff-align-container-bottom' : '' ) +'"></div>'+
 					'<div class="clearer"></div>'+
 				'</div>'+
 				( this.modal ? '</div>' : '' )+

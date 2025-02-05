@@ -14,13 +14,13 @@
 					f = $('.fields.'+this.fields[i]+this.form_identifier);
 					if( f.hasClass('cff-hidden-field') ) { to_ignore++; }
 					f = f.detach();
+					f.addClass('column'+this.columns);
 					if(this.columns > 1)
 					{
-						f.addClass('column'+this.columns);
 						if( ( i - to_ignore ) % this.columns == 0 && ! this.rearrange ) {
 							f.css('clear', 'left');
 							f.appendTo(e);
-							f.before('<div style="width:100%;"></div>');
+							if ( i - to_ignore && this.align=="bottom" ) f.before('<div class="cff-row-breaker"></div>');
 							flag = false;
 						}
 					}

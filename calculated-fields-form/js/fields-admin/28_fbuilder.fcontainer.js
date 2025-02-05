@@ -11,11 +11,7 @@
 			editItemEvents:function()
 				{
 					var evt=[
-						{s:"#sColumns",e:"change", l:"columns", f:function(el){
-							let c = el.val();
-							$('#sAlignTop,#sAlignBottom')[c <= 1 ? 'hide' : 'show']();
-							return c;
-						}},
+						{s:"#sColumns",e:"change", l:"columns"},
 						{s:"#sRearrange",e:"click", l:"rearrange",f:function(el){return el.is(":checked");}},
 						{s:"#sAlignTop",e:"click", l:"align",f:function(el){
 							$('#sAlignBottom').removeClass('button-primary').addClass('button-secondary');
@@ -40,8 +36,8 @@
 						cStr += '<option value="'+(i+1)+'" '+( ( this.columns == (i+1) ) ? 'SELECTED' : '' )+'>'+(i+1)+' column'+( ( i ) ? 's' : '' )+'</option>';
 					}
 					return '<style>#sAlignTop{margin-left:20px;margin-right:5px;}#sAlignTop::before{content:"\\27D9";}#sAlignBottom::before{content:"\\22A5";}</style><div><label>Columns</label><select name="sColumns" id="sColumns">' + cStr + '</select> <input type="button" class="eq_btn button-secondary" onclick="window.open(\'https://cff.dwbooster.com/documentation#container-fields\');" value="?" title="Tutorial">'+
-					'<button type="button" id="sAlignTop" class="'+( this.align == 'top' ? 'button-primary' :  'button-secondary' )+'" title="Align top" style="display:'+( this.columns <= 1 ? 'none' : 'inline-block' )+';"></button>'+
-					'<button type="button" id="sAlignBottom" class="'+( this.align == 'bottom' ? 'button-primary' :  'button-secondary' )+'" title="Align bottom" style="display:'+( this.columns <= 1 ? 'none' : 'inline-block' )+';"></button>'+
+					'<button type="button" id="sAlignTop" class="'+( this.align == 'top' ? 'button-primary' :  'button-secondary' )+'" title="Align top" style="display:inline-block;"></button>'+
+					'<button type="button" id="sAlignBottom" class="'+( this.align == 'bottom' ? 'button-primary' :  'button-secondary' )+'" title="Align bottom" style="display:inline-block;"></button>'+
 					'<div class="clearer"><span class="uh">Shown in columns the fields into the container.</span></div></div>'+
 					'<div><label><input name="sRearrange" id="sRearrange" type="checkbox" '+((this.rearrange) ? 'CHECKED' : '')+'> Rearrange</label> <span class="uh">Rearrange the fields in the container.</span></div>';
 				},

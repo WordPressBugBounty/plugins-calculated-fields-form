@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.3.20 =
 = 5.3.19 =
 
 * Optimizes plugin performance by eliminating the evaluation of duplicate equations, ensuring faster and more efficient processing.
