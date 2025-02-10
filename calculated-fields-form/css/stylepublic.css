@@ -12,7 +12,7 @@ body{
     color-adjust: exact;
     print-color-adjust: exact;
 }
-#fbuilder .fields,#fbuilder .fform{padding:5px 0px;clear:both;}
+#fbuilder .fields,#fbuilder .fform{padding:5px 0px;clear:both;position:relative;}
 
 #fbuilder .fform:empty{display:none;}
 #fbuilder .fform .cff-form-description{display:block;}
@@ -113,7 +113,7 @@ body{
 #fbuilder .col-xs-8,
 #fbuilder .col-xs-9,
 #fbuilder .col-xs-10,
-#fbuilder .col-xs-11{float:left; clear: none !important;}
+#fbuilder .col-xs-11{float:left; clear: none !important;flex-basis:auto;}
 #fbuilder .col-xs-12{float:none; clear: both;}
 
 #fbuilder .col-xs-1 {width: 8.33333333%;}
@@ -166,6 +166,7 @@ body{
 
 @media (max-width: 48em) {
 	#fbuilder .col-xs-0{display: none !important;}
+	#fbuilder .col-xs-12 {width: 100%;}
 }
 
 @media (min-width: 48em) {
@@ -179,7 +180,7 @@ body{
   #fbuilder .col-sm-8,
   #fbuilder .col-sm-9,
   #fbuilder .col-sm-10,
-  #fbuilder .col-sm-11{float:left;clear:none !important;margin-left:0;margin-right:0;}
+  #fbuilder .col-sm-11{float:left;clear:none !important;margin-left:0;margin-right:0;flex-basis:auto;}
   #fbuilder .col-sm-12{float:none;clear:both;margin-left:0;margin-right:0;}
 
   #fbuilder .col-sm-1 {width: 8.33333333%;}
@@ -249,7 +250,7 @@ body{
   #fbuilder .col-md-8,
   #fbuilder .col-md-9,
   #fbuilder .col-md-10,
-  #fbuilder .col-md-11{float:left;clear:none !important;margin-left:0;margin-right:0;}
+  #fbuilder .col-md-11{float:left;clear:none !important;margin-left:0;margin-right:0;flex-basis:auto;}
   #fbuilder .col-md-12{float:none;clear:both;margin-left:0;margin-right:0;}
 
   #fbuilder .col-md-1 {width: 8.33333333%;}
@@ -319,7 +320,7 @@ body{
   #fbuilder .col-lg-8,
   #fbuilder .col-lg-9,
   #fbuilder .col-lg-10,
-  #fbuilder .col-lg-11{float:left;clear:none !important;margin-left:0;margin-right:0;}
+  #fbuilder .col-lg-11{float:left;clear:none !important;margin-left:0;margin-right:0;flex-basis:auto;}
   #fbuilder .col-lg-12{float:none;clear:both;margin-left:0;margin-right:0;}
 
   #fbuilder .col-lg-1 {width: 8.33333333%;}
@@ -523,7 +524,7 @@ body{
 #fbuilder .captcha img{cursor:pointer;}
 #fbuilder .cff-recaptcha{overflow: hidden !important;}
 
-@media (min-width:710px){#fbuilder .cff-align-container-bottom{display:flex;flex-wrap:wrap;align-items:flex-end;}}
+@media (min-width:640px){#fbuilder .cff-align-container-bottom{display:flex;flex-wrap:wrap;align-items:flex-end;}}
 
 #fbuilder .cff-repeater-field .cff-repeater-field-add{margin-right:10px;}
 #fbuilder .cff-repeater-field .cff-repeater-field-btn:not(.cff-repeater-btn-label){
@@ -551,8 +552,8 @@ body{
 #fbuilder input[type="checkbox"]{-webkit-appearance:checkbox!important;}
 #fbuilder input[type="radio"]{-webkit-appearance:radio!important;}
 
-#fbuilder .cff-date-field .cff-date-field-components:not(:has(.ui-datepicker-inline)){display:flex;flex-direction:row;gap:5px;}
-#fbuilder .cff-date-field .date-component{flex-grow:1;width:100%;}
+#fbuilder .cff-date-field .cff-date-field-components:not(:has(.ui-datepicker-inline)){display:flex;flex-direction:row;gap:5px;flex-wrap:wrap;}
+#fbuilder .cff-date-field .date-component{flex-grow:1;min-width:100px;}
 #fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .hours-component{margin-right:5px;}
 #fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .minutes-component{margin-left:5px;}
 #fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .ampm-component{margin-left:5px;}
@@ -626,9 +627,9 @@ body{
 
 #fbuilder  .cff-summary-title:after{content: ': ';}
 #fbuilder  .cff-button-field input{margin-top:5px;}
+#fbuilder .hide{display:none;}
 #fbuilder .ignore,
 #fbuilder .ignorefield,
-#fbuilder .hide{display:none;}
 #fbuilder .hide-strong{display:none !important;}
 #fbuilder .clear{clear:both;}
 

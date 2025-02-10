@@ -724,8 +724,15 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 #metabox_form_structure [name="cff_shrink_btn"]::before{left:5px;-webkit-transform:rotate(180deg);-moz-transform: rotate(180deg);-ms-transform: rotate(180deg);-o-transform: rotate(180deg);transform: rotate(180deg);
 }
 
+.cff-navigation-main-menu{text-align:right;float:right;display:flex;align-items:center;margin-bottom:10px;}
 #metabox_form_structure .cff-form-builder-extend-shrink{display:none;float:right;}
 #metabox_form_structure:not(.fullscreen) .cff-navigation-sections-menu{display:none;}
+.cff-navigation-sections-menu:has(a:hover) *:not(:hover),
+.cff-navigation-main-menu:has(a:hover)>*:not(:hover){opacity: 0.6;transition: opacity 0.3s ease;}
+.cff-navigation-sections-menu:has(a:hover) a:hover,
+.cff-navigation-main-menu:has(a:hover) a:hover {opacity: 1;transition: opacity 0.3s ease;}
+.cff-navigation-main-menu span,
+.cff-navigation-sections-menu span{display:inline;}
 @media (min-width:710px) {
 	#metabox_form_structure.fullscreen{position:fixed !important;position:absolute;top:30px;right:0;bottom:0;left:0;z-index:99999;margin:0;}
 	#metabox_form_structure.fullscreen .cff-revisions-container{max-height:70px;overflow-y:scroll;box-sizing:border-box;}

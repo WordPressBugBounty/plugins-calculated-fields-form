@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.21
+ * Version: 5.3.22
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.21' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.22' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -258,7 +258,7 @@ function cp_calculated_fields_form_check_posted_data() {
 											break;
 										case 'fdate':
 										case 'fdateds':
-											if ( ! preg_match( '/^(\d{2,4}[^\d]\d{2}[^\d]\d{2,4})?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value ) ) {
+											if ( ! preg_match( '/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4}))?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value ) ) {
 												$invalid_format = true;
 											}
 											break;

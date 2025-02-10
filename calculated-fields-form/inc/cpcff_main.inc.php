@@ -279,7 +279,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			add_options_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
 
 			// Menu option.
-			add_menu_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
+			add_menu_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ), 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0Ij48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI1IiByeT0iNSIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjAiIC8+PGxpbmUgeDE9IjE0IiB5MT0iMjQiIHgyPSIzMCIgeTI9IjI0IiBzdHJva2U9IiMxZDIzMjciIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPjxsaW5lIHgxPSIyMiIgeTE9IjE2IiB4Mj0iMjIiIHkyPSIzMiIgc3Ryb2tlPSIjMWQyMzI3IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz48bGluZSB4MT0iMzQiIHkxPSI0MCIgeDI9IjUwIiB5Mj0iNDAiIHN0cm9rZT0iIzFkMjMyNyIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+PGxpbmUgeDE9IjQ4IiB5MT0iMTYiIHgyPSIxNiIgeTI9IjQ4IiBzdHJva2U9IiMxZDIzMjciIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPjwvc3ZnPg==' );
 
 			// Submenu options.
 			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form', 'All Forms', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );

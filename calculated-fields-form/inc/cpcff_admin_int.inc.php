@@ -47,22 +47,22 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf
 $cpcff_texts_array = $form_obj->get_option( 'vs_all_texts', [] );
 
 $section_nav_bar = '<div class="cff-navigation-sections-menu">
-	<a href="#metabox_define_texts">' . esc_html__( 'Texts definition', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
-	<a href="#metabox_define_validation_texts">' . esc_html__( 'Error texts', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
-	<a href="#metabox_submit_thank">' . esc_html__( 'Submit button and thank you page', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
+	<a href="#metabox_define_texts">' . esc_html__( 'Texts definition', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
+	<a href="#metabox_define_validation_texts">' . esc_html__( 'Error texts', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
+	<a href="#metabox_submit_thank">' . esc_html__( 'Submit button and thank you page', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_notification_email">' . esc_html__( 'Notification email', 'calculated-fields-form' ) . '</a>&nbsp;
-	[<b>' . esc_html__( 'Commercial Features', 'calculated-fields-form' ) . ':</b>
-	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'General payment settings', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
-	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'PayPal integration', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
-	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Email copy to user', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
-	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a>]
+	<span>[</span><b>' . esc_html__( 'Commercial Features', 'calculated-fields-form' ) . ':</b>
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'General payment settings', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'PayPal integration', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Email copy to user', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a><span>]</span>
  </div>';
 ?>
 <div class="wrap">
-	<div style="text-align:right;float:right;display:flex;align-items:center;margin-bottom:10px;">
-		<a href="admin.php?page=cp_calculated_fields_form_sub_new" class="button-secondary"><?php esc_html_e( 'Add New', 'calculated-fields-form' ); ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?>
+	<div class="cff-navigation-main-menu">
+		<a href="admin.php?page=cp_calculated_fields_form_sub_new" class="button-secondary"><?php esc_html_e( 'Add New', 'calculated-fields-form' ); ?></a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+		<span><?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?></span>
 	</div>
 	<h1 class="cff-form-name">
 	<?php
