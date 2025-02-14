@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.23 =
+
+* Includes new predefined forms.
+* Enhances the WooCommerce add-on by addressing a minor multipage form issue (Developer and Platinum versions).
+* Overhauls the CSV Generator add-on for the Platinum version, reducing memory usage by 50%.
+
 = 5.3.22 =
 
 * Resolves an issue with date format validation on the server side.

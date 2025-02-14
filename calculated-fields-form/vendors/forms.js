@@ -289,6 +289,11 @@ cff_forms_templates = {
             "category": "Service",
             "description": "Search for metadata in Archive.org.",
             "id": 66
+        }, {
+            "title": "Facts About Numbers",
+            "category": "Service|Education",
+            "description": "Expand your knowledge with fascinating random number facts. New fact every X seconds.",
+            "id": 67
         }
     ],
     "pro": [
