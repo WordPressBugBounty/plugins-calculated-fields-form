@@ -352,6 +352,21 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 			};
 		}
 
+		if(window.ISFRACTION == undefined)
+		{
+			window.ISFRACTION = window.isfraction = window.isFraction = function(v){
+                try
+                {
+                    var x = v.toString().split('/');
+					return 	x.length == 2 &&
+							! isNaN(x[0]*1) &&
+							Math.floor(x[0]*1) == x[0]*1 &&
+							! isNaN(x[1]*1) &&
+							Math.floor(x[1]*1) == x[1]*1;
+                }catch(err){return false;}
+            };
+		}
+
 		if(window.FRACTIONTODECIMAL == undefined)
         {
             window.FRACTIONTODECIMAL = window.fractiontodecimal = window.fractionToDecimal = function(v){
@@ -379,7 +394,38 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
             };
         }
 
-        if(window.FRACTIONSUM == undefined)
+        if(window.SIMPLIFYFRACTION == undefined)
+        {
+            window.SIMPLIFYFRACTION = window.simplifyfraction = window.simplifyFraction = function(v, v2){
+                try
+                {
+					let n, d;
+
+                    if ( ISFRACTION(v) ) {
+						let o = v.split('/');
+						n = o[0]*1,
+						d = o[1]*1;
+					} else if( typeof v2 != 'undefined' ) {
+						n = v*1;
+						d = v2*1;
+					}
+
+					if(isNaN(n) || isNaN(d) || d === 0) return v;
+					if(n === 0) return '0/1';
+
+					let f  = GCD(n, d),
+						sN = n / f,
+						sD = d / f,
+						r  = sN/sD;
+
+					return Math.floor(r) === r ? r : `${sN}/${sD}`;
+
+				} catch(err){}
+				return v;
+           };
+        }
+
+		if(window.FRACTIONSUM == undefined)
         {
             window.FRACTIONSUM = window.fractionsum = function(){
                 try

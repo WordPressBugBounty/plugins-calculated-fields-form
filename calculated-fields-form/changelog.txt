@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.24 =
+
+* Introduces a new attribute in the media controls to defer image loading until images are visible within the viewport.
+* Updates the Text Operations module, implementing the CHARAT, CHARTOCODE, and CODETOCHAR operations.
+* Enhances the Mathematics Operations module with improved ISFRACTION and SIMPLIFYFRACTION operations.
+
 = 5.3.23 =
 
 * Includes new predefined forms.

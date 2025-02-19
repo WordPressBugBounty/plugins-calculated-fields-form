@@ -54,6 +54,34 @@
         }
     }
 
+    if(window.CHARAT == undefined) {
+        lib.CHARAT = lib.charat = function(text, index){
+            try {
+				index = index || 0;
+                return String(text).charAt(index);
+            } catch (err) {}
+			return '';
+        }
+    }
+
+    if(window.CHARTOCODE == undefined) {
+        lib.CHARTOCODE = lib.chartocode = function(text){
+            try {
+				return String(CHARAT(text)).charCodeAt(0);
+            } catch (err) {}
+			return false;
+        }
+    }
+
+    if(window.CODETOCHAR == undefined) {
+        lib.CODETOCHAR = lib.codetochar = function(code){
+            try {
+				return String.fromCharCode(code);
+            } catch (err) {}
+			return false;
+        }
+    }
+
     root.CF_TEXT = lib;
 
 })(this);

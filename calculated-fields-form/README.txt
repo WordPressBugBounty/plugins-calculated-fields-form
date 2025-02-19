@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.23
+Stable tag: 5.3.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.24 =
+
+* Introduces a new attribute in the media controls to defer image loading until images are visible within the viewport.
+* Updates the Text Operations module, implementing the CHARAT, CHARTOCODE, and CODETOCHAR operations.
+* Enhances the Mathematics Operations module with improved ISFRACTION and SIMPLIFYFRACTION operations.
+
 = 5.3.23 =
 
 * Includes new predefined forms.
@@ -490,11 +496,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Addresses an inconsistency in the validation of date fields.
 * Introduces a new predefined form for loading metadata from Archive.org.
-
-= 5.3.16 =
-
-* Enables validation of time components within date and time controls.
-* Introduces two new operations: DISABLEEQUATION and ENABLEEQUATION, to deactivate or activate equations in specific calculated fields.
-* Resolves an issue affecting quantity boxes in checkbox and radio button controls when the switch format is enabled.
-* Features a new video tutorial.
-* Updates the DS fields in both the Developer and Platinum plugin versions.

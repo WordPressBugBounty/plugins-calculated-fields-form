@@ -32,7 +32,8 @@
 								sAlt:"",
 								sLink:"",
 								sTarget:"",
-								sFigcaption: ""
+								sFigcaption: "",
+								sLazy:0
 							},
 							audio:{
 								sWidth:"",
@@ -42,10 +43,10 @@
 								sLoop:0,
 								sAutoplay:0,
 								sMuted:0,
-								sPreload: "auto",
-								sFallback: "",
-								sFigcaption: "",
-								sHideDownload: 0
+								sPreload:"auto",
+								sFallback:"",
+								sFigcaption:"",
+								sHideDownload:0
 							},
 							video:{
 								sWidth:"",
@@ -57,10 +58,10 @@
 								sLoop:0,
 								sAutoplay:0,
 								sMuted:0,
-								sPreload: "auto",
-								sFallback: "",
-								sFigcaption: "",
-								sHideDownload: 0
+								sPreload:"auto",
+								sFallback:"",
+								sFigcaption:"",
+								sHideDownload:0
 							}
 						};
 				},
@@ -137,7 +138,7 @@
                             $.fbuilder.editItem( e.data.obj.index );
                             $.fbuilder.reloadItems({'field':e.data.obj});
                         });
-					$("#sControls,#sLoop,#sAutoplay,#sMuted,#sHideDownload").on("click", {obj: this}, function(e)
+					$("#sControls,#sLoop,#sAutoplay,#sMuted,#sHideDownload,#sLazy").on("click", {obj: this}, function(e)
                         {
                             e.data.obj[ 'data' ][ e.data.obj[ 'sMediaType' ] ][ this.id ] = ( this.checked) ? 1 : 0;
                             $.fbuilder.reloadItems({'field':e.data.obj});
@@ -205,7 +206,8 @@
                     '<label for="sAlt">Alternate</label><input type="text" class="large" name="sAlt" id="sAlt" value="'+esc(d.sAlt)+'">'+
                     '<label for="sFigcaption">Figcaption</label><input type="text" class="large" name="sFigcaption" id="sFigcaption" value="'+esc(d.sFigcaption)+'">'+
                     '<label for="sLink">Link</label><input type="text" class="large" name="sLink" id="sLink" value="'+esc(d.sLink)+'">'+
-                    '<label for="sTarget">Target</label><input type="text" class="large" name="sTarget" id="sTarget" value="'+esc(d.sTarget)+'" /><span>_blank, _new, _parent, _self, _top</span>';
+                    '<label for="sTarget">Target</label><input type="text" class="large" name="sTarget" id="sTarget" value="'+esc(d.sTarget)+'" /><span>_blank, _new, _parent, _self, _top</span>'+
+                    '<label for="sLazy"><input type="checkbox" name="sLazy" id="sLazy" '+(d.sLazy ? 'CHECKED' : '')+' /> Lazy Load</label>';
                 },
             _showSettings_audio_video: function( d, isV )
                 {
