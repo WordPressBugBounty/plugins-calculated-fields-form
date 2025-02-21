@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.24
+ * Version: 5.3.25
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.24' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.25' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -150,16 +150,19 @@ function cp_calculated_fields_form_check_posted_data() {
 		} elseif ( // Process form submission.
 			isset( $_POST['cp_calculatedfieldsf_id'] ) &&
 			is_numeric( $_POST['cp_calculatedfieldsf_id'] ) &&
-			isset( $_POST['cp_calculatedfieldsf_pform_psequence'] ) &&
-			isset( $_POST['_cpcff_public_nonce'] )
+			isset( $_POST['cp_calculatedfieldsf_pform_psequence'] )
 		) {
 			$sequence = sanitize_text_field( wp_unslash( $_POST['cp_calculatedfieldsf_pform_psequence'] ) );
 			define( 'CP_CALCULATEDFIELDSF_ID', intval( $_POST['cp_calculatedfieldsf_id'] ) );
 
 			if (
-				wp_verify_nonce(
-					sanitize_text_field( wp_unslash( $_POST['_cpcff_public_nonce'] ) ),
-					'cpcff_form_' . CP_CALCULATEDFIELDSF_ID . $sequence
+				! get_option( 'CP_CALCULATEDFIELDSF_NONCE', 0 ) ||
+				(
+					isset( $_POST['_cpcff_public_nonce'] ) &&
+					wp_verify_nonce(
+						sanitize_text_field( wp_unslash( $_POST['_cpcff_public_nonce'] ) ),
+						'cpcff_form_' . CP_CALCULATEDFIELDSF_ID . $sequence
+					)
 				)
 			) {
 				$form_obj = $cpcff_main->get_form( CP_CALCULATEDFIELDSF_ID );

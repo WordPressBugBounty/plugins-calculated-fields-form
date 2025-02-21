@@ -102,6 +102,7 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 	update_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', ( isset( $_GET['ecr'] ) && '1' == $_GET['ecr'] ? 1 : 0 ) );
 	update_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', ( isset( $_GET['df'] ) && '1' == $_GET['df'] ? 1 : 0 ) );
 	update_option( 'CP_CALCULATEDFIELDSF_AMP', ( isset( $_GET['amp'] ) && '1' == $_GET['amp'] ? 1 : 0 ) );
+	update_option( 'CP_CALCULATEDFIELDSF_NONCE', ( isset( $_GET["nc"] ) && '1' == $_GET["nc"] ? 1 : 0 ) );
 
 	$bk_ov = get_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', 1 );
     update_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', ( isset( $_GET['ov'] ) && '1' == $_GET['ov'] ? 1 : 0 ) );
@@ -249,9 +250,10 @@ function cp_updateConfig()
 			ov  = (document.getElementById("cconlyvisible").checked) ? 1 : 0,
 			amp = (document.getElementById("ccampform").checked) ? 1 : 0,
 			ecr = (document.getElementById("ccexcludecrawler").checked) ? 1 : 0,
+			nc  = (document.getElementById("ccusenonce").checked) ? 1 : 0,
 			em  = (document.getElementById("ccencodingemail").checked) ? 1 : 0;
 
-		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&ov='+ov+'&amp='+amp+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
+		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&ov='+ov+'&amp='+amp+'&nc='+nc+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
 	}
 }
 
@@ -600,6 +602,8 @@ function cp_update_default_settings(e)
 					<input type="checkbox" name="ccexcludecrawler" id="ccexcludecrawler" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Do not load the forms with crawlers', 'calculated-fields-form' ); ?>
 					<br /><i><?php esc_html_e( '* The forms are not loaded when website is being indexed by searchers.', 'calculated-fields-form' ); ?></i>
 					<br /><br />
+					<input type="checkbox" name="ccusenonce" id="ccusenonce" <?php echo ( intval( get_option( 'CP_CALCULATEDFIELDSF_NONCE', 0 ) ) ? 'CHECKED' : '' ); ?> /> <?php _e( 'Protect the forms with nonce', 'calculated-fields-form' ); ?>
+                    <br /><br />
 					<input type="button" onclick="cp_updateConfig();" name="gobtn" value="<?php esc_attr_e( 'UPDATE', 'calculated-fields-form' ); ?>" class="button-secondary" />
 					<br />
 				</form>

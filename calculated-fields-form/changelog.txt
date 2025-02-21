@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.25 =
+
+* Updates the "Troubleshoots Area and General Settings" section, providing website developers with additional control over the form.
+
 = 5.3.24 =
 
 * Introduces a new attribute in the media controls to defer image loading until images are visible within the viewport.
