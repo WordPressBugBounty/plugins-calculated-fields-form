@@ -15,6 +15,7 @@
 			// Date component
 			showDatepicker: true,
 			dformat:"mm/dd/yyyy",
+			showFormatOnLabel:1,
 			dseparator:"/",
 			showDropdown:false,
 			dropdownRange:"-10:+10",
@@ -412,7 +413,7 @@
 					else{ date_tag_type = 'hidden'; if( ! me.alwaysVisible ) disabled='disabled';}
                     if(me.showTimepicker) format_label.push('HH:mm');
 					let predefined = this._getAttr('predefined') || '';
-					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-date-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label '+(me.showDatepicker ? 'for="'+n+'_date"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length) ? ' <span class="dformat">('+cff_sanitize(format_label.join(' '), true)+')</span>' : '')+'</label>'+
+					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-date-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label '+(me.showDatepicker ? 'for="'+n+'_date"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length && me.showFormatOnLabel) ? ' <span class="dformat" style="'+cff_esc_attr(me.getCSSComponent('dformat'))+'">('+cff_sanitize(format_label.join(' '), true)+')</span>' : '')+'</label>'+
 					'<div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" value="'+cff_esc_attr(predefined)+'"/>'+
 					'<div class="cff-date-field-components '+me.size+'">'+
 						'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="'+cff_esc_attr(date_tag_class)+' date-component" type="'+date_tag_type+'" '+attr+'="'+cff_esc_attr(predefined)+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+(me.errorMssg != '' ? ' data-msg="'+cff_esc_attr(me.errorMssg)+'"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('date'))+'" />'+

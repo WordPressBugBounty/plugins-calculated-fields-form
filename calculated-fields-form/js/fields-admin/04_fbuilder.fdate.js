@@ -21,6 +21,7 @@
 			readonly:false,
             disableKeyboardOnMobile:false,
 			dformat:"mm/dd/yyyy",
+			showFormatOnLabel:1,
 			dseparator:"/",
 			tformat:"24",
 			showDropdown:false,
@@ -62,6 +63,7 @@
 			initAdv: function() {
 				delete this.advanced.css['input'];
 				if ( ! ( 'date' in this.advanced.css ) ) this.advanced.css.date = {label: 'Date field',rules:{}};
+				if ( ! ( 'dformat' in this.advanced.css ) ) this.advanced.css.dformat = {label: 'Date format label',rules:{}};
 				if ( ! ( 'hour' in this.advanced.css ) ) this.advanced.css.hour = {label: 'Hours selector',rules:{}};
 				if ( ! ( 'minute' in this.advanced.css ) ) this.advanced.css.minute = {label: 'Minutes selector',rules:{}};
 				if ( ! ( 'ampm' in this.advanced.css ) ) this.advanced.css.ampm = {label: 'AM/PM selector',rules:{}};
@@ -80,6 +82,7 @@
 							{s:"#sDropdownRange",e:"keyup", l:"dropdownRange", x:1},
 							{s:"#sFormat",e:"change", l:"dformat", x:1},
 							{s:"#sSeparator",e:"change", l:"dseparator", x:1},
+							{s:"#sShowFormatOnLabel",e:"click", l:"showFormatOnLabel", f:function(el){return el.is(':checked');}},
 							{s:"[name='sTimeFormat']",e:"change", l:"tformat", x:1},
 							{s:"#sMinDate",e:"change keyup", l:"minDate", x:1},
 							{s:"#sMaxDate",e:"change keyup", l:"maxDate", x:1},
@@ -139,7 +142,11 @@
 					for (var i in me.separators)
 						separatorOpts += '<option value="'+cff_esc_attr(me.separators[i])+'" '+((me.separators[i]==me.dseparator)?"selected":"")+'>'+cff_esc_attr(me.separators[i])+'</option>';
 
-					return '<hr></hr><label><input type="checkbox" name="sShowDatepicker" id="sShowDatepicker" '+( ( me.showDatepicker ) ? 'CHECKED' : '' )+' > Show date component</label><div class="width50 column"><label for="sFormat">Date Format</label><select name="sFormat" id="sFormat" class="large">'+formatOpts+'</select></div><div class="width50 column"><label for="sSeparator">Parts separator</label><select name="sSeparator" id="sSeparator" class="large">'+separatorOpts+'</select></div><div class="clearer"></div>';
+					return '<hr></hr><label><input type="checkbox" name="sShowDatepicker" id="sShowDatepicker" '+( ( me.showDatepicker ) ? 'CHECKED' : '' )+' > Show date component</label>'+
+					'<div class="width40 column"><label for="sFormat">Date Format</label><select name="sFormat" id="sFormat" class="large">'+formatOpts+'</select></div>'+
+					'<div class="width25 column"><label for="sSeparator">Parts separator</label><select name="sSeparator" id="sSeparator" class="large">'+separatorOpts+'</select></div>'+
+					'<div class="width25 column" style="margin-top: 25px;margin-left: 3%;"><label><input type="checkbox" id="sShowFormatOnLabel" name="sShowFormatOnLabel" '+(me.showFormatOnLabel ? 'CHECKED' : '' )+'>Show on label</label></div>'+
+					'<div class="clearer"></div>';
 				},
 			showSpecialDataInstance: function()
 				{

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.25
+Stable tag: 5.3.26
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.26 =
+
+* Enhances Date/Time controls to enable showing/hiding the date-time format in field labels and to customize their design via the fields' Advanced Settings section.
+* Enhances the Summary control to simplify customization of the fields' row design in generated summaries using the Advanced Settings section.
+* Enhances the Fieldset control to allow modification of the styles applied to the fieldset tag through the fields' Advanced Settings sections.
+
 = 5.3.25 =
 
 * Updates the "Troubleshoots Area and General Settings" section, providing website developers with additional control over the form.
@@ -489,9 +495,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Optimizes plugin performance by eliminating the evaluation of duplicate equations, ensuring faster and more efficient processing.
 * Refines the columns layout system for a more intuitive and seamless user experience.
 * Elevates the AI assistant's capabilities, delivering smarter and more accurate support for your questions.
-
-= 5.3.18 =
-
-* Enhances the Date/Time control to improve the alignment between the date and time components for a more cohesive user experience.
-* Updates the container fields—DIV, FIELDSET, and POPUP—by introducing a new attribute that facilitates better alignment of the contained fields with one another.
-* Revamps the validation popup to make it easier to identify which validation rules have failed, including for hidden fields.

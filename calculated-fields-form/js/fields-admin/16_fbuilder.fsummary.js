@@ -20,6 +20,7 @@
 			initAdv:function(){
 				delete this.advanced.css.input;
 				delete this.advanced.css.help;
+				if ( ! ( 'fields_rows' in this.advanced.css ) ) this.advanced.css.fields_rows = {label: 'Fields rows',rules:{}};
 				if ( ! ( 'fields_labels' in this.advanced.css ) ) this.advanced.css.fields_labels = {label: 'Fields labels',rules:{}};
 				if ( ! ( 'fields_values' in this.advanced.css ) ) this.advanced.css.fields_values = {label: 'Fields values',rules:{}};
 			},

@@ -39,7 +39,7 @@
 								p[i] = String(p[i]).trim()+me.form_identifier;
 								try {
 									if ( $( '.'+p[i] ).length ) {
-										str += '<div ref="'+cff_esc_attr(p[i])+'" class="cff-summary-item"><span class="'+cff_esc_attr(me.titleClassname)+' cff-summary-title" style="'+cff_esc_attr(me.getCSSComponent('fields_labels'))+'"></span><span class="'+cff_esc_attr(me.valueClassname)+' cff-summary-value" style="'+cff_esc_attr(me.getCSSComponent('fields_values'))+'"></span></div>';
+										str += '<div ref="'+cff_esc_attr(p[i])+'" class="cff-summary-item" style="'+cff_esc_attr(me.getCSSComponent('fields_rows'))+'"><span class="'+cff_esc_attr(me.titleClassname)+' cff-summary-title" style="'+cff_esc_attr(me.getCSSComponent('fields_labels'))+'"></span><span class="'+cff_esc_attr(me.valueClassname)+' cff-summary-value" style="'+cff_esc_attr(me.getCSSComponent('fields_values'))+'"></span></div>';
 
 										me.fieldsArray.push(p[i]);
 										$(document).on('change', '.'+p[i]+' [id*="'+p[i]+'"]', function(){ me.update(); });

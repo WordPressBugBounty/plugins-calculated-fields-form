@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.26 =
+
+* Enhances Date/Time controls to enable showing/hiding the date-time format in field labels and to customize their design via the fields' Advanced Settings section.
+* Enhances the Summary control to simplify customization of the fields' row design in generated summaries using the Advanced Settings section.
+* Enhances the Fieldset control to allow modification of the styles applied to the fieldset tag through the fields' Advanced Settings sections.
+
 = 5.3.25 =
 
 * Updates the "Troubleshoots Area and General Settings" section, providing website developers with additional control over the form.
