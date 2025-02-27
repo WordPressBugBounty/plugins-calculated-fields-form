@@ -627,9 +627,9 @@ body{
 
 #fbuilder  .cff-summary-title:after{content: ': ';}
 #fbuilder  .cff-button-field input{margin-top:5px;}
+#fbuilder .ignorefield,
 #fbuilder .hide{display:none;}
 #fbuilder .ignore,
-#fbuilder .ignorefield,
 #fbuilder .hide-strong{display:none !important;}
 #fbuilder .clear{clear:both;}
 

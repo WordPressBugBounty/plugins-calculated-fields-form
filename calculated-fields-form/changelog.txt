@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.27 =
+
+* Fixes an issue related to the ignorefield CSS class.
+* Adds support for reCAPTCHA Enterprise in both the Developer and Platinum plugin versions.
+
 = 5.3.26 =
 
 * Enhances Date/Time controls to enable showing/hiding the date-time format in field labels and to customize their design via the fields' Advanced Settings section.
