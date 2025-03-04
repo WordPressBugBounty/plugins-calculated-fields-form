@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.27
+Stable tag: 5.3.28
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.28 =
+
+* Redesigned interface for form creation.
+* Improved accessibility.
+* Enhanced equations editor.
+
 = 5.3.27 =
 
 * Fixes an issue related to the ignorefield CSS class.
@@ -489,7 +495,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Enhances user experience in the form builder and streamlines access to various sections.
 * Associates an icon with the plugin menu option in the WordPress sidebar for easier identification.
 * Improves the layout of columns for better organization and readability.
-
-= 5.3.21 =
-
-* Fixes a minor conflict of column1 class styles into container with display:flex.

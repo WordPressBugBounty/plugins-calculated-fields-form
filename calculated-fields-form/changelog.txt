@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.28 =
+
+* Redesigned interface for form creation.
+* Improved accessibility.
+* Enhanced equations editor.
+
 = 5.3.27 =
 
 * Fixes an issue related to the ignorefield CSS class.

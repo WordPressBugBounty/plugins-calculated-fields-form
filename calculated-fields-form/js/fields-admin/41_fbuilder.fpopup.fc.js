@@ -38,11 +38,13 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Popup')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer('<div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div>')+'<div class="dfield" style="width:100%;">'+
+					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Popup')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer('<div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div>')+
+					$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+
+					'<div class="dfield" style="width:100%;">'+
 					'<div class="cff-popup-header">'+(this.title.length ? '<' + this.titletag+ ' class="cff-popup-title">'+cff_sanitize(this.title, true)+'</' + this.titletag+ '>' : '')+
 					(this.close_button ? '<div class="cff-popup-close ui-icon ui-icon-close"></div>' : '')+
 					'</div>'+
-					'<div class="fcontainer">'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<span class="developer-note">'+cff_esc_attr(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer"></div></div>';
+					'<div class="fcontainer">'+'<span class="developer-note">'+cff_esc_attr(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

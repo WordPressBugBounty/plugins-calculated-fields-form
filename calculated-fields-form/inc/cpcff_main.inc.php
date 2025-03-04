@@ -359,6 +359,8 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					if ( @wp_redirect( 'https://wordpress.org/support/plugin/calculated-fields-form#new-post' ) ) {
 						exit;
 					}
+				} elseif( get_transient('cff-video-tutorial') ) {
+					@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_landing_page.inc.php';
 				} else {
 					@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_int_list.inc.php';
 				}
@@ -431,14 +433,17 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_library_script', plugins_url( '/js/library.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'cp_calculatedfieldsf_builder_script' ), CP_CALCULATEDFIELDSF_VERSION );
 
-					wp_localize_script(
-						'cp_calculatedfieldsf_builder_library_script',
-						'cpcff_forms_library_config',
-						array(
-							'version'     => 'free',
-							'website_url' => 'admin.php?page=cp_calculated_fields_form&a=1&_cpcff_nonce=' . wp_create_nonce( 'cff-add-form' ),
-						)
-					);
+					if( $_GET['page'] == 'cp_calculated_fields_form_sub_new' ) {
+						wp_localize_script(
+							'cp_calculatedfieldsf_builder_library_script',
+							'cpcff_forms_library_config',
+							array(
+								'version'     => 'free',
+								'website_url' => 'admin.php?page=cp_calculated_fields_form&a=1&_cpcff_nonce=' . wp_create_nonce( 'cff-add-form' ),
+								'website_forms' => CPCFF_FORM::forms_list()
+							)
+						);
+					}
 
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_caret', plugins_url( '/vendors/jquery.caret.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'jquery' ), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_purify', plugins_url( '/vendors/purify.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
@@ -839,12 +844,17 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @param string $form_name, the name of form.
 		 * @return mixed, an instance of the created form or false.
 		 */
-		public function create_form( $form_name, $category_name = '', $form_template = 0 ) {
-			$form = CPCFF_FORM::create_default( $form_name, $category_name, $form_template );
-			if ( $form ) {
-				$this->_forms[ $form->get_id() ] = $form;
+		public function create_form( $form_name, $category_name = '', $form_template = 0, $clone_form = 0 ) {
+			if ( $clone_form ) {
+				$base_form = new CPCFF_FORM( $form_template );
+				if ( ! empty( $base_form ) ) $new_form = $base_form->clone_form( $form_name );
+			} else $new_form = CPCFF_FORM::create_default( $form_name, $category_name, $form_template );
+
+			if ( ! empty ( $new_form ) ) {
+				$this->_forms[ $new_form->get_id() ] = $new_form;
+				return $new_form;
 			}
-			return $form;
+			return false;
 		} // End create_form.
 
 		/**

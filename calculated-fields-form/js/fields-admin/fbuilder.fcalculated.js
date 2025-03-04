@@ -91,7 +91,7 @@
 									/fxeditor/i.test(event.originalEvent.origin) &&
 									'data' in event.originalEvent &&
 									typeof event.originalEvent.data == 'string'
-								) $('#sEq').val(event.originalEvent.data).trigger('change');
+								) $('#sEq').val(event.originalEvent.data).trigger('change').trigger('updated');
 							});
                             var advEditor = '<div class="cff-light-modal" id="cff-advanced-equation-editor" role="dialog" aria-hidden="false">'+
 							'<div class="cff-light-modal-content">'+
@@ -228,6 +228,41 @@
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
 					$.fbuilder.controls['ffields'].prototype.editItemEvents.call(this, evt);
+
+					// Code Editor
+					if('codeEditor' in wp)
+					{
+						setTimeout(function(){
+                            if($('#tabs-2 .CodeMirror').length) return;
+							try{ delete HTMLHint.rules['spec-char-escape']; } catch(err) {}
+							var htmlEditorSettings = wp.codeEditor.defaultSettings ? _.clone(wp.codeEditor.defaultSettings) : {}, editor;
+							htmlEditorSettings.codemirror = _.extend(
+								{},
+								htmlEditorSettings.codemirror,
+								{
+									indentUnit: 2,
+									tabSize: 2,
+									autoCloseTags: false,
+									mode:{name:'javascript'}
+								}
+							);
+							htmlEditorSettings['htmlhint']['spec-char-escape'] = false;
+							htmlEditorSettings['htmlhint']['alt-require'] = false;
+							htmlEditorSettings['htmlhint']['tag-pair'] = false;
+							let eq = $('#sEq');
+							if(eq.length) {
+								eq.on('updated', function(){editor.codemirror.setValue(this.value);});
+								editor = wp.codeEditor.initialize(eq, htmlEditorSettings);
+								eq.data('cm', editor);
+								editor.codemirror.on('change', function(cm){ eq.val(cm.getValue()).trigger('change');});
+								editor.codemirror.on('keydown', function(cm, evt){
+									if ( 'Escape' == evt.key && $('.CodeMirror-hint').length ) {
+										evt.stopPropagation();
+									}
+								});
+							}
+						}, 10);
+					}
 				},
 		showSpecialDataInstance: function()
 			{
@@ -346,13 +381,25 @@
 								var sEQ = $('#sEq');
 								if(sEQ.length)
 								{
-									var p = sEQ.caret(),
-										v = sEQ.val(),
-										nv;
+									try {
+										let cm = sEQ.data('cm');
+										if ( cm ) {
+											let doc = cm.codemirror.getDoc(),
+												cursor = doc.getCursor();
+											doc.replaceRange(s, cursor);
+										} else {
+											throw 'No code mirror';
+										}
+									} catch( err ) {
+										var p = sEQ.caret(),
+											v = sEQ.val(),
+											nv;
 
-									sEQ.val(v.substr(0,p)+s+v.substr(p));
-									sEQ.caret(p+s.length);
-									me.eq = sEQ.val();
+										sEQ.val(v.substr(0,p)+s+v.substr(p));
+										sEQ.caret(p+s.length);
+										me.eq = sEQ.val();
+									}
+
 									$.fbuilder.reloadItems({'field':me});
 								}
 							},

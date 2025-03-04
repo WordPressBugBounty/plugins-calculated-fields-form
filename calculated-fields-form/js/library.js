@@ -12,6 +12,11 @@ jQuery(function () {
 						<div class="cff-form-library-close"></div>
 						<input type="search" placeholder="Search..." onkeyup="cff_filteringFormsByText(this)">
 					</div>
+					<div class="cff-form-library-website-forms">
+						<ul>
+							<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this,-1);">Use My Forms As Template</a></li>
+						</ul>
+					</div>
 					<div class="cff-form-library-categories">
 						<ul>
 							<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this);" class="cff-form-library-active-category">All Categories</a></li>
@@ -37,11 +42,16 @@ jQuery(function () {
 
     form_tpl = `
 		<div class="cff-form-library-form">
-			<div class="cff-form-library-form-title"></div>
-			<div class="cff-form-library-form-description"></div>
-			<div class="cff-form-library-form-category"></div>
-			<div>
-				<input type="button" class="button-primary" value="Use It" />
+			<div class="cff-form-library-form-top">
+				<div class="cff-form-library-form-title"></div>
+				<div class="cff-form-library-form-description"></div>
+			</div>
+			<div class="cff-form-library-form-bottom">
+				<div class="cff-form-library-form-category"></div>
+				<div>
+					<input type="button" class="button-primary cff-select-form" value="Use It" />
+					<!--<input type="button" class="button-secondary cff-preview-form" value="Preview" />-->
+				</div>
 			</div>
 		</div>
 	`,
@@ -83,7 +93,7 @@ jQuery(function () {
 							categories[templates_categories[j]] = '<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this,\'' + templates_categories[j] + '\')">' + templates_categories[j] + '</a></li>';
 						}
 
-						tmp = $(form_tpl);
+						let tmp = $(form_tpl);
 						if (version_n[version] < version_n[j]) {
 							tmp.addClass( 'cff-form-library-form-disabled' ).append('<div class="cff-form-library-form-lock"></div>').on('click', function(){window.open('https://cff.dwbooster.com/download', '_blank');});
 							tmp.find('[type="button"]')
@@ -93,7 +103,7 @@ jQuery(function () {
 									function(){ window.open('https://cff.dwbooster.com/download', '_blank'); }
 								);
 						} else {
-							tmp.find('[type="button"]').on(
+							tmp.find('[type="button"].cff-select-form').on(
 								'click',
 								(function (id) {
 									return function () {
@@ -103,6 +113,9 @@ jQuery(function () {
 							);
 						}
 						tmp.attr('data-category', data[i]['category']);
+						if ( 'thumb' in data[i] ) {
+							tmp.find('.cff-form-library-form-title').before('<div class="cff-form-library-form-thumb"><img src="https://cdn.statically.io/gh/cffdwboostercom/formtemplates/main/'+data[i]['thumb']+'"></div>');
+						}
 						tmp.find('.cff-form-library-form-title').text(data[i]['title']);
 						tmp.find('.cff-form-library-form-description').text(data[i]['description']);
                         tmp.find('.cff-form-library-form-category').text(data[i]['category'].replace(/\|/g, ', '));
@@ -115,6 +128,27 @@ jQuery(function () {
 			for (var i in categories) {
 				$(categories[i]).appendTo('.cff-form-library-categories ul');
 			}
+
+			// Website forms.
+			if (typeof cpcff_forms_library_config != 'undefined' && 'website_forms' in cpcff_forms_library_config) {
+				let data  = cpcff_forms_library_config['website_forms'];
+				for ( let i in data ) {
+					let tmp = $(form_tpl);
+					tmp.find('[type="button"].cff-select-form').on(
+						'click',
+						(function (id) {
+							return function () {
+								cff_getTemplate(id, true);
+							};
+						})(data[i]['id'])
+					);
+					tmp.attr('data-category', '-1');
+					tmp.find('.cff-form-library-form-title').text( '('+data[i]['id']+') ' + data[i]['form_name']);
+					tmp.find('.cff-form-library-form-description').text(data[i]['description']);
+					tmp.find('.cff-form-library-form-category').text(data[i]['category']);
+					tmp.appendTo('.cff-form-library-main');
+				}
+            }
         };
 
 		$(document).on('keyup', '[id="cp_itemname_library"]', function(evt){
@@ -154,6 +188,7 @@ jQuery(function () {
 
         if (typeof category == 'undefined') {
             $('.cff-form-library-form').show();
+            $('.cff-form-library-form[data-category="-1"]').hide();
         } else {
             $('.cff-form-library-form').hide();
             $('.cff-form-library-form[data-category*="' + category + '"]').show();
@@ -179,16 +214,16 @@ jQuery(function () {
         }
     };
 
-    function getTemplate(id) {
+    function getTemplate(id, is_website_form) {
+		is_website_form = is_website_form || false;
         var form_name = encodeURIComponent(form_name_library_field.val() || ''),
         category_name = encodeURIComponent($('[id="calculated-fields-form-category"]').val() || ''),
         url;
 
         if (typeof cpcff_forms_library_config != 'undefined' && 'website_url' in cpcff_forms_library_config) {
             url = cpcff_forms_library_config['website_url'] + '&name=' + form_name + '&category=' + category_name;
-            if (id) {
-                url += '&ftpl=' + encodeURIComponent(id);
-            }
+            if (id) url += '&ftpl=' + encodeURIComponent(id);
+			if (is_website_form) url += '&from_website=1';
             document.location.href = url;
             closeDialog();
             return;

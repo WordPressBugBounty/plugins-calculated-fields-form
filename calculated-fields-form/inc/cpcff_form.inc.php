@@ -65,6 +65,43 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			add_action( 'cpcff_wp_head', array( $this, 'get_page_header' ) );
 		} // End __construct.
 
+		public static function forms_list( $args = []  ) {
+			global $wpdb;
+
+			$category 		= isset( $args['category'] ) ? trim( $args['category'] ) : '';
+			$search_term 	= isset( $args['search_term'] ) ? trim( $args['search_term'] ) : '';
+			$orderby 		= empty( $args['order_by'] ) ? 'id' : $args['order_by'];
+
+			$myrows = $wpdb->get_results( 'SELECT id,form_name,category,form_structure FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE 1=1 ' . ( '' != $category ? $wpdb->prepare( ' AND category=%s ', $category ) : '' ) . ( '' != $search_term ? $wpdb->prepare( ' AND (form_name LIKE %s OR form_structure LIKE %s)', '%' . $search_term . '%', '%' . $search_term . '%' ) : '' ) . ' ORDER BY ' . $orderby . ( 'id' == $orderby ? ' DESC' : ' ASC' ) );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+			$return = [];
+
+			foreach( $myrows as $row ) {
+				$data = new stdClass();
+				$data->id 			= $row->id;
+				$data->form_name 	= sanitize_text_field( $row->form_name );
+				$data->category  	= sanitize_text_field( $row->category );
+				$data->description 	= '';
+
+				if ( ! empty( $row->form_structure ) && false != ( $form_structure = json_decode( $row->form_structure, true ) ) ) {
+					if (
+						! empty( $form_structure[1] ) &&
+						is_array( $form_structure[1] ) &&
+						! empty( $form_structure[1][0] ) &&
+						is_array( $form_structure[1][0] )
+					) {
+						if ( empty( $data->form_name ) && ! empty( $form_structure[1][0]['title'] ) ) $data->form_name = sanitize_text_field( $form_structure[1][0]['title'] );
+
+						if ( ! empty( $form_structure[1][0]['description'] ) ) $data->description = sanitize_text_field( $form_structure[1][0]['description'] );
+					}
+
+				}
+				$return[] = $data;
+			}
+
+			return $return;
+		} // End forms_list.
+
 		/**
 		 * Creates a new form with the default data, and the name passed as parameter,
 		 * and returns an instance of the CPCFF_FORM class.
@@ -255,13 +292,13 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 		 *
 		 * @return mixed, a new instance of the CPCFF_FORM or false.
 		 */
-		public function clone_form() {
+		public function clone_form( $form_name = '' ) {
 			global $wpdb;
-
+			$form_name = trim( $form_name );
 			$row = $this->_get_settings();
 			if ( ! empty( $row ) ) {
 				unset( $row['id'] );
-				$row['form_name'] = 'Cloned: ' . $row['form_name'];
+				$row['form_name'] = ! empty( $form_name ) ? $form_name : ( ! empty( $row['form_name'] ) ? 'Cloned: ' . $row['form_name'] : '' );
 				if ( isset( $row['extra'] ) && is_array( $row['extra'] ) ) {
 					$row['extra'] = json_encode( $row['extra'] );
 				}

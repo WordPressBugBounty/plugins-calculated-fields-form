@@ -258,7 +258,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							}
 						</script>
 					</pre>
-					<div style="background:#fafafa;" class="form-builder">
+					<div style="background:#f8f8f8;" class="form-builder">
 						<div class="column ctrlsColumn">
 							<div id="tabs">
 								<span class="ui-icon ui-icon-triangle-1-e expand-shrink"></span>

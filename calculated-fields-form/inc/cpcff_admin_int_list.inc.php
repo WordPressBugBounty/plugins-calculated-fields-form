@@ -65,7 +65,8 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 	$new_form = $cpcff_main->create_form(
 		isset( $_GET['name'] ) ? sanitize_text_field( wp_unslash( $_GET['name'] ) ) : '',
 		isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : '',
-		isset( $_GET['ftpl'] ) ? sanitize_text_field( wp_unslash( $_GET['ftpl'] ) ) : 0
+		isset( $_GET['ftpl'] ) ? sanitize_text_field( wp_unslash( $_GET['ftpl'] ) ) : 0,
+		isset( $_GET['from_website'] ) ? 1 : 0
 	);
 	// Update the default category.
 	$cff_current_form_category = get_option( 'calculated-fields-form-category', '' );
@@ -151,7 +152,7 @@ if ( $message ) {
 }
 
 ?>
-<div class="wrap">
+<div class="wrap cff-main-backend">
 <div style="text-align:right;"><?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?></div>
 <?php
 if ( get_option( 'cff-t-f', 0 ) ) :
@@ -351,7 +352,11 @@ function cp_update_default_settings(e)
 				}
 			}
 			$records_per_page = get_option( 'calculated-fields-form-records-per-page', 20 );
-			$myrows           = $wpdb->get_results( 'SELECT id,form_name,category FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE 1=1 ' . ( '' != $cff_current_form_category ? $wpdb->prepare( ' AND category=%s ', $cff_current_form_category ) : '' ) . ( '' != $cff_search_form_term ? $wpdb->prepare( ' AND (form_name LIKE %s OR form_structure LIKE %s)', '%' . $cff_search_form_term . '%', '%' . $cff_search_form_term . '%' ) : '' ) . ' ORDER BY ' . $orderby . ( 'id' == $orderby ? ' DESC' : ' ASC' ) );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$myrows           = CPCFF_FORM::forms_list( [
+				'category' 		=> $cff_current_form_category,
+				'search_term' 	=> $cff_search_form_term,
+				'order_by'		=> $orderby
+			] );
 
 			$total_pages  = ceil( count( $myrows ) / $records_per_page );
 			$current_page = ! empty( $_REQUEST['page-number'] ) && is_numeric( $_REQUEST['page-number'] ) ?
@@ -381,7 +386,7 @@ function cp_update_default_settings(e)
 			</form>
 		<?php
 
-        $pages_links = str_ireplace( ['class="', 'current'], ['style="margin-left:5px;" class="button ', 'current button-primary'], paginate_links( array(
+        $pages_links = paginate_links( array(
 			'base'      => 'admin.php?page=cp_calculated_fields_form%_%',
 			'format'    => '&page-number=%#%',
 			'total'     => $total_pages,
@@ -394,8 +399,7 @@ function cp_update_default_settings(e)
 			'next_text' => __( 'Next &raquo;' ),
 			'type'      => 'plain',
 			'add_args'  => false,
-            ) ) ?? ''
-		);
+            ) ) ?? '';
 
 		print $pages_links; // phpcs:ignore WordPress.Security.EscapeOutput
 		?>
@@ -456,22 +460,6 @@ function cp_update_default_settings(e)
 					for ( $items_index = max( 0, ( $current_page - 1 ) * $records_per_page ); $items_index < min( $current_page * $records_per_page, $_rows_count ); $items_index++ ) {
 						$item = $myrows[ $items_index ];
 						$form_name = sanitize_text_field( $item->form_name );
-
-						// If empty form name, use title.
-						if ( empty( $form_name )  ) {
-							$form_structure = $wpdb->get_var( $wpdb->prepare( 'SELECT form_structure FROM '. $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE id=%d', $item->id ) );
-							if (
-								! empty( $form_structure ) &&
-								false !== ( $form_structure = json_decode( $form_structure, true ) ) &&
-								! empty( $form_structure[1] ) &&
-								is_array( $form_structure[1] ) &&
-								! empty( $form_structure[1][0] ) &&
-								is_array( $form_structure[1][0] ) &&
-								! empty( $form_structure[1][0]['title'] )
-							) {
-								$form_name = sanitize_text_field( $form_structure[1][0]['title'] );
-							}
-						}
 						?>
 						<tr>
 							<td nowrap><?php echo esc_html( $item->id ); ?></td>
