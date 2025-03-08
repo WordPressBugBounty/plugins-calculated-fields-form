@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.28
+ * Version: 5.3.29
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.28' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.29' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -181,11 +181,24 @@ function cp_calculated_fields_form_check_posted_data() {
 
 						if ( 'fPhone' == $item->ftype && isset( $_POST[ $item->name . $sequence ] ) ) { // join fields for phone fields.
 							$_POST[ $item->name . $sequence ] = '';
-							for ( $i = 0; $i <= substr_count( $item->dformat, ' ' ) + ( property_exists( $item, 'countryComponent' ) && $item->countryComponent ? 1 : 0 ); $i++ ) {
+							$i = 0;
+							$_phone_connector = (
+								isset( $_POST[$item->name.$sequence."_2"] ) ||
+								(
+									isset( $_POST[$item->name.$sequence."_1"] ) &&
+									(
+										! property_exists( $item, 'countryComponent' ) ||
+										! $item->countryComponent
+									)
+								)
+							) ? '-' : '';
+
+							while ( isset( $_POST[$item->name.$sequence."_".$i] ) ) {
 								$_POST[ $item->name . $sequence ] .=
-									! empty( $_POST[ $item->name . $sequence . '_' . $i ] ) && '' != CPCFF_AUXILIARY::sanitize( $_POST[ $item->name . $sequence . '_' . $i ] ) ? ( 0 == $i ? '' : '-' ) . CPCFF_AUXILIARY::sanitize( $_POST[ $item->name . $sequence . '_' . $i ] ) : ''; // phpcs:ignore
+									! empty( $_POST[ $item->name . $sequence . '_' . $i ] ) && '' != CPCFF_AUXILIARY::sanitize( $_POST[ $item->name . $sequence . '_' . $i ] ) ? ( 0 == $i ? '' : $_phone_connector ) . CPCFF_AUXILIARY::sanitize( $_POST[ $item->name . $sequence . '_' . $i ] ) : ''; // phpcs:ignore
 
 								unset( $_POST[ $item->name . $sequence . '_' . $i ] );
+								$i++;
 							}
 						}
 					}

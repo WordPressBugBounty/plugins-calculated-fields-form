@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.28';
+	$.fbuilder['version'] = '5.3.29';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1113,7 +1113,8 @@
 											if(me['set_'+attr])
 											{
 												me['set_'+attr](me._getAttr(attr), $(s).hasClass('ignore'));
-												$('#'+formId).validate().resetForm();
+												$('#'+formId+' .cpefb_error.message').remove();
+												$('#'+formId+' .cpefb_error').removeClass('cpefb_error');
 											}
 										}
 										catch(err){}

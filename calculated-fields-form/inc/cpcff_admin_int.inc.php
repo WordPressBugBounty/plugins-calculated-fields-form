@@ -59,9 +59,9 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
  </div>';
 ?>
 <div class="wrap">
-	<div class="cff-navigation-main-menu">
-		<a href="admin.php?page=cp_calculated_fields_form_sub_new" class="button-secondary"><?php esc_html_e( 'Add New', 'calculated-fields-form' ); ?></a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+	<div class="cff-navigation-main-menu" style="margin-bottom:10px;">
+		<a href="admin.php?page=cp_calculated_fields_form_sub_new" class="button-primary"><?php esc_html_e( 'Add New', 'calculated-fields-form' ); ?></a>
+		<a href="admin.php?page=cp_calculated_fields_form" class="button-secondary"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a>
 		<span><?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?></span>
 	</div>
 	<h1 class="cff-form-name">
@@ -155,8 +155,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 									function _showHideSaveButtonPopUp() {
 										let wt = $(window).scrollTop();
 										let et = $('.cff-save-controls-frame').offset().top + $('.cff-save-controls-frame').outerHeight();
-										let b1 = $('#save1').offset().top;
-										if ( et < wt && ( b1 < 0 || wt + $(window).height() <= b1 ) && !$('#metabox_form_structure.fullscreen').length ) {
+										if ( et < wt && !$('#metabox_form_structure.fullscreen').length ) {
 											$('.cff-save-controls-floating-popup').show('slow');
 										} else {
 											$('.cff-save-controls-floating-popup').hide('slow');
@@ -164,7 +163,6 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 									};
 									$(window).on('scroll', _showHideSaveButtonPopUp);
 									_showHideSaveButtonPopUp();
-									setTimeout( function(){ $('.cff-save-controls-floating-popup .cff-message').hide('slow'); }, 2000 );
 									/* Revisions code */
 									$('[name="cff_apply_revision"]').on( 'click',
 										function(){
@@ -299,10 +297,54 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				?>
 			</p>
 			<div class="cff-save-controls-floating-popup">
-				<div class="cff-message"><?php echo $message; ?></div>
-				<div class="cff-save-controls-popup-title"><?php esc_attr_e('Save form settings', 'calculated-fields-form'); ?></div>
-				<input type="submit" name="save" id="save3" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>"  title="<?php esc_attr_e("Saves the form's structure and settings and creates a revision", 'calculated-fields-form'); ?>" onclick="this.form.action+=cff_getScrollForURL();fbuilderjQuery.fbuilder.delete_form_preview_window();" />
-				<div class="cff-goto-top" style="text-align:center;margin-top:5px;"><a href="#cpformconf"><?php _e('Up to form structure', 'calculated-fields-form'); ?></a></div>
+				<div class="cff-website-icon"></div>
+				<div class="cff-popup-icon">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Save Changes', 'calculated-fields-form' ); ?></div>
+					<input name="save" type="image" src="<?php print esc_attr( plugins_url('../images/icons/save.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();">
+				</div>
+				<div class="cff-popup-icon-separator"></div>
+				<div class="cff-popup-icon">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Form Structure', 'calculated-fields-form' ); ?></div>
+					<a href="#cpformconf"><img src="<?php print esc_attr( plugins_url('../images/icons/form.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Form Structure', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'General Texts', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_define_texts"><img src="<?php print esc_attr( plugins_url('../images/icons/text.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'General Texts', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Validation Texts', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_define_validation_texts"><img src="<?php print esc_attr( plugins_url('../images/icons/error.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Validation Texts', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Submit Button and Thank You Page', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_submit_thank"><img src="<?php print esc_attr( plugins_url('../images/icons/submit.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Submit Button and Thank You Page', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Notification Email', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_notification_email"><img src="<?php print esc_attr( plugins_url('../images/icons/email.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Notification Email', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon-separator"></div>
+				<div class="cff-popup-icon cff-popup-icon-disabled">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'General Payment Settings', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_payment_settings"><img src="<?php print esc_attr( plugins_url('../images/icons/payment.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'General Payment Settings', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon cff-popup-icon-disabled">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'PayPal Integration', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_paypal_integration"><img src="<?php print esc_attr( plugins_url('../images/icons/paypal.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'PayPal Integration', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon cff-popup-icon-disabled">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Email Copy to User', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_email_copy_to_user"><img src="<?php print esc_attr( plugins_url('../images/icons/usercopy.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Email Copy to User', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon cff-popup-icon-disabled">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Captcha Settings', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_captcha_settings"><img src="<?php print esc_attr( plugins_url('../images/icons/captcha.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Captcha Settings', 'calculated-fields-form' ); ?>"></a>
+				</div>
+				<div class="cff-popup-icon-separator"></div>
+				<div class="cff-popup-icon">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Add Ons', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_addons_section"><img src="<?php print esc_attr( plugins_url('../images/icons/addons.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Add Ons', 'calculated-fields-form' ); ?>"></a>
+				</div>
 			</div>
 			<?php print $section_nav_bar; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<div id="metabox_define_texts" class="postbox cff-metabox <?php print esc_attr( $cpcff_main->metabox_status( 'metabox_define_texts' ) ); ?>" style="margin-top:20px;">
@@ -585,7 +627,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				</div>
 			</div>
 
-			<div id="metabox_basic_settings" class="postbox" >
+			<div id="metabox_basic_settings" class="postbox" style="padding-right:25px;">
 				<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Note', 'calculated-fields-form' ); ?></span></h3>
 				<div class="inside">
 					<?php esc_html_e( 'To display the form in a post/page, enter your shortcode in the post/page content:', 'calculated-fields-form' ); ?>
@@ -602,9 +644,9 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 			[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
 
 			<br /><br /><br />
-			<style>@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }</style>
+			<style>.cff-metabox{padding-right:25px;}@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }</style>
 
-			<div id="cff-upgrade-frame" style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;">
+			<div id="cff-upgrade-frame" style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;padding-right:30px;">
 				<a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;float:left;" class="cff-plugin-logo-promote"><img src="https://ps.w.org/calculated-fields-form/assets/icon-256x256.jpg" style="width:160px;border:2px solid white;margin-right:10px;margin-bottom:10px;"></a>
 				<div style="float:left;" class="cff-plugin-promote">
 					<div style="font-weight:500;font-size:20px;line-height:28px;"><?php _e( 'The following features are available in the commercial version of the <a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;">"Calculated Fields Form"</a>', 'calculated-fields-form' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>

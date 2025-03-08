@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.28
+Stable tag: 5.3.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.29 =
+
+* Improves dynamic formatting for Number and Currency controls, making them more coherent.
+* Enhances functionality of Phone controls.
+* Resolves a minor issue with the RESETFORM operation.
+* Fixes a notice in the load language module.
+* Improves the user accessibility.
+
 = 5.3.28 =
 
 * Redesigned interface for form creation.
@@ -487,11 +495,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Includes new predefined forms.
 * Enhances the WooCommerce add-on by addressing a minor multipage form issue (Developer and Platinum versions).
 * Overhauls the CSV Generator add-on for the Platinum version, reducing memory usage by 50%.
-
-= 5.3.22 =
-
-* Resolves an issue with date format validation on the server side.
-* Adjusts the appearance of date/time fields by applying a minimum width to the date component.
-* Enhances user experience in the form builder and streamlines access to various sections.
-* Associates an icon with the plugin menu option in the WordPress sidebar for easier identification.
-* Improves the layout of columns for better organization and readability.

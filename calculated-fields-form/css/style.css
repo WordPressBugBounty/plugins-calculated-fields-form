@@ -541,8 +541,8 @@ textarea {resize: none}
 	background: white;
 	border: 1px solid #c3c4c7;
 	border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-	padding:5px 10px 10px 10px;
+	border-bottom-left-radius: 5px;
+	padding: 10px;
 	position:fixed;
 	right:0;
 	top:50%;
@@ -550,21 +550,26 @@ textarea {resize: none}
 	-webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
 	-moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
 	box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
-	min-width:170px;
 }
-.cff-save-controls-popup-title {
-	white-space:nowrap;
-	padding-bottom:5px;
-	font-weight:600;
+.cff-save-controls-floating-popup a {text-decoration:none;outline:none;box-shadow:none;}
+.cff-save-controls-floating-popup #save3 {width:100%; text-align:center;}
+.cff-save-controls-floating-popup .cff-popup-icon {position:relative;}
+.cff-save-controls-floating-popup .cff-popup-icon-separator {
+	border-top:1px solid #ccc;
+	position: relative;
+	width: calc( 100% + 20px );
+	margin: 10px -10px;
 }
-.cff-save-controls-floating-popup #save3{width:100%; text-align:center;}
-.cff-save-controls-floating-popup .cff-message {
-    border-left: 4px solid #00a32a;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-left: 10px;
-    font-weight: 600;
-}
+
+.cff-save-controls-floating-popup .cff-popup-icon img,
+.cff-save-controls-floating-popup .cff-popup-icon input{border:1px solid transparent;border-radius:5px;padding:0;margin:0;}
+.cff-save-controls-floating-popup .cff-popup-icon:not(.cff-popup-icon-disabled) img:hover,
+.cff-save-controls-floating-popup .cff-popup-icon input:hover{border-color:#2271b1;transform: scale(1.1);}
+.cff-save-controls-floating-popup .cff-popup-icon.cff-popup-icon-disabled img{opacity:.5;}
+
+.cff-popup-bubble{background-color: #e74c3c;color: white;padding: 8px 12px;border-radius: 4px;font-size: 14px;position: absolute;white-space:nowrap;right:60px;top:-5px;display:inline-block;opacity: 0;visibility:hidden;pointer-events: none;transition:opacity 0.3s ease,visibility 0s linear 0.3s;}
+.cff-popup-bubble:after {content: "";position: absolute;top: 50%;right: -10px;margin-top: -10px;border-width: 10px 0 10px 10px;border-style: solid;border-color: transparent transparent transparent #e74c3c;}
+.cff-popup-icon:hover .cff-popup-bubble{opacity: 1;visibility: visible;transition:opacity 0.3s ease 0.3s,visibility 0s linear;}
 
 .form-builder #tabs .ui-tabs-anchor{padding-left:8px; padding-right:8px;}
 .form-builder #tabs,
@@ -683,6 +688,11 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 }
 
 @media only screen and (max-width: 640px){
+	.cff-entries-backend .cff-filter-entries>div{width:100%;margin-right:0!important;margin-bottom:10px;}
+	.cff-entries-backend .cff-filter-entries input[type="text"],
+	.cff-entries-backend .cff-filter-entries select{display:block;width:100%}
+	.cff-entries-backend .cff-filter-entries .cff-filter-left-column{width:48%;}
+	.cff-entries-backend .cff-filter-entries .cff-filter-right-column{width:48%;float:right;}
     .cff-addon-item{padding-right:0;padding-bottom:20px;width:100%;float:none;}
 	.cff-custom-table,
 	.cff-custom-table thead,
@@ -782,7 +792,8 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 #metabox_form_structure [name="cff_shrink_btn"]::before{left:5px;-webkit-transform:rotate(180deg);-moz-transform: rotate(180deg);-ms-transform: rotate(180deg);-o-transform: rotate(180deg);transform: rotate(180deg);
 }
 
-.cff-navigation-main-menu{text-align:right;float:right;display:flex;align-items:center;margin-bottom:10px;}
+.cff-navigation-main-menu{text-align:right;float:right;display:flex;gap:10px;align-items:center;background: white; padding: 10px 15px; border-radius: 50PX; border: 1px solid #c3c4c7; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);}
+.cff-navigation-main-menu a{border-radius:50px !important;}
 #metabox_form_structure .cff-form-builder-extend-shrink{display:none;float:right;}
 #metabox_form_structure:not(.fullscreen) .cff-navigation-sections-menu{display:none;}
 .cff-navigation-sections-menu:has(a:hover) *:not(:hover),
@@ -911,7 +922,7 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 	left:50%;
 	transform:translate(-50%,-50%);
 	background:white;
-	border:1px solid #dadada;
+	border: 1px solid #c3c4c7; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
 .cff-video-tutorial-header{
 	height:30px;

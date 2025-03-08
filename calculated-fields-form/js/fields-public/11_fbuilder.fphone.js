@@ -87,7 +87,7 @@
 
 							'<input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required && n) ? ' required ' : '')+'" size="'+w+'" maxlength="'+w+'" minlength="'+n+'" '+(me.readonly?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" value="'+cff_esc_attr(v)+'" '+
 							(placeholder ? 'placeholder="'+cff_esc_attr( predefined.substring(0,w))+'" ' : '')
-							+' />'+
+							+' inputmode="tel" />'+
 							'<div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+cff_sanitize(symbol.repeat(w), true)+'</div>'+
 							'</div>';
 							predefined = predefined.substring(w);

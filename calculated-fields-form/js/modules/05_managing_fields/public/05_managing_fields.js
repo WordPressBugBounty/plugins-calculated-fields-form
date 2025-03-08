@@ -459,7 +459,8 @@
 										$.fbuilder['calculator'].defaultCalc('#'+id, false);
 										f.removeClass( 'cff-reset-form' );
 									}
-									if( 'validate' in f ) f.validate().resetForm();
+									f.find('.cpefb_error.message').remove();
+									f.find('.cpefb_error').removeClass('cpefb_error');
 								},
 								50
 							);

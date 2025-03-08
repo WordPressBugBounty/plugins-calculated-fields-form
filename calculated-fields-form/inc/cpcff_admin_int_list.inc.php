@@ -153,7 +153,9 @@ if ( $message ) {
 
 ?>
 <div class="wrap cff-main-backend">
-<div style="text-align:right;"><?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?></div>
+<div class="cff-navigation-main-menu">
+	<div style="text-align:right;"><?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?></div>
+</div><div style="clear:both;"></div>
 <?php
 if ( get_option( 'cff-t-f', 0 ) ) :
 	?>

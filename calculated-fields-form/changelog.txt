@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.3.29 =
+
+* Improves dynamic formatting for Number and Currency controls, making them more coherent.
+* Enhances functionality of Phone controls.
+* Resolves a minor issue with the RESETFORM operation.
+* Fixes a notice in the load language module.
+* Improves the user accessibility.
+
 = 5.3.28 =
 
 * Redesigned interface for form creation.
