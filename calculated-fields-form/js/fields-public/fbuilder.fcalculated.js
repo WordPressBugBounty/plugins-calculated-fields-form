@@ -534,7 +534,9 @@
 								var fSec  = form.attr('id').match(/_\d+$/)[0];
 
 								$.fbuilder.forms[fSec]['force_all'] = force_all;
-								form.find(':input').one('input', function(){ $.fbuilder.forms[fSec]['force_all'] = false; });
+								form.one('mousedown keydown touchstart', ':input', function(){
+									$.fbuilder.forms[fSec]['force_all'] = false;
+								});
 
 								if(enqueued)
 								{

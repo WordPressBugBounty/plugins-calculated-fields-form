@@ -440,7 +440,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 							array(
 								'version'     => 'free',
 								'website_url' => 'admin.php?page=cp_calculated_fields_form&a=1&_cpcff_nonce=' . wp_create_nonce( 'cff-add-form' ),
-								'website_forms' => CPCFF_FORM::forms_list()
+								'website_forms' => CPCFF_FORM::forms_list( [ 'description' => true ] )
 							)
 						);
 					}
@@ -536,6 +536,12 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				}
 				$message .= ob_get_contents();
 				ob_end_clean();
+
+				if ( ! empty( $atts['preview']) ) {
+					$message .= '<script>document.forms[0].onsubmit=document.forms[0].submit=function(){alert("' . esc_js( esc_html__( 'This is a preview of the form, letting you see its setup and design before it goes live.', 'calculated-fields-form' ) ) . '");return false;};</script>';
+
+				}
+
 				$page_title = ( ! empty( $atts['page_title'] ) ) ? $atts['page_title'] : '';
 				remove_all_actions( 'shutdown' );
 				if ( ! empty( $atts['wp_die'] ) ) {

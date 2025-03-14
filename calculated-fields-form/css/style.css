@@ -607,7 +607,7 @@ textarea {resize: none}
     border: 1px solid #643F0D;
     color: #FFF;
 }
-#cff_ai_assistant{background: url(assistant-icon.svg) no-repeat 2px 5px #F9E774;padding-left:25px;background-size:20px;}
+#cff_ai_assistant{background: url(../images/icons/ai.svg) no-repeat 5px 6px #F9E774;padding-left:25px;background-size:14px;}
 #cff_ai_assistant:hover{background-color: #f3db71;}
 #cff_ai_assistant:focus{box-shadow:none !important;}
 #sAdvancedEditor{text-align:center; text-transform: uppercase; padding:5px;margin-bottom:10px;cursor:pointer;font-weight:bold;}

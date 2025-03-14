@@ -305,15 +305,15 @@ function cp_update_default_settings(e)
 				<form name="additem">
 					<?php esc_html_e( 'Item Name', 'calculated-fields-form' ); ?>(*):<br />
 					<div>
-						<input type="text" name="cp_itemname" id="cp_itemname"  value="" onkeyup="cp_addItem_keyup( event );"  style="margin-top:5px;" required />
-						<input type="text" name="calculated-fields-form-category" id="calculated-fields-form-category"  value="<?php print esc_attr( $cff_current_form_category ); ?>" style="margin-top:5px;" placeholder="<?php esc_attr_e( 'Category', 'calculated-fields-form' ); ?>" list="calculated-fields-form-categories" />
+						<input type="text" name="cp_itemname" id="cp_itemname"  value="<?php print esc_attr( ! empty( $_GET['form_name']) ? sanitize_text_field( wp_unslash( $_GET['form_name'] ) ) : '' ); ?>" onkeyup="cp_addItem_keyup( event );"  style="margin-top:5px;" required />
+						<input type="text" name="calculated-fields-form-category" id="calculated-fields-form-category"  value="<?php print esc_attr(isset( $_GET['form_category'] ) ? sanitize_text_field( wp_unslash( $_GET['form_category'] ) ) : $cff_current_form_category); ?>" style="margin-top:5px;" placeholder="<?php esc_attr_e('Category', 'calculated-fields-form'); ?>" list="calculated-fields-form-categories" />
 						<datalist id="calculated-fields-form-categories">
 							<?php
 								print $cpcff_main->get_categories( 'DATALIST' ); // phpcs:ignore WordPress.Security.EscapeOutput
 							?>
 						</datalist>
 						<input type="button" onclick="cp_addItem();" name="gobtn" value="<?php esc_attr_e( 'Create Form', 'calculated-fields-form' ); ?>" class="button-primary" style="margin-top:5px;" />
-						<input type="button" onclick="cff_openLibraryDialog();" name="gobtn" value="<?php esc_attr_e( 'From Template', 'calculated-fields-form' ); ?>" class="button-secondary" style="margin-top:5px;" />
+						<input type="button" onclick="if( ! ('reportValidity' in this.form) || this.form.reportValidity() ) document.location.href='admin.php?page=cp_calculated_fields_form_sub_new&form_name='+encodeURIComponent(this.form.cp_itemname.value)+'&form_category='+encodeURIComponent(this.form['calculated-fields-form-category'].value);" name="gobtn" value="<?php esc_attr_e( 'From Template', 'calculated-fields-form' ); ?>" class="button-secondary" style="margin-top:5px;" />
 					</div>
 				</form>
 				<i id="cff-top-position"></i>

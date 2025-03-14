@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.29
+Stable tag: 5.3.31
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,21 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.31 =
+
+* Enhances forms performance.
+* Updates the form preview module.
+* Refines the Users Permissions add-on—streamlining role and user selection/deselection for an improved user experience (available in Developer and Platinum plugin versions).
+
+= 5.3.30 =
+
+* Introduces a new option in the floating menu for easier access to the form preview.
+* Enhances the form creation module.
+* Enables customization of error bubble designs via the Form Settings / Advanced Settings tab.
+* Streamlines the configuration of the email copy for users (available in Professional, Developer, and Platinum plugin versions).
+* Improves the functionality of the reCAPTCHA add-on (available in Developer and Platinum plugin versions).
+* Provides support for using short labels in Stripe integration metadata (available in the Platinum plugin version).
+
 = 5.3.29 =
 
 * Improves dynamic formatting for Number and Currency controls, making them more coherent.
@@ -483,15 +498,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.25 =
 
 * Updates the "Troubleshoots Area and General Settings" section, providing website developers with additional control over the form.
-
-= 5.3.24 =
-
-* Introduces a new attribute in the media controls to defer image loading until images are visible within the viewport.
-* Updates the Text Operations module, implementing the CHARAT, CHARTOCODE, and CODETOCHAR operations.
-* Enhances the Mathematics Operations module with improved ISFRACTION and SIMPLIFYFRACTION operations.
-
-= 5.3.23 =
-
-* Includes new predefined forms.
-* Enhances the WooCommerce add-on by addressing a minor multipage form issue (Developer and Platinum versions).
-* Overhauls the CSV Generator add-on for the Platinum version, reducing memory usage by 50%.

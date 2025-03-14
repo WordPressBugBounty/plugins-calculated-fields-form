@@ -302,6 +302,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					<div class="cff-popup-bubble"><?php esc_html_e( 'Save Changes', 'calculated-fields-form' ); ?></div>
 					<input name="save" type="image" src="<?php print esc_attr( plugins_url('../images/icons/save.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();">
 				</div>
+				<div class="cff-popup-icon">
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Preview', 'calculated-fields-form' ); ?></div>
+					<input name="prvw" type="image" src="<?php print esc_attr( plugins_url('../images/icons/preview.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );">
+				</div>
 				<div class="cff-popup-icon-separator"></div>
 				<div class="cff-popup-icon">
 					<div class="cff-popup-bubble"><?php esc_html_e( 'Form Structure', 'calculated-fields-form' ); ?></div>

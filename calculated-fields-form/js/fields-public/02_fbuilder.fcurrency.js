@@ -56,7 +56,7 @@
 				},
 			getFormattedValue:function(value)
 				{
-					if(value === '') return value;
+					if(value == '') return value;
 					if(this.formatDynamically)
 					{
 						var me = this,
@@ -116,9 +116,11 @@
 			after_show:function()
 				{
 					var me = this;
-					$(document).on('change', '[name="'+me.name+'"]', function(){
-						this.value = me.getFormattedValue(this.value);
-					});
+					if(me.formatDynamically) {
+						$(document).on('change', '[name="'+me.name+'"]', function(){
+							this.value = me.getFormattedValue(this.value);
+						});
+					}
 					$('#'+me.name).rules('add', {'step':false});
 				},
 			val:function(raw, no_quotes)

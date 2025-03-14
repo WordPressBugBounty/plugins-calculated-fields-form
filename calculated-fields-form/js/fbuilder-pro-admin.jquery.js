@@ -375,6 +375,12 @@
 					$.fbuilder.reloadItems({'form':1});
 				});
 
+				$("#fErrorBubbleArrow").on( 'keyup', function()
+				{
+					theForm.errorbubblearrow = $(this).val();
+					$.fbuilder.reloadItems({'form':1});
+				});
+
 				$("#fTitleTag").on( 'change', function()
 				{
 					theForm.titletag = $(this).val();
@@ -834,6 +840,8 @@
 					if ( ! ( 'form' in this.advanced.css ) ) this.advanced.css.form = {label: 'Form area',rules:{}};
 					if ( ! ( 'buttons' in this.advanced.css ) ) this.advanced.css.buttons = {label: 'Form context buttons (Next page, Previous page, Submit)',rules:{}};
 					if ( ! ( 'buttons_hover' in this.advanced.css ) ) this.advanced.css.buttons_hover = {label: 'Form context buttons hover',rules:{}};
+					if ( ! ( 'error_bubble' in this.advanced.css ) ) this.advanced.css.error_bubble = {label: 'Error bubbles',rules:{}};
+					if ( ! ( 'error_bubble_arrow' in this.advanced.css ) ) this.advanced.css.error_bubble_arrow = {label: 'Error bubble arrow',rules:{'border-bottom-color':''}, 'restrict':true};
 				},
 				display:function()
 				{
@@ -935,7 +943,7 @@
 					str += '<!-- Embed Basic Extra --></div>'+
 						'<div class="cff-field-settings-tab-body-advanced">' +
 						$.fbuilder['showAdvancedSettings']( this ) +
-						'<div class="cff-editor-container"><label for="fCustomStyles"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design <i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
+						'<div class="cff-editor-container" style="padding-top:10px;"><label for="fCustomStyles"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design <i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
 						'</div>'+
 					'</div>';
 
@@ -1309,16 +1317,17 @@
 			return output;
 		};
 
-		fbuilderjQuery.fbuilder['css_rule_pair'] = function( component, rule, value ) {
+		fbuilderjQuery.fbuilder['css_rule_pair'] = function( component, rule, value, restrict ) {
 			let output = '';
 			rule  = rule  || '';
 			value = value || '';
+			restrict = restrict || false;
 
 			output += '<div class="css-rule" style="margin-top:3px;">'+
-				'<div class="column width50"><input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_rule][]" value="'+cff_esc_attr(rule)+'" class="large" placeholder="CSS rule" list="cff-css-rules-datalist" aria-label="CSS rule name"></div>'+
+				'<div class="column width50"><input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_rule][]" value="'+cff_esc_attr(rule)+'" class="large" placeholder="CSS rule" list="cff-css-rules-datalist" aria-label="CSS rule name" ' + ( restrict ? 'readonly' : '' )+ '></div>'+
 				'<div class="column width50">'+
-				'<input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_value][]" value="'+cff_esc_attr(value)+'" placeholder="CSS value" style="width:calc( 100% - 30px ) !important;"  aria-label="CSS rule value">'+
-				'<input type="button" data-cff-css-component="'+cff_esc_attr(component)+'" value="-" class="button-secondary cff-css-rule-delete">'+
+				'<input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_value][]" value="'+cff_esc_attr(value)+'" placeholder="CSS value" style="width:'+ ( restrict ? '100%' : 'calc( 100% - 30px ) !important' )+';" aria-label="CSS rule value">'+
+				(!restrict ? '<input type="button" data-cff-css-component="'+cff_esc_attr(component)+'" value="-" class="button-secondary cff-css-rule-delete">' : '')+
 				'</div>'+
 				'<div class="clearer"></div>'+
 				'</div>';
@@ -1349,12 +1358,16 @@
 					output += '<hr><div id="cff-css-rules-container-'+i+'">';
 					if ( 'rules' in c ) {
 						for ( let j in c['rules'] ) {
-							output += fbuilderjQuery.fbuilder['css_rule_pair']( i, j, c['rules'][j] );
+							output += fbuilderjQuery.fbuilder['css_rule_pair']( i, j, c['rules'][j], 'restrict' in c );
 						}
 					}
-					output += fbuilderjQuery.fbuilder['css_rule_pair']( i );
+					if ( ! ('restrict' in c) ) {
+						output += fbuilderjQuery.fbuilder['css_rule_pair']( i );
+					}
 					output += '</div>';
-					output += '<div style="text-align:right;margin-top:4px;"><input type="button" class="button-secondary" value="Add rule" onclick="fbuilderjQuery(\'#cff-css-rules-container-'+i+'\').append(fbuilderjQuery.fbuilder.css_rule_pair(\''+i+'\'));"></div>';
+					if ( ! ('restrict' in c) ) {
+						output += '<div style="text-align:right;margin-top:4px;"><input type="button" class="button-secondary" value="Add rule" onclick="fbuilderjQuery(\'#cff-css-rules-container-'+i+'\').append(fbuilderjQuery.fbuilder.css_rule_pair(\''+i+'\'));"></div>';
+					}
 				}
 			}
 		}

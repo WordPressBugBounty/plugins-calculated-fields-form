@@ -56,7 +56,7 @@
 				},
 			getFormattedValue:function(value)
 				{
-					if(value === '') return value;
+					if(value == '') return value;
 					if((this.formatDynamically && this.dformat != 'digits') ||  this.dformat == 'percent') {
 						var ts = this.thousandSeparator,
 							ds = ((ds=String(this.decimalSymbol).trim()) !== '') ? ds : '.',
@@ -135,9 +135,12 @@
 			after_show:function()
 				{
 					var me = this;
-					$(document).on('change', '[name="'+me.name+'"]', function(){
-						this.value = me.getFormattedValue(this.value);
-					});
+
+					if((me.formatDynamically && me.dformat != 'digits') ||  me.dformat == 'percent'){
+						$(document).on('change', '[name="'+me.name+'"]', function(){
+							this.value = me.getFormattedValue(this.value);
+						});
+					}
 					$('#'+me.name).rules('add', {'step':false});
 				},
 			val:function(raw,no_quotes)

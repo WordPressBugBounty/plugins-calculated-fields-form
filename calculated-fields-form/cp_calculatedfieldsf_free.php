@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.29
+ * Version: 5.3.31
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.29' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.31' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -142,7 +142,8 @@ function cp_calculated_fields_form_check_posted_data() {
 						'shortcode_atts' => array( 'id' => intval( $_POST['cp_calculatedfieldsf_id'] ) ),
 						'page_title'     => __( 'Form Preview', 'calculated-fields-form' ),
 						'wp_die'         => 1,
-						'banner'		 => 1
+						'banner'		 => 1,
+						'preview' 	 	 => 1
 					)
 				);
 			}

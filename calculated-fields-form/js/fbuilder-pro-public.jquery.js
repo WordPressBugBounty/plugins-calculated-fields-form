@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.29';
+	$.fbuilder['version'] = '5.3.31';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -838,9 +838,14 @@
 
 					// Common buttons styles
 					$.fbuilder['getCSSComponent'](this, 'buttons', true, '#'+form_id+' .pbNext,#'+form_id+' .pbPrevious,#'+form_id+' .pbSubmit', id);
+
 					$.fbuilder['getCSSComponent'](this, 'buttons_hover', true, '#'+form_id+' .pbNext:hover,#'+form_id+' .pbPrevious:hover,#'+form_id+' .pbSubmit:hover', id);
 
-				    return ( id in $.fbuilder.css ? '<style>' + cff_sanitize($.fbuilder.css[id].join(''), true) + '</style>' : '') + // Include the fields CSS
+					$.fbuilder['getCSSComponent'](this, 'error_bubble', true, '#'+form_id+' div.cpefb_error.message', id);
+
+					$.fbuilder['getCSSComponent'](this, 'error_bubble_arrow', true, '#'+form_id+' div.cpefb_error.message::after', id);
+
+					return ( id in $.fbuilder.css ? '<style>' + cff_sanitize($.fbuilder.css[id].join(''), true) + '</style>' : '') + // Include the fields CSS
 					'<div class="fform" id="field">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'title'))+'">'+cff_sanitize(this.title, true)+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'description'))+'">'+cff_sanitize(this.description, true)+'</span>' : '' )+'</div>';
 				},
                 after_show:function( id ){

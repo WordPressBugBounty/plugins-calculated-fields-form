@@ -71,8 +71,19 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			$category 		= isset( $args['category'] ) ? trim( $args['category'] ) : '';
 			$search_term 	= isset( $args['search_term'] ) ? trim( $args['search_term'] ) : '';
 			$orderby 		= empty( $args['order_by'] ) ? 'id' : $args['order_by'];
+			$include_desc   = ! empty( $args['description'] ) ? true : false;
 
-			$myrows = $wpdb->get_results( 'SELECT id,form_name,category,form_structure FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE 1=1 ' . ( '' != $category ? $wpdb->prepare( ' AND category=%s ', $category ) : '' ) . ( '' != $search_term ? $wpdb->prepare( ' AND (form_name LIKE %s OR form_structure LIKE %s)', '%' . $search_term . '%', '%' . $search_term . '%' ) : '' ) . ' ORDER BY ' . $orderby . ( 'id' == $orderby ? ' DESC' : ' ASC' ) );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$myrows = $wpdb->get_results(
+				'SELECT id,form_name,category,' .
+				(
+					$include_desc ?
+					'form_structure' :
+					'CASE
+						WHEN form_name = "" OR form_name IS NULL THEN form_structure
+					ELSE NULL
+					END AS form_structure'
+				) .
+				' FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE 1=1 ' . ( '' != $category ? $wpdb->prepare( ' AND category=%s ', $category ) : '' ) . ( '' != $search_term ? $wpdb->prepare( ' AND (form_name LIKE %s OR form_structure LIKE %s)', '%' . $search_term . '%', '%' . $search_term . '%' ) : '' ) . ' ORDER BY ' . $orderby . ( 'id' == $orderby ? ' DESC' : ' ASC' ) );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 			$return = [];
 
