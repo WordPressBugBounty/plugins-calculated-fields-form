@@ -5,10 +5,10 @@ if ( !is_admin() )
     exit;
 }
 ?>
-<a href="javascript:void(0);" onclick="<?php print esc_attr( wp_is_mobile() ? "window.open('https://youtu.be/R8hEbD8w2RM', '_blank');" : "document.getElementById('cff-video-tutorial-modal').style.display='block';"); ?>" class="button-secondary"><?php esc_html_e( 'Video Tutorial', 'calculated-fields-form' ); ?></a>
+<a href="javascript:void(0);" onclick="<?php print esc_attr( wp_is_mobile() ? "window.open('https://youtu.be/R8hEbD8w2RM', '_blank');" : "fbuilderjQuery('#cff-video-tutorial-modal').css({'opacity':0,'display':'block'}).animate({'opacity':1}, 'fast');"); ?>" class="button-secondary"><?php esc_html_e( 'Video Tutorial', 'calculated-fields-form' ); ?></a>
 <div id="cff-video-tutorial-modal" style="display:<?php print esc_attr( get_transient( 'cff-video-tutorial' ) ? 'block' : 'none' ); ?>;">
 	<div id="cff-video-tutorial">
-		<div class="cff-video-tutorial-header"><a href="javascript:void(0);" onclick="document.getElementById('cff-video-tutorial-modal').style.display='none';" title="<?php esc_attr_e( 'Close video popup', 'calculated-fields-form'); ?>" class="cff-video-tutorial-close">X</a></div>
+		<div class="cff-video-tutorial-header"><a href="javascript:void(0);" onclick="fbuilderjQuery('#cff-video-tutorial-modal').animate({'opacity':0}, 'fast', function(){this.style.display='none';});" title="<?php esc_attr_e( 'Close video popup', 'calculated-fields-form'); ?>" class="cff-video-tutorial-close">X</a></div>
 		<div class="cff-video-tutorial-container">
 			<iframe src="https://www.youtube.com/embed/R8hEbD8w2RM" title="Calculated Fields Form Plugin - How it works?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 		</div>

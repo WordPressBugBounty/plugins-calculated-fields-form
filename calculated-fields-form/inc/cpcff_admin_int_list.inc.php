@@ -170,6 +170,22 @@ endif;
 
 <script type="text/javascript">
 var cff_metabox_nonce = '<?php print esc_js( wp_create_nonce( 'cff-metabox-status' ) ); ?>';
+window.addEventListener('load', function() {
+	let $ = jQuery;
+	function _showHideSaveButtonPopUp() {
+		let wt  = $(window).scrollTop();
+		let ref = $('#metabox_registering_area');
+		if ( ! ref.length ) ref = $('.cff-navigation-main-menu');
+		let et  = ref.offset().top + ref.outerHeight();
+		if ( et < wt ) {
+			$('.cff-save-controls-floating-popup').show('slow');
+		} else {
+			$('.cff-save-controls-floating-popup').hide('slow');
+		}
+	};
+	$(window).on('scroll', _showHideSaveButtonPopUp);
+	_showHideSaveButtonPopUp();
+});
 function cp_addItem()
 {
 	var e = jQuery("#cp_itemname"),
@@ -286,7 +302,37 @@ function cp_update_default_settings(e)
 	if ( ! empty( $_GET['cff-tab'] ) && 'marketplace' == $_GET['cff-tab'] ) {
 		print 'nav-tab-active';} ?>"><?php esc_html_e( 'Marketplace', 'calculated-fields-form' ); ?></a>
 </h2>
-<div style="margin-top:20px;display:<?php print ( empty( $_GET['cff-tab'] ) || 'forms' == $_GET['cff-tab'] ) ? 'block' : 'none'; ?>;"><!-- Forms & Settings Section -->
+<div style="margin-top:20px;display:<?php print ( empty( $_GET['cff-tab'] ) || 'forms' == $_GET['cff-tab'] ) ? 'block' : 'none'; ?>;" class="cff-forms-list-and-settings"><!-- Forms & Settings Section -->
+	<style>.cff-forms-list-and-settings>*:not(.cff-save-controls-floating-popup){padding-right:30px;box-sizing:border-box;}</style>
+	<div class="cff-save-controls-floating-popup">
+		<div class="cff-website-icon"></div>
+		<div class="cff-popup-icon">
+			<div class="cff-popup-bubble"><?php esc_html_e( 'Create Form', 'calculated-fields-form' ); ?></div>
+			<a href="admin.php?page=cp_calculated_fields_form_sub_new"><img src="<?php print esc_attr( plugins_url('../images/icons/add-form.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Create Form', 'calculated-fields-form' ); ?>"></a>
+		</div>
+		<div class="cff-popup-icon-separator"></div>
+		<div class="cff-popup-icon">
+			<div class="cff-popup-bubble"><?php esc_html_e( 'Forms List', 'calculated-fields-form' ); ?></div>
+			<a href="#metabox_form_list"><img src="<?php print esc_attr( plugins_url('../images/icons/forms-list.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Forms List', 'calculated-fields-form' ); ?>"></a>
+		</div>
+		<div class="cff-popup-icon">
+			<div class="cff-popup-bubble"><?php esc_html_e( 'Default Forms Settings', 'calculated-fields-form' ); ?></div>
+			<a href="#metabox_default_settings"><img src="<?php print esc_attr( plugins_url('../images/icons/default-settings.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Default Forms Settings', 'calculated-fields-form' ); ?>"></a>
+		</div>
+		<div class="cff-popup-icon">
+			<div class="cff-popup-bubble"><?php esc_html_e( 'Troubleshoot Area & General Plugin Settings', 'calculated-fields-form' ); ?></div>
+			<a href="#metabox_troubleshoot_area"><img src="<?php print esc_attr( plugins_url('../images/icons/troubleshoot-area.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Troubleshoot Area & General Plugin Settings', 'calculated-fields-form' ); ?>"></a>
+		</div>
+		<div class="cff-popup-icon-separator"></div>
+		<div class="cff-popup-icon cff-popup-icon-disabled">
+			<div class="cff-popup-bubble"><?php esc_html_e( 'Add Ons', 'calculated-fields-form' ); ?></div>
+			<a href="https://cff.dwbooster.com/download" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/icons/addons.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Add Ons', 'calculated-fields-form' ); ?>"></a>
+		</div>
+		<div class="cff-popup-icon cff-popup-icon-disabled">
+			<div class="cff-popup-bubble"><?php esc_html_e( 'Export/Import Forms', 'calculated-fields-form' ); ?></div>
+			<a href="https://cff.dwbooster.com/download" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/icons/import-export.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Export/Import Forms', 'calculated-fields-form' ); ?>"></a>
+		</div>
+	</div>
 	<div id="normal-sortables" class="meta-box-sortables">
 
 		<!-- New Form -->

@@ -169,7 +169,9 @@ jQuery(function () {
     };
 
     function closeDialog() {
-        $('.cff-form-library-cover').hide();
+		$('.cff-form-library-cover').animate({ opacity: 0 }, 'slow', function() {
+			$(this).remove();
+		});
     };
 
     function showNoFormMessage() {

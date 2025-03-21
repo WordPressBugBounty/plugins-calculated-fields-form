@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.31
+Stable tag: 5.3.33
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,19 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.33 =
+
+* Includes new predefined forms.
+
+= 5.3.32 =
+
+* Enhances the fields list window by displaying additional field details, such as control types.
+* Introduces a floating menu on the main plugin page for quicker access to settings, thereby enhancing the user experience.
+* Improves the -create new form- module for smoother operation.
+* Adjusts form submission handling to prevent duplicate entries when using a custom submit button.
+* Upgrades the form builder to deliver a better experience for developers on small screens, including mobile devices.
+* Ensures full compatibility with reCAPTCHA Enterprise in both Developer and Platinum plugin distributions.
+
 = 5.3.31 =
 
 * Enhances forms performance.
@@ -483,18 +496,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Redesigned interface for form creation.
 * Improved accessibility.
 * Enhanced equations editor.
-
-= 5.3.27 =
-
-* Fixes an issue related to the ignorefield CSS class.
-* Adds support for reCAPTCHA Enterprise in both the Developer and Platinum plugin versions.
-
-= 5.3.26 =
-
-* Enhances Date/Time controls to enable showing/hiding the date-time format in field labels and to customize their design via the fields' Advanced Settings section.
-* Enhances the Summary control to simplify customization of the fields' row design in generated summaries using the Advanced Settings section.
-* Enhances the Fieldset control to allow modification of the styles applied to the fieldset tag through the fields' Advanced Settings sections.
-
-= 5.3.25 =
-
-* Updates the "Troubleshoots Area and General Settings" section, providing website developers with additional control over the form.

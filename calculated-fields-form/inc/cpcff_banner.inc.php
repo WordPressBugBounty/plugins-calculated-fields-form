@@ -66,7 +66,7 @@ if ( ! function_exists( 'codepeople_add_promote_banner' ) ) {
 					#codepeople-review-banner  .main-button:hover,#codepeople-review-banner  .main-button:focus{background: #008ec2;border-color: #006799;color: #fff;}
 					#codepeople-review-banner  .no-thank-button:hover,
 					#codepeople-review-banner  .no-thank-button:focus{background: #fafafa;border-color: #999;color: #23282d;}
-					@media screen AND (max-width:760px)
+					@media screen AND (max-width:600px)
 					{
 						#codepeople-review-banner{position:relative;top:50px;}
 						#codepeople-review-banner .codepeople-review-banner-picture{display:none;}

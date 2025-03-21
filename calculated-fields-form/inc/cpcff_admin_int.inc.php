@@ -58,7 +58,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a><span>]</span>
  </div>';
 ?>
-<div class="wrap">
+<div class="wrap cff-form-builder-backend">
 	<div class="cff-navigation-main-menu" style="margin-bottom:10px;">
 		<a href="admin.php?page=cp_calculated_fields_form_sub_new" class="button-primary"><?php esc_html_e( 'Add New', 'calculated-fields-form' ); ?></a>
 		<a href="admin.php?page=cp_calculated_fields_form" class="button-secondary"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a>
@@ -96,6 +96,9 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					<div class="cff-revisions-container">
 						<?php
 						print $section_nav_bar;
+						?>
+						<div class="cff-revisions-container-flex">
+						<?php
 						if ( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) == 0 ) :
 							esc_html_e( 'Revisions', 'calculated-fields-form' );
 							?>
@@ -120,6 +123,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						<div class="cff-form-builder-extend-shrink">
 							<button type="button" name="cff_expand_btn" class="button-secondary" title="<?php esc_attr_e( 'Set form builder fullscreen', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Fullscreen', 'calculated-fields-form' ); ?></button>
 							<button type="button" name="cff_shrink_btn" class="button-secondary" title="<?php esc_attr_e( 'Taking form builder out of fullscreen mode', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Shrink', 'calculated-fields-form' ); ?></button>
+						</div>
 						</div>
 					</div>
 					<div class="clearer"></div>
@@ -631,7 +635,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				</div>
 			</div>
 
-			<div id="metabox_basic_settings" class="postbox" style="padding-right:25px;">
+			<div id="metabox_basic_settings" class="postbox" style="margin-right:30px;">
 				<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Note', 'calculated-fields-form' ); ?></span></h3>
 				<div class="inside">
 					<?php esc_html_e( 'To display the form in a post/page, enter your shortcode in the post/page content:', 'calculated-fields-form' ); ?>
@@ -648,9 +652,9 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 			[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
 
 			<br /><br /><br />
-			<style>.cff-metabox{padding-right:25px;}@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }</style>
+			<style>.cff-metabox,.metabox_disabled_section{margin-right:30px;}@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }</style>
 
-			<div id="cff-upgrade-frame" style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;padding-right:30px;">
+			<div id="cff-upgrade-frame" style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;margin-right:30px;">
 				<a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;float:left;" class="cff-plugin-logo-promote"><img src="https://ps.w.org/calculated-fields-form/assets/icon-256x256.jpg" style="width:160px;border:2px solid white;margin-right:10px;margin-bottom:10px;"></a>
 				<div style="float:left;" class="cff-plugin-promote">
 					<div style="font-weight:500;font-size:20px;line-height:28px;"><?php _e( 'The following features are available in the commercial version of the <a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;">"Calculated Fields Form"</a>', 'calculated-fields-form' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>

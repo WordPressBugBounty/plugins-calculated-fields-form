@@ -42,6 +42,12 @@ cff_forms_templates = {
 			"thumb":"24.png",
             "id": 24
         }, {
+            "title": "Dependencies with Operations",
+            "category": "Basic Operations",
+            "description": "Activating / deactivating fields with the ACTIVATEFIELD and IGNOREFIELD operations.",
+			"thumb":"68.png",
+            "id": 68
+        }, {
             "title": "Converting Values",
             "category": "Basic Operations",
             "description": "Convert a value from one unit of measurement to another.",

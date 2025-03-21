@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.31';
+	$.fbuilder['version'] = '5.3.32';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1182,7 +1182,7 @@
 			},
 			disabling_form = function () {
 				if (form_disabled()) return;
-				form.find('.pbSubmit').addClass('submitbtn-disabled');
+				form.find('.pbSubmit,:submit').addClass('submitbtn-disabled');
 				form.data('being-submitted', 1);
 				form.find('#fbuilder').append('<div class="cff-processing-form"></div>');
 			},

@@ -78,27 +78,57 @@
 	};
 
     $.fbuilder['printFields'] = function(){
-		var h = '<style>*{font-family:sans-serif;font-size:14px;}.developer-note:not(:empty){font-style:italic;margin-top:5px;display:block;font-size:90%;clear:both;}.developer-note:not(:empty)::before{content: \'Developer note: \';font-weight:bold;}</style><div><input type="search" name="cff-field-filter" style="width:100%;min-height:28px;" placeholder="Type field name or label" /></div><hr /><div><b>field name (title) [Exclude from submission]</b></div><hr />',
-			w,
-			o = {};
+		let s = '<span class="separator">|</span>',
+			h = '<style>'+
+			'body::-webkit-scrollbar{width:10px;height:7px;background:transparent;}'+
+			'body::-webkit-scrollbar-thumb{background:#D0D5DD;-webkit-border-radius:35px;-webkit-box-shadow:none;}'+
+			'body::-webkit-scrollbar-corner{background:transparent;}'+
+			'*{font-family:sans-serif;font-size:14px;}'+
+			'[type="search"]{border:1px solid #333;padding:5px 15px;border-radius:50px;width:100%;min-height:32px;line-height:32px;}'+
+			'.cff-field-information{padding:5px 10px;}'+
+			'a{text-decoration:none;}'+
+			'.cff-field-information:nth-child(odd){background:#efefef;}'+
+			'.field-information{display:flex;}'+
+			'.field-type{font-weight:600;white-space:nowrap;}'+
+			'.field-excluded{white-space:nowrap;}'+
+			'.field-label{flex-grow:1;padding-left:10px;}'+
+			'.separator{padding-left:5px;padding-right:5px;font-weight:normal;color:#666;}'+
+			'.field-label .separator{margin-left:-10px;}'+
+			'.developer-note:not(:empty){font-style:italic;margin-top:5px;display:block;font-size:90%;clear:both;color:#555;}'+
+			'.developer-note:not(:empty)::before{content:\'Developer note: \';font-weight:600;}'+
+			'</style>'+
+			'<div><input type="search" name="cff-field-filter" placeholder="Type field name or label" /></div><hr />'+
+			'<div class="cff-field-information header"><div class="field-information" style="font-weight:600;"><span class="field-name">Field name</span><span class="field-type">'+s+'Control type</span><span class="field-label">'+s+'Title</span><span class="field-excluded">'+s+'Exclude from submission</span></div></div><hr />'+
+			'<div class="cff-field-information-list">',
+			w, o = {};
 
         $.each(window.cff_form.fBuild.getItems(), function(i, item){
-			let t = '';
-			t = ( 'title' in item ) ? String( item.title ).trim() : '';
-			t = ( '' == t && 'shortlabel' in item ) ? String( item.shortlabel ).trim() : t;
+			let l = '', n = '', c = '', t = '';
+			t = document.querySelector('.fields.'+item.name).getAttribute('title').split( /\s\-\s(.*)/,2);
+			n = t[0]; c = 1 in t ? t[1] : '';
+			l = ( 'title' in item ) ? String( item.title ).trim() : '';
+			l = ( '' == l && 'shortlabel' in item ) ? String( item.shortlabel ).trim() : l;
 
-			o[item.name] = '<div style="border-bottom:1px solid #F0F0F0;padding:5px 0;" class="cff-field-information"><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView();e.click();">'+item.name+'</a>'+
-						('' != t ? ' ('+$.fbuilder.htmlEncode(t)+')' : '')+
-						('exclude' in item && item.exclude ? '[EXCLUDED]' : '' )+
-						('_developerNotes' in item && ! /^\s*$/.test(item._developerNotes) ? '<span class="developer-note">'+$.fbuilder.htmlEncode(item._developerNotes)+'</span>' : '')+
-						'</div>';
+			o[item.name] =
+			'<div class="cff-field-information">'+
+				'<div class="field-information">'+
+					'<span class="field-name"><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView();e.click();">'+n+'</a></span>'+
+					'<span class="field-type">'+('' != c ? s+cff_esc_attr(c) : '')+'</span>'+
+					'<span class="field-label">'+('' != l ? s+cff_esc_attr(l) : '')+'</span>'+
+					'<span class="field-excluded">'+('exclude' in item && item.exclude ? s+'X' : '' )+'</span>'+
+				'</div>'+
+				'<div class="field-note">'+
+					('_developerNotes' in item && ! /^\s*$/.test(item._developerNotes) ? '<span class="developer-note">'+cff_esc_attr(item._developerNotes)+'</span>' : '')+
+				'</div>'+
+			'</div>';
         });
 
 		$('#fieldlist [class*="fieldname"]').each(function(){
 			h += o[this.className.match(/fieldname\d+/)[0]];
 		});
+		h += '</div>';
 
-        w = window.open("","cff-fieldlist-popup", "width=500,height=300,scrollbars=1,resizable=1,toolbar=0,titlebar=0,menubar=0");
+        w = window.open("","cff-fieldlist-popup", "width=500,height=400,scrollbars=1,resizable=1,toolbar=0,titlebar=0,menubar=0");
         w.document.title = 'Fields List';
         w.document.body.innerHTML = h;
 		try {
@@ -106,14 +136,14 @@
 			f.addEventListener('input', function(evt){
 				let v = String( evt.currentTarget.value ).toLowerCase();
 				if ( v.length == 0 ) {
-					$( '.cff-field-information', w.document ).show();
+					$( '.cff-field-information-list .cff-field-information', w.document ).show();
 				} else {
-					$( '.cff-field-information', w.document ).hide();
-					$( '.cff-field-information:contains("' + v + '")', w.document ).show();
+					$( '.cff-field-information-list .cff-field-information', w.document ).hide();
+					$( '.cff-field-information-list .cff-field-information:contains("' + v + '")', w.document ).show();
 				}
 			});
+			f.focus();
 		} catch ( err ) {}
-
     };
 
 	$.fbuilder[ 'htmlEncode' ] = window[ 'cff_esc_attr' ] = function(value)
@@ -265,7 +295,7 @@
 				for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
 				{
 					var index = categoryList[ i ].typeList[ j ];
-					$("#tabs-1").append('<div class="button itemForm width40" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
+					$("#tabs-1").append('<div class="button itemForm width48" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
 				}
 			}
 		}
