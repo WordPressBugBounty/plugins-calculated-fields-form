@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.7
-Stable tag: 5.3.33
+Stable tag: 5.3.34
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,16 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.34 =
+
+* Eliminates dependencies on third-party libraries.
+* Updates the server-side validation module to display the titles of fields that fail validation and logs errors in the error log file.
+* Enhances the default forms.
+* Upgrades the Select2 library.
+* Optimizes database queries.
+* Modifies the form preview module.
+* Enhances the visualization of entries in the dashboard widget and entries list for the Professional, Developer, and Platinum plugin versions.
+
 = 5.3.33 =
 
 * Includes new predefined forms.
@@ -490,9 +500,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Resolves a minor issue with the RESETFORM operation.
 * Fixes a notice in the load language module.
 * Improves the user accessibility.
-
-= 5.3.28 =
-
-* Redesigned interface for form creation.
-* Improved accessibility.
-* Enhanced equations editor.

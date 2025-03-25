@@ -82,6 +82,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @var object $_active_form
 		 */
 		private $_forms = array();
+		private $_current_form; // The form that is being making public.
 
 		/**
 		 * List of forms categories.
@@ -537,7 +538,13 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$message .= ob_get_contents();
 				ob_end_clean();
 
-				if ( ! empty( $atts['preview']) ) {
+				if (
+					! empty( $atts['preview'] ) &&
+					(
+						empty( $this->_current_form ) ||
+						preg_match( '/(' . preg_quote('<%from_page%>'). ')|(' . preg_quote( '/admin.php', '/' ) . ')/i', $this->_current_form->get_option('fp_return_page', '') )
+					)
+				) {
 					$message .= '<script>document.forms[0].onsubmit=document.forms[0].submit=function(){alert("' . esc_js( esc_html__( 'This is a preview of the form, letting you see its setup and design before it goes live.', 'calculated-fields-form' ) ) . '");return false;};</script>';
 
 				}
@@ -619,8 +626,8 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$atts['id'] = $myrow->id; // If was not passed the form's id, uses the if of first form.
 				$id         = $atts['id']; // Alias for the $atts[ 'id' ] variable.
 				$form_template = ! empty( $atts[ 'template' ] ) ? trim( $atts[ 'template' ] ) : '';
+				$this->_current_form = $this->get_form( $id );
 				if ( ! empty( $atts['iframe'] ) ) {
-					$form_obj = $this->get_form( $id );
 					$url  = CPCFF_AUXILIARY::site_url( true );
 					$url .= ( strpos( $url, '?' ) === false ? '/?' : '&' ) . 'cff-form=' . $id .  ( ! empty( $form_template ) ? '&template=' . urlencode( $form_template ) : '' );
 
@@ -650,8 +657,8 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 							if(el && el.hasAttribute("data-cff-src")) el.setAttribute("src", el.getAttribute("data-cff-src"));
 						});</script><iframe ' . ' id="' . $iframe_id . '"';
 
-					if ( ! empty( $form_obj ) ) {
-						$iframe_tag = $form_obj->get_height( '#' . $iframe_id ) . $iframe_tag;
+					if ( ! empty( $this->_current_form ) ) {
+						$iframe_tag = $this->_current_form->get_height( '#' . $iframe_id ) . $iframe_tag;
 					}
 
 					$url .= ( strpos( $url, '?' ) === false ? '?' : '&' ) . 'cff_iframe=' . $iframe_id;

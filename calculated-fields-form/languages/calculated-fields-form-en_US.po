@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-03-20 16:54+0100\n"
-"PO-Revision-Date: 2025-03-20 16:54+0100\n"
+"POT-Creation-Date: 2025-03-25 22:10+0100\n"
+"PO-Revision-Date: 2025-03-25 22:10+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Form Preview"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:287
+#: cp_calculatedfieldsf_free.php:287 cp_calculatedfieldsf_free.php:301
 msgid "The"
 msgstr ""
 
@@ -27,15 +27,15 @@ msgstr ""
 msgid "value is invalid"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:298
-msgid "At least a required field is empty"
+#: cp_calculatedfieldsf_free.php:301
+msgid "is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:396
+#: cp_calculatedfieldsf_free.php:401
 msgid "Failed security check"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:436
+#: cp_calculatedfieldsf_free.php:441
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the database structure. Please, go to the plugins "
@@ -44,7 +44,7 @@ msgid ""
 "please <a href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:447
+#: cp_calculatedfieldsf_free.php:452
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the form structure. Please, try to save the data "
@@ -516,7 +516,7 @@ msgid "Request Custom Modifications"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:652 inc/cpcff_admin_int.inc.php:1009
-#: inc/cpcff_admin_int_list.inc.php:658 inc/cpcff_main.inc.php:251
+#: inc/cpcff_admin_int_list.inc.php:658 inc/cpcff_main.inc.php:252
 msgid "Help"
 msgstr ""
 
@@ -779,7 +779,7 @@ msgstr ""
 msgid "AI Assistant (Experimental Feature)"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:1017 inc/cpcff_main.inc.php:249
+#: inc/cpcff_admin_int.inc.php:1017 inc/cpcff_main.inc.php:250
 msgid "Settings"
 msgstr ""
 
@@ -972,11 +972,11 @@ msgstr ""
 msgid "100 forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:446
+#: inc/cpcff_admin_int_list.inc.php:445
 msgid "&laquo; Previous"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:447
+#: inc/cpcff_admin_int_list.inc.php:446
 msgid "Next &raquo;"
 msgstr ""
 
@@ -1198,7 +1198,7 @@ msgstr ""
 msgid "Calculated Fields Form Marketplace"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:658 inc/cpcff_main.inc.php:250
+#: inc/cpcff_admin_int_list.inc.php:658 inc/cpcff_main.inc.php:251
 msgid "Upgrade"
 msgstr ""
 
@@ -1382,11 +1382,23 @@ msgstr ""
 msgid "Click to expand"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:783
+#: inc/cpcff_auxiliary.inc.php:136
+msgid "Page"
+msgstr ""
+
+#: inc/cpcff_auxiliary.inc.php:137
+msgid "page"
+msgstr ""
+
+#: inc/cpcff_auxiliary.inc.php:176
+msgid "&hellip;"
+msgstr ""
+
+#: inc/cpcff_auxiliary.inc.php:839
 msgid "Paid"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:783
+#: inc/cpcff_auxiliary.inc.php:839
 msgid "Not Paid"
 msgstr ""
 
@@ -1455,19 +1467,19 @@ msgid ""
 "settings."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:248
+#: inc/cpcff_main.inc.php:249
 msgid "Request custom changes"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:267
+#: inc/cpcff_main.inc.php:268
 msgid "Insert Calculated Fields Form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:267
+#: inc/cpcff_main.inc.php:268
 msgid "Create a JavaScript var from POST, GET, SESSION, or COOKIE var"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:541
+#: inc/cpcff_main.inc.php:548
 msgid ""
 "This is a preview of the form, letting you see its setup and design before "
 "it goes live."

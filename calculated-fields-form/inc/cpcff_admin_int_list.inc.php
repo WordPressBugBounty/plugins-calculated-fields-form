@@ -433,21 +433,21 @@ function cp_update_default_settings(e)
 				</select>
 			</form>
 		<?php
-
-        $pages_links = paginate_links( array(
-			'base'      => 'admin.php?page=cp_calculated_fields_form%_%',
-			'format'    => '&page-number=%#%',
-			'total'     => $total_pages,
-			'current'   => $current_page,
-			'show_all'  => false,
-			'end_size'  => 1,
-			'mid_size'  => 2,
-			'prev_next' => true,
-			'prev_text' => __( '&laquo; Previous' ),
-			'next_text' => __( 'Next &raquo;' ),
-			'type'      => 'plain',
-			'add_args'  => false,
-            ) ) ?? '';
+		$pages_links = CPCFF_AUXILIARY::paginate_links(
+			[
+				'base'         => 'admin.php?page=cp_calculated_fields_form&%_%',
+				'format'       => 'page-number=%#%',
+				'total'        => $total_pages,
+				'current'      => $current_page,
+				'show_all'     => false,
+				'end_size'     => 1,
+				'mid_size'     => 2,
+				'prev_text'    => __( '&laquo; Previous', 'calculated-fields-form' ),
+				'next_text'    => __( 'Next &raquo;', 'calculated-fields-form' ),
+				'add_args'     => []
+            ]
+		);
+		$pages_links = ! empty( $pages_links ) ? $pages_links : '';
 
 		print $pages_links; // phpcs:ignore WordPress.Security.EscapeOutput
 		?>
@@ -484,7 +484,7 @@ function cp_update_default_settings(e)
 					<tbody>
 					<?php
 					if ( count( $myrows ) == 0 ) {
-						print '<tr><td colspan="4" style="text-align:center;margin-top:20px;font-size:1.2em;">' .
+						print '<tr><td colspan="4" style="text-align:center;margin-top:20px;font-size:1.2em;width:100%;">' .
 						esc_html__( 'Forms list is empty.', 'calculated-fields-form' ) .
 						(
 							'' != $cff_search_form_term ?

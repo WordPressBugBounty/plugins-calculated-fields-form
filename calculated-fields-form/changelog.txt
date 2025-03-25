@@ -1,5 +1,15 @@
 == Changelog ==
 
+= 5.3.34 =
+
+* Eliminates dependencies on third-party libraries.
+* Updates the server-side validation module to display the titles of fields that fail validation and logs errors in the error log file.
+* Enhances the default forms.
+* Upgrades the Select2 library.
+* Optimizes database queries.
+* Modifies the form preview module.
+* Enhances the visualization of entries in the dashboard widget and entries list for the Professional, Developer, and Platinum plugin versions.
+
 = 5.3.33 =
 
 * Includes new predefined forms.

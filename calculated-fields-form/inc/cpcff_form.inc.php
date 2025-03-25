@@ -74,14 +74,11 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			$include_desc   = ! empty( $args['description'] ) ? true : false;
 
 			$myrows = $wpdb->get_results(
-				'SELECT id,form_name,category,' .
+				'SELECT id,form_name,category' .
 				(
 					$include_desc ?
-					'form_structure' :
-					'CASE
-						WHEN form_name = "" OR form_name IS NULL THEN form_structure
-					ELSE NULL
-					END AS form_structure'
+					',form_structure' :
+					''
 				) .
 				' FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE 1=1 ' . ( '' != $category ? $wpdb->prepare( ' AND category=%s ', $category ) : '' ) . ( '' != $search_term ? $wpdb->prepare( ' AND (form_name LIKE %s OR form_structure LIKE %s)', '%' . $search_term . '%', '%' . $search_term . '%' ) : '' ) . ' ORDER BY ' . $orderby . ( 'id' == $orderby ? ' DESC' : ' ASC' ) );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
@@ -94,18 +91,30 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				$data->category  	= sanitize_text_field( $row->category );
 				$data->description 	= '';
 
-				if ( ! empty( $row->form_structure ) && false != ( $form_structure = json_decode( $row->form_structure, true ) ) ) {
-					if (
-						! empty( $form_structure[1] ) &&
-						is_array( $form_structure[1] ) &&
-						! empty( $form_structure[1][0] ) &&
-						is_array( $form_structure[1][0] )
-					) {
-						if ( empty( $data->form_name ) && ! empty( $form_structure[1][0]['title'] ) ) $data->form_name = sanitize_text_field( $form_structure[1][0]['title'] );
-
-						if ( ! empty( $form_structure[1][0]['description'] ) ) $data->description = sanitize_text_field( $form_structure[1][0]['description'] );
+				if ( ! property_exists( $row, 'form_structure') ) {
+					$form_structure = '';
+					if ( '' == $data->form_name ) {
+						$form_structure = $wpdb->get_var(
+							$wpdb->prepare( 'SELECT form_structure FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE id=%d', $data->id )
+						);
+						if ( ! empty( $form_structure ) ) {
+							$form_structure = json_decode( $form_structure, true );
+						}
 					}
+				} else {
+					$form_structure = json_decode( $row->form_structure, true );
+				}
 
+				if (
+					! empty( $form_structure ) &&
+					! empty( $form_structure[1] ) &&
+					is_array( $form_structure[1] ) &&
+					! empty( $form_structure[1][0] ) &&
+					is_array( $form_structure[1][0] )
+				) {
+					if ( empty( $data->form_name ) && ! empty( $form_structure[1][0]['title'] ) ) $data->form_name = sanitize_text_field( $form_structure[1][0]['title'] );
+
+					if ( ! empty( $form_structure[1][0]['description'] ) ) $data->description = sanitize_text_field( $form_structure[1][0]['description'] );
 				}
 				$return[] = $data;
 			}

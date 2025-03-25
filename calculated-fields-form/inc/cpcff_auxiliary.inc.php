@@ -131,6 +131,62 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			return self::$_current_url;
 		} // End wp_current_url.
 
+		public static function paginate_links( $args = [] ) {
+			$output = '';
+			$aria_label   = __( 'Page', 'calculated-fields-form' ) . ' ';
+			$aria_current = __( 'page', 'calculated-fields-form' ) . ' ';
+
+			$base 		= $args['base'];
+			$format		= ! empty( $args['format'] ) ? $args['format'] : '&p=%#%';
+			$total 		= max( ! empty( $args['total'] ) && is_numeric( $args['total'] ) ? intval( $args['total'] ) : 1, 1 );
+			$current 	= max( ! empty( $args['current'] ) && is_numeric( $args['current'] ) ? intval( $args['current'] ) : 1, 1 );
+			$show_all	= ! empty( $args['show_all'] ) ? true : false;
+			$end_size 	= max( ! empty( $args['end_size'] ) && is_numeric( $args['end_size'] ) ? intval( $args['end_size'] ) : 1, 1 );
+			$mid_size 	= max( ! empty( $args['mid_size'] ) && is_numeric( $args['mid_size'] ) ? intval( $args['mid_size'] ) : 2, 2 );
+			$add_args   = [];
+
+			$current	= min( $current, $total );
+			$dots 		= false;
+
+			if ( ! empty( $args['add_args'] ) && is_array( $args['add_args'] ) ) {
+				foreach( $args['add_args'] as $arg => $value ) {
+					$add_args[] = urlencode( $arg ) . '=' . urlencode( $value );
+				}
+			}
+			$add_args = '&' . implode( '&', $add_args );
+
+			if ( 1 < $current && ! empty( $args['prev_text'] ) )	{
+				$url = str_replace( '%_%', str_replace( '%#%', ( $current - 1 ), $format ), $base ) . $add_args;
+				$output .= '<a aria-label="' . esc_attr( $aria_label . ( $current - 1 ) ) . '" class="prev page-numbers" href="' . esc_attr( $url ) . '">' . esc_html( $args['prev_text'] ) . '</a>';
+			}
+
+			for( $i = 1; $i <= $total; $i++ ) {
+				if ( $i == $current ) {
+					$output .= '<span aria-label="' . esc_attr( $aria_label . $i ) . '" aria-current="' . esc_attr( $aria_current ) . '" class="page-numbers current">' . $i . '</span>';
+					$dots = true;
+				} else {
+					if (
+						$show_all ||
+						( $i <= $end_size || ( $current && $i >= $current - $mid_size && $i <= $current + $mid_size ) || $i > $total - $end_size )
+					) {
+						$url = str_replace( '%_%', str_replace( '%#%', $i, $format ), $base ) . $add_args;
+						$output .= '<a aria-label="' . esc_attr( $aria_label . $i ) . '" class="page-numbers" href="' . esc_attr( $url ) . '">' . $i . '</a>';
+						$dots = true;
+					} elseif ( $dots && ! $show_all ) {
+						$output .= '<span class="page-numbers dots">' . __( '&hellip;' ) . '</span>';
+						$dots = false;
+					}
+				}
+			}
+
+			if ( $current < $total && ! empty( $args['next_text'] ) )	{
+				$url = str_replace( '%_%', str_replace( '%#%', ( $current + 1 ), $format ), $base ) . $add_args;
+				$output .= '<a aria-label="' . esc_attr( $aria_label . ( $current + 1 ) ) . '" class="next page-numbers" href="' . esc_attr( $url ) . '">' . esc_html( $args['next_text'] ) . '</a>';
+			}
+
+			return $output;
+		} // End paginate_links.
+
 		/** Change the uploaded files directory */
 		public static function upload_dir( $dir ) {
 			if ( empty( $dir ) ) {

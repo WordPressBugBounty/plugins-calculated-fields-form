@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.33
+ * Version: 5.3.34
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.33' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.34' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -284,7 +284,9 @@ function cp_calculated_fields_form_check_posted_data() {
 
 								if ( $invalid_format ) {
 									$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
-									print ( esc_html__('The', 'calculated-fields-form') . ' ' . ( ! empty( $_title ) ? $_title : $fieldname ) . ' ' . esc_html__('value is invalid', 'calculated-fields-form') );
+									$error_mssg = esc_html__('The', 'calculated-fields-form') . ' ' . ( ! empty( $_title ) ? $_title : $fieldname ) . ' ' . esc_html__('value is invalid', 'calculated-fields-form');
+									error_log( 'Calculated Fields Form: ' . $error_mssg );
+									print( $error_mssg );
 									exit;
 								}
 							}
@@ -295,7 +297,10 @@ function cp_calculated_fields_form_check_posted_data() {
 								! empty( $current_field->required ) &&
 								( '' === $value || ( is_array( $value ) && count( $value ) == 0 ) )
 							) {
-								esc_html_e( 'At least a required field is empty', 'calculated-fields-form' );
+								$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
+								$error_mssg = esc_html__('The', 'calculated-fields-form') . ' ' . ( ! empty( $_title ) ? $_title : $fieldname ) . ' ' . esc_html__('is empty', 'calculated-fields-form');
+								error_log( 'Calculated Fields Form: ' . $error_mssg );
+								print( $error_mssg );
 								exit;
 							}
 
