@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.35 =
+
+* Ensures full compatibility with WordPress 6.8.
+
 = 5.3.34 =
 
 * Eliminates dependencies on third-party libraries.

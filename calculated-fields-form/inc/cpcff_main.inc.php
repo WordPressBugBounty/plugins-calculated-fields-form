@@ -612,6 +612,12 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$atts['iframe'] = 1;
 				$content = $this->_amp->get_iframe( $atts );
 			} else {
+				/**
+				 * Filters applied before generate the form,
+				 * is passed as parameter an array with the forms attributes, and return the list of attributes
+				 */
+				$atts = apply_filters( 'cpcff_pre_form',  $atts );
+
 				global $wpdb, $cpcff_default_texts_array;
 
 				if ( empty( $atts['id'] ) ) {
@@ -682,12 +688,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				}
 				++$GLOBALS['codepeople_form_sequence_number'];
 				self::$form_counter = $GLOBALS['codepeople_form_sequence_number']; // Current form.
-
-				/**
-				 * Filters applied before generate the form,
-				 * is passed as parameter an array with the forms attributes, and return the list of attributes
-				 */
-				$atts = apply_filters( 'cpcff_pre_form', $atts );
 
 				ob_start();
 

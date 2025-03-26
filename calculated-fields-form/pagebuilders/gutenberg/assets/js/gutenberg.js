@@ -181,8 +181,8 @@ jQuery(function()
 					if(!/^\s*$/.test(id))
 					{
 						children.push(
-							el( 'div', {className: 'cff-iframe-container', key: 'cpcff_form_container'},
-								el('div', {className: 'cff-iframe-overlay', key: 'cpcff_form_overlay'}),
+							el( 'div', {className: 'cff-iframe-container', key: 'cpcff_form_container', style:{'position':'relative'}},
+								el('div', {className: 'cff-iframe-overlay', key: 'cpcff_form_overlay', style:{'position':'absolute','top':0,'right':0,'bottom':0,'left':0}}),
 								el('iframe',
 									{
 										key: 'cpcff_form_iframe',

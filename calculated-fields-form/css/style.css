@@ -11,6 +11,9 @@
 .cff-entries-backend *,
 .cff-form-builder-backend,
 .cff-form-builder-backend *{box-sizing:border-box;}
+.cff-form-builder-backend input:not([type="checkbox"]):not([type="radio"]),
+.cff-form-builder-backend select,
+.cff-form-builder-backend textarea{max-width:100%;}
 
 .cff_form_builder{clear:both;}
 .ui-datepicker:empty{display:none;}

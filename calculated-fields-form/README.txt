@@ -3,8 +3,8 @@ Contributors: codepeople
 Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
-Tested up to: 6.7
-Stable tag: 5.3.34
+Tested up to: 6.8
+Stable tag: 5.3.35
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.35 =
+
+* Ensures full compatibility with WordPress 6.8.
+
 = 5.3.34 =
 
 * Eliminates dependencies on third-party libraries.
@@ -492,11 +496,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Streamlines the configuration of the email copy for users (available in Professional, Developer, and Platinum plugin versions).
 * Improves the functionality of the reCAPTCHA add-on (available in Developer and Platinum plugin versions).
 * Provides support for using short labels in Stripe integration metadata (available in the Platinum plugin version).
-
-= 5.3.29 =
-
-* Improves dynamic formatting for Number and Currency controls, making them more coherent.
-* Enhances functionality of Phone controls.
-* Resolves a minor issue with the RESETFORM operation.
-* Fixes a notice in the load language module.
-* Improves the user accessibility.
