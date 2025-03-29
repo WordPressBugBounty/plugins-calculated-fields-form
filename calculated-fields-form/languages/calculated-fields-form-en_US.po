@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-03-25 22:10+0100\n"
-"PO-Revision-Date: 2025-03-25 22:10+0100\n"
+"POT-Creation-Date: 2025-03-29 11:46+0100\n"
+"PO-Revision-Date: 2025-03-29 11:46+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -1252,19 +1252,19 @@ msgstr ""
 msgid "PDF/Invoice"
 msgstr ""
 
-#: inc/cpcff_admin_landing_page.inc.php:71 inc/cpcff_video_tutorial.inc.php:21
+#: inc/cpcff_admin_landing_page.inc.php:71 inc/cpcff_video_tutorial.inc.php:22
 msgid "Advanced calculator"
 msgstr ""
 
-#: inc/cpcff_admin_landing_page.inc.php:71 inc/cpcff_video_tutorial.inc.php:21
+#: inc/cpcff_admin_landing_page.inc.php:71 inc/cpcff_video_tutorial.inc.php:22
 msgid "Financial"
 msgstr ""
 
-#: inc/cpcff_admin_landing_page.inc.php:72 inc/cpcff_video_tutorial.inc.php:22
+#: inc/cpcff_admin_landing_page.inc.php:72 inc/cpcff_video_tutorial.inc.php:23
 msgid "Fields dependency"
 msgstr ""
 
-#: inc/cpcff_admin_landing_page.inc.php:72 inc/cpcff_video_tutorial.inc.php:22
+#: inc/cpcff_admin_landing_page.inc.php:72 inc/cpcff_video_tutorial.inc.php:23
 msgid "Dependencies"
 msgstr ""
 
@@ -1541,6 +1541,10 @@ msgstr ""
 
 #: inc/cpcff_video_tutorial.inc.php:11
 msgid "Close video popup"
+msgstr ""
+
+#: inc/cpcff_video_tutorial.inc.php:21
+msgid "Google Sheets"
 msgstr ""
 
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:22

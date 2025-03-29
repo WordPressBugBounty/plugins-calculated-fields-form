@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.36 =
+
+* Introduces new video tutorials and updates the landing page.
+* Enables the display of all entry details simultaneously in the entries section. Professional, Developer, and Platinum plugin versions.
+
 = 5.3.35 =
 
 * Ensures full compatibility with WordPress 6.8.

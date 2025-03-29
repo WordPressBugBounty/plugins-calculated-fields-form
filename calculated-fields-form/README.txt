@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.35
+Stable tag: 5.3.36
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.36 =
+
+* Introduces new video tutorials and updates the landing page.
+* Enables the display of all entry details simultaneously in the entries section. Professional, Developer, and Platinum plugin versions.
+
 = 5.3.35 =
 
 * Ensures full compatibility with WordPress 6.8.
@@ -487,12 +492,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Enhances forms performance.
 * Updates the form preview module.
 * Refines the Users Permissions add-on—streamlining role and user selection/deselection for an improved user experience (available in Developer and Platinum plugin versions).
-
-= 5.3.30 =
-
-* Introduces a new option in the floating menu for easier access to the form preview.
-* Enhances the form creation module.
-* Enables customization of error bubble designs via the Form Settings / Advanced Settings tab.
-* Streamlines the configuration of the email copy for users (available in Professional, Developer, and Platinum plugin versions).
-* Improves the functionality of the reCAPTCHA add-on (available in Developer and Platinum plugin versions).
-* Provides support for using short labels in Stripe integration metadata (available in the Platinum plugin version).
