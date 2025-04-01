@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.37 =
+
+* Added a new feature in the Advanced Settings tab of the fields settings to allow to hide them by default.
+* Updated the registration form add-on to support registering users with different roles using the same form. Additionally, users can now select their role directly from the form (available in both the Developer and Platinum plugin versions).
+* Redesigned the interface of the PDF Generator add-on to simplify file generation for languages requiring special characters. This enhancement is part of the Platinum plugin version.
+
 = 5.3.36 =
 
 * Introduces new video tutorials and updates the landing page.

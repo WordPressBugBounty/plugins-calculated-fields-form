@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.36';
+	$.fbuilder['version'] = '5.3.37';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -580,6 +580,9 @@
 						}
 						else
 						{
+							// For hidden fields add the hide-strong class name.
+							if( 'hidefield' in items[i] && items[i]['hidefield'] && 'csslayout' in items[i] ) items[i]['csslayout'] += ' hide-strong';
+
 							page_tag.append(items[i].show());
 							if (items[i].predefinedClick)
 							{

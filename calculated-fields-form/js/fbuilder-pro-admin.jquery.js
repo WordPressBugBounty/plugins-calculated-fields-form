@@ -1373,6 +1373,14 @@
 				if ( 'ftype' in arg ) {
 					// Top Message fields
 					output += '<p style="font-style:italic;padding-bottom:20px;">You can customize the appearance of a field\'s components by adding CSS rules. If you require more control over the field\'s styles, you can assign a class name to the field through the <a href="javascript:fbuilderjQuery(\'.cff-field-settings-tab-header-basic\').trigger(\'click\');fbuilderjQuery(\'#sCsslayout\').trigger(\'focus\');">"Add CSS Layout Keywords"</a> attribute in the "Basic Settings" tab and define it using the "Customize Form Design" attribute in the "Form Settings &gt; Advanced Settings" tab.</p>';
+
+					if(
+						'hidefield' in arg &&
+						'ftype' in arg &&
+						-1 == ['fCalculated'].indexOf( arg.ftype )
+					) {
+						output += '<div style="padding-bottom:20px;display:flex;align-items:start;"><input type="checkbox" id="sHideField" name="sHideField" ' + (arg.hidefield ? 'CHECKED' : '') + ' style="margin-top:0;"> <label for="sHideField" style="display:inline-block;margin-top:0;">Hide field. To display the field, you must use the SHOWFIELD("'+arg.name+'") operation, or SHOWFIELD('+arg.name+'|n) in the equations context.</label></div>';
+					}
 				} else {
 					// Top Message form
 				output += '<p style="font-style:italic;padding-bottom:20px;">CSS rules are made to the form preview and public website. To input CSS blocks directly, scroll to the <a href="javascript:void(0);" onclick="document.getElementsByClassName(\'cff-editor-container\')[0].scrollIntoView({behavior:\'smooth\', block: \'end\'});">"<span style="font-weight:bold;">Customize Form Design</span>" attribute</a> <span style="font-style:normal; font-weight:bold; font-size:1.3em;">&ShortDownArrow;</span></p>';
@@ -1432,6 +1440,7 @@
 			userhelpTooltip:false,
 			tooltipIcon:false,
 			csslayout:"",
+			hidefield:false,
 			advanced:{
 				css:{
 					container:{
@@ -1540,6 +1549,12 @@
 				$("#sRequired").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.required = $(this).is(':checked');
+						$.fbuilder.reloadItems( {'field': e.data.obj} );
+					});
+
+				$("#sHideField").on("click", {obj: this}, function(e)
+					{
+						e.data.obj.hidefield = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
