@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.37
+Stable tag: 5.3.38
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.38 =
+
+* Upgrades the Purify library version.
+
 = 5.3.37 =
 
 * Added a new feature in the Advanced Settings tab of the fields settings to allow to hide them by default.
@@ -483,12 +487,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.33 =
 
 * Includes new predefined forms.
-
-= 5.3.32 =
-
-* Enhances the fields list window by displaying additional field details, such as control types.
-* Introduces a floating menu on the main plugin page for quicker access to settings, thereby enhancing the user experience.
-* Improves the -create new form- module for smoother operation.
-* Adjusts form submission handling to prevent duplicate entries when using a custom submit button.
-* Upgrades the form builder to deliver a better experience for developers on small screens, including mobile devices.
-* Ensures full compatibility with reCAPTCHA Enterprise in both Developer and Platinum plugin distributions.
