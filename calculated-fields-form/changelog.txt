@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.3.39 =
 = 5.3.38 =
 
 * Upgrades the Purify library version.
