@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.3.40 =
+
+* Enhances Phone controls to display phone numbers with hyphen separators in summary views and HTML content fields.
+* Updates Number and Currency controls to support the assignment of unformatted numeric values.
+* Improves collapsible fieldset controls by enabling users to open and close fieldsets using keyboard-only interactions.
+* Adds a callback attribute to all DS fields, facilitating preprocessing of record values before they are assigned (affects both Developer and Platinum plugin distributions).
+* Upgrades the Google Places add-on to support the latest Google Place APIs while still maintaining compatibility with the legacy API (available in the Platinum plugin distribution).
+
 = 5.3.39 =
 = 5.3.38 =
 

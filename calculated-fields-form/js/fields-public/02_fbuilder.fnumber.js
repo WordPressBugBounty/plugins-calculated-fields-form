@@ -59,9 +59,10 @@
 					if(value == '') return value;
 					if((this.formatDynamically && this.dformat != 'digits') ||  this.dformat == 'percent') {
 						var ts = this.thousandSeparator,
+							tse = ts.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
 							ds = ((ds=String(this.decimalSymbol).trim()) !== '') ? ds : '.',
 							v = $.fbuilder.parseVal(
-								( ts !== '' ? String(value).replace( new RegExp(ts.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "gi"), '') : value ),
+								( ts !== '' ? String(value).replace(new RegExp(tse + '(?!\\d{1,2}\\D*$)', "gi"), '') : value ),
 								ts, ds
 							),
 							s = '',

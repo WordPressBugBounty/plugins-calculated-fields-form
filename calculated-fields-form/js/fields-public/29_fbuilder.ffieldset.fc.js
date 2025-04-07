@@ -14,7 +14,9 @@
 			rearrange: 0,
 			show:function()
 				{
-                    return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-fieldset-field cff-container-field '+((this.collapsible) ? 'cff-collapsible'+((this.selfClosing) ? ' cff-selfclosing' : '')+((this.defaultCollapsed) ?  ' cff-collapsed' : '') : '')+'" id="field'+this.form_identifier+'-'+this.index+'"><FIELDSET style="'+cff_esc_attr(this.getCSSComponent('container'))+'">'+((!/^\s*$/.test(this.title) || this.collapsible) ? '<LEGEND style="'+cff_esc_attr(this.getCSSComponent('legend'))+'">'+cff_sanitize(this.title, true)+'</LEGEND>' : '')+'<div id="'+this.name+'" class="'+( this.align == 'bottom' ? 'cff-align-container-bottom' : '' )+'"></div></FIELDSET><div class="clearer"></div></div>';
+					let title = cff_sanitize(this.title, true);
+					if ( this.collapsible) title = '<span tabindex="0">' + title + '</span>';
+                    return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-fieldset-field cff-container-field '+((this.collapsible) ? 'cff-collapsible'+((this.selfClosing) ? ' cff-selfclosing' : '')+((this.defaultCollapsed) ?  ' cff-collapsed' : '') : '')+'" id="field'+this.form_identifier+'-'+this.index+'"><FIELDSET style="'+cff_esc_attr(this.getCSSComponent('container'))+'">'+((!/^\s*$/.test(this.title) || this.collapsible) ? '<LEGEND style="'+cff_esc_attr(this.getCSSComponent('legend'))+'">'+title+'</LEGEND>' : '')+'<div id="'+this.name+'" class="'+( this.align == 'bottom' ? 'cff-align-container-bottom' : '' )+'"></div></FIELDSET><div class="clearer"></div></div>';
 				},
 			after_show: function()
 				{
@@ -40,7 +42,11 @@
                             collapseApply($(this).closest('.cff-collapsible'));
 							evt.preventDefault();
 							evt.stopPropagation();
-                        });
+                        }).on('keyup', function(evt){
+							if (evt.key === 'Enter') {
+								$(this).trigger('click');
+							}
+						});
 						$('.'+me.name).on('click', function(){
 							var e = $(this);
                             if(e.hasClass('cff-collapsed')) collapseApply(e);

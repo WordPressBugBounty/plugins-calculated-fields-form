@@ -61,9 +61,10 @@
 					{
 						var me = this,
 							ts = me.thousandSeparator,
+							tse = ts.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
 							cs = ((cs = String(me.centSeparator).trim()) !== '') ? cs : '.',
 							v = $.fbuilder.parseVal(
-								( ts !== '' ? String(value).replace( new RegExp(ts.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "gi"), '') : value ),
+								( ts !== '' ? String(value).replace(new RegExp(tse + '(?!\\d{1,2}\\D*$)', "gi"), '') : value ),
 								ts, cs
 							),
 							parts = [],

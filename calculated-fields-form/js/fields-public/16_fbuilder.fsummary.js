@@ -126,11 +126,18 @@
 													else if( ! e.hasClass( 'cpefb_error message' ) )
 													{
 														var c = $('[id="'+i+'_caption"]');
-														v.push(
-															(c.length && !/^\s*$/.test(c.html())) ?
-															c.html() :
-															e.val()
-														);
+														if(c.length && !/^\s*$/.test(c.html())) {
+															v.push(c.html());
+														} else if(e.closest('.cff-phone-field')) {
+															v.push(
+																$('[id^="'+e.attr('id')+'_"]')
+																 .map(function(){return String($(this).val()).trim();})
+																 .get()
+																 .filter(function(value){return value.length>0;}).join('-')
+															);
+														} else {
+															v.push(e.val());
+														}
 													}
 												}
 											}

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.39
+Stable tag: 5.3.40
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.40 =
+
+* Enhances Phone controls to display phone numbers with hyphen separators in summary views and HTML content fields.
+* Updates Number and Currency controls to support the assignment of unformatted numeric values.
+* Improves collapsible fieldset controls by enabling users to open and close fieldsets using keyboard-only interactions.
+* Adds a callback attribute to all DS fields, facilitating preprocessing of record values before they are assigned (affects both Developer and Platinum plugin distributions).
+* Upgrades the Google Places add-on to support the latest Google Place APIs while still maintaining compatibility with the legacy API (available in the Platinum plugin distribution).
+
 = 5.3.39 =
 = 5.3.38 =
 
@@ -474,17 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.35 =
 
 * Ensures full compatibility with WordPress 6.8.
-
-= 5.3.34 =
-
-* Eliminates dependencies on third-party libraries.
-* Updates the server-side validation module to display the titles of fields that fail validation and logs errors in the error log file.
-* Enhances the default forms.
-* Upgrades the Select2 library.
-* Optimizes database queries.
-* Modifies the form preview module.
-* Enhances the visualization of entries in the dashboard widget and entries list for the Professional, Developer, and Platinum plugin versions.
-
-= 5.3.33 =
-
-* Includes new predefined forms.

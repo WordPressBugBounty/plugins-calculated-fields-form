@@ -198,10 +198,18 @@
 				},
 			val:function(raw, no_quotes)
 				{
-                    raw = raw || true;
+                    raw = raw || false;
                     no_quotes = no_quotes || false;
 					var e = $('[id="'+this.name+'"]:not(.ignore)'),
-						p = $.fbuilder.parseValStr(e.val(), raw, no_quotes);
+						pr = $('[id^="'+this.name+'_"]')
+							.map(function(){return String($(this).val()).trim();})
+							.get()
+							.filter(function(value){return value.length>0;}).join('-'),
+						p  = $.fbuilder.parseValStr(
+							raw ? pr : e.val(),
+							true,
+							no_quotes
+						);
 
 					if(e.length) return ($.fbuilder.isNumeric(p) && !no_quotes) ? '"'+p+'"' : p;
 					return 0;
