@@ -128,7 +128,7 @@
 														var c = $('[id="'+i+'_caption"]');
 														if(c.length && !/^\s*$/.test(c.html())) {
 															v.push(c.html());
-														} else if(e.closest('.cff-phone-field')) {
+														} else if(e.closest('.cff-phone-field').length) {
 															v.push(
 																$('[id^="'+e.attr('id')+'_"]')
 																 .map(function(){return String($(this).val()).trim();})
