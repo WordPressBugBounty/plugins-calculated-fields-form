@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.41
+Stable tag: 5.3.42
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.42 =
+
+* Modifies the DIV control to give more control over the styles that affect the contained fields.
+* Fixes a minor issue in the fields list popup to enhance the user experience.
+* Adds a new predefined form and category of predefined forms for AI. This new form implements a texts translator using an AI model for translating texts directly in the browser.
+
 = 5.3.41 =
 = 5.3.40 =
 
@@ -479,7 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Introduces new video tutorials and updates the landing page.
 * Enables the display of all entry details simultaneously in the entries section. Professional, Developer, and Platinum plugin versions.
-
-= 5.3.35 =
-
-* Ensures full compatibility with WordPress 6.8.

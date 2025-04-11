@@ -108,6 +108,12 @@ cff_forms_templates = {
 			"thumb": "2.png",
 			"id": 2
         }, {
+            "title": "AI - Language Translator",
+            "category": "AI",
+            "description": "The form uses the AI for translating the texts.",
+			"thumb":"69.png",
+            "id": 69
+        }, {
             "title": "Working Days",
             "category": "Dates Operations",
             "description": "Calculates the working days between two dates, excluding specific days of the week.",

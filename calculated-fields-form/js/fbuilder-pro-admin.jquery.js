@@ -143,6 +143,7 @@
 				}
 			});
 			f.focus();
+			w.scrollTo(0,0);
 		} catch ( err ) {}
     };
 

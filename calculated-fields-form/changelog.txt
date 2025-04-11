@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.42 =
+
+* Modifies the DIV control to give more control over the styles that affect the contained fields.
+* Fixes a minor issue in the fields list popup to enhance the user experience.
+* Adds a new predefined form and category of predefined forms for AI. This new form implements a texts translator using an AI model for translating texts directly in the browser.
+
 = 5.3.41 =
 = 5.3.40 =
 
