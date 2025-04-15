@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.43 =
+
+* Modifies the calculated fields: Now, when you check the currency option in the field settings, the plugin automatically enforces two decimal places for decimal results.
+* Adds a new, predefined form designed to evaluate password strength.
+
 = 5.3.42 =
 
 * Modifies the DIV control to give more control over the styles that affect the contained fields.

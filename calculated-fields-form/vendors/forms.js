@@ -48,6 +48,12 @@ cff_forms_templates = {
 			"thumb":"68.png",
             "id": 68
         }, {
+            "title": "Password Strength Checker",
+            "category": "Basic Operations",
+            "description": "Checks password strength using a color-coded system.",
+			"thumb":"70.png",
+            "id": 70
+        }, {
             "title": "Converting Values",
             "category": "Basic Operations",
             "description": "Convert a value from one unit of measurement to another.",

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.42
+Stable tag: 5.3.43
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.43 =
+
+* Modifies the calculated fields: Now, when you check the currency option in the field settings, the plugin automatically enforces two decimal places for decimal results.
+* Adds a new, predefined form designed to evaluate password strength.
+
 = 5.3.42 =
 
 * Modifies the DIV control to give more control over the styles that affect the contained fields.
@@ -480,8 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Added a new feature in the Advanced Settings tab of the fields settings to allow to hide them by default.
 * Updated the registration form add-on to support registering users with different roles using the same form. Additionally, users can now select their role directly from the form (available in both the Developer and Platinum plugin versions).
 * Redesigned the interface of the PDF Generator add-on to simplify file generation for languages requiring special characters. This enhancement is part of the Platinum plugin version.
-
-= 5.3.36 =
-
-* Introduces new video tutorials and updates the landing page.
-* Enables the display of all entry details simultaneously in the entries section. Professional, Developer, and Platinum plugin versions.

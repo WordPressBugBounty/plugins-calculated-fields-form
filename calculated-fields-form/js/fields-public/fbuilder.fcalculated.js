@@ -639,6 +639,7 @@
                                 {
 									isNumeric = true;
 									if(value < 0) symbol =  '-';
+									if(config.currency && FLOOR(value) != value) value = PREC(value,2);
                                     var parts = value.toString().replace("-", "").split("."),
                                         counter = 0,
                                         str = '';
