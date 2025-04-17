@@ -4,7 +4,8 @@ jQuery(function()
 		(function( blocks, element ) {
 			var el 			= element.createElement,
 				InspectorControls = ('blockEditor' in wp) ? wp.blockEditor.InspectorControls : wp.editor.InspectorControls,
-				category 	= {slug:'cp-calculated-fields-form', title : 'Calculated Fields Form'};
+				category 	= {slug:'cp-calculated-fields-form', title : 'Calculated Fields Form'},
+				{useEffect} = wp.element;
 
 			/* Plugin Category */
 			blocks.getCategories().push({slug: 'cpcff', title: 'Calculated Fields Form'});
@@ -176,7 +177,11 @@ jQuery(function()
 						}
 					}
 
-					if(first_time && options.length) generate_shortcode();
+					if( typeof useEffect != 'undefined') {
+						useEffect(()=>{
+							if(first_time && options.length) generate_shortcode();
+						},[]);
+					} else if(first_time && options.length) generate_shortcode();
 
 					if(!/^\s*$/.test(id))
 					{

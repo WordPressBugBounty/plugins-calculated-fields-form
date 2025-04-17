@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.44 =
+
+* Modifies the WordPress editor block.
+
 = 5.3.43 =
 
 * Modifies the calculated fields: Now, when you check the currency option in the field settings, the plugin automatically enforces two decimal places for decimal results.
