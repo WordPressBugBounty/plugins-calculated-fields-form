@@ -119,7 +119,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						<input type="button" name="cff_fields_list" class="button-secondary" value="<?php print wp_is_mobile() ? '&#9776;' : esc_attr__( 'Fields List', 'calculated-fields-form' ); ?>" title="<?php esc_attr_e( 'Fields List', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.printFields();" />
 						<input type="button" name="previewbtn" id="previewbtn2" class="button-primary" value="<?php esc_attr_e( 'Save and Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="<?php esc_attr_e( "Saves the form's structure only, and opens a preview windows", 'calculated-fields-form' ); ?>" />
 						&nbsp;|&nbsp;
-						<input type="button" name="cff_ai_assistant" id="cff_ai_assistant" class="button" value="<?php esc_attr_e( 'AI Assistant', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery('#cff-ai-assistant-container').show();" style="float:none;" />
+						<input type="button" name="cff_ai_assistant" class="button cff-ai-assistant" value="<?php esc_attr_e( 'AI Assistant', 'calculated-fields-form' ); ?>" onclick="if('cff_ai_assistant_open' in window) cff_ai_assistant_open();" style="float:none;" />
 						<div class="cff-form-builder-extend-shrink">
 							<button type="button" name="cff_expand_btn" class="button-secondary" title="<?php esc_attr_e( 'Set form builder fullscreen', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Fullscreen', 'calculated-fields-form' ); ?></button>
 							<button type="button" name="cff_shrink_btn" class="button-secondary" title="<?php esc_attr_e( 'Taking form builder out of fullscreen mode', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Shrink', 'calculated-fields-form' ); ?></button>
@@ -1009,75 +1009,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 		[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
 	</form>
 
-	<!-- OpenAI Assistant-->
-	<div id="cff-ai-assistant-container" style="display:none;">
-		<div class="cff-ai-assistan-title">
-			<span><?php esc_attr_e( 'AI Assistant (Experimental Feature)', 'calculated-fields-form' ); ?></span>
-			<div>
-				<button type="button" class="button-secondary cff-ai-assistance-settings" data-label-open="<?php esc_attr_e( 'Settings', 'calculated-fields-form' ); ?>" data-label-close="<?php esc_attr_e( 'Assistant', 'calculated-fields-form' ); ?>" ><?php esc_html_e( 'Settings', 'calculated-fields-form' ); ?></button>
-				<button type="button" class="button-secondary cff-ai-assistance-close" onclick="fbuilderjQuery('#cff-ai-assistant-container').hide();"><?php esc_html_e( 'Close', 'calculated-fields-form' ); ?></button>
-			</div>
-			<div style="display:block;float:none;clear:both;"></div>
-		</div>
-		<?php
-			$cff_openai_api_key = get_option( 'cff_openai_api_key', '' );
-		?>
-		<form id="cff-ai-assistant-register-form" action="<?php print esc_attr( CPCFF_AUXILIARY::wp_url() ); ?>" style="display:<?php print empty( $cff_openai_api_key ) ? 'block' : 'none'; ?>;">
-			<?php wp_nonce_field( 'cff-ai-assistan-register-action', 'cff-action' ); ?>
-			<div id="cff-ai-assistant-register">
-				<label><?php esc_html_e( 'Enter OpenAI API key', 'calculated-fields-form' ); ?></label>
-				<div class="cff-ai-assistant-register-row">
-					<input type="text" name="cff-openai-api-key" value="<?php print esc_attr( $cff_openai_api_key ); ?>" placeholder="<?php esc_attr_e( 'OpenAI API Key', 'calculated-fields-form' ); ?>" required />
-					<input type="submit" name="cff-ai-assistan-register-btn" class="button-primary" value="<?php esc_attr_e( 'Save', 'calculated-fields-form' ); ?>" />
-				</div>
-				<div class="cff-ai-assistant-register-error"><?php esc_html_e( 'OpenAI API Key is required', 'calculated-fields-form' ); ?></div>
-				<div class="cff-ai-assistan-register-instructions">
-					<label><?php esc_html_e( 'Instructions for use', 'calculated-fields-form' ); ?>:</label>
-					<ol>
-						<li><?php esc_html_e( 'Create an OpenAI account at', 'calculated-fields-form' ); ?> <a href="https://beta.openai.com/" target="_blank">https://beta.openai.com/</a></li>
-						<li><?php esc_html_e( 'Create an API key at', 'calculated-fields-form' ); ?> <a href="https://beta.openai.com/account/api-keys" target="_blank">https://beta.openai.com/account/api-keys</a></li>
-						<li><?php esc_html_e( 'Enter the API Key through the input box and press the Save button', 'calculated-fields-form' ); ?></li>
-					</ol>
-				</div>
-			</div>
-		</form>
-
-		<form id="cff-ai-assistant-interaction-form" action="<?php print esc_attr( CPCFF_AUXILIARY::wp_url() ); ?>" style="display:<?php print empty( $cff_openai_api_key ) ? 'none' : 'block'; ?>;">
-		<?php wp_nonce_field( 'cff-ai-assistan-question-action', 'cff-action' ); ?>
-			<div id="cff-ai-assistant-interaction">
-				<label><?php esc_html_e( 'Please, enter your questions', 'calculated-fields-form' ); ?></label>
-				<div class="cff-ai-assistant-question-row">
-					<textarea name="cff-openai-question" row="3" required placeholder="<?php esc_html_e( 'Your question', 'calculated-fields-form' ); ?>"></textarea>
-					<input type="submit" name="cff-ai-assistan-send-btn" class="button-primary" value="<?php esc_attr_e( 'Send', 'calculated-fields-form' ); ?>" />
-				</div>
-				<div class="cff-ai-assistant-question-error"><?php esc_html_e( 'Please, enter your question', 'calculated-fields-form' ); ?></div>
-				<div class="cff-ai-assistant-answer-row">
-					<?php
-						// Stored messages.
-					if ( session_id() == '' && ! headers_sent() ) {
-						session_start();
-					}
-
-					if ( ! empty( $_SESSION['cff-openai-messages'] ) ) {
-						$messages_records = CPCFF_AUXILIARY::sanitize( $_SESSION['cff-openai-messages'] ); // phpcs:ignore
-					} else {
-						$messages_records = array();
-					}
-
-					if ( is_array( $messages_records ) ) {
-						foreach ( $messages_records as $message_record ) {
-							if ( 'question' == $message_record['type'] ) {
-								print '<div class="cff-ai-assistance-question-frame">' . esc_html( $message_record['text'] ) . '</div>';
-							} else {
-								print '<div class="cff-ai-assistance-answer-frame cff-ai-assistance-mssg">' . str_replace( "\n", '<br>', esc_html( $message_record['text'] ) ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput
-							}
-						}
-					}
-					?>
-				</div>
-			</div>
-		</form>
-	</div>
-	<!-- OpenAI Assistant - End -->
+	<?php
+	include_once dirname( __FILE__ ) . '/cpcff_admin_ai_assistant.inc.php';
+	?>
 
 </div>

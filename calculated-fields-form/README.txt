@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.44
+Stable tag: 5.3.45
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,9 @@ The most remarkable aspect is that you don’t need to hire a developer to creat
 [youtube https://www.youtube.com/watch?v=R8hEbD8w2RM]
 
 The form builder is entirely visual, offering a wide selection of controls (Text fields, Numbers, Currency, Date/time, Slider control, Email, Radio buttons, Checkboxes, Container fields, Multi-page control, QR code reader, Recording, Calculated fields, and many others). This versatile toolkit empowers you to create customized forms effortlessly.
+
+And its new AI assistant provides exceptional support for developing complex calculation formulas and designing custom forms with ease.
+[youtube https://www.youtube.com/watch?v=Ao9_raUeRR0]
 
 == Features ==
 
@@ -455,6 +458,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.45 =
+
+* Revamped the AI Assistant module to utilize the WebMLL library, enabling completely free, in-browser inferencing.
+
 = 5.3.44 =
 
 * Modifies the WordPress editor block.
@@ -478,8 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Improves collapsible fieldset controls by enabling users to open and close fieldsets using keyboard-only interactions.
 * Adds a callback attribute to all DS fields, facilitating preprocessing of record values before they are assigned (affects both Developer and Platinum plugin distributions).
 * Upgrades the Google Places add-on to support the latest Google Place APIs while still maintaining compatibility with the legacy API (available in the Platinum plugin distribution).
-
-= 5.3.39 =
-= 5.3.38 =
-
-* Upgrades the Purify library version.

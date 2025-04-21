@@ -186,8 +186,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			CPCFF_AUXILIARY::clean_transients_hook(); // Set the hook for clearing the expired transients.
 
 			if ( $this->_is_admin ) {
-				require_once __DIR__ . '/cpcff_openai.inc.php';
-
 				if (
 					false === ( $CP_CALCULATEDFIELDSF_VERSION = get_option( 'CP_CALCULATEDFIELDSF_VERSION' ) ) || // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 					CP_CALCULATEDFIELDSF_VERSION != $CP_CALCULATEDFIELDSF_VERSION

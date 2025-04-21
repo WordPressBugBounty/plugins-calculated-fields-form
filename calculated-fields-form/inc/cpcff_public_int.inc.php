@@ -74,7 +74,11 @@ if ( ! empty( $form_data ) ) {
 	// Form Heights
 	print $form_obj->get_height( '#' . $form_data[1]['formid'] );
 	?>
-<form name="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" id="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" action="<?php echo esc_attr( ( ( $permalink = get_permalink() ) !== false ) ? $permalink : '?' ); ?>" method="post" enctype="multipart/form-data" onsubmit="return fbuilderjQuery.fbuilder.doValidate(this);" class="cff-form <?php
+<form name="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" id="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" action="<?php
+$action_url  = false !== ( $permalink = get_permalink() ) ? $permalink . ( false === strpos( $permalink, '?') ? '?' : '&' ) : '?';
+$action_url .= 'cffnocache=' . rand(100000, 999999);
+echo esc_attr( $action_url );
+?>" method="post" enctype="multipart/form-data" onsubmit="return fbuilderjQuery.fbuilder.doValidate(this);" class="cff-form <?php
 if ( ! empty( $form_data[1][0] ) && ! empty( $form_data[1][0]->persistence ) ) {
 	echo ' persist-form';
 }

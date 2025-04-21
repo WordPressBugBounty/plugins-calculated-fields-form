@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.45 =
+
+* Revamped the AI Assistant module to utilize the WebMLL library, enabling completely free, in-browser inferencing.
+
 = 5.3.44 =
 
 * Modifies the WordPress editor block.

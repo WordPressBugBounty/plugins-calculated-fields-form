@@ -483,7 +483,7 @@
 							}
 					};
 
-                    var out = '<label for="sEq">Set Equation</label><textarea class="large" name="sEq" id="sEq" style="height:150px;">'+cff_esc_attr(me.eq)+'</textarea>'+
+                    var out = '<div style="display:flex;flex-direction:row;align-items:end;"><label for="sEq" style="flex-grow:1;">Set Equation</label><input type="button" class="button cff-ai-assistant" value="AI" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'js\');"></div><textarea class="large" name="sEq" id="sEq" style="height:150px;">'+cff_esc_attr(me.eq)+'</textarea>'+
 					'<div id="sAdvancedEditor" title="The Advance Editor is still in experimental state">Advanced Equation\'s Editor</div>'+
 					'<label for="sFieldList">Operands <div style="float:right;"><a href="https://cff.dwbooster.com/documentation#modules" target="_blank">Read equation tutorial</a></div></label><div class="groupBox"><select id="sFieldList">';
 

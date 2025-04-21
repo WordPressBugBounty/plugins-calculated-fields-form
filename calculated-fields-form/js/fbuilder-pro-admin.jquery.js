@@ -974,7 +974,7 @@
 					str += '<!-- Embed Basic Extra --></div>'+
 						'<div class="cff-field-settings-tab-body-advanced">' +
 						$.fbuilder['showAdvancedSettings']( this ) +
-						'<div class="cff-editor-container" style="padding-top:10px;"><label for="fCustomStyles"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design <i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
+						'<div class="cff-editor-container" style="padding-top:10px;"><div style="display:flex;flex-direction:row;align-items:end;"><label for="fCustomStyles" style="flex-grow:1;"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design<br><i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><input type="button" class="button cff-ai-assistant" value="AI" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'css\');"></div><div></iv><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
 						'</div>'+
 					'</div>';
 
@@ -1904,99 +1904,9 @@
 			cff_openLibraryDialog( true );
 		}
 
-		$( '#cff-ai-assistant-container' ).draggable({ handle: ".cff-ai-assistan-title" });
-	});
-
-	$(document).on('submit', '#cff-ai-assistant-register-form', function(evt){
-		evt.preventDefault();
-		evt.stopPropagation();
-
-		let url  = $(evt.target).prop('action')+'/',
-			data = $(evt.target).serialize(),
-			openai_api_key = $('[name="cff-openai-api-key"]').val().replace(/^\s*/, '').replace(/\s*$/, '');
-
-		if( '' == openai_api_key) {
-			$('.cff-ai-assistant-register-error').show();
-		} else {
-			$('#cff-ai-assistant-container').append('<div class="cff-open-ai-loader"></div>');
-			$('.cff-ai-assistant-register-error').hide();
-			// Submit the value in background
-			$.ajax({
-				type: "POST",
-				url: url,
-				data: data,
-				success: function(data) {
-					if(data == 'ok'){
-						$('#cff-ai-assistant-container .cff-open-ai-loader').remove();
-						setTimeout( function(){
-							$('.cff-ai-assistance-settings').removeClass('button-primary').addClass('button-secondary');
-							$('#cff-ai-assistant-register-form').hide();
-							$('#cff-ai-assistant-interaction-form').show('slow');
-						}, 1000 );
-					} else {
-						alert( data );
-					}
-				}
-			});
-		}
-		return false;
-	});
-
-	$(document).on('submit', '#cff-ai-assistant-interaction-form', function(evt){
-		evt.preventDefault();
-		evt.stopPropagation();
-
-		let url  = $(evt.target).prop('action')+'/',
-			data = $(evt.target).serialize(),
-			openai_question = $('[name="cff-openai-question"]').val().replace(/^\s*/, '').replace(/\s*$/, '');
-
-		if( '' == openai_question) {
-			$('.cff-ai-assistant-question-error').show();
-		} else {
-			$('#cff-ai-assistant-container').append('<div class="cff-open-ai-loader"></div>');
-			$('.cff-ai-assistant-question-error').hide();
-			// Submit the value in background
-			$.ajax({
-				type: "POST",
-				url: url,
-				data: data,
-				success: (function(question){
-					return function(data) {
-						let data_obj = JSON.parse(data),
-							css_class = ({'mssg': 'cff-ai-assistance-mssg', 'error': 'cff-ai-assistance-error', 'warning': 'cff-ai-assistance-warning'})[data_obj['type']],
-							econtainer = $('.cff-ai-assistant-answer-row'),
-							equestion  = $('<div class="cff-ai-assistance-question-frame"></div>'),
-							eanswer    = $('<div class="cff-ai-assistance-answer-frame ' + css_class + '"></div>');
-
-						equestion.text( question );
-						eanswer.html( cff_sanitize(data_obj['message'], true) );
-						if( data_obj['type'] == 'mssg') {
-							$('[name="cff-openai-question"]').val('');
-						}
-						econtainer.prepend(eanswer)
-								  .prepend(equestion);
-						$('#cff-ai-assistant-container .cff-open-ai-loader').remove();
-						econtainer.animate({ scrollTop: 0 }, 'slow');
-					}
-				})(openai_question)
-			});
-		}
-		return false;
-	});
-
-	$(document).on('click', '.cff-ai-assistance-settings', function(){
-		let btn = $(this),
-			register = $('#cff-ai-assistant-register-form'),
-			interaction = $('#cff-ai-assistant-interaction-form');
-		if(register.is(':visible')) {
-			register.hide();
-			interaction.show();
-			btn.text(btn.attr('data-label-open'));
-		} else {
-			register.show();
-			interaction.hide();
-			btn.text(btn.attr('data-label-close'));
-		}
+		$( '#cff-ai-assistant-container' ).draggable({ handle: ".cff-ai-assistan-title", containment: "window",  drag: function(evt, ui) {
+			ui.position.top = Math.max(35, ui.position.top);
+		}});
 	});
 
 	$(document).on('keypress', '.cff_form_builder input[type="text"],.cff_form_builder input[type="number"]', function( evt ) {

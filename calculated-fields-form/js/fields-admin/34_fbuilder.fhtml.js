@@ -104,7 +104,7 @@
 						}
 						$('[name="sAllowscript"]').change();
 					}
-					return '<div><label for="sAllowscript"><input type="checkbox" name="sAllowscript" id="sAllowscript" '+(this.allowscript ? 'CHECKED' : '')+'> Accept advanced code in content as JavaScript code</label><hr /></div><div class="cff-editor-container"><label style="display:block;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
+					return '<div><label for="sAllowscript"><input type="checkbox" name="sAllowscript" id="sAllowscript" '+(this.allowscript ? 'CHECKED' : '')+'> Accept advanced code in content as JavaScript code</label><hr /></div><div class="cff-editor-container"><div style="display:flex;flex-direction:row;align-items:end;"><label style="display:block;flex-grow:1;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><input type="button" class="button cff-ai-assistant" value="AI" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'html\');"></div><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
 				},
 			showAllSettings:function()
 				{
