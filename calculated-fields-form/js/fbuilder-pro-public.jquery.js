@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.45';
+	$.fbuilder['version'] = '5.3.46';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1312,12 +1312,13 @@
 		$.fbuilder.manageHistory(true);
 	});
 
-	$(document).on('click', '#fbuilder .cff-spinner-down,#fbuilder .cff-spinner-up', function(){
+	$(document).on('mousedown', '#fbuilder .cff-spinner-down,#fbuilder .cff-spinner-up', function(){
 		var u = $(this).hasClass('cff-spinner-up'),
 			e = $(this)[u ? 'prev' : 'next']('input'),
 			o, s, m, v, l;
 
 		if(e.length) {
+			e.attr('data-indeasing-decreasing', 1);
 			o = getField(e.attr('id'), e[0].form);
 			s = e.attr('step');
 			if(isNaN(s*1)) s = 1;
@@ -1325,14 +1326,30 @@
 			s *= 1;
 			l = l.length == 2 ? l[1].length : 0;
 			m = e.attr(u ? 'max' : 'min');
-			v = o.val();
-			if(e.hasClass('percent')){ v = PREC(v*100, 4)*1; }
-			if(u) v += s;
-			else v -= s;
-			if(m) v = u ? MIN(v,m) : MAX(v,m);
-			v = PREC(v,l);
-			o.setVal(v);
-			e.valid();
+
+			function increase() {
+				if ( typeof e.attr('data-indeasing-decreasing') != 'undefined' ) {
+					v = o.val();
+					if(e.hasClass('percent')){ v = PREC(v*100, 4)*1; }
+					if(u) v += s;
+					else v -= s;
+					if(m) v = u ? MIN(v,m) : MAX(v,m);
+					v = PREC(v,l);
+					o.setVal(v);
+					e.valid();
+					setTimeout(function(){ increase(); }, 300);
+				}
+			}
+			increase();
+		}
+	});
+
+	$(document).on('mouseup mouseleave', '#fbuilder .cff-spinner-down,#fbuilder .cff-spinner-up', function(){
+		var u = $(this).hasClass('cff-spinner-up'),
+			e = $(this)[u ? 'prev' : 'next']('input');
+
+		if(e.length) {
+			e.removeAttr('data-indeasing-decreasing');
 		}
 	});
 

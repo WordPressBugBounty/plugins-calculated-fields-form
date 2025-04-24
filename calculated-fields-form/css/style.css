@@ -776,7 +776,8 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 
 .metabox_disabled_section{cursor:pointer !important;}
 .metabox_disabled_section * {color:#bfbdbd91 !important;}
-.metabox_disabled_section .inside * {color:#bfbdbd91 !important;pointer-events: none !important;}
+.metabox_disabled_section .inside *,
+.metabox_disabled_section .inside *::placeholder{color:#bfbdbd91 !important;pointer-events: none !important;}
 .metabox_disabled_section #captchaimg{opacity:0.3;}
 
 .cff-addons-category{display:inline-block;font-weight:bold;text-transform:capitalize;border-bottom:1px solid #eee;margin-bottom:10px;padding-bottom:5px;}

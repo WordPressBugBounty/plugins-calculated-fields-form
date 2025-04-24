@@ -52,8 +52,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="#metabox_submit_thank">' . esc_html__( 'Submit button and thank you page', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_notification_email">' . esc_html__( 'Notification email', 'calculated-fields-form' ) . '</a>&nbsp;
 	<span>[</span><b>' . esc_html__( 'Commercial Features', 'calculated-fields-form' ) . ':</b>
-	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'General payment settings', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
-	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'PayPal integration', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Payment settings', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Email copy to user', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a><span>]</span>
  </div>';
@@ -333,12 +332,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				</div>
 				<div class="cff-popup-icon-separator"></div>
 				<div class="cff-popup-icon cff-popup-icon-disabled">
-					<div class="cff-popup-bubble"><?php esc_html_e( 'General Payment Settings', 'calculated-fields-form' ); ?></div>
-					<a href="#metabox_payment_settings"><img src="<?php print esc_attr( plugins_url('../images/icons/payment.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'General Payment Settings', 'calculated-fields-form' ); ?>"></a>
-				</div>
-				<div class="cff-popup-icon cff-popup-icon-disabled">
-					<div class="cff-popup-bubble"><?php esc_html_e( 'PayPal Integration', 'calculated-fields-form' ); ?></div>
-					<a href="#metabox_paypal_integration"><img src="<?php print esc_attr( plugins_url('../images/icons/paypal.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'PayPal Integration', 'calculated-fields-form' ); ?>"></a>
+					<div class="cff-popup-bubble"><?php esc_html_e( 'Payment Settings', 'calculated-fields-form' ); ?></div>
+					<a href="#metabox_payment_settings"><img src="<?php print esc_attr( plugins_url('../images/icons/payment.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Payment Settings', 'calculated-fields-form' ); ?>"></a>
 				</div>
 				<div class="cff-popup-icon cff-popup-icon-disabled">
 					<div class="cff-popup-bubble"><?php esc_html_e( 'Email Copy to User', 'calculated-fields-form' ); ?></div>
@@ -652,7 +647,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 			[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
 
 			<br /><br /><br />
-			<style>.cff-metabox,.metabox_disabled_section{margin-right:30px;}@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }</style>
+			<style>.cff-metabox,.metabox_disabled_section{margin-right:30px;}@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }#cff-payment-gateways-accordion .cff-metabox, #cff-payment-gateways-accordion .metabox_disabled_section{margin-bottom:5px;} .cff-addons-complementary-plugin-form-settings:empty::before{content: "<?php esc_attr_e( '- Empty Area -', 'calculated-fields-form' ); ?>"; margin-bottom:40px;display:block;text-align:center;}</style>
 
 			<div id="cff-upgrade-frame" style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;margin-right:30px;">
 				<a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;float:left;" class="cff-plugin-logo-promote"><img src="https://ps.w.org/calculated-fields-form/assets/icon-256x256.jpg" style="width:160px;border:2px solid white;margin-right:10px;margin-bottom:10px;"></a>
@@ -680,14 +675,14 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Currency', 'calculated-fields-form' ); ?></th>
-							<td><input type="text" name="currency" value="<?php echo esc_attr( $form_obj->get_option( 'currency', CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY ) ); ?>" /><br>
-							<b>USD</b> (<?php esc_html_e( 'United States dollar', 'calculated-fields-form' ); ?>), <b>EUR</b> (Euro), <b>GBP</b> (<?php esc_html_e( 'Pound sterling', 'calculated-fields-form' ); ?>), ... (<a href="https://developer.paypal.com/docs/api/reference/currency-codes/" target="_blank"><?php esc_html_e( 'PayPal Currency Codes', 'calculated-fields-form' ); ?></a>)
+							<td><input type="text" name="currency" value="<?php echo esc_attr( $form_obj->get_option( 'currency', CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY ) ); ?>" class="width50" /><br>
+							<b>USD</b> (<?php esc_html_e( 'United States dollar', 'calculated-fields-form' ); ?>), <b>EUR</b> (Euro), <b>GBP</b> (<?php esc_html_e( 'Pound sterling', 'calculated-fields-form' ); ?>), ... (<a href="https://developer.paypal.com/docs/api/reference/currency-codes/" target="_blank"><?php esc_html_e( 'Currency Codes', 'calculated-fields-form' ); ?></a>)
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Base amount', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="paypal_base_amount" value="<?php echo esc_attr( $form_obj->get_option( 'paypal_base_amount', '0.01' ) ); ?>" /><br><i style="font-size:11px;"><?php esc_html_e( 'Minimum amount to charge. If the final price is lesser than this number, the base amount will be applied.', 'calculated-fields-form' ); ?></i>
+							<td><input type="text" name="paypal_base_amount" value="<?php echo esc_attr( $form_obj->get_option( 'paypal_base_amount', '0.01' ) ); ?>" class="width50" /><br><i style="font-size:11px;"><?php esc_html_e( 'Minimum amount to charge. If the final price is lesser than this number, the base amount will be applied.', 'calculated-fields-form' ); ?></i>
 							</td>
 						</tr>
 
@@ -716,126 +711,55 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							</td>
 						</tr>
 					</table>
+					<!-- PAYMENT GATEWAYS -->
+					<hr />
+					<h3>&#128176; <?php esc_html_e( 'Payment Methods', 'calculated-fields-form' ); ?></h3>
+					<div id="cff-payment-gateways-accordion">
+						<!-- PAY LATER -->
+						<div id="metabox_pay_later" class="postbox cff-metabox <?php print ! empty( $form_obj->get_option('enable_pay_later', 0) ) ? ' cff-payment-gateway-enabled ' : '';  ?>">
+							<div class="inside">
+								<table class="form-table">
+									<tr valign="top">
+										<th scope="row"><?php _e( 'Enable "Pay Later" option?', 'calculated-fields-form' ); ?></th>
+										<td>
+											<select name="enable_pay_later" disabled>
+												<option><?php _e( 'No', 'calculated-fields-form' ); ?></option>
+											</select>
+											<br /><i style="font-size:11px;"><?php esc_html_e( 'Note: When "multiple" payment methods are active, a radio button appears in the form for selection.', 'calculated-fields-form' ); ?></i>
+											<div id="cff_paypal_options_label" style="margin-top:10px;background:#EEF5FB;border: 1px dotted #888888;padding:10px;" class="width75">
+												<?php _e( 'Label for the "<strong>Pay later</strong>" option (for optional payments)', 'calculated-fields-form' ); ?>:<br />
+												<input type="text" name="enable_paypal_option_no" size="70" style="width:100%;" value="" disabled />
+											</div>
+										</td>
+									</tr>
+								</table>
+								<script>
+								jQuery(document).on('change', '[name="enable_pay_later"]', function(){
+									jQuery('#metabox_pay_later')[( this.tagName == 'INPUT' && this.checked ) || this.value*1 ? 'addClass' : 'removeClass' ]('cff-payment-gateway-enabled');
+								});
+								</script>
+							</div>
+						</div>
+						<!-- END PAY LATER -->
 
+						<!-- PAYPAL SECTION -->
+						<div id="metabox_paypal_integration" class="postbox metabox_disabled_section cff-metabox cff-metabox-closed">
+							<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Paypal Payment Configuration', 'calculated-fields-form' ); ?></span></h3>
+							<div class="inside">
+							</div>
+						</div>
+
+						<div id="metabox_stripe_checkout_addon_form_settings" class="postbox metabox_disabled_section cff-metabox cff-metabox-closed">
+							<h3 class='hndle' style="padding:5px;"><span><?php _e( 'CFF - Stripe Checkout', 'calculated-fields-form' ); ?></span></h3>
+							<div class="inside">
+							</div>
+						</div>
+						<!-- END PAYPAL SECTION -->
+					</div> <!-- PAYMENT GATEWAYS ACCORDION -->
 					<div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e( 'Up to form structure', 'calculated-fields-form' ); ?></a></div>
 				</div>
 			</div>
 
-			<div id="metabox_paypal_integration" class="postbox metabox_disabled_section cff-metabox <?php print esc_attr( $cpcff_main->metabox_status( 'metabox_paypal_integration' ) ); ?>">
-				<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Paypal Payment Configuration', 'calculated-fields-form' ); ?></span></h3>
-				<div class="inside">
-					<table class="form-table">
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Enable Paypal Payments?', 'calculated-fields-form' ); ?></th>
-							<td>
-								<select name="enable_paypal">
-									<option value="0"><?php esc_html_e( 'No', 'calculated-fields-form' ); ?></option>
-								</select>
-								<br /><i style="font-size:11px;"><?php esc_html_e( 'Note: If "Optional" is selected, a radiobutton will appear in the form to select if the payment will be made with PayPal or not.', 'calculated-fields-form' ); ?></i>
-								<div id="cff_paypal_options_label" style="margin-top:10px;background:#EEF5FB;border: 1px dotted #888888;padding:10px;width:260px;">
-									<?php _e( 'Label for the "<strong>Pay with PayPal</strong>" option', 'calculated-fields-form' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>:<br />
-									<input type="text" size="40" style="width:250px;" />
-								</div>
-							</td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Paypal Mode', 'calculated-fields-form' ); ?></th>
-							<td>
-								<select name="paypal_mode" class="width75">
-									<option value="production" <?php
-									if ( 'sandbox' != $form_obj->get_option( 'paypal_mode', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_MODE ) ) {
-										echo 'selected';}
-									?>><?php esc_html_e( 'Production - real payments processed', 'calculated-fields-form' ); ?></option>
-									<option value="sandbox" <?php
-									if ( 'sandbox' == $form_obj->get_option( 'paypal_mode', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_MODE ) ) {
-										echo 'selected';}
-									?>><?php esc_html_e( 'SandBox - PayPal testing sandbox area', 'calculated-fields-form' ); ?></option>
-								</select>
-							</td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Paypal email', 'calculated-fields-form' ); ?></th>
-							<td><input type="text" name="paypal_email" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'paypal_email', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_EMAIL ) ); ?>" /></td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'A $0 amount to pay means', 'calculated-fields-form' ); ?>:</th>
-							<td>
-								<select name="paypal_zero_payment" class="width75">
-									<option value="0" <?php
-									if ( '1' != $form_obj->get_option( 'paypal_zero_payment', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_ZERO_PAYMENT ) ) {
-										echo 'selected';}
-									?>><?php esc_html_e( 'Let the user enter any amount at PayPal (Ex. for a donation)', 'calculated-fields-form' ); ?></option>
-									<option value="1" <?php
-									if ( $form_obj->get_option( 'paypal_zero_payment', '1' == CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_ZERO_PAYMENT ) ) {
-										echo 'selected';}
-									?>><?php esc_html_e( 'Don\'t require any payment. Form is submitted skiping the PayPal page.', 'calculated-fields-form' ); ?></option>
-								</select>
-							</td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Paypal language', 'calculated-fields-form' ); ?></th>
-							<td><input type="text" name="paypal_language" value="<?php echo esc_attr( $form_obj->get_option( 'paypal_language', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_LANGUAGE ) ); ?>" /></td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Payment frequency', 'calculated-fields-form' ); ?></th>
-							<td>
-								<select name="paypal_recurrent" class="width75">
-									<option value="0" <?php
-									if ( '0' == $form_obj->get_option( 'paypal_recurrent', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT ) ||
-									'' == $form_obj->get_option( 'paypal_recurrent', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT )
-									) {
-												echo 'selected';}
-									?>><?php esc_html_e( 'One time payment (default option, user is billed only once)', 'calculated-fields-form' ); ?></option>
-									<option value="1" <?php
-									if ( '1' == $form_obj->get_option( 'paypal_recurrent', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT ) ) {
-										echo 'selected';}
-									?>><?php esc_html_e( 'Bill the user every 1 month', 'calculated-fields-form' ); ?></option>
-									<option value="3" <?php
-									if ( '3' == $form_obj->get_option( 'paypal_recurrent', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT ) ) {
-										echo 'selected';}
-									?>><?php esc_html_e( 'Bill the user every 3 months', 'calculated-fields-form' ); ?></option>
-									<option value="6" <?php
-									if ( '6' == $form_obj->get_option( 'paypal_recurrent', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT ) ) {
-										echo 'selected';}
-									?>><?php esc_html_e( 'Bill the user every 6 months', 'calculated-fields-form' ); ?></option>
-									<option value="12" <?php
-									if ( '12' == $form_obj->get_option( 'paypal_recurrent', CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT ) ) {
-										echo 'selected';}
-									?>><?php esc_html_e( 'Bill the user every 12 months', 'calculated-fields-form' ); ?></option>
-								</select>
-							</td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Paypal prompt buyers for shipping address', 'calculated-fields-form' ); ?></th>
-							<td>
-								<?php $paypal_address = $form_obj->get_option( 'paypal_address', 1 ); ?>
-								<select name="paypal_address" class="width75">
-									<option value="1" <?php
-									if ( 1 == $paypal_address ) {
-										print 'SELECTED';}
-									?>><?php esc_html_e( 'Do not prompt for an address', 'calculated-fields-form' ); ?></option>
-									<option value="0" <?php
-									if ( 0 == $paypal_address ) {
-										print 'SELECTED';}
-									?>><?php esc_html_e( 'Prompt for an address, but do not require one', 'calculated-fields-form' ); ?></option>
-									<option value="2" <?php
-									if ( 2 == $paypal_address ) {
-										print 'SELECTED';}
-									?>><?php esc_html_e( 'Prompt for an address and require one', 'calculated-fields-form' ); ?></option>
-								</select>
-							</td>
-						</tr>
-					</table>
-
-					<div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e( 'Up to form structure', 'calculated-fields-form' ); ?></a></div>
-				</div>
-			</div>
 
 			<div id="metabox_email_copy_to_user" class="postbox metabox_disabled_section cff-metabox <?php print esc_attr( $cpcff_main->metabox_status( 'metabox_email_copy_to_user' ) ); ?>" >
 				<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Email Copy to User', 'calculated-fields-form' ); ?></span></h3>
@@ -863,13 +787,13 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'BCC', 'calculated-fields-form' ); ?></th>
-							<td><input type="email" name="cu_user_email_bcc_field" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'cu_user_email_bcc_field', '' ) ); ?>" placeholder="Ex. bcc-email@domain.com" />
+							<td><input type="email" name="cu_user_email_bcc_field" class="width75" placeholder="Ex. bcc-email@domain.com" disabled />
 							<p><em><?php esc_html_e( 'Email address for Blind Carbon Copy.', 'calculated-fields-form' ); ?></em></p></td>
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php _e( 'Reply-To (comma separated)', 'calculated-fields-form' ); ?></th>
 							<td>
-								<input type="text" name="cu_reply_to_emails" class="width75" value="<?php echo esc_attr($form_obj->get_option('cu_reply_to_emails', '')); ?>" placeholder="Ex. reply-to-email@domain.com" />
+								<input type="text" name="cu_reply_to_emails" class="width75" placeholder="Ex. reply-to-email@domain.com" disabled />
 								<p><em><?php esc_html_e( 'Kindly input email addresses separated by commas. If the field is left empty, the plugin will use the email address provided in the "From" attribute within the "Form Processing / Email Settings" section.', 'calculated-fields-form' ); ?></em></p>
 							</td>
 						</tr>
@@ -998,7 +922,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 
 			<a id="metabox_addons_section"></a>
 			<?php
+				_e( '<h2>Add-Ons - Complementary Plugin Settings:</h2><hr />', 'calculated-fields-form' );
+				print '<div class="cff-addons-complementary-plugin-form-settings">';
 				do_action( 'cpcff_form_settings', CP_CALCULATEDFIELDSF_ID );
+				print '</div>';
 			?>
 		</div>
 

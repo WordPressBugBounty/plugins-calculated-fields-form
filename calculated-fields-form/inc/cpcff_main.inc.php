@@ -459,9 +459,13 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			}
 		} // End admin_resources.
 
-		public function metabox_status( $metabox_id ) {
-			$statuses = get_option( 'cff-metaboxes-statuses', array() );
-			return ( ! empty( $statuses ) && is_array( $statuses ) && isset( $statuses[ $metabox_id ] ) && 0 == $statuses[ $metabox_id ] ) ? 'cff-metabox-closed' : 'cff-metabox-opened';
+		public function metabox_status( $metabox_id, $default = 'open' )
+		{
+			$statuses = get_option( 'cff-metaboxes-statuses', [] );
+			if ( ! empty( $statuses ) && is_array( $statuses ) && isset( $statuses[ $metabox_id ] ) ) {
+				return $statuses[ $metabox_id ] ? 'cff-metabox-opened' : 'cff-metabox-closed';
+			}
+			return 'open' == $default ? 'cff-metabox-opened' : 'cff-metabox-closed';
 		} // End metabox_status.
 
 		private function update_metabox_status() {

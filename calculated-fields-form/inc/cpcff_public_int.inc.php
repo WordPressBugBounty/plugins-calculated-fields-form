@@ -78,7 +78,7 @@ if ( ! empty( $form_data ) ) {
 $action_url  = false !== ( $permalink = get_permalink() ) ? $permalink . ( false === strpos( $permalink, '?') ? '?' : '&' ) : '?';
 $action_url .= 'cffnocache=' . rand(100000, 999999);
 echo esc_attr( $action_url );
-?>" method="post" enctype="multipart/form-data" onsubmit="return fbuilderjQuery.fbuilder.doValidate(this);" class="cff-form <?php
+?>" method="post" enctype="multipart/form-data" onsubmit="return fbuilderjQuery.fbuilder.doValidate(this);" class="cff-form no-prefetch <?php
 if ( ! empty( $form_data[1][0] ) && ! empty( $form_data[1][0]->persistence ) ) {
 	echo ' persist-form';
 }
