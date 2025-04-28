@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.46';
+	$.fbuilder['version'] = '5.3.47';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -988,7 +988,11 @@
 								   obj.name = obj.name+opt.identifier;
 								   obj.form_identifier = opt.identifier;
 								   if( 'fieldlayout' in obj && obj.fieldlayout != 'default' )
-									   obj.csslayout = ('csslayout' in obj ? obj.csslayout+' ' : '' )+obj.fieldlayout
+									   obj.csslayout = ('csslayout' in obj ? obj.csslayout+' ' : '' )+obj.fieldlayout;
+								   if('predefinedClick' in obj && obj.predefinedClick && 'predefined' in obj && obj.predefined) {
+									   obj.placeholder = obj.predefined;
+									   obj._setHndl('placeholder');
+								   }
 								   obj.init();
 								   /* items[items.length] = obj; */
 								   items[i] = obj;
@@ -1161,11 +1165,12 @@
 					e.val( cff_sanitize(v) );
 					if ( !nochange && bk !== e.val() ) e.trigger('change');
 				},
+				set_placeholder:function( v ) {
+					$( '[id="' + this.name + '"]' ).attr( 'placeholder', v );
+				},
 				setPlaceholder:function( v )
 				{
-					$( '[id="' + this.name + '"][type="text"]' )
-					 .add( '[id="' + this.name + '"][type="text"]' )
-					 .attr( 'placeholder', v );
+					$( '[id="' + this.name + '"][type="text"]' ).attr( 'placeholder', v );
 				},
 				getCSSComponent:function( c, i, s, f ) // c: component, i: !important, s: selector, f: form
 				{
@@ -1337,7 +1342,7 @@
 					v = PREC(v,l);
 					o.setVal(v);
 					e.valid();
-					setTimeout(function(){ increase(); }, 300);
+					setTimeout(function(){ increase(); }, 150);
 				}
 			}
 			increase();

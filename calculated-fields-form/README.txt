@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.46
+Stable tag: 5.3.47
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,19 +88,10 @@ For other editors, it is possible to insert the form into the pages via its shor
 
 = Predefined forms: =
 
-"Calculated Fields Form" is distributed with five predefined sample forms.
-
-1. Simple Calculator Operations
-2. Calculation with Dates (bookings with check-in and check-out dates)
-3. Ideal Weight Calculator
-4. Pregnancy Calculator
-5. Lease Calculator
-
-You can duplicate a sample form to implement your project, or create a new form from scratch.
+"Calculated Fields Form" comes with dozens of predefined forms that you can select during the form creation process, or you can build new forms from scratch.
 
 > <strong>Calculated Fields Form Commercial</strong><br />
->The free version of the "Calculated Fields Form" plugin includes only basic functionality. Other distributions (<a href="https://cff.dwbooster.com/download" target="_blank">Professional, Developer, and Platinum</a>) are available with advanced functionalities, such as sending notification emails, integration with payment gateways and external services, controls for database's connection (and connection to other data sources), complex operations, and many other features. The commercial plugin versions are <strong>one-time purchase</strong> with <strong>lifetime access</strong> to plugin updates ( <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:bold;">https://cff.dwbooster.com/download</a> )
-
+> The free version of the "Calculated Fields Form" plugin provides essential functionality, including sending notification emails to the website owner with the form data, basic operations for use with equations, and core features such as customizing form design, setting up conditional fields, and modifying the form layout. More advanced distributions, <a href="https://cff.dwbooster.com/download" target="_blank">Professional, Developer, and Platinum</a>, come with additional capabilities such as sending copy emails to form users, integration with payment gateways and external services, controls for managing database connections (including links to external data sources like Google Sheets in CSV format), and a variety of complex operations. All commercial versions are available as a <strong>one-time purchase</strong> with <strong>lifetime access</strong> to plugin updates. ( <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:bold;">https://cff.dwbooster.com/download</a> )
 
 = Features of the Professional version: =
 
@@ -136,94 +127,68 @@ Payments allow SCA (strong customer authentication), compatible with the new pay
 
 **Includes add-ons to extend the form features and make use of third-party plugins and external services**
 
-* [Server-Side Equations add-on](https://cff.dwbooster.com/add-ons/server-side-equations): define server-side equations.
-* [Verification Code add-on](https://cff.dwbooster.com/add-ons/verification-code): verifies the user's email by sending him a verification code and blocking the form's submission until the verification code is entered.
-* [WooCommerce add-on](https://cff.dwbooster.com/add-ons/woocommerce): integrate forms with WooCommerce products and calculate their prices, dimensions, and weight at the runtime.
-* [SalesForce add-on](https://cff.dwbooster.com/add-ons/salesforce): integrate the form with the SalesForce service.
-* [WebHooks add-on](https://cff.dwbooster.com/add-ons/webhook): send the information collected by the form to a WebHook URL to open countless possibilities. By connecting your form to services such as Zapier, Microsoft Flow, IFTTT, Workato, and others, you can connect to hundreds of third-party services (e.g. Zoho CRM, Dropbox, Mailchimp, Google Drive, Facebook, Twitter, etc.).
-* [User Permissions add-on](https://cff.dwbooster.com/add-ons/users-permissions): control the forms' access, as well as allowing users to access and edit their data.
-* [User Registration Form add-on](https://cff.dwbooster.com/add-ons/user-registration-form): build a user registration form that captures the user's basic information and metadata.
+* [Server-Side Equations add-on](https://cff.dwbooster.com/add-ons/server-side-equations): Run equations on the server for better performance and security.
+* [Verification Code add-on](https://cff.dwbooster.com/add-ons/verification-code): Email and phone verification with code input before form submission.
+* [WooCommerce add-on](https://cff.dwbooster.com/add-ons/woocommerce): Link forms to WooCommerce products to calculate prices, weight, and dimensions.
+* [SalesForce add-on](https://cff.dwbooster.com/add-ons/salesforce): Sync form data with your SalesForce account.
+* [WebHooks add-on](https://cff.dwbooster.com/add-ons/webhook): Send form data to WebHook URLs; connect with Zapier, IFTTT, and more.
+* [User Permissions add-on](https://cff.dwbooster.com/add-ons/users-permissions): Restrict form access and let users manage their submissions.
+* [User Registration Form add-on](https://cff.dwbooster.com/add-ons/user-registration-form): Create user sign-up forms
 
-= Features of the Platinum version and Complementary Plugins: =
+= Features of the Platinum version: =
 
 * Includes all the features of free, Professional, and Developer versions of the plugin.
 
 **Extending features add-ons**
 
-* [CSV Generator add-on](https://cff.dwbooster.com/add-ons/csv-generator): export the information collected by the form to CSV files and attach these to the notification emails.
-* [PDF Generator add-on](https://cff.dwbooster.com/add-ons/pdf-generator): generate PDF files with the information collected by the forms and attach them to the notification emails.
-* [Signature add-on](https://cff.dwbooster.com/add-ons/signature): convert form fields into "Signature" fields, allowing the users to sign the form with a mouse or touchscreen.
-* [Unique Fields Values add-on](https://cff.dwbooster.com/add-ons/uniquefieldsvalues): verifies that the values entered by users have not been used in previous submissions.
-* [iCal add-on](https://cff.dwbooster.com/add-ons/ical): send iCal file in the notification emails to import the events into most popular calendars like Outlook and Google Calendar.
-* [Upload Files add-on](https://cff.dwbooster.com/add-ons/upload): add uploaded files to the media library and extend the file types accepted by WordPress.
+* [CSV Generator add-on](https://cff.dwbooster.com/add-ons/csv-generator): Exports form data to CSV files and attaches them to notification emails.
+* [PDF Generator add-on](https://cff.dwbooster.com/add-ons/pdf-generator): Creates PDF documents from form data and includes them in notification emails.
+* [Signature add-on](https://cff.dwbooster.com/add-ons/signature):  Converts fields into signature fields so users can sign using a mouse or touchscreen.
+* [Unique Fields Values add-on](https://cff.dwbooster.com/add-ons/uniquefieldsvalues): Ensures users enter values that haven't been used in previous submissions.
+* [iCal add-on](https://cff.dwbooster.com/add-ons/ical): Sends iCal attachments in emails for importing events into Google Calendar, Outlook, and more.
+* [Upload Files add-on](https://cff.dwbooster.com/add-ons/upload): Saves uploaded files to the WordPress media library and supports additional file types.
 
 **Payment Gateways add-ons**
 
-* [PayPal Pro add-on](https://cff.dwbooster.com/add-ons/paypal-pro): enable the payer's credit card details to be entered directly through the website without any redirection to the PayPal website.
-* [PayPal Checkout add-on](https://cff.dwbooster.com/add-ons/paypal-checkout): enable PayPal Checkout integration. Supports more payment methods than PayPal Standard.
-* [Authorize.Net add-on](https://cff.dwbooster.com/add-ons/authorize): accept payments via Authorize.Net from the form.
-* [Stripe add-on](https://cff.dwbooster.com/add-ons/stripe): accept payments via the Stripe payment gateway from the form.
-* [Stripe Checkout add-on](https://cff.dwbooster.com/add-ons/stripe-checkout): accept payments via the Stripe payment gateway from the form by using the Stripe Checkout integration.
-* [Skrill Payments Integration](https://cff.dwbooster.com/add-ons/skrill) add-on: integrate with the Skrill Moneybookers payment gateway.
-* [TargetPay (iDeal) add-on](https://cff.dwbooster.com/add-ons/targetpay) add-on: integrate with iDeal, the popular Dutch payment method.
-* [Mollie (iDeal) add-on](https://cff.dwbooster.com/add-ons/mollie): accept payments via iDeal.
-* [RedSys / Servired / Sermepa add-on](https://cff.dwbooster.com/add-ons/redsys) provides: a secure interface for accepting credit card payments from most banks in Spain.
-* [PayTM add-on](https://cff.dwbooster.com/add-ons/paytm): a secure interface for accepting payments with credit cards, debit cards, net banking, wallets, and EMI.
-* [SagePay add-on](https://cff.dwbooster.com/add-ons/sagepay): a secure interface for accepting payments via SagePay.
-* [Sage Payment add-on](https://cff.dwbooster.com/add-ons/sagepayment): a secure interface for accepting payments through a secure SSL checkout system for both bankcard and virtual check transactions.
-* [eWay add-on](https://cff.dwbooster.com/add-ons/eway): integrate with eWay payment gateway. eWay is a popular payment gateway in countries like Australia, New Zealand, Singapore, Hong Kong, and Malaysia.
-* [Payrexx complementary plugin](https://cff-bundles.dwbooster.com/product/payrexx-payment-gateway): integrate with Payrexx payment platform with the forms.
-* [Square Checkout complementary plugin](https://cff-bundles.dwbooster.com/product/square-checkout-payment-gateway): Square provides a way to accept all major cards from customers around the world on web.
+* [PayPal Pro add-on](https://cff.dwbooster.com/add-ons/paypal-pro): Accept credit card payments directly on your site, no redirection to PayPal.
+* [PayPal Checkout add-on](https://cff.dwbooster.com/add-ons/paypal-checkout): Integrates PayPal Checkout with support for more payment methods than PayPal Standard.
+* [Authorize.Net add-on](https://cff.dwbooster.com/add-ons/authorize): Accept payments through Authorize.Net.
+* [Stripe add-on](https://cff.dwbooster.com/add-ons/stripe): Accept payments using the Stripe payment gateway.
+* [Stripe Checkout add-on](https://cff.dwbooster.com/add-ons/stripe-checkout): Uses Stripe Checkout for secure form-based payments.
+* [Skrill Payments Integration](https://cff.dwbooster.com/add-ons/skrill) add-on: Integrates with Skrill Moneybookers for payment processing.
+* [TargetPay (iDeal) add-on](https://cff.dwbooster.com/add-ons/targetpay) add-on: Supports payments via iDeal through TargetPay.
+* [Mollie (iDeal) add-on](https://cff.dwbooster.com/add-ons/mollie): Accepts iDeal payments using Mollie integration.
+* [RedSys / Servired / Sermepa add-on](https://cff.dwbooster.com/add-ons/redsys): Enables credit card payments via Spanish bank gateways.
+* [PayTM add-on](https://cff.dwbooster.com/add-ons/paytm): Accepts payments via cards, net banking, wallets, and EMI through PayTM.
+* [SagePay add-on](https://cff.dwbooster.com/add-ons/sagepay): Accepts secure payments using the SagePay gateway.
+* [Sage Payment add-on](https://cff.dwbooster.com/add-ons/sagepayment): Supports SSL-based credit card and e-check payments via Sage.
+* [eWay add-on](https://cff.dwbooster.com/add-ons/eway): Integrates with eWay for payments in Australia, NZ, Singapore, Hong Kong, and Malaysia.
+* [Payrexx complementary plugin](https://cff-bundles.dwbooster.com/product/payrexx-payment-gateway): Connects forms to the Payrexx payment platform.
+* [Square Checkout complementary plugin](https://cff-bundles.dwbooster.com/product/square-checkout-payment-gateway): Accepts all major cards worldwide using Square.
 
 **Integration with third-party services add-ons**
 
-* [Google Places add-on](https://cff.dwbooster.com/add-ons/google-places): transform form fields into autocomplete address fields.
-* [Autocomplete Places add-on](https://cff.dwbooster.com/add-ons/autocomplete-places): transform form fields into autocomplete address fields by using the Photon API.
-* [Google Analytics add-on](https://cff.dwbooster.com/add-ons/google-analytics): generate usage reports in "Google Analytics" for the users' actions.
-* [DropBox Integration add-on](https://cff.dwbooster.com/add-ons/dropbox): copy or move the uploaded files to a DropBox account.
-* [WebMerge add-on](https://cff.dwbooster.com/add-ons/webmerge): integrate the forms with FormStack documents (formerly WebMerge) to generate PDF and Office documents at runtime with the information collected by the web forms.
-* [Sendinblue Contact add-on](https://cff.dwbooster.com/add-ons/sendinblue): integrate the forms with Sendinblue to add/update contacts with the information collected by the web forms.
-* [PrintFriendly add-on](https://cff.dwbooster.com/add-ons/printfriendly): generate PDF files with the PrintFriendly API  and attach the resulting files to the notification emails.
-* [Mailchimp add-on](https://cff.dwbooster.com/add-ons/mailchimp): add new members to the MailChimp account.
-* [Mautic add-on](https://cff.dwbooster.com/add-ons/mautic): add new contacts (or update existing ones) into the Mautic Service.
-* [HubSpot add-on](https://cff.dwbooster.com/add-ons/hubspot): add/update contacts in HubSpot, using the information collected by the form.
-* [Twilio add-on](https://cff.dwbooster.com/add-ons/twilio): send notification messages (SMS) in the forms' submissions.
-* [ip2location add-on](https://cff.dwbooster.com/add-ons/ip2location): identify the users' data using the ip2location databases.
-* [Odoo Contacts complementary plugin](https://cff-bundles.dwbooster.com/product/odoo-contacts): Odoo CRM is a comprehensive and powerful customer relationship management tool designed for businesses of all sizes.
-* [Google Sheets complementary plugin](https://cff-bundles.dwbooster.com/product/spreadsheet): allows implementing of business logic and calculations in Google Sheets, utilizing well-known Excel formulas, and allows entering the user data and displaying the results within your website's form.
-* [WhatsApp Button complementary plugin](https://cff-bundles.dwbooster.com/product/whatsapp-button): inserts WhatsApp buttons in your submissions list and public forms to open a new way of communication with leads and users.
-* [Xero Contacts complementary plugin](https://cff-bundles.dwbooster.com/product/xero-contacts): add or update Xero Contacts with the information collected by the forms. Xero is a cloud-based accounting software platform for small- and medium-sized businesses. Its features include automatic bank feeds, invoicing, accounts payable, expense claims, fixed asset depreciation, purchase orders, bank reconciliations, and standard business and management reporting.
-* [Zoho Leads complementary plugin](https://cff-bundles.dwbooster.com/product/zoho-leads): Zoho CRM is a full-featured customer relationship management (CRM) suite with many capabilities, including lead management, sales force automation, contact management, omnichannel customer interactions, and a wealth of analytics options.
-* [Zoom.us Meetings Integration complementary plugin](https://cff-bundles.dwbooster.com/product/zoom): schedules meeting in Zoom.us, and sends the meeting information (Url, ID and password) to the users by email.
+* [Google Places add-on](https://cff.dwbooster.com/add-ons/google-places): Turns form fields into address autocompletes using Google Places.
+* [Autocomplete Places add-on](https://cff.dwbooster.com/add-ons/autocomplete-places):  Adds address autocompletion via the Photon API.
+* [Google Analytics add-on](https://cff.dwbooster.com/add-ons/google-analytics): Tracks user actions and sends reports to Google Analytics.
+* [DropBox Integration add-on](https://cff.dwbooster.com/add-ons/dropbox): Moves uploaded files to your Dropbox account.
+* [WebMerge add-on](https://cff.dwbooster.com/add-ons/webmerge): Generates PDFs or Office docs via FormStack using form data.
+* [Sendinblue Contact add-on](https://cff.dwbooster.com/add-ons/sendinblue): Adds or updates contacts in Sendinblue from form submissions.
+* [PrintFriendly add-on](https://cff.dwbooster.com/add-ons/printfriendly): Creates PDF files with PrintFriendly and attaches them to emails.
+* [Mailchimp add-on](https://cff.dwbooster.com/add-ons/mailchimp): Adds new subscribers to your Mailchimp list.
+* [Mautic add-on](https://cff.dwbooster.com/add-ons/mautic): Updates or adds contacts in Mautic.
+* [HubSpot add-on](https://cff.dwbooster.com/add-ons/hubspot): Sends collected form data to HubSpot contacts.
+* [Twilio add-on](https://cff.dwbooster.com/add-ons/twilio): Sends SMS messages on form submission.
+* [ip2location add-on](https://cff.dwbooster.com/add-ons/ip2location): Detects user location using the ip2location database.
 
 **Integration with third-party plugins add-ons**
 
-* [Data Collector complementary plugin](https://cff-bundles.dwbooster.com/product/data-collector): collects user-entered field values and quietly sends them to the administrator via email.
-* [WooCommerce add-on](https://cff.dwbooster.com/add-ons/woocommerce): integrates forms with WooCommerce products and calculate their prices, dimensions, and weight at the runtime.
-* [WooCommerce Products And Variations Prices complementary plugin](https://cff-bundles.dwbooster.com/product/woocommerce-price): allows retrieving product and variation prices within calculated field equations by specifying their respective IDs.
-* [Easy Digital Downloads add-on](https://cff.dwbooster.com/add-ons/edd): integrates the forms into Easy Digital Downloads products and calculate their prices at the runtime.
-* [Multilanguage complementary plugin](https://cff-bundles.dwbooster.com/product/multilanguage): creates multilanguage forms by translating their texts and values.
-* [Progress Bar complementary plugin](https://cff-bundles.dwbooster.com/product/progress-bar): inserts and customize progress bars in multi-page forms.
-* [Upload Files Path complementary plugin](https://cff-bundles.dwbooster.com/product/upload-files-path): enables you to change the storage path for uploaded files, add them to the WordPress media library, and configure additional supported file extensions.
-* [QR Code Generator complementary plugin](https://cff-bundles.dwbooster.com/product/qrcode-generator): creates dynamic QR codes based on the data collected by CFF forms and adds them to notification emails, PDF files, and thank you pages.
-* [Database Queries complementary plugin](https://cff-bundles.dwbooster.com/product/database-queries): allows you entering custom DB queries to INSERT, UPDATE, or DELETE third-party database or table entries by using the information collected by the form.
-* [Draft complementary plugin](https://cff-bundles.dwbooster.com/product/draft): enables users to save a draft of their form data and resume editing at a later time.
-* [Email Validator complementary plugin](https://cff-bundles.dwbooster.com/product/email-validator): validates the email formats, or if they belong to free email services, disposable emails. It even checks the email quality.
-* [Reminders complementary plugin](https://cff-bundles.dwbooster.com/product/reminder): sends periodic emails to users about their form entries after form submission.
-* [Rich Text Editor complementary plugin](https://cff-bundles.dwbooster.com/product/rich-text-editor): transforms text areas (in the form settings and public forms) into WYSIWYG editors.
-* [Submissions Removal complementary plugin](https://cff-bundles.dwbooster.com/product/submissions-removal): automatically deletes outdated submissions and their associated files.
-* [Use Limit complementary plugin](https://cff-bundles.dwbooster.com/product/use-limit): provides a way to limit the number of submissions a user can send in an hour, a day, a week, a month, or year.
-* [Fields Synchronization complementary plugin](https://cff-bundles.dwbooster.com/product/fields-synchronization): syncs values between fields in the same or different forms on a page.
-* [RegExp complementary plugin](https://cff-bundles.dwbooster.com/product/regexp): provides predefined regular expressions you can use to validate the fields' values. Furthermore, allows you to add new regular expressions.
-* [Emma add-on](https://cff.dwbooster.com/add-ons/emma): adds new members to the Emma service.
-* [MailPoet add-on](https://cff.dwbooster.com/add-ons/mailpoet): adds new subscribers to MailPoet's Mailing Lists (MailPoet versions 2 and 3).
-* [AffiliateWP add-on](https://cff.dwbooster.com/add-ons/affiliatewp): integrates the forms with the AffiliateWP plugin.
-* [The Events Calendar add-on](https://cff.dwbooster.com/add-ons/the-events-calendar): creates new events, venues, categories, tags, and organizers in The Events Calendar plugin with the information collected by the form.
-* [Autocomplete complementary plugin](https://cff-bundles.dwbooster.com/product/autocomplete): suggests words and phrases to auto-complete text field values as the user types.
-* [Converter complementary plugin](https://cff-bundles.dwbooster.com/product/converter): includes specific operations module to  convert values between different measurement units.
-* [Create Posts complementary plugin](https://cff-bundles.dwbooster.com/product/create-posts): allows you to create posts and pages (including custom post types) by using the information collected by the forms.
-* [Currency Exchange complementary plugin](https://cff-bundles.dwbooster.com/product/currency-exchange): operations module to get exchange rates from external APIs.
-* [hCaptcha complementary plugin](https://cff-bundles.dwbooster.com/product/hcaptcha): protects the CFF forms from bots using the hCaptcha service.
+* [WooCommerce add-on](https://cff.dwbooster.com/add-ons/woocommerce): Connects forms with WooCommerce to calculate product prices, sizes, and weight.
+* [Easy Digital Downloads add-on](https://cff.dwbooster.com/add-ons/edd): Integrates with EDD to dynamically calculate product prices.
+* [Emma add-on](https://cff.dwbooster.com/add-ons/emma): Adds new contacts to Emma email lists.
+* [MailPoet add-on](https://cff.dwbooster.com/add-ons/mailpoet): Subscribes users to MailPoet (v2 & v3) lists.
+* [AffiliateWP add-on](https://cff.dwbooster.com/add-ons/affiliatewp): Connects forms with AffiliateWP.
+* [The Events Calendar add-on](https://cff.dwbooster.com/add-ons/the-events-calendar): Creates events, venues, and more using submitted form data.
 
 == Other Notes ==
 
@@ -321,6 +286,10 @@ To install the "Calculated Fields Form" plugin, please follow these steps:
 To build a form, go to the menu option "Calculated Fields Form"
 
 To insert the calculated / contact form into some content or post, use the corresponding form's shortcode. Each web form has associated a shortcode.
+
+== Complementary Plugins ==
+
+<a href="https://cff-bundles.dwbooster.com/product/odoo-contacts" target="_blank">Odoo Contacts</a>, <a href="https://cff-bundles.dwbooster.com/product/spreadsheet" target="_blank">Google Sheets Intergration</a>, <a href="https://cff-bundles.dwbooster.com/product/whatsapp-button" target="_blank">[WhatsApp Button]</a>, <a href="https://cff-bundles.dwbooster.com/product/xero-contacts" target="_blank">Xero Contacts</a>, <a href="https://cff-bundles.dwbooster.com/product/zoho-leads" target="_blank">Zoho Leads</a>, <a href="https://cff-bundles.dwbooster.com/product/zoom" target="_blank">Zoom.us Meetings Integration</a>, <a href="https://cff-bundles.dwbooster.com/product/data-collector" target="_blank">Data Collector</a>, <a href="https://cff-bundles.dwbooster.com/product/woocommerce-price" target="_blank">WooCommerce Products And Variations Prices</a>, <a href="https://cff-bundles.dwbooster.com/product/multilanguage" target="_blank">Multilanguage Forms</a>, <a href="https://cff-bundles.dwbooster.com/product/progress-bar" target="_blank">Progress Bar</a>, <a href="https://cff-bundles.dwbooster.com/product/upload-files-path" target="_blank">Upload Files Path</a>, <a href="https://cff-bundles.dwbooster.com/product/qrcode-generator" target="_blank">QR Code Generator</a>, <a href="https://cff-bundles.dwbooster.com/product/database-queries" target="_blank">Database Queries</a>, <a href="https://cff-bundles.dwbooster.com/product/draft" target="_blank">Draft Form Data</a>, <a href="https://cff-bundles.dwbooster.com/product/email-validator" target="_blank">Email Validator</a>, <a href="https://cff-bundles.dwbooster.com/product/reminder" target="_blank">Reminder Emails</a>, <a href="https://cff-bundles.dwbooster.com/product/rich-text-editor" target="_blank">Rich Text Editor</a>, <a href="https://cff-bundles.dwbooster.com/product/submissions-removal" target="_blank">Submissions Removal</a>, <a href="https://cff-bundles.dwbooster.com/product/use-limit" target="_blank">Use Limit</a>, <a href="https://cff-bundles.dwbooster.com/product/fields-synchronization" target="_blank">Fields Synchronization</a>, <a href="https://cff-bundles.dwbooster.com/product/regexp" target="_blank">RegExp Validation</a>, <a href="https://cff-bundles.dwbooster.com/product/autocomplete" target="_blank">Autocomplete Fields</a>, <a href="https://cff-bundles.dwbooster.com/product/converter" target="_blank">Measurement Units Converter</a>, <a href="https://cff-bundles.dwbooster.com/product/create-posts" target="_blank">Create Posts</a>, <a href="https://cff-bundles.dwbooster.com/product/currency-exchange" target="_blank">Currency Exchange</a>, <a href="https://cff-bundles.dwbooster.com/product/hcaptcha" target="_blank">hCaptcha</a> and growing...
 
 == Frequently Asked Questions ==
 
@@ -486,6 +455,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.47 =
+
+* Modified the spinner components in number and currency fields so they become continuous, eliminating the need to click repeatedly to adjust control values.
+* Ensured that placeholders remain synchronized with third-party fields when used as default values.
+* Improved the WooCommerce add-on to resolve a conflict with third-party themes that alter the behavior of add-to-cart buttons on WooCommerce products (applies to Developer and Platinum plugin versions).
+* Implemented a new feature in the WebHooks add-on that allows the use of short labels instead of field names in the WebHook URL. This enhancement simplifies reusing the same WebHook URL for multiple forms (applies to Developer and Platinum plugin versions).
+
 = 5.3.46 =
 
 * Modifies the plugin interface by removing unnecessary sections. In the commercial plugin distributions, it unifies all payment methods—including those implemented via add-ons and complementary plugins—under the Payment Settings section.
@@ -504,9 +480,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Modifies the calculated fields: Now, when you check the currency option in the field settings, the plugin automatically enforces two decimal places for decimal results.
 * Adds a new, predefined form designed to evaluate password strength.
-
-= 5.3.42 =
-
-* Modifies the DIV control to give more control over the styles that affect the contained fields.
-* Fixes a minor issue in the fields list popup to enhance the user experience.
-* Adds a new predefined form and category of predefined forms for AI. This new form implements a texts translator using an AI model for translating texts directly in the browser.

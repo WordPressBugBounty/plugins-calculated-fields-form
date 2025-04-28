@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.3.47 =
+
+* Modified the spinner components in number and currency fields so they become continuous, eliminating the need to click repeatedly to adjust control values.
+* Ensured that placeholders remain synchronized with third-party fields when used as default values.
+* Improved the WooCommerce add-on to resolve a conflict with third-party themes that alter the behavior of add-to-cart buttons on WooCommerce products (applies to Developer and Platinum plugin versions).
+* Implemented a new feature in the WebHooks add-on that allows the use of short labels instead of field names in the WebHook URL. This enhancement simplifies reusing the same WebHook URL for multiple forms (applies to Developer and Platinum plugin versions).
+
 = 5.3.46 =
 
 * Modifies the plugin interface by removing unnecessary sections. In the commercial plugin distributions, it unifies all payment methods—including those implemented via add-ons and complementary plugins—under the Payment Settings section.

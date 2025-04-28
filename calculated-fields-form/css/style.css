@@ -793,7 +793,7 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 .cff-light-modal iframe{width:100%;height:100%;border-radius: .2em; overflow:hidden;}
 
 /* WP EDITOR */
-#metabox_form_structure{overflow-x:scroll;}
+#metabox_form_structure{overflow-x:auto;}
 #metabox_form_structure .hndle h3{margin-top:0;margin-bottom:0;}
 .cff_form_builder .CodeMirror{height:300px;margin-bottom:10px;overflow-y:hidden !important;resize:vertical;}
 .cff_form_builder #sEq+.CodeMirror{height:200px;}

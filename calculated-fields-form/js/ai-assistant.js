@@ -77,7 +77,7 @@ async function initializeWebLLMEngine() {
 
 	if ( typeof navigator == 'undefined' || ! navigator.gpu ) {
 		document.getElementById('cff-ai-gpu-error').style.display = 'block';
-		document.getElementById('cff-ai-caches-error').parentElement.classList.add('cff-ai-assistance-error-message');
+		document.getElementById('cff-ai-gpu-error').parentElement.classList.add('cff-ai-assistance-error-message');
 		sendBtnCtrl.disabled = true;
 		userQuestionCtrl.disabled = true;
 		return;
