@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.47
+Stable tag: 5.3.48
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.48 =
+
+* We have implemented two new predefined forms in the Financial category: one for generating the Form 1040 U.S. Individual Income Tax Return, and another for generating Schedule C - Business Income and Expenses.
+
 = 5.3.47 =
 
 * Modified the spinner components in number and currency fields so they become continuous, eliminating the need to click repeatedly to adjust control values.
@@ -475,8 +479,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.44 =
 
 * Modifies the WordPress editor block.
-
-= 5.3.43 =
-
-* Modifies the calculated fields: Now, when you check the currency option in the field settings, the plugin automatically enforces two decimal places for decimal results.
-* Adds a new, predefined form designed to evaluate password strength.

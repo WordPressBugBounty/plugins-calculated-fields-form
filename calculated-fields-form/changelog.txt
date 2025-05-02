@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.48 =
+
+* We have implemented two new predefined forms in the Financial category: one for generating the Form 1040 U.S. Individual Income Tax Return, and another for generating Schedule C - Business Income and Expenses.
+
 = 5.3.47 =
 
 * Modified the spinner components in number and currency fields so they become continuous, eliminating the need to click repeatedly to adjust control values.
