@@ -798,8 +798,9 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 .cff_form_builder .CodeMirror{height:300px;margin-bottom:10px;overflow-y:hidden !important;resize:vertical;}
 .cff_form_builder #sEq+.CodeMirror{height:200px;}
 .cff_form_builder #tabs-3 .CodeMirror{height:195px;}
-.cff-editor-container.fullscreen{position:fixed;top:30px;right:0;bottom:0;left:0;z-index:99999;background:#f2f5f7;margin:0;}
-.cff-editor-container.fullscreen .CodeMirror{height: 95% !important;}
+.cff-editor-container.fullscreen{position:fixed;top:30px;right:0;bottom:0;left:0;z-index:99999;background:#f2f5f7;margin:0;display:flex;flex-direction:column;}
+.cff-editor-container.fullscreen>div:last-child{flex-grow:1;position:relative;}
+.cff-editor-container.fullscreen .CodeMirror{height: 100% !important;position:absolute;left:0;top:0;right:0;bottom:0;}
 .cff-editor-container .cff-editor-extend-shrink{float:left;width:24px;height:24px;cursor:pointer;display:inline-block;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path d='M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'/></svg>");background-size:cover;}
 .CodeMirror-hints,
 .CodeMirror-hint,

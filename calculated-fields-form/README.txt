@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.48
+Stable tag: 5.3.49
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.49 =
+
+* Modifies the AJAX-based form submission process to prevent users from inadvertently submitting the form multiple times.
+* Updates the CSS and HTML code editor to address a scrolling issue when the editor is in fullscreen mode.
+
 = 5.3.48 =
 
 * We have implemented two new predefined forms in the Financial category: one for generating the Form 1040 U.S. Individual Income Tax Return, and another for generating Schedule C - Business Income and Expenses.
@@ -475,7 +480,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.45 =
 
 * Revamped the AI Assistant module to utilize the WebMLL library, enabling completely free, in-browser inferencing.
-
-= 5.3.44 =
-
-* Modifies the WordPress editor block.

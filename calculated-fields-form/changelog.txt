@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.49 =
+
+* Modifies the AJAX-based form submission process to prevent users from inadvertently submitting the form multiple times.
+* Updates the CSS and HTML code editor to address a scrolling issue when the editor is in fullscreen mode.
+
 = 5.3.48 =
 
 * We have implemented two new predefined forms in the Financial category: one for generating the Form 1040 U.S. Individual Income Tax Return, and another for generating Schedule C - Business Income and Expenses.
