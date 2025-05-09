@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.49
+Stable tag: 5.3.50
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.50 =
+
+* We have introduced three new predefined forms: two for lifestyle, namely the Carbon Footprint Calculator and the Solar Power Investment Calculator, and one for the transportation category, the Car Purchase vs Lease Calculator.
+
 = 5.3.49 =
 
 * Modifies the AJAX-based form submission process to prevent users from inadvertently submitting the form multiple times.
@@ -476,7 +480,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the plugin interface by removing unnecessary sections. In the commercial plugin distributions, it unifies all payment methods—including those implemented via add-ons and complementary plugins—under the Payment Settings section.
 * Implements adjustments in form generation that ensure compatibility with browser Speculation.
 * Expands Stripe Checkout integration support to the Professional and Developer plugin distributions, in addition to the Platinum edition.
-
-= 5.3.45 =
-
-* Revamped the AI Assistant module to utilize the WebMLL library, enabling completely free, in-browser inferencing.
