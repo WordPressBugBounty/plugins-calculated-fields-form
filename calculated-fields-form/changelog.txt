@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.51 =
+
+* Fixed an issue with the form submission URL that was causing conflicts with certain services and third-party plugins.
+
 = 5.3.50 =
 
 * We have introduced three new predefined forms: two for lifestyle, namely the Carbon Footprint Calculator and the Solar Power Investment Calculator, and one for the transportation category, the Car Purchase vs Lease Calculator.
@@ -948,124 +952,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 
 * Implements the asynchronous attribute in the forms shortcodes to combine with the iframe attribute. It improves the loading speed process of pages with forms loaded into iframes.
 * Modifies the reCAPTCHA add-on to allow multiple forms protected with reCAPTCHA on the same page (Developer and Platinum versions of the plugin).
-
-= 1.2.19 =
-= 1.2.18 =
-
-* Modifies the Date/Time  operations.
-
-= 1.2.17 =
-
-* Modifies the operations insertion in some operations modules whose operations do not require parameters (NOW, TODAY, TIMEZONEOFFSET, and others).
-* Modifies the Save to CSV file option in the submissions section to allow filtering by the payment status (Professional, Developer, and Platinum versions of the plugin).
-* Modifies the CSV Generator add-on to allow excluding from the CSV files attributes like form id, IP address, payment status, and others (Platinum version of the plugin).
-* Implements The Events Calendar add-on to create new events, venues, categories, tags, and organizers with the information collected by the form (Platinum version of the plugin).
-
-= 1.2.16 =
-
-* Modifies the Phone field for sorting the country codes and fixes some prefixes.
-* Implements the TIMEZONEOFFSET operation in the locations operation module.
-* Updates the DOMPDF library in the PDF Generator add-on for supporting PHP8.1.3 (Platinum version of the plugin).
-
-= 1.2.15 =
-
-* Fixes an issue with the DATEDIFF operation in the Date/Time operations module.
-
-= 1.2.14 =
-
-* Modifies the number fields for accepting prefix and postfix symbols.
-* Fixes an issue with a vertical scroll in forms loaded into iframe tags.
-* Modifies the CSVTOJSON operation to accept a text in CSV format as its first parameter.
-* Fixes an issue in the auto-update plugin module (Professional, Developer, and Platinum plugin versions).
-* Fixes a conflict between the WooCommerce add-on and the Web To Print Online Designer plugin (Developer and Platinum plugin versions).
-* Modifies the PDF Generator add-on to avoid that errors caused by malformed PDF structures stopping the PHP execution (Platinum version of the plugin).
-* Fixes an issue in the Uploads add-on extracting metadata from videos and audios (Platinum plugin version).
-
-= 1.2.13 =
-
-* Modifies the Date/Time operations, MONTH, DAY, WEEKDAY, WEEKNUM, HOURS, MINUTES, and SECONDS to support leading zeros.
-* Fixes an issue calculating the WEEKNUM.
-* Implements the CFFSANITIZE operation to sanitize the users typed information on the client side when form developers want to handle the fields' values by themselves.
-* Fixes an issue generating forms preview in some browsers like DuckDuckGo.
-* Improves the interface of the assistant popup.
-
-= 1.2.12 =
-
-* Modifies the calculated field.
-* Modifies the CSVTOJSON operation.
-* Supports form_description tag in notification emails and thank you pages (Professional, Developer, and Platinum versions).
-* Modifies the DataTable DS field to get the table structure from the equations (Developer and Platinum versions).
-* Implements the no_filter attribute in the shortcode for submissions in the Users Permissions add-on to hide the filter section from non-administrator users (Developer and Platinum versions).
-* Modifies the Users data source to accept first_name, last_name and first_last_name options (Developer and Platinum versions).
-
-= 1.2.11 =
-
-* Modifies the COPYFIELDVALUE to allow copying hidden fields' values to the clipboard.
-* Updates the OpenAI library.
-* Supports form_title tag in notification emails and thank you pages (Professional, Developer, and Platinum versions).
-* Modifies the WooCommerce add-on to fix an issue with the Order Again WooCommerce option (Developer and Platinum versions).
-* Allows entering a field name for PDF passwords in the PDF Generator add-on (Platinum version).
-
-= 1.2.10 =
-
-* Implements a new feature in the Form Settings tab to configure texts direction.
-* Implements the RESETFORM operation in the Managing Fields operations module.
-* Modifies the date/time control.
-
-= 1.2.9 =
-
-* Modifies the validation rules in date/time fields.
-* Accepts the <%form_name%> tag in the notification emails and thank you pages (Commercial versions of the plugin).
-* Modifies the Users Permissions add-on (Developer and Platinum versions of the plugin).
-
-= 1.2.8 =
-
-* Modifies the validation rules in date/time fields.
-* Improves the appearance of DropDown fields with Selet2 to library applied.
-
-= 1.2.7 =
-
-* Modifies validation rules.
-
-= 1.2.6 =
-
-* Modifies the Slider control to give more information to the user about field values.
-* Fixes a conflict with validation rules implemented by third-party plugins.
-* Fixes a minor issue in the WooCommerce add-on (Developer and Platinum versions).
-
-= 1.2.5 =
-
-* Fixes a minor issue in calculated fields where the dynamic evaluation of the equations is disabled.
-
-= 1.2.4 =
-
-* Implements AI Assistant feature.
-* Fix a minor issue with the default value of Date/Time controls.
-* Modifies minor issues in the CSS and HTML editors in fullscreen mode.
-* Modifies the template 14.
-* Modifies the Coupons module for accepting discounts in decimals (Professional, Developer, and Platinum versions).
-
-= 1.2.3 =
-
-* Fixes a minor issue in the Summary control.
-
-= 1.2.2 =
-
-* Modifies the predefined templates to improve the appearance of the form.
-* Preserves the minimum of decimal places in the step attribute when Number fields are formatted dynamically.
-* Fixes a minor issue with the fullscreen mode in the forms builder, CSS, and HTML editor.
-* Resolves non-compliance with the HTML standard in label tags.
-
-= 1.2.1 =
-
-* Add step attribute in Number and Currency fields.
-* Preserves the decimal places of the step in Slider fields.
-* Fixes a minor issue in the forms builder styles.
-
-= 1.2.0 =
-
-* New forms builder interface with new icons, new section names, and components interface.
-* New buttons names in the forms list.
-* Modifies the banner module.
-* Fixes a conflict with Parsi Date plugin.
-* Fixes a conflict with third-party plugins that load copies of Select2 library.

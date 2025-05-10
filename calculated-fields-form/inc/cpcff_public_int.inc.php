@@ -75,9 +75,7 @@ if ( ! empty( $form_data ) ) {
 	print $form_obj->get_height( '#' . $form_data[1]['formid'] );
 	?>
 <form name="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" id="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" action="<?php
-$action_url  = false !== ( $permalink = get_permalink() ) ? $permalink . ( false === strpos( $permalink, '?') ? '?' : '&' ) : '?';
-$action_url .= 'cffnocache=' . rand(100000, 999999);
-echo esc_attr( $action_url );
+echo esc_attr( ( false !== ( $permalink = get_permalink() ) ) ? $permalink : '?' );
 ?>" method="post" enctype="multipart/form-data" onsubmit="return fbuilderjQuery.fbuilder.doValidate(this);" class="cff-form no-prefetch <?php
 if ( ! empty( $form_data[1][0] ) && ! empty( $form_data[1][0]->persistence ) ) {
 	echo ' persist-form';
