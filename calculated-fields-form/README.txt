@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.51
+Stable tag: 5.3.52
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.52 =
+
+* Optimized the page break control by removing unnecessary code.
+* Improved the character counter functionality in textarea controls.
+* Modified template 07 to increase the contrast ratio, resulting in an improved Google score.
+* Updated the interface of DS controls (for Developer and Platinum plugin distributions).
+* Fixed an issue in the Event Calendar add-on (Platinum plugin distribution).
+
 = 5.3.51 =
 
 * Fixed an issue with the form submission URL that was causing conflicts with certain services and third-party plugins.
@@ -471,10 +479,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.48 =
 
 * We have implemented two new predefined forms in the Financial category: one for generating the Form 1040 U.S. Individual Income Tax Return, and another for generating Schedule C - Business Income and Expenses.
-
-= 5.3.47 =
-
-* Modified the spinner components in number and currency fields so they become continuous, eliminating the need to click repeatedly to adjust control values.
-* Ensured that placeholders remain synchronized with third-party fields when used as default values.
-* Improved the WooCommerce add-on to resolve a conflict with third-party themes that alter the behavior of add-to-cart buttons on WooCommerce products (applies to Developer and Platinum plugin versions).
-* Implemented a new feature in the WebHooks add-on that allows the use of short labels instead of field names in the WebHook URL. This enhancement simplifies reusing the same WebHook URL for multiple forms (applies to Developer and Platinum plugin versions).

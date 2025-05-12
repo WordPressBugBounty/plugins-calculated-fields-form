@@ -31,7 +31,7 @@
 					};
 
 				update_counter(e);
-				e.on('keyup', function(){ update_counter( $(this) ); });
+				e.on('keyup change', function(){ update_counter( $(this) ); });
 			},
 			val:function(raw, no_quotes)
 				{
