@@ -8,6 +8,7 @@
 			predefined:"",
 			predefinedClick:false,
 			required:false,
+			unmaskedonfocus:false,
 			size:"medium",
 			minlength:"",
 			maxlength:"",
@@ -45,6 +46,10 @@
 								);
 							$('#'+this.name).rules('add',{'pattern':this.regExp, messages:{'pattern':cff_sanitize(this.regExpMssg, true)}});
 						} catch ( err ) {}
+					}
+					if(this.unmaskedonfocus)
+					{
+						$('#'+this.name).on('focus', function(){this.type="text";}).on('blur', function(){this.type="password";});
 					}
 				},
 			val:function(raw, no_quotes)

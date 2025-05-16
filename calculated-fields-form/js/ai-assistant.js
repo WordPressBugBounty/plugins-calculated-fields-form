@@ -11,13 +11,7 @@ const messages = [{
 ];
 
 let selectedModel;
-// selectedModel = "TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC-1k";
-// selectedModel = "Llama-3.2-3B-Instruct-q4f32_1-MLC";
-// selectedModel = "Hermes-2-Pro-Llama-3-8B-q4f16_1-MLC";
-// selectedModel = "Llama-3.1-8B-Instruct-q4f16_1-MLC-1k";
-// selectedModel = "Llama-3-8B-Instruct-q4f32_1-MLC-1k";
-
-selectedModel = "Phi-3-mini-4k-instruct-q4f32_1-MLC-1k";
+selectedModel = "Qwen2.5-Coder-3B-Instruct-q4f32_1-MLC";
 
 let loadedModel   = false;
 
@@ -29,6 +23,7 @@ let userQuestionCtrl 	= document.getElementById("cff-ai-assistant-question");
 let chatBoxCtrl 		= document.getElementById("cff-ai-assistant-answer-row");
 let chatStatsCtrl 		= document.getElementById("cff-ai-assistant-stats");
 let sendBtnCtrl 		= document.getElementById("cff-ai-assistan-send-btn");
+let unmountBtnCtrl 		= document.getElementById("cff-ai-assistant-unmount");
 let closeBtnCtrl 		= document.getElementById("cff-ai-assistant-close");
 
 // Resize button.
@@ -71,8 +66,11 @@ engine.setInitProgressCallback(updateEngineInitProgressCallback);
 async function initializeWebLLMEngine() {
     statusCrl.style.display = 'block';
     let config = {
-        temperature: 0.5,
-        top_p: 0.9
+        temperature: 0.0,
+        top_p: 1,
+		context_window_size: -1,
+		sliding_window_size: 2048,
+		attention_sink_size: 1024,
     };
 
 	if ( typeof navigator == 'undefined' || ! navigator.gpu ) {
@@ -92,6 +90,7 @@ async function initializeWebLLMEngine() {
 	}
 
 	await engine.reload(selectedModel, config);
+	await engine.resetChat();
 	loadedModel = true;
 }
 
@@ -157,10 +156,13 @@ async function onMessageSend() {
 			message = "Create an block of HTML tags, including style attributes when required. To display the fields values within the tags, use the data-cff-field attribute in the corresponding text. Enclose the code between ``` symbols." + ( "" != variables ? " You have access to the fields:\n" + variables + "Use these fields in code when appropriate. Example: ```html\n<div>User name: <span data-cff-field=\"fieldname1\"></span></div><br><div>Email: <span data-cff-field=\"fieldname2\"></span></div><br><div>Message: <p data-cff-field=\"fieldname3\"></p></div>```" : "" ) + "\nDescription: " + input;
 		break;
 		default:
-			message = "Create an immediately invoked function expressions (IIFE) that run automatically. It must include a return statement with the result as scalar value. Enclose the code between ``` symbols." + ( "" != variables ? " You have access to the global variables:\n" + variables + "Use these JavaScript variables in your code when appropriate. Example: ```javascript\n(function(){ return fieldname1+fieldname2; })()```" : "" ) + "\nFunction description: " + input.replace(/equation/ig, 'function');
+			message = "Create an immediately invoked JavaScript function expressions (IIFE) that run automatically. It must start with (function(){ and enter with })(). It must include a return statement with the result as scalar value. Use only valid JavaScript syntax. Test your code mentally for syntax errors before submitting. Do not include any non-JavaScript text or characters. Keep the code simple and focused on the calculation. Enclose the code between ``` symbols. DO NOT include commentS into the function code." + ( "" != variables ? " \n\n CRITICAL INSTRUCTION: The following variables ALREADY EXIST in the system and contain values. DO NOT DEFINE OR INITIALIZE THEM IN YOUR CODE:\n" + variables : "" ) + "\n\nFunction description: " + input.replace(/equation/ig, 'function');
 	}
 
     sendBtnCtrl.disabled = true;
+
+	await engine.resetChat();
+	messages.splice(1);
 
     messages.push({content: message, role: "user"});
     appendMessage({content: input, role: "user"});
@@ -218,6 +220,7 @@ function updateLastMessage(content) {
 	}
 
 	function formatMessage(message) {
+		message = message.replace(/fieldname(\d+)/ig, 'fieldname$1');
 		// Split message into parts: text and code blocks
 		const parts = [];
 		let lastIndex = 0;
@@ -252,8 +255,7 @@ function updateLastMessage(content) {
 
 
 
-    const messageDoms = chatBoxCtrl
-        .querySelectorAll(".cff-ai-assistance-message");
+    const messageDoms = chatBoxCtrl.querySelectorAll(".cff-ai-assistance-message");
     const lastMessageDom = messageDoms[messageDoms.length - 1];
     lastMessageDom.innerHTML = formatMessage(content);
 }
@@ -274,7 +276,7 @@ window['cff_ai_assistant_copy'] = function ( btn ) {
 };
 
 window['cff_ai_assistant_open'] = function( answer_topic ){
-
+	variables = '';
 	topic = answer_topic || 'js';
 
 	setPlaceholder();
@@ -286,20 +288,24 @@ window['cff_ai_assistant_open'] = function( answer_topic ){
 		) {
 			let l = ( 'title' in item ) ? String( item.title ).trim() : '';
 			l = ( '' == l && 'shortlabel' in item ) ? String( item.shortlabel ).trim() : l;
-
-			variables += item.name + ":" + l + "\n";
+			l = ( '' == l && 'userhelp' in item ) ? String(item.userhelp) : l;
+			if( 'dformat' in item && item['dformat'] == 'percent') l += ' ( it is the decimal value, it is not required to divide the variable value by 100 )';
+			variables += item.name + " (existing constant that represents " + l + ")\n";
 		}
 	} );
 
 	if ( ! loadedModel ) {
 		initializeWebLLMEngine().then(() => {
 			sendBtnCtrl.disabled = false;
+			unmountBtnCtrl.style.display = 'inline-block';
 		}).catch(() => {
 			initializeWebLLMEngine().then(() => {
 				sendBtnCtrl.disabled = false;
+				unmountBtnCtrl.style.display = 'inline-block';
 			});
 		});
 	} else {
+		unmountBtnCtrl.style.display = 'inline-block';
 		sendBtnCtrl.disabled = false;
 	}
 	aiDlgCrl.style.display = 'flex';
@@ -307,7 +313,19 @@ window['cff_ai_assistant_open'] = function( answer_topic ){
 };
 
 /*************** UI binding ***************/
-closeBtnCtrl.addEventListener("click", function () {
+closeBtnCtrl.addEventListener("click", async function () {
+	aiDlgCrl.style.display = 'none';
+});
+unmountBtnCtrl.addEventListener("click", async function (evt) {
+	const confirm_message = ( 'cff_ai_texts' in window ? window['cff_ai_texts']['unload'] : 'Would you like to proceed?' );
+	if (loadedModel && window.confirm(confirm_message)) {
+		try {
+			await engine.unload();
+			caches.keys().then(names => names.forEach(n =>{if( /^webllm\//i.test(n)) caches.delete(n);}));
+			loadedModel = false;
+		} catch( err ) { console.log(err); }
+	}
+	evt.target.style.display = 'none';
 	aiDlgCrl.style.display = 'none';
 });
 sendBtnCtrl.addEventListener("click", function () {

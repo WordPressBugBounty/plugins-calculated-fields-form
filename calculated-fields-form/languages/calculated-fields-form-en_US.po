@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-04-28 09:05+0200\n"
-"PO-Revision-Date: 2025-04-28 09:05+0200\n"
+"POT-Creation-Date: 2025-05-16 15:29+0200\n"
+"PO-Revision-Date: 2025-05-16 15:29+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -85,130 +85,140 @@ msgstr ""
 msgid "Copied !!!"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:31
+#: inc/cpcff_admin_ai_assistant.inc.php:23
+msgid ""
+"This action will completely unload the model and remove it from your browser "
+"cache. Would you like to proceed?"
+msgstr ""
+
+#: inc/cpcff_admin_ai_assistant.inc.php:32
 msgid "AI Assistant (Experimental)"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:33
+#: inc/cpcff_admin_ai_assistant.inc.php:34
+msgid "unload model"
+msgstr ""
+
+#: inc/cpcff_admin_ai_assistant.inc.php:35
 msgid "close"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:38
+#: inc/cpcff_admin_ai_assistant.inc.php:40
 msgid "Hi! I'm your Code Assistant."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:39
+#: inc/cpcff_admin_ai_assistant.inc.php:41
 msgid ""
 "Please wait while the AI downloads. This may take a moment depending on your "
 "network speed."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:46
+#: inc/cpcff_admin_ai_assistant.inc.php:48
 msgid "WebGPU is not supported in your browser"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:47
+#: inc/cpcff_admin_ai_assistant.inc.php:49
 msgid ""
 "WebGPU is a modern graphics API for the web. To use this application, you'll "
 "need a browser with WebGPU support."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:49
+#: inc/cpcff_admin_ai_assistant.inc.php:51
 msgid "Recommended browsers with WebGPU support:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:51
+#: inc/cpcff_admin_ai_assistant.inc.php:53
 msgid "Chrome 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:52
+#: inc/cpcff_admin_ai_assistant.inc.php:54
 msgid "Edge 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:53
+#: inc/cpcff_admin_ai_assistant.inc.php:55
 msgid "Firefox 121 or later (with the 'dom.webgpu.enabled' flag enabled)"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:54
+#: inc/cpcff_admin_ai_assistant.inc.php:56
 msgid "Safari 17.4 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:57
+#: inc/cpcff_admin_ai_assistant.inc.php:59
 msgid "How to enable WebGPU:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:58
+#: inc/cpcff_admin_ai_assistant.inc.php:60
 msgid "In Chrome/Edge:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:60
+#: inc/cpcff_admin_ai_assistant.inc.php:62
 msgid "Ensure your browser is updated to version 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:61
-#: inc/cpcff_admin_ai_assistant.inc.php:76
+#: inc/cpcff_admin_ai_assistant.inc.php:63
+#: inc/cpcff_admin_ai_assistant.inc.php:78
 msgid "WebGPU should be enabled by default"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:64
+#: inc/cpcff_admin_ai_assistant.inc.php:66
 msgid "In Firefox:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:66
+#: inc/cpcff_admin_ai_assistant.inc.php:68
 msgid "Ensure you have Firefox 121 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:67
+#: inc/cpcff_admin_ai_assistant.inc.php:69
 msgid "Type \"about:config\" in the URL bar"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:68
+#: inc/cpcff_admin_ai_assistant.inc.php:70
 msgid "Search for \"dom.webgpu.enabled\""
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:69
+#: inc/cpcff_admin_ai_assistant.inc.php:71
 msgid "Set it to \"true\" by clicking the toggle button"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:70
+#: inc/cpcff_admin_ai_assistant.inc.php:72
 msgid "Restart the browser"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:73
+#: inc/cpcff_admin_ai_assistant.inc.php:75
 msgid "In Safari:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:75
+#: inc/cpcff_admin_ai_assistant.inc.php:77
 msgid "Ensure you have Safari 17.4 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:82
+#: inc/cpcff_admin_ai_assistant.inc.php:84
 msgid "Cache API not available!"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:83
+#: inc/cpcff_admin_ai_assistant.inc.php:85
 msgid ""
 "Your browser may be using HTTP instead of HTTPS, or it may not support the "
 "Cache API."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:84
+#: inc/cpcff_admin_ai_assistant.inc.php:86
 msgid "For full functionality, please:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:86
+#: inc/cpcff_admin_ai_assistant.inc.php:88
 msgid "Open this website using HTTPS (e.g., https://example.com)"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:87
+#: inc/cpcff_admin_ai_assistant.inc.php:89
 msgid "Use a modern browser that supports the Cache API"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:95
+#: inc/cpcff_admin_ai_assistant.inc.php:97
 msgid "Please, enter your question..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:96
+#: inc/cpcff_admin_ai_assistant.inc.php:98
 msgid "Send"
 msgstr ""
 

@@ -20,6 +20,7 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url( '/css/style.ai.css', CP_CA
 		'placeholder_html' 	=> __( 'Generate a summary of the fields ...', 'calculated-fields-form' ),
 		'copy_btn'		 	=> __( 'Copy', 'calculated-fields-form' ),
 		'copied_btn'	 	=> __( 'Copied !!!', 'calculated-fields-form' ),
+		'unload'			=> __( 'This action will completely unload the model and remove it from your browser cache. Would you like to proceed?', 'calculated-fields-form' ),
 	];
 
 	print 'cff_ai_texts=' . json_encode( $ai_config_obj );
@@ -30,7 +31,8 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url( '/css/style.ai.css', CP_CA
 		<span>
 		<?php esc_attr_e( 'AI Assistant (Experimental)', 'calculated-fields-form' ); ?>
 		</span>
-		<button id="cff-ai-assistant-close" class="button-secondary"><?php esc_html_e('close', 'calculated-fields-form') ?></button>
+		<button id="cff-ai-assistant-unmount" class="button-secondary" style="display:none;"><?php esc_html_e('unload model', 'calculated-fields-form'); ?></button>
+		<button id="cff-ai-assistant-close" class="button-secondary"><?php esc_html_e('close', 'calculated-fields-form'); ?></button>
 	</div>
 	<div id="cff-ai-assistant-answer-row" class="cff-ai-assistant-answer-row">
 		<div class="cff-ai-assistance-message cff-ai-assistance-bot-message">

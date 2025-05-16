@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.3.53 =
+
+* Modified the AI Equation Assistant module by integrating a new model, altering the prompt and settings, and postprocessing the answer to generate more useful code.
+* Added a new feature to the password controls that allows users to unmask the password text as they type.
+* Implemented several improvements to the "Create New Forms" screen to streamline the user experience.
+* Removed deprecated jQuery code to enhance the codebase's performance and maintain compatibility.
+* Fixed a minor issue affecting the display of user emails in the entries section for commercial plugin distributions..
+
 = 5.3.52 =
 
 * Optimized the page break control by removing unnecessary code.

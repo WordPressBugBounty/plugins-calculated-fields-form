@@ -17,6 +17,7 @@
 			predefinedClick:false,
 			required:false,
 			exclude:false,
+			unmaskedonfocus:false,
 			size:"medium",
 			minlength:"",
 			maxlength:"",
@@ -32,6 +33,7 @@
 			editItemEvents:function()
 				{
 					var evt = [
+							{s:"#sUnmaskedOnFocus", e:"click", l:"unmaskedonfocus", f:function(el){return el.is(':checked');}},
 							{s:"#sMinlength",e:"change keyup", l:"minlength", x:1},
 							{s:"#sMaxlength",e:"change keyup", l:"maxlength", x:1},
 							{s:"#sRegExp",e:"change keyup", l:"regExp"},
@@ -58,6 +60,6 @@
 				},
 			showSpecialDataInstance: function()
 				{
-					return '<div class="column width50"><label for="sMinlength">Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label for="sMaxlength">Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer"></div><label for="sRegExp">Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div><label for="sRegExpMssg">Error message when the regular expression fails</label><input type="text" name="sRegExpMssg" id="sRegExpMssg" value="'+cff_esc_attr(this.regExpMssg)+'" class="large" />';
+					return '<label><input type="checkbox" name="sUnmaskedOnFocus" id="sUnmaskedOnFocus" '+((this.unmaskedonfocus)?"checked":"")+'>Unmasked on focus</label><div class="column width50"><label for="sMinlength">Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label for="sMaxlength">Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer"></div><label for="sRegExp">Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div><label for="sRegExpMssg">Error message when the regular expression fails</label><input type="text" name="sRegExpMssg" id="sRegExpMssg" value="'+cff_esc_attr(this.regExpMssg)+'" class="large" />';
 				}
 	});

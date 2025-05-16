@@ -10,7 +10,7 @@ jQuery(function () {
 				<div class="cff-form-library-column-left">
 					<div class="cff-form-library-search-box">
 						<div class="cff-form-library-close"></div>
-						<input type="search" placeholder="Search..." onkeyup="cff_filteringFormsByText(this)">
+						<input type="search" placeholder="Search..." oninput="cff_filteringFormsByText(this)">
 					</div>
 					<div class="cff-form-library-website-forms">
 						<ul>
