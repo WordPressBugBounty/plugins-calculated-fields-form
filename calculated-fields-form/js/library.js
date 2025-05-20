@@ -1,62 +1,144 @@
 jQuery(function () {
-    var $ = jQuery,
+	if ( typeof cpcff_forms_library_config == 'undefined' ) return;
+	function getApiKey() {
+		let api_key = localStorage.getItem('CFFAIFORMGENERATORAPIKEY');
+		if(api_key) return api_key;
+		return '';
+    }
 
-    categories = {},
+	function saveApiKey(api_key) {
+		if(api_key) {
+			localStorage.setItem('CFFAIFORMGENERATORAPIKEY', api_key);
+		} else {
+			this.clearApiKey();
+		}
+	}
+
+	function clearApiKey() {
+		localStorage.removeItem('CFFAIFORMGENERATORAPIKEY');
+	}
+
+	// Texts
+	let video_tutorial_url			= 'https://www.youtube.com/embed/KB4VOFrbAT0?start=48',
+		txt_api_key_placeholder 	= cpcff_forms_library_config['texts']['api_key_placeholder'],
+		txt_form_descritpion_placeholder = cpcff_forms_library_config['texts']['form_descritpion_placeholder'],
+		txt_search_placeholder 		= cpcff_forms_library_config['texts']['search_placeholder'],
+		txt_form_name_placeholder 	= cpcff_forms_library_config['texts']['form_name_placeholder'],
+
+		txt_form_descritpion_label = cpcff_forms_library_config['texts']['form_descritpion_label'],
+		txt_no_form_label 		   = cpcff_forms_library_config['texts']['no_form_label'],
+		txt_video_label 		   = cpcff_forms_library_config['texts']['video_label'],
+
+		txt_api_key_instruct 	   = cpcff_forms_library_config['texts']['api_key_instruct'],
+
+		txt_api_key_requirement_error	  = cpcff_forms_library_config['texts']['api_key_requirement_error'],
+		txt_description_requirement_error = cpcff_forms_library_config['texts']['description_requirement_error'],
+
+		txt_ai_form_generator_menu 	= cpcff_forms_library_config['texts']['ai_form_generator_menu'],
+		txt_website_forms_menu		= cpcff_forms_library_config['texts']['website_forms_menu'],
+		txt_all_categories_menu		= cpcff_forms_library_config['texts']['all_categories_menu'],
+
+		txt_save_api_key_btn 		= cpcff_forms_library_config['texts']['save_api_key_btn'],
+		txt_saving_api_key_btn 		= cpcff_forms_library_config['texts']['saving_api_key_btn'],
+		txt_clear_api_key_btn 		= cpcff_forms_library_config['texts']['clear_api_key_btn'],
+		txt_generate_form_btn 		= cpcff_forms_library_config['texts']['generate_form_btn'],
+		txt_use_it_btn 				= cpcff_forms_library_config['texts']['use_it_btn'],
+		txt_create_form_btn 		= cpcff_forms_library_config['texts']['create_form_btn'],
+		txt_back_btn 				= cpcff_forms_library_config['texts']['back_btn'],
+
+	// Variables
+		$ = jQuery,
+		categories 	= {},
+		form_name_library_field,
 
     /* Templates */
-    dialog_tpl = `
-		<div class="cff-form-library-cover">
-			<div class="cff-form-library-container">
-				<div class="cff-form-library-column-left">
-					<div class="cff-form-library-search-box">
-						<div class="cff-form-library-close"></div>
-						<input type="search" placeholder="Search..." oninput="cff_filteringFormsByText(this)">
+		ai_generator_tpl = `
+			<div class="cff-ai-form-generator" style="display:none;">
+				<div class="cff-ai-form-description-container">
+					<div class="cff-ai-api-key-container">
+						<input type="password" id="cff-ai-api-key" name="cff-ai-api-key" placeholder="${txt_api_key_placeholder}" value="${getApiKey()}" />
+						<button id="cff-ai-save-btn" class="button-primary" title="">${txt_save_api_key_btn}</button>
+						<button id="cff-ai-clear-btn" class="button-secondary">${txt_clear_api_key_btn}</button>
 					</div>
-					<div class="cff-form-library-website-forms">
-						<ul>
-							<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this,-1);">Use My Forms As Template</a></li>
-						</ul>
-					</div>
-					<div class="cff-form-library-categories">
-						<ul>
-							<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this);" class="cff-form-library-active-category">All Categories</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="cff-form-library-column-right">
-					<div>
-						<div class="cff-form-library-blank-form">
-							<input type="text" placeholder="Form name..." id="cp_itemname_library">
-							<input type="button" value="Create Basic Form" class="button-primary" onclick="cff_getTemplate(0);">
+					<div class="cff-ai-video-tutorial">
+						<div style="text-align:right;">
+							<div class="cff-form-library-close-back cff-form-library-close-video" onclick="document.getElementsByClassName(\'cff-ai-video-tutorial\')[0].remove();"></div>
 						</div>
-						<div class="cff-form-library-close"></div>
-						<div style="clear:both"></div>
+						<iframe width="1360" height="507" src="${video_tutorial_url}" title="Form AI Generator" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 					</div>
-					<div class="cff-form-library-main">
-						<div class="cff-form-library-no-form">No form meets the search criteria</div>
+					<i>${txt_api_key_instruct} <a href="${video_tutorial_url}" target="_blank">${txt_video_label}</a></i>
+					<div class="cff-form-library-form-title">${txt_form_descritpion_label}</div>
+					<textarea id="cff-ai-form-description" rows="4" placeholder="${txt_form_descritpion_placeholder}"></textarea>
+					<div>
+						<input type="button" class="button-primary cff-ai-generate" value="${txt_generate_form_btn}" />
+					</div>
+				</div>
+				<div class="cff-ai-form-preview-container">
+					<div class="cff-form-library-close-back cff-form-library-back" data-label="&lt; ${txt_back_btn}"></div>
+					<div class="cff-ai-form-preview">
+						<iframe></iframe>
+					</div>
+					<input type="button" class="button-primary cff-select-form" value="${txt_use_it_btn}"  onclick="cff_getTemplate('ai-generator');" />
+				</div>
+			</div>
+		`,
+
+		dialog_tpl = `
+			<div class="cff-form-library-cover">
+				<div class="cff-form-library-container">
+					<div class="cff-form-library-column-left">
+						<div class="cff-form-library-search-box">
+							<div class="cff-form-library-close-back cff-form-library-close"></div>
+							<input type="search" placeholder="${txt_search_placeholder}" oninput="cff_filteringFormsByText(this)">
+						</div>
+						<div class="cff-form-library-ai-forms">
+							<ul>
+								<li><a href="javascript:void(0);" onclick="cff_displayAIGenerator(this);">${txt_ai_form_generator_menu}</a></li>
+							</ul>
+						</div>
+						<div class="cff-form-library-website-forms">
+							<ul>
+								<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this,-1);">${txt_website_forms_menu}</a></li>
+							</ul>
+						</div>
+						<div class="cff-form-library-categories">
+							<ul>
+								<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this);" class="cff-form-library-active-category">${txt_all_categories_menu}</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="cff-form-library-column-right">
+						<div style="display:flex;">
+							<div class="cff-form-library-blank-form">
+								<input type="text" placeholder="${txt_form_name_placeholder}" id="cp_itemname_library">
+								<input type="button" value="${txt_create_form_btn}" class="button-primary" onclick="cff_getTemplate(0);">
+							</div>
+							<div class="cff-form-library-close-back cff-form-library-close"></div>
+						</div>
+						<div class="cff-form-library-main">
+							<div class="cff-form-library-no-form">${txt_no_form_label}</div>
+						</div>
+						${ai_generator_tpl}
 					</div>
 				</div>
 			</div>
-		</div>
-	`,
+		`,
 
-    form_tpl = `
-		<div class="cff-form-library-form">
-			<div class="cff-form-library-form-top">
-				<div class="cff-form-library-form-title"></div>
-				<div class="cff-form-library-form-description"></div>
-			</div>
-			<div class="cff-form-library-form-bottom">
-				<div class="cff-form-library-form-category"></div>
-				<div>
-					<input type="button" class="button-primary cff-select-form" value="Use It" />
-					<!--<input type="button" class="button-secondary cff-preview-form" value="Preview" />-->
+		form_tpl = `
+			<div class="cff-form-library-form">
+				<div class="cff-form-library-form-top">
+					<div class="cff-form-library-form-title"></div>
+					<div class="cff-form-library-form-description"></div>
+				</div>
+				<div class="cff-form-library-form-bottom">
+					<div class="cff-form-library-form-category"></div>
+					<div>
+						<input type="button" class="button-primary cff-select-form" value="${txt_use_it_btn}" />
+						<!--<input type="button" class="button-secondary cff-preview-form" value="Preview" />-->
+					</div>
 				</div>
 			</div>
-		</div>
-	`,
-
-	form_name_library_field;
+		`;
 
     $.expr.pseudos.contains = $.expr.createPseudo(function (arg) {
         return function (elem) {
@@ -64,7 +146,7 @@ jQuery(function () {
         };
     });
 
-    function openDialog(explicit) {
+	function openDialog(explicit) {
 
         var version 	= 'free',
 			version_n 	= {'free': 1, 'pro': 2, 'dev': 3, 'plat': 4},
@@ -183,6 +265,8 @@ jQuery(function () {
     };
 
     function displayTemplates(me, category) {
+        $('.cff-ai-form-generator').hide();
+		$('.cff-form-library-main').show();
         hideNoFormMessage();
         $('.cff-form-library-search-box input').val('');
         $('.cff-form-library-active-category').removeClass('cff-form-library-active-category');
@@ -197,8 +281,20 @@ jQuery(function () {
         }
     };
 
-    function formsByText(me) {
+	function displayAIGenerator(me) {
+		$('.cff-form-library-search-box input').val('');
+        $('.cff-form-library-active-category').removeClass('cff-form-library-active-category');
+		$(me).addClass('cff-form-library-active-category');
+		$('.cff-form-library-main').hide();
+		$('.cff-ai-form-generator').show();
+		if ( getApiKey() == '' ) {
+			$('.cff-ai-video-tutorial').css('display', 'flex');
+		}
+	};
 
+    function formsByText(me) {
+		$('.cff-ai-form-generator').hide();
+		$('.cff-form-library-main').show();
         var v = String(me.value).trim();
 
         $('.cff-form-library-active-category').removeClass('cff-form-library-active-category');
@@ -236,12 +332,92 @@ jQuery(function () {
     };
 
 	$(document).on('keyup', function(evt){ if ( evt.keyCode == 27 ) { cff_closeLibraryDialog(); } });
+	$(document).on('focus', '#cff-ai-api-key', function(){ this.type="text"; })
+			   .on('blur' , '#cff-ai-api-key', function(){ this.type="password"; });
+	$(document).on('click', '#cff-ai-save-btn', function(){
+		let api_key 		  = String($('#cff-ai-api-key').val()).trim();
+		if ( '' == api_key ) {
+			alert( txt_api_key_requirement_error );
+			return;
+		}
+		let me = this;
+		let width = me.offsetWidth;
+		me.style.width = width + 'px';
+		me.textContent = txt_saving_api_key_btn;
+		me.disabled = true;
+		saveApiKey(api_key);
+		setTimeout(function(){me.disabled = false; me.textContent = txt_save_api_key_btn;}, 2000);
+	});
+	$(document).on('click', '#cff-ai-clear-btn', function(){
+		$('#cff-ai-api-key').val('');
+		clearApiKey();
+	});
 	$(document).on('click', '.cff-form-library-close', closeDialog);
+	$(document).on('click', '.cff-form-library-back', function(){ $('.cff-ai-form-preview-container').hide(); });
+	$(document).on('click', '.cff-ai-generate', async function(){
+		// Check API Key and form description.
+		let api_key 		  = String($('#cff-ai-api-key').val()).trim(),
+			description_field = $('#cff-ai-form-description'),
+			description 	  = description_field.val().split(/[\n\r]/g).map((n)=>String(n).trim()).filter((n)=>n != '').join("\n");
 
-    // Export
+		if ( '' == api_key ) {
+			alert( txt_api_key_requirement_error );
+			return;
+		}
+
+		if ( '' == description ) {
+			alert( txt_description_requirement_error );
+			return;
+		}
+
+		// Display the loading process and call the server side code.
+		$('.cff-ai-form-description-container').append('<div class="cff-processing-form"></div>');
+		description_field.prop('disabled', true);
+		this.disabled = true;
+
+		let formData = new FormData();
+		formData.append('cff_ai_form_generator_description', description);
+		formData.append('cff_ai_form_generator_api_key', api_key);
+		const response = await fetch(
+			cpcff_forms_library_config['ai_form_generator_url'],
+			{
+				'method' : 'POST',
+				'body'   : formData
+			}
+		);
+
+		if ( response.ok ) {
+			const output = await response.text();
+			try {
+				let result = JSON.parse( output );
+				if ( 'error' in result ) {
+					throw new Error( result['error'] );
+				}
+
+				if ( 'success' in result ) {
+
+					// Display the form preview.
+					const cacheBuster = Date.now();
+					$('.cff-ai-form-preview>iframe').attr('src', cpcff_forms_library_config['ai_form_generator_url'] + '&cff_ai_form_preview=1&_=' + cacheBuster);
+					$('.cff-ai-form-preview-container').css('display','flex');
+
+				}
+			} catch ( err ) {
+				alert( err.message );
+			}
+		}
+
+		// Hide the loading animation.
+		$('.cff-processing-form').remove();
+		description_field.prop('disabled', false);
+		this.disabled = false;
+	});
+
+	// Export
     window['cff_openLibraryDialog'] = openDialog;
     window['cff_closeLibraryDialog'] = closeDialog;
     window['cff_getTemplate'] = getTemplate;
     window['cff_templatesInCategory'] = displayTemplates;
     window['cff_filteringFormsByText'] = formsByText;
+	window['cff_displayAIGenerator'] = displayAIGenerator;
 });

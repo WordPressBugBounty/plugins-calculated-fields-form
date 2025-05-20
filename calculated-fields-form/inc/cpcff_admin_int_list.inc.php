@@ -62,10 +62,22 @@ if ( isset( $_REQUEST['cp_default_template'] ) ) { // I don't need to check for 
 
 if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 	check_admin_referer( 'cff-add-form', '_cpcff_nonce' );
+
+	$ftpl = isset( $_GET['ftpl'] ) ? sanitize_text_field( wp_unslash( $_GET['ftpl'] ) ) : 0;
+	if( 'ai-generator' == $ftpl ) {
+		$transient_name = 'cff_ai_form_structure_' . get_current_user_id();
+		$ai_form_structure = get_transient( $transient_name );
+		if ( $ai_form_structure ) {
+			$ftpl = $ai_form_structure;
+			delete_transient( $transient_name );
+			delete_transient( 'cff_ai_form_preview_' . get_current_user_id() ); // Deletes the transient for form preview.
+		} else $ftpl = 0;
+	}
+
 	$new_form = $cpcff_main->create_form(
 		isset( $_GET['name'] ) ? sanitize_text_field( wp_unslash( $_GET['name'] ) ) : '',
 		isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : '',
-		isset( $_GET['ftpl'] ) ? sanitize_text_field( wp_unslash( $_GET['ftpl'] ) ) : 0,
+		$ftpl,
 		isset( $_GET['from_website'] ) ? 1 : 0
 	);
 	// Update the default category.

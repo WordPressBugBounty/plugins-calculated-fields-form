@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.53
+ * Version: 5.3.54
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.53' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.54' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -363,6 +363,7 @@ function cp_calculated_fields_form_check_posted_data() {
 
 								$buffer                    .= ( ! empty( $_title ) ? $_title . ': ' : '' ) . $joinned_files_names . "\n";
 								$params[ $item ]            = $joinned_files_names;
+								$params[ $item . '_name' ] 	= $files_names_arr;
 								$params[ $item . '_links' ] = implode( "\n", $files_links_arr );
 								$params[ $item . '_paths' ] = $params[ $item . '_links' ];
 								$params[ $item . '_urls' ]  = implode( "\n", $files_urls_arr );
@@ -458,3 +459,8 @@ function cp_calculatedfieldsf_save_options() {
 		$cff_structure_error = __( '<div class="error-text">The data cannot be stored in database because has occurred an error with the form structure. Please, try to save the data again. If have been copied and pasted data from external text editors, the data can contain invalid characters. If the issue persist, please <a href="https://cff.dwbooster.com/contact-us">contact us</a></div>', 'calculated-fields-form' );
 	}
 }
+
+// Loads the AI FORM Generator module.
+add_action('admin_init', function(){
+	require_once __DIR__ . '/inc/cpcff_admin_ai_form_generator.inc.php';
+});

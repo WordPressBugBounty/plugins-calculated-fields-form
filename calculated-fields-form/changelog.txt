@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.54 =
+
+* Enhanced the form generation module to support generating complete forms using an AI agent.
+* Updated the upload file field tags: they now include a text attribute that configures whether to display uploaded file URLs as anchor texts or to show only their names.
+
 = 5.3.53 =
 
 * Modified the AI Equation Assistant module by integrating a new model, altering the prompt and settings, and postprocessing the answer to generate more useful code.

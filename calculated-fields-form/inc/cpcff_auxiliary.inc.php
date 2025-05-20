@@ -745,19 +745,30 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 										break;
 									}
 									if ( preg_match( '/_url(s?)$/i', $item ) && ! empty( $tagData['in_tag'] ) ) {
+										$file_fieldname = explode( '_', $item)[0];
+										$_names = [];
+										if ( ! empty( $params[ $file_fieldname . '_name' ] ) ) {
+											$_names = $params[ $file_fieldname . '_name' ];
+										}
+
 										$value  = preg_split( '/\n+/', $value );
 										$in_tag = strtolower( $tagData['in_tag'] );
 										switch ( $in_tag ) {
 											case 'img':
 											case '<img>':
 												foreach ( $value as $_i => $_url ) {
-													$value[ $_i ] = ( ! empty( $_url ) && @is_array( getimagesize( $_url ) ) ) ? '<img src="' . esc_attr( $_url ) . '">' : $_url;
+													$_alt = '';
+													if ( ! empty( $_names ) && ! empty( $_names[ $_i ] ) ) {
+														$_alt = ' alt="' . esc_attr( $_names[ $_i ] ) . '"';
+													}
+													$value[ $_i ] = ( ! empty( $_url ) && @is_array( getimagesize( $_url ) ) ) ? '<img src="' . esc_attr( $_url ) . '"' . $_alt . '>' : $_url;
 												}
 												break;
 											case 'a':
 											case '<a>':
 												foreach ( $value as $_i => $_url ) {
-													$value[ $_i ] = '<a href="' . esc_attr( $_url ) . '">' . $_url . '</a>';
+													$_text = ( ! empty( $tagData['text'] ) && strtolower($tagData['text']) == 'name' && ! empty( $_names ) && ! empty( $_names[ $_i ] ) ) ? $_names[ $_i ] : $_url;
+													$value[ $_i ] = '<a href="' . esc_attr( $_url ) . '">' . esc_html( $_text ) . '</a>';
 												}
 												break;
 										}
@@ -961,6 +972,8 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 					$tag['separator'] = ( preg_match( '/\bseparator\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : '';
 
 					$tag['in_tag'] = ( preg_match( '/in_tag\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? trim( $match[1] ) : '';
+
+					$tag[ 'text' ] = ( preg_match( "/text\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i",  $value, $match ) ) ? trim( $match[ 1 ] ) : '';
 
 					$tag['callback'] = ( preg_match( '/callback\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? trim( $match[1] ) : '';
 

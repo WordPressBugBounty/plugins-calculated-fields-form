@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.53
+Stable tag: 5.3.54
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.54 =
+
+* Enhanced the form generation module to support generating complete forms using an AI agent.
+* Updated the upload file field tags: they now include a text attribute that configures whether to display uploaded file URLs as anchor texts or to show only their names.
+
 = 5.3.53 =
 
 * Modified the AI Equation Assistant module by integrating a new model, altering the prompt and settings, and postprocessing the answer to generate more useful code.
@@ -478,8 +483,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.50 =
 
 * We have introduced three new predefined forms: two for lifestyle, namely the Carbon Footprint Calculator and the Solar Power Investment Calculator, and one for the transportation category, the Car Purchase vs Lease Calculator.
-
-= 5.3.49 =
-
-* Modifies the AJAX-based form submission process to prevent users from inadvertently submitting the form multiple times.
-* Updates the CSS and HTML code editor to address a scrolling issue when the editor is in fullscreen mode.

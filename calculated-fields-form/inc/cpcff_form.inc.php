@@ -138,17 +138,24 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			$_form_structure = CP_CALCULATEDFIELDSF_DEFAULT_form_structure;
 			// Get form structure from server !!!
 			if ( ! empty( $form_template ) ) {
-				$response = wp_remote_get(
-					'https://cff.dwbooster.com/forms/forms/' . $form_template . '.cpfm',
-					array(
-						'sslverify' => false,
-					)
-				);
+				if( is_numeric( $form_template ) ) {
+					$response = wp_remote_get(
+						'https://cff.dwbooster.com/forms/forms/'.$form_template.'.cpfm',
+						array(
+							'sslverify' => false
+						)
+					);
 
-				if ( ! is_wp_error( $response ) ) {
-					$_form_structure_tmp = wp_remote_retrieve_body( $response );
-					if ( ! empty( $_form_structure_tmp ) ) {
-						$_form_structure = $_form_structure_tmp;
+					if ( ! is_wp_error( $response ) ) {
+						$_form_structure_tmp = wp_remote_retrieve_body( $response );
+						if ( !empty( $_form_structure_tmp ) ) {
+							$_form_structure = $_form_structure_tmp;
+						}
+					}
+				} else if ( is_string( $form_template ) ) {
+					json_decode( $form_template, 'mormal' );
+					if ( json_last_error() === JSON_ERROR_NONE ) {
+						$_form_structure = $form_template;
 					}
 				}
 			}
@@ -367,7 +374,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			) {
 				$form_data = CPCFF_AUXILIARY::json_decode( $value, 'normal' );
 				if ( ! is_null( $form_data ) ) {
-					$value = $this->_settings['form_structure'] = $form_data; // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
+					$value = $form_data;
+					$this->_settings['form_structure'] = $form_data;
 				}
 			} elseif ( $option == 'vs_all_texts' ) { // If the texts where not defined previously or the thank you page is empty populate them with the default values.
 				error_reporting( E_ERROR | E_PARSE );
@@ -404,9 +412,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			 * use three parameters: The value of option, the name of option and the form's id
 			 * returns the new option's value
 			 */
-			if ( ! is_admin() ) {
-				$value = apply_filters( 'cpcff_get_option', $value, $option, $this->_id );
-			}
+			if(!is_admin()) $value = apply_filters( 'cpcff_get_option', $value, $option, $this->_id );
+			else $value = apply_filters( 'cpcff_admin_get_option', $value, $option, $this->_id );
 
 			return $value;
 		} // End get_option.

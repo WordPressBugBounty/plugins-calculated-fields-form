@@ -437,9 +437,43 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 							'cp_calculatedfieldsf_builder_library_script',
 							'cpcff_forms_library_config',
 							array(
-								'version'     => 'free',
-								'website_url' => 'admin.php?page=cp_calculated_fields_form&a=1&_cpcff_nonce=' . wp_create_nonce( 'cff-add-form' ),
-								'website_forms' => CPCFF_FORM::forms_list( [ 'description' => true ] )
+								'version'     			=> 'free',
+								'website_url' 			=> 'admin.php?page=cp_calculated_fields_form&a=1&_cpcff_nonce=' . wp_create_nonce( 'cff-add-form' ),
+								'ai_form_generator_url' => 'admin.php?page=cp_calculated_fields_form&_cpcff_nonce=' . wp_create_nonce( 'cff-ai-form-generator' ),
+								'website_forms' 		=> CPCFF_FORM::forms_list( [ 'description' => true ] ),
+								'texts' => [
+									// Placeholders.
+									'search_placeholder' 		   => esc_attr__( 'Search...', 'calculated-fields-form' ),
+									'form_name_placeholder' 	   => esc_attr__( 'Form name...', 'calculated-fields-form' ),
+									'api_key_placeholder' 		   => esc_attr__( 'Enter your Google AI Studio API Key', 'calculated-fields-form' ),
+									'form_descritpion_placeholder' => esc_attr__( 'Please provide the form description preferably in English.', 'calculated-fields-form' ),
+
+									// Menu options.
+									'ai_form_generator_menu'	   => esc_html__( 'AI Form Generator (Beta)', 'calculated-fields-form' ),
+									'website_forms_menu'		   => esc_html__( 'Use My Forms As Template', 'calculated-fields-form' ),
+									'all_categories_menu'		   => esc_html__( 'All Categories', 'calculated-fields-form' ),
+
+									// Labels.
+									'form_descritpion_label'	   => esc_html__( 'Enter form description', 'calculated-fields-form' ),
+									'no_form_label'	   			   => esc_html__( 'No form meets the search criteria', 'calculated-fields-form' ),
+									'video_label'	   			   => esc_html__( '[video tutorial]', 'calculated-fields-form' ),
+
+									// Instructions.
+									'api_key_instruct'				   => sprintf( esc_html__( 'Get your API Key from %s. It will be stored in your browser\'s local storage, and can be deleted by pressing "Clear API Key".', 'calculated-fields-form' ), '<a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a>' ),
+
+									// Buttons texts.
+									'create_form_btn' 			   => esc_html__( 'Create Basic Form', 'calculated-fields-form' ),
+									'save_api_key_btn' 			   => esc_html__( 'Save API Key', 'calculated-fields-form' ),
+									'saving_api_key_btn' 		   => esc_html__( 'Saving...', 'calculated-fields-form' ),
+									'clear_api_key_btn' 		   => esc_html__( 'Clear API Key', 'calculated-fields-form' ),
+									'generate_form_btn'			   => esc_html__( 'Generate', 'calculated-fields-form' ),
+									'use_it_btn' 		   		   => esc_html__( 'Use It', 'calculated-fields-form' ),
+									'back_btn' 		   		   	   => esc_attr__( 'back', 'calculated-fields-form' ),
+
+									// Errors.
+									'api_key_requirement_error'	   	=> esc_html__( 'The API Key is empty.', 'calculated-fields-form' ),
+									'description_requirement_error' => esc_html__( 'Please enter the form description.', 'calculated-fields-form' ),
+								]
 							)
 						);
 					}
@@ -488,6 +522,75 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				}
 			}
 		} // End update_metabox_status.
+
+		public function no_form_preview( $form_structure ) {
+
+			$output = '';
+			$exception = new Exception( __( 'Invalid form structure', 'calculated-fields-form' ) );
+			if ( ! is_string( $form_structure ) ) throw $exception;
+			$form_structure = CPCFF_AUXILIARY::json_decode( $form_structure, false );
+			if ( empty( $form_structure ) ) throw $exception;
+			try {
+				$form_structure = CPCFF_FORM::sanitize_structure( $form_structure );
+			} catch ( Exception $err ) {
+				throw $exception;
+			}
+
+			global $wp_styles, $wp_scripts;
+
+			// Constant defined to protect the "inc/cpcff_public_int.inc.php" file against direct accesses.
+			if ( !defined('CP_AUTH_INCLUDE') ) define('CP_AUTH_INCLUDE', true);
+
+			add_filter( 'cpcff_admin_get_option', function( $value, $field, $id ) use ( $form_structure ) {
+				if ( $field == 'form_structure' ) {
+					$value = $form_structure;
+				}
+				return $value;
+			}, 99, 3 );
+
+			ob_start();
+			try {
+
+				self::$form_counter = 1;
+				$this->_public_resources(0);
+
+				/* TO-DO: This method should be analyzed after moving other functions to the main class . */
+				$button_label = $this->get_form(0)->get_option('vs_text_submitbtn', 'Submit');
+				$button_label = ($button_label==''?'Submit':$button_label);
+				include CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_public_int.inc.php';
+
+				if(!empty($wp_styles))  $wp_styles->do_items();
+				if(!empty($wp_scripts)) $wp_scripts->do_items();
+
+				$output .= ob_get_contents();
+				$output .= '<script>document.forms[0].onsubmit=document.forms[0].submit=function(){alert("' . esc_js( esc_html__( 'This is a preview of the form, letting you see its setup and design before it goes live.', 'calculated-fields-form' ) ) . '");return false;};</script>';
+
+				$output = '<style>
+					#codepeople-review-banner{box-sizing:border-box; border:10px solid #EEE;background:#FFF;display:table;visibility:visible !important;margin-bottom:15px;width:100% !important;}
+					#codepeople-review-banner ul{margin-bottom:0;margin-top:5px;}
+					#codepeople-review-banner ul li{margin-bottom:2px;}
+					#codepeople-review-banner *{visibility:visible !important;}
+					#codepeople-review-banner .codepeople-review-banner-content{padding:10px;}
+					</style>
+					<div id="codepeople-review-banner">
+						<div class="codepeople-review-banner-content">
+							<div class="codepeople-review-banner-text">
+								<div>' . __( 'If the form isn\'t displayed below, it means the AI was unable to generate a valid structure. We apologize for any inconvenience. Please click the "Back to Generate" button, adjust your form description, and then click "Generate" again.', 'calculated-fields-form' ) . '
+								</div>
+							</div>
+						</div>
+					</div>' . $output;
+
+			} catch( Exception $err ) {
+				error_log( $err->getMessage() );
+				throw $exception;
+			} finally {
+				ob_end_clean();
+			}
+
+			return $output;
+
+		} // End no_form_preview
 
 		public function form_preview( $atts ) {
 			if ( isset( $atts['shortcode_atts'] ) ) {

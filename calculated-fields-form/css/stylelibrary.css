@@ -18,11 +18,32 @@
     transform: translate( -50%, -50% );
     display: flex;
 }
+.cff-ai-form-preview-container{
+	display:none;
+	flex-direction:column;
+	padding:10px;
+	box-sizing:border-box;
+	background:white;
+    width:100%;
+    height:100%;
+    position:fixed;
+    left:0;
+    top:0;
+    z-index:99999;
+	gap:10px;
+}
+.cff-form-library-container button,
+.cff-form-library-container input[type="button"],
+.cff-form-library-container input[type="text"],
+.cff-form-library-container input[type="search"],
+.cff-form-library-container input[type="password"]{height: 40px; line-height: 40px;}
 .cff-form-library-container a{outline:none !important; box-shadow:none !important;}
 .cff-form-library-column-left{
-    /* flex:1 0 auto; */
+	display:flex;
+    flex-direction:column;
     border-right:1px solid #dddddd;
-	position: relative;
+    position: relative;
+    flex-shrink:0;
 }
 
 .cff-form-library-search-box{
@@ -35,66 +56,71 @@
 .cff-form-library-search-box input{
 	width:100%;
 	margin-bottom:5px;
-	height:30px;
-	height: 40px; line-height: 40px;
 }
 
-
+.cff-form-library-ai-forms,
 .cff-form-library-website-forms{
 	padding:5px 10px;
-	position:absolute;
-	top:60px;
-	right:0;
-	left:0;
-	overflow:auto;
 	border-bottom: 1px solid #ddd;
 }
 
+.cff-form-library-ai-forms{background:#F9E774;}
+.cff-form-library-column-left .cff-form-library-ai-forms a{color:#333333;}
+
 .cff-form-library-categories{
 	padding:10px;
-	position:absolute;
-	top:120px;
-	bottom:0;
-	right:0;
-	left:0;
 	overflow:auto;
+	flex-grow:1;
 }
 
-
-.cff-form-library-categories ul>li:not,
-.cff-form-library-website-forms ul>li:not(:first-child){margin-left:20px}
-.cff-form-library-categories a,
-.cff-form-library-website-forms a{text-decoration:none;font-size: 14px;font-weight: 500;line-height: 18px;color:#666;}
-.cff-form-library-categories a:hover,
-.cff-form-library-website-forms a:hover,
-.cff-form-library-categories a:active,
-.cff-form-library-website-forms a:active,
+.cff-form-library-column-left ul>li:not(:first-child){margin-left:20px}
+.cff-form-library-column-left a{text-decoration:none;font-size: 14px;font-weight: 500;line-height: 18px;color:#666;}
+.cff-form-library-column-left a:hover,
+.cff-form-library-column-left a:active,
 .cff-form-library-active-category{color:#c52359 !important;}
 
 .cff-form-library-column-right{
-    flex:3 0 auto;
+    display: flex;
+    flex-direction: column;
     position:relative;
+    flex-grow:1;
 }
 
-.cff-form-library-close{
+.cff-form-library-close-back{
     float:right;
-    padding:5px;
+    margin:5px;
     width:18px;
     height:18px;
     top:0;
     z-index:999;
+	box-sizing:border-box;
 }
 
-.cff-form-library-close::before{
-    content: "✖";
-    cursor:pointer;
+.cff-form-library-back{width:100%;float: none;margin:0;}
+
+.cff-form-library-close-back::before{
+	display:block;
+	cursor:pointer;
 	font-size:18px;
 	line-height:18px;
 }
 
-.cff-form-library-close:hover::before{color:#c52359;}
+.cff-form-library-close-video::before,
+.cff-form-library-close::before{content: "✖";}
+.cff-form-library-back::before{content: attr(data-label);text-align:right;}
+
+.cff-form-library-close-back:hover::before{color:#c52359;}
 
 .cff-form-library-main{
+    padding:10px;
+    overflow:auto;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-start;
+    flex-grow:1;
+}
+
+.cff-ai-form-generator{
     top:60px;
     position:absolute;
     padding:10px;
@@ -103,8 +129,29 @@
     bottom:5px;
     overflow:auto;
 	display:flex;
-	flex-wrap:wrap;
-	align-items:flex-start;
+	flex-direction:column;
+	gap:10px;
+}
+
+.cff-ai-form-description-container{width:100%;box-sizing: border-box;
+    border: 1px solid #ababab;
+    position: relative;
+    background: #EFEFEF;
+    padding:10px;
+	flex-grow:1;
+	display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#cff-ai-form-description{width:100%;flex-grow:1;}
+.cff-ai-api-key-container{display:flex;flex-direction:row;gap:5px;}
+#cff-ai-api-key{flex-grow:1;}
+.cff-ai-generate{margin-right:10px;}
+.cff-ai-form-preview{flex-grow:1;position:relative;display:flex;}
+.cff-ai-form-preview>iframe{flex-grow:1;border:1px solid #ababab;height:100% !important;}
+.cff-ai-form-preview-container .cff-select-form{
+  flex-basis: auto;
+  align-self: flex-start;
 }
 
 .cff-form-library-no-form{text-align:center;}
@@ -133,10 +180,10 @@
 
 .cff-form-library-form-bottom{border-top:1px solid #ddd;padding:10px;background:white;}
 .cff-form-library-form-category{font-style:italic;}
-.cff-form-library-form [type="button"]{margin:10px 10px 10px 0;min-width: 150px;height:40px;line-height: 40px;}
-.cff-form-library-blank-form{padding:10px;width: calc( 100% - 40px );float:left;clear:none;box-sizing:border-box;}
-.cff-form-library-blank-form input[type="button"]{width:150px;height: 40px; line-height: 40px;}
-.cff-form-library-blank-form input[type="text"]{width: calc( 100% - 160px );height: 40px; line-height: 40px;}
+.cff-form-library-form [type="button"]{margin:10px 10px 10px 0;min-width: 150px;}
+.cff-form-library-blank-form{padding:10px;flex-grow:1;}
+.cff-form-library-blank-form input[type="button"]{width:150px;}
+.cff-form-library-blank-form input[type="text"]{width: calc( 100% - 160px );}
 
 .cff-form-library-form-disabled .cff-form-library-form-thumb{
 	filter:grayscale(1);
@@ -150,6 +197,10 @@
 	transform:translate(-50%,-50%);
 	font-size:30px;
 }
+
+.cff-ai-video-tutorial{position:fixed;z-index:9;width:80%;height:450px;box-sizing:border-box; background:white;padding:10px;left:10%;box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);-webkit-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-moz-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);display:none;flex-direction:column;gap:5px;}
+.cff-ai-video-tutorial>button{}
+.cff-ai-video-tutorial iframe{width:100% !important;flex-grow:1;}
 
 /* Desktop */
 @media screen and (min-width:710px) {
@@ -168,6 +219,6 @@
 	.cff-form-library-blank-form{float:none;width:100%;padding-top:0;}
 	.cff-form-library-blank-form input[type="text"]{width:100%;}
 	.cff-form-library-blank-form input[type="button"]{width:100%;margin-top:10px;}
-	.cff-form-library-main{top:100px;bottom:5px;}
+	.cff-form-library-main{top:100px;bottom:5px;position:absolute;display:flex !important;}
 	.cff-form-library-column-right .cff-form-library-close{display:none;}
 }
