@@ -521,18 +521,198 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 * @param array $file with the file's name and the temporal name after upload it.
 		 * @return bool.
 		 */
-		public static function check_uploaded_file( $file ) {
-			$filetmp  = $file['tmp_name'];
-			$filename = $file['name'];
+		public static function check_uploaded_file( $file, $allowed = [], $file_size = 0 ) {
+			function get_extension_from_mime( $file_path ) {
+				$mimeMap = [
+					// Images
+					'image/jpeg' => 'jpg',
+					'image/jpg' => 'jpg',
+					'image/png' => 'png',
+					'image/gif' => 'gif',
+					'image/bmp' => 'bmp',
+					'image/webp' => 'webp',
+					'image/svg+xml' => 'svg',
+					'image/tiff' => 'tiff',
+					'image/x-icon' => 'ico',
 
-			// Get file info.
-			$filetype = wp_check_filetype( basename( $filename ), null );
+					// Documents
+					'application/pdf' => 'pdf',
+					'application/msword' => 'doc',
+					'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
+					'application/vnd.ms-excel' => 'xls',
+					'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
+					'application/vnd.ms-powerpoint' => 'ppt',
+					'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
+					'text/plain' => 'txt',
+					'text/html' => 'html',
+					'text/css' => 'css',
+					'text/javascript' => 'js',
+					'application/json' => 'json',
+					'text/xml' => 'xml',
+					'application/xml' => 'xml',
+					'text/csv' => 'csv',
+					'application/rtf' => 'rtf',
+
+					// Archives
+					'application/zip' => 'zip',
+					'application/x-rar-compressed' => 'rar',
+					'application/x-7z-compressed' => '7z',
+					'application/x-tar' => 'tar',
+					'application/gzip' => 'gz',
+
+					// Audio
+					'audio/mpeg' => 'mp3',
+					'audio/wav' => 'wav',
+					'audio/ogg' => 'ogg',
+					'audio/mp4' => 'm4a',
+					'audio/aac' => 'aac',
+					'audio/flac' => 'flac',
+
+					// Video
+					'video/mp4' => 'mp4',
+					'video/avi' => 'avi',
+					'video/quicktime' => 'mov',
+					'video/x-msvideo' => 'avi',
+					'video/webm' => 'webm',
+					'video/x-flv' => 'flv',
+					'video/3gpp' => '3gp',
+
+					// Programming files
+					'text/x-php' => 'php',
+					'text/x-python' => 'py',
+					'text/x-java-source' => 'java',
+					'text/x-c' => 'c',
+					'text/x-c++' => 'cpp',
+					'application/x-httpd-php' => 'php',
+
+					// SECURITY CRITICAL: Server-side executable files
+					'application/x-php' => 'php',
+					'text/php' => 'php',
+					'application/php' => 'php',
+					'text/x-asp' => 'asp',
+					'application/x-asp' => 'asp',
+					'text/asp' => 'asp',
+					'application/x-aspx' => 'aspx',
+					'text/x-aspx' => 'aspx',
+					'application/x-cgi' => 'cgi',
+					'text/x-cgi' => 'cgi',
+					'application/x-perl' => 'pl',
+					'text/x-perl' => 'pl',
+					'text/x-script.perl' => 'pl',
+					'application/x-python-code' => 'py',
+					'text/x-python-script' => 'py',
+
+					// Executable files
+					'application/x-executable' => 'exe',
+					'application/x-msdownload' => 'exe',
+					'application/x-msdos-program' => 'exe',
+					'application/x-winexe' => 'exe',
+					'application/x-ms-dos-executable' => 'exe',
+					'application/vnd.microsoft.portable-executable' => 'exe',
+					'application/x-dosexec' => 'exe',
+
+					// Script files
+					'text/x-shellscript' => 'sh',
+					'application/x-shellscript' => 'sh',
+					'text/x-sh' => 'sh',
+					'application/x-sh' => 'sh',
+					'text/x-script.sh' => 'sh',
+					'application/x-javascript' => 'js',
+					'text/x-vbs' => 'vbs',
+					'application/x-vbs' => 'vbs',
+					'text/vbscript' => 'vbs',
+					'application/x-bat' => 'bat',
+					'text/x-bat' => 'bat',
+					'application/x-cmd' => 'cmd',
+					'text/x-cmd' => 'cmd',
+					'application/x-powershell' => 'ps1',
+					'text/x-powershell' => 'ps1',
+
+					// Other executable formats
+					'application/x-debian-package' => 'deb',
+					'application/vnd.android.package-archive' => 'apk',
+					'application/java-archive' => 'jar',
+					'application/x-java-archive' => 'jar',
+					'application/x-rpm' => 'rpm',
+					'application/x-msi' => 'msi',
+					'application/x-ms-installer' => 'msi',
+
+					// Other common types
+					'application/octet-stream' => 'bin',
+				];
+
+				if ( function_exists('finfo_open') ) {
+					$finfo = finfo_open(FILEINFO_MIME_TYPE);
+					$mimeType = strtolower( finfo_file( $finfo, $file_path ) );
+					finfo_close($finfo);
+					$mimeType = explode(';', $mimeType)[0];
+					if ( isset( $mimeMap[ $mimeType ] ) ) return $mimeMap[ $mimeType ];
+				}
+
+				return false;
+			}
+
+			function get_extension_from_content( $file_path ) {
+				$handle = fopen($file_path, 'rb');
+				$header = fread($handle, 1024);
+				fclose($handle);
+
+				// Check for script signatures in content
+				$scriptSignatures = [
+					'php' => ['<?php', '<?=', '<?'],
+					'asp' => ['<%', '<script runat="server"'],
+					'aspx' => ['<%@', '<%#'],
+					'perl' => ['#!/usr/bin/perl', '#!/bin/perl'],
+					'py' => ['#!/usr/bin/python', '#!/bin/python', 'import '],
+					'sh' => ['#!/bin/sh', '#!/bin/bash'],
+					'js' => ['<script', 'function(', 'var ', 'let '],
+					'vbs' => ['WScript.', 'CreateObject('],
+				];
+
+				foreach ( $scriptSignatures as $type => $signatures ) {
+					foreach ($signatures as $signature) {
+						if ( stripos($header, $signature ) !== false ) {
+							return $type;
+						}
+					}
+				}
+
+				return false;
+			}
+
+			$filetmp  = $file['tmp_name'];
+			if ( ! file_exists( $filetmp ) ) {
+				return false;
+			}
+
+			if (
+				false === ( $filetype = get_extension_from_mime( $filetmp ) ) &&
+				false === ( $filetype = get_extension_from_content( $filetmp ) )
+			) {
+
+				$filename = $file['name'];
+				// Get file info
+				$filetype_data = wp_check_filetype( basename( $filename ), null );
+				$filetype = $filetype_data['ext'];
+			}
 
 			// Excluding dangerous files.
 			if (
-				false == $filetype['ext'] ||
-				in_array( $filetype['ext'], array( 'php', 'asp', 'aspx', 'cgi', 'pl', 'perl', 'exe' ) )
+				empty( $filetype ) ||
+				in_array(
+					$filetype,
+					['php', 'asp', 'aspx', 'cgi', 'pl', 'perl', 'py', 'exe', 'sh', 'bat', 'cmd', 'vbs', 'ps1', 'js', 'jar', 'msi', 'deb', 'rpm', 'apk', 'bin']
+				) ||
+				(
+					! empty( $allowed ) &&
+					! in_array( $filetype, $allowed )
+				)
 			) {
+				return false;
+			}
+
+			// Chek file size
+			if ( ! empty($file_size ) && false !== ( $tmp = filesize( $filetmp ) ) && $file_size * 1024 < $tmp ) {
 				return false;
 			}
 

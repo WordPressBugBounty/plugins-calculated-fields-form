@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.54
+Stable tag: 5.3.55
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.55 =
+
+* Enhanced the file upload protection module by introducing additional validation rules beyond those provided by WordPress. The updated module now verifies the MIME types and file contents, while file size is validated on both the client-side and server-side. Files that fail to meet these criteria are automatically rejected.
+* Updated the DISTANCE and TRAVELTIME operations within the Distance Operations module to support Google's new Routes API in addition to the DistanceMatrix API (available in the Developer and Platinum plugin versions).
+* Improved the reCaptcha add-on by implementing a bypass mechanism to mitigate errors when Google reCaptcha experiences high traffic (available in the Developer and Platinum plugin versions).
+
 = 5.3.54 =
 
 * Enhanced the form generation module to support generating complete forms using an AI agent.
@@ -479,7 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.51 =
 
 * Fixed an issue with the form submission URL that was causing conflicts with certain services and third-party plugins.
-
-= 5.3.50 =
-
-* We have introduced three new predefined forms: two for lifestyle, namely the Carbon Footprint Calculator and the Solar Power Investment Calculator, and one for the transportation category, the Car Purchase vs Lease Calculator.

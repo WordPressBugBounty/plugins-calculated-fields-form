@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.55 =
+
+* Enhanced the file upload protection module by introducing additional validation rules beyond those provided by WordPress. The updated module now verifies the MIME types and file contents, while file size is validated on both the client-side and server-side. Files that fail to meet these criteria are automatically rejected.
+* Updated the DISTANCE and TRAVELTIME operations within the Distance Operations module to support Google's new Routes API in addition to the DistanceMatrix API (available in the Developer and Platinum plugin versions).
+* Improved the reCaptcha add-on by implementing a bypass mechanism to mitigate errors when Google reCaptcha experiences high traffic (available in the Developer and Platinum plugin versions).
+
 = 5.3.54 =
 
 * Enhanced the form generation module to support generating complete forms using an AI agent.

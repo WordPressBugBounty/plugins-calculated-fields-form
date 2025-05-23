@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.54
+ * Version: 5.3.55
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.54' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.55' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -326,6 +326,26 @@ function cp_calculated_fields_form_check_posted_data() {
 									'ffile' == $fields[ $item ]->ftype || 'frecordav' == $fields[ $item ]->ftype
 								)
 							) {
+								// Get accepted file extension.
+								$accepted_file_extensions = [];
+								if ( ! empty( $fields[$item]->accept ) && is_string( $fields[$item]->accept ) ) {
+									$tmp = strtolower( $fields[$item]->accept );
+									$tmp = preg_replace( '/[^\d,a-z\,]/i', '', $tmp );
+									$tmp = trim( $tmp );
+									if ( ! empty( $tmp ) ) $accepted_file_extensions = explode( ',', $tmp );
+								}
+
+								// Get maximum file size.
+								$max_file_size = 0;
+								if ( ! empty( $fields[$item]->upload_size ) ) {
+									$tmp = $fields[$item]->upload_size;
+									if ( is_numeric( $tmp ) ) $max_file_size = intval( $tmp );
+									elseif ( is_string( $tmp ) ) {
+										$tmp = preg_replace( '/[^\d\.]/', '', $tmp );
+										if ( is_numeric( $tmp ) ) $max_file_size = intval( $tmp );
+									}
+								}
+
 								$files_names_arr = array();
 								$files_links_arr = array();
 								$files_urls_arr  = array();
@@ -341,12 +361,13 @@ function cp_calculated_fields_form_check_posted_data() {
 											'size'     => sanitize_text_field( $value['size'][ $f ] ),
 										);
 
-										if ( CPCFF_AUXILIARY::check_uploaded_file( $uploaded_file ) ) {
+
+										if ( CPCFF_AUXILIARY::check_uploaded_file( $uploaded_file, $accepted_file_extensions, $max_file_size ) ) {
 											$movefile = wp_handle_upload( $uploaded_file, array( 'test_form' => false ) );
 											if ( empty( $movefile['error'] ) ) {
 												$files_links_arr[] = $movefile['file'];
 												$files_urls_arr[]  = $movefile['url'];
-												$files_names_arr[] = $uploaded_file['name'];
+												$files_names_arr[] = sanitize_file_name( $uploaded_file['name'] );
 
 												$params[ $item . '_link' ][ $f ] = end( $files_links_arr );
 												$params[ $item . '_path' ][ $f ] = $params[ $item . '_link' ][ $f ];
