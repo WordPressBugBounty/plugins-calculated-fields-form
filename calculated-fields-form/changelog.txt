@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.56 =
+
+* Enhances the Troubleshoot Area and General Settings to improve both accessibility and overall user experience.
+* Updates the WooCommerce add-on to simplify displaying tax-inclusive prices. Now, with the Developer and Platinum plugin versions, you only need to tick a single checkbox in the product settings.
+* Refines the Mollie integration to support all payment methods enabled in Mollie—not just iDeal—offering broader payment options in the Platinum plugin version.
+
 = 5.3.55 =
 
 * Enhanced the file upload protection module by introducing additional validation rules beyond those provided by WordPress. The updated module now verifies the MIME types and file contents, while file size is validated on both the client-side and server-side. Files that fail to meet these criteria are automatically rejected.

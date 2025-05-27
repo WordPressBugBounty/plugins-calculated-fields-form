@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-05-20 12:34+0200\n"
-"PO-Revision-Date: 2025-05-20 12:34+0200\n"
+"POT-Creation-Date: 2025-05-27 01:09+0200\n"
+"PO-Revision-Date: 2025-05-27 01:09+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -31,11 +31,11 @@ msgstr ""
 msgid "is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:408
+#: cp_calculatedfieldsf_free.php:429
 msgid "Failed security check"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:448
+#: cp_calculatedfieldsf_free.php:469
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the database structure. Please, go to the plugins "
@@ -44,7 +44,7 @@ msgid ""
 "please <a href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:459
+#: cp_calculatedfieldsf_free.php:480
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the form structure. Please, try to save the data "
@@ -1451,11 +1451,11 @@ msgstr ""
 msgid "&hellip;"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:850
+#: inc/cpcff_auxiliary.inc.php:1030
 msgid "Paid"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:850
+#: inc/cpcff_auxiliary.inc.php:1030
 msgid "Not Paid"
 msgstr ""
 

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.55
+Stable tag: 5.3.56
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.56 =
+
+* Enhances the Troubleshoot Area and General Settings to improve both accessibility and overall user experience.
+* Updates the WooCommerce add-on to simplify displaying tax-inclusive prices. Now, with the Developer and Platinum plugin versions, you only need to tick a single checkbox in the product settings.
+* Refines the Mollie integration to support all payment methods enabled in Mollie—not just iDeal—offering broader payment options in the Platinum plugin version.
+
 = 5.3.55 =
 
 * Enhanced the file upload protection module by introducing additional validation rules beyond those provided by WordPress. The updated module now verifies the MIME types and file contents, while file size is validated on both the client-side and server-side. Files that fail to meet these criteria are automatically rejected.
@@ -481,7 +487,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modified template 07 to increase the contrast ratio, resulting in an improved Google score.
 * Updated the interface of DS controls (for Developer and Platinum plugin distributions).
 * Fixed an issue in the Event Calendar add-on (Platinum plugin distribution).
-
-= 5.3.51 =
-
-* Fixed an issue with the form submission URL that was causing conflicts with certain services and third-party plugins.
