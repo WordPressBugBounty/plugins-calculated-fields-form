@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.56
+Stable tag: 5.3.57
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.57 =
+
+* We made a minor enhancement to the equation processing logic to ensure compatibility with legacy browsers.
+
 = 5.3.56 =
 
 * Enhances the Troubleshoot Area and General Settings to improve both accessibility and overall user experience.
@@ -478,12 +482,4 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Added a new feature to the password controls that allows users to unmask the password text as they type.
 * Implemented several improvements to the "Create New Forms" screen to streamline the user experience.
 * Removed deprecated jQuery code to enhance the codebase's performance and maintain compatibility.
-* Fixed a minor issue affecting the display of user emails in the entries section for commercial plugin distributions..
-
-= 5.3.52 =
-
-* Optimized the page break control by removing unnecessary code.
-* Improved the character counter functionality in textarea controls.
-* Modified template 07 to increase the contrast ratio, resulting in an improved Google score.
-* Updated the interface of DS controls (for Developer and Platinum plugin distributions).
-* Fixed an issue in the Event Calendar add-on (Platinum plugin distribution).
+* Fixed a minor issue affecting the display of user emails in the entries section for commercial plugin distributions.

@@ -42,7 +42,17 @@
 				{
 	                // Add equations
 					var me = this,
-						dependencies = [];
+						dependencies = [],
+						getAllMatches = function (str, regex) {
+							const matches = [];
+							let match;
+							const globalRegex = new RegExp(regex.source, regex.flags);
+
+							while ((match = globalRegex.exec(str)) !== null) {
+								matches.push(match);
+							}
+							return matches;
+						};
 
 					$.each(me.dependencies, function(i, d)
 						{
@@ -71,7 +81,7 @@
                     {
 						// This code ensures you pass to form identifier as the last operation parameter.
 						let  indexes_array = Array.from(
-							eq.matchAll( /\b(GETFIELD|ACTIVATEFIELD|IGNOREFIELD|ISIGNORED|SHOWFIELD|HIDEFIELD|EVALEQUATION|GOTOPAGE|GOTOFIELD|COPYFIELDVALUE)\(/ig ),
+							getAllMatches(eq, /\b(GETFIELD|ACTIVATEFIELD|IGNOREFIELD|ISIGNORED|SHOWFIELD|HIDEFIELD|EVALEQUATION|GOTOPAGE|GOTOFIELD|COPYFIELDVALUE)\(/ig ),
 							m => m.index
 						);
 

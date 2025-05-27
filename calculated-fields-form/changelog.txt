@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.57 =
+
+* We made a minor enhancement to the equation processing logic to ensure compatibility with legacy browsers.
+
 = 5.3.56 =
 
 * Enhances the Troubleshoot Area and General Settings to improve both accessibility and overall user experience.
