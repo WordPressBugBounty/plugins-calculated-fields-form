@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.58 =
+
+* Fixed an error in the file validation module.
+
 = 5.3.57 =
 
 * We made a minor enhancement to the equation processing logic to ensure compatibility with legacy browsers.

@@ -522,7 +522,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 * @return bool.
 		 */
 		public static function check_uploaded_file( $file, $allowed = [], $file_size = 0 ) {
-			function get_extension_from_mime( $file_path ) {
+			$get_extension_from_mime = function( $file_path ) {
 				$mimeMap = [
 					// Images
 					'image/jpeg' => 'jpg',
@@ -650,9 +650,9 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				}
 
 				return false;
-			}
+			};
 
-			function get_extension_from_content( $file_path ) {
+			$get_extension_from_content = function( $file_path ) {
 				$handle = fopen($file_path, 'rb');
 				$header = fread($handle, 1024);
 				fclose($handle);
@@ -678,7 +678,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				}
 
 				return false;
-			}
+			};
 
 			$filetmp  = $file['tmp_name'];
 			if ( ! file_exists( $filetmp ) ) {
@@ -686,8 +686,8 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			}
 
 			if (
-				false === ( $filetype = get_extension_from_mime( $filetmp ) ) &&
-				false === ( $filetype = get_extension_from_content( $filetmp ) )
+				false === ( $filetype = $get_extension_from_mime( $filetmp ) ) &&
+				false === ( $filetype = $get_extension_from_content( $filetmp ) )
 			) {
 
 				$filename = $file['name'];

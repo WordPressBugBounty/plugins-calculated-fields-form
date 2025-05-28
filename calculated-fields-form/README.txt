@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.57
+Stable tag: 5.3.58
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.58 =
+
+* Fixed an error in the file validation module.
+
 = 5.3.57 =
 
 * We made a minor enhancement to the equation processing logic to ensure compatibility with legacy browsers.
@@ -475,11 +479,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Enhanced the form generation module to support generating complete forms using an AI agent.
 * Updated the upload file field tags: they now include a text attribute that configures whether to display uploaded file URLs as anchor texts or to show only their names.
-
-= 5.3.53 =
-
-* Modified the AI Equation Assistant module by integrating a new model, altering the prompt and settings, and postprocessing the answer to generate more useful code.
-* Added a new feature to the password controls that allows users to unmask the password text as they type.
-* Implemented several improvements to the "Create New Forms" screen to streamline the user experience.
-* Removed deprecated jQuery code to enhance the codebase's performance and maintain compatibility.
-* Fixed a minor issue affecting the display of user emails in the entries section for commercial plugin distributions.
