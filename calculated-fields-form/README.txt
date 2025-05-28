@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.58
+Stable tag: 5.3.59
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.59 =
+
+* Updated the URL for requesting the trial plugin installation so that it is now protected with a nonce. A big thank you to truonghuuphuc and the Patchstack team for identifying this issue.
+
 = 5.3.58 =
 
 * Fixed an error in the file validation module.
@@ -474,8 +478,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Enhanced the file upload protection module by introducing additional validation rules beyond those provided by WordPress. The updated module now verifies the MIME types and file contents, while file size is validated on both the client-side and server-side. Files that fail to meet these criteria are automatically rejected.
 * Updated the DISTANCE and TRAVELTIME operations within the Distance Operations module to support Google's new Routes API in addition to the DistanceMatrix API (available in the Developer and Platinum plugin versions).
 * Improved the reCaptcha add-on by implementing a bypass mechanism to mitigate errors when Google reCaptcha experiences high traffic (available in the Developer and Platinum plugin versions).
-
-= 5.3.54 =
-
-* Enhanced the form generation module to support generating complete forms using an AI agent.
-* Updated the upload file field tags: they now include a text attribute that configures whether to display uploaded file URLs as anchor texts or to show only their names.

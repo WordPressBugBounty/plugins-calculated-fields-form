@@ -25,7 +25,15 @@ if ( ! class_exists( 'CPCFF_TRIAL' ) ) {
 		 * @return void.
 		 */
 		public function init() {
-			if ( ! empty( $_GET['cff-install-trial'] ) && current_user_can( 'manage_options' ) ) {
+			if (
+				! empty( $_GET['cff-install-trial'] ) &&
+				current_user_can( 'manage_options' ) &&
+				! empty( $_REQUEST['_cpcff_nonce'] ) &&
+				(
+					wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_cpcff_nonce'] ) ), 'cff-form-settings' ) ||
+					wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_cpcff_nonce'] ) ), 'cff-install-trial' )
+				)
+			) {
 				$this->_install_plugin();
 			}
 		} // End init

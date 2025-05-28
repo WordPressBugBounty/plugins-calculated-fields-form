@@ -79,7 +79,7 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 								click: function()
 								{
 									dlg.siblings().css('pointer-events', 'none');
-									window.location.href="admin.php?page=cp_calculated_fields_form&cff-install-trial=1";
+									window.location.href="admin.php?page=cp_calculated_fields_form&cff-install-trial=1&_cpcff_nonce=<?php print esc_js( wp_create_nonce( 'cff-install-trial' ) ); ?>";
 								}
 							},
 							{
