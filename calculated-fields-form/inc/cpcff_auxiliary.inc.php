@@ -365,6 +365,22 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		} // End unserialize.
 
 		/**
+		 * Returns the real value.
+		 *
+		 * If it is numeric returns the number.
+		 *
+		 * @param mixed $v value.
+		 * @return mixed.
+		 */
+		public static function value($v)
+		{
+			$ov = $v;
+			if(is_string($v)) $v = preg_replace('/[^\-\+\d\.]/', '', $v);
+			if(is_numeric($v)) return $v*1;
+			return $ov;
+		} // End value
+
+		/**
 		 * Replaces recursively the elements in an array by the elements in another one.
 		 *
 		 * The method will use the PHP function: array_replace_recursive if exists.
@@ -786,7 +802,8 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			$attachments = array();
 
 			// Remove empty blocks.
-			while ( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_block\s*(?:(?!%>).)*%>/", $text, $matches ) ) {
+			$offset = 0;
+			while ( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_block\s*(?:(?!%>).)*%>/", $text, $matches, 0, $offset ) ) {
 				$tags   = self::_extract_tags( $matches[0] );
 				$tags   = array_pop( $tags );
 				$tags   = array_pop( $tags );
@@ -813,21 +830,31 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 					$remove = true;
 				}
 
-				if ( $remove ) {
-					$from = strpos( $text, $matches[0] );
-					if ( preg_match( '/<%\s*' . $matches[1] . '_endblock\s*%>/', $text, $matches_end ) ) {
-						$length = strpos( $text, $matches_end[0] ) + strlen( $matches_end[0] ) - $from;
-					} else {
-						$length = strlen( $matches[0] );
+				$from = strpos( $text, $matches[ 0 ], $offset );
+				$length = strlen( $matches[ 0 ] );
+				if( preg_match( "/<%\s*".$matches[ 1 ]."_endblock\s*%>/", $text, $matches_end ) ) {
+					$offset = $from + $length;
+					$to = strpos( $text, $matches_end[ 0 ], $offset );
+
+					if( preg_match('/<%\s*'.$matches[ 1 ].'_block/', $text, $check_match, PREG_OFFSET_CAPTURE, $offset ) &&  $check_match[0][1] < $to ) {
+						continue;
 					}
-					$text = substr_replace( $text, '', $from, $length );
+
+					if( $remove ) {
+						$text = substr_replace( $text, '', $from, $to+strlen( $matches_end[ 0 ] ) - $from );
+					} else {
+						$text = substr_replace( $text, '', $to, strlen( $matches_end[ 0 ] ) );
+						$text = substr_replace( $text, '', $from, $length );
+					}
 				} else {
-					$text = preg_replace( array( '/' . preg_quote( $matches[0] ) . '/', '/<%\s*' . $matches[1] . '_endblock\s*%>/' ), '', $text, 1 );
+					$text = substr_replace( $text, '', $from, strlen( $matches[ 0 ] ) );
 				}
+				$offset = 0;
 			}
 
 			// Remove empty nonblocks.
-			while ( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_nonblock\s*%>/", $text, $matches ) ) {
+			$offset = 0;
+			while ( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_nonblock\s*%>/", $text, $matches, 0, $offset ) ) {
 				$remove = false;
 				if ( isset( $params[ $matches[1] ] ) ) {
 					$tmp_param = $params[ $matches[1] ];
@@ -838,17 +865,26 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 					}
 				}
 
-				if ( $remove ) {
-					$from = strpos( $text, $matches[0] );
-					if ( preg_match( '/<%\s*' . $matches[1] . '_endnonblock\s*%>/', $text, $matches_end ) ) {
-						$length = strpos( $text, $matches_end[0] ) + strlen( $matches_end[0] ) - $from;
-					} else {
-						$length = strlen( $matches[0] );
+				$from = strpos( $text, $matches[ 0 ], $offset );
+				$length = strlen( $matches[ 0 ] );
+				if( preg_match( "/<%\s*".$matches[ 1 ]."_endnonblock\s*%>/", $text, $matches_end ) ) {
+					$offset = $from + $length;
+					$to = strpos( $text, $matches_end[ 0 ], $offset );
+
+					if( preg_match('/<%\s*'.$matches[ 1 ].'_nonblock/', $text, $check_match, PREG_OFFSET_CAPTURE, $offset ) &&  $check_match[0][1] < $to ) {
+						continue;
 					}
-					$text = substr_replace( $text, '', $from, $length );
+
+					if( $remove ) {
+						$text = substr_replace( $text, '', $from, $to+strlen( $matches_end[ 0 ] ) - $from );
+					} else {
+						$text = substr_replace( $text, '', $to, strlen( $matches_end[ 0 ] ) );
+						$text = substr_replace( $text, '', $from, $length );
+					}
 				} else {
-					$text = preg_replace( array( '/' . preg_quote( $matches[0] ) . '/', '/<%\s*' . $matches[1] . '_endnonblock\s*%>/' ), '', $text, 1 );
+					$text = substr_replace( $text, '', $from, strlen( $matches[ 0 ] ) );
 				}
+				$offset = 0;
 			}
 
 			$tags = self::_extract_tags( $text );

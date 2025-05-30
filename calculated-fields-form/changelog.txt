@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.60 =
+
+* Enhances the module responsible for replacing fields and informative tags in notification emails and thank-you pages, resolving an issue with nested block/endblock tags.
+
 = 5.3.59 =
 
 * Updated the URL for requesting the trial plugin installation so that it is now protected with a nonce. A big thank you to truonghuuphuc and the Patchstack team for identifying this issue.
