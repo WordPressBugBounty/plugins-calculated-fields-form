@@ -200,3 +200,10 @@ background:#8eb92a;
 	color:white;
 }
 .cp_cff_professional #fbuilder .cff-popup-header:not(:empty){border-color:#312C20;}
+
+.cp_cff_professional #fbuilder .cff-timeslot{border-color:#bfd255;}
+.cp_cff_professional #fbuilder .cff-timeslot[data-active="0"]{text-shadow:none;border-color:#847764;color:#847764;}
+.cp_cff_professional #fbuilder .cff-timeslot[data-selected="1"],
+.cp_cff_professional #fbuilder .cff-timeslot-selected{border-color:#bfd255;background:#bfd255;text-shadow:none;color:#3d3627;}
+.cp_cff_professional #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#bfd255;color:#bfd255;}
+.cp_cff_professional #fbuilder .cff-timeslot-selected::after{border-color:#bfd255;color:#3d3627;}

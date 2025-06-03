@@ -235,8 +235,8 @@
 						str = '',
 						i = 0,
 						m,
-						n = (me.minHour == me.maxHour)?me.minMinute : 0,
-						x = (me.minHour == me.maxHour)?me.maxMinute : 59;
+						n = (me.minHour == me.maxHour)?me.minMinute*1 : 0,
+						x = (me.minHour == me.maxHour)?me.maxMinute*1 : 59;
 
 					while((m = n+me.stepMinute * i) <= x)
 					{

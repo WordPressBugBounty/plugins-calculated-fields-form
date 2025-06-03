@@ -137,3 +137,10 @@
 .cp_cff_12 #fbuilder .discount-container{margin-top:10px;font-weight:bold;}
 
 .cp_cff_12 #fbuilder span.files-list img{border-color:#dcdcdc;}
+
+.cp_cff_12 #fbuilder .cff-timeslot{border-color:initial;}
+.cp_cff_12 #fbuilder .cff-timeslot[data-active="0"]{text-shadow:none;border-color:#dddddd;color:#dddddd;}
+.cp_cff_12 #fbuilder .cff-timeslot[data-selected="1"],
+.cp_cff_12 #fbuilder .cff-timeslot-selected{border-color:#1485e5;background:#1485e5;text-shadow:none;color:#ffffff;}
+.cp_cff_12 #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#1485e5;color:initial;}
+.cp_cff_12 #fbuilder .cff-timeslot-selected::after{border-color:#1485e5;color:#1485e5;font-family:sans-serif;}

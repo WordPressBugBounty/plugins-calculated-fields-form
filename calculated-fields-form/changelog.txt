@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.61 =
+
+* Introduced new Timeslot and Timeslot DS controls.
+* Updated the RecordSet DS field to automatically reload records after submission.
+* Refined the built-in Form design templates.
+
 = 5.3.60 =
 
 * Enhances the module responsible for replacing fields and informative tags in notification emails and thank-you pages, resolving an issue with nested block/endblock tags.

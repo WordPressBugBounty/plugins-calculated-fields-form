@@ -66,6 +66,10 @@
 .cff-button-drag.fdateds::before,
 #fdateds.itemForm::before,
 #fdate.itemForm::before{content:"\e935";}
+.cff-button-drag.ftimeslots::before,
+.cff-button-drag.ftimeslotsds::before,
+#ftimeslotsds.itemForm::before,
+#ftimeslots.itemForm::before{content:"\e878";}
 .cff-button-drag.frecordsetds::before,
 #frecordsetds.itemForm::before{content:"\ead3";}
 .cff-button-drag.fdatatableds::before,
@@ -204,7 +208,10 @@
 #fbuilder .fnumber:before{background-color:rgba(251,237,224,0.7);}
 #fbuilder .fslider:before{background-color:rgba(150,212,204,0.7);}
 #fbuilder .femail:before{background-color:rgba(234,177,161,0.7);}
-#fbuilder .fdate:before{background-color:rgba(236,204,173,0.7);}
+#fbuilder .fdate:before,
+#fbuilder .fdateds:before{background-color:rgba(236,204,173,0.7);}
+#fbuilder .ftimeslots:before,
+#fbuilder .ftimeslotsds:before{background-color:rgba(247,229,170,1);}
 #fbuilder .ftextarea:before{background-color:rgba(232,227,191,0.7);}
 #fbuilder .fcheck:before{background-color:rgba(226,213,155,0.7);}
 #fbuilder .fradio:before{background-color:rgba(232,153,155,0.7);}
@@ -620,6 +627,8 @@ textarea {resize: none}
 a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer;}
 .working_dates input[type='checkbox']{min-width:15px;margin-left:15px;}
 .working_dates input[type='checkbox']:first-of-type{margin-left:0;}
+.cff-timeslot{display:inline-block;padding:3px;margin:3px;border:1px solid #135e96;border-radius:5px;cursor:pointer;}
+.cff-timeslot[data-active="0"]{border-color:#dadada;color:#dadada;}
 .form-builder .ui-button-text {
     display: block !important;
 }

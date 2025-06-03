@@ -82,3 +82,10 @@ body{
 .cp_cff_elegant #fbuilder span.files-list img{border-color:rgb(148, 132, 116);}
 
 .cp_cff_elegant #fbuilder .cff-popup-header:not(:empty){border-bottom: 1px dotted rgb(164, 147, 132);}
+
+.cp_cff_elegant #fbuilder .cff-timeslot{border-color:rgb(81, 62, 43);}
+.cp_cff_elegant #fbuilder .cff-timeslot[data-active="0"]{text-shadow:none;border-color:#c2c5b9;color:#c2c5b9;}
+.cp_cff_elegant #fbuilder .cff-timeslot[data-selected="1"],
+.cp_cff_elegant #fbuilder .cff-timeslot-selected{border-color:#177da7;background:#177da7;text-shadow:none;color:#FFFFFF;}
+.cp_cff_elegant #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#177da7;color:rgb(81, 62, 43);}
+.cp_cff_elegant #fbuilder .cff-timeslot-selected::after{border-color:#177da7;color:#177da7;}

@@ -93,3 +93,10 @@ body{
 
 .cp_cff_decorative #fbuilder .cff-popup-container{background: url(form_bg.jpg);}
 .cp_cff_decorative #fbuilder .cff-popup-header{border: 0;}
+
+.cp_cff_decorative #fbuilder .cff-timeslot{border-color:#7b7a6d;}
+.cp_cff_decorative #fbuilder .cff-timeslot[data-active="0"]{text-shadow:none;border-color:#c2c5b9;color:#c2c5b9;}
+.cp_cff_decorative #fbuilder .cff-timeslot[data-selected="1"],
+.cp_cff_decorative #fbuilder .cff-timeslot-selected{border-color:#7b7a6d;background:#7b7a6d;text-shadow:none;color:#FFFFFF;}
+.cp_cff_decorative #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#7b7a6d;color:#cc3333;}
+.cp_cff_decorative #fbuilder .cff-timeslot-selected::after{border-color:#7b7a6d;color:#cc3333;font-family:sans-serif;}

@@ -467,10 +467,19 @@ body{
 
 .ui-datepicker{z-index:99999 !important;min-width:280px;max-width:320px;}
 .ui-datepicker *{font-size:14px !important;}
+#fbuilder .ui-state-active{border:1px solid #003eff;background:#007fff;color:#fff;}
 #fbuilder .ui-datepicker select.ui-datepicker-month,
 #fbuilder .ui-datepicker select.ui-datepicker-year{width:45% !important;min-height:auto !important;padding:initial !important; margin:initial !important;}
 #fbuilder .ui-datepicker a{box-shadow:none;}
 #fbuilder .datepicker-container+.time-component{margin-top:10px;}
+#fbuilder .cff-timeslot{display:inline-block;padding:3px;margin:3px;border:1px solid #135e96;border-radius:5px;}
+#fbuilder .cff-timeslot[data-active="0"]{border-color:#dadada;color:#dadada;}
+#fbuilder .cff-timeslot[data-active="1"]{cursor:pointer;}
+#fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{cursor:pointer;border-color:#007cba;color:#007cba;}
+#fbuilder .cff-timeslot[data-selected="1"]{border-color:#007cba;color:white;background:#007cba;}
+#fbuilder .timeslots-selected-component:not(:empty){border-top:1px solid #ccc;flex-grow:1;padding-top: 5px;margin-top: 5px;}
+#fbuilder .cff-timeslot-selected{display:inline-block;padding:3px;margin:3px;color:white;background:#007cba;border:1px solid #007cba;border-radius:5px;clear:both;cursor:pointer;}
+#fbuilder .cff-timeslot-selected::after{content: 'X';display:inline-block;margin-left:10px;line-height:100%;background:white;padding:3px;color:#007cba;border-radius:5px;}
 
 #fbuilder .cff-file-field input[type="file"]{max-width: calc( 100% - 30px);}
 #fbuilder span.files-list,
@@ -553,7 +562,8 @@ body{
 #fbuilder input[type="radio"]{-webkit-appearance:radio!important;}
 
 #fbuilder .cff-date-field .cff-date-field-components:not(:has(.ui-datepicker-inline)){display:flex;flex-direction:row;gap:5px;flex-wrap:wrap;}
-#fbuilder .cff-date-field .date-component{flex-grow:1;min-width:100px;}
+#fbuilder .cff-timeslots-field .cff-date-field-components{display:flex;flex-direction:column;gap:5px;flex-wrap:wrap;}
+#fbuilder .cff-date-field-components .date-component{flex-grow:1;min-width:100px;}
 #fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .hours-component{margin-right:5px;}
 #fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .minutes-component{margin-left:5px;}
 #fbuilder .cff-date-field .cff-date-field-components:has(.ui-datepicker-inline) .ampm-component{margin-left:5px;}

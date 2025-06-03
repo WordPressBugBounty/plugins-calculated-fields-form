@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.60
+Stable tag: 5.3.61
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.61 =
+
+* Introduced new Timeslot and Timeslot DS controls.
+* Updated the RecordSet DS field to automatically reload records after submission.
+* Refined the built-in Form design templates.
+
 = 5.3.60 =
 
 * Enhances the module responsible for replacing fields and informative tags in notification emails and thank-you pages, resolving an issue with nested block/endblock tags.
@@ -470,9 +476,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.57 =
 
 * We made a minor enhancement to the equation processing logic to ensure compatibility with legacy browsers.
-
-= 5.3.56 =
-
-* Enhances the Troubleshoot Area and General Settings to improve both accessibility and overall user experience.
-* Updates the WooCommerce add-on to simplify displaying tax-inclusive prices. Now, with the Developer and Platinum plugin versions, you only need to tick a single checkbox in the product settings.
-* Refines the Mollie integration to support all payment methods enabled in Mollie—not just iDeal—offering broader payment options in the Platinum plugin version.

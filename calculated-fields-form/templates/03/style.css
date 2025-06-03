@@ -85,3 +85,10 @@ background: url(top_bg.png) 0 0 repeat-x #f3f6ea;
 }
 .cp_cff_natural #fbuilder .cff-popup-header:not(:empty){border:0;}
 .cp_cff_natural #fbuilder .cff-popup-close{color:white;}
+
+.cp_cff_natural #fbuilder .cff-timeslot{border-color:#5f8a41;}
+.cp_cff_natural #fbuilder .cff-timeslot[data-active="0"]{text-shadow:none;border-color:#c2c5b9;color:#c2c5b9;}
+.cp_cff_natural #fbuilder .cff-timeslot[data-selected="1"],
+.cp_cff_natural #fbuilder .cff-timeslot-selected{border-color:#5f8a41;background:#5f8a41;text-shadow:none;color:#FFFFFF;}
+.cp_cff_natural #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#5f8a41;color:#5f8a41;}
+.cp_cff_natural #fbuilder .cff-timeslot-selected::after{border-color:#5f8a41;color:#5f8a41;}

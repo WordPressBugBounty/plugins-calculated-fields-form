@@ -101,3 +101,10 @@ border-radius:5px;
 
 .cp_cff_clean #fbuilder .cff-popup-header{border-color:#f2f2f2;}
 .cp_cff_clean #fbuilder .cff-popup-close{color:#005E8A;}
+
+.cp_cff_clean #fbuilder .cff-timeslot{border-color:#005e8a;}
+.cp_cff_clean #fbuilder .cff-timeslot[data-active="0"]{text-shadow:none;border-color:#c2c5b9;color:#c2c5b9;}
+.cp_cff_clean #fbuilder .cff-timeslot[data-selected="1"],
+.cp_cff_clean #fbuilder .cff-timeslot-selected{border-color:#005e8a;background:#005e8a;text-shadow:none;color:#FFFFFF;}
+.cp_cff_clean #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#005e8a;color:#005e8a;}
+.cp_cff_clean #fbuilder .cff-timeslot-selected::after{border-color:#005e8a;color:#005e8a;font-family:sans-serif;}
