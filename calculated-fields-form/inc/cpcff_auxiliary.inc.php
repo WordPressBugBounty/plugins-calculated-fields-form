@@ -192,6 +192,17 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			if ( empty( $dir ) ) {
 				$dir = wp_upload_dir();
 			}
+			try {
+				$dirname = $dir['basedir'] . '/calculated-fields-form';
+				if ( ! file_exists( $dirname ) ) mkdir( $dirname );
+				if ( is_dir( $dirname ) ) {
+					if ( ! file_exists( $dirname . '/.htaccess' ) ) {
+						try {
+							file_put_contents( $dirname . '/.htaccess', 'Options -Indexes' );
+						} catch ( Exception $err ) {}
+					}
+				}
+			} catch ( Exception $err ) {}
 
 			$dir['subdir'] = '/calculated-fields-form/uploads' . $dir['subdir'];
 			$dir['path']   = $dir['basedir'] . $dir['subdir'];
