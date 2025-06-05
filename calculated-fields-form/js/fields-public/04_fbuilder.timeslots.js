@@ -84,7 +84,7 @@
 				{
 					var me = this;
 
-					$(document).off('change', '#'+me.name).on('change', function(evt){$(evt.target).valid();});
+					$(document).off('change', '#'+me.name).on('change', '#'+me.name, function(evt){$(evt.target).valid();});
 					$(document).off('change', '#'+me.name+'_date').on('change', '#'+me.name+'_date', function(){
 						if( me.alwaysVisible ) $('#'+me.name+'_datepicker_container').datepicker('setDate', this.value);
 						me.set_fieldVal();

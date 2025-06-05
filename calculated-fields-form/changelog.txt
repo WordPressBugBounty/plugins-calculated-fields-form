@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.63 =
+
+* Fixed a minor issue in the timeslots control.
+
 = 5.3.62 =
 
 * Explicitly include a .htaccess file in the wp-content/uploads/calculated-fields-form directory to prevent directory indexing on misconfigured servers. Special thanks to Dmitrii from CleanTalk inc.
