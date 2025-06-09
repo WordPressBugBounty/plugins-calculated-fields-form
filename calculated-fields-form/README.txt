@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.63
+Stable tag: 5.3.64
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.64 =
+
+* Enhances the form builder's interface.
+
 = 5.3.63 =
 
 * Fixed a minor issue in the timeslots control.
@@ -472,7 +476,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.60 =
 
 * Enhances the module responsible for replacing fields and informative tags in notification emails and thank-you pages, resolving an issue with nested block/endblock tags.
-
-= 5.3.59 =
-
-* Updated the URL for requesting the trial plugin installation so that it is now protected with a nonce. A big thank you to truonghuuphuc and the Patchstack team for identifying this issue.

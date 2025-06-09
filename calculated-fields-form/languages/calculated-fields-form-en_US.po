@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-05-27 01:09+0200\n"
-"PO-Revision-Date: 2025-05-27 01:09+0200\n"
+"POT-Creation-Date: 2025-06-09 20:26+0200\n"
+"PO-Revision-Date: 2025-06-09 20:26+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -19,23 +19,23 @@ msgstr ""
 msgid "Form Preview"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:287 cp_calculatedfieldsf_free.php:301
+#: cp_calculatedfieldsf_free.php:293 cp_calculatedfieldsf_free.php:307
 msgid "The"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:287
+#: cp_calculatedfieldsf_free.php:293
 msgid "value is invalid"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:301
+#: cp_calculatedfieldsf_free.php:307
 msgid "is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:429
+#: cp_calculatedfieldsf_free.php:435
 msgid "Failed security check"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:469
+#: cp_calculatedfieldsf_free.php:475
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the database structure. Please, go to the plugins "
@@ -44,7 +44,7 @@ msgid ""
 "please <a href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:480
+#: cp_calculatedfieldsf_free.php:486
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the form structure. Please, try to save the data "
@@ -1451,11 +1451,11 @@ msgstr ""
 msgid "&hellip;"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:1030
+#: inc/cpcff_auxiliary.inc.php:1077
 msgid "Paid"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:1030
+#: inc/cpcff_auxiliary.inc.php:1077
 msgid "Not Paid"
 msgstr ""
 
@@ -1685,8 +1685,12 @@ msgstr ""
 msgid "Video Tutorial"
 msgstr ""
 
-#: inc/cpcff_video_tutorial.inc.php:11
+#: inc/cpcff_video_tutorial.inc.php:11 inc/cpcff_video_tutorial.inc.php:30
 msgid "Close video popup"
+msgstr ""
+
+#: inc/cpcff_video_tutorial.inc.php:34
+msgid "Download the Calculated Fields Form - Developer"
 msgstr ""
 
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:22

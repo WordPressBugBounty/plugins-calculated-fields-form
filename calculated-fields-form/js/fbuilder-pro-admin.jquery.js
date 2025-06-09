@@ -282,13 +282,19 @@
 		let title_margin = '0';
 		for ( var i in categoryList )
 		{
-			$("#tabs-1").append('<div style="clear:both;"></div><div style="margin-top:' + title_margin + '">'+cff_sanitize(categoryList[ i ].title, true)+'</div><hr />');
+			$("#tabs-1").append('<div style="clear:both;"></div><div style="margin-top:' + title_margin + ';font-size:14px;">'+cff_sanitize(categoryList[ i ].title, true)+'</div><hr />');
 
 			title_margin = '20px;';
 
 			if( typeof categoryList[ i ][ 'description' ] != 'undefined' && !/^\s*$/.test( categoryList[ i ][ 'description' ] ) )
 			{
-				$("#tabs-1").append('<div style="clear:both;"></div><div class="category-description">'+cff_sanitize(categoryList[ i ].description, true)+'</div>');
+				$("#tabs-1").append('<div style="clear:both;"></div><div class="category-description">'+categoryList[ i ].description+'</div>');
+			}
+
+			let category_selector = '';
+			if ( i == 20 ) {
+				category_selector = ' .data-source-controls-category';
+				$("#tabs-1").append('<div class="data-source-controls-category" style="cursor:pointer;" onclick="fbuilderjQuery(\'#cff-video-tutorial-ds-modal\').css({\'opacity\':0,\'display\':\'block\'}).animate({\'opacity\':1}, \'fast\');"></div>');
 			}
 
 			if( typeof categoryList[ i ][ 'typeList' ]  != 'undefined' )
@@ -296,8 +302,11 @@
 				for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
 				{
 					var index = categoryList[ i ].typeList[ j ];
-					$("#tabs-1").append('<div class="button itemForm width48" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
+					$("#tabs-1"+category_selector).append('<div '+(i == 20 ? 'disabled style="pointer-events:none;"' : '')+' class="button itemForm width48" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
 				}
+			}
+			if ( i == 20 ) {
+				$("#tabs-1 .data-source-controls-category").append('<div style="clear:both;"></div>');
 			}
 		}
 

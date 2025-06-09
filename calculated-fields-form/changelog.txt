@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.64 =
+
+* Enhances the form builder's interface.
+
 = 5.3.63 =
 
 * Fixed a minor issue in the timeslots control.

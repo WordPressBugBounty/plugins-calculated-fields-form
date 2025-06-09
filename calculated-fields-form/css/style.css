@@ -913,7 +913,8 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 }
 
 /**** Video Tutorial ****/
-#cff-video-tutorial-modal{
+#cff-video-tutorial-modal,
+#cff-video-tutorial-ds-modal{
 	position:fixed;
 	z-index:99999;
 	top:0;
@@ -922,7 +923,8 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 	bottom:0;
 	background: rgba(0,0,0,.3);
 }
-#cff-video-tutorial{
+#cff-video-tutorial,
+#cff-video-tutorial-ds{
 	width:80%;
 	max-width:640px;
 	position:fixed;
