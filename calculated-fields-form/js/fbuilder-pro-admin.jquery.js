@@ -882,6 +882,7 @@
 					if ( ! ( 'buttons_hover' in this.advanced.css ) ) this.advanced.css.buttons_hover = {label: 'Form context buttons hover',rules:{}};
 					if ( ! ( 'error_bubble' in this.advanced.css ) ) this.advanced.css.error_bubble = {label: 'Error bubbles',rules:{}};
 					if ( ! ( 'error_bubble_arrow' in this.advanced.css ) ) this.advanced.css.error_bubble_arrow = {label: 'Error bubble arrow',rules:{'border-bottom-color':''}, 'restrict':true};
+					if ( ! ( 'required_field_asterisk' in this.advanced.css ) ) this.advanced.css.required_field_asterisk = {label: 'Asterisk for required fields',rules:{}};
 				},
 				display:function()
 				{
@@ -1401,7 +1402,7 @@
 				for ( let i in components ) {
 					c = components[i];
 					if ( 'label' in c ) {
-						output += '<div>' + cff_sanitize(c['label'], true) + '</div>';
+						output += '<div style="margin-top:8px;">' + cff_sanitize(c['label'], true) + '</div>';
 					}
 					output += '<hr><div id="cff-css-rules-container-'+i+'">';
 					if ( 'rules' in c ) {

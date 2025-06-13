@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.65 =
+
+* Adds a new section under 'Form Settings / Advanced Settings', giving you full control over how asterisk symbols appear on required fields.
+
 = 5.3.64 =
 
 * Enhances the form builder's interface.

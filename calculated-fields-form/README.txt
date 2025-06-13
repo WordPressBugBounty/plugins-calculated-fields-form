@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.64
+Stable tag: 5.3.65
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.65 =
+
+* Adds a new section under 'Form Settings / Advanced Settings', giving you full control over how asterisk symbols appear on required fields.
+
 = 5.3.64 =
 
 * Enhances the form builder's interface.
@@ -472,7 +476,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Introduced new Timeslot and Timeslot DS controls.
 * Updated the RecordSet DS field to automatically reload records after submission.
 * Refined the built-in Form design templates.
-
-= 5.3.60 =
-
-* Enhances the module responsible for replacing fields and informative tags in notification emails and thank-you pages, resolving an issue with nested block/endblock tags.
