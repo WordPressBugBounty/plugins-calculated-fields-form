@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.65
+Stable tag: 5.3.66
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.66 =
+
+* Enhanced accessibility in the Default Form Settings section.
+
 = 5.3.65 =
 
 * Adds a new section under 'Form Settings / Advanced Settings', giving you full control over how asterisk symbols appear on required fields.
@@ -470,9 +474,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.62 =
 
 * Explicitly include a .htaccess file in the wp-content/uploads/calculated-fields-form directory to prevent directory indexing on misconfigured servers. Special thanks to Dmitrii from CleanTalk inc.
-
-= 5.3.61 =
-
-* Introduced new Timeslot and Timeslot DS controls.
-* Updated the RecordSet DS field to automatically reload records after submission.
-* Refined the built-in Form design templates.

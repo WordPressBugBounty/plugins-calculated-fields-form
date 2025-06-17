@@ -580,9 +580,9 @@ function cp_update_default_settings(e)
 					<select name="cp_default_template" id="cp_default_template"class="width50" onchange="cp_select_template();"><?php print $template_options; // phpcs:ignore WordPress.Security.EscapeOutput ?></select><br />
 					<?php print $template_information; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					<br /><br />
-					<input type="checkbox" aria-label="<?php esc_attr_e('Display Submit Button by Default', 'calculated-fields-form'); ?>" name="cp_default_submit" <?php print( '' == $cp_default_submit ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Display Submit Button by Default', 'calculated-fields-form' ); ?><br /><br />
+					<label><input type="checkbox" aria-label="<?php esc_attr_e('Display Submit Button by Default', 'calculated-fields-form'); ?>" name="cp_default_submit" <?php print( '' == $cp_default_submit ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Display Submit Button by Default', 'calculated-fields-form' ); ?></label><br /><br />
 					<div style="border:1px solid #DADADA; padding:10px;" class="width50">
-						<input type="checkbox" aria-label="<?php esc_attr_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?>" name="cp_default_existing_forms" /> <?php esc_html_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?> (<i><?php esc_html_e( 'It will modify the settings of existing forms', 'calculated-fields-form' ); ?></i>)
+						<label><input type="checkbox" aria-label="<?php esc_attr_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?>" name="cp_default_existing_forms" /> <?php esc_html_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?> (<i><?php esc_html_e( 'It will modify the settings of existing forms', 'calculated-fields-form' ); ?></i>)</label>
 					</div>
 					<br />
 					<input type="button" name="cp_save_default_settings" value="<?php esc_attr_e( 'Update', 'calculated-fields-form' ); ?>" class="button-secondary" onclick="cp_update_default_settings(this);" />
