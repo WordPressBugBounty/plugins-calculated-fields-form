@@ -36,7 +36,7 @@ $form_obj   = $cpcff_main->get_form( $id );
 $form_data            = $form_obj->get_option( 'form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure );
 $form_data_serialized = serialize( $form_data );
 
-if ( strpos( $form_data_serialized, 'select2' ) && ! wp_script_is( 'select2' ) && ! wp_script_is( 'select-2-js' ) ) {
+if ( ( stripos( $form_data_serialized, 'select2' ) || stripos( $form_data_serialized, 'fphone' ) ) && ! wp_script_is( 'select2' ) && ! wp_script_is( 'select-2-js' ) ) {
 	wp_enqueue_style( 'cpcff_select2_css', plugins_url( '/vendors/select2/select2.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 	wp_enqueue_script( 'cpcff_select2_js', plugins_url( '/vendors/select2/select2.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION, true );
 }

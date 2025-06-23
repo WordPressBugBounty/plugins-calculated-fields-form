@@ -496,6 +496,12 @@ body{
 #fbuilder .cff-textarea-counter{text-align:right;}
 
 #fbuilder .cff-phone-field .components_container{display:inline-block;}
+#fbuilder .cff-phone-field .prefix-option{display:flex;flex-direction:row;gap:5px;white-space:nowrap;}
+#fbuilder .cff-phone-field .country-name{white-space:nowrap;}
+#fbuilder .cff-phone-field .country-flag{width:20px; display:flex !important;align-items: center;}
+#fbuilder .cff-phone-field .country-flag img{max-width:100%;}
+#fbuilder .cff-phone-field .country-code::before{content:"(";}
+#fbuilder .cff-phone-field .country-code::after{content:")";}
 #fbuilder .uh_phone{padding-left:10px;text-align:center;position:relative;display:inline-block;vertical-align:top;}
 #fbuilder .uh_phone:first-child{padding-left:0;}
 *[dir="rtl"] #fbuilder .uh_phone{float:right;}
@@ -707,6 +713,7 @@ body{
 
 #fbuilder .select2-search--inline *{border:0 !important; background:transparent !important;box-shadow:none !important;padding:0 !important;}
 #fbuilder .cff-select2-container{display:block;position:relative;z-index:999999;}
+#fbuilder .cff-select2-container *{text-align:left !important;}
 #fbuilder .select2-container{top:0 !important;left:0 !important;}
 #fbuilder .select2-dropdown .select2-search__field{width:100% !important;}
 #fbuilder .select2-dropdown .select2-search__field{width:100% !important;}

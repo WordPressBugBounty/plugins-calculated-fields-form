@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.67 =
+
+* The plugin update modifies the Phone control. It includes the country name and flag alongside the prefix. Additionally, it adds a search box for quick code selection.
+
 = 5.3.66 =
 
 * Enhanced accessibility in the Default Form Settings section.

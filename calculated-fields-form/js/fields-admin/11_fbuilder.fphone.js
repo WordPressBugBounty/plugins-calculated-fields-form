@@ -21,6 +21,8 @@
 			predefinedClick:true,
             countryComponent:false,
             toDisplay:'iso',
+			includeFlags:false,
+			includeCountryNames:false,
             countries:[],
             defaultCountry:'',
 			dynamic: false,
@@ -54,6 +56,8 @@
                         {s:"#sFormat",e:"change keyup", l:"dformat", f:function(el){return (el.val()+'').replace(/^\s+/, '').replace(/\s+$/, '').replace(/\s+/g, ' ')}},
                         {s:"#sCountryComponent",e:"click", l:"countryComponent", f:function(el){return el.is(':checked');}},
                         {s:"#sDynamic",e:"click", l:"dynamic", f:function(el){return el.is(':checked');}},
+                        {s:"#sIncludeFlags",e:"click", l:"includeFlags", f:function(el){return el.is(':checked');}},
+                        {s:"#sIncludeCountryNames",e:"click", l:"includeCountryNames", f:function(el){return el.is(':checked');}},
                         {s:"[name='sToDisplay']",e:"click", l:"toDisplay", f:function(){return $("[name='sToDisplay']:checked").val();}},
                         {s:"#sCountries",e:"change", l:"countries"},
                         {s:"#sDefaultCountry",e:"change", l:"defaultCountry"},
@@ -71,6 +75,10 @@
                     '<label><input type="checkbox" name="sCountryComponent" id="sCountryComponent" '+(this.countryComponent ? 'CHECKED' : '')+'/> Include country code selector</label>'+
 
                     '<label><input type="checkbox" name="sDynamic" id="sDynamic" '+(this.dynamic ? 'CHECKED' : '')+'/> Make phone number format and length dynamic based on the selected country [<a class="helpfbuilder" text="The plugin dynamically adjusts the phone components and their validation rules. The minimum and maximum allowable digits have been sourced from publicly available information. If you encounter any errors, we kindly ask you to report them through the plugin contact page:\n\nhttps://cff.dwbooster.com/contact-us\n\nThank you for your assistance!">help?</a>]</label>'+
+
+                    '<label><input type="checkbox" name="sIncludeFlags" id="sIncludeFlags" '+(this.includeFlags ? 'CHECKED' : '')+'/> Include country flags</label>'+
+
+                    '<label><input type="checkbox" name="sIncludeCountryNames" id="sIncludeCountryNames" '+(this.includeCountryNames ? 'CHECKED' : '')+'/> Include country names (in English)</label>'+
 
                     '<div><label class="column"><input type="radio" name="sToDisplay" value="code" '+(this.toDisplay == 'code' ? 'CHECKED' : '')+' /> Display country code&nbsp;&nbsp;</label>'+
                     '<label class="column"><input type="radio" name="sToDisplay" value="iso" '+(this.toDisplay == 'iso' ? 'CHECKED' : '')+' /> Display country ISO</label></div>'+

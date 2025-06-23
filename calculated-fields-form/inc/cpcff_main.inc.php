@@ -657,7 +657,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$page_title = ( ! empty( $atts['page_title'] ) ) ? $atts['page_title'] : '';
 				remove_all_actions( 'shutdown' );
 				if ( ! empty( $atts['wp_die'] ) ) {
-					wp_die( $message . '<style>body{margin:1.5em !important;max-width:100% !important;box-shadow:none !important;background:white !important;padding:0 !important; border:0 !important;}html{background:white !important;}.wp-die-message{margin:0 !important;}.wp-die-message>*:not(form){visibility: hidden;}  .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *{visibility: visible;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ), esc_html( $page_title ), 200 ); // phpcs:ignore WordPress.Security.EscapeOutput
+					wp_die( $message . '<style>body{margin:1.5em !important;max-width:100% !important;box-shadow:none !important;background:white !important;padding:0 !important; border:0 !important;}html{background:white !important;}.wp-die-message{margin:0 !important;}.wp-die-message>*:not(form){visibility: hidden;}  .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *,.select2-container,.select2-container *{visibility: visible;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ), esc_html( $page_title ), 200 ); // phpcs:ignore WordPress.Security.EscapeOutput
 				} elseif ( ! empty( $atts['page'] ) ) {
 					print '<!DOCTYPE html><html><head profile="http://gmpg.org/xfn/11">' .
 					( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ) .
@@ -667,7 +667,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 					print '</head><body>';
 					print $message; // phpcs:ignore WordPress.Security.EscapeOutput
-					print '<style>body>*:not(form){visibility: hidden; width: 0; height: 0;} .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *{visibility: visible; width: auto; height: auto;}</style>'.apply_filters('cpcff_form_preview_resources', ''); // phpcs:ignore WordPress.Security.EscapeOutput
+					print '<style>body>*:not(form){visibility: hidden; width: 0; height: 0;} .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *,.select2-container,.select2-container *{visibility: visible; width: auto; height: auto;}</style>'.apply_filters('cpcff_form_preview_resources', '');
 
 					do_action( 'cpcff_wp_footer', ( ! empty( $atts['shortcode_atts']['id'] ) ? $atts['shortcode_atts']['id'] : 0 ) );
 
