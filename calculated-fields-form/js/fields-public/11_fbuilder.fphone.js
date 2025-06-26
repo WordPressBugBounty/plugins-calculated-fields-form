@@ -126,17 +126,18 @@
 
 					str = '<div class="'+me.size+' components_container">';
                     if(me.countryComponent) {
-						let db = {}, countries;
+						let db = {}, countries = [];
 
 						for( let i in me.countries ) {
-							if ( me.countries[i] in me.country_db )
+							if ( me.countries[i] in me.country_db ) {
 								if ( ! ( me.countries[i] in db ) ) {
 									db[me.countries[i]] = me.country_db[me.countries[i]];
 									db[me.countries[i]]['iso'] = me.countries[i];
 								}
-						}
 
-						countries = JSON.parse(JSON.stringify(me.countries));
+								countries.push(me.countries[i]);
+							}
+						}
 
 						cw = me.toDisplay == 'iso' ? 60 : 90;
 						str += '<div class="uh_phone" style="width:'+cw+'px;"><select id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field" style="'+cff_esc_attr(me.getCSSComponent('prefix'))+'">';

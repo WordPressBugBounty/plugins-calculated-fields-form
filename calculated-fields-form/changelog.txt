@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.3.68 =
 = 5.3.67 =
 
 * The plugin update modifies the Phone control. It includes the country name and flag alongside the prefix. Additionally, it adds a search box for quick code selection.
