@@ -187,9 +187,10 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 		{
 			window.SUM = window.sum = function ()
 			{
-				var r = 0, l = arguments.length, t, callback = function(x){return x;};
+				var r = 0, l = arguments.length, t, callback = function(x){return x;}, callback_flag = false;
 				if(l) {
 					if(typeof arguments[l-1] == 'function') {
+						callback_flag = true;
 						callback = arguments[l-1];
 						l -= 1;
 					}
@@ -197,8 +198,9 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 					{
 						if(Array.isArray(arguments[i]))
 							r += SUM.apply(this,arguments[i].concat(callback));
-						else if(jQuery.isPlainObject(arguments[i]))
+						else if(jQuery.isPlainObject(arguments[i]) && ! callback_flag) {
 							r += SUM.apply(this,Object.values(arguments[i]).concat(callback));
+						}
 						else
 						{
 							t = arguments[i];
@@ -214,6 +216,40 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 				return r;
 			};
 		} // End if window.SUM
+
+		if (window.SUMIF  == undefined)
+		{
+			window.SUMIF = window.sumif = function ()
+			{
+				var filtered = [];
+				function aux (v, callback) {
+					if( Array.isArray(v) ) {
+						for(let i in v) {
+							aux(v[i], callback);
+						}
+					} else {
+						try {
+							if ( callback(v) ) {
+								filtered.push(v);
+							}
+						} catch( err ) { console.log( 'SUMIF: ' + err ); }
+					}
+				};
+
+				var r = 0, l = arguments.length;
+				if(l) {
+					if(typeof arguments[l-1] == 'function') {
+						let callback = arguments[l-1];
+						const args = Array.prototype.slice.call(arguments, 0, -1);
+						aux(args, callback);
+						r = SUM.apply(this, filtered);
+					} else {
+						r = SUM.apply(this, arguments);
+					}
+				}
+				return r;
+			};
+		} // End if window.SUMIF
 
 		if(window.SIGMA == undefined)
 		{

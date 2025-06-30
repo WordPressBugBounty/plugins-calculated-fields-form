@@ -590,10 +590,6 @@ function cp_update_default_settings(e)
 				</form>
 			</div>
 		</div>
-		<div style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;margin:10px 0;font-size:1.3em;">
-			<div><?php esc_html_e( 'For additional resources visit the plugin\'s', 'calculated-fields-form' ); ?> <a href="https://cff-bundles.dwbooster.com" target="_blank" style="font-weight:bold;"><?php esc_html_e( 'Marketplace', 'calculated-fields-form' ); ?></a></div>
-			<div class="cff-bundles-plugin"></div>
-		</div>
 		<div id="metabox_troubleshoot_area" class="postbox cff-metabox <?php print esc_attr( $cpcff_main->metabox_status( 'metabox_troubleshoot_area' ) ); ?>" >
 			<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Troubleshoot Area & General Settings', 'calculated-fields-form' ); ?></span></h3>
 			<div class="inside">

@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.69 =
+
+* It implements the SUMIF operation due to its popularity among Excel users.
+* Eliminates the frame for promoting complementary plugins to simplify the interface.
+
 = 5.3.68 =
 = 5.3.67 =
 

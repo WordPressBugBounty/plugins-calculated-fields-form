@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.68
+Stable tag: 5.3.69
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.69 =
+
+* It implements the SUMIF operation due to its popularity among Excel users.
+* Eliminates the frame for promoting complementary plugins to simplify the interface.
+
 = 5.3.68 =
 = 5.3.67 =
 
@@ -471,7 +476,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.64 =
 
 * Enhances the form builder's interface.
-
-= 5.3.63 =
-
-* Fixed a minor issue in the timeslots control.
