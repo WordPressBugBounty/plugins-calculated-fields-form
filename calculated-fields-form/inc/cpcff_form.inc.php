@@ -488,8 +488,10 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			global $wpdb, $cpcff_default_texts_array;
 
 			foreach ( $params as $i => $v ) {
-				if ( 'form_structure' != $i ) {
+				if ( 'form_structure' != $i && 'fp_message' != $i && 'cu_message' != $i ) {
 					$params[ $i ] = CPCFF_AUXILIARY::sanitize( $v, true );
+				} else if ( 'fp_message' == $i || 'cu_message' == $i ) {
+					$params[ $i ] = CPCFF_AUXILIARY::sanitize( $v, true, false, true );
 				}
 			}
 

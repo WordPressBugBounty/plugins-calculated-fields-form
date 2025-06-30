@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.70 =
+
+* Support customizing the appearance of notifications with CSS in the free plugin distribution.
+
 = 5.3.69 =
 
 * It implements the SUMIF operation due to its popularity among Excel users.

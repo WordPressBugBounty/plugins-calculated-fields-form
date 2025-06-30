@@ -219,7 +219,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 * @params mixed $v.
 		 * @return sanitized value.
 		 */
-		public static function sanitize( $v, $allow_cff_fields_tags = false, $no_trim = false ) {
+		public static function sanitize( $v, $allow_cff_fields_tags = false, $no_trim = false, $allow_style_tags = false ) {
 
 			if ( is_array( $v ) ) {
 				foreach ( $v as $k => $v2 ) {
@@ -236,6 +236,13 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 					unset( $allowed_tags['textarea'] );
 					unset( $allowed_tags['input'] );
 					unset( $allowed_tags['form'] );
+
+					if ( $allow_style_tags ) {
+						$allowed_tags['style'] = array(
+							'type' => true,
+							'media' => true,
+						);
+					}
 				}
 				add_filter(
 					'safecss_filter_attr_allow_css',
