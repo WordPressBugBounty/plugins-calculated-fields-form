@@ -25,7 +25,7 @@
 				{
 					for( let i in this.countries ) {
 						i = this.countries[i];
-						if(this.country_db[i]['prefix'] == prefix )
+						if( i in this.country_db && this.country_db[i]['prefix'] == prefix )
 							return this.country_db[i];
 					}
 					return false;
@@ -111,6 +111,15 @@
 					me.predefined = String(me._getAttr('predefined', true)).trim().replace(/\s/g, '');
                     me.dformat = cff_esc_attr(String(me.dformat).trim().replace(/\s+/g, ' '));
 					if(!me.countries.length) me.countries = Object.keys(me.country_db);
+					else {
+						let filtered = [];
+						for( let i in me.countries ) {
+							if( me.countries[i] in me.country_db ) {
+								filtered.push(me.countries[i]);
+							}
+						}
+						me.countries = filtered;
+					}
 				},
 			show:function()
 				{
@@ -288,7 +297,7 @@
 								if ( ln == me.country_db[o].max ) break;
 							}
 						}
-						if( o ) $('select[id*="'+me.name+'_"]').val(me.country_db[o]['prefix']);
+						if( o ) { o = me.country_db[o]['prefix']; $('select[id*="'+me.name+'_"]').val(o).trigger('change'); }
 						return o;
 					}; // End setPrefix.
 
@@ -304,10 +313,9 @@
 							prefix = $('select[id*="'+me.name+'_"]').val();
 							country_obj = me._country_obj(prefix);
 
-							if( v.indexOf( prefix) != 0 || ( country_obj && country_obj.max+prefix.length <	v.length ) ) {
+							if( v.indexOf( prefix ) != 0 || ( country_obj && country_obj.max+prefix.length < v.length ) ) {
 								prefix = setPrefix( v );
 							}
-
 							v = v.substring( prefix.length );
 						}
 

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.70';
+	$.fbuilder['version'] = '5.3.71';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
