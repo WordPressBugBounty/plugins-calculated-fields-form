@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.71
+Stable tag: 5.3.72
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.72 =
+
+* Added a new form-setting attribute that lets you fully disable form submissions.
+
 = 5.3.71 =
 
 * Fixed a compatibility issue with the phone control and outdated copies of the plugin.
@@ -472,7 +476,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.67 =
 
 * The plugin update modifies the Phone control. It includes the country name and flag alongside the prefix. Additionally, it adds a search box for quick code selection.
-
-= 5.3.66 =
-
-* Enhanced accessibility in the Default Form Settings section.

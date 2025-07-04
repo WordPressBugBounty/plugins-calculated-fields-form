@@ -399,7 +399,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			} elseif ( $option == 'fp_return_page' ) {
 				$value = empty( $value ) ? $default : $value;
 			} elseif (
-				in_array( $option, [ 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg' ] )
+				in_array( $option, [ 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions' ] )
 			) {
 				if ( isset( $this->_settings['extra'][ $option ] ) ) {
 					$value = $this->_settings['extra'][ $option ];
@@ -512,6 +512,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			if ( isset( $params['cu_reply_to_emails'] ) ) {
 				$extra['cu_reply_to_emails'] = trim( $params['cu_reply_to_emails'] );
 			}
+			$extra['fp_disable_submissions'] = isset( $params['fp_disable_submissions'] ) ? 1 : 0;
 			$extra['fp_ajax'] = isset( $params['fp_ajax'] ) ? 1 : 0;
 			$extra['fp_ajax_reset_form'] = isset( $params['fp_ajax_reset_form'] ) ? 1 : 0;
 			if( isset( $params['fp_thanks_mssg'] ) ) {

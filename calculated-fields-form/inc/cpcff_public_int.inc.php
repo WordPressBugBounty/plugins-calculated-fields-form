@@ -94,7 +94,7 @@ if ( property_exists( $form_data[1][0], 'direction' ) ) {
 ?> data-nonce="<?php print esc_attr( CFF_AUXILIARY_NONCE ); ?>">
 <?php
 	// Submit form via AJAX.
-	if ( $form_obj->get_option('fp_ajax', 0) ) {
+	if ( $form_obj->get_option('fp_ajax', 0) && ! $form_obj->get_option('fp_disable_submissions',0) ) {
 		print '<iframe name="cff_iframe_for_submission_' . CPCFF_MAIN::$form_counter . '" id="cff_iframe_for_submission_' . CPCFF_MAIN::$form_counter . '" style="display:none;" data-cff-reset="' . ( $form_obj->get_option('fp_ajax_reset_form', 0) ? 1 : 0 ) . '"></iframe>';
 		if ( ! empty( $form_obj->get_option('fp_thanks_mssg', '') ) ) {
 			print '<div class="cff-thanks-message" style="display:none;">' . esc_html( $form_obj->get_option('fp_thanks_mssg', '') ) . '</div>';

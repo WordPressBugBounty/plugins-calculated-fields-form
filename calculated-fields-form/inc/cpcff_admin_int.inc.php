@@ -482,6 +482,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 										echo ' selected';}
 									?>><?php esc_html_e( 'No', 'calculated-fields-form' ); ?></option>
 								</select>
+								<label style="margin-left:20px;<?php if( 'no' != $option) print 'display:none;'; ?>" class="disable-submissions-section"><input type="checkbox" id="fp_disable_submissions" name="fp_disable_submissions" <?php
+										if ( $form_obj->get_option('fp_disable_submissions',0) && 'no' == $option ) print 'CHECKED';
+									?>><?php esc_html_e( 'Turn off form submissions entirely (button & code)', 'calculated-fields-form' ); ?>
+								</label>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -521,6 +525,16 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					<div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e( 'Up to form structure', 'calculated-fields-form' ); ?></a></div>
 				</div>
 			</div>
+			<script>
+			jQuery(document).on('change', '[name="enable_submit"]', function(){
+				if ( 'no' == jQuery('[name="enable_submit"]').val() ) {
+					jQuery('.disable-submissions-section').css('display', 'inline-block');
+				} else {
+					jQuery('.disable-submissions-section').hide();
+					jQuery('[name="fp_disable_submissions"]').prop('checked', false);
+				}
+			});
+			</script>
 
 			<div id="metabox_notification_email" class="postbox cff-metabox <?php print esc_attr( $cpcff_main->metabox_status( 'metabox_notification_email' ) ); ?>" >
 				<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Form Processing / Email Settings', 'calculated-fields-form' ); ?></span></h3>
