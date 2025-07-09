@@ -54,6 +54,37 @@ if ( ! empty( $form_data ) ) {
 	if ( isset( $form_data[1] ) && is_object( $form_data[1] ) ) {
 		$form_data[1] = (array) $form_data[1];
 	}
+	if( !empty( $form_data[ 0 ] ) )
+	{
+		$cff_replaced_shortcodes_flag = false;
+		foreach( $form_data[ 0 ] as $key => $object )
+		{
+			// PROCESS SHORTCODE FIELDS
+			if ( isset( $object->ftype ) && 'fhtml' == $object->ftype && isset( $object->replaceShortcodes ) && $object->replaceShortcodes ) {
+				$wrapper_callback = function($output, $tag, $attr, $m) {
+					if ( ! empty( $output ) ) {
+						$uniqid = 'cff-embedded-shortcode-' . uniqid();
+						$output = '<template id="' . esc_attr( $uniqid ) . '">' . $output . '</template>';
+					}
+					return $output;
+				};
+				add_filter('do_shortcode_tag', $wrapper_callback, 10, 4);
+				$fcontent_replaced_shortcode = do_shortcode( $object->fcontent );
+				if ( $fcontent_replaced_shortcode != $object->fcontent ) {
+					$cff_replaced_shortcodes_flag = true;
+				}
+				remove_filter('do_shortcode_tag', $wrapper_callback, 10);
+				$object->fcontent 			 = strip_shortcodes( $fcontent_replaced_shortcode );
+				$form_data[ 0 ][ $key ] 	 = $object;
+			}
+		}
+
+		if ( $cff_replaced_shortcodes_flag ) {
+			// Force other plugin assets
+			do_action('wp_enqueue_scripts');
+		}
+	}
+
 	if ( isset( $form_data[1] ) && isset( $form_data[1][0] ) ) {
 		if( !empty( $form_template ) ) {
 			$form_data[ 1 ][ 0 ]->formtemplate = $form_template;

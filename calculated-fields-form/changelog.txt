@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.73 =
+
+* The plugin update adds support for third-party shortcodes in the HTML Content control's content attribute.
+
 = 5.3.72 =
 
 * Added a new form-setting attribute that lets you fully disable form submissions.

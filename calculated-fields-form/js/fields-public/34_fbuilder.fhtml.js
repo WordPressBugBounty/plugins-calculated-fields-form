@@ -6,18 +6,42 @@
 			ftype:"fhtml",
 			fcontent:"",
 			allowscript:-1,
+			replaceShortcodes:0,
 			show:function()
 				{
-					var content = this.fcontent;
+					var me = this,
+						content = me.fcontent;
+
+					if ( me.replaceShortcodes ) {
+						$( document ).on('formReady', function(evt, form_identifier){
+							if ( form_identifier == 'cp_calculatedfieldsf_pform' + me.form_identifier ) {
+								$( 'template[id*="cff-embedded-shortcode"]', '[id="' + me.name + '"]' ).each( function(){
+									let id = this.id;
+									$(this).after('<div id="'+id+'"></div>');
+									$('div[id="'+id+'"]').html(this.innerHTML);
+									$(this).remove();
+								});
+							}
+						});
+					}
+
 					content = content
 							.replace(/\(\s*document\s*\)\.one\(\s*['"]showHideDepEvent['"]/ig,
 								'(window).one("showHideDepEvent"')
 							.replace(/\bcurrentFormId\b/ig,
-								'cp_calculatedfieldsf_pform' + this.form_identifier);
+								'cp_calculatedfieldsf_pform' + me.form_identifier);
 
-					content = ((this.allowscript == -1 || this.allowscript) ? content : cff_sanitize(content, true));
+					content = (
+						( me.allowscript == -1 || me.allowscript ) ?
+						content :
+						(
+							me.replaceShortcodes  ?
+							cff_sanitize( content.replace( /<template\s/ig, '<x-template ').replace( /<\/template\s/ig, '</x-template '), true, true ).replace( /<x\-template\s/ig, '<template ').replace( /<\/x\-template>/ig, '</template>'):
+							cff_sanitize( content, true )
+						)
+					);
 
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-html-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><div id="'+this.name+'" class="dfield">'+content+'</div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-html-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><div id="'+me.name+'" class="dfield">'+content+'</div><div class="clearer"></div></div>';
 				}
 		}
 	);

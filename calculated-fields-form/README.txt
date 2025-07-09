@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.72
+Stable tag: 5.3.73
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.73 =
+
+* The plugin update adds support for third-party shortcodes in the HTML Content control's content attribute.
+
 = 5.3.72 =
 
 * Added a new form-setting attribute that lets you fully disable form submissions.
@@ -471,8 +475,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * It implements the SUMIF operation due to its popularity among Excel users.
 * Eliminates the frame for promoting complementary plugins to simplify the interface.
-
-= 5.3.68 =
-= 5.3.67 =
-
-* The plugin update modifies the Phone control. It includes the country name and flag alongside the prefix. Additionally, it adds a search box for quick code selection.

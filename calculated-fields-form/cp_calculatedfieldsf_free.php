@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.72
+ * Version: 5.3.73
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.72' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.73' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -47,8 +47,8 @@ require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_form_cache.inc.php';
 // Global variables.
 CPCFF_MAIN::instance(); // Main plugin's object.
 
-add_action( 'init', 'cp_calculated_fields_form_check_posted_data', 11 );
-add_action( 'init', 'cp_calculated_fields_form_direct_form_access', 1 );
+add_action( 'init', 'cp_calculated_fields_form_check_posted_data', 99 );
+add_action( 'init', 'cp_calculated_fields_form_direct_form_access', 99 );
 add_action( 'init', function(){
 	add_filter( 'get_post_metadata', function( $v, $object_id, $meta_key, $single, $meta_type = '' ){
 		if ( '_elementor_element_cache' == $meta_key ) {

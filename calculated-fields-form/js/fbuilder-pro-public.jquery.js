@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.72';
+	$.fbuilder['version'] = '5.3.73';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -32,7 +32,7 @@
 		});
 	}
 
-	$.fbuilder['sanitize'] = window['cff_sanitize'] = function(value, controls)
+	$.fbuilder['sanitize'] = window['cff_sanitize'] = function(value, controls, templates)
 	{
         if(typeof value == 'string') {
 			if(typeof controls != 'undefined' && controls) value = value.replace(/<\/?(textarea|input|button|checkbox|radio|select|option)[^>]*>/gi, '');
@@ -42,7 +42,9 @@
 				if (typeof controls != 'undefined' && controls) {
 					forbid_tags = forbid_tags.concat(['textarea', 'input', 'button', 'checkbox', 'radio', 'select', 'option']);
 				}
-				value = DOMPurify.sanitize(value, {FORBID_TAGS: forbid_tags});
+				let args = {FORBID_TAGS: forbid_tags};
+				if ( typeof templates != 'undefined' && templates ) args['ADD_TAGS'] = ['x-template'];
+				value = DOMPurify.sanitize(value, args);
 			} else if ( 'DOMParser' in window ) {
 				const parser = new DOMParser();
 				const doc = parser.parseFromString(value, 'text/html');
@@ -1256,6 +1258,10 @@
 			form_identifier = form.find('[name="cp_calculatedfieldsf_pform_psequence"]').val();
 
 		if (form_disabled()) return false;
+
+		form.find('[max=""]').removeAttr('max');
+		form.find('[min=""]').removeAttr('min');
+		form.find('[step=""]').removeAttr('step');
 
 		form.validate().settings.ignore = '.ignore';
 		if (!form.valid()) {
