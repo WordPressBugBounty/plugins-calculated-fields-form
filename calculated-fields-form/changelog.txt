@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.74 =
+
+* Fixes a minor bug in the mechanism that delays evaluation of calculated field equations.
+
 = 5.3.73 =
 
 * The plugin update adds support for third-party shortcodes in the HTML Content control's content attribute.

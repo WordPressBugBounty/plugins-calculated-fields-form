@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.73';
+	$.fbuilder['version'] = '5.3.74';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -371,6 +371,8 @@
 				id = '_'+id;
 				formObj = $.fbuilder['forms'][id];
 				f = $('#'+formObj['formId']);
+				f.attr('data-evalequations', 0);
+				f.attr('data-loadingdefaults', 1);
 
 				// Selecting the default options in DS fields while they load.
 				let still_loading = true;
@@ -1030,9 +1032,7 @@
 
 										// Disable the dynamic evaluation of the equations until complete the loading process.
 										let eval_equations_bk = f.attr('data-evalequations') ?  Math.max( opt.evalequations*1, f.attr( 'data-evalequations')*1 ) : opt.evalequations; // 2024-12-16
-										f.attr('data-evalequations', 0);
 
-										f.attr('data-loadingdefaults', 1);
 										$.fbuilder.cpcffLoadDefaults( opt );
 
 										$.fbuilder.showHideDep( { 'formIdentifier' : opt.identifier } );
