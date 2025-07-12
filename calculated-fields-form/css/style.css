@@ -624,7 +624,7 @@ textarea {resize: none}
 #facceptance span{padding-left: 0; padding-right:0;}
 #metabox_captcha_settings td{vertical-align:top;}
 
-a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer;}
+a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:pointer;}
 .working_dates input[type='checkbox']{min-width:15px;margin-left:15px;}
 .working_dates input[type='checkbox']:first-of-type{margin-left:0;}
 .cff-timeslot{display:inline-block;padding:3px;margin:3px;border:1px solid #135e96;border-radius:5px;cursor:pointer;}

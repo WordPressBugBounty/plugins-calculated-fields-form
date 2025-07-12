@@ -338,7 +338,7 @@
 						if($('#'+e.name).data('manually') == 1) return __ME__;
 
 						var	_match,
-							field_regexp = new RegExp('(fieldname\\d+'+suffix+')(_[cr]b\\d+)?(\\|[rnv])?([\\D\\b])','i');
+							field_regexp = new RegExp('(fieldname\\d+'+suffix+')(_[cr]b\\d+)?(\\|[rnvq])?([\\D\\b])','i');
 
 						$.fbuilder['currentFormId'] = $.fbuilder['forms'][suffix].formId;
 
@@ -356,7 +356,7 @@
 								}
 								else
 								{
-									r = (_match[3]) ? ((_match[3] == '|v') ? 'vt' : ((_match[3] == '|r') ? true : false)) : false;
+									r = _match[3] ? (_match[3] == '|v' ? 'vt' : (_match[3] == '|r' ? true : (_match[3] == '|q' ? 'q' : false))) : false;
 									v = field.val(r);
 									if(typeof v == 'object' && typeof window.JSON != 'undefined') v = JSON.stringify(v).replace(/\\\\\\/g, '\\');
 									else if( r !== true && $.fbuilder.isNumeric(v)) v = '('+v+')';

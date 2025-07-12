@@ -539,6 +539,8 @@ body{
 #fbuilder .captcha img{cursor:pointer;}
 #fbuilder .cff-recaptcha{overflow: hidden !important;}
 
+#fbuilder .cff-datatable-field tfoot th{text-align:left;padding:8px 10px;}
+
 @media (min-width:640px){#fbuilder .cff-align-container-bottom{display:flex;flex-wrap:wrap;align-items:flex-end;}}
 
 #fbuilder .cff-repeater-field .cff-repeater-field-add{margin-right:10px;}

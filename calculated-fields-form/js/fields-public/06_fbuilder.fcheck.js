@@ -172,16 +172,20 @@
 					if(!m) v = [];
 					if(e.length)
 					{
-						e.each(function(){
-							var t = (m) ? $.fbuilder.parseVal(this.value) : $.fbuilder.parseValStr((raw == 'vt') ? this.getAttribute('vt') : this.value, raw, no_quotes);
-							if(!$.fbuilder.isNumeric(t)) t = t.replace(/^"/,'').replace(/"$/,'');
+						if ( raw == 'q' ) {
+							v = me.getQuantity();
+						} else {
+							e.each(function(){
+								var t = (m) ? $.fbuilder.parseVal(this.value) : $.fbuilder.parseValStr((raw == 'vt') ? this.getAttribute('vt') : this.value, raw, no_quotes);
+								if(!$.fbuilder.isNumeric(t)) t = t.replace(/^"/,'').replace(/"$/,'');
 
-							if( q && $.fbuilder.isNumeric(t) ) t = t*Math.max( $('#'+this.id+'_quantity').val(), 1 );
-							else if( q ) t += ' ('+ Math.max( $('#'+this.id+'_quantity').val(), 1 ) +')';
+								if( q && $.fbuilder.isNumeric(t) ) t = t*Math.max( $('#'+this.id+'_quantity').val(), 1 );
+								else if( q ) t += ' ('+ Math.max( $('#'+this.id+'_quantity').val(), 1 ) +')';
 
-							if(m) v = (v)?v+t:t;
-							else v.push(t);
-						});
+								if(m) v = (v)?v+t:t;
+								else v.push(t);
+							});
+						}
 					}
 					return (typeof v == 'object' && typeof v['length'] !== 'undefined') ? v : ((v) ? (($.fbuilder.isNumeric(v)) ? v : '"'+v+'"') : 0);
 				},
@@ -274,11 +278,25 @@
 						}
 					}
 				},
-			getIndex:function()
+			getIndex:function() // Get an array of the ticked choices indexes.
 				{
 					var i = [];
-					$('[name*="'+this.name+'"]').each(function(j,v){if(this.checked){i.push(j);}});
+					$('input[type="checkbox"][name*="'+this.name+'"]').each(function(j,v){if(this.checked){i.push(j);}});
 					return i;
+				},
+			getQuantity:function() // Get an array of the ticked choices quantities, or empty array.
+				{
+					var q = [];
+					if ( this.quantity ) {
+						$('input[type="checkbox"][name*="'+this.name+'"]:checked').each(function(){
+							let e = $('#'+this.id+'_quantity');
+							if ( e.length ) {
+								let v = parseFloat(e.val());
+								if ( ! isNaN( v ) ) q.push( v );
+							}
+						});
+					}
+					return q;
 				}
 		}
 	);

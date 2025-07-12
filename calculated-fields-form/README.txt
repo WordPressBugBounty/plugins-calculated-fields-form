@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.74
+Stable tag: 5.3.75
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.75 =
+
+* Implemented the getQuantity method in both the Checkbox and Checkbox DS controls. This method returns an array of quantities for all checked checkboxes when quantity boxes are enabled.
+* Added support for the |q modifier in equations, so you can now reference the array of quantity-box values. For example, SUM(fieldname1|q) sums the values of quantities boxes corresponding to the checked choices in the checkbox field fieldname1.
+* Introduced a new info property on RecordSet DS records. When previous submissions is selected as the data source, this property provides a summary of each form submission.
+* Updated the iCalc add-on to support all informative and field tags used in notification-email in the events summaries and descriptions, and not just the raw field values.
+* Enhances the DataTable DS control to support footer rows displaying column summaries.
+
 = 5.3.74 =
 
 * Fixes a minor bug in the mechanism that delays evaluation of calculated field equations.
@@ -470,7 +478,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.71 =
 
 * Fixed a compatibility issue with the phone control and outdated copies of the plugin.
-
-= 5.3.70 =
-
-* Support customizing the appearance of notifications with CSS in the free plugin distribution.

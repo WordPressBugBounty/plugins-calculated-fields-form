@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.3.75 =
+
+* Implemented the getQuantity method in both the Checkbox and Checkbox DS controls. This method returns an array of quantities for all checked checkboxes when quantity boxes are enabled.
+* Added support for the |q modifier in equations, so you can now reference the array of quantity-box values. For example, SUM(fieldname1|q) sums the values of quantities boxes corresponding to the checked choices in the checkbox field fieldname1.
+* Introduced a new info property on RecordSet DS records. When previous submissions is selected as the data source, this property provides a summary of each form submission.
+* Updated the iCalc add-on to support all informative and field tags used in notification-email in the events summaries and descriptions, and not just the raw field values.
+* Enhances the DataTable DS control to support footer rows displaying column summaries.
+
 = 5.3.74 =
 
 * Fixes a minor bug in the mechanism that delays evaluation of calculated field equations.
@@ -999,61 +1007,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 = 1.2.30 =
 
 * Modifies the Checkbox control to allow configuring a minimum number of choice to select, and not only a maximum.
-
-= 1.2.29 =
-
-* Prevents that variables included with the CP_CALCULATED_FIELDS_VAR shortcode overwrite global and other context variables (Thanks to NGÔ THIÊN AN (ancorn_ from VNPT-VCI)).
-* Modifies the CFFCHART operation to allow the use of ChartJS 4.X.X API versions (Developer and Platinum versions of the plugin).
-* Modifies the WebHook add-on (Developer and Platinum versions of the plugin).
-
-= 1.2.28 =
-
-* Loads the default values after completing the form rendering.
-* Fixes an issue in Date fields when only the time component is enabled.
-* Modifies the CDATE operation to display the result in the correct format when its parameter value is zero.
-* Modifies the TIMETODECIMAL operation to accept the time in 12 hours format (with am/pm).
-* Includes the Bcc attribute in the "Email copy to the user" section to receive an exact copy of the confirmation email sent to the user (Professional, Developer, and Platinum plugin versions).
-
-= 1.2.27 =
-
-* Modifies the require_once instructions to load the files with absolute paths.
-
-= 1.2.26 =
-
-* Paginates the list of forms and sorts them in descending order, putting the newest forms first.
-* Make minor changes in tabs' styles in the forms builder.
-
-= 1.2.25 =
-
-* Improves the integration with LiteSpeed Cache.
-* Browsers in Android devices ignore the maxlength attributes. The current update modifies this behavior.
-
-= 1.2.24 =
-
-* Assigns the cff-form-title class name to the form title and cff-form-description to its description to facilitate their design modification.
-* Assigns the cff-fieldset-field class name to the Fieldset control and cff-div-field to the Div control.
-* Implements the validate attribute in the calculated fields to validate the equations' results immediately after their evaluation.
-* Modifies the CFF - WooCommerce add-on to fix a conflict with third-party themes (Developer and Platinum plugin versions).
-
-= 1.2.23 =
-
-* Implements the LEADINGZERO operation in the Date/Time operations module.
-* Fixes deprecated notices in the latest PHP version.
-* Modifies the Users Permissions add-on to improve the user experience by deselecting items from the roles and users lists (Developer and Platinum versions of the plugin).
-
-= 1.2.22 =
-
-* Modifies the AI Assistance integration module.
-* Modifies the Date control to make it easier to leave the field empty or to select the current date.
-* Modifies the sanitize module to improve the plugin security. It forces removing the script tags from data, even if they were added to the allowed tags list by third-party plugins.
-* Modifies the Checkbox DS and Radio Button DS controls to avoid displaying the undefined text when data source records do not include the columns used for the choices texts or values  (Developer and Platinum versions of the plugin).
-
-= 1.2.21 =
-
-* Fixes an issue in the RESETFORM operation that was not resettings the values of the calculated field.
-* Modifies the database data source in the DS fields set to include the Distinct attribute (Developer and Platinum versions of the plugin).
-
-= 1.2.20 =
-
-* Implements the asynchronous attribute in the forms shortcodes to combine with the iframe attribute. It improves the loading speed process of pages with forms loaded into iframes.
-* Modifies the reCAPTCHA add-on to allow multiple forms protected with reCAPTCHA on the same page (Developer and Platinum versions of the plugin).
