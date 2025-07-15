@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.75';
+	$.fbuilder['version'] = '5.3.76';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -855,7 +855,7 @@
 					$.fbuilder['getCSSComponent'](this, 'required_field_asterisk', true, '#'+form_id+' .r', id);
 
 					return ( id in $.fbuilder.css ? '<style>' + cff_sanitize($.fbuilder.css[id].join(''), true) + '</style>' : '') + // Include the fields CSS
-					'<div class="fform" id="field">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'title'))+'">'+cff_sanitize(this.title, true)+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'description'))+'">'+cff_sanitize(this.description, true)+'</span>' : '' )+'</div>';
+					'<div class="fform" id="field" style="'+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'header'))+'">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'title'))+'">'+cff_sanitize(this.title, true)+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'description'))+'">'+cff_sanitize(this.description, true)+'</span>' : '' )+'</div>';
 				},
                 after_show:function( id ){
                     // Common validators

@@ -875,6 +875,7 @@
 				customstyles:"",
 				advanced: { css : {} },
 				initAdv: function(){
+					if ( ! ( 'header' in this.advanced.css ) ) this.advanced.css.header = {label: 'Form header',rules:{}};
 					if ( ! ( 'title' in this.advanced.css ) ) this.advanced.css.title = {label: 'Form title',rules:{}};
 					if ( ! ( 'description' in this.advanced.css ) ) this.advanced.css.description = {label: 'Form description',rules:{}};
 					if ( ! ( 'form' in this.advanced.css ) ) this.advanced.css.form = {label: 'Form area',rules:{}};

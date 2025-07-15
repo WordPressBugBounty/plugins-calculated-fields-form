@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.76 =
+
+* Adds a new section under Form Settings / Advanced Settings that lets you customize the form's header appearance.
+* Updates the results list shortcode so it only shows submissions tied to existing forms. When a form is deleted, its submissions are automatically removed from the shortcode output.
+
 = 5.3.75 =
 
 * Implemented the getQuantity method in both the Checkbox and Checkbox DS controls. This method returns an array of quantities for all checked checkboxes when quantity boxes are enabled.

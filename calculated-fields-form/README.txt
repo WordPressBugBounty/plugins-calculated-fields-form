@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.75
+Stable tag: 5.3.76
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.76 =
+
+* Adds a new section under Form Settings / Advanced Settings that lets you customize the form's header appearance.
+* Updates the results list shortcode so it only shows submissions tied to existing forms. When a form is deleted, its submissions are automatically removed from the shortcode output.
+
 = 5.3.75 =
 
 * Implemented the getQuantity method in both the Checkbox and Checkbox DS controls. This method returns an array of quantities for all checked checkboxes when quantity boxes are enabled.
@@ -474,7 +479,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.72 =
 
 * Added a new form-setting attribute that lets you fully disable form submissions.
-
-= 5.3.71 =
-
-* Fixed a compatibility issue with the phone control and outdated copies of the plugin.
