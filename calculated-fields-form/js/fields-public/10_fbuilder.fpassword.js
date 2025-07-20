@@ -12,6 +12,10 @@
 			size:"medium",
 			minlength:"",
 			maxlength:"",
+			lowercase:false,
+			uppercase:false,
+			digit:false,
+			symbol:false,
 			equalTo:"",
 			regExp:"",
 			regExpMssg:"",
@@ -29,22 +33,38 @@
 				},
 			after_show:function()
 				{
-					if(this.regExp != "" && typeof $['validator'] != 'undefined')
+					if(typeof $['validator'] != 'undefined')
 					{
 						try {
-							var parts 	= this.regExp.match(/(\/)(.*)(\/)([gimy]{0,4})$/i);
-							this.regExp = (parts === null) ? new RegExp(this.regExp) : new RegExp(parts[2],parts[4].toLowerCase());
+							if (this.regExp != "") {
+								var parts 	= this.regExp.match(/(\/)(.*)(\/)([gimy]{0,4})$/i);
+								this.regExp = (parts === null) ? new RegExp(this.regExp) : new RegExp(parts[2],parts[4].toLowerCase());
+							}
 
-							if(!('pattern' in $.validator.methods))
-								$.validator.addMethod('pattern', function(value, element, param)
+							if(!('password' in $.validator.methods))
+								$.validator.addMethod('password', function(value, element, param)
 									{
+										let valid = true;
+
+										if(param.regExp != '') valid = param.regExp.test(value);
+										if(valid && param.lowercase) valid = /[a-z]/.test(value);
+										if(valid && param.uppercase) valid = /[A-Z]/.test(value);
+										if(valid && param.digit) valid = /[0-9]/.test(value);
+										if(valid && param.symbol) valid = /[^a-zA-Z0-9\s]/.test(value);
+
 										try{
-											return this.optional(element) || param.test(value);
+											return this.optional(element) || valid;
 										}
 										catch(err){return true;}
 									}
 								);
-							$('#'+this.name).rules('add',{'pattern':this.regExp, messages:{'pattern':cff_sanitize(this.regExpMssg, true)}});
+
+							$('#'+this.name).rules('add', {
+								'password': this,
+								'messages': {
+									'password': cff_sanitize(this.regExpMssg, true)
+								}
+							});
 						} catch ( err ) {}
 					}
 					if(this.unmaskedonfocus)

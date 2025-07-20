@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.76
+Stable tag: 5.3.77
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.77 =
+
+* The password validator has been enhanced to support customizable rules, requiring users to include lowercase letters, uppercase letters, digits, and symbols, ensuring stronger, more secure passwords.
+* Added support for the if_value_is_not attribute in <%INFO%> tags, allowing you to conditionally remove fields whose value equals zero: <%INFO if_value_is_not={{0}}%>.
+
 = 5.3.76 =
 
 * Adds a new section under Form Settings / Advanced Settings that lets you customize the form's header appearance.
@@ -475,7 +480,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.73 =
 
 * The plugin update adds support for third-party shortcodes in the HTML Content control's content attribute.
-
-= 5.3.72 =
-
-* Added a new form-setting attribute that lets you fully disable form submissions.

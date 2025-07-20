@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.76
+ * Version: 5.3.77
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.76' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.77' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -218,6 +218,9 @@ function cp_calculated_fields_form_check_posted_data() {
 						$fieldname = str_replace( $sequence, '', $item );
 						if ( isset( $fields[ $fieldname ] ) ) {
 							$current_field = $fields[$fieldname];
+							$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
+							$ftype = '';
+
 							// Sanitize the values based on their settings and type.
 							if(
 								property_exists($current_field,'ftype') &&
@@ -235,8 +238,11 @@ function cp_calculated_fields_form_check_posted_data() {
 									}
 								} else {
 									if (
-										! property_exists( $current_field,'accept_html' ) ||
-										! $current_field->accept_html
+										$ftype != 'fpassword' &&
+										(
+											! property_exists( $current_field,'accept_html' ) ||
+											! $current_field->accept_html
+										)
 									) {
 										if ( is_array( $value ) ) {
 											$value = CPCFF_AUXILIARY::array_map_recursive( $value, function( $v ) { return sanitize_text_field( wp_unslash( $v ) ); } );
@@ -297,7 +303,6 @@ function cp_calculated_fields_form_check_posted_data() {
 								}
 
 								if ( $invalid_format ) {
-									$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
 									$error_mssg = esc_html__('The', 'calculated-fields-form') . ' ' . ( ! empty( $_title ) ? $_title : $fieldname ) . ' ' . esc_html__('value is invalid', 'calculated-fields-form');
 									error_log( 'Calculated Fields Form: ' . $error_mssg );
 									print( $error_mssg );
@@ -311,7 +316,6 @@ function cp_calculated_fields_form_check_posted_data() {
 								! empty( $current_field->required ) &&
 								( '' === $value || ( is_array( $value ) && count( $value ) == 0 ) )
 							) {
-								$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
 								$error_mssg = esc_html__('The', 'calculated-fields-form') . ' ' . ( ! empty( $_title ) ? $_title : $fieldname ) . ' ' . esc_html__('is empty', 'calculated-fields-form');
 								error_log( 'Calculated Fields Form: ' . $error_mssg );
 								print( $error_mssg );
@@ -319,14 +323,13 @@ function cp_calculated_fields_form_check_posted_data() {
 							}
 
 							// Processing the title and value to include in the summary.
-							$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
-							$_title = preg_replace( array( '/^\s+/', '/\s*\:*\s*$/' ), '', $_title );
-
-							$params[ $fieldname ] = CPCFF_AUXILIARY::sanitize( $value );
+							$params[ $fieldname ] = $ftype == 'fpassword' ? $value : CPCFF_AUXILIARY::sanitize( $value );
 							$_value               = is_array( $params[ $fieldname ] ) ? implode( ', ', $params[ $fieldname ] ) : $params[ $fieldname ];
 							$_value               = preg_replace( '/^\s*\:*\s*/', '', $_value );
-
-							$buffer .= ( '' !== $_title ? $_title . ': ' : '' ) . $_value . "\n";
+							if ( $ftype != 'fpassword' ) {
+								$_title = preg_replace( array( '/^\s+/', '/\s*\:*\s*$/' ), '', $_title );
+								$buffer .= ( '' !== $_title ? $_title . ': ' : '' ) . $_value . "\n";
+							}
 						}
 					}
 

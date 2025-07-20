@@ -21,6 +21,10 @@
 			size:"medium",
 			minlength:"",
 			maxlength:"",
+			lowercase:false,
+			uppercase:false,
+			digit:false,
+			symbol:false,
 			equalTo:"",
 			regExp:"",
 			regExpMssg:"",
@@ -36,6 +40,10 @@
 							{s:"#sUnmaskedOnFocus", e:"click", l:"unmaskedonfocus", f:function(el){return el.is(':checked');}},
 							{s:"#sMinlength",e:"change keyup", l:"minlength", x:1},
 							{s:"#sMaxlength",e:"change keyup", l:"maxlength", x:1},
+							{s:"#sLowercase", e:"click", l:"lowercase", f:function(el){return el.is(':checked');}},
+							{s:"#sUppercase", e:"click", l:"uppercase", f:function(el){return el.is(':checked');}},
+							{s:"#sDigit", e:"click", l:"digit", f:function(el){return el.is(':checked');}},
+							{s:"#sSymbol", e:"click", l:"symbol", f:function(el){return el.is(':checked');}},
 							{s:"#sRegExp",e:"change keyup", l:"regExp"},
 							{s:"#sRegExpMssg",e:"change keyup", l:"regExpMssg"},
 							{s:"#sEqualTo",e:"change", l:"equalTo", x:1}
@@ -60,6 +68,14 @@
 				},
 			showSpecialDataInstance: function()
 				{
-					return '<label><input type="checkbox" name="sUnmaskedOnFocus" id="sUnmaskedOnFocus" '+((this.unmaskedonfocus)?"checked":"")+'>Unmasked on focus</label><div class="column width50"><label for="sMinlength">Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label for="sMaxlength">Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer"></div><label for="sRegExp">Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div><label for="sRegExpMssg">Error message when the regular expression fails</label><input type="text" name="sRegExpMssg" id="sRegExpMssg" value="'+cff_esc_attr(this.regExpMssg)+'" class="large" />';
+					return '<label><input type="checkbox" name="sUnmaskedOnFocus" id="sUnmaskedOnFocus" '+((this.unmaskedonfocus)?"checked":"")+'>Unmasked on focus</label>'+
+					'<div class="column width50"><label for="sMinlength">Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label for="sMaxlength">Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer"></div>'+
+					'<div style="margin-top:20px;font-size:1.4em">Password Rules</div>'+
+					'<label for="sRegExp">Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div>'+
+					'<label><input type="checkbox" name="sLowercase" id="sLowercase" '+(this.lowercase ? 'checked': '')+'> Include at least one lowercase character (a-z)</label>'+
+					'<label><input type="checkbox" name="sUppercase" id="sUppercase" '+(this.uppercase ? 'checked': '')+'> Include at least one uppercase character (A-Z)</label>'+
+					'<label><input type="checkbox" name="sDigit" id="sDigit" '+(this.digit ? 'checked': '')+'> Include at least one digit (0-9)</label>'+
+					'<label><input type="checkbox" name="sSymbol" id="sSymbol" '+(this.symbol ? 'checked': '')+'> Include at least one symbol (e.g., !@#$%)</label>'+
+					'<label for="sRegExpMssg">Error message when the previous rules fail</label><input type="text" name="sRegExpMssg" id="sRegExpMssg" value="'+cff_esc_attr(this.regExpMssg)+'" class="large" />';
 				}
 	});

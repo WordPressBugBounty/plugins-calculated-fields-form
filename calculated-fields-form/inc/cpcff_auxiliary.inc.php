@@ -913,32 +913,58 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 			// Replace the INFO tags.
 			if ( ! empty( $tags['info'] ) ) {
-				$summary_copy = $summary;
-				do {
-					$tmp          = $summary_copy;
-					$summary_copy = preg_replace(
-						array(
-							"/^[^\n]*:{1,2}\s*\n/",
-							"/\n[^\n]*:{1,2}\s*\n/",
-							"/\n[^\n]*:{1,2}\s*$/",
-						),
-						array(
-							'',
-							"\n",
-							'',
-						),
-						$summary_copy
-					);
-				} while ( $summary_copy <> $tmp );
-
 				foreach ( $tags['info'] as $tagData ) {
-					self::_single_replacement( $tagData, ( ( $tagData['if_not_empty'] ) ? $summary_copy : $summary ), $text );
+					$summary_copy = $summary;
+
+					if ( $tagData[ 'if_not_empty' ] ) {
+						do{
+							$tmp = $summary_copy;
+							$summary_copy = preg_replace(
+								array(
+									"/^[^\n]*:{1,2}\s*\n/",
+									"/\n[^\n]*:{1,2}\s*\n/",
+									"/\n[^\n]*:{1,2}\s*$/"
+								),
+								array(
+									"",
+									"\n",
+									""
+								),
+								$summary_copy
+							);
+						}while( $summary_copy <> $tmp );
+					}
+
+					if ( isset( $tagData[ 'if_value_is_not' ] ) && ! is_null( $tagData[ 'if_value_is_not' ] ) ) {
+						do{
+							$tmp = $summary_copy;
+							$summary_copy = preg_replace(
+								array(
+									"/^[^\n]*:{1,2}\s*" . preg_quote( $tagData[ 'if_value_is_not' ], '/' ) . "\s*\n/",
+									"/\n[^\n]*:{1,2}\s*" . preg_quote( $tagData[ 'if_value_is_not' ], '/' ) . "\s*\n/",
+									"/\n[^\n]*:{1,2}\s*" . preg_quote( $tagData[ 'if_value_is_not' ], '/' ) . "\s*$/"
+								),
+								array(
+									"",
+									"\n",
+									""
+								),
+								$summary_copy
+							);
+						}while( $summary_copy <> $tmp );
+					}
+
+					self::_single_replacement( $tagData, $summary_copy, $text );
 				}
 				unset( $tags['info'] );
 			}
 
 			foreach ( $params as $item => $value ) {
 				$value_bk = $value;
+
+				if ( isset( $fields[ $item ] ) && ! empty( $fields[ $item ]->ftype ) && strtolower( $fields[ $item ]->ftype ) == 'fpassword' && $format == 'html' ) {
+					$value = esc_html( $value );
+				}
 
 				if ( 'submissiondate_mmddyyyy' == $item || 'submissiondate_ddmmyyyy' == $item ) {
 					if ( ! empty( $value ) && is_string( $value ) ) {

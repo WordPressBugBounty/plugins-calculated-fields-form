@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.76';
+	$.fbuilder['version'] = '5.3.77';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1386,7 +1386,13 @@
 						value = '<img src="'+value+'">';
 					}
 				}
-				tags.each(function(){$(this).html(cff_sanitize(value, true));});
+				tags.each(function(){
+					if ( field_obj && field_obj['ftype'].toLowerCase() == 'fpassword' ) {
+						$(this).text(value);
+					} else {
+						$(this).html(cff_sanitize(value, true));
+					}
+				});
 			}
 		} catch( err ) {}
 	};
