@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.77
+ * Version: 5.3.78
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.77' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.78' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -213,6 +213,9 @@ function cp_calculated_fields_form_check_posted_data() {
 					}
 
 					$buffer = '';
+					$passwords_to_delete = [];
+					$passwords_to_hash   = [];
+					$passwords_to_plain  = [];
 
 					foreach ( $_POST as $item => $value ) {
 						$fieldname = str_replace( $sequence, '', $item );
@@ -229,12 +232,18 @@ function cp_calculated_fields_form_check_posted_data() {
 								$invalid_format = false;
 
 								$ftype = strtolower($current_field->ftype);
+								if ( is_array( $value ) ) {
+									$value = CPCFF_AUXILIARY::array_map_recursive( $value, 'wp_unslash' );
+								} else {
+									$value = wp_unslash( $value );
+								}
+
 								if ( $ftype == 'ftextarea' || $ftype == 'ftextareads' ) {
 									if (
 										! property_exists( $current_field,'accept_html' ) ||
 										! $current_field->accept_html
 									) {
-										$value = sanitize_textarea_field( wp_unslash( $value ) );
+										$value = sanitize_textarea_field( $value );
 									}
 								} else {
 									if (
@@ -245,13 +254,22 @@ function cp_calculated_fields_form_check_posted_data() {
 										)
 									) {
 										if ( is_array( $value ) ) {
-											$value = CPCFF_AUXILIARY::array_map_recursive( $value, function( $v ) { return sanitize_text_field( wp_unslash( $v ) ); } );
+											$value = CPCFF_AUXILIARY::array_map_recursive( $value, 'sanitize_text_field' );
 										} else {
-											$value = sanitize_text_field( wp_unslash( $value ) );
+											$value = sanitize_text_field( $value );
 										}
 									}
 
 									switch( $ftype ) {
+										case 'fpassword':
+											if ( ! property_exists( $current_field,'store' ) || $current_field->store == 'plain' ) {
+												if ( $value !== '' ) $passwords_to_plain[] = $current_field->name;
+											} else if ( $current_field->store == 'no' ) {
+												$passwords_to_delete[] = $current_field->name;
+											} else if ( $current_field->store == 'hash' ) {
+												if ( $value !== '' ) $passwords_to_hash[] = $current_field->name;
+											}
+											break;
 										case 'femail':
 										case 'femailds':
 											$value = sanitize_email( $value );
@@ -424,6 +442,22 @@ function cp_calculated_fields_form_check_posted_data() {
 					 * To the function is passed an array with submitted data.
 					 */
 					do_action_ref_array( 'cpcff_free_process_data', array(&$params) );
+
+					foreach ( $passwords_to_delete as $password_to_delete ) {
+						unset( $params[ $password_to_delete ] );
+					}
+
+					foreach ( $passwords_to_hash as $password_to_hash ) {
+						if ( ! empty( $params[ $password_to_hash ] ) ) {
+							$params[ $password_to_hash ] = wp_hash_password( $params[ $password_to_hash ] );
+						}
+					}
+
+					foreach ( $passwords_to_plain as $password_to_plain ) {
+						if ( ! empty( $params[ $password_to_plain ] ) ) {
+							$params[ $password_to_plain ] = sanitize_text_field( $params[ $password_to_plain ] );
+						}
+					}
 
 					require_once __DIR__ . '/inc/cpcff_mail.inc.php';
 

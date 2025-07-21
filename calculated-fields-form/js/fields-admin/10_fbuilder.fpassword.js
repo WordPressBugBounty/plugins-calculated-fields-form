@@ -17,6 +17,7 @@
 			predefinedClick:false,
 			required:false,
 			exclude:false,
+			store:'no', // no, hash, plain
 			unmaskedonfocus:false,
 			size:"medium",
 			minlength:"",
@@ -44,6 +45,7 @@
 							{s:"#sUppercase", e:"click", l:"uppercase", f:function(el){return el.is(':checked');}},
 							{s:"#sDigit", e:"click", l:"digit", f:function(el){return el.is(':checked');}},
 							{s:"#sSymbol", e:"click", l:"symbol", f:function(el){return el.is(':checked');}},
+							{s:"[name='sStore']", e:"click", l:"store", f:function(){return $('[name="sStore"]:checked').val();}},
 							{s:"#sRegExp",e:"change keyup", l:"regExp"},
 							{s:"#sRegExpMssg",e:"change keyup", l:"regExpMssg"},
 							{s:"#sEqualTo",e:"change", l:"equalTo", x:1}
@@ -69,6 +71,11 @@
 			showSpecialDataInstance: function()
 				{
 					return '<label><input type="checkbox" name="sUnmaskedOnFocus" id="sUnmaskedOnFocus" '+((this.unmaskedonfocus)?"checked":"")+'>Unmasked on focus</label>'+
+					'<hr>'+
+					'<label><input type="radio" name="sStore" value="no" '+(this.store == 'no' ? 'checked' : '')+'> Do not store password in database (<i><b>Recommended</b> - uses password for registration and processes without saving it</i>)</label>'+
+					'<label><input type="radio" name="sStore" value="hash" '+(this.store == 'hash' ? 'checked' : '')+'> Store password hash (<i>Stores only the hashed password-never plaintext</i>)</label>'+
+					'<label><input type="radio" name="sStore" value="plain" '+(this.store == 'plain' ? 'checked' : '')+'> Store password in plain text (<i><b>Not recommended</b> - stores a sanitized copy of the password in plain text</i>)</label>'+
+					'<hr>'+
 					'<div class="column width50"><label for="sMinlength">Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label for="sMaxlength">Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer"></div>'+
 					'<div style="margin-top:20px;font-size:1.4em">Password Rules</div>'+
 					'<label for="sRegExp">Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div>'+

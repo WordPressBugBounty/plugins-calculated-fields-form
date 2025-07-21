@@ -962,10 +962,6 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			foreach ( $params as $item => $value ) {
 				$value_bk = $value;
 
-				if ( isset( $fields[ $item ] ) && ! empty( $fields[ $item ]->ftype ) && strtolower( $fields[ $item ]->ftype ) == 'fpassword' && $format == 'html' ) {
-					$value = esc_html( $value );
-				}
-
 				if ( 'submissiondate_mmddyyyy' == $item || 'submissiondate_ddmmyyyy' == $item ) {
 					if ( ! empty( $value ) && is_string( $value ) ) {
 						$value = explode( ' ', $value );
