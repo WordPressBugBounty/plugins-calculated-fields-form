@@ -26,6 +26,7 @@
 			first_choice_text:"",
 			vChoices: 1,
 			showDep:false,
+			nextPage:false,
 			initAdv:function(){
 					delete this.advanced.css.input;
 					if ( ! ( 'dropdown' in this.advanced.css ) ) this.advanced.css.dropdown = {label: 'Dropdown',rules:{}};
@@ -190,7 +191,12 @@
 							{s:"#sFirstChoiceText",e:"change keyup", l:"first_choice_text"},
 							{s:'[name="sFirstChoice"]', e:"click", l:"first_choice", f: function(el){return el.is(':checked');}},
 							{s:'[name="sSelect2"]', e:"change", l:"select2", f: function(el){return el.is(':checked');}},
-							{s:'[name="sMultiple"]', e:"click", l:"multiple", f: function(el){return el.is(':checked');}},
+							{s:'[name="sMultiple"]', e:"click", l:"multiple", f: function(el){
+								let result = el.is(':checked');
+								$('[name="sNextPage"]').closest('label')[ result ? 'hide' : 'show']();
+								return result;
+							}},
+							{s:'[name="sNextPage"]', e:"change", l:"nextPage", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sVChoices"]', e:"change keyup", l:"vChoices", f: function(el){
 								var v = el.val();
 								return ($.fbuilder.isNumeric(v)) ? Math.ceil(v) : 1;

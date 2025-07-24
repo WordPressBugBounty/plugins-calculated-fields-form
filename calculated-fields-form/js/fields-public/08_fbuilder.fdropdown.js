@@ -16,6 +16,7 @@
 			first_choice_text:"",
 			vChoices:1,
 			showDep:false,
+			nextPage:false,
 			show:function()
 				{
 					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices)
@@ -63,6 +64,18 @@
             after_show:function()
                 {
                     var me = this;
+					if ( me.nextPage && ! me.multiple ) {
+						$('#'+me.name).on('change select2:select', function(evt){
+							if ( evt.type != 'select2:select' && ( ! ( 'originalEvent' in evt ) || ! evt.originalEvent.isTrusted ) ) return;
+							if ( ! me.first_choice || this.selectedIndex ) {
+								let p = $( this ).closest('.pbreak:not(.pbEnd):visible');
+								if ( p.length && $(this.form).validate().checkForm() ) {
+									let i = p.attr('page');
+									GOTOPAGE(SUM(i, 1), this.form);
+								}
+							}
+						});
+					}
                     if(me.select2)
                     {
                         function formatState(state)
@@ -71,7 +84,7 @@
                         };
 
                         $('#'+me.name).after('<span class="cff-select2-container '+me.size+'"></span>');
-                        $('#'+me.name).on('change', function(){$(this).valid();});
+                        $('#'+me.name).on('change', function(){ $(this).valid(); });
                         if('select2' in $.fn) {
                             $('#'+me.name).select2({
                                 'templateResult': formatState,

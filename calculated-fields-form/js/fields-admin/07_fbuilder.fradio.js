@@ -23,6 +23,7 @@
 			showDep:false,
 			untickAccepted:true,
             onoff:0,
+			nextPage:false,
 			initAdv:function(){
 					delete this.advanced.css.input;
 					if ( ! ( 'choice' in this.advanced.css ) ) this.advanced.css.choice = {label: 'Choice text',rules:{}};
@@ -182,6 +183,7 @@
 						items 	= me.fBuild.getItems(),
 						evt 	= [{s:'[name="sToSubmit"]', e:"click", l:"toSubmit"},
 								{s:'[name="sOnOff"]', e:"change", l:"onoff", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
+								{s:'[name="sNextPage"]', e:"change", l:"nextPage", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
                                 {s:'[name="sUntickAccepted"]',e:"click", l:"untickAccepted",f:function(el){return el.is(':checked');}}];
 					$('.dependencies').each(function()
 						{

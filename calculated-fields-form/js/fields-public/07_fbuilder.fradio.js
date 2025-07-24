@@ -13,6 +13,7 @@
 			choiceSelected:"",
 			showDep:false,
 			untickAccepted:true,
+			nextPage:false,
 			initStatus:function()
 				{
 					$('[id*="'+this.name+'_"]').each(function(){$(this).data('previous-status', this.checked);});
@@ -72,6 +73,19 @@
 
 					if( me.readonly ) {
 						$('[id*="'+n+'_"][_onclick]').each(function(){$(this).attr('onclick', $(this).attr('_onclick'));});
+					}
+
+					if ( me.nextPage ) {
+						$('.fields.'+n).on( 'change', '[id*="'+n+'_"]', function(evt){
+							if ( ! ( 'originalEvent' in evt ) || ! evt.originalEvent.isTrusted ) return;
+							if( $('[id*="'+n+'_"]:checked').length ) {
+								let p = $( this ).closest('.pbreak:not(.pbEnd):visible');
+								if ( p.length && $(this.form).validate().checkForm() ) {
+									let i = p.attr('page');
+									GOTOPAGE(SUM(i, 1), this.form);
+								}
+							}
+						});
 					}
 				},
 			showHideDep:function(toShow, toHide, hiddenByContainer, interval)

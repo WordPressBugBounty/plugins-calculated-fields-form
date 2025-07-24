@@ -1311,6 +1311,11 @@
 		{
 			return '<label><input type="checkbox" name="sReadonly" id="sReadonly" '+((v)?"checked":"")+'>Read Only</label>';
 		},
+		showNextPage: function(v, toShow)
+		{
+			toShow = toShow || false;
+			return '<label style="display:'+(toShow ? 'block' : 'none')+'"><input type="checkbox" id="sNextPage" name="sNextPage" ' + (v ? 'CHECKED' : '') + '> Auto-advance to next page in multi-page form on selection</label>';
+		},
 		showNumberpad: function(v)
 		{
 			return '<label><input type="checkbox" name="sNumberpad" id="sNumberpad" '+((v)?"checked":"")+'>Forcing numberpad on mobiles</label>';
@@ -1718,6 +1723,7 @@
 				if(typeof this.exclude != 'undefined')  result += $.fbuilder.showSettings.showExclude(this.exclude);
 				if(typeof this.select2 != 'undefined')  result += $.fbuilder.showSettings.showSelect2(this.select2);
 				if(typeof this.readonly != 'undefined') result += $.fbuilder.showSettings.showReadonly(this.readonly);
+				if(typeof this.nextPage != 'undefined') result += $.fbuilder.showSettings.showNextPage(this.nextPage, (typeof this.multiple == 'undefined') ? true : !this.multiple );
 				if(typeof this.numberpad != 'undefined') result += $.fbuilder.showSettings.showNumberpad(this.numberpad);
 				return result;
 			},

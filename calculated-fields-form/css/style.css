@@ -110,6 +110,10 @@
 #fqrcode.itemForm::before{content:"\002AF4\002AF4";line-height:22px;}
 .cff-button-drag.frepeater::before,
 #frepeater.itemForm::before{content:"+";font-weight:bold;line-height:24px;font-size:1.5em;}
+.cff-button-drag.fCalculated::before,
+#fCalculated.itemForm::before{content:"\2211";font-weight:bold;line-height:24px;font-size:1.5em;}
+.cff-button-drag.facceptance::before,
+#facceptance.itemForm::before{content:"\e834";}
 
 #fbuilder .ui-icon,
 #fbuilder .ui-icon:after{background-color:transparent !important;box-shadow:none !important;z-index:2;}
