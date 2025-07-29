@@ -48,7 +48,7 @@
 
 							if(typeof toHide[fId] == 'undefined')
 							{
-								$('.'+fId+' [id*="'+fId+'"],.'+fId).closest('.fields').hide();
+								$('.'+fId+' [id*="'+fId+'"],.'+fId).closest('.fields').addClass('ignorefield').hide();
 								$('.'+fId+' [id*="'+fId+'"]:not(.ignore)').addClass('ignore').trigger('add-ignore');
 								result.push(fId);
 							}
@@ -64,7 +64,7 @@
 								delete hiddenByContainer[fId];
 								if(typeof toHide[fId] == 'undefined')
 								{
-									$('.'+fId+' [id*="'+fId+'"],.'+fId).closest('.fields').fadeIn(interval || 0);
+									$('.'+fId+' [id*="'+fId+'"],.'+fId).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
 									$('.'+fId+' [id*="'+fId+'"].ignore').removeClass('ignore').trigger('remove-ignore');
 									result.push(fId);
 								}

@@ -177,7 +177,7 @@
 								}
 							},
 							hideField = function(id){
-								$('.'+id+' [id*="'+id+'"],.'+id).closest('.fields').hide();
+								$('.'+id+' [id*="'+id+'"],.'+id).closest('.fields').addClass('ignorefield').hide();
 								$('.'+id+' [id*="'+id+'"]:not(.ignore)').addClass('ignore').trigger('add-ignore');
 								toHide[id] = {};
 							};
@@ -208,7 +208,7 @@
 								toShow[dep]['ref'][me.name]  = 1;
 								if(!(dep in hiddenByContainer))
 								{
-									$('.'+dep+' [id*="'+dep+'"],.'+dep).closest('.fields').fadeIn(interval || 0);
+									$('.'+dep+' [id*="'+dep+'"],.'+dep).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
 									$('.'+dep+' [id*="'+dep+'"].ignore').removeClass('ignore').trigger('remove-ignore');
 								}
 								if($.inArray(dep,result) == -1) result.push(dep);

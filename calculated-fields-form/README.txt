@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.79
+Stable tag: 5.3.80
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.80 =
+
+* Updated dependency handling in multi-page forms
+* Refined button control settings
+* Streamlined the plugin update process
+* Enhanced Authorize.Net integration for the Platinum distribution
+
 = 5.3.79 =
 
 * Modifies the radio button and dropdown fields and their DS variants to activate auto-advance to the next page in multi-page forms.
@@ -474,11 +481,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Adds a new section under Form Settings / Advanced Settings that lets you customize the form's header appearance.
 * Updates the results list shortcode so it only shows submissions tied to existing forms. When a form is deleted, its submissions are automatically removed from the shortcode output.
-
-= 5.3.75 =
-
-* Implemented the getQuantity method in both the Checkbox and Checkbox DS controls. This method returns an array of quantities for all checked checkboxes when quantity boxes are enabled.
-* Added support for the |q modifier in equations, so you can now reference the array of quantity-box values. For example, SUM(fieldname1|q) sums the values of quantities boxes corresponding to the checked choices in the checkbox field fieldname1.
-* Introduced a new info property on RecordSet DS records. When previous submissions is selected as the data source, this property provides a summary of each form submission.
-* Updated the iCalc add-on to support all informative and field tags used in notification-email in the events summaries and descriptions, and not just the raw field values.
-* Enhances the DataTable DS control to support footer rows displaying column summaries.

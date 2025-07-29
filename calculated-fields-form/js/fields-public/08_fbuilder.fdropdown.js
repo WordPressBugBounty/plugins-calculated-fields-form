@@ -138,7 +138,7 @@
 
 											if(typeof toShow[dep] == 'undefined')
 											{
-												$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').hide();
+												$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').addClass('ignorefield').hide();
 												$('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
 												toHide[dep] = {};
 											}
@@ -151,7 +151,7 @@
 											toShow[dep]['ref'][me.name+'_'+i]  = 1;
 											if(!(dep in hiddenByContainer))
 											{
-												$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').fadeIn(interval || 0);
+												$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
 												$('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
 											}
 										}

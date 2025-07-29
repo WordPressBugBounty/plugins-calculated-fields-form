@@ -281,7 +281,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 								is_file( $dirname . '/' . $file ) &&
 								'json' == strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) &&
 								false != ( $time = filemtime( $dirname . '/' . $file ) ) &&
-								10 * 24 * 60 * 60 < ( time() - $time ) &&
+								3 * 24 * 60 * 60 < ( time() - $time ) &&
 								file_exists( $dirname . '/' . $file ) &&
 								is_writable( $dirname . '/' . $file )
 							) {
@@ -307,10 +307,10 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 
 					if ( ! empty( $rows ) ) {
 
-						$file_path = $dirname . '/' . sanitize_file_name( $table_name . '_' . date( 'Y_m_d_H_i_s') . '_' . uniqid( '', true) . '.json' );
+						$file_path = $dirname . '/' . sanitize_file_name( $table_name . '_' . date( 'Y_m_d') . '.json' );
 
 						$separator = '';
-						$h = fopen( $file_path, 'a');
+						$h = fopen( $file_path, 'w');
 
 						if ( false !== $h ) {
 							try {

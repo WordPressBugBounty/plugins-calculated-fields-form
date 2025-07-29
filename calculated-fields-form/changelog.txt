@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.3.80 =
+
+* Updated dependency handling in multi-page forms
+* Refined button control settings
+* Streamlined the plugin update process
+* Enhanced Authorize.Net integration for the Platinum distribution
+
 = 5.3.79 =
 
 * Modifies the radio button and dropdown fields and their DS variants to activate auto-advance to the next page in multi-page forms.

@@ -64,11 +64,15 @@
                 {
                     var l = ['submit', 'calculate', 'print', 'reset', 'button'],
                         r  = "", v;
+
+					r += '<div class="cff-radio-group-ctrl">';
 					for(var i = 0, h = l.length; i < h; i++)
                     {
                         v = cff_esc_attr(l[i]);
-                        r += '<label class="column width20"><input type="radio" name="sType" value="'+v+'" '+((this.sType == v) ? 'CHECKED' : '')+' >'+v+'</label>';
+                        r += '<label><input type="radio" name="sType" value="'+v+'" '+((this.sType == v) ? 'CHECKED' : '')+' ><span>'+v+'</span></label>';
                     }
+					r += '</div>';
+
 					r += '<div class="clear"></div>';
 					r += '<div '+((this.sType != 'calculate') ? 'style="display:none;"' : '')+'><label><input type="checkbox" id="sLoading" '+((this.sLoading) ? 'CHECKED' : '')+' > display "calculation in progress" indicator</label></div>';
 					r += '<div '+((this.sType != 'print') ? 'style="display:none;"' : '')+'><label><input type="checkbox" id="sMultipage" '+((this.sMultipage) ? 'CHECKED' : '')+' > print all pages in multipage form</label><br>'+
