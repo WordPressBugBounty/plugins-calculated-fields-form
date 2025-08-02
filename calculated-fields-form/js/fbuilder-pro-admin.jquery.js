@@ -881,6 +881,7 @@
 					if ( ! ( 'form' in this.advanced.css ) ) this.advanced.css.form = {label: 'Form area',rules:{}};
 					if ( ! ( 'buttons' in this.advanced.css ) ) this.advanced.css.buttons = {label: 'Form context buttons (Next page, Previous page, Submit)',rules:{}};
 					if ( ! ( 'buttons_hover' in this.advanced.css ) ) this.advanced.css.buttons_hover = {label: 'Form context buttons hover',rules:{}};
+					if ( ! ( 'tooltips' in this.advanced.css ) ) this.advanced.css.tooltips = {label: 'Instructions for users tooltips',rules:{}};
 					if ( ! ( 'error_bubble' in this.advanced.css ) ) this.advanced.css.error_bubble = {label: 'Error bubbles',rules:{}};
 					if ( ! ( 'error_bubble_arrow' in this.advanced.css ) ) this.advanced.css.error_bubble_arrow = {label: 'Error bubble arrow',rules:{'border-bottom-color':''}, 'restrict':true};
 					if ( ! ( 'required_field_asterisk' in this.advanced.css ) ) this.advanced.css.required_field_asterisk = {label: 'Asterisk for required fields',rules:{}};

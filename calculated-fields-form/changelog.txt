@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.81 =
+
+* Assigns the class name cff-form-### (where ### is replaced by the form ID), which allows for easier modification of the form's design.
+* Allows you to visually personalize the design of the instructions tooltips through the Form Settings > Advanced Settings tab.
+* Increases the DPI value of PDF files created by the PDF Generator add-on. Platinum distribution.
+
 = 5.3.80 =
 
 * Updated dependency handling in multi-page forms

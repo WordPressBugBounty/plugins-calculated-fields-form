@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.80';
+	$.fbuilder['version'] = '5.3.81';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -786,7 +786,7 @@
 							{
 								show: false,
 								hide: false,
-								tooltipClass: "uh-tooltip",
+								tooltipClass: "uh-tooltip cff-form-"+('form' in opt ? opt.form : ''),
 								position: { my: "left top", at: "left bottom+5", collision: "flipfit" },
 								items: "[uh]",
 								content: function (){return $(this).attr("uh");},
@@ -847,6 +847,8 @@
 					$.fbuilder['getCSSComponent'](this, 'buttons', true, '#'+form_id+' .pbNext,#'+form_id+' .pbPrevious,#'+form_id+' .pbSubmit', id);
 
 					$.fbuilder['getCSSComponent'](this, 'buttons_hover', true, '#'+form_id+' .pbNext:hover,#'+form_id+' .pbPrevious:hover,#'+form_id+' .pbSubmit:hover', id);
+
+					$.fbuilder['getCSSComponent'](this, 'tooltips', true, '.uh-tooltip.cff-form-'+('form' in opt ? opt.form : ''), id);
 
 					$.fbuilder['getCSSComponent'](this, 'error_bubble', true, '#'+form_id+' div.cpefb_error.message', id);
 

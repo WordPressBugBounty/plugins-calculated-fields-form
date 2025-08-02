@@ -108,6 +108,7 @@ if ( ! empty( $form_data ) ) {
 <form name="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" id="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" action="<?php
 echo esc_attr( ( false !== ( $permalink = get_permalink() ) ) ? $permalink : '?' );
 ?>" method="post" enctype="multipart/form-data" onsubmit="return fbuilderjQuery.fbuilder.doValidate(this);" class="cff-form no-prefetch <?php
+echo ' cff-form-' . $id;
 if ( ! empty( $form_data[1][0] ) && ! empty( $form_data[1][0]->persistence ) ) {
 	echo ' persist-form';
 }

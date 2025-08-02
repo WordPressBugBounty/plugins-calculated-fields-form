@@ -1090,6 +1090,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 			$obj = array(
 				'pub'        => true,
+				'form'		 => $formid,
 				'identifier' => '_' . self::$form_counter,
 				'messages'   => array(
 					'required'       => $form_obj->get_option( 'vs_text_is_required', CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required ),

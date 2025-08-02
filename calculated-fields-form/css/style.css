@@ -886,32 +886,33 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 
 /**** Radio Buttons Group ****/
 
-.form-builder .cff-radio-group-ctrl{
+.cff-radio-group-ctrl{
 	display: flex;
 	flex-wrap: wrap;
 	align-content: space-between;
+	cursor: pointer;
 }
-.form-builder .cff-radio-group-ctrl input{
+.cff-radio-group-ctrl input{
 	display:none;
 }
-.form-builder .cff-radio-group-ctrl input:checked+span{
+.cff-radio-group-ctrl input:checked+span{
 	background:rgba(140, 143, 148, 0.3);
 	text-shadow: 1px 1px white
 }
-.form-builder .cff-radio-group-ctrl label{
+.cff-radio-group-ctrl label{
 	flex-grow:1;
 }
-.form-builder .cff-radio-group-ctrl label span{
+.cff-radio-group-ctrl label span{
 	display:block;
 	text-align:center;
 	border: 1px solid rgb(140, 143, 148);
 	padding:5px;
 }
-.form-builder .cff-radio-group-ctrl  label:first-child span{
+.cff-radio-group-ctrl  label:first-child span{
 	border-top-left-radius:5px;
 	border-bottom-left-radius:5px;
 }
-.form-builder .cff-radio-group-ctrl  label:last-child span{
+.cff-radio-group-ctrl  label:last-child span{
 	border-top-right-radius:5px;
 	border-bottom-right-radius:5px;
 }

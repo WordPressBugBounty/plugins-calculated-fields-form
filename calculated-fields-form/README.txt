@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.80
+Stable tag: 5.3.81
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.81 =
+
+* Assigns the class name cff-form-### (where ### is replaced by the form ID), which allows for easier modification of the form's design.
+* Allows you to visually personalize the design of the instructions tooltips through the Form Settings > Advanced Settings tab.
+* Increases the DPI value of PDF files created by the PDF Generator add-on. Platinum distribution.
+
 = 5.3.80 =
 
 * Updated dependency handling in multi-page forms
@@ -476,8 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * The password validator has been enhanced to support customizable rules, requiring users to include lowercase letters, uppercase letters, digits, and symbols, ensuring stronger, more secure passwords.
 * Added support for the if_value_is_not attribute in <%INFO%> tags, allowing you to conditionally remove fields whose value equals zero: <%INFO if_value_is_not={{0}}%>.
-
-= 5.3.76 =
-
-* Adds a new section under Form Settings / Advanced Settings that lets you customize the form's header appearance.
-* Updates the results list shortcode so it only shows submissions tied to existing forms. When a form is deleted, its submissions are automatically removed from the shortcode output.
