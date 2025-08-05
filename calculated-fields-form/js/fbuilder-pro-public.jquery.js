@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.81';
+	$.fbuilder['version'] = '5.3.82';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -200,7 +200,7 @@
 			if ( fx == 'fade' ) {
 				// Fade effect
 				pageToHide.fadeOut(t, function(){
-					pageToHide.find(".field").addClass("ignorepb");
+					pageToHide.find(".field,[name='bccf_payment_option_paypal']").addClass("ignorepb");
 					pageToShow.fadeIn(t, function(){
 						pageToShow.find(".ignorepb").removeClass("ignorepb");
 						callback();
@@ -212,7 +212,7 @@
 				// Slide effect
 				var d = pageToHide.attr('page')*1 < pageToShow.attr('page')*1 ? -1 : 1;
 				pageToHide.animate({width:w, marginLeft:d*w}, t, 'linear', function(){
-					pageToHide.hide().find(".field").addClass("ignorepb");
+					pageToHide.hide().find(".field,[name='bccf_payment_option_paypal']").addClass("ignorepb");
 					pageToShow.css({width:w, marginLeft:-1*d*w}).show().animate({width:w, marginLeft:0}, t, 'linear', function(){
 						pageToShow.css('width', '100%');
 						pageToShow.find(".ignorepb").removeClass("ignorepb");
@@ -810,7 +810,7 @@
 						);
 					} catch(e){}
                 }
-                $("#fieldlist"+opt.identifier+" .pbreak:not(.pb0)").find(".field").addClass("ignorepb");
+                $("#fieldlist"+opt.identifier+" .pbreak:not(.pb0)").find(".field,[name='bccf_payment_option_paypal']").addClass("ignorepb");
                 $("#fieldlist"+opt.identifier).find('[type="date"],[type="hidden"]').each(function(){
 					$(this).rules('add', {step:false});
 				});

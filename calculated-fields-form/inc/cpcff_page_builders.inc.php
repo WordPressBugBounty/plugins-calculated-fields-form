@@ -96,7 +96,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 				),
 			);
 
-			$forms = $wpdb->get_results( 'SELECT id, form_name FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$forms = CPCFF_FORM::forms_list();
 
 			foreach ( $forms as $form ) {
 				$config['forms'][ $form->id ] = esc_attr( '(' . $form->id . ') ' . $form->form_name );

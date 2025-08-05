@@ -68,12 +68,13 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 		public static function forms_list( $args = []  ) {
 			global $wpdb;
 
-			$category 		= isset( $args['category'] ) ? trim( $args['category'] ) : '';
-			$search_term 	= isset( $args['search_term'] ) ? trim( $args['search_term'] ) : '';
-			$orderby 		= empty( $args['order_by'] ) ? 'id' : $args['order_by'];
-			$include_desc   = ! empty( $args['description'] ) ? true : false;
+			$category 		 = isset( $args['category'] ) ? trim( $args['category'] ) : '';
+			$search_term 	 = isset( $args['search_term'] ) ? trim( $args['search_term'] ) : '';
+			$orderby 		 = empty( $args['order_by'] ) ? 'id' : $args['order_by'];
+			$include_desc    = ! empty( $args['description'] ) ? true : false;
+			$include_no_form = ! empty( $args['no_form'] ) ? true : false;
 
-			$myrows = $wpdb->get_results(
+			$rows = $wpdb->get_results(
 				'SELECT id,form_name,category' .
 				(
 					$include_desc ?
@@ -82,9 +83,17 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				) .
 				' FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE 1=1 ' . ( '' != $category ? $wpdb->prepare( ' AND category=%s ', $category ) : '' ) . ( '' != $search_term ? $wpdb->prepare( ' AND (form_name LIKE %s OR form_structure LIKE %s)', '%' . $search_term . '%', '%' . $search_term . '%' ) : '' ) . ' ORDER BY ' . $orderby . ( 'id' == $orderby ? ' DESC' : ' ASC' ) );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
+			if ( $include_no_form ) {
+				$rows = array_merge( $rows, $wpdb->get_results( 'SELECT DISTINCT formid as id, "" as form_name, "" as category, "" as form_structure FROM ' . CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME . ' a WHERE NOT EXISTS (SELECT 1 FROM ' . $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE . ' b WHERE a.formid = b.id)' ) );
+				usort($rows, function($a, $b) {
+					if ($a->id == $b->id) return 0;
+					return ($a->id < $b->id) ? -1 : 1;
+				});
+			}
+
 			$return = [];
 
-			foreach( $myrows as $row ) {
+			foreach( $rows as $row ) {
 				$data = new stdClass();
 				$data->id 			= $row->id;
 				$data->form_name 	= sanitize_text_field( $row->form_name );

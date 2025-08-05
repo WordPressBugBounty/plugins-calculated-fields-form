@@ -44,9 +44,9 @@ class Elementor_CFF_Widget extends Widget_Base {
 		$options = array();
 		$default = '';
 
-		$rows = $wpdb->get_results( 'SELECT id, form_name FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$rows = \CPCFF_FORM::forms_list();
 		foreach ( $rows as $item ) {
-			$options[ $item->id ] = $item->form_name;
+			$options[$item->id] = '(' . $item->id . ') ' . $item->form_name;
 			if ( empty( $default ) ) {
 				$default = $item->id;
 			}

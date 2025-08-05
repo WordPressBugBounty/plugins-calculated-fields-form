@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.82 =
+
+* Displays form titles when form names are unavailable in the WordPress editor, Elementor Page Builder, or submissions list, making forms easier to identify.
+* Harmonizes the 'required' setting for payment gateway options on multipage forms when those options are optional.
+
 = 5.3.81 =
 
 * Assigns the class name cff-form-### (where ### is replaced by the form ID), which allows for easier modification of the form's design.

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.81
+Stable tag: 5.3.82
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.82 =
+
+* Displays form titles when form names are unavailable in the WordPress editor, Elementor Page Builder, or submissions list, making forms easier to identify.
+* Harmonizes the 'required' setting for payment gateway options on multipage forms when those options are optional.
+
 = 5.3.81 =
 
 * Assigns the class name cff-form-### (where ### is replaced by the form ID), which allows for easier modification of the form's design.
@@ -477,8 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.78 =
 
 * Unlike many plugins that invariably save passwords as plain text, Calculated Fields Form empowers developers to choose, right from the field settings, whether to: Skip database storage entirely, Store only a secure hash, Keep a sanitized plain-text copy.
-
-= 5.3.77 =
-
-* The password validator has been enhanced to support customizable rules, requiring users to include lowercase letters, uppercase letters, digits, and symbols, ensuring stronger, more secure passwords.
-* Added support for the if_value_is_not attribute in <%INFO%> tags, allowing you to conditionally remove fields whose value equals zero: <%INFO if_value_is_not={{0}}%>.
