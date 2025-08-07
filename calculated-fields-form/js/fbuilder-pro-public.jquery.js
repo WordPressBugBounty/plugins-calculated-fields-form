@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.82';
+	$.fbuilder['version'] = '5.3.83';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -847,6 +847,8 @@
 					$.fbuilder['getCSSComponent'](this, 'buttons', true, '#'+form_id+' .pbNext,#'+form_id+' .pbPrevious,#'+form_id+' .pbSubmit', id);
 
 					$.fbuilder['getCSSComponent'](this, 'buttons_hover', true, '#'+form_id+' .pbNext:hover,#'+form_id+' .pbPrevious:hover,#'+form_id+' .pbSubmit:hover', id);
+
+					$.fbuilder['getCSSComponent'](this, 'tooltips_icons', true, '#'+form_id+' #fbuilder .fields .cff-help-icon::before', id);
 
 					$.fbuilder['getCSSComponent'](this, 'tooltips', true, '.uh-tooltip.cff-form-'+('form' in opt ? opt.form : ''), id);
 

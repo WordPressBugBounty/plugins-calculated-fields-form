@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.83 =
+
+* Adds a new subsection under Form Settings > Advanced Settings for customizing tooltip icon designs.
+* Updates the CSV-import module within DS fields for both Developer and Platinum plugin editions to support CSV files containing multiline cells.
+* Implements an alternative workflow in the PDF Generator add-on (Platinum plugin) that generates PDF files by populating fields within a PDF template.
+
 = 5.3.82 =
 
 * Displays form titles when form names are unavailable in the WordPress editor, Elementor Page Builder, or submissions list, making forms easier to identify.
