@@ -26,7 +26,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'cookies' ] = {
 				{
                     "value" : "CFFDELETECOOKIE",
                     "code" : "CFFDELETECOOKIE(",
-                    "tip" : "<p><strong>CFFDELETECOOKIE(cookie name)</strong></p><p>Overwrite the cookie with an expired cookie.</strong></p>"
+                    "tip" : "<p><strong>CFFDELETECOOKIE(cookie name)</strong></p><p>Overwrite the cookie with an expired cookie.</p>"
                 },
             ]
 		}

@@ -1,7 +1,9 @@
-	$.fbuilder['version'] = '5.3.83';
+	$.fbuilder['version'] = '5.3.84';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
+	$.fbuilder['isMobile'] = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	$.fbuilder['isIOS'] = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
 
