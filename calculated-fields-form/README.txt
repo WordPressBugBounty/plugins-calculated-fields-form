@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.84
+Stable tag: 5.3.85
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.85 =
+
+* Resolves an issue with displaying date pickers on pop-up controls.
+* Addresses an issue with assigning default values to checkbox controls with quantity enabled.
+* Includes the 'Send Emails' button associated with the entries in the 'Entries' section (Professional, Developer, and Platinum distributions).
+* Hides the Stripe checkout option in the add-ons section because it is enabled by default (Developer and Platinum plugin distributions).
+* In Data Table DS controls, it allows the use of literals to populate columns (Developer and Platinum plugin distributions).
+
 = 5.3.84 =
 
 * Implements a new energy-related operations module.
@@ -477,10 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Assigns the class name cff-form-### (where ### is replaced by the form ID), which allows for easier modification of the form's design.
 * Allows you to visually personalize the design of the instructions tooltips through the Form Settings > Advanced Settings tab.
 * Increases the DPI value of PDF files created by the PDF Generator add-on. Platinum distribution.
-
-= 5.3.80 =
-
-* Updated dependency handling in multi-page forms
-* Refined button control settings
-* Streamlined the plugin update process
-* Enhanced Authorize.Net integration for the Platinum distribution

@@ -668,6 +668,7 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 .cff-event-show-details .cff-event-data-handle::before{content: "\FE3D";}
 
 .cff-addon-item{padding-right:10px;padding-bottom:5px;width:50%;float:left;}
+.cff-addon-item:has([id*="addon-stripe-checkout"]){display:none !important;}
 .cff-forms-list{width:100%;}
 .cff-forms-list tr{display:flex;flex-wrap:wrap;width:100%;}
 .cff-forms-list th{white-space:nowrap;}

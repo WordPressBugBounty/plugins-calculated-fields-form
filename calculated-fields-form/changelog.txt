@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.3.85 =
+
+* Resolves an issue with displaying date pickers on pop-up controls.
+* Addresses an issue with assigning default values to checkbox controls with quantity enabled.
+* Includes the 'Send Emails' button associated with the entries in the 'Entries' section (Professional, Developer, and Platinum distributions).
+* Hides the Stripe checkout option in the add-ons section because it is enabled by default (Developer and Platinum plugin distributions).
+* In Data Table DS controls, it allows the use of literals to populate columns (Developer and Platinum plugin distributions).
+
 = 5.3.84 =
 
 * Implements a new energy-related operations module.
@@ -1005,55 +1013,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 * Includes a pair of classes to allow including page breaks on printed forms.
 * Modifies the Date/Time control.
 * Modifies the z-index on Datepickers to display them when forms are loaded into Elementor pop-ups.
-
-= 1.2.39 =
-
-* Implements the RANDOM operation. It allows getting random numbers in a range.
-* Modifies the forms builder dashboard.
-
-= 1.2.38 =
-
-* Fixes an issue in the DATEOBJ operation.
-* Includes some styles to force the browser to print the on/off controls and fields' backgrounds by pressing the Print button or calling the PRINTFORM operation.
-
-= 1.2.37 =
-
-* Includes some modifications in the forms builder to improve the user experience by selecting, duplicating, or deleting fields from the form.
-* Includes a new option in the Date control to make the calendar always visible.
-* Fixes some inaccuracies in the date/time operations.
-
-= 1.2.36 =
-
-* Implements the SINGLEDIGIT operation.
-* Includes new predefined forms.
-* Modifies the submission process (Professional, Developer, and Platinum versions).
-
-= 1.2.35 =
-
-* Modifies the Phone control.
-* Fixes a conflict with third-party code in the browser persistence module.
-* Modifies the quantity integration between WooCommerce products and form fields (Developer and Platinum plugin versions).
-
-= 1.2.34 =
-
-* Fixes an issue with the maxlength attribute of fields.
-* Fixes a conflict on pages that load multiple jQuery versions.
-* Implements the JSONTOCSV operation to generate a CSV file directly on the client side.
-* Modifies the quantity integration between WooCommerce products and form fields (Developer and Platinum plugin versions).
-
-= 1.2.33 =
-
-* Fixes a minor issue with the set_step method in the slider controls.
-
-= 1.2.32 =
-
-* Fixes an issue in the tooltips.
-
-= 1.2.31 =
-
-* Implements the Cookies Operations modules to write, read, check, and delete cookies.
-* Modifies the QR control to stop the camera once it scans the QR code.
-
-= 1.2.30 =
-
-* Modifies the Checkbox control to allow configuring a minimum number of choice to select, and not only a maximum.

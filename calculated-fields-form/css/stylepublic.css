@@ -773,7 +773,7 @@ body{
 #fbuilder .cff-popup-field{padding:0 !important;margin:0 !important;}
 #fbuilder .cff-popup-container{
 	position:fixed;
-	z-index:999999;
+	z-index:9999;
 	border:1px solid #CACACA;
 	background:white;
 	border-radius:6px;
@@ -816,5 +816,5 @@ body{
 	right:0;
 	background:rgba(0,0,0,0.3);
 	position:fixed;
-	z-index:999999;
+	z-index:9999;
 }

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.84';
+	$.fbuilder['version'] = '5.3.85';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1400,7 +1400,7 @@
 					}
 				});
 			}
-		} catch( err ) {}
+		} catch( err ) { console.log(err); }
 	};
 
 	$(document).on('change keyup', '#fbuilder :input[name*="fieldname"]', function(){

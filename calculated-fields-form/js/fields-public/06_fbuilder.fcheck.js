@@ -197,6 +197,7 @@
 						if (me.quantity) {
 							let v_parts = /^(.*)(\s*\((\d+)\))$/.exec(v);
 							if( v_parts && typeof v_parts[3] != 'undefined' ) {
+								v_parts[1] = String(v_parts[1]).replace(/\s$/, '');
 								result = $('[type="checkbox"][id*="'+n+'_"]['+attr+'="'+v_parts[1]+'"]');
 								if ( result.length ) {
 									$( '[id="'+result.attr('id')+'_quantity"]' ).val(v_parts[3]);
