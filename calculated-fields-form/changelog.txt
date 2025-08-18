@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.86 =
+
+* Improves form behavior and appearance on pages with right-to-left (RTL) direction.
+* Ensures DS field compatibility with the latest versions of ACF and SCF (Developer and Platinum plugin distributions).
+* Modifies the Verification Code add-on for the Developer and Platinum distributions.
+
 = 5.3.85 =
 
 * Resolves an issue with displaying date pickers on pop-up controls.

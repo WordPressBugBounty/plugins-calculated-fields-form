@@ -461,7 +461,8 @@
 								if ( e.closest('.elementor-popup-modal').length ) {
 									e.closest('form').after($('#ui-datepicker-div'));
 								}
-							}
+							},
+							isRTL     : $.fbuilder.forms[me.form_identifier].isRTL
 						},
 						dp = $("#"+me.name+"_date"),
 						dd = me.currentDate && init ? new Date() : me.defaultDate,

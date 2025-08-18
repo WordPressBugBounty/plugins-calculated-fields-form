@@ -321,17 +321,18 @@
 					var me = this,
 						p  = {
 							dateFormat: me.dformat.replace(/yyyy/g,"yy"),
-							minDate: me._getAttr('minDate'),
-							maxDate: me._getAttr('maxDate'),
-                            firstDay: (me.mondayFirstDay ? 1 : 0),
-							disabled: me.readonly,
+							minDate   : me._getAttr('minDate'),
+							maxDate   : me._getAttr('maxDate'),
+                            firstDay  : (me.mondayFirstDay ? 1 : 0),
+							disabled  : me.readonly,
 							beforeShow: function() {
 								// Patch for elementor popup issue.
 								let e = $('[name="'+me.name+'"]');
 								if ( e.closest('.elementor-popup-modal').length ) {
 									e.closest('form').after($('#ui-datepicker-div'));
 								}
-							}
+							},
+							isRTL     : $.fbuilder.forms[me.form_identifier].isRTL
 						},
 						dp = $("#"+me.name+"_date"),
 						// dd = (me.defaultDate != "") ? me.defaultDate : ((me.predefined != "") ? me.predefined : new Date());

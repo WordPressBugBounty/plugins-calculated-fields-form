@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.85
+Stable tag: 5.3.86
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.86 =
+
+* Improves form behavior and appearance on pages with right-to-left (RTL) direction.
+* Ensures DS field compatibility with the latest versions of ACF and SCF (Developer and Platinum plugin distributions).
+* Modifies the Verification Code add-on for the Developer and Platinum distributions.
+
 = 5.3.85 =
 
 * Resolves an issue with displaying date pickers on pop-up controls.
@@ -479,9 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Displays form titles when form names are unavailable in the WordPress editor, Elementor Page Builder, or submissions list, making forms easier to identify.
 * Harmonizes the 'required' setting for payment gateway options on multipage forms when those options are optional.
-
-= 5.3.81 =
-
-* Assigns the class name cff-form-### (where ### is replaced by the form ID), which allows for easier modification of the form's design.
-* Allows you to visually personalize the design of the instructions tooltips through the Form Settings > Advanced Settings tab.
-* Increases the DPI value of PDF files created by the PDF Generator add-on. Platinum distribution.

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.85';
+	$.fbuilder['version'] = '5.3.86';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -958,12 +958,12 @@
                 }
 			});
 
-		//var theForm = new fform(),
 		var theForm,
 			ffunct = {
 				toShow : {},
 				toHide : {},
 				hiddenByContainer : {},
+				isRTL  : false,
 				getItem: function( name )
 					{
 						if(name in fieldsIndex) return items[fieldsIndex[name]];
@@ -991,6 +991,7 @@
 
 							if (d.length == 2)
 							{
+							   this.isRTL = ( 'direction' in d[1][0] && d[1][0]['direction'] == 'rtl' ) ? true : false;
 							   this.formId = d[ 1 ][ 'formid' ];
 							   items = [];
 							   for (var i=0;i<d[0].length;i++)
@@ -1006,7 +1007,6 @@
 									   obj._setHndl('placeholder');
 								   }
 								   obj.init();
-								   /* items[items.length] = obj; */
 								   items[i] = obj;
 								   fieldsIndex[obj.name] = i;
 							   }

@@ -314,7 +314,8 @@
 								range: (me.range != false) ? me.range : "min",
 								min  : me._toNumber(me._getAttr('min')),
 								max  : me._toNumber(me._getAttr('max')),
-								step : me._toNumber(me._getAttr('step'))
+								step : me._toNumber(me._getAttr('step')),
+								isRTL: $.fbuilder.forms[me.form_identifier].isRTL
 							};
 
 						me.set_min_caption(opt.min);
@@ -348,8 +349,8 @@
 						$('#'+this.name+'_slider').find( '.ui-slider-handle' ).each( function(){
 							$(this).append(
 								'<div class="cff-slider-tooltip">'+
-								'<div class="cff-slider-tooltip-arrow">'+
-								'</div><div class="cff-slider-tooltip-value"></div>'+
+								'<div class="cff-slider-tooltip-value"></div>'+
+								'<div class="cff-slider-tooltip-arrow"></div>'+
 								'</div>'
 							);
 						});

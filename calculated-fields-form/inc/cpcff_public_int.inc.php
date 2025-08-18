@@ -120,8 +120,14 @@ if ( ! empty( $atts ) && ! empty( $atts['class'] ) ) {
 }
 ?>" <?php
 // Direction.
+if( function_exists('is_rtl') && is_rtl() ) $form_data[1][0]->direction = 'rtl';
 if ( property_exists( $form_data[1][0], 'direction' ) ) {
 	print ' dir="' . esc_attr( $form_data[1][0]->direction ) . '"';
+
+	if ( $form_data[1][0]->direction == 'rtl' ) { // Embed jQuery Slider RTL resources.
+		wp_enqueue_style( 'cpcff_slider_ui_rtl_css', plugins_url('/vendors/jquery-ui/jquery.ui.slider-rtl.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array(), CP_CALCULATEDFIELDSF_VERSION );
+		wp_enqueue_script( 'cpcff_slider_ui_rtl_js', plugins_url('/vendors/jquery-ui/jquery.ui.slider-rtl.pack.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array(), CP_CALCULATEDFIELDSF_VERSION, true );
+	}
 }
 ?> data-nonce="<?php print esc_attr( CFF_AUXILIARY_NONCE ); ?>">
 <?php
