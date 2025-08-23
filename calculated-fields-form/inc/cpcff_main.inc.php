@@ -927,7 +927,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						$output .= '<option value="' . esc_attr( $category['category'] ) . '" ' . $selected . ' >' . esc_html( $category['category'] ) . '</option>';
 					} else // DATALIST.
 					{
-						$output .= '<option value="' . esc_attr( $category['category'] ) . '">';
+						$output .= '<option value="' . esc_attr( $category['category'] ) . '"></option>';
 					}
 				}
 			}

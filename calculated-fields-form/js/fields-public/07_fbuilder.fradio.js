@@ -201,7 +201,7 @@
 						e.find('.dfield').replaceWith($(html).find('.dfield'));
 						if(i) e.find('input').addClass('ignore');
 						if(ipb) e.find('input').addClass('ignorepb');
-						try{ bk = JSON.parse(bk); }catch(err){}
+						try{ try{ bk = JSON.parse(bk); }catch(err){ bk = bk.replace(/\\+(['"])/g, '$1'); } }catch(err){}
 						this.setVal(bk, this.choicesVal.indexOf(bk) > -1);
 					}
 				},

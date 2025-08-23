@@ -238,7 +238,7 @@
 						if(!Array.isArray(bk)) bk = [bk];
                         for(var j in bk)
                         {
-                            try{ bk[j] = JSON.parse(bk[j]); }catch(err){}
+                            try{ try{ bk[j] = JSON.parse(bk[j]); }catch(err){ bk[j] = bk[j].replace(/\\+(['"])/g, '$1'); } }catch(err){}
                         }
 						me.setVal(bk, bk.every(function(e){ return me.choicesVal.indexOf(e) > -1; }));
 					}
