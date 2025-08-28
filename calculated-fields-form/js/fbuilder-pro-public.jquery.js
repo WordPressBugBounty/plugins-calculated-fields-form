@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.87';
+	$.fbuilder['version'] = '5.3.88';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1271,29 +1271,11 @@
 
 		form.validate().settings.ignore = '.ignore';
 		if (!form.valid()) {
-			let page = $('.cpefb_error:not(.message):not(.ignore):eq(0)').closest('.pbreak').attr('page') * 1,
-				mssg = [];
+			let page = $('.cpefb_error:not(.message):not(.ignore):eq(0)').closest('.pbreak').attr('page') * 1;
 			gotopage(page, form);
 			form.trigger('cff-form-validation', false);
 			enabling_form();
-			$( '.cff-error-dlg' ).remove();
-			$( document ).off('click', $.fbuilder.closeErrorDlg);
-			setTimeout(function(){
-				if ( mssg.length ) {
-					$( 'body' ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' );
-				}
-				$( document ).on('click', $.fbuilder.closeErrorDlg); }, 50);
-			try {
-				let errorList = form.validate().errorList;
-				errorList.forEach( (e) => {
-					try {
-						let l = getField( e.element.name.match(/fieldname\d+_\d+/)[0] ).title;
-						l = cff_sanitize(l, true).replace(/\:\s*$/, '');
-						l = '<b>'+(l.length  ? l+': ' : '')+'</b>'+cff_sanitize(e.message, true);
-						mssg.push( l );
-					} catch(err){}
-				} );
-			} catch ( err ) {}
+			setTimeout(function(){$.fbuilder.openErrorDlg(form);},50);
 			return false;
 		}
 
@@ -1435,4 +1417,40 @@
 		} catch( err ){}
 	});
 
-	$.fbuilder.closeErrorDlg = function(){$('.cff-error-dlg').remove();};
+	$.fbuilder.openErrorDlg = function(f){
+		try {
+			$.fbuilder.closeErrorDlg();
+			$( document ).off('click', $.fbuilder.closeErrorDlg);
+			setTimeout(function(){ $( document ).on('click', $.fbuilder.closeErrorDlg); }, 50);
+
+			let mssg = [];
+			let errorList = $(f).validate().errorList;
+
+			errorList.forEach( (e) => {
+				try {
+					let m = cff_sanitize(e.message, true);
+					let n = e.element.name;
+					if( n && /fieldname\d+_\d+/.test(n) ) {
+						let o = getField( n.match(/fieldname\d+_\d+/)[0] );
+						if ( o ) {
+							let l = o.title;
+							if('title' in o) {
+								let l = cff_sanitize(o.title, true).replace(/\:\s*$/, '');
+								if (l.length) {
+									m = '<b>'+l+': </b>'+m;
+								}
+							}
+						}
+						mssg.push( m );
+					}
+				} catch(err){ console.log(err); }
+			});
+
+			if ( mssg.length ) {
+				$( 'body' ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' );
+			}
+		} catch ( err ) { console.log( err ); }
+	};
+	$.fbuilder.closeErrorDlg = function(){
+		$('.cff-error-dlg').remove();
+	};

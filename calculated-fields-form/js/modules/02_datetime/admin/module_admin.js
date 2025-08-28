@@ -6,7 +6,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'datetime' ] = {
 	'tutorial' : 'https://cff.dwbooster.com/documentation#datetime-module',
 	'toolbars'		: {
 		'datetime' : {
-			'label' : 'Date Time functions',
+			'label' : 'Date Time Operations',
 			'buttons' : [
 							{ "value" : "DATEOBJ", 				"code" : "DATEOBJ(", 			"tip" : "<p>Get the date object from an string representation of date. <strong>DATEOBJ( date_string, format )</strong></p><p><strong>DATEOBJ(&quot;2013-05-21&quot;, &quot;yyyy-mm-dd&quot;)</strong></p><p>Result: <strong>date object</strong></p>" },
 							{ "value" : "LEADINGZERO", "code" : "LEADINGZERO(", "tip" : "<p>Set leading zero to values between 0 and 9. <strong>LEADINGZERO( number )</strong></p><p><strong>LEADINGZERO(7)</strong></p><p>Result: <strong>07</strong></p>" },

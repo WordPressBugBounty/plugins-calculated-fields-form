@@ -6,7 +6,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'url' ] = {
 	'tutorial' : 'https://cff.dwbooster.com/documentation#url-module',
 	'toolbars'		: {
 		'url' : {
-			'label' : 'URLs and Parameters',
+			'label' : 'URLs-Related Operations',
 			'buttons' : [
 							{
 								"value" : "getURL",

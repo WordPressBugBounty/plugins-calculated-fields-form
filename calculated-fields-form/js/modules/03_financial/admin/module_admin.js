@@ -6,7 +6,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'financial' ] = {
 	'tutorial' : 'https://cff.dwbooster.com/documentation#financial-module',
 	'toolbars'		: {
 		'finance' : {
-			'label' : 'Financial functions',
+			'label' : 'Financial Operations',
 			'buttons' : []
 		}
 	}

@@ -6,7 +6,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'file' ] = {
 	'tutorial' : 'https://cff.dwbooster.com/documentation#file-module',
 	'toolbars'		: {
 		'file' : {
-			'label' : 'Handling of Files and Their Properties (Experimental)',
+			'label' : 'Handling Files Operations (Experimental)',
 			'buttons' : [
                 {
                     "value" : "PDFPAGESNUMBER",

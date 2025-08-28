@@ -6,7 +6,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
 	'tutorial' : 'https://cff.dwbooster.com/documentation#managing-fields-module',
 	'toolbars'		: {
 		'fields' : {
-			'label' : 'Managing fields',
+			'label' : 'Managing Fields Operations',
 			'buttons' : [
 							{
 								"value" : "getField",

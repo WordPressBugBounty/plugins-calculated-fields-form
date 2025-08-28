@@ -139,7 +139,10 @@
 					$( '.cff-field-information-list .cff-field-information', w.document ).show();
 				} else {
 					$( '.cff-field-information-list .cff-field-information', w.document ).hide();
-					$( '.cff-field-information-list .cff-field-information:contains("' + v + '")', w.document ).show();
+					$( '.cff-field-information-list .cff-field-information', w.document ).each(function(){
+						let e = $(this);
+						if(e.text().toLowerCase().indexOf(v) != -1) e.show();
+					});
 				}
 			});
 			f.focus();

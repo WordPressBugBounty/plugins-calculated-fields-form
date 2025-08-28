@@ -6,7 +6,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'connector' ] = {
 	'tutorial' : 'https://cff.dwbooster.com/documentation#connection-module',
 	'toolbars'		: {
 		'connector' : {
-			'label' : 'Third-party Connection',
+			'label' : 'Third-Party Connection',
 			'buttons' : [
 							{
 								"value" : "cffProxy",

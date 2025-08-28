@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.87
+Stable tag: 5.3.88
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.88 =
+
+* Implements a health-related operations module.
+* Improves field filtering in the fields list pop-up in the form builder.
+* Improves the module that displays field validation errors when a form is submitted.
+
 = 5.3.87 =
 
 * Modifies the setChoices method in checkbox, radio button, and dropdown controls for better functionality.
@@ -484,9 +490,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Implements a new energy-related operations module.
 * Improves data entry on number and currency fields on mobile devices.
 * Modifies the CALCULATEAMORTIZATION operation to allow direct generation of the HTML amortization table (Developer and Platinum plugin distributions).
-
-= 5.3.83 =
-
-* Adds a new subsection under Form Settings > Advanced Settings for customizing tooltip icon designs.
-* Updates the CSV-import module within DS fields for both Developer and Platinum plugin editions to support CSV files containing multiline cells.
-* Implements an alternative workflow in the PDF Generator add-on (Platinum plugin) that generates PDF files by populating fields within a PDF template.

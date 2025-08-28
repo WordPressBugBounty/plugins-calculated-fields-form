@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.88 =
+
+* Implements a health-related operations module.
+* Improves field filtering in the fields list pop-up in the form builder.
+* Improves the module that displays field validation errors when a form is submitted.
+
 = 5.3.87 =
 
 * Modifies the setChoices method in checkbox, radio button, and dropdown controls for better functionality.

@@ -6,7 +6,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'distance' ] = {
 	'tutorial' : 'https://cff.dwbooster.com/documentation#distance-module',
 	'toolbars'		: {
 		'distance' : {
-			'label' : 'Distance functions',
+			'label' : 'Distance Operations',
 			'buttons' : []
 		}
 	}
