@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.88
+Stable tag: 5.3.89
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.89 =
+
+* Fixes an issue with the forms builder in full mode that prevented access to the dependent fields list.
+* Enables modification of previously added products in WooCommerce (Developer and Platinum plugin distributions).
+
 = 5.3.88 =
 
 * Implements a health-related operations module.
@@ -484,9 +489,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Includes the 'Send Emails' button associated with the entries in the 'Entries' section (Professional, Developer, and Platinum distributions).
 * Hides the Stripe checkout option in the add-ons section because it is enabled by default (Developer and Platinum plugin distributions).
 * In Data Table DS controls, it allows the use of literals to populate columns (Developer and Platinum plugin distributions).
-
-= 5.3.84 =
-
-* Implements a new energy-related operations module.
-* Improves data entry on number and currency fields on mobile devices.
-* Modifies the CALCULATEAMORTIZATION operation to allow direct generation of the HTML amortization table (Developer and Platinum plugin distributions).

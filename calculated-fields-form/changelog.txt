@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.89 =
+
+* Fixes an issue with the forms builder in full mode that prevented access to the dependent fields list.
+* Enables modification of previously added products in WooCommerce (Developer and Platinum plugin distributions).
+
 = 5.3.88 =
 
 * Implements a health-related operations module.
