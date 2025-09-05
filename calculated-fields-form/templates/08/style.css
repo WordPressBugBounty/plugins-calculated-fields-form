@@ -222,8 +222,8 @@ background: #394D61;
 .cp_cff_dark_notebook #fbuilder .discount-container{margin-top:10px;font-weight:bold;}
 
 .cp_cff_dark_notebook #fbuilder .cff-switch{background:#394D61;}
-.cp_cff_dark_notebook #fbuilder .cff-switch-container input:checked+span.cff-switch{background:#FFF;}
-.cp_cff_dark_notebook #fbuilder .cff-switch-container input:checked+span.cff-switch:before{background:#394D61;}
+.cp_cff_dark_notebook #fbuilder .fields.cff-switch-container input:checked+span.cff-switch{background:#FFF;}
+.cp_cff_dark_notebook #fbuilder .fields.cff-switch-container input:checked+span.cff-switch:before{background:#394D61;}
 
 .cp_cff_dark_notebook #fbuilder .cff-file-clearer{color:#A8BACE;}
 .cp_cff_dark_notebook #fbuilder .cff-file-clearer:hover{color:#fff;}

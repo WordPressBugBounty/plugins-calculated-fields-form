@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.89
+ * Version: 5.3.90
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.89' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.90' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -191,6 +191,17 @@ function cp_calculated_fields_form_check_posted_data() {
 						if ( 'fPhone' == $item->ftype && isset( $_POST[ $item->name . $sequence ] ) ) { // join fields for phone fields.
 							$_POST[ $item->name . $sequence ] = '';
 							$i = 0;
+
+							$_phone_connector_symbol = '-';
+							if ( property_exists( $item, 'dseparator' ) ) {
+								switch( $item->dseparator ) {
+									case 'space': $_phone_connector_symbol = " "; break;
+									case 'none' : $_phone_connector_symbol = ""; break;
+									case '.'	: $_phone_connector_symbol = "."; break;
+									case '-'	: $_phone_connector_symbol = "-"; break;
+								}
+							}
+
 							$_phone_connector = (
 								isset( $_POST[$item->name.$sequence."_2"] ) ||
 								(
@@ -200,7 +211,7 @@ function cp_calculated_fields_form_check_posted_data() {
 										! $item->countryComponent
 									)
 								)
-							) ? '-' : '';
+							) ? $_phone_connector_symbol : '';
 
 							while ( isset( $_POST[$item->name.$sequence."_".$i] ) ) {
 								$_POST[ $item->name . $sequence ] .=
@@ -279,7 +290,7 @@ function cp_calculated_fields_form_check_posted_data() {
 											break;
 										case 'fphone':
 										case 'fPhoneds':
-											if ( ! preg_match( '/^\+?[\-\d]+$/', $value ) ) {
+											if ( ! preg_match( '/^\+?[\.\s\-\d]+$/', $value ) ) {
 												$invalid_format = true;
 											}
 											break;

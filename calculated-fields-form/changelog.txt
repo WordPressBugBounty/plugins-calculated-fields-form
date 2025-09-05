@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.90 =
+
+* Adds a new attribute to the phone controls to configure the symbol that separates phone components.
+* Resolves an issue with switch radio buttons and checkboxes in form template 08 (dark template).
+* Resolves a warning in the iCal add-on (Platinum plugin distribution).
+
 = 5.3.89 =
 
 * Fixes an issue with the forms builder in full mode that prevented access to the dependent fields list.

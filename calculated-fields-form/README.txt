@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.89
+Stable tag: 5.3.90
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.90 =
+
+* Adds a new attribute to the phone controls to configure the symbol that separates phone components.
+* Resolves an issue with switch radio buttons and checkboxes in form template 08 (dark template).
+* Resolves a warning in the iCal add-on (Platinum plugin distribution).
+
 = 5.3.89 =
 
 * Fixes an issue with the forms builder in full mode that prevented access to the dependent fields list.
@@ -481,11 +487,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Improves form behavior and appearance on pages with right-to-left (RTL) direction.
 * Ensures DS field compatibility with the latest versions of ACF and SCF (Developer and Platinum plugin distributions).
 * Modifies the Verification Code add-on for the Developer and Platinum distributions.
-
-= 5.3.85 =
-
-* Resolves an issue with displaying date pickers on pop-up controls.
-* Addresses an issue with assigning default values to checkbox controls with quantity enabled.
-* Includes the 'Send Emails' button associated with the entries in the 'Entries' section (Professional, Developer, and Platinum distributions).
-* Hides the Stripe checkout option in the add-ons section because it is enabled by default (Developer and Platinum plugin distributions).
-* In Data Table DS controls, it allows the use of literals to populate columns (Developer and Platinum plugin distributions).
