@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.90
+Stable tag: 5.3.91
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,7 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.91 =
 = 5.3.90 =
 
 * Adds a new attribute to the phone controls to configure the symbol that separates phone components.
@@ -481,9 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Adjusts the user information data source in the DS fields to accurately obtain the user's main role, specifically for Developer and Platinum plugin versions.
 * Synchronizes the maximum and minimum attributes in product quantity boxes and form fields for quantities in forms embedded within WooCommerce products, applicable to Developer and Platinum plugin versions.
 * Enables selection between website languages and users' local languages for address autocompletion in Google Places, available in the Platinum plugin version.
-
-= 5.3.86 =
-
-* Improves form behavior and appearance on pages with right-to-left (RTL) direction.
-* Ensures DS field compatibility with the latest versions of ACF and SCF (Developer and Platinum plugin distributions).
-* Modifies the Verification Code add-on for the Developer and Platinum distributions.

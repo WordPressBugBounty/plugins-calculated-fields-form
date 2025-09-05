@@ -9,6 +9,7 @@
 			readonly:false,
 			size:"medium",
 			dformat:"### ### ####",
+			dseparator:"-", // none, space, -, .
 			predefined:"888 888 8888",
 
             countryComponent:false,
@@ -252,15 +253,20 @@
 						}
 					}
 				},
+			get_separator:function(){
+				let separators = { 'none': '', 'space': ' ', '-': '-', '.' : '.' };
+				return ( this.dseparator in separators) ? separators[this.dseparator] : '-';
+			},
 			val:function(raw, no_quotes)
 				{
                     raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)'),
+					var me = this,
+						e = $('[id="'+this.name+'"]:not(.ignore)'),
 						pr = $('[id^="'+this.name+'_"]')
 							.map(function(){return String($(this).val()).trim();})
 							.get()
-							.filter(function(value){return value.length>0;}).join('-'),
+							.filter(function(value){return value.length>0;}).join(me.get_separator()),
 						p  = $.fbuilder.parseValStr(
 							raw ? pr : e.val(),
 							true,

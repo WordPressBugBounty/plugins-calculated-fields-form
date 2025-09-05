@@ -129,12 +129,8 @@
 														if(c.length && !/^\s*$/.test(c.html())) {
 															v.push(c.html());
 														} else if(e.closest('.cff-phone-field').length) {
-															v.push(
-																$('[id^="'+e.attr('id')+'_"]')
-																 .map(function(){return String($(this).val()).trim();})
-																 .get()
-																 .filter(function(value){return value.length>0;}).join('-')
-															);
+															let obj = getField(e);
+															if (obj) v.push(obj.val(true, true));
 														} else {
 															v.push(e.val());
 														}

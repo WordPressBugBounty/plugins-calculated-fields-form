@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.3.91 =
 = 5.3.90 =
 
 * Adds a new attribute to the phone controls to configure the symbol that separates phone components.
