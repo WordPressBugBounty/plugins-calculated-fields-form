@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.91
+Stable tag: 5.3.92
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.92 =
+
+* Modifies the date and time controls to ensure the minimum and maximum hours are correct.
+* Allows visual customization of the error and thanks message pop-ups through the Form Design/Advanced Design tab.
+* Modifies the Users Permissions add-on to ensure coherence between different levels of accessibility control (Developer and Platinum plugin distributions).
+
 = 5.3.91 =
 = 5.3.90 =
 
@@ -472,13 +478,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Implements a health-related operations module.
 * Improves field filtering in the fields list pop-up in the form builder.
 * Improves the module that displays field validation errors when a form is submitted.
-
-= 5.3.87 =
-
-* Modifies the setChoices method in checkbox, radio button, and dropdown controls for better functionality.
-* Fixes a browser message that appears when honeypot protection is enabled, applicable to Professional, Developer, and Platinum plugin versions.
-* Updates the metadata in Stripe Checkout payment integration to include necessary information with payment intents and subscriptions for Professional, Developer, and Platinum plugin versions.
-* Addresses a minor issue in the email and phone verification add-ons, relevant to Developer and Platinum plugin versions.
-* Adjusts the user information data source in the DS fields to accurately obtain the user's main role, specifically for Developer and Platinum plugin versions.
-* Synchronizes the maximum and minimum attributes in product quantity boxes and form fields for quantities in forms embedded within WooCommerce products, applicable to Developer and Platinum plugin versions.
-* Enables selection between website languages and users' local languages for address autocompletion in Google Places, available in the Platinum plugin version.

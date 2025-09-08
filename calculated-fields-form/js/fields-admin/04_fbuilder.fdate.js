@@ -78,7 +78,8 @@
 				},
 			editItemEvents:function()
 				{
-					var evt = [
+					let me  = this,
+						evt = [
 							{s:"#sDropdownRange",e:"keyup", l:"dropdownRange", x:1},
 							{s:"#sFormat",e:"change", l:"dformat", x:1},
 							{s:"#sSeparator",e:"change", l:"dseparator", x:1},
@@ -116,10 +117,50 @@
 							{s:"#sTimeErrorMssg",e:"change keyup", l:"timeErrorMssg"},
 							{s:"#sAriaHourLabel",e:"change keyup", l:"ariaHourLabel"},
 							{s:"#sAriaMinuteLabel",e:"change keyup", l:"ariaMinuteLabel"},
-							{s:"#sMinHour",e:"change keyup", l:"minHour", x:1},
-							{s:"#sMaxHour",e:"change keyup", l:"maxHour", x:1},
-							{s:"#sMinMinute",e:"change keyup", l:"minMinute", x:1},
-							{s:"#sMaxMinute",e:"change keyup", l:"maxMinute", x:1},
+							{s:"#sMinHour",e:"keyup", l:"minHour", x:1},
+							{s:"#sMaxHour",e:"keyup", l:"maxHour", x:1},
+							{s:"#sMinMinute",e:"keyup", l:"minMinute", x:1},
+							{s:"#sMaxMinute",e:"keyup", l:"maxMinute", x:1},
+							{s:"#sMinHour",e:"change", l:"minHour", f:function(el){
+								let v = el.val();
+								if( isNaN(v*1) ) { el.val(0); return 0; }
+								let bk = v*1;
+								v = Math.min(23, Math.max(0,bk));
+								if(me.maxHour !== '' && !isNaN(me.maxHour*1)) {
+									me.maxHour = Math.max(v, me.maxHour*1);
+									$('#sMaxHour').val(me.maxHour);
+								}
+								if( v != bk ) el.val(v);
+								return v;
+							}, x:1},
+							{s:"#sMaxHour",e:"change", l:"maxHour", f:function(el){
+								let v = el.val();
+								if( isNaN(v*1) ) { el.val(23); return 23; }
+								let bk = v*1;
+								v = Math.min(23, Math.max(0,bk));
+								if(me.minHour !== '' && !isNaN(me.minHour*1)) {
+									me.minHour = Math.min(v, me.minHour*1);
+									$('#sMinHour').val(me.minHour);
+								}
+								if( v != bk ) el.val(v);
+								return v;
+							}, x:1},
+							{s:"#sMinMinute",e:"change", l:"minMinute",  f:function(el){
+								let v = el.val();
+								if( isNaN(v*1) ) { el.val(0); return 0; }
+								let bk = v*1;
+								v = Math.min(59, Math.max(0,bk));
+								if( v != bk ) el.val(v);
+								return v;
+							}, x:1},
+							{s:"#sMaxMinute",e:"change", l:"maxMinute", f:function(el){
+								let v = el.val();
+								if( isNaN(v*1) ) { el.val(50); return 59; }
+								let bk = v*1;
+								v = Math.min(59, Math.max(0,bk));
+								if( v != bk ) el.val(v);
+								return v;
+							}, x:1},
 							{s:"#sStepHour",e:"change keyup", l:"stepHour", x:1},
 							{s:"#sStepMinute",e:"change keyup", l:"stepMinute", x:1},
 							{s:"#sDefaultTime",e:"change keyup", l:"defaultTime", x:1}
@@ -182,13 +223,13 @@
 					'<label>Time Format</label><label><input type="radio" name="sTimeFormat" id="sTimeFormat" value="24" '+( ( this.tformat == 24 ) ? 'CHECKED' : '' )+' /> 24 hours</label> <label><input type="radio" name="sTimeFormat" id="sTimeFormat" value="12" '+( ( this.tformat == 12 ) ? 'CHECKED' : '' )+' /> 12 hours</label>'+
 
 					'<label for="sDefaultTime">Default Time HH:mm</label><input type="text" class="large" name="sDefaultTime" id="sDefaultTime" value="'+cff_esc_attr(this.defaultTime)+'" />'+
-					'<div class="width50 column"><label for="sMinHour">Min Hour</label><input type="text" class="large" name="sMinHour" id="sMinHour" value="'+cff_esc_attr(this.minHour)+'" /></div>'+
-					'<div class="width50 columnr"><label for="sMinMinute">Min Minutes</label><input type="text" class="large" name="sMinMinute" id="sMinMinute" value="'+cff_esc_attr(this.minMinute)+'" /></div>'+
-					'<div class="width50 column"><label for="sMaxHour">Max Hour</label><input type="text" class="large" name="sMaxHour" id="sMaxHour" value="'+cff_esc_attr(this.maxHour)+'" /></div>'+
-					'<div class="width50 columnr"><label for="sMaxMinute">Max Minutes</label><input type="text" class="large" name="sMaxMinute" id="sMaxMinute" value="'+cff_esc_attr(this.maxMinute)+'" /></div>'+
+					'<div class="width50 column"><label for="sMinHour">Min Hour</label><input type="number" class="large" name="sMinHour" id="sMinHour" value="'+cff_esc_attr(this.minHour)+'" /></div>'+
+					'<div class="width50 columnr"><label for="sMinMinute">Min Minutes</label><input type="number" class="large" name="sMinMinute" id="sMinMinute" value="'+cff_esc_attr(this.minMinute)+'" /></div>'+
+					'<div class="width50 column"><label for="sMaxHour">Max Hour</label><input type="number" class="large" name="sMaxHour" id="sMaxHour" value="'+cff_esc_attr(this.maxHour)+'" /></div>'+
+					'<div class="width50 columnr"><label for="sMaxMinute">Max Minutes</label><input type="number" class="large" name="sMaxMinute" id="sMaxMinute" value="'+cff_esc_attr(this.maxMinute)+'" /></div>'+
 
-					'<label for="sStepHour">Steps for hours</label><input type="text" class="large" name="sStepHour" id="sStepHour" value="'+cff_esc_attr(this.stepHour)+'" />'+
-					'<label for="sStepMinute">Steps for minutes</label><input type="text" class="large" name="sStepMinute" id="sStepMinute" value="'+cff_esc_attr(this.stepMinute)+'" />'+
+					'<label for="sStepHour">Steps for hours</label><input type="number" class="large" name="sStepHour" id="sStepHour" value="'+cff_esc_attr(this.stepHour)+'" />'+
+					'<label for="sStepMinute">Steps for minutes</label><input type="number" class="large" name="sStepMinute" id="sStepMinute" value="'+cff_esc_attr(this.stepMinute)+'" />'+
 					'<label for="sAriaHourLabel">Label for hours in screen readers</label><input type="text" class="large" name="sAriaHourLabel" id="sAriaHourLabel" value="'+cff_esc_attr(this.ariaHourLabel)+'" />'+
 					'<label for="sAriaMinuteLabel">Label for minutes in screen readers</label><input type="text" class="large" name="sAriaMinuteLabel" id="sAriaMinuteLabel" value="'+cff_esc_attr(this.ariaMinuteLabel)+'" />'+
 					'<label for="sAriaAMPMLabel">Label for am/pm component in screen readers</label><input type="text" class="large" name="sAriaAMPMLabel" id="sAriaAMPMLabel" value="'+cff_esc_attr(this.ariaAMPMLabel)+'" />'+

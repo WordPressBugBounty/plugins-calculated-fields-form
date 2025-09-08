@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.92 =
+
+* Modifies the date and time controls to ensure the minimum and maximum hours are correct.
+* Allows visual customization of the error and thanks message pop-ups through the Form Design/Advanced Design tab.
+* Modifies the Users Permissions add-on to ensure coherence between different levels of accessibility control (Developer and Platinum plugin distributions).
+
 = 5.3.91 =
 = 5.3.90 =
 
@@ -1041,9 +1047,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 * Includes new features to align the form title and description, select the header tag to apply, as well as modify their colors through the form settings tab.
 * Fixes minor errors in the form templates.
 * Modifies the Users Permissions add-on and data source fields backend (Developer and Platinum plugin versions).
-
-= 1.2.40 =
-
-* Includes a pair of classes to allow including page breaks on printed forms.
-* Modifies the Date/Time control.
-* Modifies the z-index on Datepickers to display them when forms are loaded into Elementor pop-ups.

@@ -886,11 +886,14 @@
 					if ( ! ( 'buttons_hover' in this.advanced.css ) ) this.advanced.css.buttons_hover = {label: 'Form context buttons hover',rules:{}};
 					if ( ! ( 'tooltips_icons' in this.advanced.css ) ) this.advanced.css.tooltips_icons = {label: 'Icons for instructions for users tooltips',rules:{}};
 					if ( ! ( 'tooltips' in this.advanced.css ) ) this.advanced.css.tooltips = {label: 'Instructions for users tooltips',rules:{}};
+					if ( ! ( 'thanks_popup' in this.advanced.css ) ) this.advanced.css.thanks_popup = {label: 'Thanks message popup',rules:{}};
+					if ( ! ( 'close_thanks_popup' in this.advanced.css ) ) this.advanced.css.close_thanks_popup = {label: 'Thanks message popup close icon',rules:{}};
+					if ( ! ( 'error_popup' in this.advanced.css ) ) this.advanced.css.error_popup = {label: 'Error message popup',rules:{}};
+					if ( ! ( 'close_error_popup' in this.advanced.css ) ) this.advanced.css.close_error_popup = {label: 'Error popup close icon',rules:{}};
 					if ( ! ( 'error_bubble' in this.advanced.css ) ) this.advanced.css.error_bubble = {label: 'Error bubbles',rules:{}};
 					if ( ! ( 'error_bubble_arrow' in this.advanced.css ) ) this.advanced.css.error_bubble_arrow = {label: 'Error bubble arrow',rules:{'border-bottom-color':''}, 'restrict':true};
 					if ( ! ( 'required_field_asterisk' in this.advanced.css ) ) this.advanced.css.required_field_asterisk = {label: 'Asterisk for required fields',rules:{}};
-
-					let index = [ 'header', 'title', 'description', 'form', 'buttons', 'buttons_hover', 'tooltips_icons', 'tooltips', 'error_bubble', 'error_bubble_arrow', 'required_field_asterisk'];
+					let index = [ 'header', 'title', 'description', 'form', 'buttons', 'buttons_hover', 'tooltips_icons', 'tooltips', 'thanks_popup', 'close_thanks_popup', 'error_popup', 'close_error_popup', 'error_bubble', 'error_bubble_arrow', 'required_field_asterisk'];
 					let css = {};
 
 					for( let i in index ) {

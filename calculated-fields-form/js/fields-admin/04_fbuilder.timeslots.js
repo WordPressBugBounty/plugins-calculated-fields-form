@@ -116,10 +116,50 @@
 							{s:"#sDisableKeyboardOnMobile",e:"click", l:"disableKeyboardOnMobile", f:function(el){return el.is(':checked');}},
 							{s:"#sMondayFirstDay",e:"click", l:"mondayFirstDay", f:function(el){return el.is(':checked');}},
 							{s:"#sAlwaysVisible",e:"click", l:"alwaysVisible", f:function(el){return el.is(':checked');}},
-							{s:"#sMinHour",e:"change keyup", l:"minHour", x:1},
-							{s:"#sMaxHour",e:"change keyup", l:"maxHour", x:1},
-							{s:"#sMinMinute",e:"change keyup", l:"minMinute", x:1},
-							{s:"#sMaxMinute",e:"change keyup", l:"maxMinute", x:1},
+							{s:"#sMinHour",e:"keyup", l:"minHour", x:1},
+							{s:"#sMaxHour",e:"keyup", l:"maxHour", x:1},
+							{s:"#sMinMinute",e:"keyup", l:"minMinute", x:1},
+							{s:"#sMaxMinute",e:"keyup", l:"maxMinute", x:1},
+							{s:"#sMinHour",e:"change", l:"minHour", f:function(el){
+								let v = el.val();
+								if( isNaN(v*1) ) { el.val(0); return 0; }
+								let bk = v*1;
+								v = Math.min(23, Math.max(0,bk));
+								if(me.maxHour !== '' && !isNaN(me.maxHour*1)) {
+									me.maxHour = Math.max(v, me.maxHour*1);
+									$('#sMaxHour').val(me.maxHour);
+								}
+								if( v != bk ) el.val(v);
+								return v;
+							}, x:1},
+							{s:"#sMaxHour",e:"change", l:"maxHour", f:function(el){
+								let v = el.val();
+								if( isNaN(v*1) ) { el.val(23); return 23; }
+								let bk = v*1;
+								v = Math.min(23, Math.max(0,bk));
+								if(me.minHour !== '' && !isNaN(me.minHour*1)) {
+									me.minHour = Math.min(v, me.minHour*1);
+									$('#sMinHour').val(me.minHour);
+								}
+								if( v != bk ) el.val(v);
+								return v;
+							}, x:1},
+							{s:"#sMinMinute",e:"change", l:"minMinute",  f:function(el){
+								let v = el.val();
+								if( isNaN(v*1) ) { el.val(0); return 0; }
+								let bk = v*1;
+								v = Math.min(59, Math.max(0,bk));
+								if( v != bk ) el.val(v);
+								return v;
+							}, x:1},
+							{s:"#sMaxMinute",e:"change", l:"maxMinute", f:function(el){
+								let v = el.val();
+								if( isNaN(v*1) ) { el.val(50); return 59; }
+								let bk = v*1;
+								v = Math.min(59, Math.max(0,bk));
+								if( v != bk ) el.val(v);
+								return v;
+							}, x:1}
 						];
 					$(".working_dates input").on("click", {obj: this}, function(e) {
 						e.data.obj.working_dates[$(this).val()] = $(this).is(':checked');
@@ -330,10 +370,10 @@
 
 					// Fields for timeslots
 					'<hr></hr>'+
-					'<div class="width50 column"><label for="sMinHour">Min Hour</label><input type="text" class="large" name="sMinHour" id="sMinHour" value="'+cff_esc_attr(this.minHour)+'" /></div>'+
-					'<div class="width50 columnr"><label for="sMinMinute">Min Minutes</label><input type="text" class="large" name="sMinMinute" id="sMinMinute" value="'+cff_esc_attr(this.minMinute)+'" /></div>'+
-					'<div class="width50 column"><label for="sMaxHour">Max Hour</label><input type="text" class="large" name="sMaxHour" id="sMaxHour" value="'+cff_esc_attr(this.maxHour)+'" /></div>'+
-					'<div class="width50 columnr"><label for="sMaxMinute">Max Minutes</label><input type="text" class="large" name="sMaxMinute" id="sMaxMinute" value="'+cff_esc_attr(this.maxMinute)+'" /></div><div class="clearer"></div>'+
+					'<div class="width50 column"><label for="sMinHour">Min Hour</label><input type="number" class="large" name="sMinHour" id="sMinHour" value="'+cff_esc_attr(this.minHour)+'" /></div>'+
+					'<div class="width50 columnr"><label for="sMinMinute">Min Minutes</label><input type="number" class="large" name="sMinMinute" id="sMinMinute" value="'+cff_esc_attr(this.minMinute)+'" /></div>'+
+					'<div class="width50 column"><label for="sMaxHour">Max Hour</label><input type="number" class="large" name="sMaxHour" id="sMaxHour" value="'+cff_esc_attr(this.maxHour)+'" /></div>'+
+					'<div class="width50 columnr"><label for="sMaxMinute">Max Minutes</label><input type="number" class="large" name="sMaxMinute" id="sMaxMinute" value="'+cff_esc_attr(this.maxMinute)+'" /></div><div class="clearer"></div>'+
 					this.showSlotsInstance()+
 					'<hr></hr>';
 				}

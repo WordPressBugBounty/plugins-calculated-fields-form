@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.91';
+	$.fbuilder['version'] = '5.3.92';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -854,6 +854,12 @@
 
 					$.fbuilder['getCSSComponent'](this, 'tooltips', true, '.uh-tooltip.cff-form-'+('form' in opt ? opt.form : ''), id);
 
+					$.fbuilder['getCSSComponent'](this, 'thanks_popup', true, '#'+form_id+' div.cff-thanks-message', id);
+					$.fbuilder['getCSSComponent'](this, 'close_thanks_popup', true, '#'+form_id+' div.cff-thanks-message::before', id);
+
+					$.fbuilder['getCSSComponent'](this, 'error_popup', true, '#'+form_id+' div.cff-error-dlg', id);
+					$.fbuilder['getCSSComponent'](this, 'close_error_popup', true, '#'+form_id+' div.cff-error-dlg::before', id);
+
 					$.fbuilder['getCSSComponent'](this, 'error_bubble', true, '#'+form_id+' div.cpefb_error.message', id);
 
 					$.fbuilder['getCSSComponent'](this, 'error_bubble_arrow', true, '#'+form_id+' div.cpefb_error.message::after', id);
@@ -1447,7 +1453,7 @@
 			});
 
 			if ( mssg.length ) {
-				$( 'body' ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' );
+				$( f ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' );
 			}
 		} catch ( err ) { console.log( err ); }
 	};
