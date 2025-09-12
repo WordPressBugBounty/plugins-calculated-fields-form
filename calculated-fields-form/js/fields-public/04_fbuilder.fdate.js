@@ -137,12 +137,16 @@
 							if(x == 'pm' && h != 12) h = h*1+12;
 							if(x == 'am' && h == 12) h = 0;
 						}
-						if(
-							h < i.minHour ||
-							i.maxHour < h ||
-							(h == i.minHour && m < i.minMinute) ||
-							(h == i.maxHour && i.maxMinute < m)
-						) return false;
+
+						let _min = i.minHour*60+i.minMinute,
+							_max = i.maxHour*60+i.maxMinute,
+							_t   = h*60+m*1;
+
+						if( _min <= _max ) {
+							if ( _t < _min || _max < _t) return false;
+						} else {
+							if(_t < _min && _max < _t) return false;
+						}
 					}
 					return true;
 				},
@@ -214,19 +218,25 @@
                 },
 			get_hours:function()
 				{
+					function aux(from, to) {
+						let options = '', h, i = 0;
+						while((h = from+me.stepHour * i) <= to)
+						{
+							if(h < 10) h = '0'+''+h;
+							options += '<option value="'+h+'">'+h+'</option>';
+							i++;
+						}
+						return options;
+					}
+
 					var me = this,
 						str = '',
-						i = 0,
-						h,
 						from = (me.tformat == 12) ? 1  : me.minHour,
 						to   = (me.tformat == 12) ? 12 : me.maxHour;
 
-					while((h = from+me.stepHour * i) <= to)
-					{
-						if(h < 10) h = '0'+''+h;
-						str += '<option value="'+h+'">'+h+'</option>';
-						i++;
-					}
+					if (to < from || ( to == from && me.maxMinute < me.minMinute ) ) str += aux(0, to) + aux(from+(from == to ? 1 : 0), 23);
+					else str += aux(from, to);
+
 					return '<select id="'+me.name+'_hours" name="'+me.name+'_hours" class="hours-component" aria-label="'+cff_esc_attr(me.ariaHourLabel)+'" '+((me.readonly) ? 'DISABLED' : '')+' style="'+cff_esc_attr(me.getCSSComponent('hour'))+'">'+str+'</select>:';
 				},
 			get_minutes:function()
@@ -384,9 +394,16 @@
 							time['minute'] = d.getMinutes();
 						}
 
-						time['hour'] = Math.min(Math.max(time['hour'], me.minHour), me.maxHour);
-						if(time['hour'] <= me.minHour) time['minute'] = Math.max(time['minute'],me.minMinute);
-						if(me.maxHour <= time['hour']) time['minute'] = Math.min(time['minute'],me.maxMinute);
+						if( me.maxHour < me.minHour) {
+							if(me.minHour <= time['hour'] && time['hour'] <= me.maxHour)
+								time['hour'] = Math.abs(me.minHour - time['hour']) < Math.abs(time['hour'] - me.maxHour) ? me.minHour : me.maxHour;
+							if( time['hour'] == me.minHour ) time['minute'] = Math.min(time['minute'],me.minMinute);
+							if( time['hour'] == me.maxHour ) time['minute'] = Math.max(time['minute'],me.maxMinute);
+						} else {
+							time['hour'] = Math.min(Math.max(time['hour'], me.minHour), me.maxHour);
+							if(time['hour'] <= me.minHour) time['minute'] = Math.max(time['minute'],me.minMinute);
+							if(me.maxHour <= time['hour']) time['minute'] = Math.min(time['minute'],me.maxMinute);
+						}
 
 						_setValue(
 							me.name+'_hours',

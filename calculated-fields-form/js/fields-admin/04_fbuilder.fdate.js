@@ -78,6 +78,15 @@
 				},
 			editItemEvents:function()
 				{
+					function aux(el, x, y) {
+						let v = el.val();
+						if( ! /^\d+$/.test(v) ) { el.val(x); return x; }
+						let bk = v*1;
+						v = Math.min(y, Math.max(0,bk));
+						el.val(v);
+						return v;
+					}
+
 					let me  = this,
 						evt = [
 							{s:"#sDropdownRange",e:"keyup", l:"dropdownRange", x:1},
@@ -122,44 +131,16 @@
 							{s:"#sMinMinute",e:"keyup", l:"minMinute", x:1},
 							{s:"#sMaxMinute",e:"keyup", l:"maxMinute", x:1},
 							{s:"#sMinHour",e:"change", l:"minHour", f:function(el){
-								let v = el.val();
-								if( isNaN(v*1) ) { el.val(0); return 0; }
-								let bk = v*1;
-								v = Math.min(23, Math.max(0,bk));
-								if(me.maxHour !== '' && !isNaN(me.maxHour*1)) {
-									me.maxHour = Math.max(v, me.maxHour*1);
-									$('#sMaxHour').val(me.maxHour);
-								}
-								if( v != bk ) el.val(v);
-								return v;
+								return aux(el, 0, 23);
 							}, x:1},
 							{s:"#sMaxHour",e:"change", l:"maxHour", f:function(el){
-								let v = el.val();
-								if( isNaN(v*1) ) { el.val(23); return 23; }
-								let bk = v*1;
-								v = Math.min(23, Math.max(0,bk));
-								if(me.minHour !== '' && !isNaN(me.minHour*1)) {
-									me.minHour = Math.min(v, me.minHour*1);
-									$('#sMinHour').val(me.minHour);
-								}
-								if( v != bk ) el.val(v);
-								return v;
+								return aux(el, 23, 23);
 							}, x:1},
 							{s:"#sMinMinute",e:"change", l:"minMinute",  f:function(el){
-								let v = el.val();
-								if( isNaN(v*1) ) { el.val(0); return 0; }
-								let bk = v*1;
-								v = Math.min(59, Math.max(0,bk));
-								if( v != bk ) el.val(v);
-								return v;
+								return aux(el, 0, 59);
 							}, x:1},
 							{s:"#sMaxMinute",e:"change", l:"maxMinute", f:function(el){
-								let v = el.val();
-								if( isNaN(v*1) ) { el.val(50); return 59; }
-								let bk = v*1;
-								v = Math.min(59, Math.max(0,bk));
-								if( v != bk ) el.val(v);
-								return v;
+								return aux(el, 59, 59);
 							}, x:1},
 							{s:"#sStepHour",e:"change keyup", l:"stepHour", x:1},
 							{s:"#sStepMinute",e:"change keyup", l:"stepMinute", x:1},

@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.93 =
+
+* Implements a new modification to the minimum and maximum supported hours in the date/time control that allows you to enter a minimum hour greater than the maximum hour in order to deactivate intermediate hour intervals. For example, entering 20 as the minimum hour and 7 as the maximum hour will allow you to select hour intervals between 20 and 23 hours and between 0 and 7 hours but not between 7 and 20 hours.
+
 = 5.3.92 =
 
 * Modifies the date and time controls to ensure the minimum and maximum hours are correct.
@@ -1039,11 +1043,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 = 1.2.42 =
 
 * Modifies the predefined value assignments of controls to allow numbers with leading zeros.
-
-= 1.2.41 =
-
-* Improves the plugin security thanks to emad.
-* Includes a new feature to align the fields' labels through their settings.
-* Includes new features to align the form title and description, select the header tag to apply, as well as modify their colors through the form settings tab.
-* Fixes minor errors in the form templates.
-* Modifies the Users Permissions add-on and data source fields backend (Developer and Platinum plugin versions).

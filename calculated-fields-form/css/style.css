@@ -239,7 +239,8 @@
 #fbuilder .fhtml:before{background-color:rgba(179,238,255,0.7);}
 #fbuilder .facceptance:before{background-color:rgba(184,195,211,0.7);}
 #fbuilder .fCalculated:before{background-color:rgba(206,218,191,0.7) !important;}
-.select2-container{z-index:99999;}
+.select2-container{z-index:9999;}
+body:has( #metabox_form_structure.fullscreen ) .select2-container{z-index:99999;}
 .cff-form-builder-backend .select2-container{margin-right:1px;}
 .cff-form-builder-backend .select2-container *{display:initial}
 .cff-form-builder-backend .select2-selection--single{min-height:30px;}
