@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.93
+Stable tag: 5.3.94
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.94 =
+
+* It displays confirmation dialogs during the field deletion process to prevent deleting fields by mistake. This is useful when the field is used by other fields, such as in calculated field equations or data source fields for filtering. It is also useful when deleting a container field (fieldset, div, or popup) that contains other fields.
+
 = 5.3.93 =
 
 * Implements a new modification to the minimum and maximum supported hours in the date/time control that allows you to enter a minimum hour greater than the maximum hour in order to deactivate intermediate hour intervals. For example, entering 20 as the minimum hour and 7 as the maximum hour will allow you to select hour intervals between 20 and 23 hours and between 0 and 7 hours but not between 7 and 20 hours.
@@ -471,8 +475,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Adds a new attribute to the phone controls to configure the symbol that separates phone components.
 * Resolves an issue with switch radio buttons and checkboxes in form template 08 (dark template).
 * Resolves a warning in the iCal add-on (Platinum plugin distribution).
-
-= 5.3.89 =
-
-* Fixes an issue with the forms builder in full mode that prevented access to the dependent fields list.
-* Enables modification of previously added products in WooCommerce (Developer and Platinum plugin distributions).

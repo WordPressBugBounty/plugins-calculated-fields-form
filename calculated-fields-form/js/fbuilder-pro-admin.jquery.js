@@ -344,13 +344,62 @@
 				setTimeout(function(){try{$('#tabs-2 .choicesSet select:visible, #tabs-2 .cf_dependence_field:visible, #tabs-2 #sSelectedField, #tabs-2 #sFieldList').select2();}catch(e){}}, 10);
 			};
 
-		$.fbuilder[ 'removeItem' ] = function( index )
+		$.fbuilder[ 'removeItem' ] = function( index, confirm )
 			{
-				$.fbuilder['deletedFields'][items[ index ]['name']] = 0;
+				confirm = confirm || false;
+
+				let itemToDelete = items[ index ],
+					name = itemToDelete['name'];
+
+				if ( confirm ) {
+					// Check if the field is being used by another field.
+					let aux = function(item) {
+							return item['name'] + (item['title'] != '' ? ' ('+item['title']+')': '');
+						},
+						reg  = new RegExp("\\b"+name+"\\b"),
+						elements = [],
+						mssg = "";
+
+					if ( 'fields' in itemToDelete && Array.isArray( itemToDelete['fields'] ) && itemToDelete['fields'].length ) {
+						elements = itemToDelete['fields'];
+						mssg = "This action will delete the current and contained fields:";
+					} else {
+						mssg = "The field to delete is used in:";
+						for ( let i in items ) {
+							let item = items[i];
+							if (
+								'name' in item &&
+								item['name'] != name
+							) {
+								if ( 'eq' in item && reg.test( item.eq ) ) {
+									elements.push( aux(item) + ' - EQUATION' );
+								} else if (
+									'isDataSource' in item &&
+									'active' in item &&
+									'list' in item &&
+									item['active'] in item['list'] &&
+									reg.test( JSON.stringify( item['list'][item['active']] ) )
+								) {
+									elements.push( aux(item) + ' - DS SETTINGS' );
+								}
+							}
+						}
+					}
+
+					if (
+						elements.length &&
+						! window.confirm( "Warning: Deletion Confirmation. "+mssg+"\n\n" + elements.join("\n") + "\n\nAre you sure you want to proceed with the deletion? This action cannot be undone." )
+					) {
+						return false;
+					}
+				}
+
+				$.fbuilder['deletedFields'][name] = 0;
 				if( typeof items[ index ][ 'remove' ] != 'undefined' ) items[ index ][ 'remove' ]();
 				items[ index ] = 0;
 				selected = -2;
 				$('#tabs').tabs("option", "active", 0);
+				return true;
 			};
 
 		$.fbuilder[ 'duplicateItem' ] = function( index, parentItem )
@@ -628,7 +677,9 @@
 				// Handle events
 				$(document).on('click', '.fields .remove', function(evt){
 					evt.stopPropagation();
-					$.fbuilder[ 'removeItem' ]($(this).closest('.fields').attr("id").replace("field-",""));
+					if(
+						! $.fbuilder[ 'removeItem' ]( $(this).closest('.fields').attr("id").replace("field-",""), true )
+					) return;
 					items = $.grep( items, function( e ){ return (e != 0 ); } );
 					$.fbuilder.reloadItems();
 				});

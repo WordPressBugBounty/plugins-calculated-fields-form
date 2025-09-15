@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.94 =
+
+* It displays confirmation dialogs during the field deletion process to prevent deleting fields by mistake. This is useful when the field is used by other fields, such as in calculated field equations or data source fields for filtering. It is also useful when deleting a container field (fieldset, div, or popup) that contains other fields.
+
 = 5.3.93 =
 
 * Implements a new modification to the minimum and maximum supported hours in the date/time control that allows you to enter a minimum hour greater than the maximum hour in order to deactivate intermediate hour intervals. For example, entering 20 as the minimum hour and 7 as the maximum hour will allow you to select hour intervals between 20 and 23 hours and between 0 and 7 hours but not between 7 and 20 hours.
@@ -991,55 +995,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 = 1.2.50 =
 
 * Fixes an issue with the Readonly attribute in Checkbox, Radio Button, Checkbox DS, and Radion Button DS controls.
-
-= 1.2.49 =
-
-* Implements a Pop-up control.
-* Modifies the form templates.
-* Modifies deprecated jQuery methods.
-* Fixes an issue in the SERVER SIDE Equations add-on (Developer and Platinum plugin versions).
-* Increase the size of the attribute to enter the file content (Platinum plugin version).
-
-= 1.2.48 =
-
-* Fixes a minor issue with equations configured to be evaluated manually.
-* Modifies the settings of DropDown, Checkbox, and Radio Button fields.
-* Modifies the search form builder.
-* Remove invalid characters from the file name in the PDF Generator add-on (Platinum plugin version).
-
-= 1.2.47 =
-
-* Improves the search forms module.
-* Fixes an issue with WEEKNUM operation.
-* Modifies the Managing Fields Operations module to fix an issue with websites that load multiple instances of jQuery.
-* Modifies the submissions' shortcode in the Users Permissions add-on (Developer and Platinum plugin versions).
-
-= 1.2.46 =
-
-* Implements a search box to search by form name and content.
-* Configures the PayPal integration deactivated by default.
-* Includes a new option in the Default Settings section to activate/deactivate the PayPal integration (Professional, Developer, and Platinum plugin versions).
-
-
-= 1.2.45 =
-
-* Fixes a minor issue in the RESETFORM operation and Reset button.
-* Modifies the GETDATEOBJ operation.
-* Modifies the Default Settings section to allow selecting the option to not change the templates used by the forms.
-* Allows controlling the robots metatags in forms and amp pages with the "Do not load the forms with crawlers" attribute in the "Troubleshoot Area & General Settings" section.
-
-= 1.2.44 =
-
-* Modifies the DIV field edition and column identifier.
-* Display characters counter in Text Area controls with max length attribute.
-* Modifies the SHOWFIELD operation.
-* Fixes a minor issue in editable calculated fields.
-
-= 1.2.43 =
-
-* Modifies the forms builder appearance to improve the user experience.
-* Modifies the Stripe add-on to accept other payment methods than card only.
-
-= 1.2.42 =
-
-* Modifies the predefined value assignments of controls to allow numbers with leading zeros.
