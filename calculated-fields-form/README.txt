@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.94
+Stable tag: 5.3.95
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.95 =
+
+* Improves the AI form generation module.
+
 = 5.3.94 =
 
 * It displays confirmation dialogs during the field deletion process to prevent deleting fields by mistake. This is useful when the field is used by other fields, such as in calculated field equations or data source fields for filtering. It is also useful when deleting a container field (fieldset, div, or popup) that contains other fields.
@@ -468,10 +472,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the date and time controls to ensure the minimum and maximum hours are correct.
 * Allows visual customization of the error and thanks message pop-ups through the Form Design/Advanced Design tab.
 * Modifies the Users Permissions add-on to ensure coherence between different levels of accessibility control (Developer and Platinum plugin distributions).
-
-= 5.3.91 =
-= 5.3.90 =
-
-* Adds a new attribute to the phone controls to configure the symbol that separates phone components.
-* Resolves an issue with switch radio buttons and checkboxes in form template 08 (dark template).
-* Resolves a warning in the iCal add-on (Platinum plugin distribution).

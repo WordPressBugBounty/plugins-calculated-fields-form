@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.3.95 =
+
+* Improves the AI form generation module.
+
 = 5.3.94 =
 
 * It displays confirmation dialogs during the field deletion process to prevent deleting fields by mistake. This is useful when the field is used by other fields, such as in calculated field equations or data source fields for filtering. It is also useful when deleting a container field (fieldset, div, or popup) that contains other fields.

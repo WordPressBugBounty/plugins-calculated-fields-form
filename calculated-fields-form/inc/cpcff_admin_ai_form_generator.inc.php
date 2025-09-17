@@ -6,111 +6,224 @@ if ( !is_admin() ) {
 
 if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
 	class CPCFF_AI_FORM_GENERATOR {
+		static private $model = "models/gemini-2.0-flash-lite";
+		static private $base_url = "https://generativelanguage.googleapis.com/v1beta/";
+		static private $cached_content_name = null;
+		static private $cache_ttl = 3600; // 1 hour cache TTL
+		static private $cache_key = 'cff_ai_form_schema';
+		/**
+		 * Create or retrieve cached content for the schema
+		 */
+		static private function get_or_create_cached_content($api_key) {
+			// Load the JSON schema
+			$schema = file_get_contents(plugin_dir_path(__FILE__) . '../js/schema.min.json');
 
-		static private $model 			= "models/gemini-2.0-flash-lite"; // models/gemini-2.0-flash-001
-		static private $base_url		= "https://generativelanguage.googleapis.com/v1beta/";
+			// Check if we have a cached content name stored
+			$cached_name = get_transient(self::$cache_key);
 
-		static public function model_inference( $form_description, $api_key ) {
+			if ($cached_name) {
+				// Verify the cached content still exists
+				if (self::verify_cached_content($cached_name, $api_key)) {
+					return $cached_name;
+				}
+			}
 
-			$caching_url 	= self::$base_url . "cachedContents?key=" . $api_key;
-			$inference_url 	= self::$base_url . self::$model . ":generateContent?key=" . $api_key;
+			// Create new cached content
+			$cached_name = self::create_cached_content($schema, $api_key);
 
-			// Caching the JSON schema.
-			$cache_id = get_transient( 'cff_ai_form_schema' );
-			if ( empty( $cache_id ) ) {
-				$schema = file_get_contents( plugin_dir_path( __FILE__ ) . '../js/schema.min.json' );
+			if ($cached_name) {
+				// Store the cached content name with TTL
+				set_transient(self::$cache_key, $cached_name, self::$cache_ttl);
+			}
+
+			return $cached_name;
+		}
+
+		/**
+		 * Create cached content on Gemini servers
+		 */
+		static private function create_cached_content($schema, $api_key) {
+			$cache_url = self::$base_url . "cachedContents?key=" . $api_key;
+
+			$system_instruction = "You are an expert in coding and form generation. Generate valid JSON that conforms to the provided schema. Always return clean, valid JSON without markdown formatting.";
+
+			$cache_data = [
+				"model" => self::$model,
+				"systemInstruction" => [
+					"parts" => [
+						["text" => $system_instruction]
+					]
+				],
+				"contents" => [
+					[
+						"role" => "user",
+						"parts" => [
+							[
+								"text" => "JSON Schema for form generation:\n\n" . $schema . "\n\nThis schema defines the structure for generating form JSON objects."
+							]
+						]
+					],
+					[
+						"role" => "model",
+						"parts" => [
+							[
+								"text" => "I understand. I will generate JSON form structures that strictly conform to the provided schema. I'll ensure the output is valid JSON without markdown formatting and exclude properties with null values."
+							]
+						]
+					]
+				],
+				"ttl" => self::$cache_ttl . "s"
+			];
+
+			$args = [
+				"headers" => ["Content-Type" => "application/json"],
+				"body" => json_encode($cache_data),
+				"timeout" => 30
+			];
+
+			$response = wp_remote_post($cache_url, $args);
+
+			if (is_wp_error($response)) {
+				// error_log("Failed to create cached content: " . $response->get_error_message());
+				return null;
+			}
+
+			$data = json_decode(wp_remote_retrieve_body($response), true);
+
+			if (!empty($data['error'])) {
+				// error_log("Gemini cache creation error: " . $data['error']['message']);
+				return null;
+			}
+
+			return isset($data['name']) ? $data['name'] : null;
+		}
+
+		/**
+		 * Verify that cached content still exists
+		 */
+		static private function verify_cached_content($cached_name, $api_key) {
+			$verify_url = self::$base_url . $cached_name . "?key=" . $api_key;
+
+			$args = [
+				"method" => "GET",
+				"timeout" => 10
+			];
+
+			$response = wp_remote_get($verify_url, $args);
+
+			if (is_wp_error($response)) {
+				return false;
+			}
+
+			$status_code = wp_remote_retrieve_response_code($response);
+			return $status_code === 200;
+		}
+
+		/**
+		 * Main inference method with caching support
+		 */
+		static public function model_inference($form_description, $api_key) {
+			$inference_url = self::$base_url . self::$model . ":generateContent?key=" . $api_key;
+
+			// Try to use cached content
+			$cached_content_name = self::get_or_create_cached_content($api_key);
+
+			if ($cached_content_name) {
+				// Use cached content approach
+				$prompt = "Generate a JSON form structure based on the provided schema for the following form description:\n\n";
+				$prompt .= "Form description: " . $form_description . "\n\n";
+				$prompt .= "Return only the valid JSON object without markdown formatting or null properties:";
+
 				$data = [
-					"displayName" 	=> "CFFSchemaCache",
-					"model"		  	=> self::$model,
-					"contents" 		=> [
+					"cachedContent" => $cached_content_name,
+					"contents" => [
 						[
-							"role" 	=> "user",
 							"parts" => [
-								["text" => "This is the JSON schema for generating web forms:"],
-								["text" => $schema]
+								["text" => $prompt]
+							]
+						]
+					],
+					"generationConfig" => [
+						"temperature" => 0.0,
+						"topP" => 0.9
+					]
+				];
+			} else {
+				// Fallback to original approach if caching fails
+
+				$schema = file_get_contents(plugin_dir_path(__FILE__) . '../js/schema.min.json');
+				$prompt = "Generate a JSON form structure that strictly conforms to the following JSON schema specifications. The output must be valid JSON syntax that passes schema validation:\n\n";
+				$prompt .= $schema . "\n\n";
+				$prompt .= "The output must be in JSON format. Do NOT use Markdown or enclose the response in triple backticks. Do not include properties with value null.\n";
+				$prompt .= "New form description: " . $form_description . "\nReturn only the JSON object:";
+
+				$data = [
+					"contents" => [
+						[
+							"parts" => [
+								["text" => $prompt]
 							]
 						]
 					],
 					"systemInstruction" => [
-						"parts" 	=> [
-							"text" 	=> "You are an expert in coding"
+						"parts" => [
+							["text" => "You are an expert in coding and form generation. Generate valid JSON that conforms to the provided schema. Always return clean, valid JSON without markdown formatting."]
 						]
 					],
-					"ttl" 			=> "86400s" // Cache for 24 hours
-				];
-
-				$args = [
-					"headers" => [ "Content-Type" => "application/json" ],
-					"body"    => json_encode( $data )
-				];
-
-				$response = wp_remote_post( $caching_url, $args );
-
-				if ( ! is_wp_error( $response ) ) {
-					$cache_result = json_decode( wp_remote_retrieve_body( $response ), true );
-					if ( ! empty( $cache_result )  ) {
-						// if ( ! empty( $cache_result[ 'error' ] ) ) error_log( $cache_result['error']['message'] );
-						if ( empty( $cache_result["error"] ) && isset( $cache_result["name"] ) ) {
-							$cache_id = $cache_result["name"];
-							set_transient( 'cff_ai_form_schema',  $cache_id, intval( $cache_result["expireTime"] ) );
-						}
-					} else {
-						error_log( __( 'Empty AI model answer', 'calculated-field-form' ) );
-					}
-				} else {
-					error_log( $response->get_error_message() );
-				}
-
-			} // End caching process.
-
-			// Generate the prompt.
-			$prompt = "";
-			if ( empty( $cache_id ) ) {
-				$prompt .= "Generate a JSON form structure that strictly conforms to the following JSON schema specifications. The output must be valid JSON syntax that passes schema validation:\n\n$schema\n\n";
-			}
-			$prompt .= "The output must be in JSON format. Do NOT use Markdown or enclose the response in triple backticks. Do not include porperties with value null.\n";
-			$prompt .= "New form description: $form_description\nReturn only the JSON object:";
-
-			$data = [ 'contents' => [[ 'parts' => [[ 'text' => $prompt ]] ]], "generationConfig" => [ "temperature" => 0.0, "topP" => 0.9 ] ];
-
-			if ( ! empty( $cache_id ) ) {
-				$data['generationConfig'] = [
-					"explicitContextCaching" => true,
-					"cachedContent" => $cache_id // Reference cached schema
+					"generationConfig" => [
+						"temperature" => 0.0,
+						"topP" => 0.9
+					]
 				];
 			}
 
-			// Inferring the model to generate the form.
-			$body = json_encode( $data );
-			$response = wp_remote_post( $inference_url, [
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'body' => $body,
-				'timeout' => 20,
-			]);
+			$args = [
+				"headers" => ["Content-Type" => "application/json"],
+				"body" => json_encode($data),
+				"timeout" => 45
+			];
 
-			if ( is_wp_error( $response ) ) {
-				throw new Exception( $response->get_error_message() );
+			$response = wp_remote_post($inference_url, $args);
+
+			if (is_wp_error($response)) {
+				throw new Exception($response->get_error_message());
 			}
 
 			$data = json_decode(wp_remote_retrieve_body($response), true);
-			$exception = new Exception( __( 'Empty AI model answer', 'calculated-field-form' ) );
+			$exception = new Exception(__('Empty AI model answer', 'calculated-field-form'));
 
-			if( empty( $data ) ) throw $exception;
-			if ( ! empty( $data[ 'error' ] ) ) throw new Exception( $data['error']['message'] );
+			if (empty($data)) throw $exception;
+
+			if (!empty($data['error'])) {
+				throw new Exception($data['error']['message']);
+			}
+
 			try {
 				$output = $data['candidates'][0]['content']['parts'][0]['text'];
-				// Remove markdown characters from the beginning and end and minifiy the JSON:
+				// Remove markdown characters from the beginning and end and minify the JSON:
 				$output = preg_replace('/^```json\s*(.*?)\s*```$/s', '$1', $output);
-				$output = json_decode( $output, true );
-				$output = json_encode( $output );
-			} catch ( Exception $err ) {
+				$output = json_decode($output, true);
+				$output = json_encode($output);
+			} catch (Exception $err) {
 				throw $exception;
 			}
 
 			return $output;
+		}
 
-		} // End model_inference.
+		/**
+		 * Manually clear cached content (useful for debugging or schema updates)
+		 */
+		static public function clear_cache($api_key = null) {
+			// Clear WordPress transient
+			delete_transient(self::$cache_key);
 
+			// Optionally delete from Gemini servers if API key provided
+			if ($api_key && self::$cached_content_name) {
+				$delete_url = self::$base_url . self::$cached_content_name . "?key=" . $api_key;
+				wp_remote_request($delete_url, ["method" => "DELETE"]);
+			}
+		}
 	} // End class CPCFF_AI_FORM_GENERATOR.
 }
 
