@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.3.96 =
+
+* Modifies the form builder to improve access to the basic and advanced settings of the fields.
+* It modifies the advanced settings in the container fields (div, fieldset, and popup) to provide more control over field designs.
+* It includes additional attributes in the script tags to ensure that the 'Complianz | GDPR/CCPA Cookie Consent' plugin does not block them.
+
 = 5.3.95 =
 
 * Improves the AI form generation module.

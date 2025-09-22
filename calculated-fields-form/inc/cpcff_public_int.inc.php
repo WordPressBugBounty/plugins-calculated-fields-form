@@ -142,7 +142,7 @@ if ( property_exists( $form_data[1][0], 'direction' ) ) {
 <input type="hidden" name="cp_calculatedfieldsf_pform_psequence" value="_<?php echo esc_attr( CPCFF_MAIN::$form_counter ); ?>" />
 <input type="hidden" name="cp_calculatedfieldsf_id" value="<?php echo esc_attr( $id ); ?>" />
 <input type="hidden" name="cp_ref_page" value="<?php echo esc_attr( CPCFF_AUXILIARY::site_url() ); ?>" />
-<pre style="display:none !important;"><script type="text/javascript">form_structure_<?php echo esc_js( CPCFF_MAIN::$form_counter ); ?>=<?php print str_replace( array( "\n", "\r" ), ' ', ( ( version_compare( CP_CFF_PHPVERSION, '5.3.0' ) >= 0 ) ? json_encode( $form_data, JSON_HEX_QUOT | JSON_HEX_TAG ) : json_encode( $form_data ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>;</script></pre>
+<pre style="display:none !important;"><script data-category="functional" type="text/javascript">form_structure_<?php echo esc_js( CPCFF_MAIN::$form_counter ); ?>=<?php print str_replace( array( "\n", "\r" ), ' ', ( ( version_compare( CP_CFF_PHPVERSION, '5.3.0' ) >= 0 ) ? json_encode( $form_data, JSON_HEX_QUOT | JSON_HEX_TAG ) : json_encode( $form_data ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>;</script></pre>
 <div id="fbuilder">
 	<?php
 	if (

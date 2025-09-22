@@ -88,7 +88,7 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 
 	$message = __( 'Item added', 'calculated-fields-form' );
 	if ( $new_form ) {
-		print "<script>document.location = 'admin.php?page=cp_calculated_fields_form&cal=" . esc_js( $new_form->get_id() ) . '&r=' . esc_js( rand() ) . '&_cpcff_nonce=' . esc_js( wp_create_nonce( 'cff-form-settings' ) ) . "';</script>";
+		print "<script data-category=\"functional\">document.location = 'admin.php?page=cp_calculated_fields_form&cal=" . esc_js( $new_form->get_id() ) . '&r=' . esc_js( rand() ) . '&_cpcff_nonce=' . esc_js( wp_create_nonce( 'cff-form-settings' ) ) . "';</script>";
 	}
 } elseif ( ! empty( $_GET['u'] ) ) {
 	check_admin_referer( 'cff-update-form', '_cpcff_nonce' );
@@ -180,7 +180,7 @@ endif;
 ?>
 <h1><?php esc_html_e( 'Calculated Fields Form', 'calculated-fields-form' ); ?></h1>
 
-<script type="text/javascript">
+<script data-category="functional" type="text/javascript">
 var cff_metabox_nonce = '<?php print esc_js( wp_create_nonce( 'cff-metabox-status' ) ); ?>';
 window.addEventListener('load', function() {
 	let $ = jQuery;
@@ -665,6 +665,6 @@ function cp_update_default_settings(e)
 </div><!-- End Marketplace Section -->
 [<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://cff.dwbooster.com/download" target="_blank"><?php esc_html_e( 'Upgrade', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
 </div>
-<script>cff_current_version='free';</script>
-<script src="https://cff-bundles.dwbooster.com/plugins/plugins.js?v=<?php print esc_attr( CP_CALCULATEDFIELDSF_VERSION . '_' . gmdate( 'Y-m-d' ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>"></script>
-<script src="<?php print esc_attr( plugins_url( '/vendors/forms.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) . '?v=' . CP_CALCULATEDFIELDSF_VERSION . '_' . gmdate( 'Y-m-d' ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>"></script>
+<script data-category="functional">cff_current_version='free';</script>
+<script data-category="functional" src="https://cff-bundles.dwbooster.com/plugins/plugins.js?v=<?php print esc_attr( CP_CALCULATEDFIELDSF_VERSION . '_' . gmdate( 'Y-m-d' ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>"></script>
+<script data-category="functional" src="<?php print esc_attr( plugins_url( '/vendors/forms.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) . '?v=' . CP_CALCULATEDFIELDSF_VERSION . '_' . gmdate( 'Y-m-d' ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>"></script>

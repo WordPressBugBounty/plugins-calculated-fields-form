@@ -457,11 +457,13 @@ textarea {resize: none}
 .form-builder #tabs-1,
 .form-builder #tabs-2,
 .form-builder #tabs-3{top:41px;bottom:2px;left:0;right:2px;position:absolute;overflow-y:auto;overflow-x:hidden;}
+.form-builder #tabs-2{overflow-y:hidden;}
 
 /* FIELDS SETTINGS TABS */
 .cff-field-settings-tabs-headers{
 	width: calc( 100% + 2.8em );
 	margin-left: -1.4em;
+	border-bottom:1px solid #2271b1;
 }
 .cff-field-settings-tabs-headers .cff-field-settings-tab-header-basic,
 .cff-field-settings-tabs-headers .cff-field-settings-tab-header-advanced{
@@ -480,12 +482,16 @@ textarea {resize: none}
 	border-bottom:1px solid #fff;
 	position: relative;
 	cursor:initial;
+	margin-bottom: -1px !important;
 }
-.cff-field-settings-tabs-headers .cff-field-settings-tabs-border{
-	width:100%;
-	height:1px;
-	background: #2271b1;
-	margin-top:-1px;
+.cff-field-settings-tabs-bodies{
+	overflow-y:auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 50px;
+    padding: 0 15px 15px 15px;
 }
 .cff-field-settings-tabs-bodies .cff-field-settings-tab-body-basic,
 .cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced{
@@ -776,8 +782,8 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 	.cff-form-name{display:none !important;}
 	.cff-revisions-container{float:none; width:100%;padding:10px 5% 0 5%;}
 	.cff_form_builder .postbox .cff-revisions-container select{width:90% !important;}
-	.form-builder #tabs-2 div,
-	.form-builder #tabs-3 div{margin-bottom:10px;}
+	.form-builder #tabs-2>div,
+	.form-builder #tabs-3>div{margin-bottom:10px;}
 	.form-builder #tabs-3 .groupBox label{display:block;margin-bottom:5px;}
 	table.form-table tbody{display:block;width:100% !important;}
 

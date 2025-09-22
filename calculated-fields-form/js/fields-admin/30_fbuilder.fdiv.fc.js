@@ -22,6 +22,8 @@
 					delete this.advanced.css['label'];
 					delete this.advanced.css['input'];
 					delete this.advanced.css['help'];
+					if( 'container' in this.advanced.css )  this.advanced.css.container.label = 'Fields container div tag';
+					if( ! ( 'field' in this.advanced.css ) ) this.advanced.css['field'] = {'label': 'Field', 'rules': {}};
 				},
 			display:function( css_class )
 				{

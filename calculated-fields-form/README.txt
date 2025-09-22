@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.95
+Stable tag: 5.3.96
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.96 =
+
+* Modifies the form builder to improve access to the basic and advanced settings of the fields.
+* It modifies the advanced settings in the container fields (div, fieldset, and popup) to provide more control over field designs.
+* It includes additional attributes in the script tags to ensure that the 'Complianz | GDPR/CCPA Cookie Consent' plugin does not block them.
+
 = 5.3.95 =
 
 * Improves the AI form generation module.
@@ -466,9 +472,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.93 =
 
 * Implements a new modification to the minimum and maximum supported hours in the date/time control that allows you to enter a minimum hour greater than the maximum hour in order to deactivate intermediate hour intervals. For example, entering 20 as the minimum hour and 7 as the maximum hour will allow you to select hour intervals between 20 and 23 hours and between 0 and 7 hours but not between 7 and 20 hours.
-
-= 5.3.92 =
-
-* Modifies the date and time controls to ensure the minimum and maximum hours are correct.
-* Allows visual customization of the error and thanks message pop-ups through the Form Design/Advanced Design tab.
-* Modifies the Users Permissions add-on to ensure coherence between different levels of accessibility control (Developer and Platinum plugin distributions).

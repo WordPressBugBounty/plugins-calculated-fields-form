@@ -1895,7 +1895,6 @@
 					output = '<div class="cff-field-settings-tabs-headers">'+
 						'<div class="cff-field-settings-tab-header-basic cff-field-settings-tab-active">Basic Settings</div>'+
 						'<div class="cff-field-settings-tab-header-advanced">Advanced Settings</div>'+
-						'<div class="cff-field-settings-tabs-border"></div>'+
 					'</div>'+
 					'<div class="cff-field-settings-tabs-bodies">'+
 						'<div class="cff-field-settings-tab-body-basic cff-field-settings-tab-body-active">' + output + '<!-- Embed Basic Extra --></div>'+

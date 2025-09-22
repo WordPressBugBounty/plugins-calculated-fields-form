@@ -9,8 +9,8 @@ if ( !is_admin() )
 wp_enqueue_style('cff-ai-assistant-css', plugins_url( '/css/style.ai.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION);
 
 ?>
-<script type="module" src="<?php print esc_attr( plugins_url( '/js/ai-assistant.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); ?>"></script>
-<script><?php
+<script data-category="functional" type="module" src="<?php print esc_attr( plugins_url( '/js/ai-assistant.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); ?>"></script>
+<script data-category="functional"><?php
 	$ai_config_obj = [
 		'typing' 		 	=> __( 'Typing...', 'calculated-fields-form' ),
 		'generating' 	 	=> __( 'Generating...', 'calculated-fields-form' ),

@@ -142,7 +142,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					<link href="<?php print esc_attr( plugins_url( '/vendors/jquery-ui/jquery-ui.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" />
 					<link href="<?php print esc_attr( plugins_url( '/vendors/jquery-ui/jquery-ui-1.12.icon-font.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" />
 					<pre style="display:none;">
-						<script type="text/javascript">
+						<script data-category="functional" type="text/javascript">
 							var cff_metabox_nonce = '<?php print esc_js( wp_create_nonce( 'cff-metabox-status' ) ); ?>';
 							try
 							{
@@ -525,7 +525,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					<div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e( 'Up to form structure', 'calculated-fields-form' ); ?></a></div>
 				</div>
 			</div>
-			<script>
+			<script data-category="functional">
 			jQuery(document).on('change', '[name="enable_submit"]', function(){
 				if ( 'no' == jQuery('[name="enable_submit"]').val() ) {
 					jQuery('.disable-submissions-section').css('display', 'inline-block');
@@ -747,7 +747,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 										</td>
 									</tr>
 								</table>
-								<script>
+								<script data-category="functional">
 								jQuery(document).on('change', '[name="enable_pay_later"]', function(){
 									jQuery('#metabox_pay_later')[( this.tagName == 'INPUT' && this.checked ) || this.value*1 ? 'addClass' : 'removeClass' ]('cff-payment-gateway-enabled');
 								});

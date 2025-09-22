@@ -563,7 +563,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				if(!empty($wp_scripts)) $wp_scripts->do_items();
 
 				$output .= ob_get_contents();
-				$output .= '<script>document.forms[0].onsubmit=document.forms[0].submit=function(){alert("' . esc_js( esc_html__( 'This is a preview of the form, letting you see its setup and design before it goes live.', 'calculated-fields-form' ) ) . '");return false;};</script>';
+				$output .= '<script data-category="functional">document.forms[0].onsubmit=document.forms[0].submit=function(){alert("' . esc_js( esc_html__( 'This is a preview of the form, letting you see its setup and design before it goes live.', 'calculated-fields-form' ) ) . '");return false;};</script>';
 
 				$output = '<style>
 					#codepeople-review-banner{box-sizing:border-box; border:10px solid #EEE;background:#FFF;display:table;visibility:visible !important;margin-bottom:15px;width:100% !important;}
@@ -650,7 +650,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						preg_match( '/(' . preg_quote('<%from_page%>'). ')|(' . preg_quote( '/admin.php', '/' ) . ')/i', $this->_current_form->get_option('fp_return_page', '') )
 					)
 				) {
-					$message .= '<script>document.forms[0].onsubmit=document.forms[0].submit=function(){alert("' . esc_js( esc_html__( 'This is a preview of the form, letting you see its setup and design before it goes live.', 'calculated-fields-form' ) ) . '");return false;};</script>';
+					$message .= '<script data-category="functional">document.forms[0].onsubmit=document.forms[0].submit=function(){alert("' . esc_js( esc_html__( 'This is a preview of the form, letting you see its setup and design before it goes live.', 'calculated-fields-form' ) ) . '");return false;};</script>';
 
 				}
 
@@ -753,7 +753,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					}
 
 					$iframe_id  = 'cff-iframe-' . ++self::$iframe_counter;
-					$iframe_tag = '<script type="text/javascript">window.addEventListener("message", function(e) {
+					$iframe_tag = '<script data-category="functional" type="text/javascript">window.addEventListener("message", function(e) {
 							if ("data" in e && typeof e.data == "object" && ! Array.isArray(e.data) && "cff_height" in e.data && "cff_iframe" in e.data) {
 								try{
 									let el = document.getElementById(e.data.cff_iframe);
@@ -810,7 +810,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 				// The attributes excepting "id" are converted in javascript variables with a global scope.
 				if ( count( $atts ) > 1 ) {
-					$content .= '<script>';
+					$content .= '<script data-category="functional">';
 					foreach ( $atts as $i => $v ) {
 						if ( 'id' != $i && 'class' != $i && ! is_numeric( $i ) ) {
 							$nV = ( is_numeric( $v ) ) ? $v : json_encode( $v ); // Sanitizing the attribute's value.
@@ -885,7 +885,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					if ( is_scalar( $var ) ) {
 						$var = preg_replace( '/[^a-z0-9_\-]/i', '', $var );
 						return '
-						<script>
+						<script data-category="functional">
 							try{
 							if( ! ( "cff_var" in window ) )	window["cff_var"] = {};
 							window["cff_var"]["' . $var . '"]=' . $value . ';
@@ -1179,42 +1179,42 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					$prefix_ui = ( @file_exists( CP_CALCULATEDFIELDSF_BASE_PATH . '/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js' ) ) ? 'jquery.ui.' : '';
 
 					if ( ! wp_script_is( 'jquery', 'done' ) ) {
-						print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/jquery.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+						print '<script data-category="functional" type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/jquery.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 					}
 					if ( ! wp_script_is( 'jquery-ui-core', 'done' ) ) {
-						print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'core.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+						print '<script data-category="functional" type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'core.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 					}
 					if ( ! wp_script_is( 'jquery-ui-datepicker', 'done' ) ) {
-						print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'datepicker.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+						print '<script data-category="functional" type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'datepicker.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 					}
 
 					if ( version_compare( $wp_version, '5.5.4', '<' ) ) {
 						if ( ! wp_script_is( 'jquery-ui-widget', 'done' ) ) {
-							print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'widget.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+							print '<script data-category="functional" type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'widget.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 						}
 						if ( ! wp_script_is( 'jquery-ui-position', 'done' ) ) {
-							print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'position.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+							print '<script data-category="functional" type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'position.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 						}
 					}
 
 					if ( ! wp_script_is( 'jquery-ui-tooltip', 'done' ) ) {
-						print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'tooltip.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+						print '<script data-category="functional" type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'tooltip.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 					}
 					if ( ! wp_script_is( 'jquery-ui-mouse', 'done' ) ) {
-						print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'mouse.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+						print '<script data-category="functional" type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'mouse.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 					}
 					if ( ! wp_script_is( 'jquery-ui-slider', 'done' ) ) {
-						print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'slider.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+						print '<script data-category="functional" type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'slider.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 					}
 					?>
-					<script type='text/javascript'> if( typeof fbuilderjQuery == 'undefined' && typeof jQuery != 'undefined' ) fbuilderjQuery = jQuery;</script>
-					<script type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/jquery.validate.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
-					<script type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/purify.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
-					<script type='text/javascript' src='<?php echo esc_attr( $public_js_path . ( ( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ) . 'ver=' . CP_CALCULATEDFIELDSF_VERSION ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
+					<script data-category="functional" type='text/javascript'> if( typeof fbuilderjQuery == 'undefined' && typeof jQuery != 'undefined' ) fbuilderjQuery = jQuery;</script>
+					<script data-category="functional" type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/jquery.validate.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
+					<script data-category="functional" type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/purify.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
+					<script data-category="functional" type='text/javascript' src='<?php echo esc_attr( $public_js_path . ( ( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ) . 'ver=' . CP_CALCULATEDFIELDSF_VERSION ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
 					<?php
 				}
 				?>
-				<pre style="display:none !important;"><script type='text/javascript'><?php
+				<pre style="display:none !important;"><script data-category="functional" type='text/javascript'><?php
 					print 'cp_calculatedfieldsf_fbuilder_config_' . esc_js( self::$form_counter ) . '={"obj":' . $config_json . '};'; // phpcs:ignore WordPress.Security.EscapeOutput
 				?></script></pre>
 				<?php

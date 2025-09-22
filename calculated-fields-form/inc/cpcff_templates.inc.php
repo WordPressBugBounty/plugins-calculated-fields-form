@@ -147,7 +147,7 @@ if ( ! class_exists( 'CPCFF_TEMPLATES' ) ) {
 						 wp_enqueue_script( 'cpcff_template_js' . $template, $js, array(), CP_CALCULATEDFIELDSF_VERSION );
 					} else {
 						$js .= ( strpos( $js, '?' ) === false ) ? '?' : '&';
-						print '<script src="' . esc_attr( esc_url( $js ) ) . 'ver=' . esc_attr( CP_CALCULATEDFIELDSF_VERSION ) . '"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
+						print '<script data-category="functional" src="' . esc_attr( esc_url( $js ) ) . 'ver=' . esc_attr( CP_CALCULATEDFIELDSF_VERSION ) . '"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 					}
 				}
 			}

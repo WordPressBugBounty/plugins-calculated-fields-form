@@ -31,6 +31,7 @@
 			initAdv: function(){
 					delete this.advanced.css.input;
 					delete this.advanced.css.help;
+					if ( 'container' in this.advanced.css )  this.advanced.css.container.label = 'Field';
 					if ( ! ( 'header' in this.advanced.css ) ) this.advanced.css.header = {label: 'Header area',rules:{}};
 					if ( ! ( 'close' in this.advanced.css ) ) this.advanced.css.close = {label: 'Close button',rules:{}};
 					if ( ! ( 'content' in this.advanced.css ) ) this.advanced.css.content = {label: 'Content area',rules:{}};
