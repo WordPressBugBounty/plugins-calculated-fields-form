@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.96
+Stable tag: 5.3.97
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,7 @@ Payments allow SCA (strong customer authentication), compatible with the new pay
 
 * [PayPal Pro add-on](https://cff.dwbooster.com/add-ons/paypal-pro): Accept credit card payments directly on your site, no redirection to PayPal.
 * [PayPal Checkout add-on](https://cff.dwbooster.com/add-ons/paypal-checkout): Integrates PayPal Checkout with support for more payment methods than PayPal Standard.
+* [Revolut add-on](https://cff.dwbooster.com/add-ons/revolut): Accept payments through Revolut.
 * [Authorize.Net add-on](https://cff.dwbooster.com/add-ons/authorize): Accept payments through Authorize.Net.
 * [Stripe add-on](https://cff.dwbooster.com/add-ons/stripe): Accept payments using the Stripe payment gateway.
 * [Stripe Checkout add-on](https://cff.dwbooster.com/add-ons/stripe-checkout): Uses Stripe Checkout for secure form-based payments.
@@ -455,6 +456,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.97 =
+
+* Adds a new set of form templates.
+* Improves AI form generation.
+* Fixes a minor issue with displaying field labels in the request cost attribute.
+* Supports the Revolut payment gateway (Platinum plugin distribution).
+
 = 5.3.96 =
 
 * Modifies the form builder to improve access to the basic and advanced settings of the fields.
@@ -468,7 +476,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.94 =
 
 * It displays confirmation dialogs during the field deletion process to prevent deleting fields by mistake. This is useful when the field is used by other fields, such as in calculated field equations or data source fields for filtering. It is also useful when deleting a container field (fieldset, div, or popup) that contains other fields.
-
-= 5.3.93 =
-
-* Implements a new modification to the minimum and maximum supported hours in the date/time control that allows you to enter a minimum hour greater than the maximum hour in order to deactivate intermediate hour intervals. For example, entering 20 as the minimum hour and 7 as the maximum hour will allow you to select hour intervals between 20 and 23 hours and between 0 and 7 hours but not between 7 and 20 hours.

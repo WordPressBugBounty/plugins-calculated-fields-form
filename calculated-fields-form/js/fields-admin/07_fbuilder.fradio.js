@@ -19,7 +19,12 @@
 			accept_html:false,
             readonly:false,
 			toSubmit:'text',
+
+			choices:[],
+			choicesVal:[],
+			choicesDep:[],
 			choiceSelected:"",
+
 			showDep:false,
 			untickAccepted:true,
             onoff:0,

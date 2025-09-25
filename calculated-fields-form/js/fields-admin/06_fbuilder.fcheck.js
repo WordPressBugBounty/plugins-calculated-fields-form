@@ -20,6 +20,11 @@
             readonly:false,
 			toSubmit:'text',
 
+			choices: [],
+			choicesVal:[],
+			choiceSelected:[],
+			choicesDep:[],
+
 			merge:1,
 			onoff:0,
 			quantity:0,

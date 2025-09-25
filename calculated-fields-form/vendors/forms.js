@@ -18,6 +18,42 @@ cff_forms_templates = {
 			"thumb": "19.png",
             "id": 19
         }, {
+            "title": "Newsletter Subscription Form",
+            "category": "Basic Operations",
+            "description": "The newsletter subscription form includes fields for the user's first and last name, email address, and subscription preferences.",
+			"thumb": "76.png",
+            "id": 76
+        }, {
+            "title": "User Registration Form",
+            "category": "Basic Operations",
+            "description": "The user registration form includes fields for a username, email address, password, and confirmation password. The password field has advanced rules to ensure users create strong passwords.",
+			"thumb": "77.png",
+            "id": 77
+        }, {
+            "title": "Lead Generation Form",
+            "category": "Basic Operations",
+            "description": "Collect contact info for sales or marketing.",
+			"thumb": "78.png",
+            "id": 78
+        }, {
+            "title": "Quote / Request a Proposal Form",
+            "category": "Basic Operations",
+            "description": "Let users request a custom quote or project proposal.",
+			"thumb": "79.png",
+            "id": 79
+        }, {
+            "title": "Job Application Form",
+            "category": "Basic Operations",
+            "description": "Collect applications for open positions.",
+			"thumb": "80.png",
+            "id": 80
+        }, {
+            "title": "Support / Help Desk Form",
+            "category": "Basic Operations",
+            "description": "Let users submit support requests or open tickets.",
+			"thumb": "81.png",
+            "id": 81
+        }, {
             "title": "Checkbox and Radio Buttons with Images",
             "category": "Basic Operations",
             "description": "Use img tags in the texts of checkboxes and radio buttons.",

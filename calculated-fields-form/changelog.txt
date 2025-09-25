@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.3.97 =
+
+* Adds a new set of form templates.
+* Improves AI form generation.
+* Fixes a minor issue with displaying field labels in the request cost attribute.
+* Supports the Revolut payment gateway (Platinum plugin distribution).
+
 = 5.3.96 =
 
 * Modifies the form builder to improve access to the basic and advanced settings of the fields.

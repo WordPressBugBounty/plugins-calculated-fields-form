@@ -19,7 +19,13 @@
 			accept_html:false,
 			toSubmit:'text',
 			merge:0,
+
+			choices:[],
+			choicesVal:[],
+			choicesDep:[],
+			optgroup:[],
 			choiceSelected:"",
+
             select2: false,
 			multiple: false,
 			first_choice:false,

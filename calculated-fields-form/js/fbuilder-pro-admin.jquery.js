@@ -810,6 +810,11 @@
 				if( !$.isEmptyObject( args[ 'field' ] ) )
 				{
 					replaceFieldTags( args[ 'field' ] );
+					if ( 'title' in args[ 'field' ] && 'name' in args[ 'field' ] ) {
+						let text = cff_esc_attr(args[ 'field' ].name+' ('+cff_sanitize(args[ 'field' ].title, true)+')');
+						$('#request_cost option[value="'+args[ 'field' ]['name']+'"]').text(text);
+						$('[name="paypal_recurrent_field"] option[value="'+args[ 'field' ]['name']+'"]').text(text);
+					}
 				}
 				else if( args['form'] )
 				{
