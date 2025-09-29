@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.97
+Stable tag: 5.3.98
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -456,6 +456,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.98 =
+
+* Improves Date/Time and Date/Time slot controls.
+* Adds a new feature to the WooCommerce add-on that adds form-collected information to WooCommerce webhooks data (developer and platinum plugin distributions).
+
 = 5.3.97 =
 
 * Adds a new set of form templates.
@@ -472,7 +477,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.3.95 =
 
 * Improves the AI form generation module.
-
-= 5.3.94 =
-
-* It displays confirmation dialogs during the field deletion process to prevent deleting fields by mistake. This is useful when the field is used by other fields, such as in calculated field equations or data source fields for filtering. It is also useful when deleting a container field (fieldset, div, or popup) that contains other fields.

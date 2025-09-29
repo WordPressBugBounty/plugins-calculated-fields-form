@@ -418,6 +418,7 @@
 				},
 			set_minDate:function(v, ignore)
 				{
+					if ( ! ( typeof v == 'number' || typeof v == 'string' || v instanceof Date ) ) return;
 					var e = $('[id*="'+this.name+'_"].hasDatepicker'), f;
 					if(e.length)
 					{
@@ -433,6 +434,7 @@
 				},
 			set_maxDate:function(v, ignore)
 				{
+					if ( ! ( typeof v == 'number' || typeof v == 'string' || v instanceof Date ) ) return;
 					var e = $('[id*="'+this.name+'_"].hasDatepicker'), f;
 					if(e.length)
 					{
@@ -448,11 +450,12 @@
 				},
 			set_defaultDate : function(init)
 				{
-					var me = this,
-						p  = {
+					var me  = this,
+						aux = function (v) { return ( typeof v == 'number' || typeof v == 'string' || v instanceof Date ) ? v : ''; },
+						p   = {
 							dateFormat: me.dformat.replace(/yyyy/g,"yy"),
-							minDate: me._getAttr('minDate'),
-							maxDate: me._getAttr('maxDate'),
+							minDate: aux(me._getAttr('minDate')),
+							maxDate: aux(me._getAttr('maxDate')),
                             firstDay: (me.mondayFirstDay ? 1 : 0),
 							disabled: me.readonly,
 							beforeShow: function() {

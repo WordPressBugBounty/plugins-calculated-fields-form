@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.97';
+	$.fbuilder['version'] = '5.3.98';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1113,7 +1113,7 @@
 						{
 							v = f.val(raw, true);
 							if(!raw && $.fbuilder.isNumeric(v)) v = parseFloat(v);
-							if(f.ftype == 'fdate' && $.fbuilder.isNumeric(v) && v) v = CDATE(v, me.dformat);
+							if( (f.ftype == 'fdate' || f.ftype == 'fdateds' ) && $.fbuilder.isNumeric(v) && v) v = CDATE(v, me.dformat);
 						}
 						return v;
 					},
