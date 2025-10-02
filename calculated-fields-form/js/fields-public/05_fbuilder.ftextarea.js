@@ -37,15 +37,12 @@
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)');
-					if(e.length)
-					{
-						var v = $.fbuilder.parseValStr(e.val(), raw, no_quotes);
-						if(!raw) v = String(v).replace(/[\n\r]+/g, ' ');
-						else if(!no_quotes) v = String(v).replace(/^"/, "`").replace(/"$/, "`");
-						return v;
-					}
-					return 0;
+					var e = $('[id="'+this.name+'"]:not(.ignore)'),
+						v = e.length ? e.val() : (raw ? '' : 0);
+					v = $.fbuilder.parseValStr(v, raw, no_quotes);
+					if(!raw) v = String(v).replace(/[\n\r]+/g, ' ');
+					else if(!no_quotes) v = String(v).replace(/^"/, "`").replace(/"$/, "`");
+					return v;
 				},
 			setVal:function( v, nochange )
 				{

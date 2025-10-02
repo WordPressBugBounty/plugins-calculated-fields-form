@@ -49,12 +49,10 @@
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)'), v;
-					if(e.length) {
-						v = $.fbuilder.parseValStr(e.val(), raw, no_quotes);
-						return (raw && ! no_quotes && ! isNaN( v ) ) ? '"'+v+'"' : v;
-					}
-					return 0;
+					var e = $('[id="'+this.name+'"]:not(.ignore)'),
+						v = e.length ? e.val() : (raw ? '' : 0);
+					v = $.fbuilder.parseValStr(v, raw, no_quotes);
+					return (raw && ! no_quotes && ! isNaN( v ) ) ? '"'+v+'"' : v;
 				}
 		}
 	);

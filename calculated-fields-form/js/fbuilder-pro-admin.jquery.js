@@ -1346,7 +1346,12 @@
 		},
 		showPredefined: function(v,c)
 		{
-			return '<div><label for="sPredefined">Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+cff_esc_attr(v)+'</textarea><br /><i>It is possible to use another field in the form as predefined value. Ex: fieldname1</i><label><input type="checkbox" name="sPredefinedClick" id="sPredefinedClick" '+((c)?"checked":"")+' value="1" > Use predefined value as placeholder.</label></div>';
+			return '<div><label for="sPredefined">Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+cff_esc_attr(v)+'</textarea><br />'+
+			'<i>It is possible to use:<br>'+
+			'* <b>Another field</b> in the form as predefined value. Ex: fieldname1<br>'+
+			'* A <b>URL parameter</b>. Ex: url.param_name<br>'+
+			'* Or a global <b>JS variable</b>. Ex: var.variable_name</i>'+
+			'<label><input type="checkbox" name="sPredefinedClick" id="sPredefinedClick" '+((c)?"checked":"")+' value="1" > Use predefined value as placeholder.</label></div>';
 		},
 		showEqualTo: function(v,name)
 		{

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.8
-Stable tag: 5.3.98
+Stable tag: 5.3.99
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -456,6 +456,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.3.99 =
+
+* Allows you to use url.param_name and var.variable_name as predefined field values to fill in fields with URL parameters and global JavaScript variables, respectively.
+
 = 5.3.98 =
 
 * Improves Date/Time and Date/Time slot controls.
@@ -473,7 +477,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the form builder to improve access to the basic and advanced settings of the fields.
 * It modifies the advanced settings in the container fields (div, fieldset, and popup) to provide more control over field designs.
 * It includes additional attributes in the script tags to ensure that the 'Complianz | GDPR/CCPA Cookie Consent' plugin does not block them.
-
-= 5.3.95 =
-
-* Improves the AI form generation module.

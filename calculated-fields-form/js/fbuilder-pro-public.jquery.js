@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.3.98';
+	$.fbuilder['version'] = '5.3.99';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1106,15 +1106,20 @@
 				init:function(){},
 				_getAttr:function(attr, raw)
 					{
-						var me = this, f, v = String(me[attr]).trim(), raw = raw || false;
-						if(!raw && $.fbuilder.isNumeric(v)) return parseFloat(v);
-						f = (/^fieldname\d+$/i.test(v)) ? me.getField(v) : false;
-						if(f)
-						{
-							v = f.val(raw, true);
-							if(!raw && $.fbuilder.isNumeric(v)) v = parseFloat(v);
-							if( (f.ftype == 'fdate' || f.ftype == 'fdateds' ) && $.fbuilder.isNumeric(v) && v) v = CDATE(v, me.dformat);
+						var me = this, f, p, v = String(me[attr]).trim(), raw = raw || false;
+						if ( !raw && $.fbuilder.isNumeric(v) ) return parseFloat(v);
+						if ( typeof v == 'string' ) {
+							if ( p = /^url\.(.+)$/.exec(v) ) return (p = p[1].trim()) ? getURLParameter( p, '' ) : '';
+							if ( p = /^var\.(.+)$/.exec(v) ) return ((p = p[1].trim()) && p in window) ? window[p] : '';
+							f = (/^fieldname\d+$/i.test(v)) ? me.getField(v) : false;
+							if(f)
+							{
+								v = f.val(raw, true);
+								if(!raw && $.fbuilder.isNumeric(v)) v = parseFloat(v);
+								if( (f.ftype == 'fdate' || f.ftype == 'fdateds' ) && $.fbuilder.isNumeric(v) && v) v = CDATE(v, me.dformat);
+							}
 						}
+
 						return v;
 					},
 				_setHndl:function(attr, one)
