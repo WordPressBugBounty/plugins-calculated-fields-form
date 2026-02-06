@@ -17,6 +17,13 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 			return self::$_instance;
 		} // End instance.
 
+		private static function get_preview_url()
+		{
+			$url = CPCFF_AUXILIARY::site_url();
+			$url .= ((strpos($url, '?') === false) ? '?' : '&').'cff-editor-preview=1&cff-amp-redirected=1&cff-amp-form=';
+			return $url;
+		} // End get_preview_url
+
 		public static function run() {
 			$instance = self::instance();
 			add_action( 'init', array( $instance, 'init' ) );
@@ -84,7 +91,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 								}
 								wp_register_script( 'cff-divi5-forms', '', array(), null, true );
 								wp_enqueue_script( 'cff-divi5-forms' );
-								$script = 'var cff_divi5_forms_list = ' . json_encode( $options ) . ';';
+								$script = 'var cff_divi5_forms_list=' . json_encode( $options ) . ', cpcff_divi5_preview_url=' . json_encode( self::get_preview_url() );
 								wp_add_inline_script( 'cff-divi5-forms', $script );
 
 								\ET\Builder\VisualBuilder\Assets\PackageBuildManager::register_package_build(
@@ -153,11 +160,13 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 		} // End divi_editor_assets
 
 		/**************************** GUTENBERG ****************************/
-		private function gutenberg_editor_config() {
+
+		private function gutenberg_editor_config()
+		{
 			global $wpdb;
 
-			$url    = CPCFF_AUXILIARY::site_url();
-			$url   .= ( ( strpos( $url, '?' ) === false ) ? '?' : '&' ) . 'cff-editor-preview=1&cff-amp-redirected=1&cff-amp-form=';
+            $url = self::get_preview_url();
+
 			$config = array(
 				'url'      => $url,
 				'is_admin' => current_user_can( 'manage_options' ),

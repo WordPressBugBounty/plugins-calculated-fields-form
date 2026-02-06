@@ -113,3 +113,5 @@ body{
 .cp_cff_decorative #fbuilder .cff-timeslot-selected{border-color:#7b7a6d;background:#7b7a6d;text-shadow:none;color:#FFFFFF;}
 .cp_cff_decorative #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#7b7a6d;color:#cc3333;}
 .cp_cff_decorative #fbuilder .cff-timeslot-selected::after{border-color:#7b7a6d;color:#cc3333;font-family:sans-serif;}
+
+.cp_cff_decorative #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: rgb(223, 221, 193);}

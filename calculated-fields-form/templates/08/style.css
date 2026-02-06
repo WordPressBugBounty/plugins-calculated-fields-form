@@ -248,3 +248,6 @@ border-bottom: 1px dashed #83A4C5;
 .cp_cff_dark_notebook #fbuilder .cff-timeslot-selected{border-color:#ffffff;background:#ffffff;text-shadow:none;color:#394d61;}
 .cp_cff_dark_notebook #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#ffffff;background:#ffffff;color:#394d61;}
 .cp_cff_dark_notebook #fbuilder .cff-timeslot-selected::after{border-color:#ffffff;background:#495c70;color:#ffffff;font-family:sans-serif;}
+
+.cp_cff_dark_notebook #fbuilder .cff-file-field .cff-file-field-container{border:1px dashed #83A4C5;}
+.cp_cff_dark_notebook #fbuilder .cff-file-field .cff-file-field-container:hover{border-color:#D9FFA9;background-color: rgba(168, 186, 206, .1);}

@@ -21,7 +21,6 @@
 .cp_cff_11 #fbuilder  .fields.cff-highlight{background: #FFF9DF;}
 
 .cp_cff_11 #fbuilder  input[type="text"],
-.cp_cff_11 #fbuilder  input[type="file"],
 .cp_cff_11 #fbuilder  input[type="password"],
 .cp_cff_11 #fbuilder  input[type="date"],
 .cp_cff_11 #fbuilder  input[type="datetime"],
@@ -67,7 +66,6 @@
 }
 
 .cp_cff_11 #fbuilder  input[type="date"]:focus,
-.cp_cff_11 #fbuilder  input[type="file"]:focus,
 .cp_cff_11 #fbuilder  input[type="password"]:focus,
 .cp_cff_11 #fbuilder  input[type="text"]:focus,
 .cp_cff_11 #fbuilder  input[type="datetime"]:focus,
@@ -160,3 +158,6 @@
 .cp_cff_11 #fbuilder .cff-timeslot-selected{border-color:#1795ff;background:#1795ff;text-shadow:none;color:#ffffff;}
 .cp_cff_11 #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#1795ff;color:initial;}
 .cp_cff_11 #fbuilder .cff-timeslot-selected::after{border-color:#1795ff;color:#1795ff;font-family:sans-serif;}
+
+.cp_cff_11 #fbuilder .cff-file-field .cff-file-field-container{border: 1px solid #dcdcdc;background-color:white;}
+.cp_cff_11 #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: white;}

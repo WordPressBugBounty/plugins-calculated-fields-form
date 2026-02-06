@@ -31,27 +31,34 @@
 				},
 			editItemEvents:function()
 				{
-					var evt = [
+					let evt = [
 							{s:"#sRegExp",e:"change keyup", l:"regExp"},
 							{s:"#sRegExpMssg",e:"change keyup", l:"regExpMssg"},
 							{s:"#sEqualTo",e:"change", l:"equalTo", x:1}
 						],
-						items = this.fBuild.getItems();
-					$('.equalTo').each(function()
-						{
-							var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
-							for (var i=0;i<items.length;i++)
-							{
-								if (
-									$.inArray(items[i].ftype, ['ftext', 'femail', 'fpassword', 'ftextds', 'femailds']) != -1 &&
-									items[i].name != $(this).attr("dname")
-								)
-								{
-									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+cff_esc_attr(items[i].title)+'</option>';
-								}
-							}
-							$(this).html(str);
-						});
+						items           = this.fBuild.getItems(),
+                        allowedTypes    = { ftext: 1, femail: 1, fpassword: 1, ftextds: 1, femailds: 1 },
+                        eligibleItems   = [],
+                        elName          = this.name;
+
+                    for (let i=0;i<items.length;i++) {
+                        if (allowedTypes[items[i].ftype]) eligibleItems.push(items[i]);
+                    }
+
+					$('.equalTo').each(function() {
+                        let $el = $(this),
+                            dvalue = $el.attr("dvalue"),
+                            str = '<option value=""></option>';
+
+                        for (let i=0;i<eligibleItems.length;i++)
+                        {
+                            if (eligibleItems[i].name != elName)
+                            {
+                                str += '<option value="' + cff_esc_attr(eligibleItems[i].name) + '" ' + ((eligibleItems[i].name == dvalue) ? "selected" : "") + '>' + cff_esc_attr(eligibleItems[i].title + ' (' + eligibleItems[i].name + ')') + '</option>';
+                            }
+                        }
+                        $(this).html(str);
+                    });
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this, evt);
 				},
 			showSpecialDataInstance: function()
@@ -60,7 +67,7 @@
                         return '<a class="button-primary large" href="https://cff-bundles.dwbooster.com/product/email-validator" target="_blank" style="text-align:center;margin-top:10px;">Advanced email validator [+]</a>';
                     }
 
-					var str = '<label for="sRegExp">Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div><label for="sRegExpMssg">Error message when the regular expression fails</label><input type="text" name="sRegExpMssg" id="sRegExpMssg" value="'+cff_esc_attr(this.regExpMssg)+'" class="large" /><div class="cff-email-validator">'+(
+					let str = '<label for="sRegExp">Validate against a regular expression</label><div style="display:flex;"><input type="text" name="sRegExp" id="sRegExp" value="'+cff_esc_attr(this.regExp)+'" class="large" /><input type="button" onclick="window.open(\'https://cff-bundles.dwbooster.com/product/regexp\');" value="+" title="Resources" class="button-secondary" /></div><label for="sRegExpMssg">Error message when the regular expression fails</label><input type="text" name="sRegExpMssg" id="sRegExpMssg" value="'+cff_esc_attr(this.regExpMssg)+'" class="large" /><div class="cff-email-validator">'+(
                         ('cff-email-validator-checked' in $.fbuilder && !$.fbuilder['cff-email-validator-checked']) ? email_validator_link() : ''
                     )+'</div>';
 

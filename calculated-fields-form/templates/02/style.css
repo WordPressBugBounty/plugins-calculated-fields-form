@@ -178,6 +178,10 @@ background:#8eb92a;
 .cp_cff_professional #fbuilder .cff-file-clearer:hover,
 .cp_cff_professional #fbuilder .select2-selection__choice__remove:hover{color:#8eb92a;}
 
+.cp_cff_professional #fbuilder .cff-file-field .cff-file-field-container{border-color:rgb(57, 50, 36);border-width:2.5px;border-style:solid;border-bottom: 1px solid #776D5D !important;}
+.cp_cff_professional #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: rgba(119, 109, 93, .2);}
+.cp_cff_professional #fbuilder .cff-file-field .cff-file-info-container{color:#c9c2b7;}
+
 .cp_cff_professional #fbuilder span.files-list img{border-color:#776D5D;}
 
 .cp_cff_professional #fbuilder .select2-dropdown .select2-search__field{width:100% !important;}

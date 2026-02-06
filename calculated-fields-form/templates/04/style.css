@@ -101,3 +101,5 @@ body{
 .cp_cff_elegant #fbuilder .cff-timeslot-selected{border-color:#177da7;background:#177da7;text-shadow:none;color:#FFFFFF;}
 .cp_cff_elegant #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#177da7;color:rgb(81, 62, 43);}
 .cp_cff_elegant #fbuilder .cff-timeslot-selected::after{border-color:#177da7;color:#177da7;}
+
+.cp_cff_elegant #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: rgba(220, 220, 220, .3);}

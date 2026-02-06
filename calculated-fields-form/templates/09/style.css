@@ -73,6 +73,7 @@ body{
 	-moz-border-radius-bottom-right: 3px;
 	border-radius-bottom-left: 3px;
 	border-radius-bottom-right: 3px;
+	width: calc( 100% + 30px );
 }
 .cp_cff_box #fbuilder .section_breaks>label{text-align:center;}
 .cp_cff_box #fbuilder .section_breaks span.uh{margin:0;}
@@ -176,3 +177,6 @@ body{
 .cp_cff_box #fbuilder .cff-timeslot-selected{border-color:#444444;background:#444444;text-shadow:none;color:#ffffff;}
 .cp_cff_box #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#2471FF;color:#444444;}
 .cp_cff_box #fbuilder .cff-timeslot-selected::after{border-color:#444444;color:#444444;font-family:sans-serif;}
+
+.cp_cff_box #fbuilder .cff-file-field .cff-file-field-container{border: 1px solid #DDDDDD;}
+.cp_cff_box #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: #F3F3F3;}

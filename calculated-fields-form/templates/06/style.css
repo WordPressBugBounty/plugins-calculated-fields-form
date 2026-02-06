@@ -119,3 +119,6 @@ border-radius:5px;
 .cp_cff_clean #fbuilder .cff-timeslot-selected{border-color:#005e8a;background:#005e8a;text-shadow:none;color:#FFFFFF;}
 .cp_cff_clean #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#005e8a;color:#005e8a;}
 .cp_cff_clean #fbuilder .cff-timeslot-selected::after{border-color:#005e8a;color:#005e8a;font-family:sans-serif;}
+
+.cp_cff_clean #fbuilder .cff-file-field .cff-file-field-container{background-color: #FFFFFF; border-color:#D7D9DA;}
+.cp_cff_clean #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: #dedede;}

@@ -16,6 +16,7 @@
 			_patch: false, // Used only if the submission is being updated to preserves the previous values
 			_files_list: [],
 			init: function(){
+                this.getCSSComponent('files_container_hover', true, '#fbuilder .' + this.name + ' .cff-file-field-container:hover', this.form_identifier);
 				this.thumb_width  = cff_sanitize(String(this.thumb_width).trim(), true);
 				this.thumb_height = cff_sanitize(String(this.thumb_height).trim(), true);
 				var form_identifier = this.form_identifier.replace(/[^\d]/g, '');
@@ -25,8 +26,30 @@
 				{
 					this.accept = cff_esc_attr(String(this.accept).trim());
 					this.upload_size = cff_esc_attr(String(this.upload_size).trim());
-
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-file-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" type="file" id="'+this.name+'" name="'+this.name+'[]"'+((this.accept.length) ? ' accept="'+this.accept+'"' : '')+((this.upload_size.length) ? ' upload_size="'+this.upload_size+'"' : '')+' class="field '+cff_esc_attr(this.size)+((this.required)?" required":"")+'" '+((this.multiple) ? 'multiple' : '')+' style="'+cff_esc_attr(this.getCSSComponent('file'))+'" /><div id="'+this.name+'_clearer" class="cff-file-clearer"></div>'+((this._patch) ? '<input type="hidden" id="'+this.name+'_patch" name="'+this.name+'_patch" value="1" />' : '')+'<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+                    let info = '<div class="cff-file-info-container" style="'+cff_esc_attr(this.getCSSComponent('file_info'))+'">',
+                        info_separtor = '';
+                    if ( this.accept.length ) {
+                        info += cff_sanitize(this.accept);
+                        info_separtor = '/';
+                    }
+                    if ( this.upload_size.length ) {
+                        let inMB = parseFloat(this.upload_size) / 1024;
+                        info += info_separtor + cff_sanitize(!isNaN(inMB) && 1 <= inMB && inMB <= 1024 ? (inMB.toFixed(2)*1) + ' Mb' : this.upload_size + ' Kb');
+                    }
+                    info += '</div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-file-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'">'+
+                        '<label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label>'+
+                        '<div class="dfield">'+
+                        '<div class="cff-file-field-container ' + cff_esc_attr(this.size) + '" style="' + cff_esc_attr(this.getCSSComponent('files_container')) +'">'+
+                                '<input aria-label="'+cff_esc_attr(this.title)+'" type="file" id="'+this.name+'" name="'+this.name+'[]"'+((this.accept.length) ? ' accept="'+this.accept+'"' : '')+((this.upload_size.length) ? ' upload_size="'+this.upload_size+'"' : '')+' class="field '+((this.required)?" required":"")+'" '+((this.multiple) ? 'multiple' : '')+' />'+
+                                '<div id="'+this.name+'_clearer" class="cff-file-clearer"></div>'+
+                                ((this._patch) ? '<input type="hidden" id="'+this.name+'_patch" name="'+this.name+'_patch" value="1" />' : '')+
+                                '<div class="clearer"></div>'+
+                                info+
+                            '</div>'+
+                            '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span>'+
+                        '</div>'+
+                    '<div class="clearer"></div></div>';
 				},
 			after_show:function()
 			{
@@ -68,7 +91,7 @@
 
 				$('#'+me.name).on( 'change', function(){
 
-					var h = this.files.length, n = 0;
+					var h = this.files.length;
 
 					$(this).siblings('span.files-list').remove();
 					$('[id="'+me.name+'_patch"]').remove();
@@ -109,12 +132,11 @@
 										img.attr('src', e.target.result).css('maxWidth', '100%');
 										if(me.thumb_height != '') img.attr('height', me.thumb_height);
 										if(me.thumb_width  != '') img.attr('width', me.thumb_width);
-										filesContainer.append($('<span>'+(n ? ', ' : '')+'</span>').append(img));
-										n++;
+										filesContainer.append($('<span></span>').append(img));
 									};
 									reader.readAsDataURL(file);
 								}
-								else if(1 < h){filesContainer.append($('<span>').text((n ? ', ' : '')+file.name));n++;}
+								else if(1 <= h){filesContainer.append($('<span>').text(file.name));}
 							})(i, this.files[i]);
 						}
 						$('#'+this.id+'_clearer').after(filesContainer);

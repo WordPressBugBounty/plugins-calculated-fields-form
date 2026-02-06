@@ -94,3 +94,5 @@ background: url(top_bg.png) 0 0 repeat-x #f3f6ea;
 .cp_cff_natural #fbuilder .cff-timeslot-selected{border-color:#5f8a41;background:#5f8a41;text-shadow:none;color:#FFFFFF;}
 .cp_cff_natural #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#5f8a41;color:#5f8a41;}
 .cp_cff_natural #fbuilder .cff-timeslot-selected::after{border-color:#5f8a41;color:#5f8a41;}
+
+.cp_cff_natural #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: rgba(153, 200, 120, .2);}

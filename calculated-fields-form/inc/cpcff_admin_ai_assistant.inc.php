@@ -15,7 +15,9 @@ $models = [
     'claude' => [
         'claude-sonnet-4-20250514'      => esc_html__( 'Claude Sonnet 4.5 (Recommended)', 'calculated-fields-form' ),
         'claude-haiku-4-5-20251001'     => esc_html__( 'Claude Haiku 4.5 (Fast)', 'calculated-fields-form' ),
-        'claude-opus-4-20250514'        => esc_html__( 'Claude Opus 4 (Most Capable)', 'calculated-fields-form' ),
+        'claude-opus-4-6'        		=> esc_html__( 'Claude Opus 4.6 (Most Capable)', 'calculated-fields-form' ),
+        'claude-opus-4-5-20251101'      => esc_html__( 'Claude Opus 4.5', 'calculated-fields-form' ),
+        'claude-opus-4-20250514'        => esc_html__( 'Claude Opus 4', 'calculated-fields-form' ),
         'claude-3-5-sonnet-20241022'    => esc_html__( 'Claude 3.5 Sonnet (Previous)', 'calculated-fields-form' ),
         'claude-3-haiku-20240307'       => esc_html__( 'Claude 3 Haiku (Budget)', 'calculated-fields-form' )
     ],

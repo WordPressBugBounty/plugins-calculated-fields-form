@@ -35,24 +35,32 @@
 				},
 			editItemEvents:function()
 				{
-					var me = this, evt = [
-						{s:"#sMinlength",e:"input", l:"minlength", x:1},
-						{s:"#sMaxlength",e:"input", l:"maxlength", x:1},
-						{s:"#sRegExp",e:"input", l:"regExp"},
-						{s:"#sRegExpMssg",e:"input", l:"regExpMssg"},
-						{s:"#sEqualTo",e:"change", l:"equalTo", x:1}
-					],
-					items = this.fBuild.getItems();
-					$('.equalTo').each(function(){
-						var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
-						for (var i=0;i<items.length;i++)
+					let evt = [
+                            {s:"#sMinlength",e:"input", l:"minlength", x:1},
+                            {s:"#sMaxlength",e:"input", l:"maxlength", x:1},
+                            {s:"#sRegExp",e:"input", l:"regExp"},
+                            {s:"#sRegExpMssg",e:"input", l:"regExpMssg"},
+                            {s:"#sEqualTo",e:"change", l:"equalTo", x:1}
+                        ],
+                        items           = this.fBuild.getItems(),
+                        allowedTypes    = { ftext: 1, femail: 1, fpassword: 1, ftextds: 1, femailds: 1 },
+                        eligibleItems   = [],
+                        elName          = this.name;
+
+                    for (let i = 0; i < items.length; i++) {
+                        if (allowedTypes[items[i].ftype]) eligibleItems.push(items[i]);
+                    }
+
+					$('.equalTo').each(function() {
+                        let $el     = $(this),
+                            dvalue  = $el.attr("dvalue"),
+						    str = '<option value=""></option>';
+
+						for (let i=0;i<eligibleItems.length;i++)
 						{
-							if (
-								$.inArray(items[i].ftype, ['ftext', 'femail', 'fpassword', 'ftextds', 'femailds']) != -1 &&
-								items[i].name != $(this).attr("dname")
-							)
+							if (eligibleItems[i].name != elName)
 							{
-								str += '<option value="'+cff_esc_attr(items[i].name)+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+cff_esc_attr(items[i].title)+'</option>';
+								str += '<option value="'+cff_esc_attr(eligibleItems[i].name)+'" '+((eligibleItems[i].name == dvalue)?"selected":"")+'>'+cff_esc_attr(eligibleItems[i].title+' ('+eligibleItems[i].name+')')+'</option>';
 							}
 						}
 						$(this).html(str);

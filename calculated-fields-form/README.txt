@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.3.7
+Stable tag: 5.4.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -456,6 +456,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.3.8 =
+
+* Optimizes the Single Line Text and Email controls.
+* Modernizes the File Upload control.
+* Replaces the Ctrl+R shortcut with Ctrl+M, since Ctrl+R is commonly used by browsers.
+* Adds support for modern Anthropic models in the AI assistant.
+* Enhances the Divi 5 module.
+
 = 5.4.3.7 =
 
 * Adds support for displaying the week of the year in date pickers (Date/Time and Date/Time Slots controls).
@@ -482,11 +490,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Enhances the email diagnostics feature module.
 * Improves both the ACTIVATEFIELD and IGNOREFIELD operations in the Managing Fields operations module.
 * Improves the DS fields set.
-
-= 5.4.3.3 =
-
-* Fixes an issue that occurred when creating new forms from templates on servers that do not allow connections to the template distribution service via cURL.
-* Implements an email diagnostics feature, allowing website owners to detect issues with their server’s email configuration.
-* Updates form styles to hide fieldset legends when they are empty.
-* Improves the entries section by grouping form submissions by month and year (Professional, Developer, and Platinum versions).
-* Fixes a minor issue in the submissions data source for DS fields (Developer and Platinum versions).

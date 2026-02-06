@@ -24,7 +24,6 @@
 .cp_cff_12 .cff-spinner .cff-spinner-down,
 .cp_cff_12 .cff-spinner .cff-spinner-up,
 .cp_cff_12 #fbuilder  input[type="text"],
-.cp_cff_12 #fbuilder  input[type="file"],
 .cp_cff_12 #fbuilder  input[type="password"],
 .cp_cff_12 #fbuilder  input[type="date"],
 .cp_cff_12 #fbuilder  input[type="datetime"],
@@ -149,3 +148,5 @@
 .cp_cff_12 #fbuilder .cff-timeslot-selected{border-color:#1485e5;background:#1485e5;text-shadow:none;color:#ffffff;}
 .cp_cff_12 #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:#1485e5;color:initial;}
 .cp_cff_12 #fbuilder .cff-timeslot-selected::after{border-color:#1485e5;color:#1485e5;font-family:sans-serif;}
+
+.cp_cff_12 #fbuilder .cff-file-field .cff-file-field-container{border: 1px dashed #c0c0c0;}

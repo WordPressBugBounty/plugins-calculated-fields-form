@@ -24,14 +24,35 @@
 			thumb_height: '',
 			initAdv:function(){
 				delete this.advanced.css.input;
-				if ( ! ( 'file' in this.advanced.css ) ) this.advanced.css.file = {label: 'File field',rules:{}};
+				delete this.advanced.css.file;
+				if ( ! ( 'files_container' in this.advanced.css ) ) this.advanced.css.files_container = {label: 'Files container',rules:{}};
+				if ( ! ( 'files_container_hover' in this.advanced.css ) ) this.advanced.css.files_container_hover = {label: 'Files container hover',rules:{}};
 				if ( ! ( 'thumbnail' in this.advanced.css ) ) this.advanced.css.thumbnail = {label: 'Thumbnail image',rules:{}};
+                if (!('file_info' in this.advanced.css)) this.advanced.css.file_info = { label: 'File info', rules: {} };
 			},
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					let id = 'field'+this.form_identifier+'-'+this.index;
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Upload File')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input id="'+id+'-box" type="file" disabled class="field disabled '+this.size+'" /><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					let id = 'field'+this.form_identifier+'-'+this.index,
+                        info = '<div class="cff-file-info-container">',
+                        info_separtor = '';
+
+                    if (this.accept.length) {
+                        info += cff_sanitize(this.accept);
+                        info_separtor = '/';
+                    }
+                    if (this.upload_size.length) {
+                        let inMB = parseFloat(this.upload_size) / 1024;
+                        info += info_separtor + cff_sanitize(!isNaN(inMB) && 1 <= inMB && inMB <= 1024 ? (inMB.toFixed(2) * 1) + ' Mb' : this.upload_size + ' Kb');
+                    }
+                    info += '</div>';
+
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Upload File')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+
+                    '<div class="cff-file-field-container ' + cff_esc_attr(this.size) + '">'+
+                    '<span class="cff-file-clearer"></span>'+
+                    info+
+                    '</div>'+
+                    '<span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

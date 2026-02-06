@@ -723,7 +723,7 @@
                 $(document).on('keydown', function(e) {
                     if (
                         (e.ctrlKey || e.metaKey) &&
-                        (e.key === 'd' || e.key === 'r' || e.key === 'l' || e.key === 'u')
+                        (e.key === 'd' || e.key === 'm' || e.key === 'l' || e.key === 'u')
                     ) {
                         // Check if the form builder is in the viewport.
                         let b = $('#fbuilder'),
@@ -743,7 +743,7 @@
                             case 'd':
                                 f.find('.copy').trigger('click');
                                 break;
-                            case 'r':
+                            case 'm':
                                 f.find('.remove').trigger('click');
                                 break;
                             case 'l':
@@ -1612,7 +1612,7 @@
 			iconsContainer: function( i, d ){
 				i = i || '';
 				d = d || true;
-                return '<div class="cff-field-controls">' + i + (d ? '<div title="Duplicate (Ctrl+D)" class="copy ui-icon ui-icon-copy "></div>' : '')+'<div title="Remove (Ctrl+R)" class="remove ui-icon ui-icon-trash "></div></div>';
+                return '<div class="cff-field-controls">' + i + (d ? '<div title="Duplicate (Ctrl+D)" class="copy ui-icon ui-icon-copy "></div>' : '')+'<div title="Remove (Ctrl+M)" class="remove ui-icon ui-icon-trash "></div></div>';
 			},
 			init:function(){},
 			initAdv:function(){},
