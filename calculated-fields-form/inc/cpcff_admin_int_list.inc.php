@@ -178,6 +178,9 @@ if ( get_option( 'cff-t-f', 0 ) ) :
 	delete_option( 'cff-t-f' );
 endif;
 ?>
+<?php
+if ( file_exists( dirname(__FILE__) . '/__countdown.php' ) ) include dirname(__FILE__) . '/__countdown.php';
+?>
 <h1><?php esc_html_e( 'Calculated Fields Form', 'calculated-fields-form' ); ?></h1>
 
 <script data-category="functional" type="text/javascript">
@@ -358,12 +361,11 @@ function cp_update_default_settings(e)
 			$cff_search_form_term      = get_option( 'calculated-fields-search-form', '' );
 		?>
 		<div id="metabox_new_form_area" class="postbox" >
-			<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'New Form', 'calculated-fields-form' ); ?></span></h3>
+            <h3 class='hndle' style="padding:5px;margin-top:5px;margin-bottom:5px;"><span><?php esc_html_e( 'New Form', 'calculated-fields-form' ); ?></span></h3>
 			<div class="inside">
 				<form name="additem">
-					<?php esc_html_e( 'Item Name', 'calculated-fields-form' ); ?>(*):<br />
-					<div>
-						<input type="text" name="cp_itemname" id="cp_itemname"  value="<?php print esc_attr( ! empty( $_GET['form_name']) ? sanitize_text_field( wp_unslash( $_GET['form_name'] ) ) : '' ); ?>" onkeyup="cp_addItem_keyup( event );"  style="margin-top:5px;" required />
+                    <div>
+						<input type="text" name="cp_itemname" id="cp_itemname"  value="<?php print esc_attr( ! empty( $_GET['form_name']) ? sanitize_text_field( wp_unslash( $_GET['form_name'] ) ) : '' ); ?>" onkeyup="cp_addItem_keyup( event );"  style="margin-top:5px;" required placeholder="<?php esc_attr_e( 'New form name', 'calculated-fields-form' ); ?> (*)" />
 						<input type="text" name="calculated-fields-form-category" id="calculated-fields-form-category"  value="<?php print esc_attr(isset( $_GET['form_category'] ) ? sanitize_text_field( wp_unslash( $_GET['form_category'] ) ) : $cff_current_form_category); ?>" style="margin-top:5px;" placeholder="<?php esc_attr_e('Category', 'calculated-fields-form'); ?>" list="calculated-fields-form-categories" />
 						<datalist id="calculated-fields-form-categories">
 							<?php
@@ -379,91 +381,92 @@ function cp_update_default_settings(e)
 		</div>
 
 		<!-- Form Categories -->
-		<form id="metabox_categories_list" action="admin.php?page=cp_calculated_fields_form#cff-top-position" method="post">
-			<input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( wp_create_nonce( 'cff-change-category' ) ); ?>" />
-			<b><?php esc_html_e( 'Form Categories', 'calculated-fields-form' ); ?></b>
-			<select name="calculated-fields-form-category" onchange="this.form.submit();">
-				<option value=""><?php esc_html_e( 'All forms', 'calculated-fields-form' ); ?></option>
-				<?php
-					print $cpcff_main->get_categories( 'SELECT', $cff_current_form_category ); // phpcs:ignore WordPress.Security.EscapeOutput
-				?>
-			</select>
-			<b><?php esc_html_e( 'Search', 'calculated-fields-form' ); ?></b>
-			<input type="text" name="calculated-fields-search-form" placeholder="<?php esc_attr_e( '- search term -', 'calculated-fields-form' ); ?>" value="<?php print esc_attr( $cff_search_form_term ); ?>" />
-			<input type="submit" value="<?php esc_attr_e( 'Search', 'calculated-fields-form' ); ?>" class="button-primary" />
-			<input id="cff-reset-forms-filter" type="submit" value="<?php esc_attr_e( 'Reset', 'calculated-fields-form' ); ?>" onclick="jQuery('[name=\'calculated-fields-form-category\'] option:first-child').prop('selected', true);jQuery('[name=\'calculated-fields-search-form\']').val('');" class="button-secondary" />
-		</form>
-
-		<div id="forms_pagination">
-			<?php
-			if ( ! empty( $_POST['calculated-fields-form-records-per-page'] ) ) {
-				check_admin_referer( 'cff-records-per-page', '_cpcff_nonce' );
-
-				if ( 'all' == sanitize_text_field( wp_unslash( $_POST['calculated-fields-form-records-per-page'] ) ) ) {
-					$records_per_page = PHP_INT_MAX;
-				} elseif ( is_numeric( $_POST['calculated-fields-form-records-per-page'] ) ) {
-					$records_per_page = max( 0, intval( $_POST['calculated-fields-form-records-per-page'] ) );
-				}
-				if ( ! empty( $records_per_page ) ) {
-					update_option(
-						'calculated-fields-form-records-per-page',
-						$records_per_page
-					);
-				}
-			}
-			$records_per_page = get_option( 'calculated-fields-form-records-per-page', 20 );
-			$myrows           = CPCFF_FORM::forms_list( [
-				'category' 		=> $cff_current_form_category,
-				'search_term' 	=> $cff_search_form_term,
-				'order_by'		=> $orderby
-			] );
-
-			$total_pages  = ceil( count( $myrows ) / $records_per_page );
-			$current_page = ! empty( $_REQUEST['page-number'] ) && is_numeric( $_REQUEST['page-number'] ) ?
-							min( $total_pages, max( 1, intval( sanitize_text_field( wp_unslash( $_REQUEST['page-number'] ) ) ) ) ) :
-							1;
-			?>
-			<form action="admin.php?page=cp_calculated_fields_form#cff-top-position" method="post">
-				<input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( wp_create_nonce( 'cff-records-per-page' ) ); ?>" />
-				<input type="hidden" name="page-number" value="<?php echo esc_attr( $current_page ); ?>" />
-				<select name="calculated-fields-form-records-per-page" onchange="this.form.submit();" style="margin-left: 20px; margin-bottom:10px;">
-					<option value="10"  <?php
-					if ( 10 == $records_per_page ) {
-						print 'SELECTED';} ?>><?php print esc_html( __( '10 forms', 'calculated-fields-form' ) ); ?></option>
-					<option value="20"  <?php
-					if ( 20 == $records_per_page ) {
-						print 'SELECTED';} ?>><?php print esc_html( __( '20 forms', 'calculated-fields-form' ) ); ?></option>
-					<option value="50"  <?php
-					if ( 50 == $records_per_page ) {
-						print 'SELECTED';} ?>><?php print esc_html( __( '50 forms', 'calculated-fields-form' ) ); ?></option>
-					<option value="100" <?php
-					if ( 100 == $records_per_page ) {
-						print 'SELECTED';} ?>><?php print esc_html( __( '100 forms', 'calculated-fields-form' ) ); ?></option>
-					<option value="all" <?php
-					if ( 'all' == $records_per_page || 100 < $records_per_page ) {
-						print 'SELECTED';} ?>><?php print esc_html( __( 'All forms', 'calculated-fields-form' ) ); ?></option>
+		<div class="cff-filter-area">
+			<form id="metabox_categories_list" action="admin.php?page=cp_calculated_fields_form#cff-top-position" method="post">
+				<input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( wp_create_nonce( 'cff-change-category' ) ); ?>" />
+				<b><?php esc_html_e( 'Form Categories', 'calculated-fields-form' ); ?></b>
+				<select name="calculated-fields-form-category" onchange="this.form.submit();">
+					<option value=""><?php esc_html_e( 'All forms', 'calculated-fields-form' ); ?></option>
+					<?php
+						print $cpcff_main->get_categories( 'SELECT', $cff_current_form_category ); // phpcs:ignore WordPress.Security.EscapeOutput
+					?>
 				</select>
+				<b><?php esc_html_e( 'Search', 'calculated-fields-form' ); ?></b>
+				<input type="text" name="calculated-fields-search-form" placeholder="<?php esc_attr_e( '- search term -', 'calculated-fields-form' ); ?>" value="<?php print esc_attr( $cff_search_form_term ); ?>" />
+				<input type="submit" value="<?php esc_attr_e( 'Search', 'calculated-fields-form' ); ?>" class="button-primary" />
+				<input id="cff-reset-forms-filter" type="submit" value="<?php esc_attr_e( 'Reset', 'calculated-fields-form' ); ?>" onclick="jQuery('[name=\'calculated-fields-form-category\'] option:first-child').prop('selected', true);jQuery('[name=\'calculated-fields-search-form\']').val('');" class="button-secondary" />
 			</form>
-		<?php
-		$pages_links = CPCFF_AUXILIARY::paginate_links(
-			[
-				'base'         => 'admin.php?page=cp_calculated_fields_form&%_%',
-				'format'       => 'page-number=%#%',
-				'total'        => $total_pages,
-				'current'      => $current_page,
-				'show_all'     => false,
-				'end_size'     => 1,
-				'mid_size'     => 2,
-				'prev_text'    => __( '&laquo; Previous', 'calculated-fields-form' ),
-				'next_text'    => __( 'Next &raquo;', 'calculated-fields-form' ),
-				'add_args'     => []
-            ]
-		);
-		$pages_links = ! empty( $pages_links ) ? $pages_links : '';
 
-		print $pages_links; // phpcs:ignore WordPress.Security.EscapeOutput
-		?>
+			<div id="forms_pagination">
+				<?php
+				if ( ! empty( $_POST['calculated-fields-form-records-per-page'] ) ) {
+					check_admin_referer( 'cff-records-per-page', '_cpcff_nonce' );
+
+					if ( 'all' == sanitize_text_field( wp_unslash( $_POST['calculated-fields-form-records-per-page'] ) ) ) {
+						$records_per_page = PHP_INT_MAX;
+					} elseif ( is_numeric( $_POST['calculated-fields-form-records-per-page'] ) ) {
+						$records_per_page = max( 0, intval( $_POST['calculated-fields-form-records-per-page'] ) );
+					}
+					if ( ! empty( $records_per_page ) ) {
+						update_option(
+							'calculated-fields-form-records-per-page',
+							$records_per_page
+						);
+					}
+				}
+				$records_per_page = get_option( 'calculated-fields-form-records-per-page', 20 );
+				$myrows           = CPCFF_FORM::forms_list( [
+					'category' 		=> $cff_current_form_category,
+					'search_term' 	=> $cff_search_form_term,
+					'order_by'		=> $orderby
+				] );
+
+				$total_pages  = ceil( count( $myrows ) / $records_per_page );
+				$current_page = ! empty( $_REQUEST['page-number'] ) && is_numeric( $_REQUEST['page-number'] ) ?
+								min( $total_pages, max( 1, intval( sanitize_text_field( wp_unslash( $_REQUEST['page-number'] ) ) ) ) ) :
+								1;
+				?>
+				<form action="admin.php?page=cp_calculated_fields_form#cff-top-position" method="post">
+					<input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( wp_create_nonce( 'cff-records-per-page' ) ); ?>" />
+					<input type="hidden" name="page-number" value="<?php echo esc_attr( $current_page ); ?>" />
+					<select name="calculated-fields-form-records-per-page" onchange="this.form.submit();">
+						<option value="10"  <?php
+						if ( 10 == $records_per_page ) {
+							print 'SELECTED';} ?>><?php print esc_html( __( '10 forms', 'calculated-fields-form' ) ); ?></option>
+						<option value="20"  <?php
+						if ( 20 == $records_per_page ) {
+							print 'SELECTED';} ?>><?php print esc_html( __( '20 forms', 'calculated-fields-form' ) ); ?></option>
+						<option value="50"  <?php
+						if ( 50 == $records_per_page ) {
+							print 'SELECTED';} ?>><?php print esc_html( __( '50 forms', 'calculated-fields-form' ) ); ?></option>
+						<option value="100" <?php
+						if ( 100 == $records_per_page ) {
+							print 'SELECTED';} ?>><?php print esc_html( __( '100 forms', 'calculated-fields-form' ) ); ?></option>
+						<option value="all" <?php
+						if ( 'all' == $records_per_page || 100 < $records_per_page ) {
+							print 'SELECTED';} ?>><?php print esc_html( __( 'All forms', 'calculated-fields-form' ) ); ?></option>
+					</select>
+				</form>
+			</div>
 		</div>
+		<div class="cff-forms-pagination-area"><?php
+			$pages_links = CPCFF_AUXILIARY::paginate_links(
+				[
+					'base'         => 'admin.php?page=cp_calculated_fields_form&%_%',
+					'format'       => 'page-number=%#%',
+					'total'        => $total_pages,
+					'current'      => $current_page,
+					'show_all'     => false,
+					'end_size'     => 1,
+					'mid_size'     => 2,
+					'prev_text'    => __( '&laquo; Previous', 'calculated-fields-form' ),
+					'next_text'    => __( 'Next &raquo;', 'calculated-fields-form' ),
+					'add_args'     => []
+				]
+			);
+			$pages_links = ! empty( $pages_links ) ? $pages_links : '';
+			print $pages_links; // phpcs:ignore WordPress.Security.EscapeOutput
+		?></div>
 		<div style="clear:both;Display:block"></div>
 		<hr />
 		<!-- Forms List -->

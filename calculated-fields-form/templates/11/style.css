@@ -81,6 +81,7 @@
     border-color: #1795FF;
 	outline: none;
 }
+#cff_ai_assistant_use_suggestion,
 .cp_cff_11 .cff-spinner .cff-spinner-down,
 .cp_cff_11 .cff-spinner .cff-spinner-up,
 .cp_cff_11 #fbuilder .pbSubmit,
@@ -97,9 +98,11 @@
 	border-radius: 3px;
     border: 0;
 	padding:10px 30px;
+	cursor:pointer;
 }
 .cp_cff_11 #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_11 #fbuilder .cff-spinner .cff-spinner-up{padding:10px 0;}
+#cff_ai_assistant_use_suggestion:hover,
 .cp_cff_11 #fbuilder .pbSubmit:hover,
 .cp_cff_11 #fbuilder .pbreak .pbPrevious:hover,
 .cp_cff_11 #fbuilder .pbreak .pbNext:hover,

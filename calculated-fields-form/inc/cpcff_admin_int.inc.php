@@ -75,6 +75,9 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	}
 	?>
 	</h1>
+	<?php
+	if ( file_exists( dirname(__FILE__) . '/__countdown.php' ) ) include dirname(__FILE__) . '/__countdown.php';
+	?>
 	<form method="post" action="<?php echo esc_attr( $admin_url ); ?>" id="cpformconf" name="cpformconf" class="cff_form_builder">
 		<input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_form_settings_nonce ); ?>" />
 		<input name="cp_calculatedfieldsf_post_options" type="hidden" value="1" />
@@ -631,13 +634,18 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;">
 						<p>
 						<?php
-							esc_html_e(
-								'If you or your users do not receive the notification emails, they are probably being blocked by the web server. If so, install any of the SMTP connection plugins distributed through the WordPress directory, and configure it to use your hosting provider\'s SMTP server.',
-								'calculated-fields-form'
-							);
-							?>
+						printf(esc_html__(
+                            "If you or your users are not receiving notification emails, they may be blocked by the web server. In that case, %swe recommend installing an SMTP plugin%s from the WordPress plugin directory and configuring it to use your hosting provider's SMTP server. This will ensure reliable email delivery.",
+						'calculated-fields-form'
+						), '<strong style="font-size:120%;">', '</strong>' );
+						?>
 						</p>
-						<p><a href="https://wordpress.org/plugins/search/SMTP+Connection/" target="_blank" style="width:100%;display:block;overflow:hidden;text-overflow:ellipsis;">https://wordpress.org/plugins/search/SMTP+Connection/</a></p>
+						<p><a href="https://wordpress.org/plugins/search/SMTP+Connection/" target="_blank" style="width:100%;display:block;overflow:hidden;text-overflow:ellipsis;font-size:120%;">https://wordpress.org/plugins/search/SMTP+Connection/</a></p>
+                        <?php
+                            if ( ! class_exists( 'CPCFF_EMAIL_DIAGNOSTICS' ) )
+                                require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_email_diagnostic.inc.php';
+                            CPCFF_EMAIL_DIAGNOSTICS::show_diagnostic_form('[name="fp_from_email"]');
+                        ?>
 					</div>
 
 					<div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e( 'Up to form structure', 'calculated-fields-form' ); ?></a></div>

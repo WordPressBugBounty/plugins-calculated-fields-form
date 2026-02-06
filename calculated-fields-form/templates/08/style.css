@@ -2,7 +2,7 @@ body{
     --cff_main_slider_color: white;
     --cff_main_slider_text_color: #394D61;
 }
-
+#cff_ai_assistant_bubble,
 .cp_cff_dark_notebook #fbuilder{
     font-size: 16px;
     background: #495C70;
@@ -10,7 +10,7 @@ body{
     border: 5px solid #53687E;
     color:#FFF;
 }
-
+#cff_ai_assistant_bubble{border: 5px solid #53687E !important; border-radius:0 !important;}
 .cp_cff_dark_notebook #fbuilder ::-webkit-input-placeholder { color:#A8BACE; font-size:12px;}
 .cp_cff_dark_notebook #fbuilder :-moz-placeholder { color:#A8BACE; font-size:12px;}
 .cp_cff_dark_notebook #fbuilder ::-moz-placeholder { color:#A8BACE; font-size:12px;}
@@ -34,6 +34,8 @@ body{
 .cp_cff_dark_notebook #fbuilder .fform span,
 .cp_cff_dark_notebook #fbuilder span.uh{color:#A8BACE;font-style: italic;}
 
+#cff_ai_assistant_bubble,
+#cff_ai_assistant_use_suggestion,
 .cp_cff_dark_notebook #fbuilder .pbSubmit,
 .cp_cff_dark_notebook #fbuilder .pbreak .pbPrevious,
 .cp_cff_dark_notebook #fbuilder .pbreak .pbNext,
@@ -43,9 +45,9 @@ body{
 .cp_cff_dark_notebook #fbuilder input[type="search"],
 .cp_cff_dark_notebook #fbuilder input[type="time"],
 .cp_cff_dark_notebook #fbuilder input[type="url"],
-.cp_cff_dark_notebook #fbuilder input[type=submit],
 .cp_cff_dark_notebook #fbuilder button:not([class*="trumbowyg"]),
 .cp_cff_dark_notebook #fbuilder input[type=button],
+.cp_cff_dark_notebook #fbuilder input[type=submit],
 .cp_cff_dark_notebook #fbuilder input[type=reset],
 .cp_cff_dark_notebook #fbuilder input[type=text],
 .cp_cff_dark_notebook #fbuilder input[type=number],
@@ -128,6 +130,7 @@ body{
     border-color: #D9FFA9;
 }
 
+#cff_ai_assistant_use_suggestion,
 .cp_cff_dark_notebook .cff-spinner .cff-spinner-down,
 .cp_cff_dark_notebook .cff-spinner .cff-spinner-up,
 .cp_cff_dark_notebook #fbuilder .pbSubmit,
@@ -142,8 +145,10 @@ body{
     padding: 8px 10px 8px 10px;
     border-radius: 5px;
     color: #A8BACE;
+	cursor:pointer;
 }
 
+#cff_ai_assistant_use_suggestion:hover,
 .cp_cff_dark_notebook #fbuilder .pbSubmit,
 .cp_cff_dark_notebook #fbuilder .pbreak .pbPrevious,
 .cp_cff_dark_notebook #fbuilder .pbreak .pbNext,
@@ -159,24 +164,24 @@ background: #394D61;
     display: none;
 }
 
-.cp_cff_dark_notebook #fbuilder .cff-checkbox-field:not(.cff-switch-container) .dfield label>span,
-.cp_cff_dark_notebook #fbuilder .cff-radiobutton-field:not(.cff-switch-container) .dfield label span{
+.cp_cff_dark_notebook #fbuilder .cff-checkbox-field:not(.cff-switch-container) .dfield label>span:first-of-type,
+.cp_cff_dark_notebook #fbuilder .cff-radiobutton-field:not(.cff-switch-container) .dfield label span:first-of-type{
     display: inline-block;
     padding-left:20px;
-    height: 16px;
-    background: url('checkbox.png') no-repeat 0 0;
+    min-height: 16px;
+    background: url('checkbox.png') no-repeat 0 3px;
 }
 
-.cp_cff_dark_notebook #fbuilder .cff-radiobutton-field:not(.cff-switch-container) .dfield label span{
-    background: url('radio.png') no-repeat 0 0;
+.cp_cff_dark_notebook #fbuilder .cff-radiobutton-field:not(.cff-switch-container) .dfield label span:first-of-type{
+    background: url('radio.png') no-repeat 0 3px;
 }
 
 
 .cp_cff_dark_notebook #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"]:checked+span{
-    background: url('checkbox_checked.png') no-repeat 0 0;
+    background: url('checkbox_checked.png') no-repeat 0 3px;
 }
 .cp_cff_dark_notebook #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:checked+span{
-    background: url('radio_checked.png') no-repeat 0 0;
+    background: url('radio_checked.png') no-repeat 0 3px;
 }
 
 .cp_cff_dark_notebook #fbuilder .pbEnd .pbNext,

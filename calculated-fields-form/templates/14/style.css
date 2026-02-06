@@ -5,6 +5,7 @@ body{
 }
 
 .cp_cff_14{background:#f4f4f4;padding:20px;}
+#cff_ai_assistant_bubble,
 .cp_cff_14 #fbuilder *{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;font-family:Montserrat, -apple-system, sans-serif;font-size:16px;}
 .cp_cff_14 #fbuilder .fform{position:relative;margin-bottom:20px;text-align:center;}
 .cp_cff_14 #fbuilder .fform span{font-size:16px;color:#333;}
@@ -40,6 +41,7 @@ body{
 .cp_cff_14 #fbuilder select,
 .cp_cff_14 #fbuilder textarea,
 .cp_cff_14 #fbuilder .select2-selection{font-family:inherit;font-size:18px;line-height:24px;color:#333;background-color:#FFFFFF;border:0;padding:4px 6px;margin:0 0 15px;width:100%;min-height:48px;text-indent:10px;font-weight:400;border-radius:2px;outline:0;color:#333;box-shadow:0 0 0 transparent;}
+.cp_cff_14 #fbuilder input[type="text"].date-component{width:initial;}
 .cp_cff_14 #fbuilder .select2-selection{padding:0;padding-left:6px;text-indent:0;}
 .cp_cff_14 #fbuilder input[type="text"][name="couponcode"]{width:auto;}
 .cp_cff_14 #fbuilder select.hours-component,
@@ -106,14 +108,15 @@ body{
 	.cp_cff_14 #fbuilder .medium,
 	.cp_cff_14 #fbuilder .small{width:100%;}
 }
+#cff_ai_assistant_use_suggestion,
 .cp_cff_14 #fbuilder input[type=file]::file-selector-button,
 .cp_cff_14 #fbuilder .pbSubmit,
 .cp_cff_14 #fbuilder .pbreak .pbPrevious,
 .cp_cff_14 #fbuilder .pbreak .pbNext,
 .cp_cff_14 #fbuilder button:not([class*="trumbowyg"]),
-.cp_cff_14 #fbuilder input[type=submit],
-.cp_cff_14 #fbuilder input[type=button],
-.cp_cff_14 #fbuilder input[type=reset]{display:inline-block;text-decoration:none;font-size:18px;line-height:2;min-height:28px;padding:5px 30px;cursor:pointer;border-width:1px;border-style:solid;-webkit-appearance:none;border-radius:0;white-space:nowrap;box-sizing:border-box;vertical-align:baseline;background:#3cce88;border-color:#3cce88;color:#fff;text-shadow:none;}
+.cp_cff_14 #fbuilder input[type="submit"],
+.cp_cff_14 #fbuilder input[type="button"],
+.cp_cff_14 #fbuilder input[type="reset"]{display:inline-block;text-decoration:none;font-size:18px;line-height:2;min-height:28px;padding:5px 30px;cursor:pointer;border-width:1px;border-style:solid;-webkit-appearance:none;border-radius:0;white-space:nowrap;box-sizing:border-box;vertical-align:baseline;background:#3cce88;border-color:#3cce88;color:#fff;text-shadow:none;}
 .cp_cff_14 #fbuilder input[type=file]::file-selector-button{font-size:16px;padding:5px 15px;}
 .cp_cff_14 #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_14 #fbuilder .cff-spinner .cff-spinner-up{padding: 5px 0;}
@@ -123,14 +126,15 @@ body{
 .cp_cff_14 #fbuilder input[type="reset"]::-moz-focus-inner,
 .cp_cff_14 #fbuilder input[type="button"]::-moz-focus-inner,
 .cp_cff_14 #fbuilder input[type="submit"]::-moz-focus-inner{border-width:0;border-style:none;padding:0;}
-.cp_cff_14 #fbuilder input[type=file]:hover::file-selector-button,
+.cp_cff_14 #fbuilder input[type="file"]:hover::file-selector-button,
+#cff_ai_assistant_use_suggestion:hover,
 .cp_cff_14 #fbuilder .pbSubmit:hover,
 .cp_cff_14 #fbuilder .pbreak .pbPrevious:hover,
 .cp_cff_14 #fbuilder .pbreak .pbNext:hover,
 .cp_cff_14 #fbuilder button:not([class*="trumbowyg"]):hover,
-.cp_cff_14 #fbuilder input[type=submit]:hover,
-.cp_cff_14 #fbuilder input[type=button]:hover,
-.cp_cff_14 #fbuilder input[type=reset]:hover{background:#33ad73;border-color:#33ad73;color:#fff;}
+.cp_cff_14 #fbuilder input[type="submit"]:hover,
+.cp_cff_14 #fbuilder input[type="button"]:hover,
+.cp_cff_14 #fbuilder input[type="reset"]:hover{background:#33ad73;border-color:#33ad73;color:#fff;}
 .cp_cff_14 #fbuilder .pbEnd .pbNext,
 .cp_cff_14 #fbuilder .pb0 .pbPrevious{display:none;}
 .cp_cff_14 #fbuilder .r{color:#FF0000;}

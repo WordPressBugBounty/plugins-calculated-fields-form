@@ -26,6 +26,7 @@
 			equalTo:"",
 			regExp:"",
 			regExpMssg:"",
+			aiAssistant:false,
 			display:function( css_class )
 				{
 					css_class = css_class || '';
@@ -35,10 +36,10 @@
 			editItemEvents:function()
 				{
 					var me = this, evt = [
-						{s:"#sMinlength",e:"change keyup", l:"minlength", x:1},
-						{s:"#sMaxlength",e:"change keyup", l:"maxlength", x:1},
-						{s:"#sRegExp",e:"change keyup", l:"regExp"},
-						{s:"#sRegExpMssg",e:"change keyup", l:"regExpMssg"},
+						{s:"#sMinlength",e:"input", l:"minlength", x:1},
+						{s:"#sMaxlength",e:"input", l:"maxlength", x:1},
+						{s:"#sRegExp",e:"input", l:"regExp"},
+						{s:"#sRegExpMssg",e:"input", l:"regExpMssg"},
 						{s:"#sEqualTo",e:"change", l:"equalTo", x:1}
 					],
 					items = this.fBuild.getItems();

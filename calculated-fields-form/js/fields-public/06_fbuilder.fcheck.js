@@ -12,6 +12,8 @@
             onoff:0,
 			quantity:0,
 			quantity_when_ticked:0,
+            minQuantity: -1,
+            maxQuantity: -1,
 			max:-1,
 			min:-1,
 			maxError:"Check no more than {0} boxes",
@@ -27,7 +29,7 @@
 			},
 			show:function()
 				{
-					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
+					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices);
 					var str = "",
                         classDep,
 						n 	= this.name.match(/fieldname\d+/)[0];
@@ -49,7 +51,7 @@
                         '<span>'+cff_html_decode(this.choices[i])+'</span>'+
 						(
 						    this.quantity ?
-							'<span class="cff-checkbox-field-quantity"><input type="number" min="1" value="1" id="'+this.name+'_cb'+i+'_quantity" /></span>' : ''
+                                '<span class="cff-checkbox-field-quantity"><input type="number" min="' + cff_esc_attr(Math.max(1, this.minQuantity)) + '" ' + ((this.maxQuantity > 0) ? 'max="' + cff_esc_attr(Math.max(1, this.minQuantity, this.maxQuantity)) + '"' : '') + ' value="' + cff_esc_attr(Math.max(1, this.minQuantity)) +'" id="'+this.name+'_cb'+i+'_quantity" /></span>' : ''
 						) +
 						'</label></div>';
 					}
@@ -162,12 +164,12 @@
 					catch(e){  }
 					return result;
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
 					var v, me = this, m = me.merge && !raw, q = me.quantity,
-						e = $('[id*="'+me.name+'_"]:checked:not(.ignore)');
+						e = (disable_ignore_check) ? $('[id*="'+me.name+'_"]:checked') : $('[id*="'+me.name+'_"]:checked:not(.ignore)');
 
 					if(!m) v = [];
 					if(e.length)
@@ -243,7 +245,7 @@
 					if($.isPlainObject(choices))
 					{
 						var me = this,
-                            bk = me.val('vt');
+                            bk = me.val('vt', false, true);
 						if('texts' in choices && Array.isArray(choices.texts)) me.choices = choices.texts;
 						if('values' in choices && Array.isArray(choices.values)) me.choicesVal = choices.values;
 						if('dependencies' in choices && Array.isArray(choices.dependencies))

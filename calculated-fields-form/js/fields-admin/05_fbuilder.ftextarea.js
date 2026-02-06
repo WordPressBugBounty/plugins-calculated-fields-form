@@ -24,6 +24,7 @@
 			minlength:"",
 			maxlength:"",
             rows:4,
+			aiAssistant:false,
 			initAdv: function() {
 				delete this.advanced.css['input'];
 				if ( ! ( 'textarea' in this.advanced.css ) ) this.advanced.css.textarea = {label: 'Text area',rules:{}};

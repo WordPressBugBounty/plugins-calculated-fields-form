@@ -18,6 +18,7 @@
 
 .cff_form_builder{clear:both;}
 .ui-datepicker:empty{display:none;}
+.ctrlsColumn .itemForm{ text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
 /** BTTN ICONS **/
 .cff-button-drag::before{font-family:'Material Icons';font-weight:normal;font-size:1em;background:transparent !important;margin-right:10px;}
 .ctrlsColumn .itemForm::before{font-family:'Material Icons';font-weight: normal;float:left;margin-left:-5px;font-size:13px;}
@@ -339,7 +340,7 @@ body:has( #metabox_form_structure.fullscreen ) .select2-container{z-index:99999;
 .choicesSet.hide {display:block !important;visibility: visible !important;}
 .choicesSet.hide .choicesEditDep{display:none}
 .choicesSet.show .choicesEditDep{display:block}
-a.helpfbuilder.dep{font-size:100%;padding-left:10px}
+a.helpfbuilder.dep{font-size:100%;margin-left:10px}
 input [disabled] {background-color: #f00;}
 input [readonly] {background-color: #f00;}
 #fbuilder .fform.ui-selected,
@@ -435,15 +436,18 @@ textarea {resize: none}
 }
 
 #metabox_new_form_area form>div{display:flex;flex-wrap:wrap;flex-direction:column;gap:2px;}
+.cff-forms-pagination-area{margin-top:10px;margin-bottom:10px;text-align:right;}
 @media screen AND (min-width:710px) {
 	#metabox_new_form_area form>div{flex-direction:row;}
 	#metabox_new_form_area form>div>input:nth-of-type(1){flex-grow:1;}
 	#metabox_new_form_area form>div>input:nth-of-type(2){flex-grow:1;}
-	#metabox_categories_list{float:left;}
-	#forms_pagination{float:right;text-align:right;clear:right;}
+    .cff-filter-area{display:flex;align-items:center;gap:30px;clear:both;}
+    #metabox_categories_list{flex-grow:1;display:flex;align-items:center;gap:5px;}
+    #metabox_categories_list [name="calculated-fields-search-form"]{flex-grow:1;}
 }
 
 @media screen AND (max-width:710px) {
+	.cff-navigation-main-menu{float:none !important;}
 	#metabox_categories_list,
 	#forms_pagination{float:none;, text-align:left;margin:5px 0;}
 	#metabox_categories_list select,
@@ -457,13 +461,22 @@ textarea {resize: none}
 .form-builder #tabs-1,
 .form-builder #tabs-2,
 .form-builder #tabs-3{top:41px;bottom:2px;left:0;right:2px;position:absolute;overflow-y:auto;overflow-x:hidden;}
-.form-builder #tabs-2{overflow-y:hidden;}
+
+.form-builder #tabs-2:has( .cff-field-settings-tabs-headers),
+.form-builder #tabs-3:has( .cff-field-settings-tabs-headers) {
+	padding-top:0;
+}
 
 /* FIELDS SETTINGS TABS */
 .cff-field-settings-tabs-headers{
 	width: calc( 100% + 2.8em );
 	margin-left: -1.4em;
 	border-bottom:1px solid #2271b1;
+	position: sticky;
+    top: 0;
+    padding-top: 1em;
+    background: #ffffff;
+	z-index:999999;
 }
 .cff-field-settings-tabs-headers .cff-field-settings-tab-header-basic,
 .cff-field-settings-tabs-headers .cff-field-settings-tab-header-advanced{
@@ -484,15 +497,7 @@ textarea {resize: none}
 	cursor:initial;
 	margin-bottom: -1px !important;
 }
-.cff-field-settings-tabs-bodies{
-	overflow-y:auto;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 50px;
-    padding: 0 15px 15px 15px;
-}
+
 .cff-field-settings-tabs-bodies .cff-field-settings-tab-body-basic,
 .cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced{
 	display:none;
@@ -821,7 +826,7 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 .cff_form_builder .CodeMirror{height:300px;margin-bottom:10px;overflow-y:hidden !important;resize:vertical;}
 .cff_form_builder #sEq+.CodeMirror{height:200px;}
 .cff_form_builder #tabs-3 .CodeMirror{height:195px;}
-.cff-editor-container.fullscreen{position:fixed;top:30px;right:0;bottom:0;left:0;z-index:99999;background:#f2f5f7;margin:0;display:flex;flex-direction:column;}
+.cff-editor-container.fullscreen{position:fixed;top:30px;right:0;bottom:0;left:0;z-index:999999;background:#f2f5f7;margin:0;display:flex;flex-direction:column;}
 .cff-editor-container.fullscreen>div:last-child{flex-grow:1;position:relative;}
 .cff-editor-container.fullscreen .CodeMirror{height: 100% !important;position:absolute;left:0;top:0;right:0;bottom:0;}
 .cff-editor-container .cff-editor-extend-shrink{float:left;width:24px;height:24px;cursor:pointer;display:inline-block;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path d='M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'/></svg>");background-size:cover;}

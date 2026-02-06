@@ -35,7 +35,7 @@
 					{
 						cStr += '<option value="'+(i+1)+'" '+( ( this.columns == (i+1) ) ? 'SELECTED' : '' )+'>'+(i+1)+' column'+( ( i ) ? 's' : '' )+'</option>';
 					}
-					return '<style>#sAlignTop{margin-left:20px;margin-right:5px;}#sAlignTop::before{content:"\\27D9";}#sAlignBottom::before{content:"\\22A5";}</style><div><label>Columns</label><select name="sColumns" id="sColumns">' + cStr + '</select> <input type="button" class="eq_btn button-secondary" onclick="window.open(\'https://cff.dwbooster.com/documentation#container-fields\');" value="?" title="Tutorial">'+
+					return '<style>#sAlignTop{margin-left:20px;margin-right:5px;}#sAlignTop::before{content:"\\27D9";}#sAlignBottom::before{content:"\\22A5";}</style><div><label>Columns</label><select name="sColumns" id="sColumns">' + cStr + '</select> <a class="eq_btn button-secondary helpfbuilder video" href="https://www.youtube.com/embed/NSac2cAN8RE?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X">&#9654; help?</a>'+
 					'<button type="button" id="sAlignTop" class="'+( this.align == 'top' ? 'button-primary' :  'button-secondary' )+'" title="Align top" style="display:inline-block;"></button>'+
 					'<button type="button" id="sAlignBottom" class="'+( this.align == 'bottom' ? 'button-primary' :  'button-secondary' )+'" title="Align bottom" style="display:inline-block;"></button>'+
 					'<div class="clearer"><span class="uh">Shown in columns the fields into the container.</span></div></div>'+

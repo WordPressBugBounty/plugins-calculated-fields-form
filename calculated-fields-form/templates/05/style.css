@@ -1,8 +1,10 @@
 body{
     --cff_main_slider_color: rgb(0, 34, 65);
 }
-
+#cff_ai_assistant_bubble,
 .cp_cff_decorative{padding:20px;background:url("form_bg.jpg");-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;-webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.32);-moz-box-shadow:0px 0px 5px 2px rgba(0, 0, 0, 0.32);box-shadow:0px 0px 5px 2px rgba(0, 0, 0, 0.32);}
+#cff_ai_assistant_bubble{border-bottom-left-radius: 0;border-bottom-right-radius: 0;border-color: white !important;}
+#cff_ai_assistant_bubble,
 .cp_cff_decorative #fbuilder{color: rgb(0, 34, 65);font-family: Cambria, Georgia, 'Times New Roman', Times, serif;}
 .cp_cff_decorative #fbuilder h1,
 .cp_cff_decorative #fbuilder h2,
@@ -60,14 +62,25 @@ body{
 .cp_cff_decorative #fbuilder legend{font-weight:normal;text-align:center;border:0;}
 
 .cp_cff_decorative #fbuilder fieldset{border:0;padding:0;}
+#cff_ai_assistant_use_suggestion,
 .cp_cff_decorative #fbuilder button:not([class*="trumbowyg"]),
 .cp_cff_decorative #fbuilder input[type="button"],
+.cp_cff_decorative #fbuilder input[type="submit"],
 .cp_cff_decorative #fbuilder input[type="reset"],
 .cp_cff_decorative .cff-spinner .cff-spinner-down,
 .cp_cff_decorative .cff-spinner .cff-spinner-up,
 .cp_cff_decorative #fbuilder .pbSubmit,
 .cp_cff_decorative #fbuilder .pbPrevious,
-.cp_cff_decorative #fbuilder .pbNext{padding: 5px 20px;color:#fff;font-family: 'century gothic', Arial, Helvetica, sans-serif;text-transform:uppercase;font-size:14px;font-weight:bold;background: #cc3333;background:-moz-linear-gradient(top,  #cc3333 11%, #8c0000 77%, #8c0000 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(11%,#cc3333), color-stop(77%,#8c0000), color-stop(100%,#8c0000));background: -webkit-linear-gradient(top,  #cc3333 11%,#8c0000 77%,#8c0000 100%);background: -o-linear-gradient(top,  #cc3333 11%,#8c0000 77%,#8c0000 100%);background: -ms-linear-gradient(top,  #cc3333 11%,#8c0000 77%,#8c0000 100%);background: linear-gradient(to bottom,  #cc3333 11%,#8c0000 77%,#8c0000 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc3333', endColorstr='#8c0000',GradientType=0 );border:2px solid #FCFAE6;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;-webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.32);-moz-box-shadow:0px 0px 5px 2px rgba(0, 0, 0, 0.32);box-shadow:0px 0px 5px 2px rgba(0, 0, 0, 0.32);}
+.cp_cff_decorative #fbuilder .pbNext{padding: 5px 20px;color:#fff;font-family: 'century gothic', Arial, Helvetica, sans-serif;text-transform:uppercase;font-size:14px;font-weight:bold;background: #cc3333;background:-moz-linear-gradient(top,  #cc3333 11%, #8c0000 77%, #8c0000 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(11%,#cc3333), color-stop(77%,#8c0000), color-stop(100%,#8c0000));background: -webkit-linear-gradient(top,  #cc3333 11%,#8c0000 77%,#8c0000 100%);background: -o-linear-gradient(top,  #cc3333 11%,#8c0000 77%,#8c0000 100%);background: -ms-linear-gradient(top,  #cc3333 11%,#8c0000 77%,#8c0000 100%);background: linear-gradient(to bottom,  #cc3333 11%,#8c0000 77%,#8c0000 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc3333', endColorstr='#8c0000',GradientType=0 );border:2px solid #FCFAE6;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;-webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.22);-moz-box-shadow:0px 0px 5px 2px rgba(0, 0, 0, 0.22);box-shadow:0px 0px 5px 2px rgba(0, 0, 0, 0.22);cursor:pointer;}
+.cp_cff_decorative #fbuilder button:not([class*="trumbowyg"]):hover,
+.cp_cff_decorative #fbuilder input[type="button"]:hover,
+.cp_cff_decorative #fbuilder input[type="submit"]:hover,
+.cp_cff_decorative #fbuilder input[type="reset"]:hover,
+.cp_cff_decorative .cff-spinner .cff-spinner-down:hover,
+.cp_cff_decorative .cff-spinner .cff-spinner-up:hover,
+.cp_cff_decorative #fbuilder .pbSubmit:hover,
+.cp_cff_decorative #fbuilder .pbPrevious:hover,
+.cp_cff_decorative #fbuilder .pbNext:hover{box-shadow:0px 0px 5px 2px rgba(0, 0, 0, 0.32);}
 .cp_cff_decorative #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_decorative #fbuilder .cff-spinner .cff-spinner-up{padding:0;}
 .cp_cff_decorative #fbuilder .r{color:rgb(0,0,0);}

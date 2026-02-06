@@ -516,6 +516,7 @@ body{
 #fbuilder .pbPrevious,
 #fbuilder .pbNext,
 #fbuilder .pbSubmit{background:#ccc;color:#000;display:inline-block;cursor:pointer;margin:10px 5px 0px 5px;padding:5px 30px;min-height:30px;}
+#cff_ai_assistant_use_suggestion,
 #fbuilder button,
 #fbuilder input[type="button"],
 #fbuilder input[type="reset"],
@@ -529,6 +530,7 @@ body{
 #fbuilder .pbreak.pbEnd .pbNext{display:none !important;}
 #fbuilder fieldset{border:1px solid #ccc;padding:10px;display:block;}
 #fbuilder legend{border:1px solid #ccc;padding:5px 10px;}
+#fbuilder legend:empty{display:none;}
 #fbuilder .cff-collapsible.cff-collapsed{cursor:pointer;}
 #fbuilder .cff-collapsible.cff-collapsed>fieldset>div{display:none;}
 #fbuilder .cff-collapsible.cff-collapsed>fieldset::after{content:'...';}
@@ -590,7 +592,7 @@ body{
 #fbuilder .cff-switch-container input:checked+span.cff-switch:before{right:2px !important;left:auto !important}
 #fbuilder label:has(.cff-checkbox-field-quantity){position:relative;min-height:42px;}
 #fbuilder .cff-checkbox-field-quantity{text-align:right;display:table-cell;}
-#fbuilder .cff-checkbox-field-quantity input{max-width:100px;margin-left:10px !important;margin-bottom:0 !important;}
+#fbuilder .cff-checkbox-field-quantity input{width:80px;max-width:100px;margin-left:10px !important;margin-bottom:0 !important;}
 
 #fbuilder .cff-quantity-when-ticked .cff-checkbox-field-quantity{visibility:hidden;}
 #fbuilder .cff-quantity-when-ticked:has(input:checked) .cff-checkbox-field-quantity{visibility:visible;}
@@ -821,3 +823,23 @@ body{
 	position:fixed;
 	z-index:9999;
 }
+
+#cff_ai_assistant_bubble{
+	display:none;
+	width:90% !important;
+	max-width:370px !important;
+	position:fixed !important;
+	bottom:0 !important;
+	padding:10px 20px !important;
+	background:white;
+	border:1px solid #dadada !important;
+	border-top-left-radius:8px !important;
+	border-top-right-radius:8px !important;
+	left:50% !important;
+	transform:translateX(-50%) !important;
+	box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+}
+#cff_ai_assistant_use_suggestion{display:block;margin-left:auto !important;margin-top:20px !important;}
+#cff_ai_assistant_bubble_close{text-align:right;}
+#cff_ai_assistant_bubble_close::before{content:'X';display:inline-block;cursor:pointer;}
+#cff_ai_assistant_bubble_close:hover::before{font-weight:600;}

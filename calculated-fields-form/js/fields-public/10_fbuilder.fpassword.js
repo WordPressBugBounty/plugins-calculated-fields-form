@@ -29,7 +29,7 @@
 
 					this.equalTo = cff_esc_attr(String(this.equalTo).trim());
 					this.predefined = this._getAttr('predefined', true);
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-password-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'"'+((this.minlength) ? ' minlength="'+cff_esc_attr(this.minlength)+'"' : '')+((this.maxlength) ? ' maxlength="'+cff_esc_attr(this.maxlength)+'"' : '')+((this.equalTo.length) ? ' equalTo="#'+this.equalTo+this.form_identifier+'"' : '')+' class="field '+this.size+((this.required)?" required":"")+'" type="password" autocomplete="new-password" value="'+cff_esc_attr(this.predefined)+'" style="'+cff_esc_attr(this.getCSSComponent('input'))+'" /><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-password-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'"'+((this.minlength) ? ' minlength="'+cff_esc_attr(this.minlength)+'"' : '')+((this.maxlength) ? ' maxlength="'+cff_esc_attr(this.maxlength)+'"' : '')+((this.equalTo.length) ? ' equalTo="#'+this.equalTo+this.form_identifier+'"' : '')+' class="field '+this.size+((this.required)?" required":"")+'" type="password" autocomplete="new-password" '+this._getValueAttr()+' style="'+cff_esc_attr(this.getCSSComponent('input'))+'" /><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{
@@ -72,11 +72,11 @@
 						$('#'+this.name).on('focus', function(){this.type="text";}).on('blur', function(){this.type="password";});
 					}
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)');
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)');
 					if(e.length) return $.fbuilder.parseValStr(e.val(), raw, no_quotes);
 					return 0;
 				}

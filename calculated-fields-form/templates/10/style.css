@@ -8,7 +8,13 @@ body{
     border-radius: 8px;
 	color:#333;
 }
-
+#cff_ai_assistant_bubble{
+	background: #f4f7f8;
+    color:#333;
+	box-shadow:none;
+	border:3px solid #d2d9dd !important;
+	border-bottom:0 !important;
+}
 .cp_cff_pastel #fbuilder  input[type="text"],
 .cp_cff_pastel #fbuilder  input[type="file"],
 .cp_cff_pastel #fbuilder  input[type="date"],
@@ -55,6 +61,7 @@ body{
     -webkit-appearance: menulist-button;
     height:35px;
 }
+#cff_ai_assistant_use_suggestion,
 .cp_cff_pastel .cff-spinner .cff-spinner-down,
 .cp_cff_pastel .cff-spinner .cff-spinner-up,
 .cp_cff_pastel #fbuilder .pbSubmit,
@@ -70,6 +77,7 @@ body{
     font-style: normal;
     border: 1px solid #16a085;
     border-width: 1px 1px 3px;
+	cursor:pointer;
 }
 .cp_cff_pastel .cff-spinner .cff-spinner-down,
 .cp_cff_pastel .cff-spinner .cff-spinner-up{height:35px;padding:5px;}
@@ -83,6 +91,7 @@ body{
 .cp_cff_pastel #fbuilder .select2-selection--single .select2-selection__rendered{line-height:35px;}
 .cp_cff_pastel #fbuilder .select2-selection__arrow{min-height:35px;}
 .cp_cff_pastel #fbuilder .select2-results__option--highlighted{background:#1abc9c;}
+#cff_ai_assistant_use_suggestion:hover,
 .cp_cff_pastel #fbuilder .pbSubmit:hover,
 .cp_cff_pastel #fbuilder .pbreak .pbPrevious:hover,
 .cp_cff_pastel #fbuilder .pbreak .pbNext:hover,

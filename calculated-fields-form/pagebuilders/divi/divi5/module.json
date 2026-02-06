@@ -1,0 +1,174 @@
+{
+    "name": "cff/cff-divi5-module",
+    "d4Shortcode": "cff_divi",
+    "title": "Calculated Fields Form",
+    "titles": "Calculated Fields Form",
+    "category": "module",
+    "moduleClassName": "cff_divi",
+    "moduleOrderClassName": "cff_divi",
+
+    "attributes": {
+        "module": {
+            "type": "object",
+            "selector": "{{selector}}",
+            "default": {
+                "meta": {
+                    "adminLabel": {
+                        "desktop": {
+                            "value": "Calculated Fields Form"
+                        }
+                    }
+                }
+            },
+            "settings": {
+                "meta": {},
+                "decoration": {}
+            }
+        },
+
+        "cff_form_id": {
+            "type": "object",
+            "selector": "{{selector}} .cff_form_id",
+            "attributes": {
+                "class": "cff_form_id"
+            },
+            "tagName": "select",
+            "settings": {
+                "innerContent": {
+                    "groupType": "group-item",
+                    "item": {
+                        "groupName": "mainContent",
+                        "priority": 10,
+                        "render": true,
+                        "attrName": "cff_form_id.innerContent",
+                        "label": "Form ID",
+                        "description": "Select the Calculated Fields Form",
+                        "features": {
+                            "dynamicContent": false
+                        },
+                        "component": {
+                            "name": "divi/select",
+                            "type": "field",
+                            "props": {
+                                "options": {}
+                            }
+                        }
+                    }
+                },
+                "decoration": {}
+            }
+        },
+
+        "cff_class_name": {
+            "type": "object",
+            "selector": "{{selector}} .cff_class_name",
+            "attributes": {
+                "class": "cff_class_name"
+            },
+            "tagName": "input",
+            "inlineEditor": "plainText",
+            "settings": {
+                "innerContent": {
+                    "groupType": "group-item",
+                    "item": {
+                        "groupName": "mainContent",
+                        "priority": 20,
+                        "render": true,
+                        "attrName": "cff_class_name.innerContent",
+                        "label": "Class Name",
+                        "description": "Custom class name added to the form wrapper",
+                        "features": {
+                            "dynamicContent": false
+                        },
+                        "component": {
+                            "name": "divi/text",
+                            "type": "field"
+                        }
+                    }
+                },
+                "decoration": {
+                    "bodyFont": {}
+                }
+            }
+        },
+
+        "cff_attributes": {
+            "type": "object",
+            "selector": "{{selector}} .cff_attributes",
+            "attributes": {
+                "class": "cff_attributes"
+            },
+            "tagName": "input",
+            "inlineEditor": "plainText",
+            "settings": {
+                "innerContent": {
+                    "groupType": "group-item",
+                    "item": {
+                        "groupName": "mainContent",
+                        "priority": 30,
+                        "render": true,
+                        "attrName": "cff_attributes.innerContent",
+                        "label": "Additional Attributes",
+                        "description": "Add extra HTML attributes (example: data-test=\"value\")",
+                        "features": {
+                            "dynamicContent": false
+                        },
+                        "component": {
+                            "name": "divi/text",
+                            "type": "field"
+                        }
+                    }
+                },
+                "decoration": {
+                    "bodyFont": {}
+                }
+            }
+        },
+
+        "cff_iframe": {
+            "type": "object",
+            "selector": "{{selector}} .cff_iframe",
+            "attributes": {
+                "class": "cff_iframe"
+            },
+            "default": {
+                "innerContent": {
+                    "desktop": {
+                        "value": "off"
+                    }
+                }
+            },
+            "settings": {
+                "innerContent": {
+                    "groupType": "group-item",
+                    "item": {
+                        "groupName": "mainContent",
+                        "priority": 40,
+                        "render": true,
+                        "attrName": "cff_iframe.innerContent",
+                        "label": "Load the Form within an iFrame",
+                        "description": "Load the form within an iframe tag to keep it separate from the page context",
+                        "features": {
+                            "dynamicContent": false
+                        },
+                        "component": {
+                            "type": "field",
+                            "name": "divi/toggle",
+                            "props": {
+                                "on": "on",
+                                "off": "off"
+                            }
+                        }
+                    }
+                },
+                "decoration": {}
+            }
+        }
+    },
+
+    "settings": {
+        "content": "auto",
+        "design": false,
+        "advanced": false
+    }
+}

@@ -3,6 +3,7 @@ body{
 }
 
 .cp_cff_elegant{padding:10px;}
+#cff_ai_assistant_bubble,
 .cp_cff_elegant #fbuilder{color: rgb(81, 62, 43);font-family: Cambria, Georgia, 'Times New Roman', Times, serif;}
 .cp_cff_elegant #fbuilder h1,
 .cp_cff_elegant #fbuilder h2,
@@ -50,14 +51,25 @@ body{
 .cp_cff_elegant #fbuilder legend:after{content:"\007E";}
 
 .cp_cff_elegant #fbuilder fieldset{border:0;padding:0;}
+#cff_ai_assistant_use_suggestion,
 .cp_cff_elegant #fbuilder button:not([class*="trumbowyg"]),
 .cp_cff_elegant #fbuilder input[type=button],
+.cp_cff_elegant #fbuilder input[type=submit],
 .cp_cff_elegant #fbuilder input[type=reset],
 .cp_cff_elegant .cff-spinner .cff-spinner-down,
 .cp_cff_elegant .cff-spinner .cff-spinner-up,
 .cp_cff_elegant #fbuilder .pbSubmit,
 .cp_cff_elegant #fbuilder .pbPrevious,
-.cp_cff_elegant #fbuilder .pbNext{border:0; color:#fff;font-variant:small-caps;font-size:14px;font-weight:bold;background:#177da7;-webkit-border-top-right-radius: 10px;-webkit-border-bottom-left-radius: 10px;-moz-border-radius-topright: 10px;-moz-border-radius-bottomleft: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;padding:5px 20px;}
+.cp_cff_elegant #fbuilder .pbNext{border:0; color:#fff;font-variant:small-caps;font-size:14px;font-weight:bold;background:#177da7;-webkit-border-top-right-radius: 10px;-webkit-border-bottom-left-radius: 10px;-moz-border-radius-topright: 10px;-moz-border-radius-bottomleft: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;padding:5px 20px;cursor:pointer;}
+.cp_cff_elegant #fbuilder button:not([class*="trumbowyg"]):hover,
+.cp_cff_elegant #fbuilder input[type=button]:hover,
+.cp_cff_elegant #fbuilder input[type=submit]:hover,
+.cp_cff_elegant #fbuilder input[type=reset]:hover,
+.cp_cff_elegant .cff-spinner .cff-spinner-down:hover,
+.cp_cff_elegant .cff-spinner .cff-spinner-up:hover,
+.cp_cff_elegant #fbuilder .pbSubmit:hover,
+.cp_cff_elegant #fbuilder .pbPrevious:hover,
+.cp_cff_elegant #fbuilder .pbNext:hover{background:#115c7a;}
 .cp_cff_elegant #fbuilder .r{color:#177da7;}
 .cp_cff_elegant #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_elegant #fbuilder .cff-spinner .cff-spinner-up{padding:0;}

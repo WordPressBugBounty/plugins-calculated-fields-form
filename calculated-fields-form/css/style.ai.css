@@ -1,28 +1,30 @@
-/**** Assistant Dialog ****/
-.cff-ai-assistant-status{margin-top:10px;font-style:italic;color:#666;display:none;font-size:11px;}
-.cff-ai-assistant-progress-container{width:100%;height:1px;background-color:#ffffff;border-radius:10px;margin:10px 0;overflow:hidden;}
-.cff-ai-assistant-progress-bar{height:100%;background:#2271b1;width:0%;transition:width 0.3s ease;}
-.cff-ai-assistant-answer-row::-webkit-scrollbar,
-.cff-ai-assistant-answer-row ::-webkit-scrollbar{width:7px;height:7px;background:transparent;}
-.cff-ai-assistant-answer-row::-webkit-scrollbar-thumb,
-.cff-ai-assistant-answer-row ::-webkit-scrollbar-thumb{background:#D0D5DD;-webkit-border-radius:35px;-webkit-box-shadow:none;}
-.cff-ai-assistant-answer-row::-webkit-scrollbar-corner,
-.cff-ai-assistant-answer-row ::-webkit-scrollbar-corner{background:transparent;}
-#cff-ai-assistant-container{position:fixed;top:35px;right:20px;z-index:999999;width:400px;height:calc( 100% - 40px );background:white;padding:5px;box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-webkit-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-moz-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);border-radius:5px;flex-direction:column;gap:10px;}
-#cff-ai-assistant-container label{font-weight:bold;}
-.cff-ai-assistan-title{background:#2271b1;border-radius:5px;padding:5px;color:white;cursor:move;display:flex;align-items:center;padding-left:20px;gap:5px;}
-.cff-ai-assistan-title span{flex-grow:1;font-size:1.2em;line-height:2;}
-.cff-ai-assistant-answer-row{width:100%;overflow-y:auto;flex:1 1 0%;padding:10px;border:1px solid #2271b1;border-radius:5px;background-color:#fafafa;position:relative;box-sizing:border-box;}
-.cff-ai-assistant-question-controls{display:flex;gap:10px;align-items:stretch;min-height:30px;max-height:80px;}
-.cff-ai-assistant-question-controls textarea{flex-grow:1;resize:vertical;min-height:30px;max-height:80px;border:1px solid #2271b1; }
-.cff-ai-assistant-question-controls #cff-ai-assistan-send-btn{}
-.cff-ai-assistant-question-error{color:red;display:none;padding-top:10px;}
-.cff-ai-assistance-message{margin-bottom:15px;padding:10px;border-radius:8px;}
-.cff-ai-assistance-bot-message{background-color:#e3f2fd;margin-left:20px;margin-right:5px;text-align:left;}
-.cff-ai-assistance-bot-message:has(pre)::after{content:"Assistant can make mistakes.Please double-check responses.";font-size:11px;text-align:right;width:100%;display:block;font-style:italic;margin-top:3px;}
-.cff-ai-assistance-error-message{background:#fe5a5a;color:white;}
-.cff-ai-assistance-error-message *{color:white !important;}
-.cff-ai-assistance-user-message{background-color:#f1f1f1;margin-right:20px;margin-left:5px;}
-.cff-ai-assistance-message pre{background-color:#2c3e50;color:#e0e0e0;padding:10px;border-radius:5px;overflow:hidden;margin-bottom:0;}
-.cff-ai-assistance-message pre code{display:block; overflow-x:auto;}
-#cff-ai-assistant-stats{font-size:11px;}
+.cff-ai-assistant-status{margin-top:10px;font-style:italic;color:#666;display:none;font-size:11px}
+.cff-ai-assistant-progress-container{width:100%;height:1px;background-color:#ffffff;border-radius:10px;margin:10px 0;overflow:hidden}
+.cff-ai-assistant-progress-bar{height:100%;background:#2271b1;width:0%;transition:width 0.3s ease}
+.cff-ai-assistant-answer-row::-webkit-scrollbar,.cff-ai-assistant-answer-row ::-webkit-scrollbar{width:7px;height:7px;background:transparent}
+.cff-ai-assistant-answer-row::-webkit-scrollbar-thumb,.cff-ai-assistant-answer-row ::-webkit-scrollbar-thumb{background:#D0D5DD;-webkit-border-radius:35px;-webkit-box-shadow:none}
+.cff-ai-assistant-answer-row::-webkit-scrollbar-corner,.cff-ai-assistant-answer-row ::-webkit-scrollbar-corner{background:transparent}
+#cff-ai-assistant-container{position:fixed;top:35px;right:20px;z-index:999999;width:400px;max-width:90%;height:calc(100% - 40px);background:white;padding:5px;box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-webkit-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-moz-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);border-radius:5px;flex-direction:column;gap:10px}
+#cff-ai-assistant-container label{font-weight:bold}
+.cff-ai-assistan-header{background:#2271b1;border-radius:5px;padding:5px;color:white;cursor:move;display:flex;flex-direction:column;align-items:center;gap:5px}
+.cff-ai-assistan-title{color:white;cursor:move;display:flex;align-items:center;gap:5px;padding-left:10px;width:100%}
+#cff-ai-assistant-settings-container span,
+.cff-ai-assistan-title span{flex-grow:1;font-size:1em}
+#cff-ai-assistant-settings-container{margin:5px;width:100%;box-sizing:border-box;background:#fff;padding:15px;border-radius:5px;color:#3c434a}
+#cff-ai-assistant-settings-container label{display:block;font-weight:normal;margin:10px 0 5px 0}
+#cff-ai-assistant-settings-container input,
+#cff-ai-assistant-settings-container select {width: 100%;}
+
+.cff-ai-assistant-answer-row{width:100%;overflow-y:auto;flex:1 1 0%;padding:10px;border:1px solid #2271b1;border-radius:5px;background-color:#fafafa;position:relative;box-sizing:border-box}
+.cff-ai-assistant-question-controls{display:flex;gap:10px;align-items:stretch;min-height:30px;max-height:80px}
+.cff-ai-assistant-question-controls textarea{flex-grow:1;resize:vertical;min-height:30px;max-height:80px;border:1px solid #2271b1}
+.cff-ai-assistant-question-error{color:red;display:none;padding-top:10px}
+.cff-ai-assistance-message{margin-bottom:15px;padding:10px;border-radius:8px}
+.cff-ai-assistance-bot-message{background-color:#e3f2fd;margin-left:20px;margin-right:5px;text-align:left}
+.cff-ai-assistance-bot-message:has(pre)::after{content:"Assistant can make mistakes.Please double-check responses.";font-size:11px;text-align:right;width:100%;display:block;font-style:italic;margin-top:3px}
+.cff-ai-assistance-error-message{background:#fe5a5a;color:white}
+.cff-ai-assistance-error-message *{color:white!important}
+.cff-ai-assistance-user-message{background-color:#f1f1f1;margin-right:20px;margin-left:5px}
+.cff-ai-assistance-message pre{background-color:#2c3e50;color:#e0e0e0;padding:10px;border-radius:5px;overflow:hidden;margin-bottom:0}
+.cff-ai-assistance-message pre code{display:block;overflow-x:auto}
+#cff-ai-assistant-stats{font-size:11px}

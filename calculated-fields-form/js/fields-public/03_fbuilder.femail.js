@@ -17,7 +17,7 @@
 			show:function()
 				{
 					this.predefined = this._getAttr('predefined');
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-email-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'" '+((this.equalTo!="")?"equalTo=\"#"+cff_esc_attr(this.equalTo+this.form_identifier)+"\"":"")+' class="field email '+cff_esc_attr(this.size)+((this.required)?" required":"")+'" type="email" value="'+cff_esc_attr(this.predefined)+'" '+((this.readonly)?'readonly':'')+' autocomplete="'+this.autocomplete+'" style="'+cff_esc_attr(this.getCSSComponent('input'))+'" /><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-email-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'" '+((this.equalTo!="")?"equalTo=\"#"+cff_esc_attr(this.equalTo+this.form_identifier)+"\"":"")+' class="field email '+cff_esc_attr(this.size)+((this.required)?" required":"")+'" type="email" '+this._getValueAttr()+' '+((this.readonly)?'readonly':'')+' autocomplete="'+this.autocomplete+'" style="'+cff_esc_attr(this.getCSSComponent('input'))+'" /><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{
@@ -40,11 +40,11 @@
 						} catch ( err ) {}
 					}
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)'),
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)'),
 						v = e.length ? e.val() : (raw ? '' : 0);
 					v = $.fbuilder.parseValStr(v, raw, no_quotes);
 					return (raw && ! no_quotes && ! isNaN( v ) ) ? '"'+v+'"' : v;

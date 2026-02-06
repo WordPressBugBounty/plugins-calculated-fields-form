@@ -40,7 +40,18 @@
             after_show:function()
                 {
 					var me = this;
-					$('#'+this.name).on( 'mousedown', function(){eval(me.sOnmousedown);});
+					$('#'+this.name).on( 'mousedown', function(){
+						try {
+							eval(me.sOnmousedown);
+						} catch ( err ) {
+							try {
+								if ( err instanceof EvalError ) $.fbuilder['eval'].call(this, me.sOnmousedown);
+								else throw err;
+							} catch ( err2 ) {
+								console.log(err2.message);
+							}
+						}
+					});
 					$('#'+this.name).on( 'click',
                         function()
                             {
@@ -78,9 +89,29 @@
 
 								if( me.sType == 'reset' ) {
 									RESETFORM(e[0].form);
-									setTimeout(function(){ eval(me.sOnclick); }, 55);
+									setTimeout(function(){
+										try {
+											eval(me.sOnclick);
+										} catch ( err ) {
+											try {
+												if ( err instanceof EvalError ) $.fbuilder['eval'].call(this, me.sOnclick);
+												else throw err;
+											} catch ( err2 ) {
+												console.log(err2.message);
+											}
+										}
+									}, 55);
 								} else {
-									eval(me.sOnclick);
+									try {
+										eval(me.sOnclick);
+									} catch ( err ) {
+										try {
+											if ( err instanceof EvalError ) $.fbuilder['eval'].call(this, me.sOnclick);
+											else throw err;
+										} catch ( err2 ) {
+											console.log(err2.message);
+										}
+									}
 								}
 
 								if(me.sType == 'print')

@@ -19,7 +19,7 @@
 			nextPage:false,
 			show:function()
 				{
-					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices)
+					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices)
 
 					var c	 = this.choices,
 						cv	 = this.choicesVal,
@@ -164,11 +164,11 @@
 					catch(e){}
 					return result;
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore) option:selected'),
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"] option:selected') : $('[id="'+this.name+'"]:not(.ignore) option:selected'),
 						v,
 						m = this.multiple,
 						g = this.merge && !raw;
@@ -216,7 +216,7 @@
 					if($.isPlainObject(choices))
 					{
 						var me = this,
-                            bk = me.val(true);
+                            bk = me.val(true, false, true);
 
 						if('texts' in choices && Array.isArray(choices.texts)) me.choices = choices.texts;
 						if('values' in choices && Array.isArray(choices.values)) me.choicesVal = choices.values;

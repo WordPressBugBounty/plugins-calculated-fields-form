@@ -366,11 +366,11 @@
 							me.set_marks( me.marks, (isNaN(divisions) || ! divisions) ? (me.max-me.min)/me.step : divisions );
 						} catch (err){}
 					},
-				val:function(raw)
+				val:function(raw, disable_ignore_check)
 					{
 						try{
 							raw = raw || false;
-							var e = $('[id="' + this.name + '"]:not(.ignore)');
+							var e = (disable_ignore_check) ? $('[id="' + this.name + '"]') : $('[id="' + this.name + '"]:not(.ignore)');
 							return (e.length) ? ((raw) ? e.val() : JSON.parse(e.val())) : 0;
 						}
 						catch(err){return 0;}

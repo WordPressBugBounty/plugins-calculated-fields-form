@@ -3,8 +3,8 @@ Contributors: codepeople
 Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
-Tested up to: 6.8
-Stable tag: 5.3.99
+Tested up to: 6.9
+Stable tag: 5.4.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -456,24 +456,37 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
-= 5.3.99 =
+= 5.4.3.7 =
 
-* Allows you to use url.param_name and var.variable_name as predefined field values to fill in fields with URL parameters and global JavaScript variables, respectively.
+* Adds support for displaying the week of the year in date pickers (Date/Time and Date/Time Slots controls).
+* Introduces keyboard shortcuts to quickly manage fields: duplicate (Ctrl+D), remove (Ctrl+R), collapse (Ctrl+L), and expand (Ctrl+U) the selected field.
+* Allows control over the WordPress nonce lifetime. To extend the nonce lifetime to 48 hours, simply define the following constant in the config.php file located in your WordPress root: define('CP_CALCULATEDFIELDSF_NONCE_LIFE', 172800); // 48 hours in seconds
+* Improves the iCal add-on (available in the Platinum plugin distribution).
 
-= 5.3.98 =
+= 5.4.3.6 =
 
-* Improves Date/Time and Date/Time slot controls.
-* Adds a new feature to the WooCommerce add-on that adds form-collected information to WooCommerce webhooks data (developer and platinum plugin distributions).
+* Updated the setVal method for Date/Time controls to support native Date objects.
+* Improved the initial landing page for a clearer and more intuitive user experience.
+* Enhanced menu accessibility to ensure better usability and navigation.
+* Fixed an issue affecting chart sets on DS fields (Developer and Platinum editions).
 
-= 5.3.97 =
+= 5.4.3.5 =
 
-* Adds a new set of form templates.
-* Improves AI form generation.
-* Fixes a minor issue with displaying field labels in the request cost attribute.
-* Supports the Revolut payment gateway (Platinum plugin distribution).
+* Resolves a minor issue with the Upload File control when disabled by dependencies.
+* Adds support for iCS/iCal data sources in DS fields (developer plugin distribution).
+* Updates the Date DS control to support iCS/iCal properties.
+* Implements new features in the iCal add-on to expose submissions in iCS/iCal format via a dedicated endpoint URL (Platinum plugin distribution).
 
-= 5.3.96 =
+= 5.4.3.4 =
 
-* Modifies the form builder to improve access to the basic and advanced settings of the fields.
-* It modifies the advanced settings in the container fields (div, fieldset, and popup) to provide more control over field designs.
-* It includes additional attributes in the script tags to ensure that the 'Complianz | GDPR/CCPA Cookie Consent' plugin does not block them.
+* Enhances the email diagnostics feature module.
+* Improves both the ACTIVATEFIELD and IGNOREFIELD operations in the Managing Fields operations module.
+* Improves the DS fields set.
+
+= 5.4.3.3 =
+
+* Fixes an issue that occurred when creating new forms from templates on servers that do not allow connections to the template distribution service via cURL.
+* Implements an email diagnostics feature, allowing website owners to detect issues with their server’s email configuration.
+* Updates form styles to hide fieldset legends when they are empty.
+* Improves the entries section by grouping form submissions by month and year (Professional, Developer, and Platinum versions).
+* Fixes a minor issue in the submissions data source for DS fields (Developer and Platinum versions).

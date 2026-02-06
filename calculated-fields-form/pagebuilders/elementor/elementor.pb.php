@@ -41,15 +41,15 @@ class Elementor_CFF_Widget extends Widget_Base {
 			)
 		);
 
-		$options = array();
+		$options = array( 0 => esc_html__('- Select a form -', 'calculated-fields-form'));
 		$default = '';
 
 		$rows = \CPCFF_FORM::forms_list();
 		foreach ( $rows as $item ) {
 			$options[$item->id] = '(' . $item->id . ') ' . $item->form_name;
-			if ( empty( $default ) ) {
+			/* if ( empty( $default ) ) {
 				$default = $item->id;
-			}
+			} */
 		}
 
 		$templates = array('' => ' - ');
@@ -134,6 +134,9 @@ class Elementor_CFF_Widget extends Widget_Base {
 		$settings  	= $this->get_settings_for_display();
 
 		$form		= ! empty( $settings['form'] ) && is_numeric( $settings['form'] ) ? intval( $settings['form'] ) : 0;
+
+		if( empty( $form ) ) return '';
+
 		$attrs     	= ! empty( $settings['attrs']  ) ? sanitize_text_field( $settings['attrs'] ) : '';
 		$iframe 	= ! empty( $settings['iframe'] ) ? ' iframe="1"' : '';
 		$template 	= ! empty( $settings['templates'] ) ? sanitize_text_field($settings['templates']) : '';
@@ -158,6 +161,13 @@ class Elementor_CFF_Widget extends Widget_Base {
 				'elementor_ajax' == $_REQUEST['action']
 			)
 		) {
+			if ( empty( $shortcode ) ) {
+				print '<div style="padding:20px;background:#fff3cd;border:1px solid #ffeeba;color:#856404">' .
+				'&#x26a0; ' . esc_html__( 'Please select a form from the module settings', 'calculated-fields-form' ) .
+				'</div>';
+				return;
+			}
+
 			$atts = preg_replace( array( '/\[\s*cp_calculated_fields\s*/i', '/\s*\]$/' ), '', $shortcode );
 			$atts = shortcode_parse_atts( $atts );
 			$url  = \CPCFF_AUXILIARY::site_url();

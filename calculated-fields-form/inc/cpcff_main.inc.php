@@ -341,24 +341,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			if ( isset( $_GET['cal'] ) && '' != $_GET['cal'] ) {
 				@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_int.inc.php';
 			} else {
-				// Redirecting outer website.
-				if ( isset( $_GET['page'] ) && 'cp_calculated_fields_form_sub_upgrade' == $_GET['page'] ) {
-					if ( @wp_redirect( 'https://cff.dwbooster.com/download' ) ) {
-						exit;
-					}
-				} elseif ( isset( $_GET['page'] ) && 'cp_calculated_fields_form_sub_documentation' == $_GET['page'] ) {
-					if ( @wp_redirect( 'https://cff.dwbooster.com/documentation' ) ) {
-						exit;
-					}
-				} elseif ( isset( $_GET['page'] ) && 'cp_calculated_fields_form_sub_marketplace' == $_GET['page'] ) {
-					if ( @wp_redirect( 'https://cff-bundles.dwbooster.com' ) ) {
-						exit;
-					}
-				} elseif ( isset( $_GET['page'] ) && 'cp_calculated_fields_form_sub_forum' == $_GET['page'] ) {
-					if ( @wp_redirect( 'https://wordpress.org/support/plugin/calculated-fields-form#new-post' ) ) {
-						exit;
-					}
-				} elseif( get_transient('cff-video-tutorial') ) {
+				if( get_transient('cff-video-tutorial') ) {
 					@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_landing_page.inc.php';
 				} else {
 					@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_int_list.inc.php';
@@ -378,7 +361,27 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @return void.
 		 */
 		public function admin_resources( $hook ) {
-			// Checks if it is the plugin's page.
+			?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const replacements = {
+                        'a[href*="cp_calculated_fields_form_sub_documentation"]': 'https://cff.dwbooster.com/documentation',
+                        'a[href*="cp_calculated_fields_form_sub_marketplace"]': 'https://cff-bundles.dwbooster.com',
+                        'a[href*="cp_calculated_fields_form_sub_upgrade"]': 'https://cff.dwbooster.com/download',
+                        'a[href*="cp_calculated_fields_form_sub_forum"]': 'https://wordpress.org/support/plugin/calculated-fields-form/#new-post'
+                    };
+                    for (const selector in replacements) {
+                        const link = document.querySelector(selector);
+                        if (link) {
+                            link.href = replacements[selector];
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                        }
+                    }
+                });
+            </script>
+            <?php
+            // Checks if it is the plugin's page.
 			if ( isset( $_GET['page'] ) ) {
 				// Checks if it is to an external page.
 				if (
@@ -414,6 +417,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				} elseif (
 					in_array( $_GET['page'], array( 'cp_calculated_fields_form', 'cp_calculated_fields_form_sub_new', 'cp_calculated_fields_form_sub_troubleshoots_settings' ) )
 				) {
+
+					// Fix a Cachebuster plugin conflict.
+					remove_filter('style_loader_src',  'cabu_src');
+					remove_filter('script_loader_src', 'cabu_src');
 
 					wp_deregister_script( 'tribe-events-bootstrap-datepicker' );
 					wp_register_script( 'tribe-events-bootstrap-datepicker', plugins_url( '/js/nope.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
@@ -657,7 +664,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$page_title = ( ! empty( $atts['page_title'] ) ) ? $atts['page_title'] : '';
 				remove_all_actions( 'shutdown' );
 				if ( ! empty( $atts['wp_die'] ) ) {
-					wp_die( $message . '<style>body{margin:1.5em !important;max-width:100% !important;box-shadow:none !important;background:white !important;padding:0 !important; border:0 !important;}html{background:white !important;}.wp-die-message{margin:0 !important;}.wp-die-message>*:not(form){visibility: hidden;}  .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *,.select2-container,.select2-container *{visibility: visible;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ), esc_html( $page_title ), 200 ); // phpcs:ignore WordPress.Security.EscapeOutput
+					wp_die( $message . '<style>body{margin:1.5em !important;max-width:100% !important;box-shadow:none !important;background:white !important;padding:0 !important; border:0 !important;}html{background:white !important;}.wp-die-message{margin:0 !important;}.wp-die-message>*:not(form){visibility: hidden;}  .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *,.select2-container,.select2-container *,#cff_ai_assistant_bubble,#cff_ai_assistant_bubble *{visibility: visible;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ), esc_html( $page_title ), 200 ); // phpcs:ignore WordPress.Security.EscapeOutput
 				} elseif ( ! empty( $atts['page'] ) ) {
 					print '<!DOCTYPE html><html><head profile="http://gmpg.org/xfn/11">' .
 					( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ) .
@@ -667,7 +674,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 					print '</head><body>';
 					print $message; // phpcs:ignore WordPress.Security.EscapeOutput
-					print '<style>body>*:not(form){visibility: hidden; width: 0; height: 0;} .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *,.select2-container,.select2-container *{visibility: visible; width: auto; height: auto;}</style>'.apply_filters('cpcff_form_preview_resources', '');
+					print '<style>body>*:not(form){visibility: hidden; width: 0; height: 0;} .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *,.select2-container,.select2-container *,#cff_ai_assistant_bubble,#cff_ai_assistant_bubble *{visibility: visible; width: auto; height: auto;}</style>'.apply_filters('cpcff_form_preview_resources', '');
 
 					do_action( 'cpcff_wp_footer', ( ! empty( $atts['shortcode_atts']['id'] ) ? $atts['shortcode_atts']['id'] : 0 ) );
 
@@ -766,7 +773,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						window.addEventListener("load", function() {
 							let el = document.getElementById("' . $iframe_id . '");
 							if(el && el.hasAttribute("data-cff-src")) el.setAttribute("src", el.getAttribute("data-cff-src"));
-						});</script><iframe ' . ' id="' . $iframe_id . '"';
+						});</script><iframe ' . ' id="' . $iframe_id . '" title="Calculated Fields Form ' . self::$iframe_counter . '"';
 
 					if ( ! empty( $this->_current_form ) ) {
 						$iframe_tag = $this->_current_form->get_height( '#' . $iframe_id ) . $iframe_tag;
@@ -1105,6 +1112,8 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					'next'           => $next_label,
 					'pageof'         => $cpcff_texts_array['page_of_text']['text'],
 					'audio_tutorial' => $cpcff_texts_array['audio_tutorial_text']['text'],
+					'ai_assistant_button' 		=> $cpcff_texts_array['ai_assistant_button_text']['text'],
+					'ai_assistant_generating' 	=> $cpcff_texts_array['ai_assistant_generating_text']['text'],
 					'minlength'      => $cpcff_texts_array['errors']['minlength']['text'],
 					'maxlength'      => $cpcff_texts_array['errors']['maxlength']['text'],
 					'equalTo'        => $cpcff_texts_array['errors']['equalTo']['text'],
@@ -1294,6 +1303,50 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					add_filter( 'breeze_filter_html_before_minify', 'CPCFF_MAIN::breeze_check_content', 10 );
 					add_filter( 'breeze_html_after_minify', 'CPCFF_MAIN::breeze_return_content', 10 );
 				}
+
+            } else {
+				add_action( 'elementor/widget/before_render_content', function( $widget ) {
+					try {
+						$widget_name = $widget->get_name();
+						if ( 'text-editor' ===  $widget_name || 'shortcode' ===  $widget_name ) {
+							$settings = $widget->get_settings();
+							if ( isset( $settings['editor'] ) && strpos( $settings['editor'], 'CP_CALCULATED_FIELDS' ) !== false ) {
+								$content = $settings['editor'];
+							} else if ( isset( $settings['shortcode'] ) && strpos( $settings['shortcode'], 'CP_CALCULATED_FIELDS' ) !== false ) {
+								$content = $settings['shortcode'];
+							}
+
+							if ( ! empty( $content ) ) {
+								$pattern = '/\[CP_CALCULATED_FIELDS\s+([^\]]*)\]/';
+								$content = preg_replace_callback($pattern, function($matches) {
+										$attributes = $matches[1];
+
+										// Check if iframe attribute already exists
+										if (preg_match('/\biframe\s*=\s*["\']?[^"\'\s]*["\']?/', $attributes)) {
+											// Replace existing iframe attribute with iframe="1"
+											$attributes = preg_replace(
+												'/\biframe\s*=\s*["\']?[^"\'\s]*["\']?/',
+												'iframe="1"',
+												$attributes
+											);
+										} else {
+											// Add iframe="1" attribute
+											$attributes = trim($attributes) . ' iframe="1"';
+										}
+
+										return '[CP_CALCULATED_FIELDS ' . $attributes . ']';
+									}, $content);
+
+								if ( isset( $settings['editor'] ) ) {
+									$settings['editor'] = $content;
+								} else {
+									$settings['shortcode'] = $content;
+								}
+								$widget->set_settings($settings);
+							}
+						}
+					} catch ( Exception $err ) {}
+				});
 			}
 		} // End troubleshoots.
 

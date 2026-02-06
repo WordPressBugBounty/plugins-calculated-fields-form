@@ -1,4 +1,5 @@
 body{--cff_main_slider_color:#204a70;}
+#cff_ai_assistant_bubble,
 .cp_cff_letter{background:#E4E4E4; padding:10px;position:relative;}
 .cp_cff_letter *{font-family:system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";}
 .cp_cff_letter #fbuilder .cff-popup-container{border-radius:4px;}
@@ -46,20 +47,24 @@ body{--cff_main_slider_color:#204a70;}
 .cp_cff_letter #fbuilder legend{background:#FFF;}
 .cp_cff_letter #fbuilder .cff-sectionbreak-field .section_break{border:0;}
 .cp_cff_letter #fbuilder .cff-sectionbreak-field label:not(:empty){font-size:1.3em;margin-top:20px;border-bottom:1px solid #C4C4C4;display:block;}
+#cff_ai_assistant_bubble button,
 .cp_cff_letter #fbuilder .cff-record-btn,
 .cp_cff_letter #fbuilder button:not([class*="trumbowyg"]),
 .cp_cff_letter #fbuilder input[type="button"],
+.cp_cff_letter #fbuilder input[type="submit"],
 .cp_cff_letter #fbuilder input[type="reset"],
 .cp_cff_letter .cff-spinner .cff-spinner-down,
 .cp_cff_letter .cff-spinner .cff-spinner-up,
 .cp_cff_letter #fbuilder .pbSubmit,
 .cp_cff_letter #fbuilder .pbPrevious,
-.cp_cff_letter #fbuilder .pbNext{color:#fff;font-size:13px;font-weight:500;text-shadow:none;background:#3b679e;border-radius:4px;padding:5px 40px;border:0;min-height:35px;display:inline-flex;justify-content:center;align-items:center;}
+.cp_cff_letter #fbuilder .pbNext{color:#fff;font-size:13px;font-weight:500;text-shadow:none;background:#3b679e;border-radius:4px;padding:5px 40px;border:0;min-height:35px;display:inline-flex;justify-content:center;align-items:center;cursor:pointer;}
 .cp_cff_letter #fbuilder .cff-record-btn{justify-content:flex-start;}
 .cp_cff_letter #fbuilder .cff-record-error{text-shadow:none;border-radius:4px;padding:5px 20px;}
+#cff_ai_assistant_bubble button:hover,
 .cp_cff_letter #fbuilder .cff-record-btn:hover,
 .cp_cff_letter #fbuilder button:not([class*="trumbowyg"]):hover,
 .cp_cff_letter #fbuilder input[type="button"]:hover,
+.cp_cff_letter #fbuilder input[type="submit"]:hover,
 .cp_cff_letter #fbuilder input[type="reset"]:hover,
 .cp_cff_letter .cff-spinner .cff-spinner-down:hover,
 .cp_cff_letter .cff-spinner .cff-spinner-up:hover,
@@ -69,6 +74,7 @@ body{--cff_main_slider_color:#204a70;}
 .cp_cff_letter #fbuilder .cff-record-btn:active,
 .cp_cff_letter #fbuilder button:not([class*="trumbowyg"]):active,
 .cp_cff_letter #fbuilder input[type="button"]:active,
+.cp_cff_letter #fbuilder input[type="submit"]:active,
 .cp_cff_letter #fbuilder input[type="reset"]:active,
 .cp_cff_letter .cff-spinner .cff-spinner-down:active,
 .cp_cff_letter .cff-spinner .cff-spinner-up:active,
@@ -103,3 +109,9 @@ body{--cff_main_slider_color:#204a70;}
 .cp_cff_letter #fbuilder .cff-timeslot-selected{border-color:#204a70;background:#204a70;}
 .cp_cff_letter #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover,
 .cp_cff_letter #fbuilder .cff-timeslot-selected::after{border-color:#204a70;color:#204a70;}
+
+#cff_ai_assistant_bubble {
+    border: 3px solid #df6c4f !important;
+    box-shadow: none !important;
+    border-bottom: 0 !important;
+}

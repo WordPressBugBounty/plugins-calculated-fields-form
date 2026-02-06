@@ -105,6 +105,8 @@
 	line-height:18px;
 }
 
+.cff-form-library-ai-close{align-self:flex-end;display:none;}
+.cff-form-library-ai-close::before,
 .cff-form-library-close-video::before,
 .cff-form-library-close::before{content: "✖";}
 .cff-form-library-back::before{content: attr(data-label);text-align:right;}
@@ -144,7 +146,7 @@
     gap: 10px;
 }
 #cff-ai-form-description{width:100%;flex-grow:1;}
-.cff-ai-api-key-container{display:flex;flex-direction:row;gap:5px;}
+.cff-ai-api-key-container{display:flex;flex-direction:row;gap:5px;flex-wrap:wrap;}
 #cff-ai-api-key{flex-grow:1;}
 .cff-ai-generate{margin-right:10px;}
 .cff-ai-form-preview{flex-grow:1;position:relative;display:flex;}
@@ -198,7 +200,7 @@
 	font-size:30px;
 }
 
-.cff-ai-video-tutorial{position:fixed;z-index:9;width:80%;height:450px;box-sizing:border-box; background:white;padding:10px;left:10%;box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);-webkit-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-moz-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);display:none;flex-direction:column;gap:5px;}
+.cff-ai-video-tutorial{position:fixed;z-index:999;width:80%;height:450px;box-sizing:border-box; background:white;padding:10px;left:10%;box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);-webkit-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-moz-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);display:none;flex-direction:column;gap:5px;}
 .cff-ai-video-tutorial>button{}
 .cff-ai-video-tutorial iframe{width:100% !important;flex-grow:1;}
 
@@ -214,6 +216,8 @@
 	.cff-form-library-search-box{border:0;height:auto;}
 	.cff-form-library-search-box input{margin-bottom:0;}
 	.cff-form-library-categories,
+	.cff-form-library-blank-form-container,
+	.cff-ai-description,
 	.cff-form-library-website-forms{display:none;}
 	.cff-form-library-form{width:98%;}
 	.cff-form-library-blank-form{float:none;width:100%;padding-top:0;}
@@ -221,4 +225,8 @@
 	.cff-form-library-blank-form input[type="button"]{width:100%;margin-top:10px;}
 	.cff-form-library-main{top:100px;bottom:5px;position:absolute;display:flex !important;}
 	.cff-form-library-column-right .cff-form-library-close{display:none;}
+	.cff-ai-api-key-container>*{flex-grow:1;}
+	.cff-form-library-ai-forms{margin-bottom:10px;}
+	.cff-ai-form-generator{top:0;}
+	.cff-form-library-ai-close{display:inline-block;}
 }

@@ -36,7 +36,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
 							{
 								"value" : "ACTIVATEFIELD",
 								"code" : "ACTIVATEFIELD(",
-								"tip" : "<p>Activates a field explicitly, similar to dependencies. <strong>ACTIVATEFIELD( # or fieldname#, form or form selector )</strong></p><p>Activates the field for the equations and submission. The first parameter is required, it would be the numeric part of the field name or the field name. The second parameter would be a form object, or a selector with the form reference. If the second parameter is not passed, the plugin will apply the activates action to the field in the first form of the page. For example: ACTIVATEFIELD(1); and ACTIVATEFIELD(fieldname1|n); in the equations context or ACTIVATEFIELD(&quot;fieldname1&quot;);</p>"
+								"tip" : "<p>Activates a field explicitly, similar to dependencies. <strong>ACTIVATEFIELD( # or fieldname#, form or form selector, animation )</strong></p><p>Activates the field for the equations and submission. The first parameter is required, it would be the numeric part of the field name or the field name. The second parameter would be a form object, or a selector with the form reference. If the second parameter is not passed, the plugin will apply the activates action to the field in the first form of the page. The third parameter is a boolean value (true or false) that instructs the plugin to display the field immediately or with a fade-in animation. For example: ACTIVATEFIELD(1); and ACTIVATEFIELD(fieldname1|n); in the equations context or ACTIVATEFIELD(&quot;fieldname1&quot;);</p>"
 							},
 							{
 								"value" : "ISIGNORED",
@@ -51,12 +51,27 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
 							{
 								"value" : "SHOWFIELD",
 								"code" : "SHOWFIELD(",
-								"tip" : "<p>Show a field explicitly. If the field was hidden by a dependency or by the IGNOREFIELD operation, it must be displayed by the ACTIVATEFIELD operation. <strong>SHOWFIELD( # or fieldname#, form or form selector )</strong></p><p>The first parameter is required. It is the numeric part of the field name or the field name. The second parameter would be a form object or a selector with the form reference. If the second parameter is not passed, the plugin will display the field in the first form on the page. For example: SHOWFIELD(1); and SHOWFIELD(fieldname1|n); in the equations context or SHOWFIELD(&quot;fieldname1&quot;);</p>"
+								"tip" : "<p>Show a field explicitly. If the field was hidden by a dependency or by the IGNOREFIELD operation, it must be displayed by the ACTIVATEFIELD operation. <strong>SHOWFIELD( # or fieldname#, form or form selector, animation )</strong></p><p>The first parameter is required. It is the numeric part of the field name or the field name. The second parameter would be a form object or a selector with the form reference. If the second parameter is not passed, the plugin will display the field in the first form on the page. The third parameter is a boolean value (true or false) that instructs the plugin to display the field immediately or with a fade-in animation. For example: SHOWFIELD(1); and SHOWFIELD(fieldname1|n); in the equations context or SHOWFIELD(&quot;fieldname1&quot;);</p>"
 							},
 							{
 								"value" : "ISHIDDEN",
 								"code" : "ISHIDDEN(",
 								"tip" : "<p>Return true if the fields is hidden. The field can be hidden by dependencies, CSS rules, or because it is in another page of a multipage form. <strong>ISHIDDEN( # or fieldname#, form or form selector )</strong></p><p>The first parameter is required, it would be the numeric part of the field name or the field name. The second parameter would be a form object, or a selector with the form reference. If the second parameter is not passed, the plugin will check if the field in the first form of the page is hidden. For example: ISHIDDEN(1); and ISHIDDEN(fieldname1|n); in the equations context or ISHIDDEN(&quot;fieldname1&quot;);</p>"
+							},
+							{
+								"value" : "READONLYFIELD",
+								"code" : "READONLYFIELD(",
+								"tip" : "<p>Make a field read-only. <strong>READONLYFIELD( # or fieldname#, form or form selector )</strong></p><p>The first parameter is required. It is the numeric part of the field name or the field name. The second parameter would be a form object or a selector with the form reference. If the second parameter is not passed, the plugin will set readonly the field in the first form on the page. For example: READONLYFIELD(1); and READONLYFIELD(fieldname1|n); in the equations context. In another context: READONLYFIELD(&quot;fieldname1&quot;);</p>"
+							},
+							{
+								"value" : "EDITABLEFIELD",
+								"code" : "EDITABLEFIELD(",
+								"tip" : "<p>Makes a read-only field as editable. <strong>EDITABLEFIELD( # or fieldname#, form or form selector )</strong></p><p>The first parameter is required. It is the numeric part of the field name or the field name. The second parameter would be a form object or a selector with the form reference. If the second parameter is not passed, the plugin will display the field in the first form on the page. For example: EDITABLEFIELD(1); and EDITABLEFIELD(fieldname1|n); in the equations context. In another context: EDITABLEFIELD(&quot;fieldname1&quot;);</p>"
+							},
+							{
+								"value" : "ISREADONLY",
+								"code" : "ISREADONLY(",
+								"tip" : "<p>Return true if the fields is read-only. <strong>ISREADONLY( # or fieldname#, form or form selector )</strong></p><p>The first parameter is required, it would be the numeric part of the field name or the field name. The second parameter would be a form object, or a selector with the form reference. If the second parameter is not passed, the plugin will check if the field in the first form of the page is hidden. For example: ISHIDDEN(1); and ISHIDDEN(fieldname1|n); in the equations context. In another context: ISREADONLY(&quot;fieldname1&quot;);</p>"
 							},
 							{
 								"value" : "VALIDFORM",

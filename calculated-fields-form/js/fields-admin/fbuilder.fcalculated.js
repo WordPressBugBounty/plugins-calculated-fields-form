@@ -354,7 +354,7 @@
 						r += '</div></div>';
 					});
 
-				return '<label>Define dependencies</label><div class="dependenciesBox">'+r+'</div>';
+				return '<label>Define dependencies <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/s4FM59LC-H4?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X&start=138" target="_blank">&#9654; help?</a></label><div class="dependenciesBox">'+r+'</div>';
 			},
 		showNoEvalIfManual:function()
 			{

@@ -13,6 +13,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e513e', end
 }
 .cp_cff_professional *{font-family:system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";}
 .cp_cff_professional #fbuilder .fform .cff-form-title{font-size:2em;font-weight:700;}
+#cff_ai_assistant_bubble,
 .cp_cff_professional #fbuilder{color:#FFF;text-shadow:0px 1px 0px #000000;font-weight:normal;}
 .cp_cff_professional .fform *{text-align:center;}
 .cp_cff_professional .fform h1,
@@ -27,6 +28,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e513e', end
 .cp_cff_professional #fbuilder .dfield label,
 .cp_cff_professional #fbuilder .uh{color:#c9c2b7;}
 
+#cff_ai_assistant_bubble{background:#322c20;border-color:#584b38 !important;}
 .cp_cff_professional #fbuilder .top_aligned .fields>.dfield{margin-top:5px;}
 
 .cp_cff_professional #fbuilder  .slider,
@@ -100,9 +102,10 @@ min-height:34px;
 .cp_cff_professional #fbuilder fieldset{border:0;}
 .cp_cff_professional #fbuilder legend{border:0;padding:0;font-size:150%;}
 
-
+#cff_ai_assistant_use_suggestion,
 .cp_cff_professional #fbuilder button:not([class*="trumbowyg"]),
 .cp_cff_professional #fbuilder input[type="button"],
+.cp_cff_professional #fbuilder input[type="submit"],
 .cp_cff_professional #fbuilder input[type="reset"],
 .cp_cff_professional .cff-spinner .cff-spinner-down,
 .cp_cff_professional .cff-spinner .cff-spinner-up,
@@ -117,12 +120,14 @@ background: -ms-linear-gradient(top,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d
 background: linear-gradient(to bottom,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 );
 -webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;padding: 5px 20px;border:0;
-min-height:32px;}
+min-height:32px;cursor:pointer;}
 .cp_cff_professional #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_professional #fbuilder .cff-spinner .cff-spinner-up{padding:0;}
 
+#cff_ai_assistant_use_suggestion:hover,
 .cp_cff_professional #fbuilder button:not([class*="trumbowyg"]):hover,
 .cp_cff_professional #fbuilder input[type="button"]:hover,
+.cp_cff_professional #fbuilder input[type="submit"]:hover,
 .cp_cff_professional #fbuilder input[type="reset"]:hover,
 .cp_cff_professional .cff-spinner .cff-spinner-down:hover,
 .cp_cff_professional .cff-spinner .cff-spinner-up:hover,
@@ -134,6 +139,7 @@ transform:scale(1.1);
 
 .cp_cff_professional #fbuilder button:not([class*="trumbowyg"]):active,
 .cp_cff_professional #fbuilder input[type="button"]:active,
+.cp_cff_professional #fbuilder input[type="submit"]:active,
 .cp_cff_professional #fbuilder input[type="reset"]:active,
 .cp_cff_professional .cff-spinner .cff-spinner-down:active,
 .cp_cff_professional .cff-spinner .cff-spinner-up:active,

@@ -22,6 +22,20 @@
 			formatDynamically:false,
 			twoDecimals:false,
 			dformat:"digits",
+            set_prefix:function(s)
+                {
+                    this.prefix = s;
+					let v = document.getElementById(this.name).value;
+                    // let v = this.val(true, true);
+                    this.setVal(v, true);
+                },
+            set_postfix:function(s)
+                {
+                    this.postfix = s;
+					let v = document.getElementById(this.name).value;
+					// let v = this.val(true, true);
+                    this.setVal(v, true);
+                },
 			set_step:function(v, rmv)
 				{
 					var e = $('[id="'+this.name+'"]');
@@ -70,8 +84,8 @@
 							str = '',
 							parts = [],
 							step  = $('[id="'+this.name+'"]').attr('step'),
-							prefix  = this.dformat == 'number' ? this.prefix : '',
-							postfix = this.dformat == 'number' ? this.postfix : '';
+							prefix  = this.dformat == 'number' ? this._getAttr('prefix') : '',
+							postfix = this.dformat == 'number' ? this._getAttr('postfix') : '';
 
 						if(!isNaN(v))
 						{
@@ -106,6 +120,8 @@
 				},
 			init:function()
 				{
+					if(!/^\s*$/.test(this.prefix)) this._setHndl('prefix');
+					if(!/^\s*$/.test(this.postfix)) this._setHndl('postfix');
 					if(!/^\s*$/.test(this.min)) this._setHndl('min');
 					if(!/^\s*$/.test(this.max)) this._setHndl('max');
 					if(!/^\s*$/.test(this.step)) this._setHndl('step');
@@ -133,7 +149,7 @@
                     this.predefined = this._getAttr('predefined', true);
 					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+(this.spinner ? 'cff-spinner ' : '')+this.name+' cff-number-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+
 					(this.spinner ? '<div class="cff-spinner-components-container '+cff_esc_attr(this.size)+'"><button type="button" class="cff-spinner-down" style="'+cff_esc_attr(this.getCSSComponent('spinner_left'))+'">-</button>' : '')+
-					'<input '+((this.numberpad) ? 'inputmode="numeric"' : '')+' aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'" '+((!/^\s*$/.test(this.min)) ? 'min="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('min'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+((!/^\s*$/.test(this.max)) ? ' max="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('max'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+((!/^\s*$/.test(this.step)) ? ' step="'+cff_esc_attr(this._getAttr('step'))+'" ' : '')+' class="field '+this.dformat+((this.dformat == 'percent') ? ' number' : '')+' '+(this.spinner ? 'large' : cff_esc_attr(this.size))+((this.required)?" required":"")+'" type="'+_type+'" value="'+cff_esc_attr(this.getFormattedValue(this.predefined))+'" '+((this.readonly)?'readonly':'')+' style="'+cff_esc_attr(this.getCSSComponent('input'))+'" />'+
+					'<input '+((this.numberpad && this.dformat != 'digits') ? 'inputmode="decimal"' : '')+' aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'" '+((!/^\s*$/.test(this.min)) ? 'min="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('min'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+((!/^\s*$/.test(this.max)) ? ' max="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('max'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+((!/^\s*$/.test(this.step)) ? ' step="'+cff_esc_attr(this._getAttr('step'))+'" ' : '')+' class="field '+this.dformat+((this.dformat == 'percent') ? ' number' : '')+' '+(this.spinner ? 'large' : cff_esc_attr(this.size))+((this.required)?" required":"")+'" type="'+_type+'" '+this._getValueAttr(this.getFormattedValue(this.predefined))+' '+((this.readonly)?'readonly':'')+' style="'+cff_esc_attr(this.getCSSComponent('input'))+'" />'+
 					(this.spinner ? '<button type="button" class="cff-spinner-up" style="'+cff_esc_attr(this.getCSSComponent('spinner_right'))+'">+</button></div>' : '')+
 					'<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
@@ -148,24 +164,22 @@
 					}
 					$('#'+me.name).rules('add', {'step':false});
 				},
-			val:function(raw,no_quotes)
+			val:function(raw,no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]');
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)');
 					if( e.length )
 					{
-						if(! e.hasClass('ignore') ) {
-							var v = String(e.val()).trim();
-							v = this.getFormattedValue(v);
-							if(raw) return ($.fbuilder.isNumeric(v) && this.thousandSeparator != '.') ? v : $.fbuilder.parseValStr(v, raw, no_quotes);
+                        var v = String(e.val()).trim();
+                        v = this.getFormattedValue(v);
+                        if(raw) return ($.fbuilder.isNumeric(v) && this.thousandSeparator != '.') ? v : $.fbuilder.parseValStr(v, raw, no_quotes);
 
-							v = v.replace(new RegExp($.fbuilder[ 'escapeSymbol' ](this.prefix), 'g'), '')
-								 .replace(new RegExp($.fbuilder[ 'escapeSymbol' ](this.postfix), 'g'), '');
+                        v = v.replace(new RegExp($.fbuilder[ 'escapeSymbol' ](this.prefix), 'g'), '')
+                                .replace(new RegExp($.fbuilder[ 'escapeSymbol' ](this.postfix), 'g'), '');
 
-							v = $.fbuilder.parseVal(v, this.thousandSeparator, this.decimalSymbol, no_quotes);
-							return (this.dformat == 'percent') ? v/100 : v;
-						}
+                        v = $.fbuilder.parseVal(v, this.thousandSeparator, this.decimalSymbol, no_quotes);
+                        return (this.dformat == 'percent') ? v/100 : v;
 					}
 					return 0;
 				}

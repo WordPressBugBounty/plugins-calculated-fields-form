@@ -3,7 +3,7 @@
 body{
     --cff_main_slider_color: #4D4D4D;
 }
-
+#cff_ai_assistant_bubble,
 .cp_cff_minimalist #fbuilder{
 	font-family: 'Open Sans Condensed', arial, sans;
     padding: 30px;
@@ -79,6 +79,7 @@ body{
 .cp_cff_minimalist #fbuilder .select2-selection__arrow{min-height:35px;}
 .cp_cff_minimalist #fbuilder .select2-results__option--highlighted{background:#108484;}
 .cp_cff_minimalist #fbuilder textarea{height:auto;}
+#cff_ai_assistant_use_suggestion,
 .cp_cff_minimalist .cff-spinner .cff-spinner-down,
 .cp_cff_minimalist .cff-spinner .cff-spinner-up,
 .cp_cff_minimalist #fbuilder .pbSubmit,
@@ -104,6 +105,7 @@ body{
 }
 .cp_cff_minimalist #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_minimalist #fbuilder .cff-spinner .cff-spinner-up{padding:0;}
+#cff_ai_assistant_use_suggestion:hover,
 .cp_cff_minimalist #fbuilder .pbSubmit:hover,
 .cp_cff_minimalist #fbuilder .pbreak .pbPrevious:hover,
 .cp_cff_minimalist #fbuilder .pbreak .pbNext:hover,

@@ -110,6 +110,14 @@ $cpcff_default_texts_array = array(
 		'label' => 'Audio tutorial (text)',
 		'text'  => 'Help',
 	),
+	'ai_assistant_button_text' => array(
+		'label' => 'Apply AI suggestion button (text)',
+		'text' => 'Apply suggestion'
+	),
+	'ai_assistant_generating_text' => array(
+		'label' => 'Generating AI suggestion (text)',
+		'text' => 'Generating suggestion...'
+	),
 	'errors'              => array(
 		'currency'    => array(
 			'label' => '"Invalid Currency" text',

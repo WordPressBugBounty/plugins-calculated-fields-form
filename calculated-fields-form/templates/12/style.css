@@ -1,6 +1,6 @@
 @import url('../11/fonts.css');
 @import url('unite.css');
-
+#cff_ai_assistant_bubble,
 .cp_cff_12 #fbuilder * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -20,6 +20,7 @@
 
 .cp_cff_12 #fbuilder  .fields:not(.cff-container-field){padding: 10px;}
 
+#cff_ai_assistant_use_suggestion,
 .cp_cff_12 .cff-spinner .cff-spinner-down,
 .cp_cff_12 .cff-spinner .cff-spinner-up,
 .cp_cff_12 #fbuilder  input[type="text"],
@@ -45,8 +46,12 @@
     margin: 1px 0;
     padding: 5px;
 }
+#cff_ai_assistant_use_suggestion:hover{
+	background: #57665E;
+	color:#FDFFFD;
+}
 .cp_cff_12 #fbuilder  .select2-selection{padding:0; padding-left:5px;}
-.cp_cff_12 #fbuilder select{background: #FFF;}
+.cp_cff_12 #fbuilder select{background: #FFF;min-width:55px;}
 .cp_cff_12 #fbuilder select:not([multiple]) {
 	background: url("data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZGNkY2RjIj48cGF0aCBkPSJNNy40MSA4LjU5TDEyIDEzLjE3bDQuNTktNC41OEwxOCAxMGwtNiA2LTYtNiAxLjQxLTEuNDF6Ii8+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgyNHYyNEgwVjB6Ii8+PC9zdmc+") no-repeat center right #FFF;
 }

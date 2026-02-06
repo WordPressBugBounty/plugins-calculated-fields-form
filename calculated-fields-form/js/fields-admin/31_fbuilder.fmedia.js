@@ -13,6 +13,7 @@
 		{
 			ftype:"fMedia",
             sMediaType:"image", // image, audio, video
+			sAlignment:"default",
 			initAdv : function(){
 					delete this.advanced.css.label;
 					delete this.advanced.css.help;
@@ -115,7 +116,8 @@
             display:function( css_class )
 				{
 					css_class = css_class || '';
-					return '<div class="fields fmark '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Media')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<div>'+this[ '_display_'+this.sMediaType ]()+'</div><span>'+this.data[ this.sMediaType ][ 'sFigcaption' ]+'</span><div class="clearer"></div></div>';
+					let align = this.sAlignment != 'default' ? 'style="text-align:'+this.sAlignment+';"' : '';
+					return '<div class="fields fmark '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Media')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<div '+align+'>'+this[ '_display_'+this.sMediaType ]()+'</div><div '+align+'>'+cff_sanitize(this.data[ this.sMediaType ][ 'sFigcaption' ])+'</div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -132,7 +134,7 @@
 						{
 							me._loadMedia( 'sPoster', 'image' );
 						});
-                    $("[name='sMediaType']").on("click", {obj: this}, function(e)
+                    $("[name='sMediaType'],[name='sAlignment']").on("click", {obj: this}, function(e)
                         {
                             e.data.obj[ this.name ] = $(this).val();
                             $.fbuilder.editItem( e.data.obj.index );
@@ -153,8 +155,19 @@
 				},
             showSpecialDataInstance: function()
                 {
-                    return this._showMediaList()+this._showSettingsBox();
+
+                    return this._showAlignment()+this._showMediaList()+this._showSettingsBox();
                 },
+			_showAlignment: function()
+				{
+					let l = 'sAlignment' in this ? this.sAlignment : 'default';
+					return '<div><label>Alignment</label>'+
+					'<div class="cff-radio-group-ctrl">'+
+					'<label><input type="radio" name="sAlignment" value="default" '+(l == 'default' ? 'checked' : '')+'><span>Default</span></label>'+
+					'<label><input type="radio" name="sAlignment" value="left" '+(l == 'left' ? 'checked' : '')+'><span>Left</span></label>'+
+					'<label><input type="radio" name="sAlignment" value="center" '+(l == 'center' ? 'checked' : '')+'><span>Center</span></label>'+
+					'<label><input type="radio" name="sAlignment" value="right" '+(l == 'right' ? 'checked' : '')+'><span>Right</span></label></div></div>';
+				},
 		    _showMediaList: function()
                 {
                     var l = [ 'image', 'audio', 'video' ],

@@ -216,7 +216,7 @@
 
 					str += '</div>';
 
-					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-phone-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><label for="'+me.name+'" style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+''+((me.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input type="hidden" id="'+me.name+'" name="'+me.name+'" class="field" />'+str+'<div class="clearer"></div><span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+                    return '<div class="fields ' + cff_esc_attr(me.csslayout) + ' ' + me.name + ' cff-phone-field" id="field' + me.form_identifier + '-' + me.index + '" style="' + cff_esc_attr(me.getCSSComponent('container')) + '"><label for="' + me.name + '" style="' + cff_esc_attr(me.getCSSComponent('label')) + '">' + cff_sanitize(me.title, true) + '' + ((me.required) ? "<span class='r'>*</span>" : "") + '</label><div class="dfield"><input type="hidden" id="' + me.name + '" name="' + me.name + '" class="field' + ((me.required) ? ' required ' : '') +'" data-msg="" ' + (me.predefined && !me.predefinedClick ? 'value="'+cff_esc_attr(me.predefined)+'"' : '') + ' style="' + cff_esc_attr(me.getCSSComponent('phone')) + '" />'+str+'<div class="clearer"></div><span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
             after_show: function()
 				{
@@ -257,12 +257,12 @@
 				let separators = { 'none': '', 'space': ' ', '-': '-', '.' : '.' };
 				return ( this.dseparator in separators) ? separators[this.dseparator] : '-';
 			},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
                     raw = raw || false;
                     no_quotes = no_quotes || false;
 					var me = this,
-						e = $('[id="'+this.name+'"]:not(.ignore)'),
+						e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)'),
 						pr = $('[id^="'+this.name+'_"]')
 							.map(function(){return String($(this).val()).trim();})
 							.get()

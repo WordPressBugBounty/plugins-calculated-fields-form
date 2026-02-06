@@ -615,6 +615,64 @@
 	  return date;
 	};
 
+	/**
+	 * slots, mixed, it can be one slot or slots array.
+	 * format, date format.
+	 * return mixed, a parsed slot, or an array of parsed slots.
+	 * A parsed slot is an object with the structure {date: dateObj, slot:{start:string, end:string, duration:number in minutes}}
+	 */
+	lib.PARSESLOTS = function(slots, format) {
+
+		function _parser( slot, format ) {
+			try {
+				const parsed = slot.match( /(\d{1,4}[\/\-\.]\d{1,4}[\/\-\.]\d{1,4})\s*\:\s*(\d{1,2}\:\d{1,2})\s*\-\s*(\d{1,2}\:\d{1,2})/ );
+				if ( ! slot.match ) return false;
+				return {
+					date: lib.DATEOBJ(parsed[1], format),
+					slot: {
+						start: parsed[2],
+						end: parsed[3],
+						duration: lib.DATEDIFF(parsed[2], parsed[3], 'hh:ii', 'i')['minutes']
+					}
+				};
+			} catch ( err ) {
+				console.log(err);
+			}
+			return false;
+		};
+
+		function _validateFormat( format ) {
+			return (
+				/dd[\-\/\.]mm[\-\/\.]yyyy/i.test(format) ||
+				/mm[\-\/\.]dd[\-\/\.]yyyy/i.test(format) ||
+				/yyyy[\-\/\.]mm[\-\/\.]dd/i.test(format) ||
+				/yyyy[\-\/\.]dd[\-\/\.]mm/i.test(format)
+			);
+		};
+
+		slots = slots || [];
+		format = format || '';
+
+
+		if ( Array.isArray(slots) ) {
+			let parsed_slots = [];
+			if( _validateFormat ) {
+				for ( let i in slots ) {
+					let slot = slots[i];
+					if ( typeof slot == 'string' ) {
+						let parsed_slot = _parser( slot, format );
+						if ( parsed_slot ) parsed_slots.push( parsed_slot );
+					}
+				}
+			}
+			return parsed_slots;
+		} else if ( typeof slots == 'string' && _validateFormat( format ) ) {
+			let parsed_slot = _parser( slots, format );
+			if ( parsed_slot ) return parsed_slot;
+			else null;
+		} else return null;
+	};
+
 	root.CF_DATETIME = lib;
 
 })(this);

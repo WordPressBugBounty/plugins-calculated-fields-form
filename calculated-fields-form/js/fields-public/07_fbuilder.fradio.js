@@ -23,7 +23,7 @@
 			},
 			show:function()
 				{
-					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
+					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices);
 
 					var l 		 = this.choices.length,
 						str 	 = "",
@@ -144,11 +144,11 @@
 					catch(e){  }
 					return result;
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id*="' + this.name + '_"]:not(.ignore):checked');
+					var e = (disable_ignore_check) ? $('[id*="' + this.name + '_"]:checked') : $('[id*="' + this.name + '_"]:not(.ignore):checked');
 					if(e.length) return $.fbuilder.parseValStr((raw == 'vt') ? e.attr('vt') : e.val(), raw, no_quotes);
 					else if( raw == 'vt') return $.fbuilder.parseValStr('', raw, no_quotes);
 					return 0;
@@ -180,7 +180,7 @@
 				{
 					if($.isPlainObject(choices))
 					{
-						var bk = this.val(true);
+						var bk = this.val(true, false, true);
 						if('texts' in choices && Array.isArray(choices.texts)) this.choices = choices.texts;
 						if('values' in choices && Array.isArray(choices.values)) this.choicesVal = choices.values;
                         if('dependencies' in choices && Array.isArray(choices.dependencies))

@@ -341,7 +341,13 @@
 					if ( scrollTopFlag ) $('#tabs-2')[0].scrollTop = 0;
                 } catch (e) { if( 'console' in window ) console.log(e); }
 				items[id].editItemEvents();
-				setTimeout(function(){try{$('#tabs-2 .choicesSet select:visible, #tabs-2 .cf_dependence_field:visible, #tabs-2 #sSelectedField, #tabs-2 #sFieldList').select2();}catch(e){}}, 10);
+				setTimeout(function(){
+                    try{
+                        $('#tabs-2 .choicesSet select:visible, #tabs-2 .cf_dependence_field:visible, #tabs-2 #sSelectedField, #tabs-2 #sFieldList').on('mouseover focus', function(){
+                            if( !$(this).data('select2') )
+                                $(this).select2();
+                        });
+                    }catch(e){}}, 10);
 			};
 
 		$.fbuilder[ 'removeItem' ] = function( index, confirm )
@@ -713,6 +719,44 @@
 					$.fbuilder.reloadItems({'field': item});
 				});
 
+                // Keyboard shortcuts
+                $(document).on('keydown', function(e) {
+                    if (
+                        (e.ctrlKey || e.metaKey) &&
+                        (e.key === 'd' || e.key === 'r' || e.key === 'l' || e.key === 'u')
+                    ) {
+                        // Check if the form builder is in the viewport.
+                        let b = $('#fbuilder'),
+                            bTop = b.offset().top,
+                            bBottom = bTop + b.outerHeight(),
+                            w = $(window),
+                            vpTop = w.scrollTop(),
+                            vpBottom = vpTop + w.height();
+                        if(vpBottom <= bTop || vpTop >= bBottom) return;
+
+                        e.preventDefault();
+                        let f = $('.fields.ui-selected');
+                        if(f.length == 0) return; // no field selected.
+
+                        // Apply.
+                        switch(e.key) {
+                            case 'd':
+                                f.find('.copy').trigger('click');
+                                break;
+                            case 'r':
+                                f.find('.remove').trigger('click');
+                                break;
+                            case 'l':
+                                f.find('.collapse').trigger('click');
+                                break;
+                            case 'u':
+                                f.find('.uncollapse').trigger('click');
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
 				// Title and subtitle section events
 				$(document).on(
 					{
@@ -901,6 +945,9 @@
 					{
 						if( typeof items[ i ].after_show != 'undefined' ) items[ i ].after_show();
 					}
+
+					// Event after reloading the items.
+					$(document).trigger('reloadedItems', [items]);
 				}
 
 				ffunct.saveData("form_structure");
@@ -1348,6 +1395,7 @@
 		{
 			return '<div><label for="sPredefined">Predefined Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+cff_esc_attr(v)+'</textarea><br />'+
 			'<i>It is possible to use:<br>'+
+			'* <b>A value</b><br>'+
 			'* <b>Another field</b> in the form as predefined value. Ex: fieldname1<br>'+
 			'* A <b>URL parameter</b>. Ex: url.param_name<br>'+
 			'* Or a global <b>JS variable</b>. Ex: var.variable_name</i>'+
@@ -1416,12 +1464,17 @@
 			}
 			return '<label for="sLayout">Field Layout</label><select name="sLayout" id="sLayout">'+str+'</select>';
 		},
-		showUserhelp: function(v,a,c,i)
+		showUserhelp: function(v,a,c,i,ai)
 		{
 			return '<hr>'+
 			'<label for="sUserhelp">Instructions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+cff_esc_attr(v)+'</textarea><label class="column"><input type="checkbox" name="sUserhelpTooltip" id="sUserhelpTooltip" '+((c)?"checked":"")+' value="1" > Show as floating tooltip&nbsp;&nbsp;</label><label class="column"><input type="checkbox" name="sTooltipIcon" id="sTooltipIcon" '+((i)?"checked":"")+' value="1" > Display on icon</label><div class="clearer"></div>'+
 			'<label for="sAudioSrc">Audio Tutorial</label>'+
 			'<div><input type="text" style="width:70%;" name="sAudioSrc" id="sAudioSrc" value="'+cff_esc_attr(a)+'"><input id="sSelectAudioBtn" type="button" value="Browse" style="width:28%;" class="button-secondary" /></div>'+
+			(typeof ai != 'undefined' ?
+				'<label for="sAiAssistant"><input type="checkbox" name="sAiAssistant" id="sAiAssistant" '+(ai ? 'CHECKED' : '')+'> Activate AI Assistant &#129302; <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/K1A902TqwCc?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a></label>'+
+				"<div><i>Adds in-browser AI support to the form. It helps users fill field.</i></div>" :
+				''
+			)+
 			'<hr>';
 		},
 		showCsslayout: function(v)
@@ -1559,7 +1612,7 @@
 			iconsContainer: function( i, d ){
 				i = i || '';
 				d = d || true;
-				return '<div class="cff-field-controls">'+i+(d ? '<div title="Duplicate" class="copy ui-icon ui-icon-copy "></div>' : '')+'<div title="Delete" class="remove ui-icon ui-icon-trash "></div></div>';
+                return '<div class="cff-field-controls">' + i + (d ? '<div title="Duplicate (Ctrl+D)" class="copy ui-icon ui-icon-copy "></div>' : '')+'<div title="Remove (Ctrl+R)" class="remove ui-icon ui-icon-trash "></div></div>';
 			},
 			init:function(){},
 			initAdv:function(){},
@@ -1585,7 +1638,7 @@
 					}
 				}
 
-				$("#sTitle").on("keyup", {obj: this}, function(e)
+				$("#sTitle").on("input", {obj: this}, function(e)
 					{
 						var str = $(this).val();
 						e.data.obj.title = str.replace(/\n/g,"<br />");
@@ -1604,7 +1657,7 @@
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sShortlabel").on("keyup", {obj: this}, function(e)
+				$("#sShortlabel").on("input", {obj: this}, function(e)
 					{
 						e.data.obj.shortlabel = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
@@ -1628,7 +1681,7 @@
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sPredefined").on("keyup", {obj: this}, function(e)
+				$("#sPredefined").on("input", {obj: this}, function(e)
 					{
 						e.data.obj.predefined = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
@@ -1664,7 +1717,7 @@
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sUserhelp").on("keyup", {obj: this}, function(e)
+				$("#sUserhelp").on("input", {obj: this}, function(e)
 					{
 						e.data.obj.userhelp = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
@@ -1673,6 +1726,12 @@
 				$("#sUserhelpTooltip").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.userhelpTooltip = $(this).is(':checked');
+						$.fbuilder.reloadItems( {'field': e.data.obj} );
+					});
+
+				$("#sAiAssistant").on("click", {obj: this}, function(e)
+					{
+						e.data.obj.aiAssistant = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
@@ -1720,11 +1779,26 @@
                 $(".helpfbuilder").off('click');
 				$(".helpfbuilder").on('click', function(evt)
 					{
-						evt.preventDefault();
-						evt.stopPropagation();
-						alert($(this).attr("text"));
+						let t = $(this).attr("text");
+						if (t || $(this).hasClass('video')) {
+							evt.preventDefault();
+							evt.stopPropagation();
+							if(t) alert($(this).attr("text"));
+							else {
+								let video_container = $("#cff-video-tutorial-modal");
+								if ( video_container.length ) {
+									video_container.find('iframe').attr('src', $(this).attr('href'));
+									video_container.css({'opacity':0,'display':'block'}).animate({'opacity':1}, 'fast');
+								} else {
+									const popupWidth = Math.min(window.screen.width, 800);
+									const popupHeight = Math.min(window.screen.height, 600);
+									window.open( $(this).attr('href'), 'helpPopup', `width=${popupWidth},height=${popupHeight},scrollbars=yes,resizable=yes`);
+								}
+							}
+							return false;
+						}
 					});
-				$("#sDeveloperNotes").on("keyup", {obj: this}, function(e)
+				$("#sDeveloperNotes").on("input", {obj: this}, function(e)
 					{
 						e.data.obj._developerNotes = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
@@ -1870,7 +1944,7 @@
 
 			showUserhelp:function()
 			{
-				return $.fbuilder.showSettings.showUserhelp(this.userhelp,this.audiotutorial,this.userhelpTooltip,this.tooltipIcon);
+				return $.fbuilder.showSettings.showUserhelp(this.userhelp,this.audiotutorial,this.userhelpTooltip,this.tooltipIcon, this.aiAssistant);
 			},
 
 			showCsslayout:function()
@@ -1986,7 +2060,7 @@
 	} );
 
 	// Redirect to the admin list sections
-	$(window).on('load', function(){
+	function cff_jump_to_section() {
 		if ( /cp_calculated_fields_form_sub_addons/i.test(document.location.search) ) {
 			$('#metabox_addons_area')[0].scrollIntoView();
 		} else if ( /cp_calculated_fields_form_sub_troubleshoots_settings/i.test(document.location.search) ) {
@@ -1994,13 +2068,22 @@
 		} else if ( /cp_calculated_fields_form_sub_import_export/i.test(document.location.search) ) {
 			$('#metabox_import_export_area')[0].scrollIntoView();
 		} else if ( /cp_calculated_fields_form_sub_new/i.test(document.location.search) ) {
-			cff_openLibraryDialog( true );
+			if ( typeof cff_openLibraryDialog == 'undefined') {
+				setTimeout(function() { if( 'cff_openLibraryDialog' in window ) cff_openLibraryDialog( true ); }, 1000);
+			} else {
+				cff_openLibraryDialog( true );
+			}
 		}
-
 		$( '#cff-ai-assistant-container' ).draggable({ handle: ".cff-ai-assistan-title", containment: "window",  drag: function(evt, ui) {
 			ui.position.top = Math.max(35, ui.position.top);
 		}});
-	});
+	};
+
+	if (document.readyState === 'complete') {
+		cff_jump_to_section();
+	} else {
+		window.addEventListener('load', function(){cff_jump_to_section();});
+	}
 
 	$(document).on('keypress', '.cff_form_builder input[type="text"],.cff_form_builder input[type="number"]', function( evt ) {
 		var keycode = (evt.keyCode ? evt.keyCode : evt.which);

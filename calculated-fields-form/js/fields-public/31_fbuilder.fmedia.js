@@ -5,6 +5,7 @@
 		{
 			ftype:"fMedia",
             sMediaType:"image", // image, audio, video
+			sAlignment:"default",
             data:{
                 image:{
                     sWidth:"",
@@ -106,7 +107,8 @@
                 },
             show:function()
 				{
-						return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-media-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><div class="clearer"><div class="field" id="'+this.name+'">'+this['_show_'+this.sMediaType]()+'</div></div><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('caption'))+'">'+cff_sanitize(this.data[this.sMediaType].sFigcaption, true)+'</span><div class="clearer"></div></div>';
+						let align = this.sAlignment != 'default' ? 'text-align:'+this.sAlignment+';' : '';
+						return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-media-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><div class="clearer"><div class="field" id="'+this.name+'" style="'+align+'">'+this['_show_'+this.sMediaType]()+'</div></div><span class="uh" style="'+align+cff_esc_attr(this.getCSSComponent('caption'))+'">'+cff_sanitize(this.data[this.sMediaType].sFigcaption, true)+'</span><div class="clearer"></div></div>';
 				},
 			after_show:function()
 			    {

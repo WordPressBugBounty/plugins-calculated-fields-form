@@ -24,7 +24,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 		}
 
 		public function init() {
-			$instance = $instance = self::instance(); // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
+			$instance = self::instance(); // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 
 			// Gutenberg editor.
 			add_action( 'enqueue_block_editor_assets', array( $instance, 'gutenberg_editor' ) );
@@ -41,19 +41,19 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 			// Elementor.
 			add_action( 'elementor/widgets/register', array( $instance, 'elementor_editor' ) );
 			add_action( 'elementor/elements/categories_registered', array( $instance, 'elementor_editor_category' ) );
+			add_action( 'elementor/editor/after_enqueue_scripts', function() {
+				wp_enqueue_script( 'cp_calculatedfieldsf_script', plugins_url( '/js/cp_calculatedfieldsf_scripts.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
+			});
 
 			// Beaver builder.
 			if ( class_exists( 'FLBuilder' ) ) {
 				include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/beaverbuilder/cff/cff.inc.php';
 				include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/beaverbuilder/cffvar/cffvar.inc.php';
 			}
-
-			// DIVI.
-			add_action( 'et_builder_ready', array( $instance, 'divi_editor' ) );
 		} // End init.
 
 		public function after_setup_theme() {
-			$instance = $instance = self::instance(); // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
+			$instance = self::instance(); // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 
 			// SiteOrigin.
 			add_filter( 'siteorigin_widgets_widget_folders', array( $instance, 'siteorigin_widgets_collection' ) );
@@ -61,17 +61,96 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 
 			// Visual Composer.
 			add_action( 'vcv:api', array( $instance, 'visualcomposer_editor' ) );
+
+			// DIVI
+			if ( function_exists( 'et_get_theme_version' ) ) {
+				if ( version_compare( et_get_theme_version(), '5.0', '>=' ) ) { // DIVI 5
+					add_action( 'et_builder_ready', array($instance, 'divi_editor') );
+					add_action( 'divi_visual_builder_assets_before_enqueue_scripts',
+						function() {
+							if ( et_core_is_fb_enabled() && et_builder_d5_enabled() ) {
+								global $wpdb;
+								$options = array();
+
+								if ( defined('CP_CALCULATEDFIELDSF_FORMS_TABLE') ) {
+									$rows = $wpdb->get_results(
+										"SELECT id, form_name FROM " . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE
+									);
+
+									foreach ($rows as $item) {
+										$options[$item->id] = ['label' => '(' . $item->id . ') ' . $item->form_name];
+									}
+
+								}
+								wp_register_script( 'cff-divi5-forms', '', array(), null, true );
+								wp_enqueue_script( 'cff-divi5-forms' );
+								$script = 'var cff_divi5_forms_list = ' . json_encode( $options ) . ';';
+								wp_add_inline_script( 'cff-divi5-forms', $script );
+
+								\ET\Builder\VisualBuilder\Assets\PackageBuildManager::register_package_build(
+									[
+										'name'    => 'cff-divi-5-module-visual-builder',
+										'version' => '1.0.0',
+										'script'  => [
+											'src' => plugins_url('/pagebuilders/divi/divi5/divi.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH),
+											'deps'=> [
+												'react',
+												'jquery',
+												'divi-module-library',
+												'wp-hooks',
+												'divi-rest',
+											],
+											'enqueue_top_window' => false,
+											'enqueue_app_window' => true,
+										],
+									]
+								);
+							}
+						}
+					);
+
+					// Register module.
+					add_action(
+						'divi_module_library_modules_dependency_tree',
+						function( $dependency_tree ) {
+							// Load Divi 5 modules.
+							require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/divi/divi5/divi.pb.php';
+							$dependency_tree->add_dependency( new CFF_DIVI5_MODULE() );
+						}
+					);
+
+					add_filter(
+						'divi.moduleLibrary.conversion.moduleConversionOutlineFile',
+						function( $conversion_outline_file, $module_name ) {
+							if ( 'cff/cff-divi5-module' === $module_name ) {
+								return CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/divi/divi5/conversion-outline.json';
+							}
+							return $conversion_outline_file;
+						}, 10, 2
+					);
+				} else { // DIVI 4
+					add_action( 'et_builder_ready', array($instance, 'divi_editor') );
+					add_action( 'et_fb_enqueue_assets', array($instance, 'divi_editor_assets') );
+				}
+			}
 		} // End after_setup_theme.
 
 		/**************************** DIVI ****************************/
 		public function divi_editor() {
-			if ( class_exists( 'ET_Builder_Module' ) ) {
-				if ( isset( $_GET['et_fb'] ) ) {
-					wp_enqueue_script( 'cp_calculatedfieldsf_divi_editor', plugins_url( '/pagebuilders/divi/cff.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'react' ), CP_CALCULATEDFIELDSF_VERSION, true );
-				}
-				require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/divi/cff.pb.php';
-			}
+			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/divi/divi4/divi.pb.php';
+			// $this->divi_editor_assets();
 		} // End divi_editor.
+
+		public function divi_editor_assets()
+		{
+			 wp_enqueue_script(
+				'cff-divi-module',
+				plugins_url('/pagebuilders/divi/divi4/divi.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH),
+				['jquery', 'react', 'react-dom'],
+				CP_CALCULATEDFIELDSF_VERSION,
+				true
+			);
+		} // End divi_editor_assets
 
 		/**************************** GUTENBERG ****************************/
 		private function gutenberg_editor_config() {

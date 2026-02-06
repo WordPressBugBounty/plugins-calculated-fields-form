@@ -1,0 +1,8 @@
+{
+    "module": {
+        "cff_form_id": "cff_form_id.innerContent.*",
+        "cff_class_name": "cff_class_name.innerContent.*",
+        "cff_attributes": "cff_attributes.innerContent.*",
+        "cff_iframe": "cff_iframe.innerContent.*"
+    }
+}

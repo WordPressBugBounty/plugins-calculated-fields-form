@@ -1,9 +1,41 @@
-	$.fbuilder['version'] = '5.3.99';
+	$.fbuilder['version'] = '5.4.3.7';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
 	$.fbuilder['isMobile'] = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 	$.fbuilder['isIOS'] = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+	$.fbuilder['eval'] = function(toEval, context)
+	{
+		if ( toEval === '' ) return toEval;
+		try {
+			context = context || {};
+			const unique = 'cff_code_'+Math.random().toString(36).replace(/[^a-z]+/g, '').slice(0, 6);
+			const unique_error = unique+'_error';
+			let str = '<script id="'+unique+'">try{';
+			for (let key in context) {
+				if (context.hasOwnProperty(key)) {
+					str += 'let '+key+'='+JSON.stringify(context[key])+';';
+				}
+			}
+			str += unique+'='+toEval+'}catch(err){'+unique_error+'=err;}</script>';
+			$('body').append(str);
+			$('[id="'+unique+'"]').remove();
+
+			if ( unique_error in window ) {
+				let tmp = window[unique_error];
+				delete window[unique_error];
+				delete window[unique];
+				throw tmp;
+			} else  {
+				let tmp = window[unique];
+				delete window[unique];
+				return tmp;
+			}
+		} catch ( err ) {
+			throw err;
+		}
+	};
 
 	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
 
@@ -286,9 +318,10 @@
 					pageDom.find('.cpefb_error.message:not(:empty)').each(function(){
 						let e = $(this),
 							l = e.closest('.fields').children('label'),
-							t = l ? l.text() : '';
+							t = l ? l.text() : '',
+                            m = '<b>' + t + (t.length ? ': ' : '') + '</b>' + e.text();
 
-						mssg.push( '<b>'+t+(t.length ? ': ' : '')+'</b>'+e.text());
+						if(mssg.indexOf(m) === -1) mssg.push(m);
 					});
 
 					if(mssg.length) {
@@ -522,6 +555,11 @@
 			ignore:".ignore,.ignorepb",
 			errorClass: 'cpefb_error',
 			errorElement: "div",
+            onkeyup: function(element, event) {
+                if($(element).hasClass('cpefb_error')) {
+                    this.element(element);
+                }
+            },
 			errorPlacement: function(e, element)
 				{
 					var _parent = element.closest( '.uh_phone,.dfield' ),
@@ -577,6 +615,7 @@
 
 					for(i; i<items.length; i++)
 					{
+						if ( ! ( i in items ) ) continue;
 						items[i].index = i;
 						if (items[i].ftype=="fPageBreak")
 						{
@@ -590,6 +629,10 @@
 							if( 'hidefield' in items[i] && items[i]['hidefield'] && 'csslayout' in items[i] ) items[i]['csslayout'] += ' hide-strong';
 
 							page_tag.append(items[i].show());
+							if (items[i].aiAssistant)
+							{
+								page_tag.find("#"+items[i].name).attr({'data-assistant': 1});
+							}
 							if (items[i].predefinedClick)
 							{
 								page_tag.find("#"+items[i].name).attr({placeholder: items[i].predefined, value: ""});
@@ -747,6 +790,7 @@
                     theForm.after_show( opt.identifier );
 					for (var i=0;i<items.length;i++)
 					{
+						if ( ! ( i in items ) ) continue;
 						items[i].after_show();
                         if('csslayout' in items[i] && /\bignorefield\b/i.test(items[i]['csslayout']))
                             IGNOREFIELD(items[i].name, items[i].form_identifier);
@@ -957,15 +1001,15 @@
 							try{ if(!$(this).is(':file')) $(this).valid(); }catch(e){};
 						});
 
-					if(!this.autocomplete) form.find('input[name*="fieldname"]:not([autocomplete])').attr('autocomplete', 'new-password');
+					if(!this.autocomplete) form.find('input[name*="fieldname"]:not([autocomplete]),input[id*="fieldname"]:not([autocomplete])').attr('autocomplete', 'new-password');
 
 					// For users that insert the form into a DIV tag or another clickable tag, capture bubbling click and stop propagation.
 					form.parents('a').attr('href', 'javascript:void(0);').removeAttr('target').css('all', 'unset');
                 }
 			});
-
 		var theForm,
 			ffunct = {
+				settings:opt,
 				toShow : {},
 				toHide : {},
 				hiddenByContainer : {},
@@ -1002,6 +1046,10 @@
 							   items = [];
 							   for (var i=0;i<d[0].length;i++)
 							   {
+								   if ( ! ( d[0][i].ftype in $.fbuilder.controls ) ) {
+									   console.log( d[0][i].ftype +' NOT AVAILABLE' );
+									   continue;
+								   }
 								   var obj = new $.fbuilder.controls[d[0][i].ftype]();
 								   obj = $.extend(true, {}, obj, d[0][i]);
 								   obj.name = obj.name+opt.identifier;
@@ -1104,9 +1152,19 @@
 				userhelpTooltip:false,
 				csslayout:"",
 				init:function(){},
+				_getValueAttr:function(v){
+					let output = '';
+					let attr = 'value';
+					if ( 'predefinedClick' in this && this['predefinedClick'] ) attr = 'placeholder';
+					if ( v != undefined ) output = attr+'="'+cff_esc_attr(v)+'"';
+					else if ( 'predefined' in this ) output = attr+'="'+cff_esc_attr(this.predefined)+'"';
+					return output;
+				},
 				_getAttr:function(attr, raw)
 					{
-						var me = this, f, p, v = String(me[attr]).trim(), raw = raw || false;
+						var me = this, f, p,
+                            o  = me[attr], // original value
+                            v = String(o).trim(), raw = raw || false;
 						if ( !raw && $.fbuilder.isNumeric(v) ) return parseFloat(v);
 						if ( typeof v == 'string' ) {
 							if ( p = /^url\.(.+)$/.exec(v) ) return (p = p[1].trim()) ? getURLParameter( p, '' ) : '';
@@ -1117,10 +1175,11 @@
 								v = f.val(raw, true);
 								if(!raw && $.fbuilder.isNumeric(v)) v = parseFloat(v);
 								if( (f.ftype == 'fdate' || f.ftype == 'fdateds' ) && $.fbuilder.isNumeric(v) && v) v = CDATE(v, me.dformat);
+                                return v;
 							}
 						}
 
-						return v;
+						return o;
 					},
 				_setHndl:function(attr, one)
 					{
@@ -1128,7 +1187,7 @@
 						if($.fbuilder.isNumeric(v)) return;
 						var s = (/^fieldname\d+$/i.test(v)) ? '.'+v+me.form_identifier+' [id*="'+v+me.form_identifier+'"]' : v,
 							i = (one) ? 'one' : 'on';
-						if('string' == typeof s && !/^\s*$/.test(s))
+						if('string' == typeof s && !/^\s*$/.test(s) && !/\$/.test(s))
 						{
 							s = String(s).trim();
 							if(!$.fbuilder.isNumeric(s.charAt(0)))
@@ -1164,10 +1223,10 @@
 						return 'Not available yet';
 					},
 				after_show:function(){},
-				val:function(raw, no_quotes){
+				val:function(raw, no_quotes, disable_ignore_check){
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $( "[id='" + this.name + "']:not(.ignore)" );
+					var e = (disable_ignore_check) ? $( "[id='" + this.name + "']" ) : $( "[id='" + this.name + "']:not(.ignore)" );
 					if( e.length )
 					{
 						var v = e.val();
@@ -1440,6 +1499,7 @@
 			errorList.forEach( (e) => {
 				try {
 					let m = cff_sanitize(e.message, true);
+                    if ( m.length === 0 ) return;
 					let n = e.element.name;
 					if( n && /fieldname\d+_\d+/.test(n) ) {
 						let o = getField( n.match(/fieldname\d+_\d+/)[0] );
@@ -1452,7 +1512,7 @@
 								}
 							}
 						}
-						mssg.push( m );
+						if( mssg.indexOf( m ) === -1 ) mssg.push( m );
 					}
 				} catch(err){ console.log(err); }
 			});

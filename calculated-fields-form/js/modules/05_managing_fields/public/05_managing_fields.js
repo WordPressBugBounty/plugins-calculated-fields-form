@@ -151,7 +151,14 @@
 		var o = _getForm(_form), f;
 		if(o){
 			f = $('[id="'+$.fbuilder.forms[o]['formId']+'"]');
-			if(f.length) return _silent ? f.validate().checkForm()  : f.valid();
+			if(f.length) {
+				if (_silent) return f.validate().checkForm();
+				else {
+					let v = f.valid();
+					$.fbuilder.openErrorDlg(f);
+					return v;
+				}
+			}
 		}
 		return false;
 	};
@@ -163,43 +170,48 @@
 			j = f.jQueryRef().find(':input');
 			if(j.length)
 				return _silent ? j.closest('form').validate().check( j ) : j.valid();
+			else return true;
 		}
 		return false;
 	};
 
-	lib.activatefield = lib.ACTIVATEFIELD = function( _field, _form )
+	lib.activatefield = lib.ACTIVATEFIELD = function( _field, _form, _animate )
 	{
-		var o = _getForm(_form), f = _getField(_field, _form), j;
+		var o = _getForm(_form), f = _getField(_field, _form), j, k;
 		if(f)
 		{
 			j = f.jQueryRef();
             j.removeClass('ignorefield');
-			if(j.find('[id*="'+f.name+'"]').hasClass('ignore'))
+            k = j.find('[id*="'+f.name+'"]');
+			if(k.length && k.hasClass('ignore'))
 			{
-                j.add(j.find('.fields')).show();
+                j.add(j.find('.fields'))[_animate ? 'fadeIn' : 'show']();
 				if(f.name in $.fbuilder.forms[o].toHide) delete $.fbuilder.forms[o].toHide[f.name];
 				if(!(f.name in $.fbuilder.forms[o].toShow)) $.fbuilder.forms[o].toShow[f.name] = {'ref': {}};
-				j.find('[id*="'+f.name+'"]').removeClass('ignore').trigger('change');
+				k.removeClass('ignore').trigger('change');
 				$.fbuilder.showHideDep({'formIdentifier':o,'fieldIdentifier':f.name});
-			}
+            } else if(!k.length) {
+                j[_animate ? 'fadeIn' : 'show']();
+            }
 		}
 	};
 
 	lib.ignorefield = lib.IGNOREFIELD = function( _field, _form )
 	{
-		var o = _getForm(_form), f = _getField(_field, _form), j;
+		var o = _getForm(_form), f = _getField(_field, _form), j, k;
 		if(f)
 		{
 			j = f.jQueryRef();
             j.addClass('ignorefield');
-			if(!j.find('[id*="'+f.name+'"]').hasClass('ignore'))
+            k = j.find('[id*="'+f.name+'"]');
+			if(k.length && !k.hasClass('ignore'))
 			{
 				j.add(j.find('.fields')).hide();
 				if(!(f.name in $.fbuilder.forms[o].toHide)) $.fbuilder.forms[o].toHide[f.name] = {};
 				if(f.name in $.fbuilder.forms[o].toShow) delete $.fbuilder.forms[o].toShow[f.name];
-				j.find('[id*="'+f.name+'"]').addClass('ignore').trigger('change');
+				k.addClass('ignore').trigger('change');
 				$.fbuilder.showHideDep({'formIdentifier':o,'fieldIdentifier':f.name});
-			}
+            }
 		}
 	};
 
@@ -210,32 +222,84 @@
         return false;
 	};
 
-    lib.showfield = lib.SHOWFIELD = function( _field, _form )
+    lib.readonlyfield = lib.READONLYFIELD = function( _field, _form )
     {
+		if ( ! ( 'returnFalse' in $.fbuilder ) ) $.fbuilder.returnFalse = function(){return false;};
         var f = _getField(_field, _form), j;
 		if(f)
 		{
 			j = f.jQueryRef();
-            if(!j.find('[id*="'+f.name+'"]').hasClass('ignore'))
-                j.removeClass('hide-strong hide').show();
+			j.find('[id*="'+f.name+'"]').prop('readonly', true);
+			j.find('*').on('click focus mousedown mouseup', $.fbuilder.returnFalse);
+        }
+    };
+
+	lib.editablefield = lib.EDITABLEFIELD = function( _field, _form )
+    {
+		if ( ! ( 'returnFalse' in $.fbuilder ) ) $.fbuilder.returnFalse = function(){return false;};
+        var f = _getField(_field, _form), j;
+		if(f)
+		{
+			j = f.jQueryRef();
+			j.find('[id*="'+f.name+'"]').prop('readonly', false);
+			j.find('*').off('click focus mousedown mouseup', $.fbuilder.returnFalse);
+        }
+    };
+
+	lib.isreadonly = lib.ISREADONLY = function( _field, _form )
+    {
+		let f = _getField(_field, _form), j, r = false;
+		if(f)
+		{
+			r = true;
+			j = f.jQueryRef();
+			j.find('[id*="'+f.name+'"]').each(function() { if ( ! $(this).prop('readonly') ) r = false; });
+        }
+
+		return r;
+    };
+
+	lib.showfield = lib.SHOWFIELD = function( _field, _form, _animate )
+    {
+        var f = _getField(_field, _form), j;
+		if(f) {
+			j = f.jQueryRef();
+            if(j.find('[id*="'+f.name+'"]').hasClass('ignore')) j = null;
+        } else {
+			try {
+                if (typeof _form == 'string' && /_\d+/.test(_form)) _form = $('#cp_calculatedfieldsf_pform' + _form);
+                j = $(_field, _form);
+            } catch(err){};
 		}
+		if (j && j.length) j.css('display', 'none').removeClass('hide-strong hide')[_animate ? 'fadeIn' : 'show']();
     };
 
 	lib.hidefield = lib.HIDEFIELD = function( _field, _form )
     {
-        var f = _getField(_field, _form);
-		if(f)
-		{
+        let f = _getField(_field, _form), j;
+		if (f) {
             j = f.jQueryRef();
-            if(!j.find('[id*="'+f.name+'"]').hasClass('ignore'))
-                f.jQueryRef().addClass('hide-strong');
+            if(j.find('[id*="'+f.name+'"]').hasClass('ignore')) j = null;
+		} else {
+			try {
+                if(typeof _form == 'string' && /_\d+/.test(_form)) _form = $('#cp_calculatedfieldsf_pform' + _form);
+                j = $(_field, _form);
+             } catch(err){};
 		}
+		if (j && j.length) j.addClass('hide-strong');
     };
 
 	lib.ishidden = lib.ISHIDDEN = function( _field, _form )
 	{
-		var o = _getForm(_form), f = _getField(_field, _form), j;
-		if(f) return f.jQueryRef().is(':hidden');
+		let f = _getField(_field, _form), j;
+		if(f) j = f.jQueryRef();
+		else {
+			try {
+                if (typeof _form == 'string' && /_\d+/.test(_form)) _form = $('#cp_calculatedfieldsf_pform' + _form);
+                j = $(_field, _form);
+             } catch(err){};
+		}
+		if (j && j.length) return j.is(':hidden');
         return true;
 	};
 

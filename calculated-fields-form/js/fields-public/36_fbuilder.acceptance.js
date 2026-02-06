@@ -48,11 +48,11 @@
 					});
 					$(document).on('click','.cff-close-dlg', function(){$(this).closest('.cff-dialog').addClass('hide');});
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:checked:not(.ignore)');
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]:checked') : $('[id="'+this.name+'"]:checked:not(.ignore)');
 					if(e.length)
 					{
 						var t = $.fbuilder.parseValStr(e[0].value, raw, no_quotes);

@@ -24,7 +24,13 @@ body{
 .cp_cff_box #fbuilder .fform h4{font-size:1.1em;}
 .cp_cff_box #fbuilder .fform h5{font-size:0.9em;}
 .cp_cff_box #fbuilder .fform h6{font-size:0.8em;}
-
+#cff_ai_assistant_bubble{
+	border:1px solid #DDDDDD !important;
+    border-radius: 3px !important;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	box-shadow:none;
+}
 .cp_cff_box #fbuilder fieldset,
 .cp_cff_box #fbuilder fieldset legend,
 .cp_cff_box #fbuilder  .fields:not(.cff-container-field){
@@ -71,6 +77,7 @@ body{
 .cp_cff_box #fbuilder .section_breaks>label{text-align:center;}
 .cp_cff_box #fbuilder .section_breaks span.uh{margin:0;}
 .cp_cff_box #fbuilder span.uh:empty{ display:none; }
+#cff_ai_assistant_use_suggestion,
 .cp_cff_box .cff-spinner .cff-spinner-down,
 .cp_cff_box .cff-spinner .cff-spinner-up,
 .cp_cff_box #fbuilder .pbSubmit,
@@ -86,9 +93,11 @@ body{
     border-bottom: 3px solid #5994FF;
     border-radius: 3px;
     color: #D2E2FF;
+	cursor:pointer;
 }
 .cp_cff_box #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_box #fbuilder .cff-spinner .cff-spinner-up{padding:0;}
+#cff_ai_assistant_use_suggestion:hover,
 .cp_cff_box #fbuilder .pbSubmit:hover,
 .cp_cff_box #fbuilder .pbreak .pbPrevious:hover,
 .cp_cff_box #fbuilder .pbreak .pbNext:hover,
@@ -113,7 +122,9 @@ body{
 .cp_cff_box #fbuilder input[type=number],
 .cp_cff_box #fbuilder input[type=email],
 .cp_cff_box #fbuilder input[type=password],
+.cp_cff_box #fbuilder select,
 .cp_cff_box #fbuilder textarea{	border:0;outline:none;}
+.cp_cff_box #fbuilder select{min-width:40px;}
 .cp_cff_box #fbuilder .ui-slider-handle{background:#6B9FFF;border:0;}
 .cp_cff_box #fbuilder  .dfield.slider-container{padding-left: 20px !important; padding-right: 20px !important;}
 .cp_cff_box #fbuilder .fields.section_breaks{

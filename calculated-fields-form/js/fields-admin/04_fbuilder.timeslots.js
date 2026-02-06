@@ -32,12 +32,14 @@
             validDates:"",
             mondayFirstDay:false,
             alwaysVisible:false,
+            showWeek:false,
 			minHour:0,
 			maxHour:23,
 			minMinute:0,
 			maxMinute:59,
 
 			currentDate:0,
+			nextValid:0,
 			defaultDate:"",
 			defaultTime:"",
 			working_dates:[true,true,true,true,true,true,true],
@@ -48,6 +50,7 @@
             errorMssg:'',
 
 			timeslotsDuration:"",
+			betweenDuration:0,
 			sameForAllDays:true,
 			preventEarlierSlots:true,
 			maxSlotsPerSubmission:"",
@@ -74,7 +77,7 @@
 				{
 					var me = this,
 						evt = [
-							{s:"#sDropdownRange",e:"keyup", l:"dropdownRange", x:1},
+							{s:"#sDropdownRange",e:"input", l:"dropdownRange", x:1},
 							{s:"#sFormat",e:"change", l:"dformat", x:1},
 							{s:"#sSeparator",e:"change", l:"dseparator", x:1},
 							{s:"#sShowFormatOnLabel",e:"click", l:"showFormatOnLabel", f:function(el){return el.is(':checked');}},
@@ -96,6 +99,7 @@
 								return v;
 								}
 							},
+							{s:"#sNextValid",e:"click", l:"nextValid", f:function(el){return el.is(':checked');}},
 							{s:"#sMaxSlots",e:"change keyup", l:"maxSlotsPerSubmission", f:function(el){
 								let v = String(el.val()).trim();
 								if ( ! isNaN(v) ) {
@@ -110,16 +114,20 @@
 								}
 								return v ? v : '';
 							}, x:1},
+							{s:"#sBetweenDuration",e:"change keyup", l:"betweenDuration", f:function(el){
+								return Math.max(parseInt(String(el.val()).trim()) || 0, 0);
+							}, x:1},
 							{s:"#sMaxSlotsErrorMssg",e:"change keyup", l:"maxSlotsErrorMssg"},
 							{s:"#sSameForAllDays",e:"click", l:"sameForAllDays", f:function(el){return el.is(':checked');}},
 							{s:"#sPreventEarlierSlots",e:"click", l:"preventEarlierSlots", f:function(el){return el.is(':checked');}},
 							{s:"#sDisableKeyboardOnMobile",e:"click", l:"disableKeyboardOnMobile", f:function(el){return el.is(':checked');}},
 							{s:"#sMondayFirstDay",e:"click", l:"mondayFirstDay", f:function(el){return el.is(':checked');}},
 							{s:"#sAlwaysVisible",e:"click", l:"alwaysVisible", f:function(el){return el.is(':checked');}},
-							{s:"#sMinHour",e:"keyup", l:"minHour", x:1},
-							{s:"#sMaxHour",e:"keyup", l:"maxHour", x:1},
-							{s:"#sMinMinute",e:"keyup", l:"minMinute", x:1},
-							{s:"#sMaxMinute",e:"keyup", l:"maxMinute", x:1},
+                            {s:"#sShowWeek", e:"click", l:"showWeek", f:function (el){return el.is(':checked');}},
+							{s:"#sMinHour",e:"input", l:"minHour", x:1},
+							{s:"#sMaxHour",e:"input", l:"maxHour", x:1},
+							{s:"#sMinMinute",e:"input", l:"minMinute", x:1},
+							{s:"#sMaxMinute",e:"input", l:"maxMinute", x:1},
 							{s:"#sMinHour",e:"change", l:"minHour", f:function(el){
 								let v = el.val();
 								if( isNaN(v*1) ) { el.val(0); return 0; }
@@ -166,7 +174,7 @@
 						$.fbuilder.reloadItems({'field':e.data.obj});
 					});
 
-					$(".working_dates input, #sMinHour, #sMinMinute, #sMaxHour, #sMaxMinute, #sTimeslotsDuration, #sSameForAllDays").on("input", function() {
+					$(".working_dates input, #sMinHour, #sMinMinute, #sMaxHour, #sMaxMinute, #sTimeslotsDuration, #sBetweenDuration, #sSameForAllDays").on("input", function() {
 						setTimeout(function(){
 							me.generateTimeslots();
 							$.fbuilder.reloadItems({'field':me});
@@ -177,7 +185,8 @@
 				},
 			generateTimeslots: function()
 				{
-					let duration 	= parseInt(this.timeslotsDuration);
+					let duration 	= parseInt(this.timeslotsDuration) || 0;
+					let between 	= parseInt(this.betweenDuration) || 0;
 					let week_days   = this.working_dates;
 					let all_days    = this.sameForAllDays;
 					let bk_timeslots= this.timeslots;
@@ -211,7 +220,7 @@
 								let _timeslot 	= {start: _start, end : _end, duration: _end - _start, active: _active };
 
 								timeslots_day.push( _timeslot );
-								start = _end;
+								start = _end+between;
 							}
 							timeslots.push( timeslots_day );
 							if ( all_days ) {
@@ -310,10 +319,20 @@
 						} else {
 							output += '<p>Please ensure that you have selected active days for the week, entered the correct minimum and maximum time intervals, and specified the slot duration.</p>';
 						}
+
+						output += me.googleCalendarLink();
 						$('.timeslots-container').html( output );
 					}
 					return output;
 			},
+			googleCalendarLink: function()
+				{
+					let style = 'style="color:#1a73e8;font-weight:600;text-decoration:none;background:#e8f0fe;padding:4px 10px;            border-radius:16px;transition:background 0.2s ease,transform 0.1s ease;display:inline-block;"';
+
+					let link = $('#metabox_googlecalendar_addon_form_settings').length ? '<a href="#metabox_googlecalendar_addon_form_settings" '+style+'>Google Calendar</a>' : '<a href="https://cff-bundles.dwbooster.com/product/google-calendar" target="_blank" '+style+'>Google Calendar</a>';
+
+					return '<div class="groupBox" style="display:flex;gap:10px;align-items:center;"><img alt="Google Calendar" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGFyaWEtbGFiZWw9Ikdvb2dsZSBDYWxlbmRhciIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxNSUiIGZpbGw9IiNmZmZmZmYiLz48cGF0aCBkPSJNMTAwIDM0MGg3NFYxNzRIMzQwdi03NEgxMzdRMTAwIDEwMCAxMDAgMTM1IiBmaWxsPSIjNDI4NWY0Ii8+PHBhdGggZD0iTTMzOCAxMDB2NzZoNzR2LTQxcTAtMzUtMzUtMzUiIGZpbGw9IiMxOTY3ZDIiLz48cGF0aCBkPSJNMzM4IDE3NGg3NFYzMzhoLTc0IiBmaWxsPSIjZmJiYzA0Ii8+PHBhdGggZD0iTTEwMCAzMzh2MzlxMCAzNSAzNSAzNWg0MXYtNzQiIGZpbGw9IiMxODgwMzgiLz48cGF0aCBkPSJNMTc0IDMzOEgzMzh2NzRIMTc0IiBmaWxsPSIjMzRhODUzIi8+PHBhdGggZD0iTTMzOCA0MTJ2LTc0aDc0IiBmaWxsPSIjZWE0MzM1Ii8+PHBhdGggZD0iTTIwNCAyMjlhMjUgMjIgMSAxIDEgMjUgMjdoLTloOWEyNSAyMiAxIDEgMS0yNSAyN00yNzAgMjMxbDI3LTE5aDR2LTdWMzA4IiBzdHJva2U9IiM0Mjg1ZjQiIHN0cm9rZS13aWR0aD0iMTUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiIGZpbGw9Im5vbmUiLz48L3N2Zz4=" style="width:26px;" /> Sync your time slots with ' + link + '</div>';
+				},
 			showFormatIntance: function()
 				{
 					var me = this,
@@ -333,9 +352,12 @@
 				},
 			showSlotsInstance: function()
 				{
-					return '<div class="width50 column"><label for="sTimeslotsDuration">Slots Duration In Minutes</label><input type="text" class="large" name="sTimeslotsDuration" id="sTimeslotsDuration" value="'+cff_esc_attr(this.timeslotsDuration)+'" /></div>'+
-					'<div class="width50 columnr"><label for="sMaxSlots">Max Slots Per Submission</label><input type="text" class="large" name="sMaxSlots" id="sMaxSlots" value="'+cff_esc_attr(this.maxSlotsPerSubmission)+'" /></div><div class="clearer"></div>'+
-					'<label for="sMaxSlotsErrorMssg">Max Slots Per Submission Error Message</label><input type="text" class="large" name="sMaxSlotsErrorMssg" id="sMaxSlotsErrorMssg" value="'+cff_esc_attr(this.maxSlotsErrorMssg)+'" />'+
+					return '<div style="display:flex;align-items:end;"><div class="width50 column"><label for="sTimeslotsDuration">Slots Duration In Minutes</label><input type="number" class="large" name="sTimeslotsDuration" id="sTimeslotsDuration" value="'+cff_esc_attr(this.timeslotsDuration)+'" /></div>'+
+					'<div class="width50 column"><label for="sBetweenDuration">Minutes Between Slots</label><input type="number" class="large" name="sBetweenDuration" id="sBetweenDuration" value="'+cff_esc_attr(this.betweenDuration)+'" /></div></div>'+
+
+					'<div style="display:flex;align-items:end;"><div class="width50 columnl"><label for="sMaxSlots">Max Slots Per Submission</label><input type="number" class="large" name="sMaxSlots" id="sMaxSlots" value="'+cff_esc_attr(this.maxSlotsPerSubmission)+'" /></div>'+
+					'<div class="width50 columnr"><label for="sMaxSlotsErrorMssg">Max Slots Error Message</label><input type="text" class="large" name="sMaxSlotsErrorMssg" id="sMaxSlotsErrorMssg" value="'+cff_esc_attr(this.maxSlotsErrorMssg)+'" /></div></div>'+
+
 					'<label><input type="checkbox" name="sPreventEarlierSlots" id="sPreventEarlierSlots" '+( ( this.preventEarlierSlots ) ? 'CHECKED' : '' )+' > Prevent selection of time slots earlier than the current time</label>'+
 					'<label><input type="checkbox" name="sSameForAllDays" id="sSameForAllDays" '+( ( this.sameForAllDays ) ? 'CHECKED' : '' )+' > Apply the same time slots for every active day on the week</label>'+
 					'<div class="timeslots-container">'+
@@ -344,15 +366,17 @@
 				},
 			showSpecialDataInstance: function()
 				{
-					return '<label><input type="checkbox" name="sDisableKeyboardOnMobile" id="sDisableKeyboardOnMobile" '+( ( this.disableKeyboardOnMobile ) ? 'CHECKED' : '' )+' > Disable keboard on mobiles</label>'+
+					return '<label><input type="checkbox" name="sDisableKeyboardOnMobile" id="sDisableKeyboardOnMobile" '+( ( this.disableKeyboardOnMobile ) ? 'CHECKED' : '' )+' > Disable keyboard on mobiles</label>'+
 
                     '<label><input type="checkbox" name="sMondayFirstDay" id="sMondayFirstDay" '+( ( this.mondayFirstDay ) ? 'CHECKED' : '' )+' > Make Monday the first day of the week</label>'+
 
                     '<label><input type="checkbox" name="sAlwaysVisible" id="sAlwaysVisible" '+( ( this.alwaysVisible ) ? 'CHECKED' : '' )+' > Make calendar always visible</label>'+
+                    '<label><input type="checkbox" name="sAlwaysVisible" id="sShowWeek" ' + ((this.showWeek) ? 'CHECKED' : '') + ' > Show week of the year</label>' +
 
-                    '<label for="sDefaultDate">Default date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: Leave empty for current date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label>'+
-					'<label style="padding-top:5px;padding-bottom:5px;"><input type="checkbox" name="sCurrentDate" id="sCurrentDate" '+( this.currentDate ? 'CHECKED' : '' )+'> Current date</label>'+
-					'<input type="text" class="large" name="sDefaultDate" id="sDefaultDate" value="'+cff_esc_attr(this.defaultDate)+'" '+( this.currentDate ? 'readonly' : '' )+' /><i>(0, 0d or +0d represent the current date)</i>'+
+                    '<label for="sDefaultDate">Default date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label>'+
+					'<label style="padding-bottom:5px;"><input type="checkbox" name="sCurrentDate" id="sCurrentDate" '+( this.currentDate ? 'CHECKED' : '' )+'> Current date</label>'+
+					'<input type="text" class="large" name="sDefaultDate" id="sDefaultDate" value="'+cff_esc_attr(this.defaultDate)+'" '+( this.currentDate ? 'readonly' : '' )+' />'+
+					'<label><input type="checkbox" name="sNextValid" id="sNextValid" '+( this.nextValid ? 'CHECKED' : '' )+'> If default date is invalid, select the next valid date.</label>'+
 
 					'<label for="sMinDate">Min date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: No min Date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nField Name: the name of another date field, Ex: fieldname1\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label><input type="text" class="large" name="sMinDate" id="sMinDate" value="'+cff_esc_attr(this.minDate)+'" />'+
 

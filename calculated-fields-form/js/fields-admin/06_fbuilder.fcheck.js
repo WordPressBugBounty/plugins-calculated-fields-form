@@ -23,11 +23,12 @@
 			choices: [],
 			choicesVal:[],
 			choiceSelected:[],
-			choicesDep:[],
 
 			merge:1,
 			onoff:0,
 			quantity:0,
+			minQuantity:-1,
+			maxQuantity:-1,
 			quantity_when_ticked:0,
 
 			max:-1,
@@ -50,7 +51,7 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
+					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices.slice(0));
 					var str = "";
 					for (var i=0;i<this.choices.length;i++)
 					{
@@ -208,6 +209,14 @@
 							{s:'[name="sOnOff"]', e:"change", l:"onoff", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sQuantity"]', e:"change", l:"quantity", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sQuantityWhenTicked"]', e:"change", l:"quantity_when_ticked", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
+							{s:'[name="sMaxQuantity"]', e:"change keyup", l:"maxQuantity", f: function(el){
+								var v = el.val();
+								return ($.fbuilder.isNumeric(v)) ? Math.max(1,Math.round(v)) : -1;
+							}},
+							{s:'[name="sMinQuantity"]', e:"change keyup", l:"minQuantity", f: function(el){
+								var v = el.val();
+								return ($.fbuilder.isNumeric(v)) ? Math.max(1,Math.round(v)) : -1;
+							}},
 							{s:'[name="sMax"]', e:"change keyup", l:"max", f: function(el){
 								var v = el.val();
 								return ($.fbuilder.isNumeric(v)) ? Math.round(v) : -1;
@@ -241,7 +250,11 @@
 				{
 					return '<div class="choicesSet"><label><input type="checkbox" name="sMerge" '+((this.merge) ? ' CHECKED ' : '')+'/> Merge ticked up options (sum or concatenation) or their values are returned as an array.</label></div>'+
 					'<div class="choicesSet"><label><input type="checkbox" name="sOnOff" '+((this.onoff) ? ' CHECKED ' : '')+'/> Display as on/off switch.</label></div>'+
-					'<div class="choicesSet"><label><input type="checkbox" name="sQuantity" '+((this.quantity) ? ' CHECKED ' : '')+'/> Include quantity boxes.</label><label><input type="checkbox" name="sQuantityWhenTicked" '+((this.quantity_when_ticked) ? ' CHECKED ' : '')+'/> Display when choice ticked.</label></div>';
+                    '<div class="choicesSet"><label class="large"><input type="checkbox" name="sQuantity" ' + ((this.quantity) ? ' CHECKED ' : '') + '/> Enable quantity boxes for each choice.</label>' +
+                    '<label class="large"><input type="checkbox" name="sQuantityWhenTicked" ' + ((this.quantity_when_ticked) ? ' CHECKED ' : '') + '/> Show quantity box only when the choice is ticked.</label>' +
+                    '<div class="column width50"><label class="large" for="sMinQuantity">Minimum quantity allowed</label><input type="number" id="sMinQuantity" name="sMinQuantity" value="' + ($.fbuilder.isNumeric(this.minQuantity) && 1 <= this.minQuantity ? this.minQuantity : '') + '" class="large" min="1" /></div>' +
+                    '<div class="column width50"><label class="large" for="sMaxQuantity">Maximum quantity allowed</label><input type="number" id="sMaxQuantity" name="sMaxQuantity" value="' + ($.fbuilder.isNumeric(this.maxQuantity) && 1 <= this.maxQuantity ? this.maxQuantity : '') + '" class="large" min="1" /></div>' +
+                    '<div class="clearer"></div></div>';
 				},
 			attributeToSubmit: function()
 				{
@@ -259,7 +272,7 @@
 				},
 			showChoiceIntance: function()
 				{
-					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
+					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices.slice(0));
 					var l = this.choices,
 						lv = this.choicesVal,
 						v = this.choiceSelected,
@@ -291,6 +304,6 @@
 							str += '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="" aria-label="Dependent field"></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
 						}
 					}
-					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices<a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+this.mergeValues()+this.attributeToSubmit()+'<hr style="margin-top:20px;margin-bottom:20px;" />'+this.minChoices()+this.maxChoices()+'</div>';
+					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/s4FM59LC-H4?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+this.mergeValues()+this.attributeToSubmit()+'<hr style="margin-top:20px;margin-bottom:20px;" />'+this.minChoices()+this.maxChoices()+'</div>';
 				}
 	});

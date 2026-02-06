@@ -108,7 +108,8 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				data mediumtext,
 				paypal_post mediumtext,
 				paid INT DEFAULT 0 NOT NULL,
-				UNIQUE KEY id (id)
+				UNIQUE KEY id (id),
+				KEY idx_formid_id (formid, id)
 				) $charset_collate;";
 
 			// Discounts table.
@@ -201,7 +202,8 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				formid mediumint(9) NOT NULL,
 				time datetime,
 				revision LONGTEXT,
-				UNIQUE KEY id (id)
+				UNIQUE KEY id (id),
+				KEY idx_formid_id (formid, id)
 				) $charset_collate;";
 
 			// CHANGE ROW_FORMAT

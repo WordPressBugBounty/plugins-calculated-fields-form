@@ -28,12 +28,25 @@
 //					var me = evt.data.obj;
 //					if( ! me.noEvalIfManual ) $('[id="' + me.name + '"]').data('manually', 0);
 				},
+            set_prefix : function(s)
+                {
+                    this.prefix = s;
+                },
+            set_suffix : function(s)
+                {
+                    this.suffix = s;
+                },
+            init:function()
+                {
+                    if(!/^\s*$/.test(this.prefix)) this._setHndl('prefix');
+                    if(!/^\s*$/.test(this.suffix)) this._setHndl('suffix');
+                },
             configuration : function()
                 {
                     var me = this;
-					return { "suffix" : me.suffix, "prefix" : me.prefix, "groupingsymbol" : me.groupingsymbol, "decimalsymbol" : me.decimalsymbol, "currency": me.currency };
+					return { "suffix" : me._getAttr('suffix'), "prefix" : me._getAttr('prefix'), "groupingsymbol" : me.groupingsymbol, "decimalsymbol" : me.decimalsymbol, "currency": me.currency };
                 },
-			show:function()
+            show:function()
 				{
 					this.predefined = this._getAttr('predefined', true);
 					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-calculated-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+( this.hidefield ? 'padding:0;margin:0;border:0;opacity:0;width:0;height:0;overflow:hidden;' : cff_esc_attr(this.getCSSComponent('container')) )+'"><label '+( ! this.hidefield ? 'for="'+this.name+'"' : '' )+' style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required) ? '<span class="r">*</span>' : '')+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' '+((!/^\s*$/.test(this.min)) ? 'min="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('min'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+((!/^\s*$/.test(this.max)) ? ' max="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('max'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+((this.hidefield) ? 'hidden' : 'text')+'" value="'+cff_esc_attr(this.predefined)+'" style="'+cff_esc_attr(this.getCSSComponent('input'))+'" />'+((!this.hidefield) ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span>' : '')+'</div><div class="clearer"></div></div>';
@@ -123,7 +136,7 @@
                                          );
                             }
                         }
-                 ).on('keyup', function(){
+                    ).on('keyup', function(){
                         if(!me.readonly)
                         {
 							e.data('manually', 1);
@@ -230,11 +243,11 @@
 					}
 					return result;
 				},
-			val: function(raw, no_quotes)
+			val: function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)');
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)');
 					if(e.length)
 					{
 						var v = e.val();
@@ -324,12 +337,6 @@
 						return false;
 					};
 
-				// Private function, the variable names in the equations are replaced by its values, return the equation result or false if error
-				_eval = function(eq)
-					{
-						return eval(eq); // Evaluate the final equation
-					};
-
 				_calculate = function(eq, suffix, __ME__)
 					{
 						var e = $.fbuilder['forms'][suffix].getItem(__ME__),
@@ -366,12 +373,19 @@
 						}
 						try
 						{
-							var r = _eval(eq.replace(/^\(/, '').replace(/\)$/, '').replace(/\b__ME__\b/g, __ME__)); // Evaluate the final equation
+							eq = eq.replace(/^\(/, '').replace(/\)$/, '').replace(/\b__ME__\b/g, __ME__);
+							var r;
+							try {
+								r = eval(eq);
+							} catch (err) {
+								if ( err instanceof EvalError ) r = $.fbuilder['eval'].call(this, eq);
+								else throw err;
+							}
 							return (typeof r != 'undefined' && _validate_result(r)) ? r : false;
 						}
-						catch(e)
+						catch( err2 )
 						{
-							if(typeof console != 'undefined'){console.log(eq); console.log(e.message);}
+							console.log(eq, 'Error:', err2.message);
 							return false;
 						}
 					};
@@ -492,11 +506,18 @@
 									try
 									{
 										// Get the rule and evaluate
-										var rule = eval(dependencies[i].rule.replace(/value\s*&lt;/gi, 'value<')
+										var rule,
+											rule_src = dependencies[i].rule.replace(/value\s*&lt;/gi, 'value<')
 																			.replace(/value\s*&gt;/gi, 'value>')
 																			.replace(/value\|r/gi, values.raw)
-																			.replace(/value/gi, values.value)
-										);
+																			.replace(/value/gi, values.value);
+										try {
+											rule = eval(rule_src);
+										} catch (err) {
+											if ( err instanceof EvalError ) rule = $.fbuilder['eval'].call(this, rule_src);
+											else throw err;
+										}
+
 										$.each(dependencies[i].fields, function(j, e)
 											{
 												if(e != '')
@@ -519,9 +540,9 @@
 											});
 
 									}
-									catch(e)
+									catch(err2)
 									{
-										if(typeof console != 'undefined') console.log(e.message);
+										console.log(err2.message);
 										continue;
 									}
 								}
@@ -569,7 +590,10 @@
 								$(form).trigger('cpcff_default_calc');
 							}
 						},
-
+                    evaluate: function (eq, suffix, __ME__) // Evaluate all equations in the form
+                        {
+                            return _calculate(eq, suffix, __ME__);
+                        },
                     Calculate : function (field)
 						{
 							if(field.id == undefined) return;

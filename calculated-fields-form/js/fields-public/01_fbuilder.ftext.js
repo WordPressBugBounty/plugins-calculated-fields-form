@@ -16,13 +16,14 @@
 			equalTo:"",
 			regExp:"",
 			regExpMssg:"",
+			aiAssistant:false,
 			show:function()
 				{
 					this.minlength = cff_esc_attr(String(this.minlength).trim());
 					this.maxlength = cff_esc_attr(String(this.maxlength).trim());
 					this.equalTo = cff_esc_attr(String(this.equalTo).trim());
 					this.predefined = this._getAttr('predefined', true);
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-text-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'"'+((this.minlength.length) ? ' minlength="'+cff_esc_attr(this.minlength)+'"' : '')+((this.maxlength.length) ? ' maxlength="'+cff_esc_attr(this.maxlength)+'"' : '')+((this.equalTo.length) ? ' equalTo="#'+cff_esc_attr(this.equalTo)+this.form_identifier+'"':'')+' class="field '+cff_esc_attr(this.size)+((this.required)?" required":"")+'" '+((this.readonly)?'readonly':'')+' type="text" value="'+cff_esc_attr(this.predefined)+'" autocomplete="'+this.autocomplete+'" style="'+cff_esc_attr(this.getCSSComponent('input'))+'" /><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-text-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'"'+((this.minlength.length) ? ' minlength="'+cff_esc_attr(this.minlength)+'"' : '')+((this.maxlength.length) ? ' maxlength="'+cff_esc_attr(this.maxlength)+'"' : '')+((this.equalTo.length) ? ' equalTo="#'+cff_esc_attr(this.equalTo)+this.form_identifier+'"':'')+' class="field '+cff_esc_attr(this.size)+((this.required)?" required":"")+'" '+((this.readonly)?'readonly':'')+' type="text" '+this._getValueAttr()+' autocomplete="'+this.autocomplete+'" style="'+cff_esc_attr(this.getCSSComponent('input'))+'" /><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{
@@ -45,11 +46,11 @@
 						} catch( err ) {}
 					}
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)'),
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)'),
 						v = e.length ? e.val() : (raw ? '' : 0);
 					v = $.fbuilder.parseValStr(v, raw, no_quotes);
 					return (raw && ! no_quotes && ! isNaN( v ) ) ? '"'+v+'"' : v;

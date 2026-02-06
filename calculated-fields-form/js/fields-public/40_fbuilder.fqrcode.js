@@ -38,11 +38,11 @@
 					);
 
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = true;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)');
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)');
 					if(e.length) return $.fbuilder.parseValStr(e.val(), raw, no_quotes);
 					return '';
 				}

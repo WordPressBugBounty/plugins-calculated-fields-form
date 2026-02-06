@@ -33,6 +33,7 @@
             validDates:"",
             mondayFirstDay:false,
             alwaysVisible:false,
+            showWeek:false,
 			minHour:0,
 			maxHour:23,
 			minMinute:0,
@@ -51,6 +52,7 @@
 			ariaAMPMLabel: 'am or pm',
 
 			currentDate:0,
+			nextValid:0,
 			defaultDate:"",
 			defaultTime:"",
 			working_dates:[true,true,true,true,true,true,true],
@@ -89,7 +91,7 @@
 
 					let me  = this,
 						evt = [
-							{s:"#sDropdownRange",e:"keyup", l:"dropdownRange", x:1},
+							{s:"#sDropdownRange",e:"input", l:"dropdownRange", x:1},
 							{s:"#sFormat",e:"change", l:"dformat", x:1},
 							{s:"#sSeparator",e:"change", l:"dseparator", x:1},
 							{s:"#sShowFormatOnLabel",e:"click", l:"showFormatOnLabel", f:function(el){return el.is(':checked');}},
@@ -112,6 +114,7 @@
 								return v;
 								}
 							},
+							{s:"#sNextValid",e:"click", l:"nextValid", f:function(el){return el.is(':checked');}},
 							{s:"#sShowTimepicker",e:"click", l:"showTimepicker", f:function(el){
 								var v = el.is(':checked');
 								$(".time-options")[( v ) ? 'show' : 'hide']();
@@ -122,14 +125,15 @@
 							{s:"#sDisableKeyboardOnMobile",e:"click", l:"disableKeyboardOnMobile", f:function(el){return el.is(':checked');}},
 							{s:"#sMondayFirstDay",e:"click", l:"mondayFirstDay", f:function(el){return el.is(':checked');}},
 							{s:"#sAlwaysVisible",e:"click", l:"alwaysVisible", f:function(el){return el.is(':checked');}},
+							{s:"#sShowWeek",e:"click", l:"showWeek", f:function(el){return el.is(':checked');}},
 							{s:"#sAriaAMPMLabel",e:"change keyup", l:"ariaAMPMLabel"},
 							{s:"#sTimeErrorMssg",e:"change keyup", l:"timeErrorMssg"},
 							{s:"#sAriaHourLabel",e:"change keyup", l:"ariaHourLabel"},
 							{s:"#sAriaMinuteLabel",e:"change keyup", l:"ariaMinuteLabel"},
-							{s:"#sMinHour",e:"keyup", l:"minHour", x:1},
-							{s:"#sMaxHour",e:"keyup", l:"maxHour", x:1},
-							{s:"#sMinMinute",e:"keyup", l:"minMinute", x:1},
-							{s:"#sMaxMinute",e:"keyup", l:"maxMinute", x:1},
+							{s:"#sMinHour",e:"input", l:"minHour", x:1},
+							{s:"#sMaxHour",e:"input", l:"maxHour", x:1},
+							{s:"#sMinMinute",e:"input", l:"minMinute", x:1},
+							{s:"#sMaxMinute",e:"input", l:"maxMinute", x:1},
 							{s:"#sMinHour",e:"change", l:"minHour", f:function(el){
 								return aux(el, 0, 23);
 							}, x:1},
@@ -172,15 +176,17 @@
 				},
 			showSpecialDataInstance: function()
 				{
-					return '<label><input type="checkbox" name="sDisableKeyboardOnMobile" id="sDisableKeyboardOnMobile" '+( ( this.disableKeyboardOnMobile ) ? 'CHECKED' : '' )+' > Disable keboard on mobiles</label>'+
+					return '<label><input type="checkbox" name="sDisableKeyboardOnMobile" id="sDisableKeyboardOnMobile" '+( ( this.disableKeyboardOnMobile ) ? 'CHECKED' : '' )+' > Disable keyboard on mobiles</label>'+
 
                     '<label><input type="checkbox" name="sMondayFirstDay" id="sMondayFirstDay" '+( ( this.mondayFirstDay ) ? 'CHECKED' : '' )+' > Make Monday the first day of the week</label>'+
 
                     '<label><input type="checkbox" name="sAlwaysVisible" id="sAlwaysVisible" '+( ( this.alwaysVisible ) ? 'CHECKED' : '' )+' > Make calendar always visible</label>'+
+                    '<label><input type="checkbox" name="sAlwaysVisible" id="sShowWeek" '+( ( this.showWeek ) ? 'CHECKED' : '' )+' > Show week of the year</label>'+
 
-                    '<label for="sDefaultDate">Default date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: Leave empty for current date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label>'+
-					'<label style="padding-top:5px;padding-bottom:5px;"><input type="checkbox" name="sCurrentDate" id="sCurrentDate" '+( this.currentDate ? 'CHECKED' : '' )+'> Current date</label>'+
-					'<input type="text" class="large" name="sDefaultDate" id="sDefaultDate" value="'+cff_esc_attr(this.defaultDate)+'" '+( this.currentDate ? 'readonly' : '' )+' /><i>(0, 0d or +0d represent the current date)</i>'+
+                    '<label for="sDefaultDate">Default date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label>'+
+					'<label style="padding-bottom:5px;"><input type="checkbox" name="sCurrentDate" id="sCurrentDate" '+( this.currentDate ? 'CHECKED' : '' )+'> Current date</label>'+
+					'<input type="text" class="large" name="sDefaultDate" id="sDefaultDate" value="'+cff_esc_attr(this.defaultDate)+'" '+( this.currentDate ? 'readonly' : '' )+' />'+
+					'<label><input type="checkbox" name="sNextValid" id="sNextValid" '+( this.nextValid ? 'CHECKED' : '' )+'> If default date is invalid, select the next valid date.</label>'+
 
 					'<label for="sMinDate">Min date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: No min Date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nField Name: the name of another date field, Ex: fieldname1\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label><input type="text" class="large" name="sMinDate" id="sMinDate" value="'+cff_esc_attr(this.minDate)+'" />'+
 

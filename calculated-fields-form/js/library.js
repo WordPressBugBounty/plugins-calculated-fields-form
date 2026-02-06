@@ -55,6 +55,7 @@ jQuery(function () {
 		ai_generator_tpl = `
 			<div class="cff-ai-form-generator" style="display:none;">
 				<div class="cff-ai-form-description-container">
+					<div class="cff-form-library-close-back cff-form-library-ai-close" onclick="cff_templatesInCategory();"></div>
 					<div class="cff-ai-api-key-container">
 						<input type="password" id="cff-ai-api-key" name="cff-ai-api-key" placeholder="${txt_api_key_placeholder}" value="${getApiKey()}" />
 						<button id="cff-ai-save-btn" class="button-primary" title="">${txt_save_api_key_btn}</button>
@@ -66,7 +67,7 @@ jQuery(function () {
 						</div>
 						<iframe width="1360" height="507" src="${video_tutorial_url}" title="Form AI Generator" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 					</div>
-					<i>${txt_api_key_instruct} <a href="${video_tutorial_url}" target="_blank">${txt_video_label}</a></i>
+					<i class="cff-ai-description">${txt_api_key_instruct} <a href="${video_tutorial_url}" target="_blank">${txt_video_label}</a></i>
 					<div class="cff-form-library-form-title">${txt_form_descritpion_label}</div>
 					<textarea id="cff-ai-form-description" rows="4" placeholder="${txt_form_descritpion_placeholder}"></textarea>
 					<div>
@@ -108,7 +109,7 @@ jQuery(function () {
 						</div>
 					</div>
 					<div class="cff-form-library-column-right">
-						<div style="display:flex;">
+						<div class="cff-form-library-blank-form-container" style="display:flex;">
 							<div class="cff-form-library-blank-form">
 								<input type="text" placeholder="${txt_form_name_placeholder}" id="cp_itemname_library">
 								<input type="button" value="${txt_create_form_btn}" class="button-primary" onclick="cff_getTemplate(0);">
@@ -270,7 +271,7 @@ jQuery(function () {
         hideNoFormMessage();
         $('.cff-form-library-search-box input').val('');
         $('.cff-form-library-active-category').removeClass('cff-form-library-active-category');
-        $(me).addClass('cff-form-library-active-category');
+		if (typeof me != 'undefined') $(me).addClass('cff-form-library-active-category');
 
         if (typeof category == 'undefined') {
             $('.cff-form-library-form').show();

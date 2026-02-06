@@ -14,6 +14,7 @@
 			minlength:"",
 			maxlength:"",
             rows:4,
+			aiAssistant:false,
 			show:function()
 				{
 					this.minlength = cff_esc_attr(String(this.minlength).trim());
@@ -33,11 +34,11 @@
 				update_counter(e);
 				e.on('keyup change', function(){ update_counter( $(this) ); });
 			},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id="'+this.name+'"]:not(.ignore)'),
+					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)'),
 						v = e.length ? e.val() : (raw ? '' : 0);
 					v = $.fbuilder.parseValStr(v, raw, no_quotes);
 					if(!raw) v = String(v).replace(/[\n\r]+/g, ' ');

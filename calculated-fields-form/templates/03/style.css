@@ -1,3 +1,4 @@
+#cff_ai_assistant_bubble{background:#f3f6ea;border:2px solid #FFF !important;border-bottom:0 !important;}
 .cp_cff_natural{background:url("top_bg.png") 0 0 repeat-x #f3f6ea; padding:10px;}
 .cp_cff_natural #fbuilder{padding:10px;}
 .cp_cff_natural #fbuilder h1,
@@ -49,6 +50,7 @@
 .cp_cff_natural #fbuilder legend{background:url("top_bg.png"); border:3px solid #FFF;color:#FFF;font-weight:bold;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
 .cp_cff_natural #fbuilder fieldset{border:0;padding:0;}
 
+#cff_ai_assistant_use_suggestion,
 .cp_cff_natural #fbuilder button:not([class*="trumbowyg"]),
 .cp_cff_natural #fbuilder input[type=button],
 .cp_cff_natural #fbuilder input[type=reset],
@@ -56,7 +58,7 @@
 .cp_cff_natural .cff-spinner .cff-spinner-up,
 .cp_cff_natural #fbuilder .pbSubmit,
 .cp_cff_natural #fbuilder .pbPrevious,
-.cp_cff_natural #fbuilder .pbNext{color:#fff;font-variant:small-caps;font-size:14px;font-weight:bold;background:url("top_bg.png");-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;padding: 5px 20px;border:0;}
+.cp_cff_natural #fbuilder .pbNext{color:#fff;font-variant:small-caps;font-size:14px;font-weight:bold;background:url("top_bg.png");-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;padding: 5px 20px;border:0;cursor:pointer;}
 .cp_cff_natural #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_natural #fbuilder .cff-spinner .cff-spinner-up{padding:0;}
 

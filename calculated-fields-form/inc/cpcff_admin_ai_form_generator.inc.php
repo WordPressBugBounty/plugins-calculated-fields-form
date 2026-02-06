@@ -6,7 +6,7 @@ if ( !is_admin() ) {
 
 if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
 	class CPCFF_AI_FORM_GENERATOR {
-		static private $model = "models/gemini-2.0-flash-lite";
+		static private $model = "models/gemini-2.5-flash-lite";
 		static private $base_url = "https://generativelanguage.googleapis.com/v1beta/";
 		static private $cached_content_name = null;
 		static private $cache_ttl = 3600; // 1 hour cache TTL

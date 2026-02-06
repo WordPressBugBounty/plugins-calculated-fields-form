@@ -1,7 +1,7 @@
 jQuery(
 	function(){
 		window['cp_calculatedfieldsf_insertForm'] = function () {
-			send_to_editor('[CP_CALCULATED_FIELDS]');
+			send_to_editor('[CP_CALCULATED_FIELDS id=""]');
 		};
 
 		window['cp_calculatedfieldsf_insertVar'] = function() {

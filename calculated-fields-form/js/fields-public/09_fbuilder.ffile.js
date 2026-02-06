@@ -123,11 +123,13 @@
 
                 $('#'+me.name+'_clearer').on( 'click', function(){ me._files_list= []; $('#'+me.name).val('').trigger('change').valid();});
 			},
-			val : function(raw, no_quotes)
+			val: function(raw, no_quotes, disable_ignore_check)
 			{
                 raw = raw || false;
                 no_quotes = no_quotes || false;
-				var e = $("[id='"+this.name+"']:not(.ignore)"), result = '', separator = '';
+				var e = (disable_ignore_check) ? $("[id='"+this.name+"']") : $("[id='"+this.name+"']:not(.ignore)"),
+                    result = raw ? [] : '',
+                    separator = '';
 				if(e.length)
                 {
                     if(raw) result = Array.prototype.slice.call(e[0].files);

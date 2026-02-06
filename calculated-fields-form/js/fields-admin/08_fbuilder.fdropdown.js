@@ -11,7 +11,7 @@
 		$.fbuilder.controls[ 'fdropdown' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
-			title:"Select a Choice",
+			title:"Select an Option",
 			ftype:"fdropdown",
 			size:"medium",
 			required:false,
@@ -22,7 +22,6 @@
 
 			choices:[],
 			choicesVal:[],
-			choicesDep:[],
 			optgroup:[],
 			choiceSelected:"",
 
@@ -47,7 +46,7 @@
 			display:function( css_class )
 				{
 					css_class = css_class || '';
-					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
+					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices.slice(0));
 					let id = 'field'+this.form_identifier+'-'+this.index;
 					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Dropdown')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<select id="'+id+'-box" class="field disabled '+this.size+'" ><option>'+cff_esc_attr(this.choiceSelected)+'</option></select><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
@@ -241,7 +240,7 @@
 				},
 				showChoiceIntance: function()
 				{
-					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices.slice(0));
+					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices.slice(0));
 					if(typeof this.optgroup == 'undefined' ) this.optgroup = new Array();
 					var l  = this.choices,
 						lv = this.choicesVal,
@@ -277,6 +276,6 @@
 							str += '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="" aria-label="Dependent field"></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
 						}
 					}
-					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div>optgroup</div><div class="clearer"></div></div>'+str+this.firstChoice()+this.mergeValues()+this.attributeToSubmit()+this.multipleSelection()+'</div>';
+					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/s4FM59LC-H4?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div>optgroup</div><div class="clearer"></div></div>'+str+this.firstChoice()+this.mergeValues()+this.attributeToSubmit()+this.multipleSelection()+'</div>';
 				}
 	});

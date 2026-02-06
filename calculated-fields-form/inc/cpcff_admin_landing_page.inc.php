@@ -162,7 +162,21 @@ if ( !is_admin() )
 					</ul>
 					<div class="cff-lading-page-advanced-col3">
 						<div style="text-align:center;"><span style="font-size:22px;display:inline-block;border-bottom:1px solid rgba(255,255,255,0.3);padding:0 10px; 10px; 10px;">PRO</span></div>
-						<div style="font-size:32px;text-align:center;margin-top:20px;">€49.99</div>
+						<?php
+						$currentTime = new DateTime();
+						$targetTime = new DateTime('2025-10-31 23:59');
+						if (true || $currentTime < $targetTime) {
+							print '<div style="font-size:32px;text-align:center;">';
+							print '<span style="font-size:20px;color:yellow;">Special Offer!</span><br>';
+							print '€29.99';
+							print '</div>';
+						}
+						else {
+							print '<div style="font-size:32px;text-align:center;margin-top:20px;">';
+							print '€49.99';
+							print '</div>';
+						}
+						?>
 						<div style="font-size:14px;text-align:center;color:rgba(255,255,255,.5);"><?php esc_html_e( 'LIFETIME', 'calculated-fields-form' ); ?></div>
 						<div style="margin-top:30px;text-align:center;"><a href="https://cff.dwbooster.com/download" target="_blank" class="cff-secondary-button" style="width:auto;padding-left:20px;padding-right:20px;"><?php esc_html_e( 'UPGRADE!', 'calculated-fields-form' ); ?></a></div>
 					</div>

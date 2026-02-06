@@ -22,10 +22,12 @@
             validDates:"",
             mondayFirstDay:false,
             alwaysVisible:false,
+            showWeek:false,
 			working_dates:[true,true,true,true,true,true,true],
 			minDate:"",
 			maxDate:"",
 			currentDate:0,
+			nextValid:0,
 			defaultDate:"",
 
 			// Time slots component
@@ -105,7 +107,11 @@
 					$(document).off('click', slots_selector).on( 'click', slots_selector, function(){
 						me._change_slotsStatus(this);
 						me.set_fieldVal();
-					})
+					}).off('keydown', slots_selector).on('keydown', slots_selector, function(evt){
+						if (evt.code === 'Space' || evt.code === 'Enter') {
+							$(evt.target).trigger('click');
+						}
+					});
 
 					$('#'+me.name).off('change').on('change', function(){
 						$('#'+me.name+'_date').valid();
@@ -153,9 +159,13 @@
 						var _d	= $.datepicker,
 							_i  = _d._getInst(e[0]),
 							_mi = _d._determineDate(_i, _d._get(_i, 'minDate'), null),
-							_ma = _d._determineDate(_i, _d._get(_i, 'maxDate'), null);
+							_ma = _d._determineDate(_i, _d._get(_i, 'maxDate'), null),
+							_p  = me.preventEarlierSlots,
+							_c  = new Date();
 
-						if((_mi != null && d < _mi) || (_ma != null && _ma < d)) return false;
+						_c.setHours(0, 0, 0, 0);
+
+						if((_mi != null && d < _mi) || (_ma != null && _ma < d) || (_p && d < _c)) return false;
 					}
 					catch(_err){console.log(_err);return false;}
 					return d;
@@ -370,7 +380,7 @@
 								else if ( ! _selected ) _style='style="'+cff_esc_attr(me.getCSSComponent('activetimeslot'))+'"';
 								else _style='style="'+cff_esc_attr(me.getCSSComponent('selectedtimeslot'))+'"';
 
-								output += '<span class="cff-timeslot" data-active="' + _active + '" data-selected="' + _selected + '" data-day="' + d.valueOf() + '" data-slot="' + _timeslot['slot'] + '" ' + _style + '>' + _timeslot['slot'] + '</span>';
+								output += '<span class="cff-timeslot" data-active="' + _active + '" data-selected="' + _selected + '" data-day="' + d.valueOf() + '" data-slot="' + _timeslot['slot'] + '" ' + _style + ' tabindex="0">' + _timeslot['slot'] + '</span>';
 							}
 						}
 					}
@@ -386,12 +396,26 @@
 
 					for ( let i in slots ) {
 						try {
-							output += '<span class="cff-timeslot-selected" data-day="' + i.split('|')[0] + '" data-slot="' + i.split('|')[1] + '" ' + _style + '>' + slots[i] + '</span>';
+							output += '<span class="cff-timeslot-selected" data-day="' + i.split('|')[0] + '" data-slot="' + i.split('|')[1] + '" ' + _style + ' tabindex="0">' + slots[i] + '</span>';
 						} catch (err) { console.log(err); }
 					}
 
 					$( '.' + me.name + ' .timeslots-selected-component' ).html( output );
 				},
+			set_date:function(d) {
+				let me = this;
+				if ( typeof d == 'string' ) {
+					d = DATEOBJ(d, me.dformat);
+				}
+				if ( d instanceof Date && me._validate_date(d) ) {
+					d = GETDATETIMESTRING( d, me.dformat );
+					let e = ( me.alwaysVisible ) ? $('#'+me.name+'_datepicker_container') : $('#'+me.name+'_date');
+					if (e.length) {
+						e.datepicker('setDate', d);
+						$('#'+me.name+'_date').trigger('change');
+					}
+				}
+			},
 			set_fieldVal:function(nochange)
 				{
 					var me    = this,
@@ -457,6 +481,7 @@
 							minDate: aux(me._getAttr('minDate')),
 							maxDate: aux(me._getAttr('maxDate')),
                             firstDay: (me.mondayFirstDay ? 1 : 0),
+                            showWeek: me.showWeek,
 							disabled: me.readonly,
 							beforeShow: function() {
 								// Patch for elementor popup issue.
@@ -488,6 +513,11 @@
 						try {
 							dp.datepicker(p);
 						} catch(err) {}
+
+						if ( me.nextValid && dd ) {
+							dd = $.datepicker._determineDate({ settings: {} }, dd, new Date() );
+							if ( dd && ( p.maxDate == '' || dd < $.datepicker._determineDate({ settings: {} }, p.maxDate, new Date() ) ) ) while( !me._validate_date(dd) ) dd.setDate(dd.getDate()+1);
+						}
 						dp.datepicker("setDate", dd);
 						if(!me._validate_date()){
 							dp.datepicker("setDate", ''); $("#"+me.name+"_datepicker_container .ui-state-active").removeClass('ui-state-active');
@@ -513,7 +543,7 @@
 					let predefined = this._getAttr('predefined') || '';
 					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-timeslots-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'">'+
 					'<label for="'+n+'_date" style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length && me.showFormatOnLabel) ? ' <span class="dformat" style="'+cff_esc_attr(me.getCSSComponent('dformat'))+'">('+cff_sanitize(format_label.join(' '), true)+')</span>' : '')+'</label>'+
-					'<div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" value="'+cff_esc_attr(predefined)+'" class="'+( ( me.required ) ? ' required': '' )+'" />'+
+					'<div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" '+( ! me.predefinedClick ? 'value="'+cff_esc_attr(predefined)+'"' : '' )+' class="'+( ( me.required ) ? ' required': '' )+'" />'+
 					'<div class="cff-date-field-components '+me.size+'">'+
 						'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="field timeslots'+me.dformat.replace(/[^dmy]/ig,"")+' date-component" type="'+date_tag_type+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+'data-msg="'+cff_esc_attr(me.errorMssg)+'" style="'+cff_esc_attr(me.getCSSComponent('date'))+'" />'+
 						(me.alwaysVisible ? '<div id="'+n+'_datepicker_container" class="datepicker-container"></div>' : '')+
@@ -562,6 +592,17 @@
 					me._set_events();
 					me.set_fieldVal();
 				},
+			set_timeslots:function( slots_array, weekday ){
+				if ( weekday && ! isNaN( weekday ) ) {
+					weekday = Math.max(0, Math.min(parseInt(weekday), 6));
+					this.timeslots[weekday] = slots_array;
+				} else {
+					for ( let i in this.timeslots ) {
+						this.timeslots[i] = slots_array;
+					}
+				}
+				this.show_timeslots();
+			},
 			addSlot:function(slot,nochange)
 				{
 					let me = this;
@@ -585,12 +626,12 @@
 					this.timeslotsSelected = {};
 					this.set_fieldVal(nochange);
 				},
-			val:function(raw, no_quotes)
+			val:function(raw, no_quotes, disable_ignore_check)
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
 					var me = this,
-						e  = $('[id="'+me.name+'"]:not(.ignore)');
+						e  = (disable_ignore_check) ? $('[id="'+me.name+'"]') : $('[id="'+me.name+'"]:not(.ignore)');
 
 					if(e.length)
 					{

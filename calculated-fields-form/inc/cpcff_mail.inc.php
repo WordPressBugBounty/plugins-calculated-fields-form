@@ -203,7 +203,7 @@ if ( ! class_exists( 'CPCFF_MAIL' ) ) {
 							$headers,
 							$email_data['files']
 						);
-					} catch ( Exception $mail_err ) {
+					} catch ( Throwable $mail_err ) {
 						error_log( $mail_err->getMessage() );
 					}
 				}

@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.3.99
+ * Version: 5.4.3.7
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.3.99' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.3.7' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -43,6 +43,7 @@ require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_main.inc.php';
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_trial.php';
 
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_form_cache.inc.php';
+require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_email_diagnostic.inc.php';
 
 // Global variables.
 CPCFF_MAIN::instance(); // Main plugin's object.
@@ -58,6 +59,9 @@ add_action( 'init', function(){
 		return $v;
 	}, 10, 5 );
 } );
+add_filter( 'nonce_life', function($life){
+    return max($life, defined('CP_CALCULATEDFIELDSF_NONCE_LIFE') ? CP_CALCULATEDFIELDSF_NONCE_LIFE : 24 * HOUR_IN_SECONDS); // 24 hours
+});
 
 // functions
 // ------------------------------------------.
@@ -545,5 +549,8 @@ function cp_calculatedfieldsf_save_options() {
 
 // Loads the AI FORM Generator module.
 add_action('admin_init', function(){
-	require_once __DIR__ . '/inc/cpcff_admin_ai_form_generator.inc.php';
+	if( ! empty( $_REQUEST['_cpcff_ai_assistant_action'] ) && ! empty( $_POST['_cpcff_ai_assistant_nonce'] ) )
+		require_once __DIR__ . '/inc/cpcff_admin_ai_assistant.inc.php';
+	else
+		require_once __DIR__ . '/inc/cpcff_admin_ai_form_generator.inc.php';
 });

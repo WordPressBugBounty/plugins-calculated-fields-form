@@ -160,6 +160,23 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						if ( !empty( $_form_structure_tmp ) ) {
 							$_form_structure = $_form_structure_tmp;
 						}
+					} else {
+						try {
+							$context = stream_context_create(array(
+								'ssl' => array(
+									'verify_peer' => false,
+									'verify_peer_name' => false,
+									'crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT
+								)
+							));
+
+                            $_form_structure_tmp = @file_get_contents('https://cff.dwbooster.com/forms/forms/' . $form_template . '.cpfm', false, $context);
+							if ($_form_structure_tmp !== false) {
+								$_form_structure = $_form_structure_tmp;
+							}
+						} catch( Throwable $err ) {
+                            error_log($err->getMessage());
+						}
 					}
 				} else if ( is_string( $form_template ) ) {
 					json_decode( $form_template, 'mormal' );

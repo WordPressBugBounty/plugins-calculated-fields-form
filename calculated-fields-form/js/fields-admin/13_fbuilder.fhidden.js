@@ -35,6 +35,7 @@
 				{
 					return '<div><label for="sPredefined">Value</label><textarea class="large" name="sPredefined" id="sPredefined">'+cff_esc_attr(this.predefined)+'</textarea><br />'+
 					'<i>It is possible to use:<br>'+
+					'* <b>A value</b><br>'+
 					'* <b>Another field</b> in the form as predefined value. Ex: fieldname1<br>'+
 					'* A <b>URL parameter</b>. Ex: url.param_name<br>'+
 					'* Or a global <b>JS variable</b>. Ex: var.variable_name</i>'+
