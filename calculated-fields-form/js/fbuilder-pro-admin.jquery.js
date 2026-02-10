@@ -345,7 +345,7 @@
                     try{
                         $('#tabs-2 .choicesSet select:visible, #tabs-2 .cf_dependence_field:visible, #tabs-2 #sSelectedField, #tabs-2 #sFieldList').on('mouseover focus', function(){
                             if( !$(this).data('select2') )
-                                $(this).select2();
+                                $(this).select2({theme: 'default cff-ctrl-select2'});
                         });
                     }catch(e){}}, 10);
 			};
@@ -618,11 +618,14 @@
 							});
 
 							$('.cff-editor-extend-shrink').on('click', function(){
-								let e = $(this).closest('.cff-editor-container'),
-									c = e.closest('.ctrlsColumn');
+                                let e = $(this).closest('.cff-editor-container'),
+                                c = e.closest('.ctrlsColumn');
 								e.toggleClass('fullscreen');
 								if(e.hasClass('fullscreen')) c.css('z-index', 99991);
-								else c.css('z-index', 999);
+								else {
+                                    c.css('z-index', 999);
+                                    if ( 'lockToBuilder' in $.fbuilder ) $.fbuilder.lockToBuilder();
+                                }
 							});
 						}
 					}, 300);
@@ -693,7 +696,7 @@
 				$(document).on('click', '.fields .copy', function(evt){
 					evt.stopPropagation();
 					$.fbuilder[ 'duplicateItem' ]($(this).closest('.fields').attr("id").replace("field-",""));
-					$('#tabs').tabs("option", "active", 0);
+					// $('#tabs').tabs("option", "active", 0);
 					$.fbuilder.reloadItems();
 				});
 
@@ -799,7 +802,8 @@
 				});
 
 				$(document).on('click', '.cff-form-builder-extend-shrink [name="cff_shrink_btn"]', function(){
-					$('#metabox_form_structure').removeClass('fullscreen');
+                    $('#metabox_form_structure').removeClass('fullscreen');
+                    if ( 'lockToBuilder' in $.fbuilder ) $.fbuilder.lockToBuilder();
 				});
 
 				$(document).on('keydown', function(evt){
@@ -817,6 +821,8 @@
 
 		$.fbuilder[ 'reloadItems' ] = function( args )
 			{
+                // Scroll history
+                let dashboardScrollHistory = document.getElementById('fbuilder').scrollTop;
 
 // console.time('debugging');
 
@@ -955,6 +961,9 @@
                 $(document).trigger('cff_reloadItems', items);
 				$(document).on('mouseover', '.arrow.ui-icon.ui-icon-grip-dotted-vertical', function(){ $(this).attr('title', 'Drag and drop handler')});
 				$(document).on('mouseover', '.sticker i', function(){ $(this).attr('title', 'Column identifier')});
+
+                // Restore scroll position in the dashboard after reload.
+                document.getElementById('fbuilder').scrollTop = dashboardScrollHistory;
 			};
 
 		var fform=function(){};
@@ -1348,17 +1357,122 @@
 
 	    this.fBuild = ffunct;
 
-		// Adjust form builder height on desktop
-		if( 768 <= window.innerWidth || 768 <= screen.width ) {
-			function updateFormBuilderHeight() {
-				let newFormBuilderHeight = window.innerHeight - ( $('#wpadminbar').length ? $('#wpadminbar').outerHeight() : 0 );
-				fbuilderjQuery('.form-builder .ctrlsColumn #tabs,.form-builder .dashboardColumn').height(newFormBuilderHeight);
-			}
+		// Adjust form builder height on desktop and events to prevent conflicts with page scroll.
+        if (768 <= window.innerWidth || 768 <= screen.width) {
+            const TARGET_TOP = 45;
+            const ESCAPE_THRESHOLD = 320;
+            const POSITION_TOLERANCE = 5; // Tolerance to consider it's in position
 
-			updateFormBuilderHeight();
-			$(window).on( 'resize', updateFormBuilderHeight );
-		}
+            let metaboxFormStructure = $('#metabox_form_structure'),
+                toResizeElements = $('.form-builder .dashboardColumn, .form-builder .ctrlsColumn #tabs'),
+                scrollingElements = $('.form-builder .dashboardColumn, .form-builder .ctrlsColumn #tabs-1, .form-builder .ctrlsColumn #tabs-2, .form-builder .ctrlsColumn #tabs-3');
 
+            let escapeAccumulator = 0;
+
+            let snapToPosition = function () {
+                const rect = metaboxFormStructure[0].getBoundingClientRect();
+                const targetScrollY = window.scrollY + (rect.top - TARGET_TOP);
+                window.scrollTo({ top: targetScrollY, behavior: 'auto' });
+                escapeAccumulator = 0;
+            };
+
+            let inViewport = function () {
+                setTimeout(function () {
+                    let rect = metaboxFormStructure[0].getBoundingClientRect();
+                    let inViewport = 33 <= rect.top && rect.bottom <= window.innerHeight;
+                    metaboxFormStructure.toggleClass('in-viewport', inViewport);
+                }, 100);
+            };
+
+            let updateFormBuilderHeight = function () {
+                let toSubtract = 45;
+                toSubtract += metaboxFormStructure.find('.form-builder-error-messages').outerHeight() || 0;
+                toSubtract += metaboxFormStructure.find('.cff-highlight-message').outerHeight() || 0;
+                toSubtract += metaboxFormStructure.children('.hndle').outerHeight() || 0;
+                toSubtract += parseInt(metaboxFormStructure.children('.inside').css('padding-top'), 10) || 0;
+                toSubtract += parseInt(metaboxFormStructure.children('.inside').css('padding-bottom'), 10) || 0;
+                toSubtract += $('#wpadminbar').outerHeight() || 0;
+                toResizeElements.outerHeight(window.innerHeight - toSubtract);
+                inViewport();
+            };
+
+            updateFormBuilderHeight();
+            $(window).on('resize', updateFormBuilderHeight);
+            $.fbuilder.lockToBuilder = snapToPosition;
+
+            window.addEventListener('scroll', inViewport);
+
+            // Page-level scroll
+            window.addEventListener('wheel', function (e) {
+                const rect = metaboxFormStructure[0].getBoundingClientRect();
+                const scrollingDown = e.deltaY > 0;
+
+                // If scrolling down and top > 45: immediate SNAP
+                if (scrollingDown && rect.top > TARGET_TOP + POSITION_TOLERANCE) {
+                    e.preventDefault();
+                    snapToPosition();
+                    return;
+                }
+
+                // If scrolling up and top < 45: immediate SNAP
+                if (!scrollingDown && rect.top < TARGET_TOP - POSITION_TOLERANCE && rect.top > 0) {
+                    e.preventDefault();
+                    snapToPosition();
+                    return;
+                }
+
+                // If already in position (top ≈ 45), create resistance to exit
+                if (Math.abs(rect.top - TARGET_TOP) < 10) {
+                    escapeAccumulator += Math.abs(e.deltaY);
+                    if (escapeAccumulator < ESCAPE_THRESHOLD) {
+                        e.preventDefault();
+                    } else {
+                        escapeAccumulator = 0;
+                    }
+                }
+
+            }, { passive: false });
+
+            // Scroll within internal elements
+            scrollingElements.each(function () {
+                let internalEscapeAccumulator = 0;
+
+                this.addEventListener('wheel', function (e) {
+                    const el = this;
+                    const rect = metaboxFormStructure[0].getBoundingClientRect();
+                    const scrollingUp = e.deltaY < 0;
+                    const isInPosition = Math.abs(rect.top - TARGET_TOP) < POSITION_TOLERANCE;
+
+                    // ONLY if NOT in position, snap
+                    if (!isInPosition && ! metaboxFormStructure.hasClass('fullscreen')) {
+                        if ((scrollingUp && rect.top < TARGET_TOP) || (!scrollingUp && rect.top > TARGET_TOP)) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            snapToPosition();
+                            return;
+                        }
+                    }
+
+                    // If ALREADY in position, allow normal internal scroll
+                    // Only create resistance at the limits
+                    const atTop = el.scrollTop <= 1;
+                    const atBottom = el.scrollHeight - el.clientHeight - el.scrollTop <= 1;
+
+                    if ((scrollingUp && atTop) || (!scrollingUp && atBottom)) {
+                        internalEscapeAccumulator += Math.abs(e.deltaY);
+
+                        if (internalEscapeAccumulator < ESCAPE_THRESHOLD) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    } else {
+                        internalEscapeAccumulator = 0;
+                        e.stopPropagation();
+                    }
+
+                }, { passive: false });
+            });
+        }
 	    return this;
 	};
 

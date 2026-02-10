@@ -79,7 +79,7 @@
                                 $.fbuilder.reloadItems({'field':e.data.obj});
                             }
 						});
-					$(document).on('click', '.cff-light-modal-close-icon', function(){$('[id="cff-advanced-equation-editor"]').remove();$(this).remove();});
+					$(document).on('click', '.cff-light-modal-close-icon', function(){$('[id="cff-advanced-equation-editor"]').remove();$(this).remove(); if ('lockToBuilder' in $.fbuilder) $.fbuilder.lockToBuilder();});
 					$(document).on('keyup', function(e){if(e.key === 'Escape') $('.cff-light-modal-close-icon').trigger('click');});
 					$("#sAdvancedEditor").on("click", {obj: this}, function(e)
 						{
@@ -104,7 +104,7 @@
 							eq = e.data.obj.eq;
 
 							$('body').append(advEditor);
-							$('[id="cff-advanced-equation-editor"] iframe').on(
+                            $('[id="cff-advanced-equation-editor"] iframe').on(
 								'load',
 								function(){
 									var args = {};

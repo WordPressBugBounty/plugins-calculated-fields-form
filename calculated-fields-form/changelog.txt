@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.3.9 =
+
+* Reimplements parts of the form builder to improve the visibility and prominence of the form structure section, and fixes an issue in the dashboard section.
+
 = 5.4.3.8 =
 
 * Optimizes the Single Line Text and Email controls.

@@ -241,7 +241,10 @@
 #fbuilder .facceptance:before{background-color:rgba(184,195,211,0.7);}
 #fbuilder .fCalculated:before{background-color:rgba(206,218,191,0.7) !important;}
 .select2-container{z-index:9999;}
-body:has( #metabox_form_structure.fullscreen ) .select2-container{z-index:99999;}
+body:has( #cff-advanced-equation-editor),
+body:has( .cff-editor-container.fullscreen),
+body:has( #metabox_form_structure.fullscreen ) {overflow:hidden;}
+body:has( #metabox_form_structure.fullscreen ) .select2-container.cff-ctrl-select2{z-index:99999;}
 .cff-form-builder-backend .select2-container{margin-right:1px;}
 .cff-form-builder-backend .select2-container *{display:initial}
 .cff-form-builder-backend .select2-selection--single{min-height:30px;}
@@ -830,7 +833,11 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 
 /* WP EDITOR */
 #metabox_form_structure{overflow-x:auto;}
+#metabox_form_structure.in-viewport{ box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.2);}
+#metabox_form_structure>.inside{margin:10px 0 0 0;}
 #metabox_form_structure .hndle h3{margin-top:0;margin-bottom:0;}
+.cff_form_builder .cff-save-controls-frame,
+.cff_form_builder .cff-navigation-sections-menu{position:relative;}
 .cff_form_builder .CodeMirror{height:300px;margin-bottom:10px;overflow-y:hidden !important;resize:vertical;}
 .cff_form_builder #sEq+.CodeMirror{height:200px;}
 .cff_form_builder #tabs-3 .CodeMirror{height:195px;}

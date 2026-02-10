@@ -425,7 +425,14 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			} elseif ( $option == 'fp_return_page' ) {
 				$value = empty( $value ) ? $default : $value;
 			} elseif (
-				in_array( $option, [ 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions' ] )
+				in_array(
+                    $option,
+                    apply_filters(
+                        'cpcff_get_extra_form_settings',
+                        [ 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions' ],
+                        $this->_id
+                    )
+                )
 			) {
 				if ( isset( $this->_settings['extra'][ $option ] ) ) {
 					$value = $this->_settings['extra'][ $option ];
@@ -523,6 +530,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 
 			$extra = array( 'form_height' => array() );
 
+            // Form options
 			if( isset( $params['enable_pay_later'] ) ) {
 				$extra['enable_pay_later'] = $params['enable_pay_later'] == 1 ? 1 : 0;
 			}
@@ -544,6 +552,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			if( isset( $params['fp_thanks_mssg'] ) ) {
 				$extra['fp_thanks_mssg'] = sanitize_textarea_field( $params['fp_thanks_mssg'] );
 			}
+
+            $extra = apply_filters('cpcff_save_extra_form_settings', $extra, $params, $this->_id );
 
 			$data = array(
 				'form_structure'              => ( isset( $params['form_structure'] ) ) ? $params['form_structure'] : CP_CALCULATEDFIELDSF_DEFAULT_form_structure,

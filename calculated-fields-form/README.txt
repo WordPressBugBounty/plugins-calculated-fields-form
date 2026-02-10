@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.3.8
+Stable tag: 5.4.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -456,6 +456,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.3.9 =
+
+* Reimplements parts of the form builder to improve the visibility and prominence of the form structure section, and fixes an issue in the dashboard section.
+
 = 5.4.3.8 =
 
 * Optimizes the Single Line Text and Email controls.
@@ -484,9 +488,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Adds support for iCS/iCal data sources in DS fields (developer plugin distribution).
 * Updates the Date DS control to support iCS/iCal properties.
 * Implements new features in the iCal add-on to expose submissions in iCS/iCal format via a dedicated endpoint URL (Platinum plugin distribution).
-
-= 5.4.3.4 =
-
-* Enhances the email diagnostics feature module.
-* Improves both the ACTIVATEFIELD and IGNOREFIELD operations in the Managing Fields operations module.
-* Improves the DS fields set.

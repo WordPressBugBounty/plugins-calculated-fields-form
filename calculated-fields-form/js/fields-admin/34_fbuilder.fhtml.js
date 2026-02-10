@@ -93,7 +93,7 @@
 									c = e.closest('.ctrlsColumn');
 								e.toggleClass('fullscreen');
 								if(e.hasClass('fullscreen')) c.css('z-index', 99991);
-								else c.css('z-index', 999);
+                                else { c.css('z-index', 999); if ('lockToBuilder' in $.fbuilder) $.fbuilder.lockToBuilder(); }
 							});
 
 						}, 10);

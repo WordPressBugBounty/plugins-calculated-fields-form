@@ -92,7 +92,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 			<hr />
 			<?php print $section_nav_bar; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<hr />
-			<div><?php esc_html_e( '* Different form styles available on the tab Form Settings &gt;&gt; Form Template', 'calculated-fields-form' ); ?></div>
+			<!-- <div><?php esc_html_e( '* Different form styles available on the tab Form Settings &gt;&gt; Form Template', 'calculated-fields-form' ); ?></div> -->
 			<div id="metabox_form_structure" class="postbox" >
 				<div class="hndle">
 					<div class="cff-revisions-container">
@@ -139,7 +139,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					}
 					?>
 					</div>
-					<p style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;box-sizing:border-box;"><span style="font-weight:600;"><?php esc_html_e( 'If the form isn\'t loading on the public website, try inserting its shortcode with the iframe attribute set to 1:', 'calculated-fields-form' ); ?> [CP_CALCULATED_FIELDS id="<?php print esc_html(CP_CALCULATEDFIELDSF_ID); ?>" iframe="1"]</span><br /><?php _e( 'For server-side processing like sending email copy to users, you\'ll need the <a href="https://cff.dwbooster.com/download" target="_blank">Commercial versions</a> of the plugin.', 'calculated-fields-form' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
+					<p class="cff-highlight-message" style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;box-sizing:border-box;"><span style="font-weight:600;"><?php esc_html_e( 'If the form isn\'t loading on the public website, try inserting its shortcode with the iframe attribute set to 1:', 'calculated-fields-form' ); ?> [CP_CALCULATED_FIELDS id="<?php print esc_html(CP_CALCULATEDFIELDSF_ID); ?>" iframe="1"]</span><br /><?php _e( 'For server-side processing like sending email copy to users, you\'ll need the <a href="https://cff.dwbooster.com/download" target="_blank">Commercial versions</a> of the plugin.', 'calculated-fields-form' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 					<input type="hidden" name="form_structure" id="form_structure" value="<?php print esc_attr( preg_replace( '/&(quot|lt|gt);/i', '&amp;$1;', json_encode( $form_obj->get_option( 'form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure ) ) ) ); ?>" />
 					<input type="hidden" name="templates" id="templates" value="<?php print esc_attr( json_encode( CPCFF_TEMPLATES::load_templates() ) ); ?>" />
 					<link href="<?php print esc_attr( plugins_url( '/vendors/jquery-ui/jquery-ui.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" />
