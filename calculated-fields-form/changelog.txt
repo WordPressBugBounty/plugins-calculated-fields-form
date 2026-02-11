@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.4.0 =
+
+* Fixes a compatibility issue that caused conflicts with very outdated versions of jQuery.
+
 = 5.4.3.9 =
 
 * Reimplements parts of the form builder to improve the visibility and prominence of the form structure section, and fixes an issue in the dashboard section.

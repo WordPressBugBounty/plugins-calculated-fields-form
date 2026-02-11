@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.3.9';
+	$.fbuilder['version'] = '5.4.4.0';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1183,14 +1183,20 @@
 					},
 				_setHndl:function(attr, one)
 					{
+                        let _validSelector = function (s) {
+                            try {
+                                document.querySelectorAll(s);
+                                return true;
+                            } catch (err) { return false; }
+                        };
 						var me = this, v = String(me[attr]).trim();
 						if($.fbuilder.isNumeric(v)) return;
 						var s = (/^fieldname\d+$/i.test(v)) ? '.'+v+me.form_identifier+' [id*="'+v+me.form_identifier+'"]' : v,
 							i = (one) ? 'one' : 'on';
-						if('string' == typeof s && !/^\s*$/.test(s) && !/\$/.test(s))
+						if('string' == typeof s)
 						{
 							s = String(s).trim();
-							if(!$.fbuilder.isNumeric(s.charAt(0)))
+                            if (_validSelector(s))
 							{
 								try {
 									$(document)[i]('change depEvent', s, function(evt){
