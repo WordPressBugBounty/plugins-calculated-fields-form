@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.4.0';
+	$.fbuilder['version'] = '5.4.4.1';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -120,7 +120,7 @@
 
     $.fbuilder['escapeSymbol'] = function( value ) // Escape the symbols used in regulars expressions
 	{
-		return value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1");
+		return (typeof value == 'string') ? value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1") : value;
 	};
 
 	$.fbuilder[ 'parseValStr' ] = function( value, raw, no_quotes )

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.4.0
+Stable tag: 5.4.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -456,6 +456,7 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.4.1 =
 = 5.4.4.0 =
 
 * Fixes a compatibility issue that caused conflicts with very outdated versions of jQuery.
@@ -478,10 +479,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Introduces keyboard shortcuts to quickly manage fields: duplicate (Ctrl+D), remove (Ctrl+R), collapse (Ctrl+L), and expand (Ctrl+U) the selected field.
 * Allows control over the WordPress nonce lifetime. To extend the nonce lifetime to 48 hours, simply define the following constant in the config.php file located in your WordPress root: define('CP_CALCULATEDFIELDSF_NONCE_LIFE', 172800); // 48 hours in seconds
 * Improves the iCal add-on (available in the Platinum plugin distribution).
-
-= 5.4.3.6 =
-
-* Updated the setVal method for Date/Time controls to support native Date objects.
-* Improved the initial landing page for a clearer and more intuitive user experience.
-* Enhanced menu accessibility to ensure better usability and navigation.
-* Fixed an issue affecting chart sets on DS fields (Developer and Platinum editions).
