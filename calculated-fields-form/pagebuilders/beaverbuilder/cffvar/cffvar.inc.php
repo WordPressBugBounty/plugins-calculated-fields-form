@@ -26,8 +26,6 @@ FLBuilder::register_module(
 								'directly' => __( 'Directly', 'calculated-fields-form' ),
 								'get'      => __( 'GET parameters', 'calculated-fields-form' ),
 								'post'     => __( 'POST parameters', 'calculated-fields-form' ),
-								'session'  => __( 'SESSION variables', 'calculated-fields-form' ),
-								'cookies'  => __( 'COOKIES variables', 'calculated-fields-form' ),
 							),
 						),
 					),

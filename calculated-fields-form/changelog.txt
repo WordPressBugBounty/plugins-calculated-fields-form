@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.4.4.3 =
 = 5.4.4.2 =
 
 * We removed COOKIES and the SESSION options form the variables shortcode for security reasons. Thanks to Patchstack team.

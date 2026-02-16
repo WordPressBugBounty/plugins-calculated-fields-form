@@ -391,7 +391,7 @@ jQuery(function()
 
 			/* variable shortcode */
 			blocks.registerBlockType( 'cpcff/variable-shortcode', {
-				title: 'Create var from POST, GET, SESSION, or COOKIES',
+				title: 'Create var from POST or GET',
 				icon: iconCPCFFV,
 				category: 'cpcff',
 				supports: {

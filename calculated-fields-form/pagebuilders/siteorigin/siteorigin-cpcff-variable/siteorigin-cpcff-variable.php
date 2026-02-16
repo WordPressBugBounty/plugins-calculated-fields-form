@@ -12,7 +12,7 @@ class SiteOrigin_CFF_Variable_Shortcode extends SiteOrigin_Widget {
 			'siteorigin-cff-variable-shortcode',
 			__( 'Calculated Fields Form, Variable Shortcode', 'calculated-fields-form' ),
 			array(
-				'description'   => __( 'Shortcode to generate a javascript variable from the url parameters (GET or POST), session variables, cookies, or define it directly', 'calculated-fields-form' ),
+				'description'   => __( 'Shortcode to generate a javascript variable from the url parameters (GET or POST), or define it directly', 'calculated-fields-form' ),
 				'panels_groups' => array( 'calculated-fields-form' ),
 				'help'          => 'https://cff.dwbooster.com/documentation#javascript-variables',
 			),
@@ -31,8 +31,6 @@ class SiteOrigin_CFF_Variable_Shortcode extends SiteOrigin_Widget {
 						''               => __( 'Any source', 'calculated-fields-form' ),
 						'from="get"'     => __( 'GET parameter', 'calculated-fields-form' ),
 						'from="post"'    => __( 'POST parameter', 'calculated-fields-form' ),
-						'from="session"' => __( 'Session variable', 'calculated-fields-form' ),
-						'from="cookie"'  => __( 'Cookie', 'calculated-fields-form' ),
 					),
 				),
 				'default_value' => array(
