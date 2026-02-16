@@ -870,7 +870,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					if ( isset( $atts['from'] ) ) {
 						$from .= strtoupper( trim( $atts['from'] ) );
 					}
-					if ( in_array( $from, array( '_POST', '_GET', '_SESSION', '_COOKIE' ) ) ) {
+					if ( in_array( $from, array( '_POST', '_GET' ) ) ) {
 						if ( isset( $GLOBALS[ $from ][ $var ] ) ) {
 							$value = json_encode( $GLOBALS[ $from ][ $var ] );
 						} elseif ( isset( $atts['default_value'] ) ) {
@@ -880,10 +880,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_POST[ $var ] ) ); // phpcs:ignore
 					} elseif ( isset( $_GET[ $var ] ) ) {
 						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_GET[ $var ] ) ); // phpcs:ignore
-					} elseif ( isset( $_SESSION[ $var ] ) ) {
-						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_SESSION[ $var ] ) ); // phpcs:ignore
-					} elseif ( isset( $_COOKIE[ $var ] ) ) {
-						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_COOKIE[ $var ] ) ); // phpcs:ignore
 					} elseif ( isset( $atts['default_value'] ) ) {
 						$value = json_encode( CPCFF_AUXILIARY::sanitize( $atts['default_value'] ) ); // phpcs:ignore
 					}
