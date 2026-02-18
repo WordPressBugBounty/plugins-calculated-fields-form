@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.4.4.4 =
+
+* Reimplements the AI Form Generation module. The new generator enables developers to select from multiple AI providers and models, while optimizing the JSON schema to minimize token usage and improve form generation efficiency.
+* Enhances the AI Assistant within forms, providing improved functionality and performance.
+* Integrates the AI Assistant in Dropdown, Checkbox, and Radio Buttons controls to generate their choices automatically.
+
 = 5.4.4.3 =
 = 5.4.4.2 =
 
@@ -892,77 +898,3 @@
 = 5.2.41 =
 
 * Fixes a conflict with Elementor.
-
-= 5.2.40 =
-= 5.2.39 =
-
-* Improves the plugin settings page.
-* Implements new predefined forms for cryptocurrencies.
-* Improves the areas for entering the notification email content.
-* Implements additional solutions when optimizers or cache-managing plugins affect the loading forms process.
-* Modifies the WebHook and SalesForce add-ons to support the same fields and informative tags supported by the notification emails (Developer and Platinum plugin versions).
-* Fixes some minor errors in the PDF Generator settings (Platinum plugin version)
-
-= 5.2.38 =
-
-* Modifies the set_minDate and set_maxDate methods in the date/time controls to update the field values.
-* Automatically recalculates calculated fields, regardless of manual evaluation settings, when needed.
-* Modifies the module that allows assigning the default fields' values at the runtime.
-* Format the final price properly after applying the discounts ( Professional, Developer, and Platinum plugin versions).
-* Allows replacing the discount applied text from the form settings ( Professional, Developer, and Platinum plugin versions).
-* Adjusts PayPal Checkout add-on to enable the use of transaction_id tags with them, not just PayPal Standard (Platinum plugin version)
-
-= 5.2.37 =
-
-* Enhanced field appearance in the form builder
-* Improved predefined design template 02
-* Corrected slider control to prevent improper value assignments from affecting the field
-* Resolved minor issue with the calculate button's animation in certain scenarios
-* Modified date/time operations module to avoid empty date fields impacting operation results
-* Adjusted Stripe and Stripe Checkout add-ons to enable the use of transaction_id tags with them, not just PayPal (Platinum plugin version)
-
-= 5.2.36 =
-
-* Modernizes the predefined designs starting by the template 01.
-* Updates the module that retrieves the page URL to accurately identify the correct URL when the form is loaded within an iframe.
-* Adjusts the HTML Content control to prevent contained tags from impacting the form builder.
-* Enhances the functionality of the Phone control.
-* Eliminates redundant vendor libraries.
-
-= 5.2.35 =
-
-* Modifies the container fields.
-
-= 5.2.34 =
-
-* Implements new predefined form template.
-* Modifies the time calculation modules of DATEDIFF operation.
-* Implements new changes in the Phone control.
-* Modifies the Google Analytics add-on (Platinum plugin version).
-
-= 5.2.33 =
-
-* Implements the two decimals format in number controls.
-* Modifies DropDown control settings, replacing the select2 option label for a more intuitive text.
-* Modifies the ENABLEEQUATIONS, DISABLEEQUATIONS, and EVALEQUATIONS operations to improve the form identification in pages with multiple forms.
-* Modifies the Users Permissions add-on to include the Lost Password link in the log-in form (Developer and Platinum plugin versions).
-
-= 5.2.32 =
-
-* Modifies the container fields to avoid Hidden, Hidden DS,  and RecordSet DS controls affecting the columns' format.
-* Modifies the Phone controls to adjust its width.
-* Modifies the IRR operation by implementing more robust convergence methods (Developer and Platinum plugin versions)
-* Implements new PayPal Checkout add-on improvements (Platinum plugin distribution).
-* Modifies the Verification Code add-on to allow verifying both email addresses and phone numbers (Platinum plugin version).
-
-= 5.2.31 =
-
-* Fixes some issues in the Phone control.
-* Adds a new predefined template.
-* Improves the PayPal Checkout add-on (Platinum plugin distribution).
-
-= 5.2.30 =
-
-* Modifies the position of the validation error messages in the form.
-* Reimplements the Phone control to support dynamic field structure and validation rules based on the country code.
-* Adds a new predefined template.

@@ -276,6 +276,8 @@
 							str += '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="" aria-label="Dependent field"></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
 						}
 					}
-					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/s4FM59LC-H4?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div>optgroup</div><div class="clearer"></div></div>'+str+this.firstChoice()+this.mergeValues()+this.attributeToSubmit()+this.multipleSelection()+'</div>';
+                    return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/s4FM59LC-H4?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div>optgroup</div><div class="clearer"></div></div>'+str+
+                    '<div style="text-align:right;"><input type="button" class="button cff-ai-assistant" value="AI List Generation" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'list\');" style="float:none;"></div>'+
+                    this.firstChoice()+this.mergeValues()+this.attributeToSubmit()+this.multipleSelection()+'</div>';
 				}
 	});

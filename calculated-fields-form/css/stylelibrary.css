@@ -65,7 +65,16 @@
 }
 
 .cff-form-library-ai-forms{background:#F9E774;}
-.cff-form-library-column-left .cff-form-library-ai-forms a{color:#333333;}
+.cff-form-library-column-left .cff-form-library-ai-forms a{color:#333333;display: flex; gap: 5px;align-items: center;}
+.cff-form-library-column-left .cff-form-library-ai-forms a::before {
+    content: "";
+    background: url(../images/icons/ai.svg) no-repeat center bottom !important;
+    display: inline-block;
+    width:17px;
+    height:17px;
+    background-size: 17px !important;
+    filter: brightness(0) saturate(100%) invert(20%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(95%) contrast(88%);
+}
 
 .cff-form-library-categories{
 	padding:10px;
@@ -78,6 +87,12 @@
 .cff-form-library-column-left a:hover,
 .cff-form-library-column-left a:active,
 .cff-form-library-active-category{color:#c52359 !important;}
+
+.cff-form-library-column-left .cff-form-library-ai-forms a:hover::before,
+.cff-form-library-column-left .cff-form-library-ai-forms a:active::before,
+.cff-form-library-column-left .cff-form-library-ai-forms a.cff-form-library-active-category::before {
+    filter: brightness(0) saturate(100%) invert(24%) sepia(89%) saturate(2837%) hue-rotate(327deg) brightness(91%) contrast(92%);
+}
 
 .cff-form-library-column-right{
     display: flex;
@@ -147,6 +162,7 @@
 }
 #cff-ai-form-description{width:100%;flex-grow:1;}
 .cff-ai-api-key-container{display:flex;flex-direction:row;gap:5px;flex-wrap:wrap;}
+.cff-ai-api-key-container>*{height: initial !important;}
 #cff-ai-api-key{flex-grow:1;}
 .cff-ai-generate{margin-right:10px;}
 .cff-ai-form-preview{flex-grow:1;position:relative;display:flex;}
@@ -177,7 +193,7 @@
     height: 52px;
 }
 .cff-form-library-form-thumb img{width:100%;}
-.cff-form-library-form-title{font-size:1.2em;font-weight:bold;padding:10px;}
+.cff-form-library-form .cff-form-library-form-title{font-size:1.2em;font-weight:bold;padding:10px;}
 .cff-form-library-form-description{padding:0 10px 10px 10px;}
 
 .cff-form-library-form-bottom{border-top:1px solid #ddd;padding:10px;background:white;}
@@ -201,7 +217,6 @@
 }
 
 .cff-ai-video-tutorial{position:fixed;z-index:999;width:80%;height:450px;box-sizing:border-box; background:white;padding:10px;left:10%;box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);-webkit-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-moz-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);display:none;flex-direction:column;gap:5px;}
-.cff-ai-video-tutorial>button{}
 .cff-ai-video-tutorial iframe{width:100% !important;flex-grow:1;}
 
 /* Desktop */

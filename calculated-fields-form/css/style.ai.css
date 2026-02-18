@@ -8,8 +8,9 @@
 #cff-ai-assistant-container label{font-weight:bold}
 .cff-ai-assistan-header{background:#2271b1;border-radius:5px;padding:5px;color:white;cursor:move;display:flex;flex-direction:column;align-items:center;gap:5px}
 .cff-ai-assistan-title{color:white;cursor:move;display:flex;align-items:center;gap:5px;padding-left:10px;width:100%}
+.cff-ai-assistan-title::before {content: "";display: inline-block;height: 20px;width: 20px;background: url(../images/icons/ai.svg) no-repeat center center;background-size: 17px !important;filter: brightness(0) invert(100%);}
 #cff-ai-assistant-settings-container span,
-.cff-ai-assistan-title span{flex-grow:1;font-size:1em}
+.cff-ai-assistan-title span{flex-grow:1;font-size:1em;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 #cff-ai-assistant-settings-container{margin:5px;width:100%;box-sizing:border-box;background:#fff;padding:15px;border-radius:5px;color:#3c434a}
 #cff-ai-assistant-settings-container label{display:block;font-weight:normal;margin:10px 0 5px 0}
 #cff-ai-assistant-settings-container input,

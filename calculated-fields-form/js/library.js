@@ -1,22 +1,34 @@
 jQuery(function () {
 	if ( typeof cpcff_forms_library_config == 'undefined' ) return;
-	function getApiKey() {
-		let api_key = localStorage.getItem('CFFAIFORMGENERATORAPIKEY');
-		if(api_key) return api_key;
-		return '';
+    let ai_providers = '',
+        ai_default_provider = cpcff_forms_library_config['ai-default-provider'] || '',
+        ai_provider_selected = cpcff_forms_library_config['ai-selected-provider'] || ai_default_provider,
+        ai_default_model = cpcff_forms_library_config['ai-default-model'] || '',
+        ai_model_selected = cpcff_forms_library_config['ai-selected-model'] || ai_default_model,
+        ai_api_key = (cpcff_forms_library_config['ai-api-key'] && String(cpcff_forms_library_config['ai-api-key']).trim()) || '';
+
+    // Check provider and models selected.
+    if ( 'ai-providers' in cpcff_forms_library_config ) {
+        if ( ! ( ai_provider_selected in cpcff_forms_library_config['ai-providers'] ) ) {
+            ai_provider_selected = ai_default_provider;
+        }
+
+        if ( ! ( ai_model_selected in cpcff_forms_library_config['ai-providers'][ai_provider_selected]['models'] ) ) {
+            ai_model_selected = cpcff_forms_library_config['ai-providers'][ai_provider_selected]['default_model'];
+        }
     }
 
-	function saveApiKey(api_key) {
-		if(api_key) {
-			localStorage.setItem('CFFAIFORMGENERATORAPIKEY', api_key);
-		} else {
-			this.clearApiKey();
-		}
-	}
-
-	function clearApiKey() {
-		localStorage.removeItem('CFFAIFORMGENERATORAPIKEY');
-	}
+    if ( 'ai-providers' in cpcff_forms_library_config ) {
+        let providers = cpcff_forms_library_config['ai-providers'];
+        for ( let provider in providers ) {
+            ai_providers += '<optgroup label="'+providers[provider]['title']+'">';
+            for ( let model in providers[provider]['models'] ) {
+                if ( providers[provider]['models'][model]['form-generation'] == false ) continue;
+                ai_providers += '<option data-provider="' + provider + '" value="' + model + '" ' + ( ai_model_selected == model ? 'selected' : '' ) + '>' + providers[provider]['models'][model]['title']+'</option>';
+            }
+            ai_providers += '</optgroup>';
+        }
+    }
 
 	// Texts
 	let video_tutorial_url			= 'https://www.youtube.com/embed/KB4VOFrbAT0?start=48',
@@ -56,8 +68,11 @@ jQuery(function () {
 			<div class="cff-ai-form-generator" style="display:none;">
 				<div class="cff-ai-form-description-container">
 					<div class="cff-form-library-close-back cff-form-library-ai-close" onclick="cff_templatesInCategory();"></div>
-					<div class="cff-ai-api-key-container">
-						<input type="password" id="cff-ai-api-key" name="cff-ai-api-key" placeholder="${txt_api_key_placeholder}" value="${getApiKey()}" />
+                    <div class="cff-ai-api-key-container">
+                        <select id="cff-ai-model-provider" name="cff-ai-model-provider">
+                        ${ai_providers}
+                        </select>
+						<input type="password" id="cff-ai-api-key" name="cff-ai-api-key" placeholder="${txt_api_key_placeholder}" value="${ai_api_key}" />
 						<button id="cff-ai-save-btn" class="button-primary" title="">${txt_save_api_key_btn}</button>
 						<button id="cff-ai-clear-btn" class="button-secondary">${txt_clear_api_key_btn}</button>
 					</div>
@@ -147,8 +162,16 @@ jQuery(function () {
         };
     });
 
-	function openDialog(explicit) {
+    function getProviderSelected() {
+        return String($('#cff-ai-model-provider option:selected').data('provider')).trim();
+    }
 
+    function updateAIProviderURL( provider ) {
+        $('.cff-ai-links').html('<a href="' + cpcff_forms_library_config['ai-providers'][provider]['api_key_url'] + '" target="_blank">' + cpcff_forms_library_config['ai-providers'][provider]['title'] + '</a>');
+    }
+
+	function openDialog(explicit) {
+        $('body').css('overflow', 'hidden');
         var version 	= 'free',
 			version_n 	= {'free': 1, 'pro': 2, 'dev': 3, 'plat': 4},
 			form_name_field = $('[id="cp_itemname"]'),
@@ -161,6 +184,7 @@ jQuery(function () {
 
         if (!$('.cff-form-library-container').length) {
             $('body').append(dialog_tpl);
+            updateAIProviderURL(getProviderSelected());
 
             if (typeof cpcff_forms_library_config != 'undefined' && 'version' in cpcff_forms_library_config) {
                 version = cpcff_forms_library_config['version'];
@@ -252,6 +276,7 @@ jQuery(function () {
     };
 
     function closeDialog() {
+        $('body').css('overflow', '');
 		$('.cff-form-library-cover').animate({ opacity: 0 }, 'slow', function() {
 			$(this).remove();
 		});
@@ -288,7 +313,7 @@ jQuery(function () {
 		$(me).addClass('cff-form-library-active-category');
 		$('.cff-form-library-main').hide();
 		$('.cff-ai-form-generator').show();
-		if ( getApiKey() == '' ) {
+        if ( ai_api_key == '' ) {
 			$('.cff-ai-video-tutorial').css('display', 'flex');
 		}
 	};
@@ -332,32 +357,66 @@ jQuery(function () {
             cp_addItem();
     };
 
+    $(document).on('change', '#cff-ai-model-provider', function(){
+        updateAIProviderURL(getProviderSelected());
+    });
 	$(document).on('keyup', function(evt){ if ( evt.keyCode == 27 ) { cff_closeLibraryDialog(); } });
 	$(document).on('focus', '#cff-ai-api-key', function(){ this.type="text"; })
 			   .on('blur' , '#cff-ai-api-key', function(){ this.type="password"; });
-	$(document).on('click', '#cff-ai-save-btn', function(){
-		let api_key 		  = String($('#cff-ai-api-key').val()).trim();
-		if ( '' == api_key ) {
-			alert( txt_api_key_requirement_error );
-			return;
-		}
-		let me = this;
-		let width = me.offsetWidth;
+	$(document).on('click', '#cff-ai-save-btn', async function(){
+        let me = this,
+            api_key  = String($('#cff-ai-api-key').val()).trim(),
+		    provider = getProviderSelected(),
+		    model 	 = String($('#cff-ai-model-provider').val()).trim(),
+            width = me.offsetWidth;
+
 		me.style.width = width + 'px';
 		me.textContent = txt_saving_api_key_btn;
 		me.disabled = true;
-		saveApiKey(api_key);
-		setTimeout(function(){me.disabled = false; me.textContent = txt_save_api_key_btn;}, 2000);
+
+        // Save settings.
+        let formData = new FormData();
+        formData.append('cff_ai_form_save_settings', true);
+        formData.append('cff_ai_form_generator_provider', provider);
+        formData.append('cff_ai_form_generator_model', model);
+        formData.append('cff_ai_form_generator_api_key', api_key);
+        const response = await fetch(
+            cpcff_forms_library_config['ai_form_generator_url'],
+            {
+                'method': 'POST',
+                'body': formData
+            }
+        );
+
+        if (response.ok) {
+            const output = await response.text();
+            try {
+                let result = JSON.parse(output);
+                if ('error' in result) {
+                    throw new Error(result['error']);
+                }
+
+                if ('success' in result) {
+                    alert(result['success']);
+                }
+            } catch (err) {
+                alert(err.message);
+            }
+            me.disabled = false;
+            me.textContent = txt_save_api_key_btn;
+        }
 	});
 	$(document).on('click', '#cff-ai-clear-btn', function(){
 		$('#cff-ai-api-key').val('');
-		clearApiKey();
+        $('#cff-ai-save-btn').trigger('click');
 	});
 	$(document).on('click', '.cff-form-library-close', closeDialog);
 	$(document).on('click', '.cff-form-library-back', function(){ $('.cff-ai-form-preview-container').hide(); });
 	$(document).on('click', '.cff-ai-generate', async function(){
 		// Check API Key and form description.
 		let api_key 		  = String($('#cff-ai-api-key').val()).trim(),
+            provider          = getProviderSelected(),
+            model             = String($('#cff-ai-model-provider').val()).trim(),
 			description_field = $('#cff-ai-form-description'),
 			description 	  = description_field.val().split(/[\n\r]/g).map((n)=>String(n).trim()).filter((n)=>n != '').join("\n");
 
@@ -378,6 +437,8 @@ jQuery(function () {
 
 		let formData = new FormData();
 		formData.append('cff_ai_form_generator_description', description);
+		formData.append('cff_ai_form_generator_provider', provider);
+		formData.append('cff_ai_form_generator_model', model);
 		formData.append('cff_ai_form_generator_api_key', api_key);
 		const response = await fetch(
 			cpcff_forms_library_config['ai_form_generator_url'],

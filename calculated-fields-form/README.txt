@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.4.3
+Stable tag: 5.4.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 17. WebHook add-on, and its integration with Zapier
 
 == Changelog ==
+
+= 5.4.4.4 =
+
+* Reimplements the AI Form Generation module. The new generator enables developers to select from multiple AI providers and models, while optimizing the JSON schema to minimize token usage and improve form generation efficiency.
+* Enhances the AI Assistant within forms, providing improved functionality and performance.
+* Integrates the AI Assistant in Dropdown, Checkbox, and Radio Buttons controls to generate their choices automatically.
 
 = 5.4.4.3 =
 = 5.4.4.2 =

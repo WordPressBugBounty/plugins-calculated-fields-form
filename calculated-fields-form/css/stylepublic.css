@@ -772,8 +772,8 @@ body{
 #fbuilder .cff-spinner input[type=number]::-webkit-outer-spin-button {-webkit-appearance:none;margin:0;}
 
 #fbuilder .cff-spinner .cff-spinner-down,
-#fbuilder .cff-spinner .cff-spinner-up{padding-left:0;padding-right:0;width:30px;}
-#fbuilder .cff-spinner input{max-width: calc( 100% - 70px );margin-left:5px !important;margin-right:5px !important;}
+#fbuilder .cff-spinner .cff-spinner-up{padding-left:0;padding-right:0;width:35px;text-align:center;}
+#fbuilder .cff-spinner-components-container{display:flex;gap:10px;align-items:center;}
 
 #fbuilder .cff-qrcode-container{margin-bottom:10px;}
 #fbuilder .cff-qrcode-container:empty{border:0 !important;}

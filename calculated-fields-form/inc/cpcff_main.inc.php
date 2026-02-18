@@ -440,6 +440,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_library_script', plugins_url( '/js/library.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'cp_calculatedfieldsf_builder_script' ), CP_CALCULATEDFIELDSF_VERSION );
 
 					if( $_GET['page'] == 'cp_calculated_fields_form_sub_new' ) {
+                        require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_ai_requests.inc.php';
 						wp_localize_script(
 							'cp_calculatedfieldsf_builder_library_script',
 							'cpcff_forms_library_config',
@@ -466,13 +467,13 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'video_label'	   			   => esc_html__( '[video tutorial]', 'calculated-fields-form' ),
 
 									// Instructions.
-									'api_key_instruct'				   => sprintf( esc_html__( 'Get your API Key from %s. It will be stored in your browser\'s local storage, and can be deleted by pressing "Clear API Key".', 'calculated-fields-form' ), '<a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a>' ),
+									'api_key_instruct'				=> sprintf( esc_html__('Get your API Key from %s. The model and API keys used for form generation are separate from those used by the AI assistant in the form builder, allowing you to choose the most appropriate model for each situation.', 'calculated-fields-form' ), '<span class="cff-ai-links"></span>' ),
 
 									// Buttons texts.
 									'create_form_btn' 			   => esc_html__( 'Create Basic Form', 'calculated-fields-form' ),
-									'save_api_key_btn' 			   => esc_html__( 'Save API Key', 'calculated-fields-form' ),
+									'save_api_key_btn' 			   => esc_html__( 'Save Settings', 'calculated-fields-form' ),
 									'saving_api_key_btn' 		   => esc_html__( 'Saving...', 'calculated-fields-form' ),
-									'clear_api_key_btn' 		   => esc_html__( 'Clear API Key', 'calculated-fields-form' ),
+									'clear_api_key_btn' 		   => esc_html__( 'Clear Settings', 'calculated-fields-form' ),
 									'generate_form_btn'			   => esc_html__( 'Generate', 'calculated-fields-form' ),
 									'use_it_btn' 		   		   => esc_html__( 'Use It', 'calculated-fields-form' ),
 									'back_btn' 		   		   	   => esc_attr__( 'back', 'calculated-fields-form' ),
@@ -480,7 +481,19 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									// Errors.
 									'api_key_requirement_error'	   	=> esc_html__( 'The API Key is empty.', 'calculated-fields-form' ),
 									'description_requirement_error' => esc_html__( 'Please enter the form description.', 'calculated-fields-form' ),
-								]
+								],
+								'ai-providers'          => CPCFF_AI_REQUESTS::get_models(),
+								'ai-selected-provider'  => get_option('cff_ai_form_generator_provider',
+									get_option('cff_ai_assistant_provider', '')
+								),
+								'ai-selected-model'     => get_option('cff_ai_form_generator_model',
+									get_option('cff_ai_assistant_model', '')
+								),
+								'ai-api-key'            => get_option('cff_ai_form_generator_api_key',
+									get_option('cff_ai_assistant_api_key', '')
+								),
+								'ai-default-provider'   => CPCFF_AI_REQUESTS::get_default_provider(),
+								'ai-default-model'      => CPCFF_AI_REQUESTS::get_default_model()
 							)
 						);
 					}
