@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.4.4.5 =
+
+* Updates the Forms List to ensure full compatibility with WordPress 7.x (currently in beta).
+* Adds support for Claude Sonnet 4.6, expanding AI capabilities and performance.
+* Enhances the AI Form Generator module, allowing users to request additional form modifications directly from the AI model.
+* Improves the Event Calendar add-on to prevent issues caused by empty date values, including missing Start or End dates (Platinum plugin distribution).
+
 = 5.4.4.4 =
 
 * Reimplements the AI Form Generation module. The new generator enables developers to select from multiple AI providers and models, while optimizing the JSON schema to minimize token usage and improve form generation efficiency.

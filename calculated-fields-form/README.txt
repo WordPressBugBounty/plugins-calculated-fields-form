@@ -1,10 +1,10 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://cff.dwbooster.com
-Tags: form,quote form,contact form,form builder,calculator form
+Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.4.4
+Stable tag: 5.4.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,11 @@ The CFF plugin allows you to create both simple and professional forms. Its form
 
 == Description ==
 
-Absolutely! The "<a href="https://cff.dwbooster.com/download">Calculated Fields Form</a>" plugin opens up a world of possibilities. Here's a breakdown of what you can achieve:
+Absolutely! The "<a href="https://cff.dwbooster.com/download">Calculated Fields Form</a>" plugin unlocks a wide range of powerful features for building dynamic and interactive forms. Its AI form generator and assistant offer outstanding support, helping you quickly create forms, develop complex calculation formulas, and design fully customized solutions with ease and precision.
+
+[youtube https://www.youtube.com/watch?v=XVCLy_bZPi8]
+
+Here's a breakdown of what you can achieve:
 
 **Financial Calculations**: Design forms that automatically compute totals, taxes, discounts, and other financial metrics.
 
@@ -41,9 +45,6 @@ The most remarkable aspect is that you don’t need to hire a developer to creat
 [youtube https://www.youtube.com/watch?v=R8hEbD8w2RM]
 
 The form builder is entirely visual, offering a wide selection of controls (Text fields, Numbers, Currency, Date/time, Slider control, Email, Radio buttons, Checkboxes, Container fields, Multi-page control, QR code reader, Recording, Calculated fields, and many others). This versatile toolkit empowers you to create customized forms effortlessly.
-
-And its new AI assistant provides exceptional support for developing complex calculation formulas and designing custom forms with ease.
-[youtube https://www.youtube.com/watch?v=Ao9_raUeRR0]
 
 == Features ==
 
@@ -456,6 +457,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.4.5 =
+
+* Updates the Forms List to ensure full compatibility with WordPress 7.x (currently in beta).
+* Adds support for Claude Sonnet 4.6, expanding AI capabilities and performance.
+* Enhances the AI Form Generator module, allowing users to request additional form modifications directly from the AI model.
+* Improves the Event Calendar add-on to prevent issues caused by empty date values, including missing Start or End dates (Platinum plugin distribution).
+
 = 5.4.4.4 =
 
 * Reimplements the AI Form Generation module. The new generator enables developers to select from multiple AI providers and models, while optimizing the JSON schema to minimize token usage and improve form generation efficiency.
@@ -483,10 +491,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Replaces the Ctrl+R shortcut with Ctrl+M, since Ctrl+R is commonly used by browsers.
 * Adds support for modern Anthropic models in the AI assistant.
 * Enhances the Divi 5 module.
-
-= 5.4.3.7 =
-
-* Adds support for displaying the week of the year in date pickers (Date/Time and Date/Time Slots controls).
-* Introduces keyboard shortcuts to quickly manage fields: duplicate (Ctrl+D), remove (Ctrl+R), collapse (Ctrl+L), and expand (Ctrl+U) the selected field.
-* Allows control over the WordPress nonce lifetime. To extend the nonce lifetime to 48 hours, simply define the following constant in the config.php file located in your WordPress root: define('CP_CALCULATEDFIELDSF_NONCE_LIFE', 172800); // 48 hours in seconds
-* Improves the iCal add-on (available in the Platinum plugin distribution).

@@ -100,7 +100,7 @@ function showLocalModelError(message) {
     errorDiv.className = 'cff-ai-assistance-error';
     errorDiv.innerHTML = `
         <p>${message}</p>
-        <button type="button" class="button-secondary" onclick="cff_ai_assistant_settings(true);">${window['cff_ai_texts']['switch_btn']}</button>
+        <button type="button" class="button-secondary" onclick="cff_open_ai_assistant_settings(true);">${window['cff_ai_texts']['switch_btn']}</button>
     `;
     chatBoxCtrl.appendChild(errorDiv);
     chatBoxCtrl.scrollTop = chatBoxCtrl.scrollHeight;
@@ -536,6 +536,7 @@ function isAIAssistantSettingsOpen() {
 }
 
 function openAIAssistantSettings(cloud) {
+    settingsBtnCtrl.classList.add('cff-ai-assistant-settings-active');
     initializeAIAssistantSettings()
     document.getElementById('cff-ai-assistant-settings-container').style.display = 'block';
     if ( cloud ) {
@@ -547,6 +548,7 @@ function openAIAssistantSettings(cloud) {
 }
 
 function closeAIAssistantSettings() {
+    settingsBtnCtrl.classList.remove('cff-ai-assistant-settings-active');
     document.getElementById('cff-ai-assistant-settings-container').style.display = 'none';
     sendBtnCtrl.disabled = false;
     userQuestionCtrl.disabled = false;

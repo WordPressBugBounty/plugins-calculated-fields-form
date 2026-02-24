@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-02-18 02:59+0100\n"
-"PO-Revision-Date: 2026-02-18 02:59+0100\n"
+"POT-Creation-Date: 2026-02-24 01:45+0100\n"
+"PO-Revision-Date: 2026-02-24 01:45+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Get yout API Key from"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:133 inc/cpcff_main.inc.php:474
+#: inc/cpcff_admin_ai_assistant.inc.php:133 inc/cpcff_main.inc.php:475
 msgid "Save Settings"
 msgstr ""
 
@@ -327,27 +327,27 @@ msgstr ""
 msgid "Invalid AI provider selected."
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:44
+#: inc/cpcff_admin_ai_form_generator.inc.php:67
 msgid "Unknown error from AI model."
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:45
+#: inc/cpcff_admin_ai_form_generator.inc.php:68
 msgid "AI Model Error: "
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:74
+#: inc/cpcff_admin_ai_form_generator.inc.php:107
 msgid "No form preview available."
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:111
+#: inc/cpcff_admin_ai_form_generator.inc.php:148
 msgid "Empty API Key or form description"
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:117
+#: inc/cpcff_admin_ai_form_generator.inc.php:154
 msgid "Settings saved successfully"
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:120
+#: inc/cpcff_admin_ai_form_generator.inc.php:157
 msgid "Model or provider not selected"
 msgstr ""
 
@@ -1575,42 +1575,46 @@ msgid "Anthropic (Claude)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:84
-msgid "Claude Sonnet 4.5 (Recommended)"
+msgid "Claude Sonnet 4.6 (Recommended)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:90
-msgid "Claude Haiku 4.5 (Fast)"
+msgid "Claude Sonnet 4.5"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:96
-msgid "Claude Opus 4.6 (Most Capable)"
+msgid "Claude Haiku 4.5 (Fast)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:102
-msgid "Claude Opus 4.5"
+msgid "Claude Opus 4.6 (Most Capable)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:108
-msgid "Claude Opus 4"
+msgid "Claude Opus 4.5"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:114
+msgid "Claude Opus 4"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:120
 msgid "Claude 3 Haiku (Budget)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:122
+#: inc/cpcff_ai_requests.inc.php:128
 msgid "Google (Gemini)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:127
+#: inc/cpcff_ai_requests.inc.php:133
 msgid "Gemini 2.5 Flash-Lite"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:133
+#: inc/cpcff_ai_requests.inc.php:139
 msgid "Gemini 2.5 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:139
+#: inc/cpcff_ai_requests.inc.php:145
 msgid "Gemini 2.5 Pro"
 msgstr ""
 
@@ -1787,31 +1791,35 @@ msgstr ""
 msgid "Please provide the form description preferably in English."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:460
-msgid "AI Form Generator (Beta)"
+#: inc/cpcff_main.inc.php:458
+msgid "Please provide the form modifications preferably in English."
 msgstr ""
 
 #: inc/cpcff_main.inc.php:461
-msgid "Use My Forms As Template"
+msgid "AI Form Generator (Beta)"
 msgstr ""
 
 #: inc/cpcff_main.inc.php:462
+msgid "Use My Forms As Template"
+msgstr ""
+
+#: inc/cpcff_main.inc.php:463
 msgid "All Categories"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:465
+#: inc/cpcff_main.inc.php:466
 msgid "Enter form description"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:466
+#: inc/cpcff_main.inc.php:467
 msgid "No form meets the search criteria"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:467
+#: inc/cpcff_main.inc.php:468
 msgid "[video tutorial]"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:470
+#: inc/cpcff_main.inc.php:471
 #, php-format
 msgid ""
 "Get your API Key from %s. The model and API keys used for form generation "
@@ -1819,49 +1827,61 @@ msgid ""
 "allowing you to choose the most appropriate model for each situation."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:473
+#: inc/cpcff_main.inc.php:474
 msgid "Create Basic Form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:475
+#: inc/cpcff_main.inc.php:476
 msgid "Saving..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:476
+#: inc/cpcff_main.inc.php:477
 msgid "Clear Settings"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:477
+#: inc/cpcff_main.inc.php:478
 msgid "Generate"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:478
+#: inc/cpcff_main.inc.php:479
+msgid "Apply Modifications"
+msgstr ""
+
+#: inc/cpcff_main.inc.php:480
 msgid "Use It"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:479
-msgid "back"
+#: inc/cpcff_main.inc.php:481
+msgid "+ Describe Modifications"
 msgstr ""
 
 #: inc/cpcff_main.inc.php:482
-msgid "The API Key is empty."
+msgid "- Hide Description"
 msgstr ""
 
 #: inc/cpcff_main.inc.php:483
+msgid "back"
+msgstr ""
+
+#: inc/cpcff_main.inc.php:486
+msgid "The API Key is empty."
+msgstr ""
+
+#: inc/cpcff_main.inc.php:487
 msgid "Please enter the form description."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:549
+#: inc/cpcff_main.inc.php:553
 msgid "Invalid form structure"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:586 inc/cpcff_main.inc.php:673
+#: inc/cpcff_main.inc.php:590 inc/cpcff_main.inc.php:677
 msgid ""
 "This is a preview of the form, letting you see its setup and design before "
 "it goes live."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:598
+#: inc/cpcff_main.inc.php:602
 msgid ""
 "If the form isn't displayed below, it means the AI was unable to generate a "
 "valid structure. We apologize for any inconvenience. Please click the \"Back "

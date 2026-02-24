@@ -80,8 +80,14 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'claude-haiku-4-5-20251001',
                         'api_key_url'   => 'https://console.anthropic.com/settings/keys',
                         'models'        => [
+                            'claude-sonnet-4-6'      => [
+                                'title' => esc_html__('Claude Sonnet 4.6 (Recommended)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 8000
+                            ],
                             'claude-sonnet-4-20250514'      => [
-                                'title' => esc_html__('Claude Sonnet 4.5 (Recommended)', 'calculated-fields-form'),
+                                'title' => esc_html__('Claude Sonnet 4.5', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 8000

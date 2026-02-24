@@ -13,7 +13,7 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
 		/**
 		 * Main inference method with caching support
 		 */
-		static public function model_inference($provider, $model, $form_description, $api_key) {
+		static public function model_inference($provider, $model, $form_description, $api_key, $base_form_structure = null) {
 			$schema = file_get_contents(plugin_dir_path(__FILE__) . '../js/schema.min.json');
             $models = CPCFF_AI_REQUESTS::get_models();
 
@@ -27,8 +27,31 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
 
             $prompt = "";
             $prompt .= "Schema:\n" . $schema . "\n\n";
-            $prompt .= "Task: Generate form structure for: " . $form_description . "\n\n";
-            $prompt .= "Rules:\n";
+
+            $template = '';
+            if ( ! empty( $base_form_structure ) ) {
+                try {
+                    $form_structure_obj = json_decode($base_form_structure, true);
+                    if (isset($form_structure_obj[1][0]['formtemplate'])) {
+                        $template = $form_structure_obj[1][0]['formtemplate'];
+                    }
+                } catch (Exception $err) {}
+                $prompt .= "Current form structure:\n" . $base_form_structure. "\n\n";
+                $prompt .= "Modifications to apply:\n" . $form_description . "\n\n";
+
+                $prompt .= "Rules:\n";
+                $prompt .= "- Apply ONLY the modifications explicitly described. Nothing more.\n";
+                $prompt .= "- Every field, value, or structure NOT mentioned in the modifications must remain exactly as it is in the current form structure.\n";
+                $prompt .= "- Do not add, remove, or change anything that is not explicitly referenced in the modifications.\n";
+            } else {
+                // Get default template
+                if ( defined( 'CP_CALCULATEDFIELDSF_DEFAULT_template' ) ) {
+                    $template = CP_CALCULATEDFIELDSF_DEFAULT_template;
+                }
+                $prompt .= "Task: Generate form structure for: " . $form_description . "\n\n";
+                $prompt .= "Rules:\n";
+            }
+
             $prompt .= "- Output valid JSON only\n";
             $prompt .= "- Match schema exactly\n";
             $prompt .= "- Omit null values\n";
@@ -46,6 +69,16 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
             }
             $output = preg_replace('/^```json\s*(.*?)\s*```$/s', '$1', $response['response']);
             $output = json_decode($output, true);
+
+            if (! empty($template) && stripos($form_description, 'template') === false && ! empty($output)) {
+                // Replace the template in the generated form with the previous one or default template.
+                try {
+                    if( isset($output[1][0]['formtemplate']) ) {
+                        $output[1][0]['formtemplate'] = $template;
+                    }
+                } catch (Exception $err) {}
+            }
+
             $output = json_encode($output);
 
             return $output;
@@ -90,11 +123,15 @@ if(current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_opti
                     try {
                         $transient_name_form_structure = 'cff_ai_form_structure_' . get_current_user_id();
                         $transient_name_form_preview   = 'cff_ai_form_preview_' . get_current_user_id();
+                        $current_form_structure = null;
+                        if ( ! empty( $_POST['modify_form'] ) ) {
+                            $current_form_structure = get_transient($transient_name_form_structure);
+                        } else {
+                            delete_transient($transient_name_form_structure);
+                            delete_transient($transient_name_form_preview);
+                        }
 
-                        delete_transient($transient_name_form_structure);
-                        delete_transient($transient_name_form_preview);
-
-                        $form_structure = CPCFF_AI_FORM_GENERATOR::model_inference($provider_selected, $model_selected, $form_description, $api_key);
+                        $form_structure = CPCFF_AI_FORM_GENERATOR::model_inference($provider_selected, $model_selected, $form_description, $api_key, $current_form_structure);
                         $form_preview = CPCFF_MAIN::instance()->no_form_preview($form_structure);
 
                         $transient_form_structure_expiration = 24 * 60 * 60; // 224 hours.

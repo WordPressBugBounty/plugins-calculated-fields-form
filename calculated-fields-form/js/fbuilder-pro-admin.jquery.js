@@ -1585,7 +1585,7 @@
 			'<label for="sAudioSrc">Audio Tutorial</label>'+
 			'<div><input type="text" style="width:70%;" name="sAudioSrc" id="sAudioSrc" value="'+cff_esc_attr(a)+'"><input id="sSelectAudioBtn" type="button" value="Browse" style="width:28%;" class="button-secondary" /></div>'+
 			(typeof ai != 'undefined' ?
-				'<label for="sAiAssistant"><input type="checkbox" name="sAiAssistant" id="sAiAssistant" '+(ai ? 'CHECKED' : '')+'> Activate AI Assistant &#129302; <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/K1A902TqwCc?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a></label>'+
+                '<label for="sAiAssistant"><input type="checkbox" name="sAiAssistant" id="sAiAssistant" ' + (ai ? 'CHECKED' : '') +'> Activate AI Assistant <span class="cff-ai-assistant-icon"></span> <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/K1A902TqwCc?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a></label>'+
 				"<div><i>Adds in-browser AI support to the form. It helps users fill field.</i></div>" :
 				''
 			)+

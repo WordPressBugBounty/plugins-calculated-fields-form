@@ -36,7 +36,7 @@
 .cff-form-library-container input[type="button"],
 .cff-form-library-container input[type="text"],
 .cff-form-library-container input[type="search"],
-.cff-form-library-container input[type="password"]{height: 40px; line-height: 40px;}
+.cff-form-library-container input[type="password"]{height: 40px !important; line-height: 40px !important;}
 .cff-form-library-container a{outline:none !important; box-shadow:none !important;}
 .cff-form-library-column-left{
 	display:flex;
@@ -171,7 +171,14 @@
   flex-basis: auto;
   align-self: flex-start;
 }
-
+.cff-ai-form-modifications-description-container{
+    display: none;
+}
+.cff-ai-form-modifications-description-container-active{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 .cff-form-library-no-form{text-align:center;}
 .cff-form-library-form{width:46%;margin:1%;float:left;box-sizing:border-box;border:1px solid #ababab;position:relative;background:#EFEFEF;}
 .cff-form-library-form:hover{box-shadow: 0 0 0 1px #777, 0 3px 4px rgba(0, 0, 0, 0.15);}

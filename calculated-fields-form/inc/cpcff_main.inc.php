@@ -455,6 +455,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'form_name_placeholder' 	   => esc_attr__( 'Form name...', 'calculated-fields-form' ),
 									'api_key_placeholder' 		   => esc_attr__( 'Enter your Google AI Studio API Key', 'calculated-fields-form' ),
 									'form_descritpion_placeholder' => esc_attr__( 'Please provide the form description preferably in English.', 'calculated-fields-form' ),
+									'form_modifications_placeholder' => esc_attr__( 'Please provide the form modifications preferably in English.', 'calculated-fields-form' ),
 
 									// Menu options.
 									'ai_form_generator_menu'	   => esc_html__( 'AI Form Generator (Beta)', 'calculated-fields-form' ),
@@ -475,7 +476,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'saving_api_key_btn' 		   => esc_html__( 'Saving...', 'calculated-fields-form' ),
 									'clear_api_key_btn' 		   => esc_html__( 'Clear Settings', 'calculated-fields-form' ),
 									'generate_form_btn'			   => esc_html__( 'Generate', 'calculated-fields-form' ),
+									'apply_modifications_btn'	   => esc_html__( 'Apply Modifications', 'calculated-fields-form' ),
 									'use_it_btn' 		   		   => esc_html__( 'Use It', 'calculated-fields-form' ),
+									'open_modify_btn' 		   	   => esc_html__( '+ Describe Modifications', 'calculated-fields-form' ),
+									'close_modify_btn' 		   	   => esc_html__( '- Hide Description', 'calculated-fields-form' ),
 									'back_btn' 		   		   	   => esc_attr__( 'back', 'calculated-fields-form' ),
 
 									// Errors.
