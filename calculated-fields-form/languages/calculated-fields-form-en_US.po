@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-02-24 01:45+0100\n"
-"PO-Revision-Date: 2026-02-24 01:45+0100\n"
+"POT-Creation-Date: 2026-02-26 00:59+0100\n"
+"PO-Revision-Date: 2026-02-26 00:59+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -124,202 +124,208 @@ msgid "API Key is required for the selected provider."
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:74
-msgid ""
-"A fatal error occurred. The model has been unloaded. Please try again or "
-"select a different provider."
+msgid "Do you want to close the settings without saving?"
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:75
-msgid "An error occurred. You can try again."
+msgid ""
+"A fatal error has occurred and the model has been unloaded. Please close any "
+"other open browser tabs and try again, or switch to a different provider."
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:76
+msgid "An error occurred. You can try again."
+msgstr ""
+
+#: inc/cpcff_admin_ai_assistant.inc.php:77
 msgid ""
 "Select a Radio Button, Checkbox, or Dropdown field before applying the list."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:95
+#: inc/cpcff_admin_ai_assistant.inc.php:98
 msgid "AI Assistant (Experimental)"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:97
+#: inc/cpcff_admin_ai_assistant.inc.php:100
 msgid "unload model"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:98 inc/cpcff_main.inc.php:248
+#: inc/cpcff_admin_ai_assistant.inc.php:101 inc/cpcff_main.inc.php:248
 msgid "Settings"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:99
-#: inc/cpcff_admin_ai_assistant.inc.php:104
+#: inc/cpcff_admin_ai_assistant.inc.php:102
+#: inc/cpcff_admin_ai_assistant.inc.php:107
 msgid "close"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:103
+#: inc/cpcff_admin_ai_assistant.inc.php:106
 msgid "AI Assistant Settings"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:106
+#: inc/cpcff_admin_ai_assistant.inc.php:109
 msgid "Select your preferred AI provider:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:108
+#: inc/cpcff_admin_ai_assistant.inc.php:111
 msgid "Locally in the browser"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:117
+#: inc/cpcff_admin_ai_assistant.inc.php:120
 msgid ""
-"Running AI models directly in the browser requires enough hardware resources "
-"on your device. You typically need a modern browser, sufficient available "
-"RAM (around 8–16 GB recommended), and preferably a GPU with WebGPU support "
-"for good performance. Older devices or limited memory may cause slow "
-"execution or prevent models from loading."
-msgstr ""
-
-#: inc/cpcff_admin_ai_assistant.inc.php:118
-msgid ""
-"If your device does not meet these requirements, we recommend selecting "
-"another AI providers instead. They ensuring reliable performance and "
-"compatibility without depending on your local hardware."
+"Running AI models in the browser requires modern hardware. You’ll need a "
+"recent browser, enough RAM (about 8–16 GB), and ideally a GPU with WebGPU "
+"support. Older devices or low memory may cause slow performance or prevent "
+"models from loading."
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:121
+msgid "Are you using Chrome browser? Please watch this video:"
+msgstr ""
+
+#: inc/cpcff_admin_ai_assistant.inc.php:123
+msgid ""
+"If your device doesn’t meet these requirements, choose another AI provider "
+"for reliable performance without relying on your hardware."
+msgstr ""
+
+#: inc/cpcff_admin_ai_assistant.inc.php:126
 msgid "Select a model:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:127
+#: inc/cpcff_admin_ai_assistant.inc.php:132
 msgid "Provider API Key (required):"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:128
+#: inc/cpcff_admin_ai_assistant.inc.php:133
 msgid "Enter your API key here..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:129
+#: inc/cpcff_admin_ai_assistant.inc.php:134
 msgid "Get yout API Key from"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:133 inc/cpcff_main.inc.php:475
+#: inc/cpcff_admin_ai_assistant.inc.php:138 inc/cpcff_main.inc.php:475
 msgid "Save Settings"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:141
+#: inc/cpcff_admin_ai_assistant.inc.php:146
 msgid "Hi! I'm your Code Assistant."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:145
+#: inc/cpcff_admin_ai_assistant.inc.php:150
 msgid ""
 "Please wait while the AI model downloads. This may take a moment depending "
 "on your network speed. Alternatively, click the gear icon to use online AI "
 "services like OpenAI, Anthropic (Claude), or Google Gemini."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:153
+#: inc/cpcff_admin_ai_assistant.inc.php:158
 msgid "WebGPU is not supported in your browser"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:154
+#: inc/cpcff_admin_ai_assistant.inc.php:159
 msgid ""
 "WebGPU is a modern graphics API for the web. To use this application, you'll "
 "need a browser with WebGPU support."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:156
+#: inc/cpcff_admin_ai_assistant.inc.php:161
 msgid "Recommended browsers with WebGPU support:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:158
+#: inc/cpcff_admin_ai_assistant.inc.php:163
 msgid "Chrome 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:159
+#: inc/cpcff_admin_ai_assistant.inc.php:164
 msgid "Edge 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:160
+#: inc/cpcff_admin_ai_assistant.inc.php:165
 msgid "Firefox 121 or later (with the 'dom.webgpu.enabled' flag enabled)"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:161
+#: inc/cpcff_admin_ai_assistant.inc.php:166
 msgid "Safari 17.4 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:164
+#: inc/cpcff_admin_ai_assistant.inc.php:169
 msgid "How to enable WebGPU:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:165
+#: inc/cpcff_admin_ai_assistant.inc.php:170
 msgid "In Chrome/Edge:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:167
+#: inc/cpcff_admin_ai_assistant.inc.php:172
 msgid "Ensure your browser is updated to version 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:168
-#: inc/cpcff_admin_ai_assistant.inc.php:183
+#: inc/cpcff_admin_ai_assistant.inc.php:173
+#: inc/cpcff_admin_ai_assistant.inc.php:188
 msgid "WebGPU should be enabled by default"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:171
+#: inc/cpcff_admin_ai_assistant.inc.php:176
 msgid "In Firefox:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:173
+#: inc/cpcff_admin_ai_assistant.inc.php:178
 msgid "Ensure you have Firefox 121 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:174
+#: inc/cpcff_admin_ai_assistant.inc.php:179
 msgid "Type \"about:config\" in the URL bar"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:175
+#: inc/cpcff_admin_ai_assistant.inc.php:180
 msgid "Search for \"dom.webgpu.enabled\""
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:176
+#: inc/cpcff_admin_ai_assistant.inc.php:181
 msgid "Set it to \"true\" by clicking the toggle button"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:177
+#: inc/cpcff_admin_ai_assistant.inc.php:182
 msgid "Restart the browser"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:180
+#: inc/cpcff_admin_ai_assistant.inc.php:185
 msgid "In Safari:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:182
+#: inc/cpcff_admin_ai_assistant.inc.php:187
 msgid "Ensure you have Safari 17.4 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:189
+#: inc/cpcff_admin_ai_assistant.inc.php:194
 msgid "Cache API not available!"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:190
+#: inc/cpcff_admin_ai_assistant.inc.php:195
 msgid ""
 "Your browser may be using HTTP instead of HTTPS, or it may not support the "
 "Cache API."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:191
+#: inc/cpcff_admin_ai_assistant.inc.php:196
 msgid "For full functionality, please:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:193
+#: inc/cpcff_admin_ai_assistant.inc.php:198
 msgid "Open this website using HTTPS (e.g., https://example.com)"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:194
+#: inc/cpcff_admin_ai_assistant.inc.php:199
 msgid "Use a modern browser that supports the Cache API"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:203
+#: inc/cpcff_admin_ai_assistant.inc.php:208
 msgid "Please, enter your question..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:204
+#: inc/cpcff_admin_ai_assistant.inc.php:209
 msgid "Send"
 msgstr ""
 

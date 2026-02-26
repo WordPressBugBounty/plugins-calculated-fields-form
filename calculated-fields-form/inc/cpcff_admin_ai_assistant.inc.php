@@ -71,7 +71,8 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CAL
         'switch_btn'         => __('Switch to Cloud Provider', 'calculated-fields-form'),
         'unload'             => __('This action will completely unload the model and remove it from your browser cache. Would you like to proceed?', 'calculated-fields-form'),
         'api_key_required'   => __('API Key is required for the selected provider.', 'calculated-fields-form'),
-        'fatal_error'        => __('A fatal error occurred. The model has been unloaded. Please try again or select a different provider.', 'calculated-fields-form'),
+        'unsave_settings'    => __('Do you want to close the settings without saving?', 'calculated-fields-form'),
+        'fatal_error'        => __('A fatal error has occurred and the model has been unloaded. Please close any other open browser tabs and try again, or switch to a different provider.', 'calculated-fields-form'),
         'try_again_error'    => __('An error occurred. You can try again.', 'calculated-fields-form'),
         'field_type_error'   => __('Select a Radio Button, Checkbox, or Dropdown field before applying the list.', 'calculated-fields-form')
     ];
@@ -80,7 +81,9 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CAL
 
     print 'var cff_ai_models=' . json_encode($models) . ';';
     print 'var cff_ai_provider="' . esc_js(get_option('cff_ai_assistant_provider', get_option('cff_ai_form_generator_provider', ''))) . '";';
+    print 'var cff_ai_default_provider="' . esc_js(CPCFF_AI_REQUESTS::get_default_provider()) . '";';
     print 'var cff_ai_model="' . esc_js(get_option('cff_ai_assistant_model', get_option('cff_ai_form_generator_model', ''))) . '";';
+    print 'var cff_ai_default_model="' . esc_js(CPCFF_AI_REQUESTS::get_default_model()) . '";';
     print 'var cff_ai_api_key="' . esc_js(get_option('cff_ai_assistant_api_key', get_option('cff_ai_form_generator_api_key', ''))) . '";';
     print 'var cff_ai_save_settings_nonce="' . esc_js(wp_create_nonce('cff_ai_save_settings_nonce')) . '";';
     print 'var cff_ai_request_nonce="' . esc_js(wp_create_nonce('cff_ai_request_nonce')) . '";';
@@ -98,7 +101,7 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CAL
             <button id="cff-ai-assistant-settings" class="button-secondary" title="<?php esc_attr_e('Settings', 'calculated-fields-form'); ?>"></button>
             <button id="cff-ai-assistant-close" class="button-secondary"><?php esc_html_e('close', 'calculated-fields-form'); ?></button>
         </div>
-        <div id="cff-ai-assistant-settings-container" style="display:none;cursor:initial;">
+        <div id="cff-ai-assistant-settings-container" style="cursor:initial;">
             <div style="display:flex; justify-content:space-between;">
                 <span style="font-weight:bold;"><?php esc_html_e('AI Assistant Settings', 'calculated-fields-form'); ?></span>
                 <button id="cff-ai-assistant-settings-close" class="button-secondary"><?php esc_html_e('close', 'calculated-fields-form'); ?></button>
@@ -114,8 +117,10 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CAL
                 ?>
             </select>
             <div class="cff-ai-local-model-description" style="display:none;margin-top:5px;font-style:italic;">
-                <div><?php esc_html_e('Running AI models directly in the browser requires enough hardware resources on your device. You typically need a modern browser, sufficient available RAM (around 8–16 GB recommended), and preferably a GPU with WebGPU support for good performance. Older devices or limited memory may cause slow execution or prevent models from loading.', 'calculated-fields-form'); ?></div>
-                <div style="margin-top:5px;font-weight:600;"><?php esc_html_e('If your device does not meet these requirements, we recommend selecting another AI providers instead. They ensuring reliable performance and compatibility without depending on your local hardware.', 'calculated-fields-form'); ?></div>
+                <div><?php esc_html_e('Running AI models in the browser requires modern hardware. You’ll need a recent browser, enough RAM (about 8–16 GB), and ideally a GPU with WebGPU support. Older devices or low memory may cause slow performance or prevent models from loading.', 'calculated-fields-form'); ?></div>
+                <div style="margin:15px 0;font-weight:600;"><?php esc_html_e('Are you using Chrome browser? Please watch this video:', 'calculated-fields-form'); ?> <a href="https://youtu.be/9ESE6ApkHaQ" target="_blank" style="text-decoration: underline;">https://youtu.be/9ESE6ApkHaQ</a>
+                </div>
+                <div><?php esc_html_e('If your device doesn’t meet these requirements, choose another AI provider for reliable performance without relying on your hardware.', 'calculated-fields-form'); ?></div>
             </div>
             <div id="cff-ai-assistant-model-container" style="display:none;">
                 <label for="cff-ai-assistant-model"><?php esc_html_e('Select a model:', 'calculated-fields-form'); ?></label>

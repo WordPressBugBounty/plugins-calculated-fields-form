@@ -7,11 +7,13 @@
 #cff-ai-assistant-container{position:fixed;top:35px;right:20px;z-index:999999;width:400px;max-width:90%;height:calc(100% - 40px);background:white;padding:5px;box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-webkit-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);-moz-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.3);border-radius:5px;flex-direction:column;gap:10px}
 #cff-ai-assistant-container label{font-weight:bold}
 .cff-ai-assistan-header{background:var(--wp-admin-theme-color);border-radius:5px;padding:5px;color:white;cursor:move;display:flex;flex-direction:column;align-items:center;gap:5px}
+.cff-ai-assistan-header:has( #cff-ai-assistant-settings-container.cff-ai-assistant-settings-opened) {position: absolute;width: calc(100% - 10px);z-index: 99;}
 .cff-ai-assistan-title{color:white;cursor:move;display:flex;align-items:center;gap:5px;padding-left:10px;width:100%}
 .cff-ai-assistan-title::before {content: "";display: inline-block;height: 20px;width: 20px;background: url(../images/icons/ai.svg) no-repeat center center;background-size: 17px !important;filter: brightness(0) invert(100%);}
 #cff-ai-assistant-settings-container span,
 .cff-ai-assistan-title span{flex-grow:1;font-size:1em;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-#cff-ai-assistant-settings-container{margin:5px;width:100%;box-sizing:border-box;background:#fff;padding:15px;border-radius:5px;color:#3c434a}
+#cff-ai-assistant-settings-container{margin:5px;width:100%;box-sizing:border-box;background:#fff;padding:15px;border-radius:5px;color:#3c434a;display: none;}
+#cff-ai-assistant-settings-container.cff-ai-assistant-settings-opened {display: block;}
 #cff-ai-assistant-settings-container label{display:block;font-weight:normal;margin:10px 0 5px 0}
 #cff-ai-assistant-settings-container input,
 #cff-ai-assistant-settings-container select {width: 100%;}
@@ -29,6 +31,7 @@
 .cff-ai-assistance-error-message{background:#fe5a5a;color:white}
 .cff-ai-assistance-error-message *{color:white!important}
 .cff-ai-assistance-user-message{background-color:#f1f1f1;margin-right:20px;margin-left:5px}
+.cff-ai-assistance-message .button-secondary {background:white !important;}
 .cff-ai-assistance-message pre{background-color:#2c3e50;color:#e0e0e0;padding:10px;border-radius:5px;overflow:hidden;margin-bottom:0}
 .cff-ai-assistance-message pre code{display:block;overflow-x:auto}
 #cff-ai-assistant-stats{font-size:11px}

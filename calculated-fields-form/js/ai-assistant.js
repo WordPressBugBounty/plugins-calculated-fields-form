@@ -17,6 +17,7 @@ selectedModel = "Qwen2.5-Coder-3B-Instruct-q4f32_1-MLC";
 let loadedModel   = false,
     loadingModel  = false;
 
+let unsavedSettings = false;
 // UI components
 let aiDlgCrl 			= document.getElementById("cff-ai-assistant-container");
 let aiAssistantLoadingMss = document.getElementById('cff-ai-assistant-loading-message');
@@ -111,8 +112,19 @@ function showLocalModelError(message) {
     unmountBtnCtrl.style.display = 'none';
 }
 
-function isFatalError(error) {
-    const msg = error?.message || '';
+function removeErrorMessages() {
+	const row = document.querySelector('.cff-ai-assistant-answer-row');
+	if (row) {
+	  let last = row.lastElementChild;
+	  while (last && last.classList.contains('cff-ai-assistance-error')) {
+		const toRemove = last;
+		last = last.previousElementSibling;
+		toRemove.remove();
+	  }
+	}
+}
+
+function isFatalError(msg) {
     const fatalPatterns = [
         /device lost/i,
         /context lost/i,
@@ -131,10 +143,11 @@ function isFatalError(error) {
 
 async function handleEngineError(error, context = 'inference') {
     console.error(`Fatal error during ${context}:`, error);
+	const msg = error?.message || '';
 
-    if (isFatalError(error) || context === 'loading') {
+    if (isFatalError(msg) || context === 'loading') {
         await unloadModel();
-        showLocalModelError(window['cff_ai_texts']['fatal_error']);
+		showLocalModelError(window['cff_ai_texts']['fatal_error']+' '+(msg ? `(${msg})` : ''));
     } else {
         // Non-fatal, maybe just reset chat
         try { await engine.resetChat(); } catch (e) {}
@@ -176,7 +189,7 @@ async function initializeWebLLMEngine() {
             sliding_window_size: 2048,
             attention_sink_size: 1024,
         };
-        try { await engine.unload(); } catch (err) {}
+        // try { await engine.unload(); } catch (err) {}
         await engine.reload(selectedModel, config);
         await engine.resetChat();
         loadedModel = true;
@@ -239,7 +252,8 @@ async function streamingGenerating(messages, onUpdate, onFinish, onError) {
 // ---------- Model loading orchestration ----------
 function loadingEngine() {
     if (window['cff_ai_provider'] === '') {
-        window['cff_ai_provider'] = 'local';
+        window['cff_ai_provider'] = window['cff_ai_default_provider'] || 'local';
+        window['cff_ai_model'] = window['cff_ai_default_model'] || '';
         openAIAssistantSettings();
     } else if (isLocalModel()) {
         aiAssistantLoadingMss.style.display = (loadingModel || !loadedModel)  ? 'block': 'none';
@@ -270,13 +284,11 @@ async function onMessageSend() {
     }
 
 	let message = input;
-    appendMessage({content: message, role: "user"});
 
     const aiMessage = {
         content: ( 'cff_ai_texts' in window ? window['cff_ai_texts']['typing'] : "typing..." ),
         role: "assistant",
     };
-    appendMessage(aiMessage);
 
     userQuestionCtrl.value = "";
     userQuestionCtrl.setAttribute("placeholder", ( 'cff_ai_texts' in window ? window['cff_ai_texts']['generating'] : 'Generating...' ) );
@@ -299,6 +311,8 @@ async function onMessageSend() {
 	}
 
     if ( isLocalModel() ) {
+        appendMessage({ content: input, role: "user" });
+        appendMessage(aiMessage);
         await engine.resetChat();
         messages.splice(1);
         messages.push({content: message, role: "user"});
@@ -325,6 +339,15 @@ async function onMessageSend() {
             }
         );
     } else {
+        // Check settings for cloud provider.
+        if ( ! ('cff_ai_api_key' in window) || window.cff_ai_api_key.trim() === '' ) {
+            userQuestionCtrl.value = input;
+            alert( ( 'cff_ai_texts' in window ? window['cff_ai_texts']['api_key_required'] : 'API Key is required for the selected provider.' ) );
+            openAIAssistantSettings();
+            return;
+        }
+        appendMessage({ content: input, role: "user" });
+        appendMessage(aiMessage);
         const data = new FormData();
         data.append('_cpcff_ai_assistant_action', 'cff_ai_assistant_get_response');
         data.append('_cpcff_ai_assistant_context', context);
@@ -532,41 +555,45 @@ window['cff_open_ai_assistant_settings'] = function(cloud) {
 
 /*************** UI binding ***************/
 function isAIAssistantSettingsOpen() {
-    return document.getElementById('cff-ai-assistant-settings-container').style.display != 'none';
+    return document.getElementById('cff-ai-assistant-settings-container').classList.contains('cff-ai-assistant-settings-opened');
 }
 
 function openAIAssistantSettings(cloud) {
     settingsBtnCtrl.classList.add('cff-ai-assistant-settings-active');
     initializeAIAssistantSettings()
-    document.getElementById('cff-ai-assistant-settings-container').style.display = 'block';
-    if ( cloud ) {
-        providerCtrl.selectedIndex = providerCtrl.options.length - 1;
+    document.getElementById('cff-ai-assistant-settings-container').classList.add('cff-ai-assistant-settings-opened');
+    if ( cloud && providerCtrl.value == 'local' ) {
+        providerCtrl.value = window['cff_ai_default_provider'];
         providerCtrl.dispatchEvent(new Event('change'));
+        modelCtrl.value = window['cff_ai_default_model'];
     }
     sendBtnCtrl.disabled = true;
     userQuestionCtrl.disabled = true;
 }
 
 function closeAIAssistantSettings() {
-    settingsBtnCtrl.classList.remove('cff-ai-assistant-settings-active');
-    document.getElementById('cff-ai-assistant-settings-container').style.display = 'none';
-    sendBtnCtrl.disabled = false;
-    userQuestionCtrl.disabled = false;
-    if (
-        window['cff_ai_provider'] === 'local' &&
-        providerCtrl.value === window['cff_ai_provider']
-    ) {
-        cff_ai_assistant_open(topic);
+    if ( ! unsavedSettings || window.confirm( window?.cff_ai_texts?.unsave_settings || 'Do you want to close the settings without saving?' )) {
+        settingsBtnCtrl.classList.remove('cff-ai-assistant-settings-active');
+        document.getElementById('cff-ai-assistant-settings-container').classList.remove('cff-ai-assistant-settings-opened');
+        sendBtnCtrl.disabled = false;
+        userQuestionCtrl.disabled = false;
+        if (
+            window['cff_ai_provider'] === 'local' &&
+            providerCtrl.value === window['cff_ai_provider']
+        ) {
+			removeErrorMessages();
+            cff_ai_assistant_open(topic);
+        }
     }
 }
 
 function initializeAIAssistantSettings() {
     if ( 'cff_ai_api_key' in window ) {
-        apiKeyCtrl.value = cff_ai_api_key;
+        apiKeyCtrl.value = window.cff_ai_api_key;
     }
     if ( 'cff_ai_provider' in window ) {
-        providerCtrl.value = cff_ai_provider;
-        populateModelOptions( cff_ai_provider );
+        providerCtrl.value = window.cff_ai_provider;
+        populateModelOptions( window.cff_ai_provider );
         providerCtrl.dispatchEvent(new Event('change'));
     }
 }
@@ -597,12 +624,25 @@ function populateModelOptions(provider) {
     }
 
 }
+
 apiKeyCtrl.addEventListener('focus', (event) => {
     event.target.type = 'text';
 });
 
 apiKeyCtrl.addEventListener('blur', (event) => {
     event.target.type = 'password';
+});
+
+providerCtrl.addEventListener("input", async function () {
+    unsavedSettings = true;
+});
+
+modelCtrl.addEventListener("input", async function () {
+    unsavedSettings = true;
+});
+
+apiKeyCtrl.addEventListener('input', (event) => {
+    unsavedSettings = true;
 });
 
 settingsBtnCtrl.addEventListener("click", async function () {
@@ -675,13 +715,15 @@ saveSettingsBtnCtrl.addEventListener("click", async function () {
         body: data,
     });
 
-    cff_ai_provider = selectedProvider;
-    cff_ai_model = selectedModel;
-    cff_ai_api_key = apiKey;
+    window.cff_ai_provider = selectedProvider;
+    window.cff_ai_model = selectedModel;
+    window.cff_ai_api_key = apiKey;
+    unsavedSettings = false;
     cff_ai_assistant_open(topic);
     this.removeAttribute('disabled');
     closeAIAssistantSettings();
 });
+
 sendBtnCtrl.addEventListener("click", function () {
     onMessageSend();
 });

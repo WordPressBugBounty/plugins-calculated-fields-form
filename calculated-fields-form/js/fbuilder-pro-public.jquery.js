@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.4.5';
+	$.fbuilder['version'] = '5.4.4.6';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -834,8 +834,8 @@
 								hide: false,
 								tooltipClass: "uh-tooltip cff-form-"+('form' in opt ? opt.form : ''),
 								position: { my: "left top", at: "left bottom+5", collision: "flipfit" },
-								items: "[uh]",
-								content: function (){return $(this).attr("uh");},
+								items: "[uh],[data-uh]",
+								content: function (){let e = $(this); return e.attr("uh") ?? e.attr("data-uh") ?? '';},
 								open: function( evt, ui ) {
 									try {
 										let styles = ( ui.tooltip.attr('style') || '' ) +
