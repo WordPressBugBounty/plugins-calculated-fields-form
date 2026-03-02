@@ -605,12 +605,19 @@ body{
 #fbuilder .cff-quantity-when-ticked .cff-checkbox-field-quantity{visibility:hidden;}
 #fbuilder .cff-quantity-when-ticked:has(input:checked) .cff-checkbox-field-quantity{visibility:visible;}
 
-#fbuilder .slider-type-components::after{clear:both;content:'';display: block;margin-bottom: 15px;}
-#fbuilder .slider-type-left-component{width:50%;padding-right:10px;clear:none;float:left;margin-left:-10px;}
-#fbuilder .slider-type-right-component{width:50%;padding-left:10px;clear:none;float:right;margin-right:-10px;}
-*[dir="rtl"] #fbuilder .slider-type-left-component{margin-right:-10px;float:right;padding-left:10px;}
-*[dir="rtl"] #fbuilder .slider-type-right-component{margin-left:-10px;float:left;padding-right:10px;}
-#fbuilder .slider-type-center-component{margin-left:-10px;margin-right:-10px;}
+#fbuilder .slider-type-components {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#fbuilder .slider-type-left-component,
+#fbuilder .slider-type-right-component,
+#fbuilder .slider-type-center-component{
+    flex-grow: 1;
+}
+
 #fbuilder .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important; padding-top:5px;}
 #fbuilder .dfield .slider{margin-bottom:5px; overflow:visible;}
 #fbuilder .dfield .slider .ui-slider-handle::before,

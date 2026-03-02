@@ -146,6 +146,18 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 8000
+                            ],
+                            'gemini-3-flash-preview'                => [
+                                'title' => esc_html__('Gemini 3 Flash Preview', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 8000
+                            ],
+                            'gemini-3.1-pro-preview'                => [
+                                'title' => esc_html__('Gemini 3.1 Pro Preview', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 8000
                             ]
                         ]
                     ]

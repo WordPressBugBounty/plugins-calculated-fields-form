@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.4.7 =
+
+* Adds support for Gemini 3 Flash Preview and Gemini 3.1 Pro Preview models, enabling faster and more advanced AI-powered form generation.
+* Introduces three new pre-designed layouts, easily selectable from the 'Form Settings' tab for improved form customization and styling.
+
 = 5.4.4.6 =
 
 * Enhances the AI Assistant module by improving local model inference performance and optimizing overall functionality. The AI Assistant settings section has also been updated to provide clear feedback when configuration changes have not been saved.

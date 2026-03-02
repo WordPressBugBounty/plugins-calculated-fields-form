@@ -18,6 +18,7 @@
 .cff-form-builder-backend textarea{max-width:100%;}
 
 .cff_form_builder{clear:both;}
+.cff_form_builder textarea{resize:vertical;min-height: 40px;}
 .ui-datepicker:empty{display:none;}
 .ctrlsColumn .itemForm{ text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
 /** BTTN ICONS **/
@@ -480,6 +481,13 @@ textarea {resize: none}
 .form-builder #tabs-3:has( .cff-field-settings-tabs-headers) {
 	padding-top:0;
 }
+
+.form-builder #tabs .css-rule,
+.form-builder #tabs .css-rule .column{display:flex;gap:5px;align-items:center;flex-grow:1;}
+.form-builder #tabs .css-rule .clearer {display: none;}
+.form-builder #tabs .css-rule .column input[type="text"] {flex-grow:1;}
+
+.form-builder #tabs #fTemplateThumbnail img {width:150px;}
 
 /* FIELDS SETTINGS TABS */
 .cff-field-settings-tabs-headers{
