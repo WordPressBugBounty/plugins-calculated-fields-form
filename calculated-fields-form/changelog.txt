@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.4.8 =
+
+* Modifies the form builder to apply distinct border colors to fields at different nesting levels. This enhancement makes it easier to identify sibling fields and recognize which fields belong to the same level in the hierarchy during the development process.
+
 = 5.4.4.7 =
 
 * Adds support for Gemini 3 Flash Preview and Gemini 3.1 Pro Preview models, enabling faster and more advanced AI-powered form generation.
@@ -805,66 +809,3 @@ Since most users do not have devices with sufficient resources to run local infe
 = 5.2.60 =
 
 * Includes a new predefined form to improve typing.
-
-= 5.2.59 =
-
-* Updates template 04 to address accessibility issues, such as improving the contrast between background and button colors, as well as the text colors for user instructions.
-* Modifies the settings of the print button to include additional information about class names used to exclude fields or form elements from printing.
-* Modifies the advanced equations editor to hide the sidebar on small devices' screens.
-* Improves accessibility in the form builder.
-
-= 5.2.58 =
-
-* Modifies the module that processes the default values.
-* Fixes a minor issue with the phone control.
-* Include a new predefined form for listing universities.
-* Improves the User Registration add-on (Developer and Platinum plugin versions).
-* Fixes an issue in the Brevo add-on (Platinum plugin version).
-
-= 5.2.57 =
-
-* Enhances the accessibility of the forms builder.
-* Modifies the forms builder styles.
-* Implements new block/endblock tags pairs in the notification emails and thank you pages for coupon, payment_status, and payment_option.
-* Enhances the WooCommerce add-on (Developer and Platinum plugin versions).
-* Modifies the iCal, MailPoet, PDF Generator, PrintFriendly and Stripe add-ons (Platinum plugin version).
-
-= 5.2.56 =
-= 5.2.55 =
-
-* It is the first step in enhancing the accessibility of the forms builder.
-* Introduces two new actions, cpcff_wp_head, and cpcff_wp_footer, which are triggered when forms are loaded directly, either through their URL or within an iframe tag, allowing for the inclusion of additional resources.
-* Implements the WEEKNUM2 operation. Unlike WEEKNUM, it considers the weekday of the first day of the year.
-
-= 5.2.54 =
-
-* Include a new predefined form to obtain the visitors' details.
-* Includes new video tutorials.
-* Modifies the RecordSet DS field to support Secured Custom Fields (Developer and Platinum versions).
-* Modifies the Sendinblue add-on (Platinum version).
-
-= 5.2.53 =
-
-* Allows configuring the quantity boxes in checkbox fields to display only when the corresponding choice is ticked.
-* Fixes a minor issue in the Number and Currency fields in the form builder when default values are set to other fields.
-* Modifies Template 06 by darker blue to increase the contrast ratio, thereby improving the Google score.
-
-= 5.2.52 =
-
-* Allows entering associate a quantity box with every checkbox field choice.
-* Modifies the Summary control to support the changes in the checkbox control.
-* Includes the async parameter in the loading=async parameter when loading the Google Maps API for distance operations (Developer and Platinum plugin versions) and Google Places add-on (Platinum plugin version).
-
-= 5.2.51 =
-
-* Allows passing arrays as parameter values to the thank you page URL.
-* Modifies the getURLParameters in the URL Operations module.
-* Modifies the getField operation in the Managing Fields Operations module.
-
-= 5.2.50 =
-
-* Includes a new pair of attributes in the form settings, allowing users to submit the form without being redirected to the thank you page.
-* Modifies the module that loads the forms into iFrame tags. The previous version generates a different URL every time.
-* Modifies the module that registers the form height.
-* Fixes some issues in the RATE operation in the Financial Operations Module (Developer and Platinum plugin versions).
-* Updates the Users Permissions add-on to enable administrators to access, edit, and delete submissions from anonymous users on the public website (Developer and Platinum plugin versions).

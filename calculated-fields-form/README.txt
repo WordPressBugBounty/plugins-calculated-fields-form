@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.4.7
+Stable tag: 5.4.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.4.8 =
+
+* Modifies the form builder to apply distinct border colors to fields at different nesting levels. This enhancement makes it easier to identify sibling fields and recognize which fields belong to the same level in the hierarchy during the development process.
+
 = 5.4.4.7 =
 
 * Adds support for Gemini 3 Flash Preview and Gemini 3.1 Pro Preview models, enabling faster and more advanced AI-powered form generation.
@@ -484,8 +488,3 @@ Since most users do not have devices with sufficient resources to run local infe
 = 5.4.4.2 =
 
 * We removed COOKIES and the SESSION options form the variables shortcode for security reasons. Thanks to Patchstack team.
-
-= 5.4.4.1 =
-= 5.4.4.0 =
-
-* Fixes a compatibility issue that caused conflicts with very outdated versions of jQuery.

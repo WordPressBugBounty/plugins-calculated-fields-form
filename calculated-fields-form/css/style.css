@@ -1,5 +1,25 @@
 @import url("loader.css");
-:root { --wp-admin-theme-color: #0073aa; /* fallback default */ }
+:root {
+    --wp-admin-theme-color: #0073aa; /* fallback default */
+    --cff-container-border-color-1: rgba(255, 120, 150, .6);
+    --cff-container-border-color-2: rgba(132, 70, 255, .6);
+    --cff-container-border-color-3: rgba(50, 200, 100, .6);
+    --cff-container-border-color-4: rgba(255, 160, 50, .6);
+
+    --cff-container-highlight-border-color: rgb(202, 202, 202);
+    --cff-container-highlight-color: rgba(202, 202, 202, .5);
+
+    --cff-container-highlight-color-1: rgba(255, 120, 150, 0.2);
+    --cff-container-highlight-color-2: rgba(132, 70, 255, 0.2);
+    --cff-container-highlight-color-3: rgba(50, 200, 100, 0.2);
+    --cff-container-highlight-color-4: rgba(255, 160, 50, 0.2);
+    --cff-container-shadow-color-1: rgba(255, 120, 150, .8);
+    --cff-container-shadow-color-2: rgba(132, 70, 255, .8);
+    --cff-container-shadow-color-3: rgba(50, 200, 100, .8);
+    --cff-container-shadow-color-4: rgba(255, 160, 50, .8);
+
+    --cff-box-shadow-color:rgba(2, 147, 226, 0.8);
+}
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -129,7 +149,7 @@
     padding: 10px 0 !important;
     text-align:center !important;
 }
-#fbuilder .fields .ui-icon:hover{color: var(--wp-admin-theme-color);}
+/* #fbuilder .fields .ui-icon:hover{color: var(--wp-admin-theme-color);} */
 #fbuilder .fields .ui-icon:not(.ui-icon-play):hover{transform: scale(1.1);}
 #fbuilder .fields .ui-icon.ui-icon-grip-dotted-vertical:hover{transform: scale(1.3);}
 #fbuilder .fields .ui-icon.ui-icon-trash:hover{color: #ca0404;}
@@ -169,6 +189,56 @@
 	border-radius:4px;
 }
 #fieldlist .cff-button-drag{width:90% !important;}
+
+#fieldlist .fields .ui-state-highlight{
+    border-color: var(--cff-container-border-color-1) !important;
+    background-color: var(--cff-container-highlight-color-1) !important;
+}
+
+#fieldlist .fields .fields,
+#fieldlist .fields .fields .fields .fields .fields .fields {
+    border: 1px solid var(--cff-container-border-color-1) !important;
+    --cff-box-shadow-color: var(--cff-container-shadow-color-1) !important;
+}
+#fieldlist .fields .fields .ui-state-highlight,
+#fieldlist .fields .fields .fields .fields .fields .fields .ui-state-highlight {
+    border-color: var(--cff-container-border-color-2) !important;
+    background-color: var(--cff-container-highlight-color-2) !important;
+}
+
+
+#fieldlist .fields .fields .fields,
+#fieldlist .fields .fields .fields .fields .fields .fields .fields {
+    border: 1px solid var(--cff-container-border-color-2) !important;
+    --cff-box-shadow-color: var(--cff-container-shadow-color-2) !important;
+}
+#fieldlist .fields .fields .fields .ui-state-highlight,
+#fieldlist .fields .fields .fields .fields .fields .fields .fields .ui-state-highlight {
+    border-color: var(--cff-container-border-color-3) !important;
+    background-color: var(--cff-container-highlight-color-3) !important;
+}
+
+#fieldlist .fields .fields .fields .fields,
+#fieldlist .fields .fields .fields .fields .fields .fields .fields .fields {
+    border: 1px solid var(--cff-container-border-color-3) !important;
+    --cff-box-shadow-color: var(--cff-container-shadow-color-3) !important;
+}
+#fieldlist .fields .fields .fields .fields .ui-state-highlight,
+#fieldlist .fields .fields .fields .fields .fields .fields .fields .fields .ui-state-highlight {
+    border-color: var(--cff-container-border-color-4) !important;
+    background-color: var(--cff-container-highlight-color-4) !important;
+}
+
+#fieldlist .fields .fields .fields .fields .fields,
+#fieldlist .fields .fields .fields .fields .fields .fields .fields .fields .fields {
+    border: 1px solid var(--cff-container-border-color-4) !important;
+    --cff-box-shadow-color: var(--cff-container-shadow-color-4) !important;
+}
+#fieldlist .fields .fields .fields .fields .fields .ui-state-highlight,
+#fieldlist .fields .fields .fields .fields .fields .fields .fields .fields .fields .ui-state-highlight {
+    border-color: var(--cff-container-border-color-1) !important;
+    background-color: var(--cff-container-highlight-color-1) !important;
+}
 
 .cff-custom-table input{margin-left:5px; margin-right:5px;}
 .form-builder{font-size:11px;width:100%;min-width:720px;}
@@ -293,7 +363,7 @@ body:has( #metabox_form_structure.fullscreen ) .select2-container.cff-ctrl-selec
 #fbuilder .fields .uncollapse,
 #fbuilder .fields .remove,
 #fbuilder .fields .copy{position:relative;display:none;background-color:#fff;cursor:pointer; font-size:17px;}
-#fbuilder .fields .cff-field-controls{display:none;position:absolute;bottom:5px;right:5px;background:rgba(255,255,255,.7);border:1px solid #0293e2;border-radius:5px;padding:5px;z-index:999;}
+#fbuilder .fields .cff-field-controls{display:none;position:absolute;bottom:5px;right:5px;background:rgba(255,255,255,.7);border:1px solid var(--cff-box-shadow-color);border-radius:5px;padding:5px;z-index:999;}
 
 #fbuilder legend{ border:1px solid #CDCDCD; background:#FFF; margin-left:5px; padding: 0 5px; }
 #fbuilder .fcontainer{ border:1px solid #CDCDCD;min-height:67px;padding:5px 10px;position:relative;border-radius:2px;}
@@ -312,9 +382,9 @@ body:has( #metabox_form_structure.fullscreen ) .select2-container.cff-ctrl-selec
 #fbuilder .sticker{display:inline-block;position:absolute;right:5px;top:5px;}
 #fbuilder fieldset.fcontainer>.sticker{top:-5px;}
 #fbuilder .sticker i{display:inline-block;height:10px;border:1px solid rgba(0,0,0,.2);margin-left:3px;min-width:10px;}
-#fbuilder .ffieldset .sticker i{background-color:rgba(255,238,165,0.7);}
-#fbuilder .fdiv .sticker i{background-color:rgba(255,203,165,0.7);}
-#fbuilder .fpopup .sticker i{background-color:rgba(223,202,225,1);}
+#fbuilder .ffieldset>.sticker i{background-color:rgba(255,238,165,0.7);}
+#fbuilder .fdiv>.sticker i{background-color:rgba(255,203,165,0.7);}
+#fbuilder .fpopup>.sticker i{background-color:rgba(223,202,225,1);}
 #fbuilder .sticker i.sticker-1{display:none;}
 #fbuilder .sticker i.sticker-2{width:32px;}
 #fbuilder .sticker i.sticker-3{width:21px;}
@@ -359,8 +429,7 @@ a.helpfbuilder.dep{font-size:100%;margin-left:10px}
 input [disabled] {background-color: #f00;}
 input [readonly] {background-color: #f00;}
 #fbuilder .fform.ui-selected,
-#fbuilder .fields.ui-selected{background-color:#f0f0f1;box-shadow: 0 0 0 1px #0293e2;
-	border-radius: 2px;}
+#fbuilder .fields.ui-selected{background-color:#f0f0f1;box-shadow: 0 0 0 1px var(--cff-box-shadow-color); border-radius: 2px;}
 #fbuilder .fields.ui-selected .arrow,#fbuilder .fields.ui-selected>.cff-field-controls,#fbuilder .fields.ui-selected>.cff-field-controls>.remove,#fbuilder .fields.ui-selected>.cff-field-controls>.copy,#fbuilder .fields.ui-selected:not(.collapsed)>.cff-field-controls>.collapse,#fbuilder .fields.ui-selected.collapsed>.cff-field-controls>.uncollapse{display:inline-block;}
 
 #fbuilder .fields.collapsed>.dfield>.fcontainer{border-color: rgba(255,201,38,.75);}
@@ -369,7 +438,7 @@ input [readonly] {background-color: #f00;}
 #fbuilder .fields.collapsed>.dfield>.fcontainer>.collapsed-label{display:block;}
 #fbuilder .fields.collapsed>.dfield>.fcontainer>.fieldscontainer{display:none;}
 #fbuilder .fform.ui-over,
-#fbuilder .fields.ui-over{box-shadow: 0 0 0 1px #0293e2;border-radius:2px;}
+#fbuilder .fields.ui-over{box-shadow: 0 0 0 1px var(--cff-box-shadow-color);border-radius:2px;}
 
 #fbuilder .fields.fmark .cff-empty-image,
 #fbuilder .fields.fmark img:not([src]){
@@ -487,7 +556,8 @@ textarea {resize: none}
 .form-builder #tabs .css-rule .clearer {display: none;}
 .form-builder #tabs .css-rule .column input[type="text"] {flex-grow:1;}
 
-.form-builder #tabs #fTemplateThumbnail img {width:150px;}
+#metabox_default_settings.cff-metabox .cp_template_info img,
+.form-builder #tabs #fTemplateThumbnail img {width:150px; border: 1px solid #CDCDCD; }
 
 /* FIELDS SETTINGS TABS */
 .cff-field-settings-tabs-headers{
@@ -678,7 +748,7 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 
 .form-builder #tabs label{ font-size:12px !important; display:block;margin-top:10px;}
 
-#fbuilder .ui-state-highlight { height: 65px; line-height: 65px; border-radius:2px; opacity:.7;}
+#fbuilder .ui-state-highlight { height: 65px; line-height: 65px; border-radius:2px; opacity:.7; border-color: var(--cff-container-highlight-border-color); background: var(--cff-container-highlight-color);}
 
 .cff-revisions-container{padding:10px 10px 0 10px;}
 .cff-revisions-container-flex{display:flex;flex-wrap:wrap;gap:2px;align-items:center;}
