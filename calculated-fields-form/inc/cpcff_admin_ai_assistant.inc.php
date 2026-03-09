@@ -95,7 +95,7 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CAL
     <div id="cff-ai-assistan-header" class="cff-ai-assistan-header">
         <div id="cff-ai-assistan-title" class="cff-ai-assistan-title">
             <span>
-                <?php esc_attr_e('AI Assistant (Experimental)', 'calculated-fields-form'); ?>
+                <?php esc_attr_e('AI Assistant', 'calculated-fields-form'); ?>
             </span>
             <button id="cff-ai-assistant-unmount" class="button-secondary" style="display:none;"><?php esc_html_e('unload model', 'calculated-fields-form'); ?></button>
             <button id="cff-ai-assistant-settings" class="button-secondary" title="<?php esc_attr_e('Settings', 'calculated-fields-form'); ?>"></button>

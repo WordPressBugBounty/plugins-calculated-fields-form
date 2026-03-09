@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.4.8
+Stable tag: 5.4.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.4.9 =
+
+* Adds conditional logic to the Next Page button, Submit button, payment options, and CAPTCHA, allowing them to depend on other field values like any form control.
+* Includes support for GPT-5.4 and GPT-5.4 Pro.
+
 = 5.4.4.8 =
 
 * Modifies the form builder to apply distinct border colors to fields at different nesting levels. This enhancement makes it easier to identify sibling fields and recognize which fields belong to the same level in the hierarchy during the development process.
@@ -483,8 +488,3 @@ Since most users do not have devices with sufficient resources to run local infe
 * Reimplements the AI Form Generation module. The new generator enables developers to select from multiple AI providers and models, while optimizing the JSON schema to minimize token usage and improve form generation efficiency.
 * Enhances the AI Assistant within forms, providing improved functionality and performance.
 * Integrates the AI Assistant in Dropdown, Checkbox, and Radio Buttons controls to generate their choices automatically.
-
-= 5.4.4.3 =
-= 5.4.4.2 =
-
-* We removed COOKIES and the SESSION options form the variables shortcode for security reasons. Thanks to Patchstack team.

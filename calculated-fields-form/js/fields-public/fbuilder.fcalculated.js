@@ -178,6 +178,7 @@
 					if($.fbuilder['calculator'].getDepList(me.name, {value: me.val(), raw: me.val(true)}, me.dependencies))
 					{
 						var	item 	= $('#'+me.name),
+                            formObj	= item.closest('form'),
 							identifier = me.form_identifier,
 							isHidden= (typeof toHide[me.name] != 'undefined' || typeof hiddenByContainer[me.name] != 'undefined'),
 							d, n, dep,
@@ -189,10 +190,14 @@
 									delete toShow[id];
 								}
 							},
-							hideField = function(id){
-								$('.'+id+' [id*="'+id+'"],.'+id).closest('.fields').addClass('ignorefield').hide();
-								$('.'+id+' [id*="'+id+'"]:not(.ignore)').addClass('ignore').trigger('add-ignore');
-								toHide[id] = {};
+							hideField = function(dep, isField){
+                                if (isField) {
+								    $('.'+dep+' [id*="'+dep+'"],.'+dep, formObj).closest('.fields').addClass('ignorefield').hide();
+								    $('.'+dep+' [id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
+                                } else {
+                                    $(dep, formObj).hide();
+                                }
+								toHide[dep] = {};
 							};
 
 						try
@@ -213,29 +218,50 @@
 
 							for (i=0; i<d.length; i++)
 							{
-								if(!/fieldname/i.test(d[i])) continue;
-								dep = d[i]+identifier;
+                                if (!/(fieldname)|(__next_page__)|(__submit_button__)/i.test(d[i])) continue;
+                                let dep, isField = false;
+                                if (/fieldname\d+/i.test(d[i])) {
+                                    dep = d[i] + identifier; // Another field dependency
+                                    isField = true;
+                                } else if (d[i] == '__next_page__') {
+                                    dep = '.pb' + item.closest('.pbreak').attr('page') + ':not(.pbEnd) .pbNext'; // Next page dependency
+                                } else {
+                                    dep = '.pbSubmit,.captcha'; // Submission button dependency
+                                }
+
 								delete toHide[dep];
 								if(typeof toShow[dep] == 'undefined')
 								toShow[dep] = { 'ref': {}};
 								toShow[dep]['ref'][me.name]  = 1;
 								if(!(dep in hiddenByContainer))
 								{
-									$('.'+dep+' [id*="'+dep+'"],.'+dep).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
-									$('.'+dep+' [id*="'+dep+'"].ignore').removeClass('ignore').trigger('remove-ignore');
+                                    if (isField) {
+									    $('.'+dep+' [id*="'+dep+'"],.'+dep, formObj).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
+									    $('.'+dep+' [id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
+                                    } else {
+                                        $(dep, formObj).fadeIn(interval || 0);
+                                    }
 								}
 								if($.inArray(dep,result) == -1) result.push(dep);
 							}
 
 							for (i=0; i<n.length; i++)
 							{
-								if(!/fieldname/i.test(n[i])) continue;
-								dep = n[i]+identifier;
+                                if (!/(fieldname)|(__next_page__)|(__submit_button__)/i.test(n[i])) continue;
+                                let dep, isField = false;
+                                if (/fieldname\d+/i.test(n[i])) {
+                                    dep = n[i] + identifier; // Another field dependency
+                                    isField = true;
+                                } else if (n[i] == '__next_page__') {
+                                    dep = '.pb' + item.closest('.pbreak').attr('page') + ':not(.pbEnd) .pbNext'; // Next page dependency
+                                } else {
+                                    dep = '.pbSubmit,.captcha'; // Submission button dependency
+                                }
 								clearRef(dep);
 								if (
 									typeof toShow[dep] == 'undefined' &&
 									typeof toHide[dep] == 'undefined'
-								) hideField(dep);
+								) hideField(dep, isField);
 								if($.inArray(dep,result) == -1) result.push(dep);
 							}
 						}

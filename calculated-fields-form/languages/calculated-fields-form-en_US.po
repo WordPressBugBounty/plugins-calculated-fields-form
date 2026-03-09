@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-02-26 00:59+0100\n"
-"PO-Revision-Date: 2026-02-26 00:59+0100\n"
+"POT-Creation-Date: 2026-03-09 22:49+0100\n"
+"PO-Revision-Date: 2026-03-09 22:49+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -142,8 +142,9 @@ msgid ""
 "Select a Radio Button, Checkbox, or Dropdown field before applying the list."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:98
-msgid "AI Assistant (Experimental)"
+#: inc/cpcff_admin_ai_assistant.inc.php:98 inc/cpcff_admin_int.inc.php:124
+#: inc/cpcff_admin_landing_page.inc.php:67 inc/cpcff_video_tutorial.inc.php:17
+msgid "AI Assistant"
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:100
@@ -441,11 +442,6 @@ msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:122 inc/cpcff_admin_int.inc.php:289
 msgid "Saves the form's structure only, and opens a preview windows"
-msgstr ""
-
-#: inc/cpcff_admin_int.inc.php:124 inc/cpcff_admin_landing_page.inc.php:67
-#: inc/cpcff_video_tutorial.inc.php:17
-msgid "AI Assistant"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:126
@@ -1573,55 +1569,71 @@ msgid "GPT-5 Mini (Balanced)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:71
-msgid "GPT-5 (Most Capable)"
+msgid "GPT-5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:79
+#: inc/cpcff_ai_requests.inc.php:77
+msgid "GPT-5.4"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:83
+msgid "GPT-5.4 Pro (Most Capable)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:91
 msgid "Anthropic (Claude)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:84
+#: inc/cpcff_ai_requests.inc.php:96
 msgid "Claude Sonnet 4.6 (Recommended)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:90
+#: inc/cpcff_ai_requests.inc.php:102
 msgid "Claude Sonnet 4.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:96
+#: inc/cpcff_ai_requests.inc.php:108
 msgid "Claude Haiku 4.5 (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:102
+#: inc/cpcff_ai_requests.inc.php:114
 msgid "Claude Opus 4.6 (Most Capable)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:108
+#: inc/cpcff_ai_requests.inc.php:120
 msgid "Claude Opus 4.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:114
+#: inc/cpcff_ai_requests.inc.php:126
 msgid "Claude Opus 4"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:120
+#: inc/cpcff_ai_requests.inc.php:132
 msgid "Claude 3 Haiku (Budget)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:128
+#: inc/cpcff_ai_requests.inc.php:140
 msgid "Google (Gemini)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:133
+#: inc/cpcff_ai_requests.inc.php:145
 msgid "Gemini 2.5 Flash-Lite"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:139
+#: inc/cpcff_ai_requests.inc.php:151
 msgid "Gemini 2.5 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:145
+#: inc/cpcff_ai_requests.inc.php:157
 msgid "Gemini 2.5 Pro"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:163
+msgid "Gemini 3 Flash Preview"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:169
+msgid "Gemini 3.1 Pro Preview"
 msgstr ""
 
 #: inc/cpcff_amp.inc.php:158
@@ -1802,7 +1814,7 @@ msgid "Please provide the form modifications preferably in English."
 msgstr ""
 
 #: inc/cpcff_main.inc.php:461
-msgid "AI Form Generator (Beta)"
+msgid "AI Form Generator"
 msgstr ""
 
 #: inc/cpcff_main.inc.php:462

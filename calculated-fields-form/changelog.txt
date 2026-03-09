@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.4.9 =
+
+* Adds conditional logic to the Next Page button, Submit button, payment options, and CAPTCHA, allowing them to depend on other field values like any form control.
+* Includes support for GPT-5.4 and GPT-5.4 Pro.
+
 = 5.4.4.8 =
 
 * Modifies the form builder to apply distinct border colors to fields at different nesting levels. This enhancement makes it easier to identify sibling fields and recognize which fields belong to the same level in the hierarchy during the development process.

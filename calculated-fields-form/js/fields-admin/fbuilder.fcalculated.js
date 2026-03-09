@@ -349,6 +349,10 @@
 										opt += '<option value="'+items[k].name+'" '+((items[k].name == v) ? 'selected="SELECTED"' : '')+'>'+items[k].name+('' != t ? ' ('+cff_esc_attr(t)+')' : '')+'</option>';
 									}
 								}
+                                // Next page, submission button and form submission section
+                                opt += '<option value="__next_page__" ' + (("__next_page__" == v) ? "selected" : "") + '>Next Page (in multiple page form)</option>';
+                                opt += '<option value="__submit_button__" ' + (("__submit_button__" == v) ? "selected" : "") + '>Submit Button/Captcha/payment options</option>';
+
 								r += '<div style="position:relative;" class="cff-dependency-item"><span>If rule is valid show:</span> <select class="cf_dependence_field" i="'+i+'" j="'+j+'" aria-label="Dependent field">'+opt+'</select><div class="choice-ctrls"><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
 							});
 						r += '</div></div>';

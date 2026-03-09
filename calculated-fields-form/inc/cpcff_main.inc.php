@@ -458,7 +458,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'form_modifications_placeholder' => esc_attr__( 'Please provide the form modifications preferably in English.', 'calculated-fields-form' ),
 
 									// Menu options.
-									'ai_form_generator_menu'	   => esc_html__( 'AI Form Generator (Beta)', 'calculated-fields-form' ),
+									'ai_form_generator_menu'	   => esc_html__( 'AI Form Generator', 'calculated-fields-form' ),
 									'website_forms_menu'		   => esc_html__( 'Use My Forms As Template', 'calculated-fields-form' ),
 									'all_categories_menu'		   => esc_html__( 'All Categories', 'calculated-fields-form' ),
 

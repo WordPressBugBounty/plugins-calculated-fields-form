@@ -241,6 +241,9 @@
 									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+(('' != t) ? ' (' + cff_esc_attr(t) + ')' : '')  +'</option>';
                                 }
                             }
+                            // Next page, submission button and form submission section
+                            str += '<option value="__next_page__" '+(("__next_page__" == $(this).attr("dvalue"))?"selected":"")+'>Next Page (in multiple page form)</option>';
+                            str += '<option value="__submit_button__" '+(("__submit_button__" == $(this).attr("dvalue"))?"selected":"")+'>Submit Button/Captcha/payment options</option>';
 							$(this).html(str);
 						});
 

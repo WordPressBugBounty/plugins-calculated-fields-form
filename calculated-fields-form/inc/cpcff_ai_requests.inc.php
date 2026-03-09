@@ -68,7 +68,19 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'max_tokens' => 8000
                             ],
                             'gpt-5'       => [
-                                'title' => esc_html__('GPT-5 (Most Capable)', 'calculated-fields-form'),
+                                'title' => esc_html__('GPT-5', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 8000
+                            ],
+                            'gpt-5.4'       => [
+                                'title' => esc_html__('GPT-5.4', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 8000
+                            ],
+                            'gpt-5.4-pro'       => [
+                                'title' => esc_html__('GPT-5.4 Pro (Most Capable)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 8000

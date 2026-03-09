@@ -126,8 +126,17 @@
 								var checked = e.checked;
 								for(var j = 0, k = me.choicesDep[i].length; j < k; j++)
 								{
-									if(!/fieldname/i.test(me.choicesDep[i][j])) continue;
-									var dep = me.choicesDep[i][j]+form_identifier;
+									if(!/(fieldname)|(__next_page__)|(__submit_button__)/i.test(me.choicesDep[i][j])) continue;
+									let dep, isField = false;
+                                    if ( /fieldname\d+/i.test(me.choicesDep[i][j]) ) {
+                                        dep = me.choicesDep[i][j] + form_identifier; // Another field dependency
+                                        isField = true;
+                                    } else if ( me.choicesDep[i][j] == '__next_page__' ) {
+                                        dep = '.pb' + item.closest('.pbreak').attr('page') + ':not(.pbEnd) .pbNext'; // Next page dependency
+                                    } else {
+                                        dep = '.pbSubmit,.captcha'; // Submission button dependency
+                                    }
+
 									if(isHidden || !checked)
 									{
 										if(typeof toShow[dep] != 'undefined')
@@ -139,8 +148,12 @@
 
 										if(typeof toShow[dep] == 'undefined')
 										{
-											$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').addClass('ignorefield').hide();
-											$('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
+                                            if (isField) {
+											    $('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').addClass('ignorefield').hide();
+											    $('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
+                                            } else {
+                                                $(dep, formObj).hide();
+                                            }
 											toHide[dep] = {};
 										}
 									}
@@ -152,8 +165,12 @@
 										toShow[dep]['ref'][me.name+'_'+i]  = 1;
 										if(!(dep in hiddenByContainer))
 										{
-											$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
-											$('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
+                                            if (isField) {
+											    $('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
+											    $('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
+                                            } else {
+                                                $(dep, formObj).fadeIn(interval || 0);
+                                            }
 										}
 									}
 									if($.inArray(dep,result) == -1) result.push(dep);
