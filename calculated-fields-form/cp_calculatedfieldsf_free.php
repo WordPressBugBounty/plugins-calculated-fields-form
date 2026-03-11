@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.4.9
+ * Version: 5.4.5.0
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.4.9' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.5.0' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -131,7 +131,8 @@ function cp_calculated_fields_form_check_posted_data() {
 			isset( $_POST['cp_calculatedfieldsf_post_options'] ) &&
 			is_admin() &&
 			isset( $_POST['_cpcff_nonce'] ) &&
-			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_cpcff_nonce'] ) ), 'cff-form-settings' )
+			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_cpcff_nonce'] ) ), 'cff-form-settings' ) &&
+			current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_options'))
 		) {
 
 			cp_calculatedfieldsf_save_options();

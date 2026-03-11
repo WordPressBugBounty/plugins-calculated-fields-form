@@ -2,7 +2,7 @@
 
 // phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
 // phpcs:disable Squiz.PHP.EmbeddedPhp.ContentAfterEnd
-if ( ! is_admin() ) {
+if ( ! is_admin() || ! current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_options')) ) {
 	print 'Direct access not allowed.';
 	exit;
 }

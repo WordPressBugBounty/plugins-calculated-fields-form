@@ -4,7 +4,7 @@
 // phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeEnd
 // phpcs:disable Squiz.PHP.EmbeddedPhp.ContentAfterEnd
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-if ( ! is_admin() ) {
+if ( ! is_admin() || ! current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_options')) ) {
 	print 'Direct access not allowed.';
 	exit;
 }

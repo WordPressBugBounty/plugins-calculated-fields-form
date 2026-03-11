@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.5.0 =
+
+* Improves the plugin security by validating user capabilities. Thanks to the Wordfence team and their contributors.
+
 = 5.4.4.9 =
 
 * Adds conditional logic to the Next Page button, Submit button, payment options, and CAPTCHA, allowing them to depend on other field values like any form control.

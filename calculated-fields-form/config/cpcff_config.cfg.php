@@ -100,6 +100,8 @@ define( 'CP_CALCULATEDFIELDSF_DEFAULT_vs_text_digits', 'Please enter only digits
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_vs_text_max', 'Please enter a value less than or equal to {0}.' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_vs_text_min', 'Please enter a value greater than or equal to {0}.' );
 
+define('CP_CALCULATEDFIELDSF_INSUFFICIENT_PERMISSIONS', 'Insufficient permissions');
+
 global $cpcff_default_texts_array;
 $cpcff_default_texts_array = array(
 	'page_of_text'        => array(
