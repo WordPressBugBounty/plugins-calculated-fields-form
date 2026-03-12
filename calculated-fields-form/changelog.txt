@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.4.5.1 =
 = 5.4.5.0 =
 
 * Improves the plugin security by validating user capabilities. Thanks to the Wordfence team and their contributors.

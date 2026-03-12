@@ -39,7 +39,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 			if (
 				isset( $_REQUEST['cff-action'] ) &&
 				'cff-gutenberg-editor-config' == $_REQUEST['cff-action'] &&
-				current_user_can( 'edit_posts' )
+				current_user_can( 'edit_posts' ) // This module displays a form preview in the editor. It does not allow modifying the form.
 			) {
 				remove_all_actions( 'shutdown' );
 				die( json_encode( $this->gutenberg_editor_config() ) );
@@ -85,7 +85,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 									);
 
 									foreach ($rows as $item) {
-										$options[$item->id] = ['label' => '(' . $item->id . ') ' . $item->form_name];
+										$options[$item->id] = ['label' => esc_html( '(' . $item->id . ') ' . $item->form_name )];
 									}
 
 								}
@@ -169,7 +169,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 
 			$config = array(
 				'url'      => $url,
-				'is_admin' => current_user_can( 'manage_options' ),
+				'is_admin' => current_user_can( apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ) ),
 				'editor'   => CPCFF_AUXILIARY::editor_url(),
 				'forms'    => array(),
 				'templates' => array(),
@@ -187,7 +187,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 			$forms = CPCFF_FORM::forms_list();
 
 			foreach ( $forms as $form ) {
-				$config['forms'][ $form->id ] = esc_attr( '(' . $form->id . ') ' . $form->form_name );
+				$config['forms'][ $form->id ] = esc_html( '(' . $form->id . ') ' . $form->form_name );
 			}
 
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH.'/inc/cpcff_templates.inc.php';

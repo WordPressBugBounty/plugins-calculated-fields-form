@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.5.0
+Stable tag: 5.4.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,7 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.5.1 =
 = 5.4.5.0 =
 
 * Improves the plugin security by validating user capabilities. Thanks to the Wordfence team and their contributors.
@@ -479,10 +480,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Enhances the AI Assistant module by improving local model inference performance and optimizing overall functionality. The AI Assistant settings section has also been updated to provide clear feedback when configuration changes have not been saved.
 Since most users do not have devices with sufficient resources to run local inferences efficiently, the assistant no longer loads local models by default. Instead, it offers alternative providers and models as the default option, while still allowing users to select and run models locally if they prefer.
-
-= 5.4.4.5 =
-
-* Updates the Forms List to ensure full compatibility with WordPress 7.x (currently in beta).
-* Adds support for Claude Sonnet 4.6, expanding AI capabilities and performance.
-* Enhances the AI Form Generator module, allowing users to request additional form modifications directly from the AI model.
-* Improves the Event Calendar add-on to prevent issues caused by empty date values, including missing Start or End dates (Platinum plugin distribution).

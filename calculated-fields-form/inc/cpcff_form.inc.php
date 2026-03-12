@@ -323,14 +323,19 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 					$v = preg_replace( '/(\b)_style\s*=/i', '$1style=', $v);
 					$i_l = strtolower( $i );
 					if (
+						! current_user_can( 'unfiltered_html' ) || 
 						! in_array( $i_l, array( 'eq', 'fcontent', 'customstyles', 'rule', 'sonclick', 'sonmousedown' ) )
 					) {
-						$v = str_replace( '&', 'cff___amp', $v );
-						$v = CPCFF_AUXILIARY::sanitize( wp_slash($v), true, true );
- 						$v = str_ireplace( ['&lt;', '&gt;', '&amp;'], ['<', '>', '&'], $v );
- 						$v = str_replace( 'cff___amp', '&', $v );
+						if ( current_user_can( 'unfiltered_html' ) ) { // The plugin accepts advanced tags for users with total control over the website.
+							$v = str_replace( '&', 'cff___amp', $v );
+							$v = CPCFF_AUXILIARY::sanitize( wp_slash($v), true, true );
+							$v = str_ireplace( ['&lt;', '&gt;'], ['<', '>'], $v );
+							$v = str_replace( 'cff___amp', '&', $v );
+						} else {
+							$v = wp_kses_post($v);
+						}
 					} elseif ( 'customstyles' == $i_l ) {
-						$v = str_replace( '&gt;', '>', wp_kses( $v, 'strip') );
+						$v = sanitize_textarea_field( $v );
 					}
 				}
 
