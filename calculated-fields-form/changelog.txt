@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.4.5.2 =
+
+* Enhances the form submission process to ensure validation rules are executed even when the form is submitted programmatically.
+* Implements the SUBMITFORM operation within the Managing Fields module, allowing users to trigger form submission via code when needed.
+* Updates the predefined form layouts for improved structure and usability.
+* Replaces the Apply Coupon icon with a standard button to provide a more user-friendly interface (available in Professional, Developer, and Platinum editions).
+
 = 5.4.5.1 =
 = 5.4.5.0 =
 

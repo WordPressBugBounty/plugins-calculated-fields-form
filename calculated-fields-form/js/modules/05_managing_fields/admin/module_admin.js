@@ -134,6 +134,11 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
 								"tip" : "<p>Print the form only. Passing the true or 1 as the PRINTFORM parameter, it prints every page in a multipage form. E.g. PRINTFORM(); or PRINTFORM(true); for printing all pages in multipage form.</p>"
 							},
                             {
+								"value" : "SUBMITFORM",
+								"code" : "SUBMITFORM(",
+								"tip" : "<p>Submits the form. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, the plugin tries to identify the active form, and if it fails, it does nothing. E.g. SUBMITFORM();</p>"
+							},
+                            {
 								"value" : "RESETFORM",
 								"code" : "RESETFORM(",
 								"tip" : "<p>Resets the form to the original fields values. Accepts an optional parameter: form object, jQuery object or selector. If the parameter is omitted, it resets all forms on the page. E.g. RESETFORM();</p>"

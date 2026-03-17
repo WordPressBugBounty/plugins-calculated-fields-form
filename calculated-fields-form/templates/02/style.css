@@ -134,7 +134,7 @@ min-height:32px;cursor:pointer;}
 .cp_cff_professional #fbuilder .pbSubmit:hover,
 .cp_cff_professional #fbuilder .pbPrevious:hover,
 .cp_cff_professional #fbuilder .pbNext:hover{
-transform:scale(1.1);
+transform:scale(1.05);
 }
 
 .cp_cff_professional #fbuilder button:not([class*="trumbowyg"]):active,
@@ -167,8 +167,6 @@ background:#8eb92a;
 .cp_cff_professional #fbuilder .section_breaks{margin-top:20px; margin-bottom:20px;}
 .cp_cff_professional #fbuilder .section_breaks>label{font-size:1.3em;}
 .cp_cff_professional #fbuilder .section_breaks .section_break{border:0;}
-
-.cp_cff_professional #fbuilder .apply-coupon{background: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjYmZkMjU1IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz48L3N2Zz4=');}
 
 .cp_cff_professional #fbuilder .discount-container{margin-top:10px;font-weight:bold;color: #bfd255;}
 

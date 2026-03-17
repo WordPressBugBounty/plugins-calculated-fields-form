@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.5.1
+Stable tag: 5.4.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.5.2 =
+
+* Enhances the form submission process to ensure validation rules are executed even when the form is submitted programmatically.
+* Implements the SUBMITFORM operation within the Managing Fields module, allowing users to trigger form submission via code when needed.
+* Updates the predefined form layouts for improved structure and usability.
+* Replaces the Apply Coupon icon with a standard button to provide a more user-friendly interface (available in Professional, Developer, and Platinum editions).
+
 = 5.4.5.1 =
 = 5.4.5.0 =
 
@@ -475,8 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Adds support for Gemini 3 Flash Preview and Gemini 3.1 Pro Preview models, enabling faster and more advanced AI-powered form generation.
 * Introduces three new pre-designed layouts, easily selectable from the 'Form Settings' tab for improved form customization and styling.
-
-= 5.4.4.6 =
-
-* Enhances the AI Assistant module by improving local model inference performance and optimizing overall functionality. The AI Assistant settings section has also been updated to provide clear feedback when configuration changes have not been saved.
-Since most users do not have devices with sufficient resources to run local inferences efficiently, the assistant no longer loads local models by default. Instead, it offers alternative providers and models as the default option, while still allowing users to select and run models locally if they prefer.

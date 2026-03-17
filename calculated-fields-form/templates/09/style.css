@@ -161,8 +161,6 @@ body{
     *[dir="rtl"] .cp_cff_box #fbuilder .fields.column4{float:right;}
 }
 
-.cp_cff_box #fbuilder .apply-coupon{background: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMjQ3MUZGIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz48L3N2Zz4=');}
-
 .cp_cff_box #fbuilder .discount-container{margin-top:10px;}
 .cp_cff_box .kbw-signature ~ div{margin: 15px 0 0 5px;}
 

@@ -98,8 +98,6 @@ body{--cff_main_slider_color:#204a70;}
 .cp_cff_letter #fbuilder .select2-selection--single{border-bottom:1px solid #bbb;border-top:1px solid #999;border-left:1px solid #bbb;border-right:1px solid #bbb;border-radius:4px;}
 .cp_cff_letter #fbuilder .select2-dropdown *{text-shadow:none;}
 .cp_cff_letter #fbuilder .select2-results__option--highlighted{background:#2c85d4;}
-.cp_cff_letter #fbuilder .apply-coupon{background:url(3936976.png) no-repeat;width:35px;height:35px;background-size:contain;}
-.cp_cff_letter #fbuilder .apply-coupon:hover{transform:scale(1.1);}
 
 .cp_cff_letter #fbuilder .cff-timeslot{border-color:#204a70;}
 .cp_cff_letter #fbuilder .cff-timeslot[data-selected="1"],

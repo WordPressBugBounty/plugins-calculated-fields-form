@@ -323,7 +323,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 					$v = preg_replace( '/(\b)_style\s*=/i', '$1style=', $v);
 					$i_l = strtolower( $i );
 					if (
-						! current_user_can( 'unfiltered_html' ) || 
+						! current_user_can( 'unfiltered_html' ) ||
 						! in_array( $i_l, array( 'eq', 'fcontent', 'customstyles', 'rule', 'sonclick', 'sonmousedown' ) )
 					) {
 						if ( current_user_can( 'unfiltered_html' ) ) { // The plugin accepts advanced tags for users with total control over the website.

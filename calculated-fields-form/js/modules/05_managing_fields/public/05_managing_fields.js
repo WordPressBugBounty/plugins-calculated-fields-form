@@ -480,6 +480,16 @@
 
     }
 
+    lib.submitform = lib.SUBMITFORM = function(f)
+    {
+        if (typeof f != 'undefined') {
+            let fObj = $(f);
+            if (fObj.length && fObj[0].tagName == 'FORM') fObj.submit();
+        } else if ( 'currentFormId' in $.fbuilder ) {
+            $('[id="' + $.fbuilder.currentFormId + '"]').submit();
+        }
+    };
+
 	lib.RESETFORM = lib.resetform = function(f)
 	{
 		function _reset(f){

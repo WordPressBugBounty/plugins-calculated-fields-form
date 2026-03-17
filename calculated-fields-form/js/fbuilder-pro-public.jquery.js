@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.5.1';
+	$.fbuilder['version'] = '5.4.5.2';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -519,6 +519,7 @@
 
 		opt.messages = $.extend(
 			{
+                apply_coupon: "Apply Coupon",
 				previous: "Previous",
 				next: "Next",
 				pageof: "Page {0} of {0}",
@@ -1127,6 +1128,18 @@
 												resizeIframe(f);
 											} catch(err){}
 										})).observe(f[0]);
+
+                                        // Replace the default submit action to ensure the validations are executed.
+                                        try {
+                                            f[0].nativeSubmit = f[0].submit;
+                                            f[0].submit = function() {
+                                                if ( 'SUBMITFORM' in window && typeof window.SUBMITFORM == 'function' ) {
+                                                    SUBMITFORM(this);
+                                                } else {
+                                                    f[0].nativeSubmit();
+                                                }
+                                            };
+                                        } catch(err){}
 									}
 								};
 							} )( opt, this.formId ) );
