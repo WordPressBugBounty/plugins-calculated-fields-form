@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.5.2';
+	$.fbuilder['version'] = '5.4.5.3';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1348,7 +1348,9 @@
 						$(document).trigger('cff-form-submitted', form);
 					});
 				}
-				form[0].submit();
+
+				if('nativeSubmit' in form[0]) form[0].nativeSubmit();
+				else form[0].submit();
 			},
 			form_identifier = form.find('[name="cp_calculatedfieldsf_pform_psequence"]').val();
 

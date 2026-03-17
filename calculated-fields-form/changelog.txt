@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.5.3 =
+
+* Fixes a conflict with last WP version.
+
 = 5.4.5.2 =
 
 * Enhances the form submission process to ensure validation rules are executed even when the form is submitted programmatically.
