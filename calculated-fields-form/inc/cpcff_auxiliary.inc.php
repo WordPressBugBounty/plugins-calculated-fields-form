@@ -545,6 +545,33 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				);
 		} // End is_crawler.
 
+		public static function encrypt($plain)
+		{
+            if ( ! function_exists( 'openssl_cipher_iv_length' ) || ! function_exists( 'openssl_encrypt' ) ) {
+				return $plain;
+			}
+			$key = self::_get_key();
+			$ivlen = openssl_cipher_iv_length("AES-256-CBC");
+			$iv = substr(md5($key), 0, $ivlen);
+			$encrypted = openssl_encrypt($plain, "AES-256-CBC", $key, 0, $iv);
+			return $encrypted ? $encrypted : $plain;
+		} // End encrypt
+
+		public static function decrypt($encrypted, $on_invalid_return = false)
+		{
+            if($encrypted)
+            {
+                if ( ! function_exists( 'openssl_cipher_iv_length' ) || ! function_exists( 'openssl_decrypt' ) ) {
+                    return $on_invalid_return;
+                }
+				$key = self::_get_key();
+				$ivlen = openssl_cipher_iv_length("AES-256-CBC");
+				$iv = substr(md5($key), 0, $ivlen);
+				return openssl_decrypt($encrypted, "AES-256-CBC", $key, 0, $iv);
+			}
+			return $on_invalid_return;
+		} // End decrypt
+
 		/**
 		 * Checks if the uploaded file is supported by WordPress and it is not a dangerous  file.
 		 *
@@ -1170,6 +1197,18 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		} // End parsing_fields_on_text.
 
 		/*********************************** PRIVATE METHODS  ********************************************/
+
+		private static function _get_key()
+		{
+			$cpcff_key = get_option('cpcff_key', false);
+			if($cpcff_key == false)
+			{
+				$cpcff_key = wp_generate_password();
+				update_option('cpcff_key', $cpcff_key);
+			}
+			return $cpcff_key;
+
+		} // End _get_key
 
 		/**
 		 * Extracts all tags with the format <%...%> from the text.

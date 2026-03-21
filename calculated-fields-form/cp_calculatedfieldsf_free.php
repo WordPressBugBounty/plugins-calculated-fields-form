@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.5.3
+ * Version: 5.4.5.4
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.5.3' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.5.4' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -171,6 +171,20 @@ function cp_calculated_fields_form_check_posted_data() {
 					)
 				)
 			) {
+				// Check the minimum time to submit the form
+				$min_time = get_option('CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT);
+				if ( ! empty( $min_time ) )
+				{
+					if (
+						empty( $_POST['cff_form_start_time'] ) ||
+						empty( $start_time = CPCFF_AUXILIARY::decrypt( $_POST['cff_form_start_time'], $_POST['cff_form_start_time'] ) ) ||
+						$start_time + $min_time > time()
+					) {
+						esc_html_e( 'You are submitting the form too quickly, or with invalid data, and are being identified as a spam bot. Please take more time to fill the form.', 'calculated-fields-form' );
+						exit;
+					}
+				}
+
 				$form_obj = $cpcff_main->get_form( CP_CALCULATEDFIELDSF_ID );
 				if ( $form_obj ) {
 					require_once( ABSPATH . "wp-admin" . '/includes/file.php' );
@@ -233,6 +247,7 @@ function cp_calculated_fields_form_check_posted_data() {
 					$passwords_to_hash   = [];
 					$passwords_to_plain  = [];
 
+					$count_of_non_empty_fields = 0;
 					foreach ( $_POST as $item => $value ) {
 						$fieldname = str_replace( $sequence, '', $item );
 						if ( isset( $fields[ $fieldname ] ) ) {
@@ -250,8 +265,10 @@ function cp_calculated_fields_form_check_posted_data() {
 								$ftype = strtolower($current_field->ftype);
 								if ( is_array( $value ) ) {
 									$value = CPCFF_AUXILIARY::array_map_recursive( $value, 'wp_unslash' );
+									$count_of_non_empty_fields += count($value) ? 1 : 0;
 								} else {
 									$value = wp_unslash( $value );
+									$count_of_non_empty_fields += $value !== '' ? 1 : 0;
 								}
 
 								if ( $ftype == 'ftextarea' || $ftype == 'ftextareads' ) {
@@ -439,11 +456,18 @@ function cp_calculated_fields_form_check_posted_data() {
 								$params[ $item . '_links' ] = implode( "\n", $files_links_arr );
 								$params[ $item . '_paths' ] = $params[ $item . '_links' ];
 								$params[ $item . '_urls' ]  = implode( "\n", $files_urls_arr );
+								$count_of_non_empty_fields += ! empty( $params[$item] ) ? 1 : 0;
 							}
 						}
 						remove_filter( 'upload_dir', 'CPCFF_AUXILIARY::upload_dir', 1 );
 
 					} // End uploaded files processing
+
+					if(count($params) < 2 || $count_of_non_empty_fields == 0) // only formid or empty fields, so the form is empty
+					{
+						esc_html_e( 'The form is empty', 'calculated-fields-form' );
+						exit;
+					}
 
 					$ipaddr                            = ( 'true' == $form_obj->get_option( 'fp_inc_additional_info', CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info ) && ! empty( $_SERVER['REMOTE_ADDR'] ) ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 					$params['ipaddress']               = $ipaddr;

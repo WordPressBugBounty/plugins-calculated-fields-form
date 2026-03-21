@@ -114,6 +114,13 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 	update_option( 'CP_CALCULATEDFIELDSF_ENCODING_EMAIL', ( isset( $_GET['em'] ) && '1' == $_GET['em'] ? 1 : 0 ) );
 	update_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', ( isset( $_GET['ecr'] ) && '1' == $_GET['ecr'] ? 1 : 0 ) );
 	update_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', ( isset( $_GET['df'] ) && '1' == $_GET['df'] ? 1 : 0 ) );
+
+    $mtts = sanitize_text_field(wp_unslash($_GET["mtts"] ?? ''));
+    if ( ! empty( $mtts ) )  {
+        $mtts = is_numeric( $mtts ) ? intval( $mtts ) : CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT;
+    }
+    update_option( 'CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', $mtts );
+
 	update_option( 'CP_CALCULATEDFIELDSF_AMP', ( isset( $_GET['amp'] ) && '1' == $_GET['amp'] ? 1 : 0 ) );
 	update_option( 'CP_CALCULATEDFIELDSF_NONCE', ( isset( $_GET["nc"] ) && '1' == $_GET["nc"] ? 1 : 0 ) );
 
@@ -286,8 +293,9 @@ function cp_updateConfig()
 			ecr = (document.getElementById("ccexcludecrawler").checked) ? 1 : 0,
 			nc  = (document.getElementById("ccusenonce").checked) ? 1 : 0,
 			em  = (document.getElementById("ccencodingemail").checked) ? 1 : 0;
+            mtts = document.getElementById("ccminimumtimetosubmit").value.replace( /[^\d]/g, '' );
 
-		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&ov='+ov+'&amp='+amp+'&nc='+nc+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
+		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&ov='+ov+'&amp='+amp+'&nc='+nc+'&mtts='+encodeURIComponent( mtts )+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
 	}
 }
 
@@ -650,6 +658,8 @@ function cp_update_default_settings(e)
 					<br /><i><?php esc_html_e( '* The forms are not loaded when website is being indexed by searchers.', 'calculated-fields-form' ); ?></i>
 					<br /><br />
 					<label><input type="checkbox" name="ccusenonce" id="ccusenonce" <?php echo ( intval( get_option( 'CP_CALCULATEDFIELDSF_NONCE', 0 ) ) ? 'CHECKED' : '' ); ?> /> <?php _e( 'Protect the forms with nonce', 'calculated-fields-form' ); ?></label>
+                    <br /><br />
+                    <label for="ccminimumtimetosubmit"><?php esc_html_e( 'Enable minimum time to submit (in seconds)', 'calculated-fields-form' );?></label> <input type="number" name="ccminimumtimetosubmit" id="ccminimumtimetosubmit" value="<?php print esc_attr( get_option( 'CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT ) ); ?>" size="3" />
                     <br /><br />
 					<input type="button" onclick="cp_updateConfig();" name="gobtn" value="<?php esc_attr_e( 'UPDATE', 'calculated-fields-form' ); ?>" class="button-secondary" />
 					<br />

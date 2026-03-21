@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.5.4 =
+
+* Implements the 'Enable minimum time to submit (in seconds)' security feature to help detect and block bot submissions that bypass other security measures.
+* Verifies that the form is not submitted empty; if all fields are blank, an additional security check intercepts the submission and displays an error message.
+
 = 5.4.5.3 =
 
 * Fixes a conflict with last WP version.

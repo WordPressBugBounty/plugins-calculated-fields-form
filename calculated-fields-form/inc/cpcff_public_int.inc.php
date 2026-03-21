@@ -170,6 +170,12 @@ if ( property_exists( $form_data[1][0], 'direction' ) ) {
 <div class="clearer"></div>
 	<?php
 	wp_nonce_field( 'cpcff_form_' . $id . '_' . CPCFF_MAIN::$form_counter, '_cpcff_public_nonce' );
+
+    // Minimum time to submit validation field
+    if ( ! empty( $min_time_to_submit = get_option( 'CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT ) ) )
+    {
+        echo '<input type="hidden" name="cff_form_start_time" value="' . esc_attr( CPCFF_AUXILIARY::encrypt( time() ) ) . '">';
+    }
 	?>
 </form>
 	<?php
