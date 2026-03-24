@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.5.5
+Stable tag: 5.4.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.5.6 =
+
+* Fixes an issue in the Divi 5 integration module.
+
 = 5.4.5.5 =
 
 * Modifies the default thank-you page URL behavior. If the URL is empty after form submission, the user is redirected to the page containing the form.
@@ -482,8 +486,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Implements the SUBMITFORM operation within the Managing Fields module, allowing users to trigger form submission via code when needed.
 * Updates the predefined form layouts for improved structure and usability.
 * Replaces the Apply Coupon icon with a standard button to provide a more user-friendly interface (available in Professional, Developer, and Platinum editions).
-
-= 5.4.5.1 =
-= 5.4.5.0 =
-
-* Improves the plugin security by validating user capabilities. Thanks to the Wordfence team and their contributors.

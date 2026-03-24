@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.5.6 =
+
+* Fixes an issue in the Divi 5 integration module.
+
 = 5.4.5.5 =
 
 * Modifies the default thank-you page URL behavior. If the URL is empty after form submission, the user is redirected to the page containing the form.
