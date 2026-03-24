@@ -523,4 +523,10 @@ jQuery(function () {
     window['cff_templatesInCategory'] = displayTemplates;
     window['cff_filteringFormsByText'] = formsByText;
 	window['cff_displayAIGenerator'] = displayAIGenerator;
+
+    // Open the dialog if it is in the correct section:
+    if (/cp_calculated_fields_form_sub_new/i.test(document.location.search)) {
+        cff_openLibraryDialog(true);
+        if (/ai=1/i.test(document.location.search)) $('.cff-form-library-ai-forms a').trigger('click');
+    }
 });

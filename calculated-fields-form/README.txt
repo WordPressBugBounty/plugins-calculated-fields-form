@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.5.4
+Stable tag: 5.4.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,16 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.5.5 =
+
+* Modifies the default thank-you page URL behavior. If the URL is empty after form submission, the user is redirected to the page containing the form.
+* Improves validation handling by introducing a countdown timer and automatically redirecting users back to the form once the timer ends.
+* Updates the list of supported Gemini models.
+* Optimizes the 'Create New Form' dialog for a smoother user experience.
+* Adds a new button in the create form section over the Forms list to provide direct access to the AI Form Generation section.
+* Removes certain characters from field short labels to prevent conflicts when exporting to CSV or using them with data source controls.
+* Enhances the Submissions Data Source module to support filtering by short labels and to include short labels in returned records, simplifying the generalization process (available in Developer and Platinum versions).
+
 = 5.4.5.4 =
 
 * Implements the 'Enable minimum time to submit (in seconds)' security feature to help detect and block bot submissions that bypass other security measures.
@@ -477,8 +487,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.4.5.0 =
 
 * Improves the plugin security by validating user capabilities. Thanks to the Wordfence team and their contributors.
-
-= 5.4.4.9 =
-
-* Adds conditional logic to the Next Page button, Submit button, payment options, and CAPTCHA, allowing them to depend on other field values like any form control.
-* Includes support for GPT-5.4 and GPT-5.4 Pro.

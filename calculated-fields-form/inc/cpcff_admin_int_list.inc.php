@@ -382,6 +382,7 @@ function cp_update_default_settings(e)
 						</datalist>
 						<input type="button" onclick="cp_addItem();" name="gobtn" value="<?php esc_attr_e( 'Create Form', 'calculated-fields-form' ); ?>" class="button-primary" style="margin-top:5px;" />
 						<input type="button" onclick="if( ! ('reportValidity' in this.form) || this.form.reportValidity() ) document.location.href='admin.php?page=cp_calculated_fields_form_sub_new&form_name='+encodeURIComponent(this.form.cp_itemname.value)+'&form_category='+encodeURIComponent(this.form['calculated-fields-form-category'].value);" name="gobtn" value="<?php esc_attr_e( 'From Template', 'calculated-fields-form' ); ?>" class="button-secondary" style="margin-top:5px;" />
+                        <input type="button" onclick="if( ! ('reportValidity' in this.form) || this.form.reportValidity() ) document.location.href='admin.php?page=cp_calculated_fields_form_sub_new&form_name='+encodeURIComponent(this.form.cp_itemname.value)+'&form_category='+encodeURIComponent(this.form['calculated-fields-form-category'].value)+'&ai=1';" name="gobtn" value="<?php esc_attr_e( 'AI Generator', 'calculated-fields-form' ); ?>" class="button-secondary" style="margin-top:5px;" />
 					</div>
 				</form>
 				<i id="cff-top-position"></i>

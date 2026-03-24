@@ -1773,7 +1773,13 @@
 
 				$("#sShortlabel").on("input", {obj: this}, function(e)
 					{
-						e.data.obj.shortlabel = $(this).val();
+                        // Santize shortlabel to allow using it effectively as an selector in DS fields.
+                        let v = String($(this).val())
+                            .replace(/[\u0000-\u001F"\\]/g, '')
+                            .replace(/\,/g, ' ')
+                            .replace(/\s+/g, ' ')
+                            .trim();
+						e.data.obj.shortlabel = v;
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
@@ -2181,12 +2187,6 @@
 			$('#metabox_troubleshoot_area')[0].scrollIntoView();
 		} else if ( /cp_calculated_fields_form_sub_import_export/i.test(document.location.search) ) {
 			$('#metabox_import_export_area')[0].scrollIntoView();
-		} else if ( /cp_calculated_fields_form_sub_new/i.test(document.location.search) ) {
-			if ( typeof cff_openLibraryDialog == 'undefined') {
-				setTimeout(function() { if( 'cff_openLibraryDialog' in window ) cff_openLibraryDialog( true ); }, 1000);
-			} else {
-				cff_openLibraryDialog( true );
-			}
 		}
 		$( '#cff-ai-assistant-container' ).draggable({ handle: ".cff-ai-assistan-title", containment: "window",  drag: function(evt, ui) {
 			ui.position.top = Math.max(35, ui.position.top);

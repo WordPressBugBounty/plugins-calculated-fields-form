@@ -160,13 +160,19 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'max_tokens' => 8000
                             ],
                             'gemini-3-flash-preview'                => [
-                                'title' => esc_html__('Gemini 3 Flash Preview', 'calculated-fields-form'),
+                                'title' => esc_html__('Gemini 3 Flash', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 8000
+                            ],
+                            'gemini-3.1-flash-lite-preview'                => [
+                                'title' => esc_html__('Gemini 3.1 Flash-Lite', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 8000
                             ],
                             'gemini-3.1-pro-preview'                => [
-                                'title' => esc_html__('Gemini 3.1 Pro Preview', 'calculated-fields-form'),
+                                'title' => esc_html__('Gemini 3.1 Pro', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 8000

@@ -428,7 +428,10 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 					$value = $cpcff_default_texts_array;
 				}
 			} elseif ( $option == 'fp_return_page' ) {
-				$value = empty( $value ) ? $default : $value;
+				$value = trim( $value );
+				if (!is_admin()) {
+					if ( empty($value) ) $value = '<%from_page%>';
+				}
 			} elseif (
 				in_array(
                     $option,

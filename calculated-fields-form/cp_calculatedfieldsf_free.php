@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.5.4
+ * Version: 5.4.5.5
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.5.4' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.5.5' );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -158,6 +158,11 @@ function cp_calculated_fields_form_check_posted_data() {
 			is_numeric( $_POST['cp_calculatedfieldsf_id'] ) &&
 			isset( $_POST['cp_calculatedfieldsf_pform_psequence'] )
 		) {
+			// JS code to redirect the user to the form page.
+			$js_redirect = function() {
+				print "<span id='cp_calculatedfieldsf_redirect_counter' style='margin-left:10px'></span><script type='text/javascript'>(function(){let n = 6; let __counter=function(){n--;if(n<=0){history.back();}else{document.getElementById('cp_calculatedfieldsf_redirect_counter').innerHTML=n;setTimeout(__counter, 1000);}};__counter();})();</script>";
+			};
+
 			$sequence = sanitize_text_field( wp_unslash( $_POST['cp_calculatedfieldsf_pform_psequence'] ) );
 			define( 'CP_CALCULATEDFIELDSF_ID', intval( $_POST['cp_calculatedfieldsf_id'] ) );
 
@@ -181,6 +186,7 @@ function cp_calculated_fields_form_check_posted_data() {
 						$start_time + $min_time > time()
 					) {
 						esc_html_e( 'You are submitting the form too quickly, or with invalid data, and are being identified as a spam bot. Please take more time to fill the form.', 'calculated-fields-form' );
+						$js_redirect();
 						exit;
 					}
 				}
@@ -466,6 +472,7 @@ function cp_calculated_fields_form_check_posted_data() {
 					if(count($params) < 2 || $count_of_non_empty_fields == 0) // only formid or empty fields, so the form is empty
 					{
 						esc_html_e( 'The form is empty', 'calculated-fields-form' );
+						$js_redirect();
 						exit;
 					}
 
