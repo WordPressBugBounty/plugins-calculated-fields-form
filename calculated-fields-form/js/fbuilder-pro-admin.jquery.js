@@ -112,7 +112,7 @@
 			o[item.name] =
 			'<div class="cff-field-information">'+
 				'<div class="field-information">'+
-					'<span class="field-name"><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView();e.click();">'+n+'</a></span>'+
+					'<span class="field-name"><a href="javascript:window.opener.document.getElementById(\'metabox_form_structure\').scrollIntoView({block:\'center\'});e=window.opener.document.getElementsByClassName(\'' + item.name +'\')[0];if(e){while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView({block:\'nearest\'});e.click();}">'+n+'</a></span>'+
 					'<span class="field-type">'+('' != c ? s+cff_esc_attr(c) : '')+'</span>'+
 					'<span class="field-label">'+('' != l ? s+cff_esc_attr(l) : '')+'</span>'+
 					'<span class="field-excluded">'+('exclude' in item && item.exclude ? s+'X' : '' )+'</span>'+
@@ -145,8 +145,9 @@
 					});
 				}
 			});
-			f.focus();
 			w.scrollTo(0,0);
+            w.focus();
+			f.focus();
 		} catch ( err ) {}
     };
 

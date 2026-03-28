@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.5.6';
+	$.fbuilder['version'] = '5.4.5.7';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -237,8 +237,13 @@
 					pageToHide.find(".field,[name='bccf_payment_option_paypal']").addClass("ignorepb");
 					pageToShow.fadeIn(t, function(){
 						pageToShow.find(".ignorepb").removeClass("ignorepb");
+                        try {
+                            if ('callback' in config) {
+                                let callback_result = config.callback(pageToShow);
+                                if (typeof callback_result == 'boolean' && callback_result === false) return;
+                            }
+                        } catch (err) { console.log(err); }
 						callback();
-						if('callback' in config) config.callback();
 					});
 				});
 			} else {
@@ -250,8 +255,13 @@
 					pageToShow.css({width:w, marginLeft:-1*d*w}).show().animate({width:w, marginLeft:0}, t, 'linear', function(){
 						pageToShow.css('width', '100%');
 						pageToShow.find(".ignorepb").removeClass("ignorepb");
+                        try {
+                            if ('callback' in config) {
+                                let callback_result = config.callback(pageToShow);
+                                if ( typeof callback_result == 'boolean' && callback_result === false ) return;
+                            }
+                        } catch(err) {console.log(err);}
 						callback();
-						if('callback' in config) config.callback();
 					});
 				});
 			}
@@ -720,26 +730,33 @@
 
 					fieldlist_tag.find(".pbPrevious,.pbNext").on("keyup", function(evt){
 						if(evt.which == 13 || evt.which == 32) $(this).trigger('click');
-					}).on("click", {'identifier' : opt.identifier}, function(evt){
+					}).on("click", {'identifier' : opt.identifier}, function(evt, animate){
 						var _from = ($.fbuilder.forms[evt.data.identifier]['currentPage'] || 0),
 							_inc  = ($(this).hasClass("pbPrevious")) ? -1 : 1,
-							_p = $.fbuilder['goToPage'](
+                            _args = {
+                                'formIdentifier' : evt.data.identifier,
+                                'from'			 : _from,
+                                'to'			 : _from+_inc,
+                                'callback'       : function(_pDom)
                                 {
-                                    'formIdentifier' : evt.data.identifier,
-                                    'from'			 : _from,
-                                    'to'			 : _from+_inc,
-                                    'callback'       : function()
-                                    {
-                                        setTimeout(function(){
-                                            if(_from != _p) $.fbuilder.setBrowserHistory();
-                                            if(_pDom.find('.fields:visible').length == 0)
-                                                if(_inc == -1 && 0 < _p) _pDom.find('.pbPrevious').trigger('click');
-                                                else if(!_pDom.hasClass('pbEnd')) _pDom.find('.pbNext').trigger('click');
-                                        }, 10);
+                                    let _p = _pDom.attr('page')*1;
+                                    if(_pDom.find('.fields:visible').length == 0) {
+                                        if(_inc == -1 && 0 < _p) {
+                                            _pDom.find('.pbPrevious').trigger('click', false);
+                                            return false;
+                                        }
+                                        else if(!_pDom.hasClass('pbEnd')) {
+                                            _pDom.find('.pbNext').trigger('click', false);
+                                            return false;
+                                        }
+                                    } else {
+                                        if(_from != _p) $.fbuilder.setBrowserHistory();
                                     }
-                                }),
-                            _pDom = $('.pb'+_p);
-
+                                    return true;
+                                }
+                            };
+                        if(typeof animate != 'undefined') _args['animate'] = animate;
+                        $.fbuilder['goToPage'](_args);
                         return false;
 					});
                 }

@@ -119,7 +119,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						endif;
 						?>
 						<input type="button" name="cff_fields_list" class="button-secondary" value="<?php print wp_is_mobile() ? '&#9776;' : esc_attr__( 'Fields List', 'calculated-fields-form' ); ?>" title="<?php esc_attr_e( 'Fields List', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.printFields();" />
-						<input type="button" name="previewbtn" id="previewbtn2" class="button-primary" value="<?php esc_attr_e( 'Save and Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="<?php esc_attr_e( "Saves the form's structure only, and opens a preview windows", 'calculated-fields-form' ); ?>" />
+						<input type="button" name="previewbtn" id="previewbtn2" class="button-primary" value="<?php esc_attr_e( 'Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="<?php esc_attr_e( "Saves the form's structure only, and opens a preview windows", 'calculated-fields-form' ); ?>" />
 						&nbsp;|&nbsp;
 						<input type="button" name="cff_ai_assistant" class="button cff-ai-assistant" value="<?php esc_attr_e( 'AI Assistant', 'calculated-fields-form' ); ?>" onclick="if('cff_ai_assistant_open' in window) cff_ai_assistant_open();" style="float:none;" />
 						<div class="cff-form-builder-extend-shrink">

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.5.6
+Stable tag: 5.4.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.5.7 =
+
+* Improves pagination in multi-page forms to ensure that empty pages, those without accessible fields, do not introduce unnecessary delays.
+* Enhances the fields list popup to provide quicker and more intuitive shortcuts for navigating directly to fields within the form.
+* Implements lazy loading for the CAPTCHA image, improving overall form loading and rendering performance (available in Professional, Developer, and Platinum versions).
+
 = 5.4.5.6 =
 
 * Fixes an issue in the Divi 5 integration module.
@@ -479,10 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.4.5.3 =
 
 * Fixes a conflict with last WP version.
-
-= 5.4.5.2 =
-
-* Enhances the form submission process to ensure validation rules are executed even when the form is submitted programmatically.
-* Implements the SUBMITFORM operation within the Managing Fields module, allowing users to trigger form submission via code when needed.
-* Updates the predefined form layouts for improved structure and usability.
-* Replaces the Apply Coupon icon with a standard button to provide a more user-friendly interface (available in Professional, Developer, and Platinum editions).

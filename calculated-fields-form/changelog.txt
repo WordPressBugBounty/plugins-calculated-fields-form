@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.4.5.7 =
+
+* Improves pagination in multi-page forms to ensure that empty pages, those without accessible fields, do not introduce unnecessary delays.
+* Enhances the fields list popup to provide quicker and more intuitive shortcuts for navigating directly to fields within the form.
+* Implements lazy loading for the CAPTCHA image, improving overall form loading and rendering performance (available in Professional, Developer, and Platinum versions).
+
 = 5.4.5.6 =
 
 * Fixes an issue in the Divi 5 integration module.
