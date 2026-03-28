@@ -112,7 +112,7 @@
 			o[item.name] =
 			'<div class="cff-field-information">'+
 				'<div class="field-information">'+
-					'<span class="field-name"><a href="javascript:window.opener.document.getElementById(\'metabox_form_structure\').scrollIntoView({block:\'center\'});e=window.opener.document.getElementsByClassName(\'' + item.name +'\')[0];if(e){while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView({block:\'nearest\'});e.click();}">'+n+'</a></span>'+
+					'<span class="field-name"><a href="javascript:if(\'cpcff_snapToPosition\' in window.opener){window.opener.cpcff_snapToPosition();}else{window.opener.document.getElementById(\'metabox_form_structure\').scrollIntoView({block:\'center\'});}var e=window.opener.document.getElementsByClassName(\'' + item.name +'\')[0];if(e){while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView({block:\'nearest\'});e.click();}">'+n+'</a></span>'+
 					'<span class="field-type">'+('' != c ? s+cff_esc_attr(c) : '')+'</span>'+
 					'<span class="field-label">'+('' != l ? s+cff_esc_attr(l) : '')+'</span>'+
 					'<span class="field-excluded">'+('exclude' in item && item.exclude ? s+'X' : '' )+'</span>'+
@@ -1376,7 +1376,7 @@
                 window.scrollTo({ top: targetScrollY, behavior: 'auto' });
                 escapeAccumulator = 0;
             };
-
+            window['cpcff_snapToPosition'] = snapToPosition; // Used to positioning from the outside.
             let inViewport = function () {
                 setTimeout(function () {
                     let rect = metaboxFormStructure[0].getBoundingClientRect();

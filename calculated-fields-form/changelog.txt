@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.4.5.8 =
 = 5.4.5.7 =
 
 * Improves pagination in multi-page forms to ensure that empty pages, those without accessible fields, do not introduce unnecessary delays.
