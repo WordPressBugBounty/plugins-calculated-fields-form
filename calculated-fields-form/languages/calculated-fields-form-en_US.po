@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-03-23 23:16+0100\n"
-"PO-Revision-Date: 2026-03-23 23:16+0100\n"
+"POT-Creation-Date: 2026-04-02 20:08+0200\n"
+"PO-Revision-Date: 2026-04-02 20:08+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Form Preview"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:183
+#: cp_calculatedfieldsf_free.php:188
 msgid ""
 "You are submitting the form too quickly, or with invalid data, and are being "
 "identified as a spam bot. Please take more time to fill the form."
@@ -161,7 +161,7 @@ msgstr ""
 msgid "unload model"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:101 inc/cpcff_main.inc.php:248
+#: inc/cpcff_admin_ai_assistant.inc.php:101 inc/cpcff_main.inc.php:252
 msgid "Settings"
 msgstr ""
 
@@ -216,7 +216,7 @@ msgstr ""
 msgid "Get yout API Key from"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:138 inc/cpcff_main.inc.php:475
+#: inc/cpcff_admin_ai_assistant.inc.php:138 inc/cpcff_main.inc.php:479
 msgid "Save Settings"
 msgstr ""
 
@@ -446,8 +446,10 @@ msgstr ""
 msgid "Fields List"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:122
-msgid "Save and Preview"
+#: inc/cpcff_admin_int.inc.php:122 inc/cpcff_admin_int.inc.php:289
+#: inc/cpcff_admin_int.inc.php:312 inc/cpcff_admin_int.inc.php:313
+#: inc/cpcff_admin_int.inc.php:896
+msgid "Preview"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:122 inc/cpcff_admin_int.inc.php:289
@@ -515,11 +517,6 @@ msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:288 inc/cpcff_admin_int.inc.php:666
 msgid "Saves the form's structure and settings and creates a revision"
-msgstr ""
-
-#: inc/cpcff_admin_int.inc.php:289 inc/cpcff_admin_int.inc.php:312
-#: inc/cpcff_admin_int.inc.php:313 inc/cpcff_admin_int.inc.php:896
-msgid "Preview"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:300
@@ -826,7 +823,7 @@ msgid "Request Custom Modifications"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:669 inc/cpcff_admin_int.inc.php:958
-#: inc/cpcff_admin_int_list.inc.php:680 inc/cpcff_main.inc.php:250
+#: inc/cpcff_admin_int_list.inc.php:680 inc/cpcff_main.inc.php:254
 msgid "Help"
 msgstr ""
 
@@ -1390,7 +1387,7 @@ msgstr ""
 msgid "Calculated Fields Form Marketplace"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:680 inc/cpcff_main.inc.php:249
+#: inc/cpcff_admin_int_list.inc.php:680 inc/cpcff_main.inc.php:253
 msgid "Upgrade"
 msgstr ""
 
@@ -1803,63 +1800,63 @@ msgid ""
 "email functionality."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:247
+#: inc/cpcff_main.inc.php:251
 msgid "Request custom changes"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:266
+#: inc/cpcff_main.inc.php:270
 msgid "Insert Calculated Fields Form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:266
+#: inc/cpcff_main.inc.php:270
 msgid "Create a JavaScript var from POST, GET, SESSION, or COOKIE var"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:454
+#: inc/cpcff_main.inc.php:458
 msgid "Search..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:455
+#: inc/cpcff_main.inc.php:459
 msgid "Form name..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:456
+#: inc/cpcff_main.inc.php:460
 msgid "Enter your Google AI Studio API Key"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:457
+#: inc/cpcff_main.inc.php:461
 msgid "Please provide the form description preferably in English."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:458
+#: inc/cpcff_main.inc.php:462
 msgid "Please provide the form modifications preferably in English."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:461
+#: inc/cpcff_main.inc.php:465
 msgid "AI Form Generator"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:462
+#: inc/cpcff_main.inc.php:466
 msgid "Use My Forms As Template"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:463
+#: inc/cpcff_main.inc.php:467
 msgid "All Categories"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:466
+#: inc/cpcff_main.inc.php:470
 msgid "Enter form description"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:467
+#: inc/cpcff_main.inc.php:471
 msgid "No form meets the search criteria"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:468
+#: inc/cpcff_main.inc.php:472
 msgid "[video tutorial]"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:471
+#: inc/cpcff_main.inc.php:475
 #, php-format
 msgid ""
 "Get your API Key from %s. The model and API keys used for form generation "
@@ -1867,61 +1864,61 @@ msgid ""
 "allowing you to choose the most appropriate model for each situation."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:474
+#: inc/cpcff_main.inc.php:478
 msgid "Create Basic Form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:476
+#: inc/cpcff_main.inc.php:480
 msgid "Saving..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:477
+#: inc/cpcff_main.inc.php:481
 msgid "Clear Settings"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:478
+#: inc/cpcff_main.inc.php:482
 msgid "Generate"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:479
+#: inc/cpcff_main.inc.php:483
 msgid "Apply Modifications"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:480
+#: inc/cpcff_main.inc.php:484
 msgid "Use It"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:481
+#: inc/cpcff_main.inc.php:485
 msgid "+ Describe Modifications"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:482
+#: inc/cpcff_main.inc.php:486
 msgid "- Hide Description"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:483
+#: inc/cpcff_main.inc.php:487
 msgid "back"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:486
+#: inc/cpcff_main.inc.php:490
 msgid "The API Key is empty."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:487
+#: inc/cpcff_main.inc.php:491
 msgid "Please enter the form description."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:553
+#: inc/cpcff_main.inc.php:557
 msgid "Invalid form structure"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:590 inc/cpcff_main.inc.php:677
+#: inc/cpcff_main.inc.php:594 inc/cpcff_main.inc.php:681
 msgid ""
 "This is a preview of the form, letting you see its setup and design before "
 "it goes live."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:602
+#: inc/cpcff_main.inc.php:606
 msgid ""
 "If the form isn't displayed below, it means the AI was unable to generate a "
 "valid structure. We apologize for any inconvenience. Please click the \"Back "
@@ -2141,4 +2138,9 @@ msgstr ""
 msgid ""
 "Pass additional attributes to the form. Ex: attr_name=\"attr_value\" "
 "(optional)"
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:29
+#: widgets/widget.cff-form/cff-form.widget.php:76
+msgid "Insufficient permissions"
 msgstr ""

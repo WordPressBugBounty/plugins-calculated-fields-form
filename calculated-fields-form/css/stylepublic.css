@@ -757,7 +757,8 @@ body{
 #fbuilder .select2-selection--single .select2-selection__rendered span{white-space:nowrap;max-width:calc( 100% - 24px );overflow:hidden;text-overflow:ellipsis;display:block;}
 #fbuilder .select2-selection--multiple .select2-selection__rendered .select2-selection__choice{display:flex; align-items:center;}
 #fbuilder .select2-selection--multiple .select2-selection__rendered span{display:inline-flex; align-items:center;}
-
+#fbuilder .cff-dropdown-field .select2 span:has(>img),
+#fbuilder .cff-dropdown-field .cff-select2-container span:has(>img){display:flex !important;align-items: center !important;}
 /* VIEWERS */
 #fbuilder .cff-image-viewer{max-width:100%;}
 #fbuilder .cff-pdf-viewer{width:100%;border:1px solid #CCC;min-height:500px;}

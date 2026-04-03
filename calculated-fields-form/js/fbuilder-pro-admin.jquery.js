@@ -286,20 +286,10 @@
 		let title_margin = '0';
 		for ( var i in categoryList )
 		{
-			$("#tabs-1").append('<div style="clear:both;"></div><div style="margin-top:' + title_margin + ';font-size:14px;">'+cff_sanitize(categoryList[ i ].title, true)+'</div><hr />');
+			$("#tabs-1").append('<div style="clear:both;"></div><div style="margin-top:' + title_margin + ';font-size:12px;font-weight:600;">'+cff_sanitize(categoryList[ i ].title, true)+'</div><hr />');
 
 			title_margin = '20px;';
-
-			if( typeof categoryList[ i ][ 'description' ] != 'undefined' && !/^\s*$/.test( categoryList[ i ][ 'description' ] ) )
-			{
-				$("#tabs-1").append('<div style="clear:both;"></div><div class="category-description">'+categoryList[ i ].description+'</div>');
-			}
-
 			let category_selector = '';
-			if ( i == 20 ) {
-				category_selector = ' .data-source-controls-category';
-				$("#tabs-1").append('<div class="data-source-controls-category" style="cursor:pointer;" onclick="fbuilderjQuery(\'#cff-video-tutorial-ds-modal\').css({\'opacity\':0,\'display\':\'block\'}).animate({\'opacity\':1}, \'fast\');"></div>');
-			}
 
 			if( typeof categoryList[ i ][ 'typeList' ]  != 'undefined' )
 			{
@@ -309,7 +299,15 @@
 					$("#tabs-1"+category_selector).append('<div '+(i == 20 ? 'disabled style="pointer-events:none;"' : '')+' class="button itemForm width48" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
 				}
 			}
+
+			if( typeof categoryList[ i ][ 'description' ] != 'undefined' && !/^\s*$/.test( categoryList[ i ][ 'description' ] ) )
+			{
+				$("#tabs-1").append('<div class="category-description" style="display:block;clear:both;">'+cff_sanitize(categoryList[ i ].description, true)+'</div>');
+			}
+
 			if ( i == 20 ) {
+				category_selector = ' .data-source-controls-category';
+				$("#tabs-1").append('<div class="data-source-controls-category" style="cursor:pointer;" onclick="fbuilderjQuery(\'#cff-video-tutorial-ds-modal\').css({\'opacity\':0,\'display\':\'block\'}).animate({\'opacity\':1}, \'fast\');"></div>');
 				$("#tabs-1 .data-source-controls-category").append('<div style="clear:both;"></div>');
 			}
 		}
@@ -351,9 +349,10 @@
                     }catch(e){}}, 10);
 			};
 
-		$.fbuilder[ 'removeItem' ] = function( index, confirm )
+		$.fbuilder[ 'removeItem' ] = function( index, confirm, reload )
 			{
 				confirm = confirm || false;
+                reload  = (typeof reload == 'undefined' ) ? true : reload;
 
 				let itemToDelete = items[ index ],
 					name = itemToDelete['name'];
@@ -404,6 +403,12 @@
 				$.fbuilder['deletedFields'][name] = 0;
 				if( typeof items[ index ][ 'remove' ] != 'undefined' ) items[ index ][ 'remove' ]();
 				items[ index ] = 0;
+
+                if( reload ) { // Do not load the deleted fields when it is being deleted from an container field.
+                    items = $.grep(items, function (e) { return (e != 0); });
+                    $.fbuilder.reloadItems();
+                }
+
 				selected = -2;
 				$('#tabs').tabs("option", "active", 0);
 				return true;
@@ -687,11 +692,7 @@
 				// Handle events
 				$(document).on('click', '.fields .remove', function(evt){
 					evt.stopPropagation();
-					if(
-						! $.fbuilder[ 'removeItem' ]( $(this).closest('.fields').attr("id").replace("field-",""), true )
-					) return;
-					items = $.grep( items, function( e ){ return (e != 0 ); } );
-					$.fbuilder.reloadItems();
+					$.fbuilder[ 'removeItem' ]( $(this).closest('.fields').attr("id").replace("field-",""), true );
 				});
 
 				$(document).on('click', '.fields .copy', function(evt){
@@ -812,9 +813,9 @@
 						if ( $('#cff-advanced-equation-editor:visible').length ) {
 							return;
 						} else if ( $('.cff-editor-container.fullscreen').length ) {
-							$('.cff-editor-extend-shrink').trigger('click');
+                            $('.cff-editor-container.fullscreen .cff-editor-extend-shrink').trigger('click');
 						} else if ( $('#metabox_form_structure.fullscreen').length ) {
-							$('.cff-form-builder-extend-shrink [name="cff_shrink_btn"]').trigger('click');
+                            $('#metabox_form_structure.fullscreen .cff-form-builder-extend-shrink [name="cff_shrink_btn"]').trigger('click');
 						}
 					}
 				});
@@ -1206,6 +1207,9 @@
 		);
 
 	    var ffunct = {
+            getSelected: function() {
+                return selected;
+            },
 	        getFieldsIndex: function()
 			{
 			   return fieldsIndex;
@@ -1214,17 +1218,20 @@
 			{
 			   return items;
 		    },
+            getLastFieldNameNumber: function() {
+                let n = 0;
+                for (var i in fieldsIndex) if (/fieldname/.test(i)) n = Math.max(parseInt(i.replace(/fieldname/g, "")), n);
+                return n;
+            },
 		    addItem: function(id, _selected)
 			{
 			    var obj = new $.fbuilder.controls[id](),
 					fBuild = this,
-					n = 0;
+					n = this.getLastFieldNameNumber()+1;
 
                 selected = _selected || selected;
 				obj = $.extend(true, {}, obj);
                 obj.init();
-				for ( var i in fieldsIndex ) if( /fieldname/.test( i ) ) n = Math.max( parseInt( i.replace( /fieldname/g,"" ) ), n );
-			    n++;
 
 				obj.fBuild = fBuild;
 			    $.extend(obj,{name:"fieldname"+n});
@@ -1265,6 +1272,7 @@
                     items[selected] = obj;
                 }
 				$.fbuilder.reloadItems();
+                $(document).trigger('cff-item-added', obj);
 				return obj;
 		    },
 		    saveData:function(f)

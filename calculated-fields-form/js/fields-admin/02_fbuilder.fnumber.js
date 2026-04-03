@@ -20,7 +20,7 @@
 				readonly:false,
                 numberpad:false,
 				spinner:false,
-				size:"small",
+				size:"medium",
 				prefix:"",
 				postfix:"",
 				thousandSeparator:"",

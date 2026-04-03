@@ -19,7 +19,7 @@
 				predefinedMin:"",
 				predefinedMax:"",
 				predefinedClick:false,
-				size:"small",
+				size:"medium",
 				thousandSeparator:",",
 				centSeparator:".",
 				typeValues:false,

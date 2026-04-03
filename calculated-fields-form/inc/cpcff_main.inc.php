@@ -118,7 +118,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			// Plugin activation/deactivation.
 			$this->_activate_deactivate();
 
-			// Load the language file.
+			// Load the language file, the addons, and widgets.
 			add_action( 'init', function(){ load_plugin_textdomain( 'calculated-fields-form', false, dirname( CP_CALCULATEDFIELDSF_BASE_NAME ) . '/languages/' ); } );
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 
@@ -170,6 +170,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		public function plugins_loaded() {
 			// Fix different troubleshoots.
 			$this->troubleshoots();
+
+            // Load the widgets
+            require_once CP_CALCULATEDFIELDSF_BASE_PATH.'/widgets/cff_widgets.mngr.php'; // Loads the widgets.
+            CPCFF_WIDGETS_MANAGER::init();
 
 			// Load controls scripts.
 			$this->_load_controls_scrips();

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.5.8
+Stable tag: 5.4.5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.5.9 =
+
+* Introduces a new Widgets control category, enabling you to seamlessly reuse controls from different contexts. The first available widget allows you to import fields directly from existing forms, streamlining form creation.
+* Fixes a minor alignment issue affecting images in dropdown fields when the search box option is enabled, ensuring a cleaner and more consistent UI.
+* Updates the default field sizes for number, currency, and slider controls from small to medium, providing improved visual consistency across all default control sizes.
+* Enhances the results list shortcode to support passing attribute values via URL parameters (available in Professional, Developer, and Platinum editions), increasing flexibility for dynamic integrations.
+* Updates the Paycomet add-on to ensure full compatibility with the latest API changes (available in the Platinum version).
+
 = 5.4.5.8 =
 = 5.4.5.7 =
 
@@ -482,7 +490,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Implements the 'Enable minimum time to submit (in seconds)' security feature to help detect and block bot submissions that bypass other security measures.
 * Verifies that the form is not submitted empty; if all fields are blank, an additional security check intercepts the submission and displays an error message.
-
-= 5.4.5.3 =
-
-* Fixes a conflict with last WP version.

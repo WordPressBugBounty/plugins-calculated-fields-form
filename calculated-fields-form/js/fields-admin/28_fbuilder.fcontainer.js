@@ -46,7 +46,7 @@
 					var fieldsIndex = this.fBuild.getFieldsIndex();
 					for( var i = this.fields.length - 1, h = 0; i >= h; i-- )
 					{
-						this.fBuild.removeItem( fieldsIndex[this.fields[ i ]] );
+						this.fBuild.removeItem( fieldsIndex[this.fields[ i ]], false, false );
 					}
 				},
 			duplicateItem: function( currentField, newField )
