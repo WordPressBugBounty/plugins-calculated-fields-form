@@ -20,7 +20,8 @@
 			show:function()
 				{
 					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices)
-
+					if ( this.multiple ) this.first_choice = false;
+					
 					var c	 = this.choices,
 						cv	 = this.choicesVal,
 						og   = (typeof this.optgroup == 'undefined') ? new Array() : this.optgroup,

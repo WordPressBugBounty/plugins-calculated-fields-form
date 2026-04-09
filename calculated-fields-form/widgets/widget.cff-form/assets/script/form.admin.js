@@ -222,9 +222,13 @@
                         }
 
                         // Replace the fields names, assign parents, and updates the fields list property in the form inserted.
+						let remove_from_parents = [];
                         for (let i in form_structure) {
                             let ftype = form_structure[i]['ftype'];
-                            if (!(ftype in $.fbuilder.controls)) continue;
+                            if (!(ftype in $.fbuilder.controls) || ftype == 'fPageBreak') {
+								if ( 'name' in form_structure[i] ) remove_from_parents.push( form_structure[i]['name'] );
+								continue;
+							}
                             let obj = new $.fbuilder.controls[ftype]();
                             obj = $.extend(true, {}, obj, form_structure[i]);
                             obj.fBuild = me.fBuild;
@@ -236,6 +240,16 @@
                             }
                             items.push( obj );
                         }
+
+						// Remove invalid controls from parents.
+						for ( let i in remove_from_parents ) {
+							for ( let j in items ) {
+								if ( 'fields' in items[j] && Array.isArray( items[j]['fields'] ) ) {
+									items[j]['fields'] = items[j]['fields'].filter(item => item !== remove_from_parents[i]);
+								}
+							}
+						}
+
                         $.fbuilder.reloadItems(); // Reload the builder with the new items.
                         me.fBuild.saveData("form_structure"); // Save the form structure.
                     }; // End updateFormStructure

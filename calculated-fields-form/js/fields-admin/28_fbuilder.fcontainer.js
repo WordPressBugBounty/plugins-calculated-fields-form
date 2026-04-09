@@ -108,6 +108,7 @@
 							'tolerance': 'pointer',
 							'update': function( event, ui )
 									{
+                                        if ('invalidItem' in me && me.invalidItem) { delete me.invalidItem; return; }
                                         var p = ui.item.parents('.fields');
 										if( p.length && $(this ).parents( '.fields' ).attr( 'id' ) == p.attr( 'id' ) )
 										{
@@ -133,7 +134,20 @@
 											var index = $.inArray( me.fBuild.getItems()[ ui.item.attr( 'id' ).replace( 'field-', '' ) ].name, me.fields );
 											if( index != -1 ) me.fields.splice( index, 1 );
 										}
-									}
+									},
+                            'receive': function (event, ui)
+                                {
+									// No page break allowed in containers. Cancel the move and alert the user.
+                                    if (ui.item.is('.fPageBreak')) {
+										me.invalidItem = true;
+										if ( ui.item.hasClass('cff-button-drag') ) {
+											ui.item.remove();
+										} else {
+											ui.sender.sortable('cancel');
+										}
+                                        me.alertInvalidChild();
+                                    } else me.invalidItem = false;
+                                }
 						}
 					);
 				},
@@ -144,5 +158,15 @@
                     s += '<i class="sticker-'+c+'"></i>';
                 s += '</div>';
                 return s;
+            },
+        acceptedChild: function (childType)
+            {
+                let accepted = childType !== 'fPageBreak';
+                if (!accepted) this.alertInvalidChild();
+                return accepted;
+            },
+        alertInvalidChild: function ()
+            {
+                alert('The container controls do not support page breaks controls inside them. Please add the page break control outside the containers.');
             }
 	});

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.5.9';
+	$.fbuilder['version'] = '5.4.6.0';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -908,9 +908,9 @@
 					this.form_tag.attr('style', form_style+';' + $.fbuilder['getCSSComponent'](this, 'form'));
 
 					// Common buttons styles
-					$.fbuilder['getCSSComponent'](this, 'buttons', true, '#'+form_id+' .pbNext,#'+form_id+' .pbPrevious,#'+form_id+' .pbSubmit', id);
+					$.fbuilder['getCSSComponent'](this, 'buttons', true, '#'+form_id+' .pbNext,#'+form_id+' .pbPrevious,#'+form_id+' .pbSubmit,#'+form_id+' [type="button"].apply-coupon', id);
 
-					$.fbuilder['getCSSComponent'](this, 'buttons_hover', true, '#'+form_id+' .pbNext:hover,#'+form_id+' .pbPrevious:hover,#'+form_id+' .pbSubmit:hover', id);
+					$.fbuilder['getCSSComponent'](this, 'buttons_hover', true, '#'+form_id+' .pbNext:hover,#'+form_id+' .pbPrevious:hover,#'+form_id+' .pbSubmit:hover,#'+form_id+' [type="button"].apply-coupon:hover', id);
 
 					$.fbuilder['getCSSComponent'](this, 'tooltips_icons', true, '#'+form_id+' #fbuilder .fields .cff-help-icon::before', id);
 
@@ -1079,6 +1079,7 @@
 									   obj._setHndl('placeholder');
 								   }
 								   obj.init();
+								   if ( obj.ftype == 'fPageBreak' && obj.parent !== '' ) continue;
 								   items[i] = obj;
 								   fieldsIndex[obj.name] = i;
 							   }

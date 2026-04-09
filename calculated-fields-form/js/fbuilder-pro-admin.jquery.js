@@ -283,6 +283,10 @@
 			categoryList[ category_id ].typeList.push( i );
 		}
 
+		// I want to move the category 30 before 20.
+		categoryList[19] = categoryList[30];
+		categoryList.splice(30, 1);
+
 		let title_margin = '0';
 		for ( var i in categoryList )
 		{
@@ -302,7 +306,7 @@
 
 			if( typeof categoryList[ i ][ 'description' ] != 'undefined' && !/^\s*$/.test( categoryList[ i ][ 'description' ] ) )
 			{
-				$("#tabs-1").append('<div class="category-description" style="display:block;clear:both;">'+cff_sanitize(categoryList[ i ].description, true)+'</div>');
+				$("#tabs-1").append('<div class="category-description" style="display:block;clear:both;">'+categoryList[ i ].description+'</div>');
 			}
 
 			if ( i == 20 ) {
@@ -953,9 +957,6 @@
 					{
 						if( typeof items[ i ].after_show != 'undefined' ) items[ i ].after_show();
 					}
-
-					// Event after reloading the items.
-					$(document).trigger('reloadedItems', [items]);
 				}
 
 				ffunct.saveData("form_structure");
@@ -996,7 +997,7 @@
 					if ( ! ( 'title' in this.advanced.css ) ) this.advanced.css.title = {label: 'Form title',rules:{}};
 					if ( ! ( 'description' in this.advanced.css ) ) this.advanced.css.description = {label: 'Form description',rules:{}};
 					if ( ! ( 'form' in this.advanced.css ) ) this.advanced.css.form = {label: 'Form area',rules:{}};
-					if ( ! ( 'buttons' in this.advanced.css ) ) this.advanced.css.buttons = {label: 'Form context buttons (Next page, Previous page, Submit)',rules:{}};
+					if ( ! ( 'buttons' in this.advanced.css ) ) this.advanced.css.buttons = {label: 'Form context buttons (Next page, Previous page, Apply coupon, Submit)',rules:{}};
 					if ( ! ( 'buttons_hover' in this.advanced.css ) ) this.advanced.css.buttons_hover = {label: 'Form context buttons hover',rules:{}};
 					if ( ! ( 'tooltips_icons' in this.advanced.css ) ) this.advanced.css.tooltips_icons = {label: 'Icons for instructions for users tooltips',rules:{}};
 					if ( ! ( 'tooltips' in this.advanced.css ) ) this.advanced.css.tooltips = {label: 'Instructions for users tooltips',rules:{}};
@@ -1135,6 +1136,10 @@
 				'tolerance': 'pointer',
 				'update': function( event, ui )
 				{
+					if (ui.item.hasClass("fPageBreak") && ui.item.closest(".fieldscontainer").length)  {
+						return;
+					}
+
                     var index = ui.item.index('#fieldlist>div');
                     if(0<=index)
                     {
@@ -1238,34 +1243,45 @@
 
                 if( selected >= 0 )
                 {
-					n =  (selected)*1+1;
-                    items.splice( n, 0, obj );
-					fieldsIndex[obj.name] = n;
-					for(var i = n, h = items.length; i<h; i++) fieldsIndex[items[i].name] = i;
+                    function addFieldToForm() {
+                        n = (selected) * 1 + 1;
+                        items.splice(n, 0, obj);
+                        fieldsIndex[obj.name] = n;
+                        for (var i = n, h = items.length; i < h; i++) fieldsIndex[items[i].name] = i;
+                    };
 
-					if( id != 'fPageBreak' )
+					if( typeof items[ selected ][ 'addItem' ] != 'undefined' )
 					{
-						if( typeof items[ selected ][ 'addItem' ] != 'undefined' )
-						{
+						if (!('acceptedChild' in items[selected]) || items[selected].acceptedChild(obj.ftype)) {
+							addFieldToForm();
 							obj.name[ 'parent' ] = items[ selected ][ 'name' ];
 							items[ selected ][ 'addItem' ]( obj.name );
-						}
-						else
-						{
-							// get the parent
-							if( items[ selected ][ 'parent' ] !== '' )
-							{
-								items[ fieldsIndex[ items[ selected ][ 'parent' ] ] ][ 'addItem' ]( obj.name, items[ selected ][ 'name' ]);
-							}
-
+						} else if( items[ selected ][ 'parent' ] === '') {
+							addFieldToForm();
 							selected++;
+						} else {
+							return;
 						}
 					}
 					else
 					{
-						selected++;
+						// get the parent
+						if( items[ selected ][ 'parent' ] !== '' )
+						{
+							let parent = items[fieldsIndex[items[selected]['parent']]];
+							if (!('acceptedChild' in parent) || parent.acceptedChild(obj.ftype)) {
+								addFieldToForm();
+								parent['addItem'](obj.name, items[selected]['name']);
+								selected++;
+							} else {
+								return;
+							}
+						} else {
+							addFieldToForm();
+							selected++;
+						}
 					}
-                }
+				}
                 else
                 {
                     selected = items.length;

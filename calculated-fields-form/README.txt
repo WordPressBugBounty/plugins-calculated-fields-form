@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.5.9
+Stable tag: 5.4.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.6.0 =
+
+* We have introduced an improvement that prevents adding Page Break controls inside container fields such as divs, fieldsets, and popups. Since Page Breaks operate at the form level, placing them within containers can result in incorrect or unintended page layouts.
+* Updated the Import Form Fields widget to exclude Page Break controls, as imported fields are placed within a container field.
+* The additional choice option is now ignored in dropdown fields configured for multiple selections, as it is unnecessary and may cause confusion.
+* Extended the CSS rules in Form Settings / Advanced Settings so that button styles also apply to the Apply Coupon button (available in Professional, Developer, and Platinum editions).
+
 = 5.4.5.9 =
 
 * Introduces a new Widgets control category, enabling you to seamlessly reuse controls from different contexts. The first available widget allows you to import fields directly from existing forms, streamlining form creation.
@@ -485,8 +492,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Adds a new button in the create form section over the Forms list to provide direct access to the AI Form Generation section.
 * Removes certain characters from field short labels to prevent conflicts when exporting to CSV or using them with data source controls.
 * Enhances the Submissions Data Source module to support filtering by short labels and to include short labels in returned records, simplifying the generalization process (available in Developer and Platinum versions).
-
-= 5.4.5.4 =
-
-* Implements the 'Enable minimum time to submit (in seconds)' security feature to help detect and block bot submissions that bypass other security measures.
-* Verifies that the form is not submitted empty; if all fields are blank, an additional security check intercepts the submission and displays an error message.
