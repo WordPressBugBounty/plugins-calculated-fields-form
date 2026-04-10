@@ -45,6 +45,7 @@ if ( ! class_exists( 'CPCFF_TRIAL' ) ) {
 					array(
 						'body'      => array( 'u' => CPCFF_AUXILIARY::site_url() ),
 						'sslverify' => false,
+						'timeout'   => CP_CALCULATEDFIELDSF_TIMEOUT
 					)
 				);
 				if ( ! is_wp_error( $response ) ) {

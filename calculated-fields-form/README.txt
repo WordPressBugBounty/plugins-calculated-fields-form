@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.0
+Stable tag: 5.4.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.6.1 =
+
+* Modifies the URL Operations module to allow accessing the top URL parameters even if the form is sandboxed in an iframe.
+* Optimizes the form generation from templates process.
+* Adds CALCULATEAMORTIZATIONITALIAN to the Financial Operations module to use the Italian amortization method (available in Developer and Platinum editions).
+
 = 5.4.6.0 =
 
 * We have introduced an improvement that prevents adding Page Break controls inside container fields such as divs, fieldsets, and popups. Since Page Breaks operate at the form level, placing them within containers can result in incorrect or unintended page layouts.
@@ -482,13 +488,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.4.5.6 =
 
 * Fixes an issue in the Divi 5 integration module.
-
-= 5.4.5.5 =
-
-* Modifies the default thank-you page URL behavior. If the URL is empty after form submission, the user is redirected to the page containing the form.
-* Improves validation handling by introducing a countdown timer and automatically redirecting users back to the form once the timer ends.
-* Updates the list of supported Gemini models.
-* Optimizes the 'Create New Form' dialog for a smoother user experience.
-* Adds a new button in the create form section over the Forms list to provide direct access to the AI Form Generation section.
-* Removes certain characters from field short labels to prevent conflicts when exporting to CSV or using them with data source controls.
-* Enhances the Submissions Data Source module to support filtering by short labels and to include short labels in returned records, simplifying the generalization process (available in Developer and Platinum versions).

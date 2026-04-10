@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.4.6.1 =
+
+* Modifies the URL Operations module to allow accessing the top URL parameters even if the form is sandboxed in an iframe.
+* Optimizes the form generation from templates process.
+* Adds CALCULATEAMORTIZATIONITALIAN to the Financial Operations module to use the Italian amortization method (available in Developer and Platinum editions).
+
 = 5.4.6.0 =
 
 * We have introduced an improvement that prevents adding Page Break controls inside container fields such as divs, fieldsets, and popups. Since Page Breaks operate at the form level, placing them within containers can result in incorrect or unintended page layouts.

@@ -149,9 +149,11 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			if ( ! empty( $form_template ) ) {
 				if( is_numeric( $form_template ) ) {
 					$response = wp_remote_get(
-						'https://cff.dwbooster.com/forms/forms/'.$form_template.'.cpfm',
+						// 'https://cff.dwbooster.com/forms/forms/'.$form_template.'.cpfm',
+						'https://raw.githubusercontent.com/cffdwboostercom/formtemplates/main/'.$form_template.'.cpfm',
 						array(
-							'sslverify' => false
+							'sslverify' => false,
+							'timeout' 	=> CP_CALCULATEDFIELDSF_TIMEOUT
 						)
 					);
 

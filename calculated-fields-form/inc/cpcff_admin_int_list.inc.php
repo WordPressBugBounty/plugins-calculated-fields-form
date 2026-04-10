@@ -137,7 +137,7 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 				unlink( $public_js_path );
 			}
 		} elseif ( ! file_exists( $public_js_path ) ) {
-				wp_remote_get( CPCFF_AUXILIARY::wp_url() . ( ( strpos( CPCFF_AUXILIARY::wp_url(), '?' ) === false ) ? '/?' : '&' ) . 'cp_cff_resources=public&min=1', array( 'sslverify' => false ) );
+				wp_remote_get( CPCFF_AUXILIARY::wp_url() . ( ( strpos( CPCFF_AUXILIARY::wp_url(), '?' ) === false ) ? '/?' : '&' ) . 'cp_cff_resources=public&min=1', array( 'sslverify' => false, 'timeout' => CP_CALCULATEDFIELDSF_TIMEOUT ) );
 		}
 	} catch ( Exception $err ) {
 		error_log( $err->getMessage() );

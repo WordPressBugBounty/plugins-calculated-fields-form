@@ -60,22 +60,22 @@
 
 	// getBaseURL()
 	lib.getBaseURL = lib.getbaseurl = lib.GETBASEURL = function(){
-		return window.location.protocol + '//' + window.location.host + '/';
+		return window.top.location.protocol + '//' + window.top.location.host + '/';
 	};
 
 	// getURLHash()
 	lib.getURLHash = lib.geturlhash = lib.GETURLHASH = function(nohash){
-		return window.location.hash.replace((nohash) ? /^#/ : '', '');
+		return window.top.location.hash.replace((nohash) ? /^#/ : '', '');
 	};
 
 	// getURLPath()
 	lib.getURLPath = lib.geturlpath = lib.GETURLPATH = function(noslash){
-		return window.location.pathname.replace((noslash) ? new RegExp('^\/', 'g') : '', '').replace((noslash) ? new RegExp('\/$','g') : '', '');
+		return window.top.location.pathname.replace((noslash) ? new RegExp('^\/', 'g') : '', '').replace((noslash) ? new RegExp('\/$','g') : '', '');
 	};
 
 	// getURLParameters(url) the url is optional
 	lib.getURLParameters = lib.geturlparameters = lib.GETURLPARAMETERS = function(url){
-		var qs = url ? url.split('?')[1] : window.location.search.slice(1),
+		var qs = url ? url.split('?')[1] : window.top.location.search.slice(1),
 			obj = {};
 
 		function aux (v, to_lower) {
