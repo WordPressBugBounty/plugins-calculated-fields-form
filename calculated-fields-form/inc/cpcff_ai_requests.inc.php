@@ -15,12 +15,10 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
         private $api_provider;
         private $model;
         private $temperature;
-        private $max_tokens = 4000;
-        private $timeout = 60;
+        private $max_tokens = 8000;
+        private $timeout = 180;
 
         private $retry_flag = true;
-        private $continuation_attempts = 0;
-        private $max_continuation_attempts = 3;
         private $min_useful_output = 10; // Minimum characters to consider useful output for "fieldnameX"
 
         private $error_mssgs;
@@ -59,31 +57,31 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                     'title' => esc_html__('GPT-5 Nano (Fast and Cheap)', 'calculated-fields-form'),
                                     'form-generation' => false,
                                     'ai-assistant' => true,
-                                    'max_tokens' => 8000
+                                    'max_tokens' => 120000
                                 ],
                             'gpt-5-mini'    => [
                                 'title' => esc_html__('GPT-5 Mini (Balanced)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 120000
                             ],
                             'gpt-5'       => [
                                 'title' => esc_html__('GPT-5', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 120000
                             ],
                             'gpt-5.4'       => [
                                 'title' => esc_html__('GPT-5.4', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 120000
                             ],
                             'gpt-5.4-pro'       => [
                                 'title' => esc_html__('GPT-5.4 Pro (Most Capable)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 120000
                             ]
                         ]
                     ],
@@ -96,43 +94,37 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'title' => esc_html__('Claude Sonnet 4.6 (Recommended)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'claude-sonnet-4-20250514'      => [
                                 'title' => esc_html__('Claude Sonnet 4.5', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'claude-haiku-4-5-20251001'     => [
                                 'title' => esc_html__('Claude Haiku 4.5 (Fast)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'claude-opus-4-6'                => [
                                 'title' => esc_html__('Claude Opus 4.6 (Most Capable)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'claude-opus-4-5-20251101'      => [
                                 'title' => esc_html__('Claude Opus 4.5', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'claude-opus-4-20250514'        => [
                                 'title' => esc_html__('Claude Opus 4', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
-                            ],
-                            'claude-3-haiku-20240307'       => [
-                                'title' => esc_html__('Claude 3 Haiku (Budget)', 'calculated-fields-form'),
-                                'form-generation' => false,
-                                'ai-assistant' => true,
-                                'max_tokens' => 4000
+                                'max_tokens' => 64000
                             ]
                         ]
                     ],
@@ -145,37 +137,37 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'title' => esc_html__('Gemini 2.5 Flash-Lite', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'gemini-2.5-flash'              => [
                                 'title' => esc_html__('Gemini 2.5 Flash', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'gemini-2.5-pro'                => [
                                 'title' => esc_html__('Gemini 2.5 Pro', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'gemini-3-flash-preview'                => [
                                 'title' => esc_html__('Gemini 3 Flash', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'gemini-3.1-flash-lite-preview'                => [
                                 'title' => esc_html__('Gemini 3.1 Flash-Lite', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ],
                             'gemini-3.1-pro-preview'                => [
                                 'title' => esc_html__('Gemini 3.1 Pro', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 8000
+                                'max_tokens' => 64000
                             ]
                         ]
                     ]
@@ -223,8 +215,6 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
         public function request($prompt, $context) {
 
             // Reset continuation state for new requests
-            $this->continuation_attempts = 0;
-
             switch($this->api_provider) {
                 case 'openai':
                     return $this->call_openai($prompt, $context);

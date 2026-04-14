@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.1
+Stable tag: 5.4.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.6.2 =
+
+* Updates the Number, Currency, and Calculated fields to ensure that prefix and postfix attribute values are dynamically updated based on other field values.
+* Introduces a Map Widget, enabling maps to be embedded within forms and synchronizing user-selected map pins with single-line text fields.
+* Enhances the AI Form Generation module by increasing token limits and timeout settings, and removing deprecated models from the selection list.
+
 = 5.4.6.1 =
 
 * Modifies the URL Operations module to allow accessing the top URL parameters even if the form is sandboxed in an iframe.
@@ -484,7 +490,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Improves pagination in multi-page forms to ensure that empty pages, those without accessible fields, do not introduce unnecessary delays.
 * Enhances the fields list popup to provide quicker and more intuitive shortcuts for navigating directly to fields within the form.
 * Implements lazy loading for the CAPTCHA image, improving overall form loading and rendering performance (available in Professional, Developer, and Platinum versions).
-
-= 5.4.5.6 =
-
-* Fixes an issue in the Divi 5 integration module.

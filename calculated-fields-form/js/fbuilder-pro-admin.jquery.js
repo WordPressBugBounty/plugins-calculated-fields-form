@@ -1767,12 +1767,17 @@
 						* l -> element
 						* f -> function to apply the value
                         * x -> escape
+                        * silent -> if true, the change won't trigger the reload of the form preview (used for changes that doesn't affect the field appearance such as predefined value)
 						*/
-						$(e[i].s).on(e[i].e, {obj:this, i:e[i]}, function(e){
-							var v = $(this).val();
-							if(typeof e.data.i['f'] != 'undefined') v = e.data.i.f($(this));
+						$(e[i].s).on(e[i].e, {obj:this, i:e[i]}, function(e, extraParams){
+							let v = $(this).val();
+							if(typeof e.data.i['f'] != 'undefined') v = e.data.i.f($(this), extraParams);
 							e.data.obj[e.data.i.l] = ('x' in e.data.i && e.data.i.x) ? cff_esc_attr(v) : v;
-							$.fbuilder.reloadItems( {'field': e.data.obj} );
+                            let args = {'field': e.data.obj};
+                            if ( 'silent' in e.data.i && e.data.i.silent ) {
+                                args.silent = true;
+                            }
+							$.fbuilder.reloadItems( args );
 						});
 					}
 				}

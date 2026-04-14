@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.6.1';
+	$.fbuilder['version'] = '5.4.6.2';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1231,7 +1231,8 @@
 							{
 								try {
 									$(document)[i]('change depEvent', s, function(evt){
-										if(me['set_'+attr]) me['set_'+attr](me._getAttr(attr), $(evt.target).hasClass('ignore'));
+                                        let v = $(evt.target).val();
+										if(me['set_'+attr]) me['set_'+attr](v, $(evt.target).hasClass('ignore'));
 									});
 								} catch( err ) {}
 

@@ -24,17 +24,27 @@
 			dformat:"digits",
             set_prefix:function(s)
                 {
-                    this.prefix = s;
-					let v = document.getElementById(this.name).value;
-                    // let v = this.val(true, true);
-                    this.setVal(v, true);
+                    let e = document.getElementById(this.name);
+                    if(e) {
+                        if(e.type === 'number') e.type = 'text';
+                        let v = e.value;
+                        if(v !== '') v = this.val(false, true);
+                        this.prefix = s;
+                        v = this.getFormattedValue(v);
+                        this.setVal(v, true);
+                    }
                 },
             set_postfix:function(s)
                 {
-                    this.postfix = s;
-					let v = document.getElementById(this.name).value;
-					// let v = this.val(true, true);
-                    this.setVal(v, true);
+                    let e = document.getElementById(this.name);
+                    if(e) {
+                        if(e.type === 'number') e.type = 'text';
+                        let v = e.value;
+                        if(v !== '') v = this.val(false, true);
+                        this.postfix = s;
+                        v = this.getFormattedValue(v);
+                        this.setVal(v, true);
+                    }
                 },
 			set_step:function(v, rmv)
 				{

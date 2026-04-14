@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.4.6.2 =
+
+* Updates the Number, Currency, and Calculated fields to ensure that prefix and postfix attribute values are dynamically updated based on other field values.
+* Introduces a Map Widget, enabling maps to be embedded within forms and synchronizing user-selected map pins with single-line text fields.
+* Enhances the AI Form Generation module by increasing token limits and timeout settings, and removing deprecated models from the selection list.
+
 = 5.4.6.1 =
 
 * Modifies the URL Operations module to allow accessing the top URL parameters even if the form is sandboxed in an iframe.

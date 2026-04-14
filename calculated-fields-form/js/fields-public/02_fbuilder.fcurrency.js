@@ -22,19 +22,31 @@
 			step:1,
 			formatDynamically:false,
 			twoDecimals:false,
+            set_prefix:function(s){ this.set_currencySymbol(s); },
             set_currencySymbol:function(s)
                 {
-                    this.currencySymbol = s;
-					let v = document.getElementById(this.name).value;
-					// let v = this.val(true, true);
-					this.setVal(v, true);
+                    let e = document.getElementById(this.name);
+                    if (e) {
+                        if (e.type === 'number') e.type = 'text';
+                        let v = e.value;
+                        if (v !== '') v = this.val(false, true);
+                        this.currencySymbol = s;
+                        v = this.getFormattedValue(v);
+                        this.setVal(v, true);
+                    }
                 },
+            set_postfix:function(s){ this.set_currencyText(s); },
             set_currencyText:function(s)
                 {
-                    this.currencyText = s;
-					let v = document.getElementById(this.name).value;
-                    // let v = this.val(true, true);
-                    this.setVal(v, true);
+                    let e = document.getElementById(this.name);
+                    if (e) {
+                        if (e.type === 'number') e.type = 'text';
+                        let v = e.value;
+                        if (v !== '') v = this.val(false, true);
+                        this.currencyText = s;
+                        v = this.getFormattedValue(v);
+                        this.setVal(v, true);
+                    }
                 },
 			set_step:function(v, rmv)
 				{

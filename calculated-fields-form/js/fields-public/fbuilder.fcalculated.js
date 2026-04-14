@@ -28,13 +28,31 @@
 //					var me = evt.data.obj;
 //					if( ! me.noEvalIfManual ) $('[id="' + me.name + '"]').data('manually', 0);
 				},
-            set_prefix : function(s)
-                {
+            set_prefix: function (s) {
+                let e = document.getElementById(this.name);
+                if (e) {
+                    if (e.type === 'number') e.type = 'text';
+                    let v = e.value;
+                    if (v !== '') v = this.val(false, true);
                     this.prefix = s;
-                },
+                    v = $.fbuilder.calculator.format(v, this.configuration());
+                    this.setVal(v, true);
+                }
+            },
+            set_postfix: function (s) {
+                let e = document.getElementById(this.name);
+                if (e) {
+                    if (e.type === 'number') e.type = 'text';
+                    let v = e.value;
+                    if (v !== '') v = this.val(false, true);
+                    this.suffix = s;
+                    v = $.fbuilder.calculator.format(v, this.configuration());
+                    this.setVal(v, true);
+                }
+            },
             set_suffix : function(s)
                 {
-                    this.suffix = s;
+                    this.set_postfix(s);
                 },
             init:function()
                 {
