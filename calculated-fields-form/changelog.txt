@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.6.4 =
+
+* Fixes an issue displaying the Import Form Fields dialog when the form builder is in fullscreen.
+
 = 5.4.6.3 =
 
 * Enhances the Import Form Fields widget by enabling form grouping into categories within the import popup, improving organization and usability.

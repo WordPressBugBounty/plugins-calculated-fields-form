@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.3
+Stable tag: 5.4.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.6.4 =
+
+* Fixes an issue displaying the Import Form Fields dialog when the form builder is in fullscreen.
+
 = 5.4.6.3 =
 
 * Enhances the Import Form Fields widget by enabling form grouping into categories within the import popup, improving organization and usability.
@@ -481,11 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Updated the Import Form Fields widget to exclude Page Break controls, as imported fields are placed within a container field.
 * The additional choice option is now ignored in dropdown fields configured for multiple selections, as it is unnecessary and may cause confusion.
 * Extended the CSS rules in Form Settings / Advanced Settings so that button styles also apply to the Apply Coupon button (available in Professional, Developer, and Platinum editions).
-
-= 5.4.5.9 =
-
-* Introduces a new Widgets control category, enabling you to seamlessly reuse controls from different contexts. The first available widget allows you to import fields directly from existing forms, streamlining form creation.
-* Fixes a minor alignment issue affecting images in dropdown fields when the search box option is enabled, ensuring a cleaner and more consistent UI.
-* Updates the default field sizes for number, currency, and slider controls from small to medium, providing improved visual consistency across all default control sizes.
-* Enhances the results list shortcode to support passing attribute values via URL parameters (available in Professional, Developer, and Platinum editions), increasing flexibility for dynamic integrations.
-* Updates the Paycomet add-on to ensure full compatibility with the latest API changes (available in the Platinum version).

@@ -63,7 +63,7 @@
                                 top: 0,
                                 width: '100%',
                                 height: '100%',
-                                'z-index': 9999,
+                                'z-index': 100000,
                                 'background-color': 'rgba(0,0,0,0.6)'
                             }
                         });
@@ -84,7 +84,7 @@
                                 'max-height': '80%',
                                 'overflow-y': 'auto',
                                 'box-sizing': 'border-box',
-                                'z-index': 10000
+                                'z-index': 100001
                             }
                         });
 
