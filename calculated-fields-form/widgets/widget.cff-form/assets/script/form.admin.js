@@ -1,7 +1,7 @@
 	$.fbuilder.typeList.push(
 		{
 			id:"formimporter_widget",
-			name:"Import Form Fields",
+            name: "Import Form Fields",
 			control_category:30
 		}
 	);
@@ -79,8 +79,8 @@
                                 'border-radius': '8px',
                                 'box-shadow': '0 8px 30px rgba(0,0,0,0.3)',
                                 'padding': '10px 20px 20px 20px',
-                                'max-width': '80%',
-                                'min-width': '320px',
+                                'width': '90%',
+                                'max-width': '600px',
                                 'max-height': '80%',
                                 'overflow-y': 'auto',
                                 'box-sizing': 'border-box',
@@ -90,8 +90,8 @@
 
                         var $close = $('<button>', {
                             class: 'button-secondary',
-                            text: '×',
-                            title: 'Close',
+                            text: 'x',
+                            title: cpcff_form_widget_close_title,
                             css: {
                                 'font-size': '24px',
                                 'background': 'transparent',
@@ -111,47 +111,97 @@
 
                         if (!isEmpty && Array.isArray(forms) && forms.length > 0) {
                             var $row = $('<div>').css({ display: 'flex', gap: '10px', 'align-items': 'center', 'margin': '12px 0' });
-                            var $select = $('<select>', { id: 'cpcff-form-select', css: { 'flex': '1' } });
-                            $select.append($('<option>', { value: '', text: 'Select form to import' }));
+
+                            var $categorySelect = $('<select>', { id: 'cpcff-category-select', css: { 'min-width': '150px' } });
+                            $categorySelect.append($('<option>', { value: '', text: cpcff_form_widget_all_forms }));
+
+                            var $formSelect = $('<select>', { id: 'cpcff-form-select', css: { 'flex-grow': 1, 'min-width': 0, 'flex-basis': 0 } });
+                            $formSelect.append($('<option>', { value: '', text: cpcff_form_widget_select_form_to_import }));
+
+							var categories = {};
 
                             forms.forEach(function (form) {
                                 if (form && typeof form.id !== 'undefined' && typeof form.name !== 'undefined') {
-                                    $select.append($('<option>', {
+									if ('category' in form && form.category !== '') categories[form.category] = 1;
+                                    $formSelect.append($('<option>', {
                                         value: form.id,
-                                        text: '(' + form.id + ') ' + form.name
+                                        text: '(' + form.id + ') ' + form.name,
+										'data-category': form?.category || ''
                                     }));
                                 }
                             });
+							categories = Object.keys(categories).sort();
+							categories.forEach(function(category) {
+								$categorySelect.append($('<option>', {
+									value: category,
+									text: category
+								}));
+							});
+
+							// Filter form options based on selected category
+							$categorySelect.on('change', function() {
+								var selectedCategory = $(this).val();
+								var currentlySelectedId = $formSelect.val();
+								var selectedFormStillExists = false;
+
+								// Clear form options except the placeholder
+								$formSelect.find('option:not(:first)').remove();
+
+								// Rebuild options based on selected category
+								forms.forEach(function (form) {
+									if (form && typeof form.id !== 'undefined' && typeof form.name !== 'undefined') {
+										// Show all forms if "All forms" is selected, or filter by category
+										if (selectedCategory === '' || (form.category || '') === selectedCategory) {
+											$formSelect.append($('<option>', {
+												value: form.id,
+												text: '(' + form.id + ') ' + form.name,
+												'data-category': form?.category || ''
+											}));
+											// Check if the currently selected form still exists in the filtered list
+											if (form.id == currentlySelectedId) {
+												selectedFormStillExists = true;
+											}
+										}
+									}
+								});
+
+								// Keep the selection if it still exists in the filtered list, otherwise reset
+								if (selectedFormStillExists && currentlySelectedId) {
+									$formSelect.val(currentlySelectedId);
+								} else {
+									$formSelect.val('');
+								}
+							});
 
                             var $button = $('<button>', {
                                 class: 'button-primary',
-                                text: 'Import Form',
+                                text: cpcff_form_widget_import_form_button,
                                 css: {
                                     'white-space': 'nowrap'
                                 },
                                 click: function (e) {
                                     e.preventDefault();
-                                    var selectedId = $select.val();
+                                    var selectedId = $formSelect.val();
                                     if (!selectedId) {
-                                        alert('Please select the form to import.');
+                                        alert(cpcff_form_widget_select_form_alert);
                                         return;
                                     }
                                     addLoadingAnimation();
-                                    me._developerNotes = 'Imported form - ' + $select.find(':selected').text();
+                                    me._developerNotes = cpcff_form_widget_imported_form_prefix + $formSelect.find(':selected').text();
                                     getFormStructure(selectedId);
                                 }
                             });
 
-                            $row.append($select, $button);
+                            $row.append($categorySelect, $formSelect, $button);
                             $content.append($row);
                         } else {
                             $content.append($('<p>', {
-                                text: 'No forms available.',
+                                text: cpcff_form_widget_no_forms_available,
                                 css: { margin: '12px 0', color: '#333' }
                             }));
                         }
 
-                        $modal.append($('<div style="text-align:right"></div>').append($close), $content);
+                        $modal.append($('<div style="display:flex;align-items:center;gap:10px"><span style="font-weight:600;flex-grow:1">Form insertion dialog</span></div>').append($close), $content);
                         $('body').off('keydown', closeModal).on('keydown', closeModal).append($overlay, $modal);
                     }; // End renderCFFFormsModal
 
@@ -174,12 +224,12 @@
                                     updateFormStructure(structure);
                                     closeModal();
                                 } else {
-									alert("The form you're trying to import appears to be empty, or its fields are not accessible.");
+									alert(cpcff_form_widget_form_empty_or_inaccessible);
 								}
                             }
                         }, 'json').fail(function () {
                             removeLoadingAnimation();
-                            alert('Failed to get form structure.');
+                            alert(cpcff_form_widget_failed_get_structure);
                         });
                     }; // End getFormStructure
 

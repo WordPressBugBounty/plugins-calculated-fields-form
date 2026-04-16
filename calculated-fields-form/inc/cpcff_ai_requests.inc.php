@@ -119,12 +119,6 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
-                            ],
-                            'claude-opus-4-20250514'        => [
-                                'title' => esc_html__('Claude Opus 4', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
                             ]
                         ]
                     ],

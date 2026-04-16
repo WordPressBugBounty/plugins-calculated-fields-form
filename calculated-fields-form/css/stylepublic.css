@@ -55,6 +55,7 @@ body{
 #fbuilder  textarea,
 #fbuilder  select {width:auto;display:inline-block;max-width:none;min-height:30px;border:1px solid RGB(118,118,118);}
 #fbuilder  .select2-selection {min-height:30px;}
+#fbuilder  select.select2-hidden-accessible{display:none !important;}
 
 #fbuilder .small{width:25% !important;}
 #fbuilder .medium{width:50% !important;}

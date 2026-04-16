@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.2
+Stable tag: 5.4.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.6.3 =
+
+* Enhances the Import Form Fields widget by enabling form grouping into categories within the import popup, improving organization and usability.
+* Refines the Map Widget by removing unnecessary attributes for a cleaner and more efficient implementation.
+* Updates the Anthropic models list by removing deprecated models, ensuring better accuracy and maintainability.
+
 = 5.4.6.2 =
 
 * Updates the Number, Currency, and Calculated fields to ensure that prefix and postfix attribute values are dynamically updated based on other field values.
@@ -483,10 +489,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Updates the default field sizes for number, currency, and slider controls from small to medium, providing improved visual consistency across all default control sizes.
 * Enhances the results list shortcode to support passing attribute values via URL parameters (available in Professional, Developer, and Platinum editions), increasing flexibility for dynamic integrations.
 * Updates the Paycomet add-on to ensure full compatibility with the latest API changes (available in the Platinum version).
-
-= 5.4.5.8 =
-= 5.4.5.7 =
-
-* Improves pagination in multi-page forms to ensure that empty pages, those without accessible fields, do not introduce unnecessary delays.
-* Enhances the fields list popup to provide quicker and more intuitive shortcuts for navigating directly to fields within the form.
-* Implements lazy loading for the CAPTCHA image, improving overall form loading and rendering performance (available in Professional, Developer, and Platinum versions).

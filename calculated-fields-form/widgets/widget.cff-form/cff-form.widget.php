@@ -40,8 +40,9 @@ if( class_exists( 'CPCFF_WidgetBase' ) )
                     continue;
                 }
                 $data[] = array(
-                    'id'   => intval( $form->id ),
-                    'name' => sanitize_text_field( $form->form_name ),
+                    'id'   		=> intval( $form->id ),
+                    'name' 		=> sanitize_text_field( $form->form_name ),
+					'category' 	=> sanitize_text_field( ! empty($form->category) ? $form->category : '')
                 );
             }
 
@@ -93,9 +94,19 @@ if( class_exists( 'CPCFF_WidgetBase' ) )
         {
             // Inject the URL with the nonce to get the forms list
             $url = add_query_arg(['_cpcff_nonce'  => wp_create_nonce('cff-form-widget')], admin_url('admin-ajax.php'));
-            print 'var cpcff_form_widget_url = "' . esc_js( $url ) . '";';
-            // Inject control scripts
-            print file_get_contents(dirname(__FILE__) . '/assets/script/form.admin.js');
+
+            // Print JavaScript variables and include the admin script for the form widget.
+            print 'var cpcff_form_widget_url = "' . esc_js( $url ) . '",
+                cpcff_form_widget_close_title = "' . esc_js( __('Close', 'calculated-fields-form') ) . '",
+                cpcff_form_widget_all_forms = "' . esc_js( __('All forms', 'calculated-fields-form') ) . '",
+                cpcff_form_widget_select_form_to_import = "' . esc_js( __('Select form to import', 'calculated-fields-form') ) . '",
+                cpcff_form_widget_import_form_button = "' . esc_js( __('Import Form', 'calculated-fields-form') ) . '",
+                cpcff_form_widget_select_form_alert = "' . esc_js( __('Please select the form to import.', 'calculated-fields-form') ) . '",
+                cpcff_form_widget_imported_form_prefix = "' . esc_js( __('Imported form - ', 'calculated-fields-form') ) . '",
+                cpcff_form_widget_no_forms_available = "' . esc_js( __('No forms available.', 'calculated-fields-form') ) . '",
+                cpcff_form_widget_failed_get_structure = "' . esc_js( __('Failed to get form structure.', 'calculated-fields-form') ) . '",
+                cpcff_form_widget_form_empty_or_inaccessible = "' . esc_js( __("The form you're trying to import appears to be empty, or its fields are not accessible.", 'calculated-fields-form') ) . '";' .
+                file_get_contents(dirname(__FILE__) . '/assets/script/form.admin.js');
         } // End admin_scripts
 
         protected function admin_styles()

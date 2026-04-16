@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-04-02 20:08+0200\n"
-"PO-Revision-Date: 2026-04-02 20:08+0200\n"
+"POT-Creation-Date: 2026-04-16 15:34+0200\n"
+"PO-Revision-Date: 2026-04-16 15:34+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -15,41 +15,41 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: cp_calculatedfieldsf_free.php:148
+#: cp_calculatedfieldsf_free.php:149
 msgid "Form Preview"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:188
+#: cp_calculatedfieldsf_free.php:189
 msgid ""
 "You are submitting the form too quickly, or with invalid data, and are being "
 "identified as a spam bot. Please take more time to fill the form."
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:200
+#: cp_calculatedfieldsf_free.php:201
 msgid "Form submissions are currently disabled."
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:363 cp_calculatedfieldsf_free.php:376
+#: cp_calculatedfieldsf_free.php:364 cp_calculatedfieldsf_free.php:377
 msgid "The"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:363
+#: cp_calculatedfieldsf_free.php:364
 msgid "value is invalid"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:376
+#: cp_calculatedfieldsf_free.php:377
 msgid "is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:474
+#: cp_calculatedfieldsf_free.php:475
 msgid "The form is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:527
+#: cp_calculatedfieldsf_free.php:528
 msgid "Failed security check"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:567
+#: cp_calculatedfieldsf_free.php:568
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the database structure. Please, go to the plugins "
@@ -58,7 +58,7 @@ msgid ""
 "please <a href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:578
+#: cp_calculatedfieldsf_free.php:579
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the form structure. Please, try to save the data "
@@ -1130,6 +1130,7 @@ msgid "Form Categories"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:398 inc/cpcff_admin_int_list.inc.php:456
+#: widgets/widget.cff-form/cff-form.widget.php:101
 msgid "All forms"
 msgstr ""
 
@@ -1571,87 +1572,79 @@ msgstr ""
 msgid "Upgrade your plugin copy"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:54
+#: inc/cpcff_ai_requests.inc.php:52
 msgid "OpenAI"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:59
+#: inc/cpcff_ai_requests.inc.php:57
 msgid "GPT-5 Nano (Fast and Cheap)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:65
+#: inc/cpcff_ai_requests.inc.php:63
 msgid "GPT-5 Mini (Balanced)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:71
+#: inc/cpcff_ai_requests.inc.php:69
 msgid "GPT-5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:77
+#: inc/cpcff_ai_requests.inc.php:75
 msgid "GPT-5.4"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:83
+#: inc/cpcff_ai_requests.inc.php:81
 msgid "GPT-5.4 Pro (Most Capable)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:91
+#: inc/cpcff_ai_requests.inc.php:89
 msgid "Anthropic (Claude)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:96
+#: inc/cpcff_ai_requests.inc.php:94
 msgid "Claude Sonnet 4.6 (Recommended)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:102
+#: inc/cpcff_ai_requests.inc.php:100
 msgid "Claude Sonnet 4.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:108
+#: inc/cpcff_ai_requests.inc.php:106
 msgid "Claude Haiku 4.5 (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:114
+#: inc/cpcff_ai_requests.inc.php:112
 msgid "Claude Opus 4.6 (Most Capable)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:120
+#: inc/cpcff_ai_requests.inc.php:118
 msgid "Claude Opus 4.5"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:126
-msgid "Claude Opus 4"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:132
-msgid "Claude 3 Haiku (Budget)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:140
 msgid "Google (Gemini)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:145
+#: inc/cpcff_ai_requests.inc.php:131
 msgid "Gemini 2.5 Flash-Lite"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:151
+#: inc/cpcff_ai_requests.inc.php:137
 msgid "Gemini 2.5 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:157
+#: inc/cpcff_ai_requests.inc.php:143
 msgid "Gemini 2.5 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:163
+#: inc/cpcff_ai_requests.inc.php:149
 msgid "Gemini 3 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:169
+#: inc/cpcff_ai_requests.inc.php:155
 msgid "Gemini 3.1 Flash-Lite"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:175
+#: inc/cpcff_ai_requests.inc.php:161
 msgid "Gemini 3.1 Pro"
 msgstr ""
 
@@ -2141,6 +2134,40 @@ msgid ""
 msgstr ""
 
 #: widgets/widget.cff-form/cff-form.widget.php:29
-#: widgets/widget.cff-form/cff-form.widget.php:76
+#: widgets/widget.cff-form/cff-form.widget.php:77
 msgid "Insufficient permissions"
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:100
+msgid "Close"
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:102
+msgid "Select form to import"
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:103
+msgid "Import Form"
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:104
+msgid "Please select the form to import."
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:105
+msgid "Imported form - "
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:106
+msgid "No forms available."
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:107
+msgid "Failed to get form structure."
+msgstr ""
+
+#: widgets/widget.cff-form/cff-form.widget.php:108
+msgid ""
+"The form you're trying to import appears to be empty, or its fields are not "
+"accessible."
 msgstr ""

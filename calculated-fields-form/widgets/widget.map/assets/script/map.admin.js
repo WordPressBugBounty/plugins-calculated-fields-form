@@ -164,6 +164,7 @@
 					});
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this,evt);
 				},
+			showShortLabel: function() { return ''; },	
 			showSpecialDataInstance: function()
 				{
 					let output = '<label for="sMapProvider">Map Provider</label><select name="sMapProvider" id="sMapProvider" class="large">'+
