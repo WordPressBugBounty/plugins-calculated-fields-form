@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.6.5 =
+
+* Fixes an issue where the initial prefix and postfix symbols were not correctly applied to number fields, and currency symbols were not properly assigned to currency fields when automatic formatting was disabled.
+
 = 5.4.6.4 =
 
 * Fixes an issue displaying the Import Form Fields dialog when the form builder is in fullscreen.

@@ -31,7 +31,7 @@
                         let v = e.value;
                         if (v !== '') v = this.val(false, true);
                         this.currencySymbol = s;
-                        v = this.getFormattedValue(v);
+                        v = this.getFormattedValue(v, true);
                         this.setVal(v, true);
                     }
                 },
@@ -44,7 +44,7 @@
                         let v = e.value;
                         if (v !== '') v = this.val(false, true);
                         this.currencyText = s;
-                        v = this.getFormattedValue(v);
+                        v = this.getFormattedValue(v, true);
                         this.setVal(v, true);
                     }
                 },
@@ -80,11 +80,12 @@
 					e.valid();
                     if(this.required) e.addClass('required');
 				},
-			getFormattedValue:function(value)
+			getFormattedValue:function(value, force_format)
 				{
 					if(value == '') return value;
-					if(this.formatDynamically)
-					{
+					if (
+						this.formatDynamically || force_format
+					) {
 						var me = this,
 							ts = me.thousandSeparator,
 							tse = ts.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),

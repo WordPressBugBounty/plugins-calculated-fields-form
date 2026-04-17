@@ -30,7 +30,7 @@
                         let v = e.value;
                         if(v !== '') v = this.val(false, true);
                         this.prefix = s;
-                        v = this.getFormattedValue(v);
+                        v = this.getFormattedValue(v, true);
                         this.setVal(v, true);
                     }
                 },
@@ -42,7 +42,7 @@
                         let v = e.value;
                         if(v !== '') v = this.val(false, true);
                         this.postfix = s;
-                        v = this.getFormattedValue(v);
+                        v = this.getFormattedValue(v, true);
                         this.setVal(v, true);
                     }
                 },
@@ -78,10 +78,15 @@
 					e.valid();
                     if(this.required) e.addClass('required');
 				},
-			getFormattedValue:function(value)
+			getFormattedValue:function(value, force_format)
 				{
 					if(value == '') return value;
-					if((this.formatDynamically && this.dformat != 'digits') ||  this.dformat == 'percent') {
+					if(
+						(
+							(force_format || this.formatDynamically) && 
+							this.dformat != 'digits'
+						) ||  this.dformat == 'percent'
+					) {
 						var ts = this.thousandSeparator,
 							tse = ts.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
 							ds = ((ds=String(this.decimalSymbol).trim()) !== '') ? ds : '.',

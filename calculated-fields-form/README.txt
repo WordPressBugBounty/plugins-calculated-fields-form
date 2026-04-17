@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,AI form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.4
+Stable tag: 5.4.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -457,6 +457,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.4.6.5 =
+
+* Fixes an issue where the initial prefix and postfix symbols were not correctly applied to number fields, and currency symbols were not properly assigned to currency fields when automatic formatting was disabled.
+
 = 5.4.6.4 =
 
 * Fixes an issue displaying the Import Form Fields dialog when the form builder is in fullscreen.
@@ -478,10 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the URL Operations module to allow accessing the top URL parameters even if the form is sandboxed in an iframe.
 * Optimizes the form generation from templates process.
 * Adds CALCULATEAMORTIZATIONITALIAN to the Financial Operations module to use the Italian amortization method (available in Developer and Platinum editions).
-
-= 5.4.6.0 =
-
-* We have introduced an improvement that prevents adding Page Break controls inside container fields such as divs, fieldsets, and popups. Since Page Breaks operate at the form level, placing them within containers can result in incorrect or unintended page layouts.
-* Updated the Import Form Fields widget to exclude Page Break controls, as imported fields are placed within a container field.
-* The additional choice option is now ignored in dropdown fields configured for multiple selections, as it is unnecessary and may cause confusion.
-* Extended the CSS rules in Form Settings / Advanced Settings so that button styles also apply to the Apply Coupon button (available in Professional, Developer, and Platinum editions).
