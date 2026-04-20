@@ -22,32 +22,26 @@
 			step:1,
 			formatDynamically:false,
 			twoDecimals:false,
-            set_prefix:function(s){ this.set_currencySymbol(s); },
-            set_currencySymbol:function(s)
+            _set_pre_post: function (attr, s)
                 {
                     let e = document.getElementById(this.name);
                     if (e) {
                         if (e.type === 'number') e.type = 'text';
                         let v = e.value;
-                        if (v !== '') v = this.val(false, true);
-                        this.currencySymbol = s;
-                        v = this.getFormattedValue(v, true);
-                        this.setVal(v, true);
+                        if (v !== '') {
+                            let n = $.fbuilder.numberOfDecimals(v, this.centSeparator);
+                            v = this.val(false, true, true);
+                            this[attr] = s;
+                            v = this.getFormattedValue(v, true, n);
+                            this.setVal(v, true);
+                        }
                     }
+					this[attr] = s;
                 },
-            set_postfix:function(s){ this.set_currencyText(s); },
-            set_currencyText:function(s)
-                {
-                    let e = document.getElementById(this.name);
-                    if (e) {
-                        if (e.type === 'number') e.type = 'text';
-                        let v = e.value;
-                        if (v !== '') v = this.val(false, true);
-                        this.currencyText = s;
-                        v = this.getFormattedValue(v, true);
-                        this.setVal(v, true);
-                    }
-                },
+            set_prefix:function(s) { this._set_pre_post('currencySymbol', s); },
+            set_currencySymbol:function(s) { this._set_pre_post('currencySymbol', s); },
+            set_postfix:function(s) { this._set_pre_post('currencyText', s); },
+            set_currencyText:function(s) { this._set_pre_post('currencyText', s); },
 			set_step:function(v, rmv)
 				{
 					var e = $('[id="'+this.name+'"]');
@@ -80,7 +74,7 @@
 					e.valid();
                     if(this.required) e.addClass('required');
 				},
-			getFormattedValue:function(value, force_format)
+			getFormattedValue:function(value, force_format, decimals)
 				{
 					if(value == '') return value;
 					if (
@@ -103,7 +97,8 @@
 						{
 							if(v < 0) sign = '-';
 							v = ABS(v);
-							if(this.twoDecimals) v = v.toFixed(2);
+                            if(decimals !== undefined && decimals !== null) v = v.toFixed(decimals);
+							else if(this.twoDecimals) v = v.toFixed(2);
 							parts = v.toString().split(".");
 
 							for(var i = parts[0].length-1; i >= 0; i--)

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.6.5';
+	$.fbuilder['version'] = '5.4.6.6';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -38,6 +38,12 @@
 	};
 
 	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
+
+    $.fbuilder['numberOfDecimals'] = function(value, symbol) {
+        const s = String(symbol).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const match = String(value).match(new RegExp(`.*${s}(\\d*)`, 'i'));
+        return match ? match[1].length : null;
+    };
 
 	$.fbuilder['htmlEncode'] = window['cff_esc_attr'] = function(value)
 	{

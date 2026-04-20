@@ -54,6 +54,7 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
 
             $prompt .= "- Output valid JSON only\n";
             $prompt .= "- Match schema exactly\n";
+            $prompt .= "- Return ONLY a JSON array with exactly two elements: the first element must be a plain JSON array of field objects (not wrapped in any object), and the second must be a plain JSON array containing exactly one settings object. Do not wrap the fields array inside an object.\n";
             $prompt .= "- Omit null values\n";
             $prompt .= "- No markdown, no explanations\n\n";
             $prompt .= "JSON:";

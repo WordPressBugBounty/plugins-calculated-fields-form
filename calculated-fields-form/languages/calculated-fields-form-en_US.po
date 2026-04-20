@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-04-16 15:34+0200\n"
-"PO-Revision-Date: 2026-04-16 15:34+0200\n"
+"POT-Creation-Date: 2026-04-19 22:15+0200\n"
+"PO-Revision-Date: 2026-04-19 22:15+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -344,27 +344,27 @@ msgstr ""
 msgid "Invalid AI provider selected."
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:67
+#: inc/cpcff_admin_ai_form_generator.inc.php:68
 msgid "Unknown error from AI model."
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:68
+#: inc/cpcff_admin_ai_form_generator.inc.php:69
 msgid "AI Model Error: "
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:107
+#: inc/cpcff_admin_ai_form_generator.inc.php:108
 msgid "No form preview available."
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:148
+#: inc/cpcff_admin_ai_form_generator.inc.php:149
 msgid "Empty API Key or form description"
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:154
+#: inc/cpcff_admin_ai_form_generator.inc.php:155
 msgid "Settings saved successfully"
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:157
+#: inc/cpcff_admin_ai_form_generator.inc.php:158
 msgid "Model or provider not selected"
 msgstr ""
 
@@ -1646,6 +1646,70 @@ msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:161
 msgid "Gemini 3.1 Pro"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:169
+msgid "MiniMax"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:174
+msgid "MiniMax M2"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:180
+msgid "MiniMax M2.1"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:186
+msgid "MiniMax M2.1 Highspeed"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:192
+msgid "MiniMax M2.5"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:198
+msgid "MiniMax M2.5 Highspeed"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:204
+msgid "MiniMax M2.7"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:210
+msgid "MiniMax M2.7 Highspeed"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:218
+msgid "Kimi (Moonshot AI)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:223
+msgid "Moonshot V1 8K"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:229
+msgid "Moonshot V1 32K"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:235
+msgid "Moonshot V1 128K"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:241
+msgid "Kimi K2 Turbo Preview"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:247
+msgid "Kimi K2 Thinking"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:253
+msgid "Kimi K2 Thinking Turbo"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:259
+msgid "Kimi K2.5"
 msgstr ""
 
 #: inc/cpcff_amp.inc.php:158

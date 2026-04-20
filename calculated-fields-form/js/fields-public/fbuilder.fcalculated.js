@@ -28,32 +28,24 @@
 //					var me = evt.data.obj;
 //					if( ! me.noEvalIfManual ) $('[id="' + me.name + '"]').data('manually', 0);
 				},
-            set_prefix: function (s) {
-                let e = document.getElementById(this.name);
-                if (e) {
-                    if (e.type === 'number') e.type = 'text';
-                    let v = e.value;
-                    if (v !== '') v = this.val(false, true);
-                    this.prefix = s;
-                    v = $.fbuilder.calculator.format(v, this.configuration());
-                    this.setVal(v, true);
-                }
-            },
-            set_postfix: function (s) {
-                let e = document.getElementById(this.name);
-                if (e) {
-                    if (e.type === 'number') e.type = 'text';
-                    let v = e.value;
-                    if (v !== '') v = this.val(false, true);
-                    this.suffix = s;
-                    v = $.fbuilder.calculator.format(v, this.configuration());
-                    this.setVal(v, true);
-                }
-            },
-            set_suffix : function(s)
+            _set_pre_post: function (attr, s)
                 {
-                    this.set_postfix(s);
+                    let e = document.getElementById(this.name);
+                    if (e) {
+                        if (e.type === 'number') e.type = 'text';
+                        let v = e.value;
+                        if (v !== '') {
+                            v = this.val(false, true, true);
+                            this[attr] = s;
+                            v = $.fbuilder.calculator.format(v, this.configuration());
+                            this.setVal(v, true);
+                        }
+                    }
+					this[attr] = s;
                 },
+            set_prefix: function (s) { this._set_pre_post('prefix', s); },
+            set_postfix: function (s) { this._set_pre_post('suffix', s); },
+            set_suffix : function(s) { this._set_pre_post('suffix', s); },
             init:function()
                 {
                     if(!/^\s*$/.test(this.prefix)) this._setHndl('prefix');

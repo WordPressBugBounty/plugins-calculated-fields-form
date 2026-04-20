@@ -164,6 +164,104 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'max_tokens' => 64000
                             ]
                         ]
+                    ],
+                    'minimax' => [
+                        'title'         => esc_html__('MiniMax', 'calculated-fields-form'),
+                        'default_model' => 'MiniMax-M2.7',
+                        'api_key_url'   => 'https://platform.minimax.io/user-center/basic-information',
+                        'models'        => [
+                            'MiniMax-M2' => [
+                                'title' => esc_html__('MiniMax M2', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'MiniMax-M2.1' => [
+                                'title' => esc_html__('MiniMax M2.1', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'MiniMax-M2.1-highspeed' => [
+                                'title' => esc_html__('MiniMax M2.1 Highspeed', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'MiniMax-M2.5' => [
+                                'title' => esc_html__('MiniMax M2.5', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'MiniMax-M2.5-highspeed' => [
+                                'title' => esc_html__('MiniMax M2.5 Highspeed', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'MiniMax-M2.7' => [
+                                'title' => esc_html__('MiniMax M2.7', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'MiniMax-M2.7-highspeed' => [
+                                'title' => esc_html__('MiniMax M2.7 Highspeed', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ]
+                        ]
+                    ],
+                    'kimi' => [
+                        'title'         => esc_html__('Kimi (Moonshot AI)', 'calculated-fields-form'),
+                        'default_model' => 'kimi-k2.5',
+                        'api_key_url'   => 'https://platform.moonshot.ai/console/api-keys',
+                        'models'        => [
+                            'moonshot-v1-8k' => [
+                                'title' => esc_html__('Moonshot V1 8K', 'calculated-fields-form'),
+                                'form-generation' => false,
+                                'ai-assistant' => true,
+                                'max_tokens' => 8192
+                            ],
+                            'moonshot-v1-32k' => [
+                                'title' => esc_html__('Moonshot V1 32K', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 32768
+                            ],
+                            'moonshot-v1-128k' => [
+                                'title' => esc_html__('Moonshot V1 128K', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'kimi-k2-turbo-preview' => [
+                                'title' => esc_html__('Kimi K2 Turbo Preview', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'kimi-k2-thinking' => [
+                                'title' => esc_html__('Kimi K2 Thinking', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'kimi-k2-thinking-turbo' => [
+                                'title' => esc_html__('Kimi K2 Thinking Turbo', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'kimi-k2.5' => [
+                                'title' => esc_html__('Kimi K2.5', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ]
+                        ]
                     ]
                 ];
                 self::$default_model = self::$models[self::$default_provider]['default_model'];
@@ -216,6 +314,10 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                     return $this->call_gemini($prompt, $context);
                 case 'claude':
                     return $this->call_claude($prompt, $context);
+                case 'minimax':
+                    return $this->call_minimax($prompt, $context);
+                case 'kimi':
+                    return $this->call_kimi($prompt, $context);
                 default:
                     return ['error' => 'Unknown provider'];
             }
@@ -286,7 +388,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                     } else {
                         // Token limit hit but no useful output - likely spent on reasoning/processing
                         return [
-                            'error' => printf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
+                            'error' => sprintf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
                         ];
                     }
                 }
@@ -308,19 +410,23 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
             // Use specified model or default
             $model = $this->model ?: self::$models['gemini']['default_model'];
             $url = 'https://generativelanguage.googleapis.com/v1beta/models/' . $model . ':generateContent?key=' . $this->api_key;
-            $combined_prompt = $context . "\n\n" . $prompt;
 
             $data = [
+                'system_instruction' => [
+                    'parts' => [
+                        ['text' => $context]
+                    ]
+                ],
                 'contents' => [
                     [
+                        'role' => 'user',
                         'parts' => [
-                            ['text' => $combined_prompt]
+                            ['text' => $prompt]
                         ]
                     ]
                 ],
                 'generationConfig' => [
-                    'temperature' => $this->temperature ?: 0.3,
-                    'maxOutputTokens' => $this->max_tokens
+                    'maxOutputTokens' => $this->max_tokens,
                 ]
             ];
 
@@ -353,7 +459,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         } else {
                             // Token limit hit but no useful output - likely spent on reasoning/processing
                             return [
-                                'error' => printf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
+                                'error' => sprintf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
                             ];
                         }
                     }
@@ -370,6 +476,71 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
         }
 
         /**
+         * Call MiniMax API with automatic continuation handling
+         */
+        private function call_minimax($prompt, $context) {
+            $url = 'https://api.minimax.io/v1/chat/completions';
+
+            $model = $this->model ?: self::$models['minimax']['default_model'];
+            $messages = [
+                [
+                    'role' => 'system',
+                    'content' => $context
+                ],
+                [
+                    'role' => 'user',
+                    'content' => $prompt
+                ]
+            ];
+
+            $data = [
+                'model' => $model,
+                'messages' => $messages,
+                'max_tokens' => $this->max_tokens
+            ];
+
+            $response = wp_remote_post($url, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $this->api_key
+                ],
+                'body' => json_encode($data),
+                'timeout' => $this->timeout
+            ]);
+
+            if (is_wp_error($response)) {
+                return ['error' => $response->get_error_message()];
+            }
+
+            $body = json_decode(wp_remote_retrieve_body($response), true);
+
+            if (isset($body['choices'][0]['message']['content'])) {
+                $response_content = $body['choices'][0]['message']['content'];
+                $finish_reason = $body['choices'][0]['finish_reason'] ?? 'unknown';
+
+                if ($finish_reason === 'length') {
+                    if ($this->retry_flag) {
+                        $this->retry_flag = false;
+                        $this->max_tokens *= 2;
+                        return $this->call_minimax($prompt, $context);
+                    } else {
+                        return [
+                            'error' => sprintf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
+                        ];
+                    }
+                }
+
+                return ['response' => $response_content];
+            }
+
+            if (isset($body['error']['message'])) {
+                return ['error' => $body['error']['message']];
+            }
+
+            return ['error' => 'Failed MiniMax request'];
+        }
+
+        /**
          * Call Claude (Anthropic) API with automatic continuation handling
          */
         private function call_claude($prompt, $context) {
@@ -377,18 +548,17 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 
             // Use specified model or default
             $model = $this->model ?: self::$models['claude']['default_model'];
-            $messages = [
-                [
-                    'role' => 'user',
-                    'content' => $context . "\n\n" . $prompt
-                ]
-            ];
 
             $data = [
-                'model' => $model,
+                'model'      => $model,
                 'max_tokens' => $this->max_tokens,
-                'messages' => $messages,
-                'temperature' => $this->temperature ?: 0.3
+                'system'     => $context,
+                'messages'   => [
+                    [
+                        'role'    => 'user',
+                        'content' => $prompt
+                    ]
+                ]
             ];
 
             $response = wp_remote_post($url, [
@@ -422,7 +592,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         } else {
                             // Token limit hit but no useful output - likely spent on reasoning/processing
                             return [
-                                'error' => printf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
+                                'error' => sprintf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
                             ];
                         }
                     }
@@ -436,6 +606,71 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
             }
 
             return ['error' => 'Failed Claude request'];
+        }
+
+        /**
+         * Call Kimi (Moonshot AI) API with automatic continuation handling
+         */
+        private function call_kimi($prompt, $context) {
+            $url = 'https://api.moonshot.ai/v1/chat/completions';
+
+            $model = $this->model ?: self::$models['kimi']['default_model'];
+            $messages = [
+                [
+                    'role' => 'system',
+                    'content' => $context
+                ],
+                [
+                    'role' => 'user',
+                    'content' => $prompt
+                ]
+            ];
+
+            $data = [
+                'model' => $model,
+                'messages' => $messages,
+                'max_tokens' => $this->max_tokens
+            ];
+
+            $response = wp_remote_post($url, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $this->api_key
+                ],
+                'body' => json_encode($data),
+                'timeout' => $this->timeout
+            ]);
+
+            if (is_wp_error($response)) {
+                return ['error' => $response->get_error_message()];
+            }
+
+            $body = json_decode(wp_remote_retrieve_body($response), true);
+
+            if (isset($body['choices'][0]['message']['content'])) {
+                $response_content = $body['choices'][0]['message']['content'];
+                $finish_reason = $body['choices'][0]['finish_reason'] ?? 'unknown';
+
+                if ($finish_reason === 'length') {
+                    if ($this->retry_flag) {
+                        $this->retry_flag = false;
+                        $this->max_tokens *= 2;
+                        return $this->call_kimi($prompt, $context);
+                    } else {
+                        return [
+                            'error' => sprintf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
+                        ];
+                    }
+                }
+
+                return ['response' => $response_content];
+            }
+
+            if (isset($body['error']['message'])) {
+                return ['error' => $body['error']['message']];
+            }
+
+            return ['error' => 'Failed Kimi request'];
         }
     }
 }

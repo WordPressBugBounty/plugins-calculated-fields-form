@@ -133,7 +133,7 @@
 						'<label for="sPostfix">Postfix Symbol</label><input type="text" name="sPostfix" id="sPostfix" value="'+cff_esc_attr(this.postfix)+'" class="large">'+
 						'</div>'+
 						'<div class="fnumber-symbols" '+((df == 'digits') ? 'style="display:none;"' : '')+'><label class="column width50"><input type="checkbox" name="sFormatDynamically" id="sFormatDynamically" '+( (this.formatDynamically) ? 'CHECKED' : '')+'> Format dynamically to</label>'+
-						'<label class="column width50"><input type="checkbox" name="sTwoDecimals" id="sTwoDecimals" '+( (this.twoDecimals) ? 'CHECKED' : '')+'> two decimal places</label>'+
+						'<label class="column width50"><input type="checkbox" name="sTwoDecimals" id="sTwoDecimals" '+( (this.twoDecimals) ? 'CHECKED' : '')+'> max two decimal places</label>'+
 						'<div class="clearer"></div></div>';
 					},
 				showRangeIntance: function()

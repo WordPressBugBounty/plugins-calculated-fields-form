@@ -1,439 +1,443 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://cff.dwbooster.com
-Tags: form,quote form,contact form,AI form builder,calculator form
+Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.5
+Stable tag: 5.4.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The CFF plugin allows you to create both simple and professional forms. Its form builder includes dynamic calculated fields and many other controls.
+Calculated Fields Form is a complete WordPress form builder — contact forms, booking forms, quote forms, payment forms, and more — with built-in dynamic calculation capabilities.
 
 == Description ==
 
-Absolutely! The "<a href="https://cff.dwbooster.com/download">Calculated Fields Form</a>" plugin unlocks a wide range of powerful features for building dynamic and interactive forms. Its AI form generator and assistant offer outstanding support, helping you quickly create forms, develop complex calculation formulas, and design fully customized solutions with ease and precision.
+**Calculated Fields Form** is a full-featured WordPress form builder plugin. It lets you create any type of form — from simple contact forms to complex multi-step booking systems, quote generators, order forms, and payment forms — without writing a single line of code.
+
+Its standout capability is real-time dynamic calculations: form fields can automatically compute results (totals, prices, dates, distances, scores) based on values entered by the user. This makes it the ideal choice whenever a form needs to respond intelligently to user input.
 
 [youtube https://www.youtube.com/watch?v=XVCLy_bZPi8]
 
-Here's a breakdown of what you can achieve:
+= Is Calculated Fields Form only for forms with calculations? =
 
-**Financial Calculations**: Design forms that automatically compute totals, taxes, discounts, and other financial metrics.
+No. Despite its name, Calculated Fields Form is a complete, general-purpose WordPress form builder suitable for any use case. The "calculated fields" refer to an advanced feature the plugin offers on top of all standard form capabilities. You can use it to build:
 
-**Booking Forms**: Seamlessly handle date operations, availability checks, and booking calculations.
+* **Contact forms** — simple name, email, and message forms
+* **Booking and reservation forms** — with date pickers and availability logic
+* **Quote and estimate forms** — with automatic price calculation
+* **Order forms** — with dynamic product pricing
+* **Payment forms** — integrated with PayPal, Stripe, and many other gateways
+* **Registration and sign-up forms** — for events, services, or user accounts
+* **Survey and quiz forms** — with conditional logic and scoring
+* **Lead generation forms** — connected to Mailchimp, HubSpot, Salesforce, and more
+* **Mortgage and loan calculators** — with financial operation modules
+* **Shipping and logistics forms** — with distance and travel time calculations
 
-**Product Pricing**: Dynamically calculate product prices based on user inputs or predefined rules.
+= Why choose Calculated Fields Form over other WordPress form plugins? =
 
-**Math Operations**: Perform basic arithmetic, percentages, and complex mathematical functions.
-
-**Text Processing**: Manipulate text fields, concatenate strings, and format data.
-
-**Date Operations**: Handle date differences, age calculations, and time-related tasks.
-
-Advanced Operations:
-
-**Distance Calculations**: Compute distances between locations.
-
-**Chart Generation**: Create charts dynamically based on form data.
-
-**Third-Party Service Integration**: Call external APIs or services for real-time data retrieval.
-
-And the best part? All resulting forms are **mobile responsive**, ensuring a seamless experience across devices.
-
-The most remarkable aspect is that you don’t need to hire a developer to create forms. With basic knowledge, you can have professional forms in minutes.
+* **No recurring fees** — all commercial versions are a one-time purchase with lifetime updates
+* **AI-powered form builder** — generate forms and formulas using an integrated AI assistant
+* **4.9/5 rating** with over 960 verified reviews on WordPress.org
+* **40,000+ active installations**
+* **Compatible with all major page builders** — Gutenberg, Elementor, Divi, Beaver Builder, WPBakery, SiteOrigin
+* **Extensive add-on ecosystem** — payment gateways, CRM integrations, PDF generation, e-signatures, and more
+* **Real-time calculations** — a capability that most other form plugins lack or offer only in expensive tiers
+* **Actively maintained** — updated regularly with new features and compatibility fixes
 
 [youtube https://www.youtube.com/watch?v=R8hEbD8w2RM]
 
-The form builder is entirely visual, offering a wide selection of controls (Text fields, Numbers, Currency, Date/time, Slider control, Email, Radio buttons, Checkboxes, Container fields, Multi-page control, QR code reader, Recording, Calculated fields, and many others). This versatile toolkit empowers you to create customized forms effortlessly.
+The visual drag-and-drop form builder requires no developer knowledge. Available controls include: text fields, numbers, currency, date/time pickers, slider controls, email, radio buttons, checkboxes, container fields, multi-page controls, QR code readers, voice recording fields, calculated fields, and many others. All forms are fully mobile responsive.
 
 == Features ==
 
-= Main features: =
+= Core form builder features: =
 
-* Visual [form builder](https://cff.dwbooster.com/documentation#form-builder) with an intuitive and interactive interface.
-* Includes [general-purpose controls](https://cff.dwbooster.com/documentation#common-fields) such as radio buttons, checkboxes, menu lists, date fields, slider controls, numeric fields, text currency fields, etc.
-* Includes [calculated fields](https://cff.dwbooster.com/documentation#calculated-fields-settings) whose values result from operations involving other form fields.
-Insert as many calculated fields in the form as you need.
-* Contains an advanced formula editor associated with the calculated fields with syntax highlighting and error detection.
-* Features many operations modules: [mathematical operations](https://cff.dwbooster.com/documentation#mathematical-module), [operations with dates](https://cff.dwbooster.com/documentation#datetime-module), [financial operations](https://cff.dwbooster.com/documentation#financial-module), [distance operations](https://cff.dwbooster.com/documentation#distance-module), text management, [operations for calling remote services](https://cff.dwbooster.com/documentation#connection-module), etc. The calculated fields can identify numbers and prices within the values of the fields.
-* Send [notification emails](https://cff.dwbooster.com/documentation#email-settings) with the data collected by the form.
-* Distributed with several predefined forms that you can use as a starting point for your projects.
-* Includes several [design templates](https://cff.dwbooster.com/templates).
-* Supports multi-pages forms by inserting page break controls between fields belonging to different pages.
-* Possible to define [dependency rules](https://cff.dwbooster.com/blog/2020/03/01/dependencies/) between fields in the form, which is very useful in the design of wizards.
-* Allows the grouping of fields inside container controls (Div, Fieldset, and Popups).
-* Enables formatting the form into columns for a more organized layout.
+* Visual [drag-and-drop form builder](https://cff.dwbooster.com/documentation#form-builder) with an intuitive and interactive interface.
+* [General-purpose form controls](https://cff.dwbooster.com/documentation#common-fields): radio buttons, checkboxes, dropdown lists, date/time pickers, sliders, numeric fields, currency fields, email fields, text areas, and more.
+* [Calculated fields](https://cff.dwbooster.com/documentation#calculated-fields-settings) that automatically compute values based on other form fields. Insert as many calculated fields as needed.
+* Advanced formula editor with syntax highlighting and real-time error detection.
+* [Conditional logic (dependency rules)](https://cff.dwbooster.com/blog/2020/03/01/dependencies/) to show, hide, enable, or disable fields based on user input — ideal for building guided wizards.
+* Multi-page forms using page break controls between field groups.
+* Field grouping inside container controls (Div, Fieldset, and Popups).
+* Multi-column layout support for organized, professional-looking forms.
+* Dozens of predefined form templates to use as starting points.
+* Multiple [design themes and templates](https://cff.dwbooster.com/templates).
+* [Email notifications](https://cff.dwbooster.com/documentation#email-settings) sent to the site owner when a form is submitted.
+* Form version history to recover previous versions.
+* Form duplication to reuse existing work.
+* Troubleshooting and optimization tools.
+* Option to exclude forms from search indexing for improved site speed.
+
+= Supported calculation types: =
+
+* **Financial calculations**: totals, taxes, discounts, interest rates, loan amortization.
+* **Date and time calculations**: differences between dates, age calculations, booking duration.
+* **Mathematical operations**: arithmetic, percentages, rounding, trigonometry, and complex functions.
+* **Text processing**: string manipulation, concatenation, and formatting.
+* **Distance calculations**: compute distances and travel times between locations using Google Maps.
+* **Chart generation**: create charts dynamically from form data using Chart.js.
+* **External service calls**: retrieve real-time data from third-party APIs within form equations.
 
 [youtube https://www.youtube.com/watch?v=NSac2cAN8RE]
 
-The "Calculated Fields Form" plugin includes integration with popular page builders:
+= Page builder integrations: =
+
+Calculated Fields Form integrates natively with all major WordPress page builders:
 
 * Classic WordPress Editor
-* Gutenberg Editor
+* Gutenberg (Block Editor)
 * Elementor
 * Page Builder by SiteOrigin
 * Beaver Builder
 * WPBakery Page Builder
 * DIVI Builder
 
-For other editors, it is possible to insert the form into the pages via its shortcode. Each web form has an associated shortcode that allows you to insert it wherever you want.
+For any other editor, use the shortcode to insert forms anywhere:
 
-`[CP_CALCULATED_FIELDS id="1"]`
+`[CP_CALCULATED_FIELDS_ID id="1"]`
 
 = Other features: =
 
-* From the plugin configuration page, it is possible to duplicate a form by pressing the "Duplicate" button associated with it. By dupplicating a form, you can reuse the work already done.
-* Includes a troubleshooting and optimization area.
-* Allows you to disable forms in the indexing process to improve the speed of the website.
-* Includes a version control in the forms to recover previous versions.
+* Duplicate any form to reuse and adapt previous work.
+* Built-in troubleshooting and performance optimization area.
+* Disable forms from search indexing to improve website speed.
+* Form version control to recover previous versions.
 
-= Predefined forms: =
+> **Free vs. Commercial Versions**
+> The free version includes the complete visual form builder, notification emails to the site owner, basic calculation operations, conditional logic, design customization, and multi-column layout.
+> Commercial versions (Professional, Developer, and Platinum) add payment gateway integration, submission storage, confirmation emails to users, advanced data source controls, financial and distance operation modules, chart generation, CRM integrations, PDF generation, e-signatures, and more.
+> All commercial versions are available as a **one-time purchase** with **lifetime access** to plugin updates. Visit https://cff.dwbooster.com/download for details.
 
-"Calculated Fields Form" comes with dozens of predefined forms that you can select during the form creation process, or you can build new forms from scratch.
+= Professional version features: =
 
-> <strong>Calculated Fields Form Commercial</strong><br />
-> The free version of the "Calculated Fields Form" plugin provides essential functionality, including sending notification emails to the website owner with the form data, basic operations for use with equations, and core features such as customizing form design, setting up conditional fields, and modifying the form layout. More advanced distributions, <a href="https://cff.dwbooster.com/download" target="_blank">Professional, Developer, and Platinum</a>, come with additional capabilities such as sending copy emails to form users, integration with payment gateways and external services, controls for managing database connections (including links to external data sources like Google Sheets in CSV format), and a variety of complex operations. All commercial versions are available as a <strong>one-time purchase</strong> with <strong>lifetime access</strong> to plugin updates. ( <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:bold;">https://cff.dwbooster.com/download</a> )
+* All features of the free version.
+* [Store form submissions](https://cff.dwbooster.com/documentation#check-submissions) on the website for review.
+* [Send confirmation emails](https://cff.dwbooster.com/documentation#copy-user) to users with their submitted data.
+* [PayPal integration](https://cff.dwbooster.com/documentation#paypal-settings) and [Stripe integration](https://cff.dwbooster.com/documentation#stripe-checkout-addon) — dynamically compute the charge amount using a calculated field. SCA (Strong Customer Authentication) compatible with PSD2 (EU Payment Services Directive).
+* [Import and export forms](https://cff.dwbooster.com/documentation#import-export-form) between WordPress sites.
+* Form protection: [CAPTCHA](https://cff.dwbooster.com/documentation#captcha-settings), WordPress nonces, and honeypot fields.
+* "Thank You" page with a summary of the form submission.
+* Dashboard widget showing the last week's form submissions.
+* Form caching to increase rendering speed.
+* [Export submissions to CSV](https://cff.dwbooster.com/documentation#export-submissions) for use in Excel, OpenOffice, LibreOffice, or any spreadsheet tool.
 
-= Features of the Professional version: =
+= Developer version features: =
 
----
-The commercial plugin versions are <strong>one-time purchase</strong> with <strong>lifetime access</strong> to plugin updates ( <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:bold;">https://cff.dwbooster.com/download</a> )
----
-
-* Includes all the features of the free version of the plugin.
-* Submit the data collected by the forms and [store it on the website](https://cff.dwbooster.com/documentation#check-submissions) for review.
-* Send [confirmation emails](https://cff.dwbooster.com/documentation#copy-user) to the users with the data collected by the form.
-* [Integrate the form with PayPal](https://cff.dwbooster.com/documentation#paypal-settings) and [Stripe](https://cff.dwbooster.com/documentation#stripe-checkout-addon). Dynamically compute the charge amount using a calculated field.
-Payments allow SCA (strong customer authentication), compatible with the new payment services (PSD 2) - Directive (EU).
-* [Export and import forms](https://cff.dwbooster.com/documentation#import-export-form) between different WordPress sites.
-* Different mechanisms to protect forms, such as [captcha](https://cff.dwbooster.com/documentation#captcha-settings), WordPress nonces, and honeypot fields.
-* Associate "Thank You" page with the form, where you can show a summary of the form's submission.
-* Dashboard widget to show the last week's submissions.
-* Cache the forms to increase the rendering speed.
-* [Export the information submitted](https://cff.dwbooster.com/documentation#export-submissions) by the forms to a CSV file and use it with third-party tools such as Excel, OpenOffice, LibreOffice, or any other spreadsheet editor.
-
-= Features of the Developer version: =
-
-* Includes all the features of the free and Professional version of the plugin.
-* Advanced [controls that connect to different data sources](https://cff.dwbooster.com/blog/2019/02/14/ds/) (databases, CSV files, posts, taxonomies, user information, and JSON objects).
-* [Financial operations module](https://cff.dwbooster.com/documentation#financial-module).
-* [Date and time operations module](https://cff.dwbooster.com/documentation#datetime-module).
-* [Distance and travel time operations module](https://cff.dwbooster.com/documentation#distance-module) uses "Google Maps".
-* [Chart.js operations module](https://cff.dwbooster.com/documentation#chart-module) to generate charts with the form data. Uses the ChartJS.org library.
-* A script that allows the developer to save the data collected by the form in an [external database](https://cff.dwbooster.com/documentation#third-party-database).
+* All features of the free and Professional versions.
+* [Advanced controls connected to external data sources](https://cff.dwbooster.com/blog/2019/02/14/ds/): databases, CSV files, WordPress posts, taxonomies, user data, and JSON objects.
+* [Financial operations module](https://cff.dwbooster.com/documentation#financial-module): interest, amortization, and other financial calculations.
+* [Date and time operations module](https://cff.dwbooster.com/documentation#datetime-module): advanced date arithmetic and formatting.
+* [Distance and travel time module](https://cff.dwbooster.com/documentation#distance-module): powered by Google Maps.
+* [Chart.js operations module](https://cff.dwbooster.com/documentation#chart-module): generate dynamic charts from form data.
+* Script to save form data to an [external database](https://cff.dwbooster.com/documentation#third-party-database).
 
 [youtube https://www.youtube.com/watch?v=HKMvUTthOoM]
 
-[youtube https://www.youtube.com/watch?v=FzltD0AFU6Y]
-
-**Includes add-ons to extend the form features and make use of third-party plugins and external services**
+**Add-ons included in the Developer version:**
 
 * [Server-Side Equations add-on](https://cff.dwbooster.com/add-ons/server-side-equations): Run equations on the server for better performance and security.
 * [Verification Code add-on](https://cff.dwbooster.com/add-ons/verification-code): Email and phone verification with code input before form submission.
 * [WooCommerce add-on](https://cff.dwbooster.com/add-ons/woocommerce): Link forms to WooCommerce products to calculate prices, weight, and dimensions.
-* [SalesForce add-on](https://cff.dwbooster.com/add-ons/salesforce): Sync form data with your SalesForce account.
-* [WebHooks add-on](https://cff.dwbooster.com/add-ons/webhook): Send form data to WebHook URLs; connect with Zapier, IFTTT, and more.
-* [User Permissions add-on](https://cff.dwbooster.com/add-ons/users-permissions): Restrict form access and let users manage their submissions.
-* [User Registration Form add-on](https://cff.dwbooster.com/add-ons/user-registration-form): Create user sign-up forms
+* [SalesForce add-on](https://cff.dwbooster.com/add-ons/salesforce): Sync form data with your Salesforce account.
+* [WebHooks add-on](https://cff.dwbooster.com/add-ons/webhook): Send form data to Webhook URLs; connect with Zapier, IFTTT, and more.
+* [User Permissions add-on](https://cff.dwbooster.com/add-ons/users-permissions): Restrict form access and let users manage their own submissions.
+* [User Registration Form add-on](https://cff.dwbooster.com/add-ons/user-registration-form): Create user sign-up and registration forms.
 
-= Features of the Platinum version: =
+= Platinum version features: =
 
-* Includes all the features of free, Professional, and Developer versions of the plugin.
+* All features of the free, Professional, and Developer versions.
 
-**Extending features add-ons**
+**Extending features add-ons:**
 
-* [CSV Generator add-on](https://cff.dwbooster.com/add-ons/csv-generator): Exports form data to CSV files and attaches them to notification emails.
-* [PDF Generator add-on](https://cff.dwbooster.com/add-ons/pdf-generator): Creates PDF documents from form data and includes them in notification emails.
-* [Signature add-on](https://cff.dwbooster.com/add-ons/signature):  Converts fields into signature fields so users can sign using a mouse or touchscreen.
-* [Unique Fields Values add-on](https://cff.dwbooster.com/add-ons/uniquefieldsvalues): Ensures users enter values that haven't been used in previous submissions.
-* [iCal add-on](https://cff.dwbooster.com/add-ons/ical): Sends iCal attachments in emails for importing events into Google Calendar, Outlook, and more.
-* [Upload Files add-on](https://cff.dwbooster.com/add-ons/upload): Saves uploaded files to the WordPress media library and supports additional file types.
+* [CSV Generator add-on](https://cff.dwbooster.com/add-ons/csv-generator): Export form data to CSV files and attach them to notification emails.
+* [PDF Generator add-on](https://cff.dwbooster.com/add-ons/pdf-generator): Create PDF documents from submitted form data and include them in emails.
+* [Signature add-on](https://cff.dwbooster.com/add-ons/signature): Add e-signature fields — users can sign using a mouse or touchscreen.
+* [Unique Fields Values add-on](https://cff.dwbooster.com/add-ons/uniquefieldsvalues): Ensure submitted values have not been used in previous submissions.
+* [iCal add-on](https://cff.dwbooster.com/add-ons/ical): Send iCal attachments in emails for importing events into Google Calendar, Outlook, and more.
+* [Upload Files add-on](https://cff.dwbooster.com/add-ons/upload): Save uploaded files to the WordPress media library and support additional file types.
 
-**Payment Gateways add-ons**
+**Payment gateway add-ons:**
 
-* [PayPal Pro add-on](https://cff.dwbooster.com/add-ons/paypal-pro): Accept credit card payments directly on your site, no redirection to PayPal.
-* [PayPal Checkout add-on](https://cff.dwbooster.com/add-ons/paypal-checkout): Integrates PayPal Checkout with support for more payment methods than PayPal Standard.
+* [PayPal Pro add-on](https://cff.dwbooster.com/add-ons/paypal-pro): Accept credit card payments directly on your site without redirecting to PayPal.
+* [PayPal Checkout add-on](https://cff.dwbooster.com/add-ons/paypal-checkout): Integrates PayPal Checkout with support for additional payment methods.
 * [Revolut add-on](https://cff.dwbooster.com/add-ons/revolut): Accept payments through Revolut.
 * [Authorize.Net add-on](https://cff.dwbooster.com/add-ons/authorize): Accept payments through Authorize.Net.
 * [Stripe add-on](https://cff.dwbooster.com/add-ons/stripe): Accept payments using the Stripe payment gateway.
-* [Stripe Checkout add-on](https://cff.dwbooster.com/add-ons/stripe-checkout): Uses Stripe Checkout for secure form-based payments.
-* [Skrill Payments Integration](https://cff.dwbooster.com/add-ons/skrill) add-on: Integrates with Skrill Moneybookers for payment processing.
-* [TargetPay (iDeal) add-on](https://cff.dwbooster.com/add-ons/targetpay) add-on: Supports payments via iDeal through TargetPay.
-* [Mollie (iDeal) add-on](https://cff.dwbooster.com/add-ons/mollie): Accepts iDeal payments using Mollie integration.
-* [RedSys / Servired / Sermepa add-on](https://cff.dwbooster.com/add-ons/redsys): Enables credit card payments via Spanish bank gateways.
-* [PayTM add-on](https://cff.dwbooster.com/add-ons/paytm): Accepts payments via cards, net banking, wallets, and EMI through PayTM.
-* [SagePay add-on](https://cff.dwbooster.com/add-ons/sagepay): Accepts secure payments using the SagePay gateway.
-* [Sage Payment add-on](https://cff.dwbooster.com/add-ons/sagepayment): Supports SSL-based credit card and e-check payments via Sage.
-* [eWay add-on](https://cff.dwbooster.com/add-ons/eway): Integrates with eWay for payments in Australia, NZ, Singapore, Hong Kong, and Malaysia.
-* [Payrexx complementary plugin](https://cff-bundles.dwbooster.com/product/payrexx-payment-gateway): Connects forms to the Payrexx payment platform.
-* [Square Checkout complementary plugin](https://cff-bundles.dwbooster.com/product/square-checkout-payment-gateway): Accepts all major cards worldwide using Square.
+* [Stripe Checkout add-on](https://cff.dwbooster.com/add-ons/stripe-checkout): Use Stripe Checkout for secure, form-based payments.
+* [Skrill Payments Integration add-on](https://cff.dwbooster.com/add-ons/skrill): Integrate with Skrill Moneybookers for payment processing.
+* [TargetPay (iDeal) add-on](https://cff.dwbooster.com/add-ons/targetpay): Support payments via iDeal through TargetPay.
+* [Mollie (iDeal) add-on](https://cff.dwbooster.com/add-ons/mollie): Accept iDeal payments using Mollie.
+* [RedSys / Servired / Sermepa add-on](https://cff.dwbooster.com/add-ons/redsys): Enable credit card payments through Spanish bank gateways.
+* [PayTM add-on](https://cff.dwbooster.com/add-ons/paytm): Accept payments via cards, net banking, wallets, and EMI through PayTM.
+* [SagePay add-on](https://cff.dwbooster.com/add-ons/sagepay): Accept secure payments using the SagePay gateway.
+* [Sage Payment add-on](https://cff.dwbooster.com/add-ons/sagepayment): Support SSL-based credit card and e-check payments via Sage.
+* [eWay add-on](https://cff.dwbooster.com/add-ons/eway): Integrate with eWay for payments in Australia, New Zealand, Singapore, Hong Kong, and Malaysia.
+* [Payrexx complementary plugin](https://cff-bundles.dwbooster.com/product/payrexx-payment-gateway): Connect forms to the Payrexx payment platform.
+* [Square Checkout complementary plugin](https://cff-bundles.dwbooster.com/product/square-checkout-payment-gateway): Accept all major cards worldwide using Square.
 
-**Integration with third-party services add-ons**
+**Third-party service integrations:**
 
-* [Google Places add-on](https://cff.dwbooster.com/add-ons/google-places): Turns form fields into address autocompletes using Google Places.
-* [Autocomplete Places add-on](https://cff.dwbooster.com/add-ons/autocomplete-places):  Adds address autocompletion via the Photon API.
-* [Google Analytics add-on](https://cff.dwbooster.com/add-ons/google-analytics): Tracks user actions and sends reports to Google Analytics.
-* [DropBox Integration add-on](https://cff.dwbooster.com/add-ons/dropbox): Moves uploaded files to your Dropbox account.
-* [WebMerge add-on](https://cff.dwbooster.com/add-ons/webmerge): Generates PDFs or Office docs via FormStack using form data.
-* [Sendinblue Contact add-on](https://cff.dwbooster.com/add-ons/sendinblue): Adds or updates contacts in Sendinblue from form submissions.
-* [PrintFriendly add-on](https://cff.dwbooster.com/add-ons/printfriendly): Creates PDF files with PrintFriendly and attaches them to emails.
-* [Mailchimp add-on](https://cff.dwbooster.com/add-ons/mailchimp): Adds new subscribers to your Mailchimp list.
-* [Mautic add-on](https://cff.dwbooster.com/add-ons/mautic): Updates or adds contacts in Mautic.
-* [HubSpot add-on](https://cff.dwbooster.com/add-ons/hubspot): Sends collected form data to HubSpot contacts.
-* [Twilio add-on](https://cff.dwbooster.com/add-ons/twilio): Sends SMS messages on form submission.
-* [ip2location add-on](https://cff.dwbooster.com/add-ons/ip2location): Detects user location using the ip2location database.
+* [Google Places add-on](https://cff.dwbooster.com/add-ons/google-places): Enable address autocomplete using the Google Places API.
+* [Autocomplete Places add-on](https://cff.dwbooster.com/add-ons/autocomplete-places): Add address autocompletion via the Photon API.
+* [Google Analytics add-on](https://cff.dwbooster.com/add-ons/google-analytics): Track user actions in forms and report to Google Analytics.
+* [Dropbox Integration add-on](https://cff.dwbooster.com/add-ons/dropbox): Move uploaded files automatically to your Dropbox account.
+* [WebMerge add-on](https://cff.dwbooster.com/add-ons/webmerge): Generate PDFs or Office documents via FormStack using submitted form data.
+* [Sendinblue Contact add-on](https://cff.dwbooster.com/add-ons/sendinblue): Add or update contacts in Sendinblue from form submissions.
+* [PrintFriendly add-on](https://cff.dwbooster.com/add-ons/printfriendly): Create PDF files with PrintFriendly and attach them to notification emails.
+* [Mailchimp add-on](https://cff.dwbooster.com/add-ons/mailchimp): Add new subscribers to Mailchimp lists on form submission.
+* [Mautic add-on](https://cff.dwbooster.com/add-ons/mautic): Add or update contacts in Mautic.
+* [HubSpot add-on](https://cff.dwbooster.com/add-ons/hubspot): Send collected form data to HubSpot CRM contacts.
+* [Twilio add-on](https://cff.dwbooster.com/add-ons/twilio): Send SMS messages automatically on form submission.
+* [ip2location add-on](https://cff.dwbooster.com/add-ons/ip2location): Detect user location using the ip2location database.
 
-**Integration with third-party plugins add-ons**
+**Third-party plugin integrations:**
 
-* [WooCommerce add-on](https://cff.dwbooster.com/add-ons/woocommerce): Connects forms with WooCommerce to calculate product prices, sizes, and weight.
-* [Easy Digital Downloads add-on](https://cff.dwbooster.com/add-ons/edd): Integrates with EDD to dynamically calculate product prices.
-* [Emma add-on](https://cff.dwbooster.com/add-ons/emma): Adds new contacts to Emma email lists.
-* [MailPoet add-on](https://cff.dwbooster.com/add-ons/mailpoet): Subscribes users to MailPoet (v2 & v3) lists.
-* [AffiliateWP add-on](https://cff.dwbooster.com/add-ons/affiliatewp): Connects forms with AffiliateWP.
-* [The Events Calendar add-on](https://cff.dwbooster.com/add-ons/the-events-calendar): Creates events, venues, and more using submitted form data.
+* [WooCommerce add-on](https://cff.dwbooster.com/add-ons/woocommerce): Connect forms with WooCommerce to dynamically calculate product prices, sizes, and weight.
+* [Easy Digital Downloads add-on](https://cff.dwbooster.com/add-ons/edd): Integrate with Easy Digital Downloads to dynamically calculate product prices.
+* [Emma add-on](https://cff.dwbooster.com/add-ons/emma): Add new contacts to Emma email marketing lists.
+* [MailPoet add-on](https://cff.dwbooster.com/add-ons/mailpoet): Subscribe users to MailPoet (v2 and v3) mailing lists.
+* [AffiliateWP add-on](https://cff.dwbooster.com/add-ons/affiliatewp): Connect forms with AffiliateWP for affiliate tracking.
+* [The Events Calendar add-on](https://cff.dwbooster.com/add-ons/the-events-calendar): Create events, venues, and more using submitted form data.
 
 == Other Notes ==
 
-= Equation / Formula format for calculated fields =
+= Equation and formula format for calculated fields =
 
-Below, some possible formulas are included as examples, but the possibilities are endless.
+Calculated fields support any valid JavaScript expression or function. Below are examples of common formula patterns:
 
-* With simple mathematical operations:
+Simple arithmetic:
 
-    `fieldname1 + fieldname2`
+`fieldname1 + fieldname2`
 
-    `fieldname1 * fieldname2`
+`fieldname1 * fieldname2`
 
-    `fieldname1 / fieldname2`
+`fieldname1 / fieldname2`
 
-    `fieldname1 - fieldname2`
+`fieldname1 - fieldname2`
 
-    `fieldname1 - fieldname2`
+Multiple fields with grouping:
 
-* With mathematical operations involving multiple fields and grouped fields:
+`fieldname1 * (fieldname2 + fieldname3)`
 
-    `fieldname1 * (fieldname2 + fieldname3)`
+Rounding to two decimal places:
 
-* With rounding operations. Round the result to two decimal places:
+`PREC(fieldname2 / fieldname3, 2)`
 
-    `PREC(fieldname2 / fieldname3, 2)`
+Conditional logic inside a formula:
 
-* There are infinite number of formulas that can be created using complex structures. For example, the following formula includes conditional statements:
+    (function () {
+      if (100 < fieldname3) return fieldname1 + fieldname2;
+      if (fieldname3 <= 100) return fieldname1 * fieldname2;
+    })();
 
-    `(function () {`
-    `if (100 < fieldname3) return fieldname1 + fieldname2;`
-    `if (fieldname3 <= 100) return fieldname1 * fieldname2;`
-    `})();`
+Complex formulas using the full function format:
 
-* For complex formulas/equations you must use the function format with return statement to return the result to the calculated field:
+    (function () {
+      var result = 0;
+      /* Your code here */
+      return result;
+    })();
 
-     `(function () {`
-        `var result = 0;`
-        `/* Your code here */`
-        `return result;`
-    `}) ();`
+= Operations and operators available in formulas =
 
-= Operations and operators to use in equations/formulas =
+One of Calculated Fields Form's key strengths is that any valid JavaScript code can be used in formulas. The plugin also provides a wide library of built-in operations:
 
-One of the "Calculated Fields Form" strengths is the ability to use any valid JavaScript code to implement the equations/formulas.
+* [Mathematical Operations and Operators](http://cff.dwbooster.com/documentation#mathematical-module)
+* [Conditional Operations](http://cff.dwbooster.com/documentation#conditions-module)
+* [Date and Time Operations](http://cff.dwbooster.com/documentation#datetime-module)
+* [Health-Related Operations](https://cff.dwbooster.com/documentation#health-module)
+* [Energy-Related Operations](https://cff.dwbooster.com/documentation#energy-operations-module)
+* [Field Handling Operations](http://cff.dwbooster.com/documentation#managing-fields-module)
+* [Operations for Interacting with External Services](http://cff.dwbooster.com/documentation#connection-module)
+* [Operations for Handling URLs and Query Strings](http://cff.dwbooster.com/documentation#url-module)
 
-However, the plugin includes a wide variety of operations and operators to simplify the development process.
+Additional modules available in Developer and Platinum versions:
 
-[Mathematical Operations and Operators](http://cff.dwbooster.com/documentation#mathematical-module)
+* [Financial Operations](http://cff.dwbooster.com/documentation#financial-module)
+* [Distance and Travel Time Operations](http://cff.dwbooster.com/documentation#distance-module)
+* [Chart Generation Operations](http://cff.dwbooster.com/documentation#chart-module)
 
-[Conditional Operations](http://cff.dwbooster.com/documentation#conditions-module)
+= Passing external variables to form equations =
 
-[Field Handling Operations](http://cff.dwbooster.com/documentation#managing-fields-module)
-
-[Operations for interacting with external services](http://cff.dwbooster.com/documentation#connection-module)
-
-[Operations for handling URLs and query strings](http://cff.dwbooster.com/documentation#url-module)
-
-In addition to the operation modules listed above, the Developer and Platinum versions of the plugin include additional modules:
-
-[Date Time Operations](http://cff.dwbooster.com/documentation#datetime-module)
-
-[Financial Operations](http://cff.dwbooster.com/documentation#financial-module)
-
-[Distance and Travel Time Operations](http://cff.dwbooster.com/documentation#distance-module)
-
-[Operations to generate charts](http://cff.dwbooster.com/documentation#chart-module)
-
-= Create variables from parameters received by "GET" or "POST", "SESSION" variables, or "COOKIES" to use in the equations =
-
-The plugin includes the shortcode [CP_CALCULATED_FIELDS_VAR] to generate JavaScript variables from parameters received by "GET" or "POST",  "SESSION" variables, or "COOKIES":
-
-`[CP_CALCULATED_FIELDS_VAR name="..."]`
-
-In the shortcode, you must replace the "..." symbols with the name of the parameter or variable. The variables are created as properties of the cff_var variable. For example, in the [CP_CALCULATED_FIELDS_VAR name="my_var"] shortcode, you can access the variable value from the equations by using cff_var['my_var'], or cff_var.my_var
-
-For example:
+Use the `[CP_CALCULATED_FIELDS_VAR]` shortcode to create JavaScript variables from GET or POST parameters, SESSION variables, or COOKIES, and reference them inside form equations:
 
 `[CP_CALCULATED_FIELDS_VAR name="varname"]`
 
-You can use the variables generated through the shortcode [CP_CALCULATED_FIELDS_VAR] in the formulas of the calculated fields: `fieldname1*cff_var.varname`
+Access the variable in a formula using: `fieldname1 * cff_var.varname`
 
-The complete list of parameters accepted by the variables shortcode is available at the following link: [CLICK HERE](http://cff.dwbooster.com/documentation#javascript-variables)
+Full documentation: [Variable Shortcode Reference](http://cff.dwbooster.com/documentation#javascript-variables)
 
 == Installation ==
 
-To install the "Calculated Fields Form" plugin, please follow these steps:
+1. Download the Calculated Fields Form plugin .zip file.
+2. In your WordPress dashboard, go to Plugins > Add New.
+3. Click the "Upload Plugin" button and select the downloaded .zip file.
+4. Install and activate the plugin.
 
-1. Download the .zip the Calculated Fields Form plugin.
-2. Go to the Plugins section on your WordPress.
-3. Press the "Add New" button at the top of the section.
-4. Press the "Upload Plugin" button and then select the zipped file downloaded in the first step.
-5. Finally, install and activate the plugin.
+To build a form, go to the "Calculated Fields Form" menu option in your WordPress dashboard.
 
-To build a form, go to the menu option "Calculated Fields Form"
+To insert a form into any page, post, or template, use the form's unique shortcode:
 
-To insert the calculated / contact form into some content or post, use the corresponding form's shortcode. Each web form has associated a shortcode.
+`[CP_CALCULATED_FIELDS_ID id="1"]`
 
 == Complementary Plugins ==
 
-<a href="https://cff-bundles.dwbooster.com/product/odoo-contacts" target="_blank">Odoo Contacts</a>, <a href="https://cff-bundles.dwbooster.com/product/spreadsheet" target="_blank">Google Sheets Intergration</a>, <a href="https://cff-bundles.dwbooster.com/product/whatsapp-button" target="_blank">[WhatsApp Button]</a>, <a href="https://cff-bundles.dwbooster.com/product/xero-contacts" target="_blank">Xero Contacts</a>, <a href="https://cff-bundles.dwbooster.com/product/zoho-leads" target="_blank">Zoho Leads</a>, <a href="https://cff-bundles.dwbooster.com/product/zoom" target="_blank">Zoom.us Meetings Integration</a>, <a href="https://cff-bundles.dwbooster.com/product/data-collector" target="_blank">Data Collector</a>, <a href="https://cff-bundles.dwbooster.com/product/woocommerce-price" target="_blank">WooCommerce Products And Variations Prices</a>, <a href="https://cff-bundles.dwbooster.com/product/multilanguage" target="_blank">Multilanguage Forms</a>, <a href="https://cff-bundles.dwbooster.com/product/progress-bar" target="_blank">Progress Bar</a>, <a href="https://cff-bundles.dwbooster.com/product/upload-files-path" target="_blank">Upload Files Path</a>, <a href="https://cff-bundles.dwbooster.com/product/qrcode-generator" target="_blank">QR Code Generator</a>, <a href="https://cff-bundles.dwbooster.com/product/database-queries" target="_blank">Database Queries</a>, <a href="https://cff-bundles.dwbooster.com/product/draft" target="_blank">Draft Form Data</a>, <a href="https://cff-bundles.dwbooster.com/product/email-validator" target="_blank">Email Validator</a>, <a href="https://cff-bundles.dwbooster.com/product/reminder" target="_blank">Reminder Emails</a>, <a href="https://cff-bundles.dwbooster.com/product/rich-text-editor" target="_blank">Rich Text Editor</a>, <a href="https://cff-bundles.dwbooster.com/product/submissions-removal" target="_blank">Submissions Removal</a>, <a href="https://cff-bundles.dwbooster.com/product/use-limit" target="_blank">Use Limit</a>, <a href="https://cff-bundles.dwbooster.com/product/fields-synchronization" target="_blank">Fields Synchronization</a>, <a href="https://cff-bundles.dwbooster.com/product/regexp" target="_blank">RegExp Validation</a>, <a href="https://cff-bundles.dwbooster.com/product/autocomplete" target="_blank">Autocomplete Fields</a>, <a href="https://cff-bundles.dwbooster.com/product/converter" target="_blank">Measurement Units Converter</a>, <a href="https://cff-bundles.dwbooster.com/product/create-posts" target="_blank">Create Posts</a>, <a href="https://cff-bundles.dwbooster.com/product/currency-exchange" target="_blank">Currency Exchange</a>, <a href="https://cff-bundles.dwbooster.com/product/hcaptcha" target="_blank">hCaptcha</a> and growing...
+[Odoo Contacts](https://cff-bundles.dwbooster.com/product/odoo-contacts), [Google Sheets Integration](https://cff-bundles.dwbooster.com/product/spreadsheet), [WhatsApp Button](https://cff-bundles.dwbooster.com/product/whatsapp-button), [Xero Contacts](https://cff-bundles.dwbooster.com/product/xero-contacts), [Zoho Leads](https://cff-bundles.dwbooster.com/product/zoho-leads), [Zoom.us Meetings Integration](https://cff-bundles.dwbooster.com/product/zoom), [Data Collector](https://cff-bundles.dwbooster.com/product/data-collector), [WooCommerce Products and Variations Prices](https://cff-bundles.dwbooster.com/product/woocommerce-price), [Multilanguage Forms](https://cff-bundles.dwbooster.com/product/multilanguage), [Progress Bar](https://cff-bundles.dwbooster.com/product/progress-bar), [Upload Files Path](https://cff-bundles.dwbooster.com/product/upload-files-path), [QR Code Generator](https://cff-bundles.dwbooster.com/product/qrcode-generator), [Database Queries](https://cff-bundles.dwbooster.com/product/database-queries), [Draft Form Data](https://cff-bundles.dwbooster.com/product/draft), [Email Validator](https://cff-bundles.dwbooster.com/product/email-validator), [Reminder Emails](https://cff-bundles.dwbooster.com/product/reminder), [Rich Text Editor](https://cff-bundles.dwbooster.com/product/rich-text-editor), [Submissions Removal](https://cff-bundles.dwbooster.com/product/submissions-removal), [Use Limit](https://cff-bundles.dwbooster.com/product/use-limit), [Fields Synchronization](https://cff-bundles.dwbooster.com/product/fields-synchronization), [RegExp Validation](https://cff-bundles.dwbooster.com/product/regexp), [Autocomplete Fields](https://cff-bundles.dwbooster.com/product/autocomplete), [Measurement Units Converter](https://cff-bundles.dwbooster.com/product/converter), [Create Posts](https://cff-bundles.dwbooster.com/product/create-posts), [Currency Exchange](https://cff-bundles.dwbooster.com/product/currency-exchange), [hCaptcha](https://cff-bundles.dwbooster.com/product/hcaptcha), and growing.
 
 == Frequently Asked Questions ==
 
-= Q: What controls are included in the plugin? =
+= Is Calculated Fields Form only for forms with mathematical calculations? =
 
-A: The Calculated Fields Form's page contains detailed information about each field in the plugin: [Click Here](https://cff.dwbooster.com/documentation#common-fields "Click Here")
+No. Despite its name, Calculated Fields Form is a complete, general-purpose WordPress form builder. It can create any type of form: contact forms, booking forms, registration forms, lead generation forms, order forms, survey forms, payment forms, and more. The "calculated fields" are an advanced optional feature — you do not need to use them to build any other kind of form.
 
-= Q: Where can I publish a calculated fields form? =
+= Can I use Calculated Fields Form to create a simple contact form? =
 
-A: You can publish the forms into pages and posts. The shortcode can be also placed into the theme templates. [Read more](https://cff.dwbooster.com/documentation#insertion-page "Publishing the forms")
+Yes, absolutely. Creating a simple contact form with name, email, phone, and message fields takes only a few minutes using the visual drag-and-drop builder. You do not need to configure any calculations to use the plugin as a standard contact form.
 
-= Q: Can I send the form data and calculated results to the user by email? =
+= How does Calculated Fields Form compare to Contact Form 7? =
 
-A: This feature is included in the commercial versions of the plugin.
+Calculated Fields Form offers a visual drag-and-drop builder, conditional logic, multi-page forms, built-in design templates, form submission storage, real-time field calculations, payment gateway integrations, and a rich add-on ecosystem — all features that Contact Form 7 does not include natively or requires multiple additional plugins to achieve. Both plugins are capable of basic contact forms, but Calculated Fields Form covers a much wider range of use cases out of the box.
 
-The commercial versions of the plugin allow processing the forms' submissions, send notification emails, and integrate the forms with payment gateways. [Comparing the different versions of the plugin](https://cff.dwbooster.com/download#comparison "Comparing the plugin's distributions")
+= How does Calculated Fields Form compare to Gravity Forms? =
 
-= Q: Which are the operations with date values that the plugin allows? =
+Both are advanced WordPress form builders. Key differences: Calculated Fields Form is available as a one-time purchase with lifetime updates, while Gravity Forms requires an annual subscription. Calculated Fields Form also provides more powerful real-time calculation capabilities, which in Gravity Forms is limited to simpler field operations. Both offer conditional logic, multi-page forms, and payment integrations.
 
-A: [List and description of date/time operations](http://cff.dwbooster.com/documentation#datetime-module "Date/Time Operations")
+= How does Calculated Fields Form compare to WPForms? =
 
-= Q: Are there financial operations included in the plugin? =
+WPForms is beginner-friendly and widely known. Calculated Fields Form matches it in ease of use with its visual builder, and exceeds it in advanced capabilities such as real-time dynamic calculations, formula-driven fields, and the breadth of available add-ons. Calculated Fields Form commercial versions are also one-time purchases, unlike WPForms which uses an annual licensing model.
 
-A: [List and description of financial operations](http://cff.dwbooster.com/documentation#financial-module "Financial Operations")
+= What controls are included in the plugin? =
 
-= Q: How to populate the form fields with URL parameters? =
+The plugin provides a wide range of form controls including text fields, email, phone, numbers, currency, date/time pickers, time slot selectors, sliders, radio buttons, checkboxes, dropdown menus, file upload, signature, QR code reader, voice recording, calculated fields, page breaks, summary fields, and container controls. Full details: [Field Documentation](https://cff.dwbooster.com/documentation#common-fields)
 
-A: Please, read the answer in the FAQ entry: [Click Here](http://cff.dwbooster.com/faq#q251 "FAQ Entry")
+= Where can I publish a form? =
 
-= Q: How to change the language on the datepicker? =
+Forms can be published in any WordPress page, post, or template using the form's shortcode. The plugin also integrates natively with Gutenberg, Elementor, Divi, Beaver Builder, WPBakery, and SiteOrigin page builders. [Read more](https://cff.dwbooster.com/documentation#insertion-page)
 
-A: There are different alternatives, directly through the form's structure or uploading a new file to the plugin's folder. Please, visit the following link to read the instructions: [Click Here](http://cff.dwbooster.com/faq#q221 "FAQ Entry")
+= Can I send the form data and calculated results to the user by email? =
 
-= Q: How to create relationships between date fields? =
+Yes. Sending confirmation emails to the user is included in the commercial versions (Professional, Developer, and Platinum). The free version sends notification emails to the site owner. [Compare versions](https://cff.dwbooster.com/download#comparison)
 
-A: It is possible to define the min date, max date, or select a date dynamically based on the value of another date field.
+= Can I charge users the calculated price through the form? =
 
-[Create relationships between date fields](http://cff.dwbooster.com/documentation#relationship-between-date-fields "Documentation")
+Yes. Payment gateway integrations (PayPal, Stripe, and many others) are available in the commercial versions. The charge amount is dynamically computed using a calculated field. [PayPal configuration](https://cff.dwbooster.com/documentation#paypal-settings) | [Stripe configuration](https://cff.dwbooster.com/documentation#stripe-checkout-addon)
 
-= Q: Is there a way to format the form in a table structure (various fields in the same line)? =
+= What date and time operations does the plugin support? =
 
-A: Yes, that's possible. Please, read the following post in the plugin's blog: [Formatting the form (distributing the fields in columns)](https://cff.dwbooster.com/blog/2019/01/06/columns/ "Blog")
+The plugin supports date differences, age calculations, booking duration, minimum and maximum date constraints based on other fields, and more. [Full list of date/time operations](http://cff.dwbooster.com/documentation#datetime-module)
 
-= Q: How to display an image in a checkbox or radio button? =
+= Are financial calculation operations included? =
 
-A: [Displaying images in checkboxes and radio buttons](http://cff.dwbooster.com/faq#q222 "FAQ Entry")
+Yes. Financial operations including loan amortization (standard and Italian methods), interest calculations, and other financial formulas are available in the Developer and Platinum versions. [Full list of financial operations](http://cff.dwbooster.com/documentation#financial-module)
 
-Additionally, to hide the checkboxes and radio buttons, for using only the images for choosing, enter the following styles definition into the "Customize Form Design" attribute in the "Form Settigns" tab:
+= Can I pre-populate form fields from URL parameters? =
 
-		#fbuilder input[type="radio"],
-		#fbuilder input[type="checkbox"]{display:none !important;}
+Yes. Form fields can be pre-filled using GET or POST parameters via the `[CP_CALCULATED_FIELDS_VAR]` shortcode. [Full instructions](http://cff.dwbooster.com/faq#q251)
 
-= Q: In which order does the plugin evaluate the equations associated with the calculated fields? =
+= How do I change the datepicker language? =
 
-A: [Evaluating the equations](http://cff.dwbooster.com/faq#q79 "FAQ Entry")
+The datepicker language can be changed directly through the form structure or by uploading a language file to the plugin folder. [Instructions](http://cff.dwbooster.com/faq#q221)
 
-= Q: Can I charge the user the calculated price? =
+= How do I create relationships between date fields? =
 
-A: That feature is available in the [commercial versions of the plugin](https://cff.dwbooster.com/download "Download").
+It is possible to set the minimum date, maximum date, or dynamically select a date based on the value of another date field. [Documentation](http://cff.dwbooster.com/documentation#relationship-between-date-fields)
 
-Additional details in the "[PayPal Payment Configuration](https://cff.dwbooster.com/documentation#paypal-settings "PayPal Payment Integration")" and [Stripe Checkout](https://cff.dwbooster.com/documentation#stripe-checkout-addon) sections in the documentation page of the plugin.
+= Can I display fields side by side in the same row? =
 
-= Q: Non-Latin characters are not displayed in the form. Is there a solution? =
+Yes. The form builder supports multi-column layouts to display several fields on the same line. [Blog post on column formatting](https://cff.dwbooster.com/blog/2019/01/06/columns/)
 
-A: Please, read the following entry in the plugin's FAQ: [Click Here]](http://cff.dwbooster.com/faq#q225 "utf-8")
+= How do I display an image inside a checkbox or radio button? =
 
-= Q: The calculated form doesn't appear on the public website. What is the solution? =
+[Instructions for image checkboxes and radio buttons](http://cff.dwbooster.com/faq#q222)
 
-A: Please inset the shortcode with the iframe attribute: `[CP_CALCULATED_FIELDS id="1" iframe="1"]`
+To hide the checkbox or radio button input and show only the image, add this CSS to the "Customize Form Design" field in the Form Settings tab:
 
-= Q: How to create a multipage form? =
+    #fbuilder input[type="radio"],
+    #fbuilder input[type="checkbox"] { display: none !important; }
 
-A: Insert "Page Break" between the fields belonging to different pages.
+= In what order are the equations evaluated? =
 
-= Q: How to display a summary of entered data in the form? =
+[Details on equation evaluation order](http://cff.dwbooster.com/faq#q79)
 
-A: Insert a summary control in the form, and enter the names of the fields to display in the summary through its settings.
+= How do I use conditional statements inside a formula? =
 
-= Q: Can I display a summary of the fields on the "Thank You" page? =
+[Multiple approaches to conditional logic in formulas](http://cff.dwbooster.com/faq#q239)
 
-A: Yes, that's possible by using the shortcode for results. Additional details [HERE](https://cff.dwbooster.com/documentation#thanks-page "Thanks page")
+= Can I send notification emails to multiple departments? =
 
-= Q: How can I apply CSS styles to the form fields? =
+Yes. Enter multiple email addresses separated by commas in the "Destination emails" field in the form settings to send the notification to all of them simultaneously.
 
-A: [Applying CSS styles to the form fields](http://cff.dwbooster.com/faq#q82 "FAQ Entry")
+= How do I send only specific fields in the notification email? =
 
-= Q: How to create a new template to use with my forms? =
+Use `<%INFO%>` to include all submitted fields, or use individual field tags like `<%fieldname1%>` to include specific fields. [Full list of accepted email tags](https://cff.dwbooster.com/documentation#special-tags)
 
-A: [Creating new templates](http://cff.dwbooster.com/documentation#create-template "Documentation")
+= How do I implement custom calculation operations? =
 
-= Q: What files can be uploaded through the form? =
+[Instructions for custom operations](http://cff.dwbooster.com/faq#q245)
 
-A: [Accepted files](http://cff.dwbooster.com/faq#q235 "FAQ Entry")
+= How do I define conditional dependencies between fields? =
 
-= Q: How can I include the links to the uploaded files in the notification emails? =
+[Guide to field dependencies](https://cff.dwbooster.com/blog/2020/03/01/dependencies/)
 
-A: [Inserting the links to the uploaded files into the notification emails](http://cff.dwbooster.com/faq#q160 "FAQ Entry")
+= How do I programmatically set the value of a dropdown, radio button, or checkbox? =
 
-= Q: How to use conditional statements in the equations? =
+To set a radio button (fieldname123) to value 5:
 
-A: There are different alternatives to use conditional statements in the equations: [Visit the following link](http://cff.dwbooster.com/faq#q239 "FAQ Entry")
+    getField(123).setVal(5);
 
-= Q: My company has different departments (like the sales department, the support group, etc.). Can I send a notification email to every department when the form is submitted? =
+To select multiple values in a checkbox (fieldname123) — values 5 and 8:
 
-A: Yes, that is possible. You must enter the emails' addresses separated by the comma through the "Destination emails" attribute in the form's settings.
+    getField(123).setVal([5,8]);
 
-= Q: How to send only specific fields in the notification emails? =
+= How do I set a slider value programmatically? =
 
-A: The notification emails can include all fields submitted by the form (&lt;%INFO%&gt;), or specific fields by using their tags(&lt;%fieldname#%&gt;). Furthermore, there are other tags you can include in the notification emails.
+[Documentation on setting slider values programmatically](http://cff.dwbooster.com/documentation#assign-slider-value-programmatically)
 
-Please, visit the following link to get the complete list of tags to include in the email: [Accepted tags](https://cff.dwbooster.com/documentation#special-tags "Special tags in the notification emails and the thank you pages")
+= How do I integrate forms with WooCommerce products? =
 
-= Q: How to implement custom operations? =
+[WooCommerce integration guide](https://cff.dwbooster.com/blog/2018/11/26/woocommerce)
 
-A: Please, read the answer in the FAQ page of the plugin: [Click Here](http://cff.dwbooster.com/faq#q245 "FAQ Entry")
+= How do I generate a PDF from submitted form data? =
 
-= Q: How to define dependencies between fields in the form? =
+There are multiple options: the [PDF Generator add-on](https://cff.dwbooster.com/blog/2020/07/19/pdf-generator/), the [PrintFriendly add-on](https://cff.dwbooster.com/blog/2019/09/19/printfriendly/), or the [WebMerge add-on](https://cff.dwbooster.com/blog/2018/10/15/webmerge/).
 
-A: Please, read the following post in the plugin's blog: [Click Here](https://cff.dwbooster.com/blog/2020/03/01/dependencies/ "Dependencies")
+= The form is not appearing on the public website. What should I do? =
 
-= Q: How to select a choice in a dropdown field, or radio button, based on a calculated value? =
+Try inserting the shortcode with the iframe attribute:
 
-A: I'll try to describe the process with some hypothetical examples. Assuming the radio button field is fieldname123, and you can select the choice with the value 5, uses the following piece of code as part of the equation associated with the calculated field:
+`[CP_CALCULATED_FIELDS_ID id="1" iframe="1"]`
 
-		getField(123).setVal(5);
+= How do I create a multi-page form? =
 
-But if the fieldname123 is a checkbox field and you want to select the choices with values: 5 and 8, the code would be:
+Insert a "Page Break" control between the fields that belong to different pages.
 
-		getField(123).setVal([5,8]);
+= How do I display a summary of the submitted data? =
 
-= Q: How to set the value of a slider control programmatically? =
+Insert a summary control in the form and enter the names of the fields to display through its settings.
 
-A: Please, read the answer in the plugin's documentation:
-[Click Here](http://cff.dwbooster.com/documentation#assign-slider-value-programmatically "Slider Value")
+= Can I display a submission summary on the Thank You page? =
 
-= Q: How do I integrate forms with WooCommerce products? =
+Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.dwbooster.com/documentation#thanks-page)
 
-[Integrating the forms with WooCommerce products](https://cff.dwbooster.com/blog/2018/11/26/woocommerce "WooCommerce")
+= How do I apply custom CSS styles to form fields? =
 
-= Q: How to generate a PDF file dynamically with the submitted information? =
+[CSS styling guide for form fields](http://cff.dwbooster.com/faq#q82)
 
-A: There are multiple alternatives, by using the [PDF generator add-on](https://cff.dwbooster.com/blog/2020/07/19/pdf-generator/ "PDF Generator" ), the [PrintFriendly add-on](https://cff.dwbooster.com/blog/2019/09/19/printfriendly/ "PrintFriendly") or the [WebMerge add-on](https://cff.dwbooster.com/blog/2018/10/15/webmerge/ "WebMerge").
+= How do I create a custom design template? =
+
+[Instructions for creating custom templates](http://cff.dwbooster.com/documentation#create-template)
+
+= What file types can be uploaded through the form? =
+
+[List of accepted file types](http://cff.dwbooster.com/faq#q235)
+
+= How do I include links to uploaded files in notification emails? =
+
+[Instructions for including uploaded file links in emails](http://cff.dwbooster.com/faq#q160)
+
+= Non-Latin characters are not displaying correctly in the form. What is the solution? =
+
+[Solution for non-Latin character encoding](http://cff.dwbooster.com/faq#q225)
 
 == Screenshots ==
 
@@ -447,15 +451,20 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 8. Sample calculated form
 9. Calculated field settings
 10. Advanced equations editor
-11. Calculator Form builder
+11. Form builder interface
 12. Editing general fields
-13. Available designs
+13. Available design themes
 14. Add-ons section
 15. WooCommerce add-on
 16. SalesForce add-on
-17. WebHook add-on, and its integration with Zapier
+17. WebHook add-on and its integration with Zapier
 
 == Changelog ==
+
+= 5.4.6.6 =
+
+* Enhances the Number, Currency, and Calculated Fields with improved performance and greater flexibility for more accurate and dynamic calculations.
+* Adds support for additional AI providers such as MiniMax and Kimi (Moonshot AI), offering powerful and cost-efficient models compared to other providers.
 
 = 5.4.6.5 =
 
@@ -476,9 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Updates the Number, Currency, and Calculated fields to ensure that prefix and postfix attribute values are dynamically updated based on other field values.
 * Introduces a Map Widget, enabling maps to be embedded within forms and synchronizing user-selected map pins with single-line text fields.
 * Enhances the AI Form Generation module by increasing token limits and timeout settings, and removing deprecated models from the selection list.
-
-= 5.4.6.1 =
-
-* Modifies the URL Operations module to allow accessing the top URL parameters even if the form is sandboxed in an iframe.
-* Optimizes the form generation from templates process.
-* Adds CALCULATEAMORTIZATIONITALIAN to the Financial Operations module to use the Italian amortization method (available in Developer and Platinum editions).

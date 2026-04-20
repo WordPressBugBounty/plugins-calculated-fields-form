@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.6.6 =
+
+* Enhances the Number, Currency, and Calculated Fields with improved performance and greater flexibility for more accurate and dynamic calculations.
+* Adds support for additional AI providers such as MiniMax and Kimi (Moonshot AI), offering powerful and cost-efficient models compared to other providers.
+
 = 5.4.6.5 =
 
 * Fixes an issue where the initial prefix and postfix symbols were not correctly applied to number fields, and currency symbols were not properly assigned to currency fields when automatic formatting was disabled.

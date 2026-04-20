@@ -22,30 +22,24 @@
 			formatDynamically:false,
 			twoDecimals:false,
 			dformat:"digits",
-            set_prefix:function(s)
+            _set_pre_post:function(attr, s)
                 {
                     let e = document.getElementById(this.name);
-                    if(e) {
-                        if(e.type === 'number') e.type = 'text';
+                    if (e) {
+                        if (e.type === 'number') e.type = 'text';
                         let v = e.value;
-                        if(v !== '') v = this.val(false, true);
-                        this.prefix = s;
-                        v = this.getFormattedValue(v, true);
-                        this.setVal(v, true);
+                        if (v !== '') {
+                            let n = $.fbuilder.numberOfDecimals(v, this.decimalSymbol);
+                            v = this.val(false, true, true);
+                            this[attr] = s;
+                            v = this.getFormattedValue(v, true, n);
+                            this.setVal(v, true);
+                        }
                     }
+					this[attr] = s;
                 },
-            set_postfix:function(s)
-                {
-                    let e = document.getElementById(this.name);
-                    if(e) {
-                        if(e.type === 'number') e.type = 'text';
-                        let v = e.value;
-                        if(v !== '') v = this.val(false, true);
-                        this.postfix = s;
-                        v = this.getFormattedValue(v, true);
-                        this.setVal(v, true);
-                    }
-                },
+            set_prefix:function(s) { this._set_pre_post('prefix', s); },
+            set_postfix:function(s) { this._set_pre_post('postfix', s); },
 			set_step:function(v, rmv)
 				{
 					var e = $('[id="'+this.name+'"]');
@@ -78,12 +72,12 @@
 					e.valid();
                     if(this.required) e.addClass('required');
 				},
-			getFormattedValue:function(value, force_format)
+			getFormattedValue:function(value, force_format, decimals)
 				{
 					if(value == '') return value;
 					if(
 						(
-							(force_format || this.formatDynamically) && 
+							(force_format || this.formatDynamically) &&
 							this.dformat != 'digits'
 						) ||  this.dformat == 'percent'
 					) {
@@ -106,7 +100,8 @@
 						{
 							if(v < 0) s = '-';
 							v = ABS(v);
-							if(this.twoDecimals && FLOOR(v) != v ) v = v.toFixed(2);
+                            if(decimals !== undefined && decimals !== null) v = v.toFixed(decimals);
+							else if(this.twoDecimals && FLOOR(v) != v ) v = v.toFixed(2);
 							parts = v.toString().split(".");
 
 							for(var i = parts[0].length-1; i >= 0; i--){
