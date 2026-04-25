@@ -185,7 +185,7 @@
 								}
 
 								if(me.includeFlags) {
-									txt = '<span class="country-flag"><img src="https://cdn.statically.io/gh/cffdwboostercom/flags/main/'+db[countries[i]]['iso'].toLowerCase()+'.png"></span>'+txt;
+									txt = '<span class="country-flag"><img src="https://cdn.jsdelivr.net/gh/cffdwboostercom/flags@main/'+db[countries[i]]['iso'].toLowerCase()+'.png"></span>'+txt;
 								}
 							} else if ( me.toDisplay != 'iso' ) {
 								if (

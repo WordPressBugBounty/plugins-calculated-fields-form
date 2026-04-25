@@ -4,11 +4,11 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.6
+Stable tag: 5.4.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Calculated Fields Form is a complete WordPress form builder — contact forms, booking forms, quote forms, payment forms, and more — with built-in dynamic calculation capabilities.
+Calculated Fields Form: complete WordPress form builder for contact,booking,quote,payment forms & more,with built-in dynamic calculation capabilities.
 
 == Description ==
 
@@ -461,6 +461,19 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.6.7 =
+
+* Allows closing the banner in the form preview.
+* Improves the 'Create New Form' popup: adds a forward button to return to the generated form after going back, and provides feedback when a large model is selected and generation takes longer than usual.
+* Adds support for the Kimi-2.6 model.
+* Displays the 'Add-ons' option in the form builder navigation bar when add-ons or complementary plugins are available.
+* Refines the right floating menu to clearly separate action-related options (such as generate preview, save form, or create a new form) from section navigation controls.
+* Optimizes the plugin installation process.
+* Updates the 'Advanced Settings' section in controls, renaming it to 'Design Settings' and simplifying the instructional text.
+* Standardizes control sizing by setting the default size to medium across all controls.
+* Adds a preview button within the 'Customize Form Design' attribute when the CSS editor is in fullscreen, making it easier to preview changes without resizing the editor.
+* Updates default templates 15, 16, and 17.
+
 = 5.4.6.6 =
 
 * Enhances the Number, Currency, and Calculated Fields with improved performance and greater flexibility for more accurate and dynamic calculations.
@@ -479,9 +492,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Enhances the Import Form Fields widget by enabling form grouping into categories within the import popup, improving organization and usability.
 * Refines the Map Widget by removing unnecessary attributes for a cleaner and more efficient implementation.
 * Updates the Anthropic models list by removing deprecated models, ensuring better accuracy and maintainability.
-
-= 5.4.6.2 =
-
-* Updates the Number, Currency, and Calculated fields to ensure that prefix and postfix attribute values are dynamically updated based on other field values.
-* Introduces a Map Widget, enabling maps to be embedded within forms and synchronizing user-selected map pins with single-line text fields.
-* Enhances the AI Form Generation module by increasing token limits and timeout settings, and removing deprecated models from the selection list.

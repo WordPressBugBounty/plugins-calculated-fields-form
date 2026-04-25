@@ -331,7 +331,11 @@ function cp_update_default_settings(e)
 		<div class="cff-website-icon"></div>
 		<div class="cff-popup-icon">
 			<div class="cff-popup-bubble"><?php esc_html_e( 'Create Form', 'calculated-fields-form' ); ?></div>
-			<a href="admin.php?page=cp_calculated_fields_form_sub_new"><img src="<?php print esc_attr( plugins_url('../images/icons/add-form.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Create Form', 'calculated-fields-form' ); ?>"></a>
+			<a href="admin.php?page=cp_calculated_fields_form_sub_new">
+                <button type="button">
+                <?php include plugin_dir_path(__FILE__) . '../images/icons/add-form.svg'; ?>
+                </button>
+            </a>
 		</div>
 		<div class="cff-popup-icon-separator"></div>
 		<div class="cff-popup-icon">

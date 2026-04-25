@@ -485,6 +485,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'open_modify_btn' 		   	   => esc_html__( '+ Describe Modifications', 'calculated-fields-form' ),
 									'close_modify_btn' 		   	   => esc_html__( '- Hide Description', 'calculated-fields-form' ),
 									'back_btn' 		   		   	   => esc_attr__( 'back', 'calculated-fields-form' ),
+									'forward_btn' 		   		   => esc_attr__( 'Go to form', 'calculated-fields-form' ),
+
+									'still_loading' 		   	   => esc_attr__( 'Be patient, still thinking...', 'calculated-fields-form' ),
 
 									// Errors.
 									'api_key_requirement_error'	   	=> esc_html__( 'The API Key is empty.', 'calculated-fields-form' ),
@@ -632,16 +635,28 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					! empty( $atts['banner'] )
 					? '
 					<style>
-					#codepeople-review-banner{box-sizing:border-box; border:10px solid #EEE;background:#FFF;display:table;visibility:visible !important;margin-bottom:15px;width:100% !important;}
+					#codepeople-review-banner{box-sizing:border-box; border:10px solid #EEE;background:#FFF;display:none;visibility:visible !important;margin-bottom:15px;width:100% !important;}
 					#codepeople-review-banner ul{margin-bottom:0;margin-top:5px;}
 					#codepeople-review-banner ul li{margin-bottom:2px;}
 					#codepeople-review-banner *{visibility:visible !important;}
-					#codepeople-review-banner .codepeople-review-banner-content{padding:10px;}
+					#codepeople-review-banner .codepeople-review-banner-content{padding:10px;position:relative;}
+                    .codepeople-close-banner button{position:absolute;top:5px;right:5px;color:#AAA;font-size:20px;cursor:pointer;background:transparent;border:none;font-weight:600;}
+                    .codepeople-close-banner button:hover{color:#c52359;}
 					</style>
+                    <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        document.getElementById("codepeople-review-banner").style.display = localStorage.getItem("cff_hide_preview_banner") === "1" ? "none" : "table";
+                        document.querySelector("#codepeople-review-banner .codepeople-close-banner button").addEventListener("click", function() {
+                            localStorage.setItem("cff_hide_preview_banner", "1");
+                            document.getElementById("codepeople-review-banner").style.display = "none";
+                        });
+                    });
+                    </script>
 					<div id="codepeople-review-banner">
 						<div class="codepeople-review-banner-content">
+                            <div class="codepeople-close-banner"><button>&times;</button></div>
 							<div class="codepeople-review-banner-text">
-								<div>Upgrade to the <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:700;color:#1582AB;">Professional plugin version</a> for advanced features. It\'s a one-time purchase with lifetime updates, and you can install it on all your websites. Thank you!
+								<div>Upgrade to the <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:700;color:#c52359;">Professional plugin version</a> for advanced features. It\'s a one-time purchase with lifetime updates, and you can install it on all your websites. Thank you!
 								<ul>
 									<li>Improve user experience by emailing them a copy of the form data, including calculated field results.</li>
 									<li>Save form data for analysis in tools like Excel or Google Sheets.</li>

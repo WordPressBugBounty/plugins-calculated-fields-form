@@ -11,7 +11,7 @@
 			readonly:false,
             numberpad:false,
 			spinner:false,
-			size:"small",
+			size:"medium",
 			currencySymbol:"$",
 			currencyText:"USD",
 			thousandSeparator:",",

@@ -206,25 +206,6 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				KEY idx_formid_id (formid, id)
 				) $charset_collate;";
 
-			// CHANGE ROW_FORMAT
-			if ( 0 == get_option( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'_ROW_FORMAT', 0 ) ) {
-                update_option($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'_ROW_FORMAT', 1);
-
-                try {
-					$table_status = $wpdb->get_row( $wpdb->prepare( 'SHOW TABLE STATUS FROM ' . $wpdb->dbname . ' WHERE name=%s;', $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-
-					if ( $wpdb->last_error ) {
-						throw new Exception($wpdb->last_error);
-					}
-
-					if ( ! empty( $table_status ) && isset( $table_status[ 'Row_format' ] ) &&  strtolower( $table_status['Row_format'] ) !== 'dynamic' ) {
-						$db_queries[] =  "ALTER TABLE " . $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE . " ROW_FORMAT=DYNAMIC"; // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-					}
-				} catch ( Exception $err ) {
-					error_log( $err->getMessage() );
-				}
-            }
-
 			dbDelta( $db_queries ); // Running the queries.
 
 			// Alter table.

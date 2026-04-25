@@ -1,5 +1,18 @@
 == Changelog ==
 
+= 5.4.6.7 =
+
+* Allows closing the banner in the form preview.
+* Improves the 'Create New Form' popup: adds a forward button to return to the generated form after going back, and provides feedback when a large model is selected and generation takes longer than usual.
+* Adds support for the Kimi-2.6 model.
+* Displays the 'Add-ons' option in the form builder navigation bar when add-ons or complementary plugins are available.
+* Refines the right floating menu to clearly separate action-related options (such as generate preview, save form, or create a new form) from section navigation controls.
+* Optimizes the plugin installation process.
+* Updates the 'Advanced Settings' section in controls, renaming it to 'Design Settings' and simplifying the instructional text.
+* Standardizes control sizing by setting the default size to medium across all controls.
+* Adds a preview button within the 'Customize Form Design' attribute when the CSS editor is in fullscreen, making it easier to preview changes without resizing the editor.
+* Updates default templates 15, 16, and 17.
+
 = 5.4.6.6 =
 
 * Enhances the Number, Currency, and Calculated Fields with improved performance and greater flexibility for more accurate and dynamic calculations.

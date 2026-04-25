@@ -627,7 +627,7 @@
 								}
 							});
 
-							$('.cff-editor-extend-shrink').on('click', function(){
+							$('.cff-editor-extend-shrink, #cff-fullscreen-shrink').on('click', function(){
                                 let e = $(this).closest('.cff-editor-container'),
                                 c = e.closest('.ctrlsColumn');
 								e.toggleClass('fullscreen');
@@ -1116,7 +1116,7 @@
 					str += '<!-- Embed Basic Extra --></div>'+
 						'<div class="cff-field-settings-tab-body-advanced">' +
 						$.fbuilder['showAdvancedSettings']( this ) +
-						'<div class="cff-editor-container" style="padding-top:10px;"><div style="display:flex;flex-direction:row;align-items:end;"><label for="fCustomStyles" style="flex-grow:1;"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design<br><i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><input type="button" class="button cff-ai-assistant" value="AI" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'css\');"></div><div></iv><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
+						'<div class="cff-editor-container" style="padding-top:10px;"><div style="display:flex;flex-direction:row;align-items:end;"><label for="fCustomStyles" style="flex-grow:1;"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design<br><i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><input type="button" class="button cff-ai-assistant" value="AI" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'css\');"><input type="button" id="cff-css-preview" class="button button-primary" value="Pv" onclick="fbuilderjQuery.fbuilder.preview( this );" title="Preview"><input type="button" id="cff-fullscreen-shrink" class="button button-secondary" value="&#10006;" title="Shrink"></div><div></iv><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
 						'</div>'+
 					'</div>';
 
@@ -1658,7 +1658,7 @@
 
 				if ( 'ftype' in arg ) {
 					// Top Message fields
-					output += '<p style="font-style:italic;padding-bottom:20px;">You can customize the appearance of a field\'s components by adding CSS rules. If you require more control over the field\'s styles, you can assign a class name to the field through the <a href="javascript:fbuilderjQuery(\'.cff-field-settings-tab-header-basic\').trigger(\'click\');fbuilderjQuery(\'#sCsslayout\').trigger(\'focus\');">"Add CSS Layout Keywords"</a> attribute in the "Basic Settings" tab and define it using the "Customize Form Design" attribute in the "Form Settings &gt; Advanced Settings" tab.</p>';
+                    output += '<details style="margin-top:8px;padding-bottom:8px;margin-bottom:8px !important;font-size:12px;"><summary style="color:var(--wp-admin-theme-color);cursor:pointer;">Help: How to customize styles?</summary><p style="font-style:italic;font-size:12px;border-left:1px solid #ccc;padding-left:8px;">You can customize the appearance of a field\'s components by adding CSS rules. If you require more control over the field\'s styles, you can assign a class name to the field through the <a href="javascript:fbuilderjQuery(\'.cff-field-settings-tab-header-basic\').trigger(\'click\');fbuilderjQuery(\'#sCsslayout\').trigger(\'focus\');">"Add CSS Layout Keywords"</a> attribute in the "Basic Settings" tab and define it using the "Customize Form Design" attribute in the "Form Settings &gt; Advanced Settings" tab.</p></details>';
 
 					if(
 						'hidefield' in arg &&
@@ -2128,7 +2128,7 @@
 				if ( has_advanced ) {
 					output = '<div class="cff-field-settings-tabs-headers">'+
 						'<div class="cff-field-settings-tab-header-basic cff-field-settings-tab-active">Basic Settings</div>'+
-						'<div class="cff-field-settings-tab-header-advanced">Advanced Settings</div>'+
+						'<div class="cff-field-settings-tab-header-advanced">Design Settings</div>'+
 					'</div>'+
 					'<div class="cff-field-settings-tabs-bodies">'+
 						'<div class="cff-field-settings-tab-body-basic cff-field-settings-tab-body-active">' + output + '<!-- Embed Basic Extra --></div>'+

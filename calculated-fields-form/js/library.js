@@ -61,6 +61,9 @@ jQuery(function () {
         txt_close_modify_btn        = cpcff_forms_library_config['texts']['close_modify_btn'] ?? '- Hide Description',
 		txt_create_form_btn 		= cpcff_forms_library_config['texts']['create_form_btn'],
 		txt_back_btn 				= cpcff_forms_library_config['texts']['back_btn'],
+		txt_forward_btn 			= cpcff_forms_library_config['texts']['forward_btn'] ?? 'Go to form',
+
+        txt_still_loading           = cpcff_forms_library_config['texts']['still_loading'] ?? 'Be patient, still thinking...',
 
 	// Variables
 		$ = jQuery,
@@ -89,8 +92,9 @@ jQuery(function () {
 					<i class="cff-ai-description">${txt_api_key_instruct} <a href="${video_tutorial_url}" target="_blank">${txt_video_label}</a></i>
 					<div class="cff-form-library-form-title">${txt_form_descritpion_label}</div>
 					<textarea id="cff-ai-form-description" rows="4" placeholder="${form_description_placeholder}"></textarea>
-					<div>
+					<div style="display:flex;gap:5px;align-items:center;">
 						<input type="button" class="button-primary cff-ai-generate" value="${txt_generate_form_btn}" />
+						<input type="button" class="button-secondary cff-form-library-forward" value="${txt_forward_btn}" style="display:none;" />
 					</div>
 				</div>
 				<div class="cff-ai-form-preview-container">
@@ -234,7 +238,7 @@ jQuery(function () {
 						}
 						tmp.attr('data-category', data[i]['category']);
 						if ( 'thumb' in data[i] ) {
-							tmp.find('.cff-form-library-form-title').before('<div class="cff-form-library-form-thumb"><img src="https://cdn.statically.io/gh/cffdwboostercom/formtemplates/main/'+data[i]['thumb']+'"></div>');
+							tmp.find('.cff-form-library-form-title').before('<div class="cff-form-library-form-thumb"><img src="https://cdn.jsdelivr.net/gh/cffdwboostercom/formtemplates@main/'+data[i]['thumb']+'"></div>');
 						}
 						tmp.find('.cff-form-library-form-title').text(data[i]['title']);
 						tmp.find('.cff-form-library-form-description').text(data[i]['description']);
@@ -424,7 +428,8 @@ jQuery(function () {
         $('#cff-ai-save-btn').trigger('click');
 	});
 	$(document).on('click', '.cff-form-library-close', closeDialog);
-	$(document).on('click', '.cff-form-library-back', function(){ $('.cff-ai-form-preview-container').hide(); });
+	$(document).on('click', '.cff-form-library-back', function(){ $('.cff-ai-form-preview-container').hide(); $('.cff-form-library-forward').show();});
+	$(document).on('click', '.cff-form-library-forward', function(){ $('.cff-ai-form-preview-container').css('display', 'flex'); });
     $(document).on('click', '.cff-modify-form', function(){
         $('.cff-ai-form-modifications-description-container').toggleClass('cff-ai-form-modifications-description-container-active');
         let e = $(this),
@@ -442,6 +447,7 @@ jQuery(function () {
         });
     });
 	$(document).on('click', '.cff-ai-generate', async function(evt, extra_params){
+		$('.cff-form-library-forward').hide();
         extra_params = extra_params || {};
 		// Check API Key and form description.
 		let api_key 		  = String($('#cff-ai-api-key').val()).trim(),
@@ -462,6 +468,9 @@ jQuery(function () {
 
 		// Display the loading process and call the server side code.
         $('.cff-ai-form-generator').append('<div class="cff-processing-form"></div>');
+		setTimeout(function(){
+			$('.cff-ai-form-generator .cff-processing-form').append('<div class="cff-still-loading">'+txt_still_loading+'</div>');
+		}, 5000);
         $('.cff-form-library-back').prop('disabled', true);
 		description_field.prop('disabled', true);
 		this.disabled = true;

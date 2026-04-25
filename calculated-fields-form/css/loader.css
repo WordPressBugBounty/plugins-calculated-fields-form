@@ -7,3 +7,13 @@
   border-right:4px solid transparent;
   animation:cffspinner .6s linear infinite;
 }
+.cff-processing-form .cff-still-loading {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-style: italic;
+  font-weight: 600;
+  color: #c52359 !important;
+}

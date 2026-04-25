@@ -260,6 +260,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
+                            ],
+                            'kimi-k2.6' => [
+                                'title' => esc_html__('Kimi K2.6', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
                             ]
                         ]
                     ]

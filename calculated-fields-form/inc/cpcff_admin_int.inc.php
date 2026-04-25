@@ -50,8 +50,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="#metabox_define_texts">' . esc_html__( 'Texts definition', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_define_validation_texts">' . esc_html__( 'Error texts', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_submit_thank">' . esc_html__( 'Submit button and thank you page', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
-	<a href="#metabox_notification_email">' . esc_html__( 'Notification email', 'calculated-fields-form' ) . '</a>&nbsp;
-	<span>[</span><b>' . esc_html__( 'Commercial Features', 'calculated-fields-form' ) . ':</b>
+	<a href="#metabox_notification_email">' . esc_html__( 'Notification email', 'calculated-fields-form' ) . '</a>'.
+	'<span class="cff-addon-menu-option" style="display:none;"><span>&nbsp;|&nbsp;</span>
+	<a href="#metabox_addons_section">' . esc_html__( 'Add ons', 'calculated-fields-form' ) . '</a></span>'.
+	'&nbsp;<span>[</span><b>' . esc_html__( 'Commercial Features', 'calculated-fields-form' ) . ':</b>
 	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Payment settings', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Email copy to user', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a><span>]</span>
@@ -306,11 +308,15 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 				<div class="cff-website-icon"></div>
 				<div class="cff-popup-icon">
 					<div class="cff-popup-bubble"><?php esc_html_e( 'Save Changes', 'calculated-fields-form' ); ?></div>
-					<input name="save" type="image" src="<?php print esc_attr( plugins_url('../images/icons/save.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();">
+					<button name="save" type="submit" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();">
+                        <?php include plugin_dir_path(__FILE__) . '../images/icons/save.svg'; ?>
+                    </button>
 				</div>
 				<div class="cff-popup-icon">
 					<div class="cff-popup-bubble"><?php esc_html_e( 'Preview', 'calculated-fields-form' ); ?></div>
-					<input name="prvw" type="image" src="<?php print esc_attr( plugins_url('../images/icons/preview.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );">
+                    <button name="prvw" type="button" onclick="fbuilderjQuery.fbuilder.preview( this );">
+                        <?php include plugin_dir_path(__FILE__) . '../images/icons/preview.svg'; ?>
+					</button>
 				</div>
 				<div class="cff-popup-icon-separator"></div>
 				<div class="cff-popup-icon">
@@ -669,7 +675,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 			[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
 
 			<br /><br /><br />
-			<style>.cff-metabox,.metabox_disabled_section{margin-right:30px;}@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }#cff-payment-gateways-accordion .cff-metabox, #cff-payment-gateways-accordion .metabox_disabled_section{margin-bottom:5px;} .cff-addons-complementary-plugin-form-settings:empty::before{content: "<?php esc_attr_e( '- Empty Area -', 'calculated-fields-form' ); ?>"; margin-bottom:40px;display:block;text-align:center;}</style>
+			<style>body:has( .cff-addons-complementary-plugin-form-settings:not(:empty)) .cff-addon-menu-option{display:inline !important;} .cff-metabox,.metabox_disabled_section{margin-right:30px;}@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }#cff-payment-gateways-accordion .cff-metabox, #cff-payment-gateways-accordion .metabox_disabled_section{margin-bottom:5px;} .cff-addons-complementary-plugin-form-settings:empty::before{content: "<?php esc_attr_e( '- Empty Area -', 'calculated-fields-form' ); ?>"; margin-bottom:40px;display:block;text-align:center;}</style>
 
 			<div id="cff-upgrade-frame" style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;margin-right:30px;">
 				<a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;float:left;" class="cff-plugin-logo-promote"><img src="https://ps.w.org/calculated-fields-form/assets/icon-256x256.jpg" style="width:160px;border:2px solid white;margin-right:10px;margin-bottom:10px;"></a>
