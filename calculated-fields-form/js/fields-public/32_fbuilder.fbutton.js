@@ -42,6 +42,7 @@
 					var me = this;
 					$('#'+this.name).on( 'mousedown', function(){
 						try {
+							if ($.fbuilder['isEvalBlocked']) throw new EvalError("*");
 							eval(me.sOnmousedown);
 						} catch ( err ) {
 							try {
@@ -91,6 +92,7 @@
 									RESETFORM(e[0].form);
 									setTimeout(function(){
 										try {
+											if ($.fbuilder['isEvalBlocked']) throw new EvalError("*");
 											eval(me.sOnclick);
 										} catch ( err ) {
 											try {
@@ -103,6 +105,7 @@
 									}, 55);
 								} else {
 									try {
+										if ($.fbuilder['isEvalBlocked']) throw new EvalError("*");
 										eval(me.sOnclick);
 									} catch ( err ) {
 										try {

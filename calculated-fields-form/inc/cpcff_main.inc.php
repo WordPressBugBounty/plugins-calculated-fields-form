@@ -473,6 +473,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 									// Instructions.
 									'api_key_instruct'				=> sprintf( esc_html__('Get your API Key from %s. The model and API keys used for form generation are separate from those used by the AI assistant in the form builder, allowing you to choose the most appropriate model for each situation.', 'calculated-fields-form' ), '<span class="cff-ai-links"></span>' ),
+									'wordpress_instruct'            => sprintf( esc_html__('Uses the AI Connector configured in the "Settings>Connector" section: %s', 'calculated-fields-form'), '<span class="cff-ai-links"></span>' ),
 
 									// Buttons texts.
 									'create_form_btn' 			   => esc_html__( 'Create Basic Form', 'calculated-fields-form' ),

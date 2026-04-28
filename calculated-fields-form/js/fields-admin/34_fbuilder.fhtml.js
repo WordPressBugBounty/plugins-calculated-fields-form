@@ -89,11 +89,19 @@
 							}
 
 							$('.cff-editor-extend-shrink, #cff-fullscreen-shrink').on('click', function(){
-								let e = $(this).closest('.cff-editor-container'),
-									c = e.closest('.ctrlsColumn');
+                                let e = $(this).closest('.cff-editor-container'),
+                                c = e.closest('.ctrlsColumn');
 								e.toggleClass('fullscreen');
-								if(e.hasClass('fullscreen')) c.css('z-index', 99991);
-                                else { c.css('z-index', 999); if ('lockToBuilder' in $.fbuilder) $.fbuilder.lockToBuilder(); }
+                                let tab = $('.ctrlsColumn #tabs-2');
+								if(e.hasClass('fullscreen')) {
+                                    tab.css('overflow-y', 'hidden');
+                                    c.css('z-index', 99991);
+                                } else {
+                                    tab.css('overflow-y', 'auto');
+                                    c.css('z-index', 999);
+                                    if ('lockToBuilder' in $.fbuilder) $.fbuilder.lockToBuilder();
+                                }
+                                try { editor.codemirror.refresh(); } catch(err) {console.log(err);}
 							});
 
 						}, 10);
@@ -108,7 +116,7 @@
 						}
 						$('[name="sAllowscript"]').trigger('change');
 					}
-					return '<div><label for="sReplaceShortcodes"><input type="checkbox" name="sReplaceShortcodes" id="sReplaceShortcodes" '+(this.replaceShortcodes ? 'CHECKED' : '')+'> Replace shortcodes in the HTML content<br><i>(Sanitizing and preprocessing replacement content affects some shortcodes)</i></label></div><div><label for="sAllowscript"><input type="checkbox" name="sAllowscript" id="sAllowscript" '+(this.allowscript ? 'CHECKED' : '')+'> Accept advanced code in content as JavaScript code</label><hr /></div><div class="cff-editor-container"><div style="display:flex;flex-direction:row;align-items:end;"><label style="display:block;flex-grow:1;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><input type="button" class="button cff-ai-assistant" value="AI" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'html\');"><input type="button" id="cff-fullscreen-shrink" class="button button-secondary" value="&#10006;" title="Shrink"></div><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
+                    return '<div><label for="sReplaceShortcodes"><input type="checkbox" name="sReplaceShortcodes" id="sReplaceShortcodes" ' + (this.replaceShortcodes ? 'CHECKED' : '') + '> Replace shortcodes in the HTML content<br><i>(Sanitizing and preprocessing replacement content affects some shortcodes)</i></label></div><div><label for="sAllowscript"><input type="checkbox" name="sAllowscript" id="sAllowscript" ' + (this.allowscript ? 'CHECKED' : '') +'> Accept advanced code in content as JavaScript code</label><hr /></div><div class="cff-editor-container"><div style="display:flex;flex-direction:row;align-items:end;"><label style="display:block;flex-grow:1;" for="sContent"><div class="cff-editor-extend-shrink" title="Fullscreen"></div>HTML Content</label><input type="button" class="button cff-ai-assistant" value="AI" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'html\');"><input type="button" id="cff-css-preview" class="button button-primary" value="Pv" onclick="fbuilderjQuery.fbuilder.preview( this );" title="Preview"><input type="button" id="cff-fullscreen-shrink" class="button button-secondary" value="&#10006;" title="Shrink"></div><textarea class="large" name="sContent" id="sContent" style="height:150px;">'+cff_esc_attr(this.fcontent)+'</textarea></div>';
 				},
 			showAllSettings:function()
 				{

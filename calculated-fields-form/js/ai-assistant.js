@@ -11,6 +11,7 @@ const messages = [{
 	},
 ];
 
+let wordpress_ai = 'wordpress-ai';
 let selectedModel;
 selectedModel = "Qwen2.5-Coder-3B-Instruct-q4f32_1-MLC";
 
@@ -39,6 +40,10 @@ let saveSettingsBtnCtrl = document.getElementById("cff-ai-assistant-save-setting
 // Check if the selected provider is local
 function isLocalModel() {
     return ( window['cff_ai_provider'] === 'local' );
+}
+
+function isWPModel() {
+    return ( window['cff_ai_provider'] === wordpress_ai );
 }
 
 // Resize button.
@@ -340,7 +345,7 @@ async function onMessageSend() {
         );
     } else {
         // Check settings for cloud provider.
-        if ( ! ('cff_ai_api_key' in window) || window.cff_ai_api_key.trim() === '' ) {
+        if ( !isWPModel() && (! ('cff_ai_api_key' in window) || window.cff_ai_api_key.trim() === '' ) ) {
             userQuestionCtrl.value = input;
             alert( ( 'cff_ai_texts' in window ? window['cff_ai_texts']['api_key_required'] : 'API Key is required for the selected provider.' ) );
             openAIAssistantSettings();
@@ -670,9 +675,15 @@ providerCtrl.addEventListener("change", async function () {
             let providerUrl = `<a href="${cff_ai_models[selectedProvider]['api_key_url']}" target="_blank">${cff_ai_models[selectedProvider]['title']}</a>`;
             document.querySelector('.cff-ai-assistant-provider-url').innerHTML = providerUrl;
         }
-        modelContainer.style.display = 'block';
-        apiKeyContainer.style.display = 'block';
-        apiKeyCtrl.setAttribute('required', '');
+        if( selectedProvider == wordpress_ai) {
+            modelContainer.style.display = 'none';
+            apiKeyContainer.style.display = 'none';
+            apiKeyCtrl.setAttribute('required', '');
+        } else {
+            modelContainer.style.display = 'block';
+            apiKeyContainer.style.display = 'block';
+            apiKeyCtrl.removeAttribute('required');
+        }
     }
 });
 
@@ -697,7 +708,7 @@ saveSettingsBtnCtrl.addEventListener("click", async function () {
     const selectedProvider = providerCtrl.value;
     const selectedModel = modelCtrl.value;
     const apiKey = apiKeyCtrl.value;
-    if (selectedProvider !== 'local' && apiKey.trim() === '') {
+    if (selectedProvider !== 'local' && selectedProvider !== wordpress_ai && apiKey.trim() === '') {
         alert( ( 'cff_ai_texts' in window ? window['cff_ai_texts']['api_key_required'] : 'API Key is required for the selected provider.' ) );
         return;
     }

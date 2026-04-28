@@ -631,11 +631,16 @@
                                 let e = $(this).closest('.cff-editor-container'),
                                 c = e.closest('.ctrlsColumn');
 								e.toggleClass('fullscreen');
-								if(e.hasClass('fullscreen')) c.css('z-index', 99991);
-								else {
+                                let tab = $('.ctrlsColumn #tabs-3');
+								if(e.hasClass('fullscreen')) {
+                                    tab.css('overflow-y', 'hidden');
+                                    c.css('z-index', 99991);
+                                } else {
+                                    tab.css('overflow-y', 'auto');
                                     c.css('z-index', 999);
                                     if ( 'lockToBuilder' in $.fbuilder ) $.fbuilder.lockToBuilder();
                                 }
+                                try { editor.codemirror.refresh(); } catch (e) {}
 							});
 						}
 					}, 300);

@@ -1,6 +1,7 @@
 jQuery(function () {
 	if ( typeof cpcff_forms_library_config == 'undefined' ) return;
-    let ai_providers = '',
+    let wordpress_ai = 'wordpress-ai', // This is the WordPress AI connector.
+        ai_providers = '',
         ai_default_provider = cpcff_forms_library_config['ai-default-provider'] || '',
         ai_provider_selected = cpcff_forms_library_config['ai-selected-provider'] || ai_default_provider,
         ai_default_model = cpcff_forms_library_config['ai-default-model'] || '',
@@ -21,16 +22,20 @@ jQuery(function () {
     if ( 'ai-providers' in cpcff_forms_library_config ) {
         let providers = cpcff_forms_library_config['ai-providers'];
         for ( let provider in providers ) {
-            ai_providers += '<optgroup label="'+providers[provider]['title']+'">';
-            for ( let model in providers[provider]['models'] ) {
-                if ( providers[provider]['models'][model]['form-generation'] == false ) continue;
-                ai_providers += '<option data-provider="' + provider + '" value="' + model + '" ' + ( ai_model_selected == model ? 'selected' : '' ) + '>' + providers[provider]['models'][model]['title']+'</option>';
+            if (provider == wordpress_ai ) {
+                ai_providers = '<option data-provider="'+provider+'" value="'+provider+'">' + providers[provider]['title']+'</option>' + ai_providers;
+            } else {
+                ai_providers += '<optgroup label="'+providers[provider]['title']+'">';
+                for ( let model in providers[provider]['models'] ) {
+                    if ( providers[provider]['models'][model]['form-generation'] == false ) continue;
+                    ai_providers += '<option data-provider="' + provider + '" value="' + model + '" ' + ( ai_model_selected == model ? 'selected' : '' ) + '>' + providers[provider]['models'][model]['title']+'</option>';
+                }
+                ai_providers += '</optgroup>';
             }
-            ai_providers += '</optgroup>';
         }
     }
 
-	// Texts
+    // Texts
 	let video_tutorial_url			= 'https://www.youtube.com/embed/KB4VOFrbAT0?start=48',
 		txt_api_key_placeholder 	= cpcff_forms_library_config['texts']['api_key_placeholder'] ?? '',
 		form_description_placeholder = cpcff_forms_library_config['texts']['form_descritpion_placeholder'] ?? '',
@@ -43,6 +48,7 @@ jQuery(function () {
 		txt_video_label 		   = cpcff_forms_library_config['texts']['video_label'],
 
 		txt_api_key_instruct 	   = cpcff_forms_library_config['texts']['api_key_instruct'],
+		txt_wordpress_instruct 	   = cpcff_forms_library_config['texts']['wordpress_instruct'],
 
 		txt_api_key_requirement_error	  = cpcff_forms_library_config['texts']['api_key_requirement_error'],
 		txt_description_requirement_error = cpcff_forms_library_config['texts']['description_requirement_error'],
@@ -184,6 +190,11 @@ jQuery(function () {
     }
 
     function updateAIProviderURL( provider ) {
+        if ( provider == wordpress_ai ) {
+            $('.cff-ai-description').html(txt_wordpress_instruct);
+        } else {
+            $('.cff-ai-description').html(txt_api_key_instruct);
+        }
         $('.cff-ai-links').html('<a href="' + cpcff_forms_library_config['ai-providers'][provider]['api_key_url'] + '" target="_blank">' + cpcff_forms_library_config['ai-providers'][provider]['title'] + '</a>');
     }
 
@@ -330,7 +341,8 @@ jQuery(function () {
 		$(me).addClass('cff-form-library-active-category');
 		$('.cff-form-library-main').hide();
 		$('.cff-ai-form-generator').show();
-        if ( ai_api_key == '' ) {
+        $('#cff-ai-model-provider').trigger('change');
+        if ( ai_api_key == '' && ai_default_provider != wordpress_ai ) {
 			$('.cff-ai-video-tutorial').css('display', 'flex');
 		}
 	};
@@ -375,6 +387,9 @@ jQuery(function () {
     };
 
     $(document).on('change', '#cff-ai-model-provider', function(){
+        let provider_selected = getProviderSelected();
+        $('#cff-ai-api-key')[provider_selected == wordpress_ai ? 'hide' : 'show']();
+        $('#cff-ai-model-provider').css('flex-grow', provider_selected == wordpress_ai ? '1' : 'initial');
         updateAIProviderURL(getProviderSelected());
     });
 	$(document).on('keyup', function(evt){ if ( evt.keyCode == 27 ) { cff_closeLibraryDialog(); } });
@@ -456,7 +471,7 @@ jQuery(function () {
 			description_field = extra_params['description_field'] ?? $('#cff-ai-form-description'),
 			description 	  = description_field.val().split(/[\n\r]/g).map((n)=>String(n).trim()).filter((n)=>n != '').join("\n");
 
-		if ( '' == api_key ) {
+		if ( '' == api_key && provider != wordpress_ai ) {
 			alert( txt_api_key_requirement_error );
 			return;
 		}

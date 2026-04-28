@@ -6,21 +6,24 @@ if (! is_admin() || ! current_user_can(apply_filters('cpcff_forms_edition_capabi
 }
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_ai_requests.inc.php';
 $models = CPCFF_AI_REQUESTS::get_models();
+$wordpress_ai = 'wordpress-ai';
 
 if (isset($_POST['_cpcff_ai_assistant_nonce'])) {
     $_cpcff_ai_assistant_nonce = sanitize_text_field(wp_unslash($_POST['_cpcff_ai_assistant_nonce']));
     if (wp_verify_nonce($_cpcff_ai_assistant_nonce, 'cff_ai_save_settings_nonce')) { // Save AI Assistant Settings
         $api_key = isset($_POST['_cpcff_ai_assistant_api_key']) ? sanitize_text_field(wp_unslash($_POST['_cpcff_ai_assistant_api_key'])) : '';
         update_option('cff_ai_assistant_api_key', $api_key);
-        if (empty($api_key)) {
+
+        $provider = isset($_POST['_cpcff_ai_assistant_provider']) ? sanitize_text_field(wp_unslash($_POST['_cpcff_ai_assistant_provider'])) : 'local';
+        $provider =  isset($models[$provider]) ? $provider : 'local';
+        update_option('cff_ai_assistant_provider', $provider);
+
+        if (empty($api_key) && $provider !== $wordpress_ai) {
             // If API key is empty, reset provider and model to local
             update_option('cff_ai_assistant_provider', 'local');
             update_option('cff_ai_assistant_model', 'local');
             exit;
         }
-        $provider = isset($_POST['_cpcff_ai_assistant_provider']) ? sanitize_text_field(wp_unslash($_POST['_cpcff_ai_assistant_provider'])) : 'local';
-        $provider =  isset($models[$provider]) ? $provider : 'local';
-        update_option('cff_ai_assistant_provider', $provider);
 
         $model = isset($_POST['_cpcff_ai_assistant_model']) ? sanitize_text_field(wp_unslash($_POST['_cpcff_ai_assistant_model'])) : '';
         $model = ($provider !== 'local' && isset($models[$provider]['models'][$model])) ? $model : ($provider === 'local' ? 'local' :  $models[$provider]['default_model']);
@@ -29,10 +32,10 @@ if (isset($_POST['_cpcff_ai_assistant_nonce'])) {
         require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_ai_requests.inc.php';
 
         $api_key = get_option('cff_ai_assistant_api_key', '');
-        $provider = get_option('cff_ai_assistant_provider', '');
-        $model  = get_option('cff_ai_assistant_model', '');
+        $provider = get_option('cff_ai_assistant_provider', CPCFF_AI_REQUESTS::get_default_provider());
+        $model  = get_option('cff_ai_assistant_model', CPCFF_AI_REQUESTS::get_default_model());
 
-        if (empty($api_key) || empty($provider) || empty($model)) {
+        if ($provider !== $wordpress_ai && (empty($api_key) || empty($provider) || empty($model))) {
             wp_send_json(['error' => __('API Key, Provider, and Model are required.', 'calculated-fields-form')]);
         }
 
@@ -52,7 +55,6 @@ if (isset($_POST['_cpcff_ai_assistant_nonce'])) {
 }
 
 wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array(), CP_CALCULATEDFIELDSF_VERSION);
-
 ?>
 <script data-category="functional">
     <?php

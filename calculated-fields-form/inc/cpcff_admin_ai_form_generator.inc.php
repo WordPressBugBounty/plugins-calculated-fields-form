@@ -120,7 +120,7 @@ if(current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_opti
 
                 $form_description = sanitize_textarea_field(wp_unslash($_POST['cff_ai_form_generator_description']));
 
-                if (! empty($form_description) && ! empty($api_key)) {
+                if (! empty($form_description) && ($provider_selected == 'wordpress-ai' || ! empty($api_key))) {
                     try {
                         $transient_name_form_structure = 'cff_ai_form_structure_' . get_current_user_id();
                         $transient_name_form_preview   = 'cff_ai_form_preview_' . get_current_user_id();

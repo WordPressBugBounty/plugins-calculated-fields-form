@@ -505,10 +505,11 @@ textarea {resize: none}
 /* METABOX */
 .cff-metabox .hndle{cursor:pointer !important;}
 .cff-metabox .hndle::before{display:inline-block;padding-left:10px;padding-right:10px;}
-.cff-metabox.cff-metabox-closed>.hndle::before{content:"\276F";}
+.cff-metabox.cff-metabox-closed:not(:has(.cff-action-required))>.hndle::before{content:"\276F";}
+.cff-metabox.cff-metabox-closed:has(.cff-action-required)>.hndle::before,
 .cff-metabox.cff-metabox-opened>.hndle::before{content:"\276F";transform:rotate(90deg);}
-.cff-metabox.cff-metabox-closed{background-color:#F6F6F6;}
-.cff-metabox.cff-metabox-closed .inside{display:none;}
+.cff-metabox.cff-metabox-closed:not(:has(.cff-action-required)){background-color:#F6F6F6;}
+.cff-metabox.cff-metabox-closed:not(:has(.cff-action-required)) .inside{display:none;}
 #metabox_addons_area .cff-add-on-settings {margin: 10px;}
 
 /* METABOX ANIMATION */

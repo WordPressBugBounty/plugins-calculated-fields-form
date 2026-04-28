@@ -1196,6 +1196,17 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			);
 		} // End parsing_fields_on_text.
 
+        public static function is_eval_blocked() {
+            $csp = '';
+            foreach (headers_list() as $header) {
+                if (stripos($header, 'Content-Security-Policy:') === 0) {
+                    $csp = $header;
+                    break;
+                }
+            }
+            return strpos($csp, 'unsafe-eval') === false;
+        } // End isEvalBlocked
+
 		/*********************************** PRIVATE METHODS  ********************************************/
 
 		private static function _get_key()
