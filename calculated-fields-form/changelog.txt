@@ -1,5 +1,6 @@
 == Changelog ==
 
+= 5.4.6.9 =
 = 5.4.6.8 =
 
 * Adds support for GPT-5.5 and GPT-5.5 Pro models.

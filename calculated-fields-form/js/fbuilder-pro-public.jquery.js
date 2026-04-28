@@ -1,10 +1,10 @@
-	$.fbuilder['version'] = '5.4.6.8';
+	$.fbuilder['version'] = '5.4.6.9';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
 	$.fbuilder['isMobile'] = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 	$.fbuilder['isIOS'] = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    $.fbuilder['isEvalBlocked'] = (cpcff_eval_blocked) ? cpcff_eval_blocked : false;
+    $.fbuilder['isEvalBlocked'] = function(){ return (typeof cpcff_eval_blocked != 'undefined') ? cpcff_eval_blocked : false; };
 	$.fbuilder['eval'] = function(toEval, context)
 	{
 		if ( toEval === '' ) return toEval;

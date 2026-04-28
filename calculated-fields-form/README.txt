@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.8
+Stable tag: 5.4.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -461,6 +461,7 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.6.9 =
 = 5.4.6.8 =
 
 * Adds support for GPT-5.5 and GPT-5.5 Pro models.
@@ -490,7 +491,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.4.6.5 =
 
 * Fixes an issue where the initial prefix and postfix symbols were not correctly applied to number fields, and currency symbols were not properly assigned to currency fields when automatic formatting was disabled.
-
-= 5.4.6.4 =
-
-* Fixes an issue displaying the Import Form Fields dialog when the form builder is in fullscreen.

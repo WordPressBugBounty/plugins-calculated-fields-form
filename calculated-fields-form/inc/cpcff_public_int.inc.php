@@ -142,7 +142,7 @@ if ( property_exists( $form_data[1][0], 'direction' ) ) {
     // Eval blocked
     $eval_blocked_variable = '';
     if ( CPCFF_AUXILIARY::is_eval_blocked() ) {
-        $eval_blocked_variable = 'const cpcff_eval_blocked = true;';
+        $eval_blocked_variable = 'cpcff_eval_blocked = true;';
     }
 ?>
 <input type="hidden" name="cp_calculatedfieldsf_pform_psequence" value="_<?php echo esc_attr( CPCFF_MAIN::$form_counter ); ?>" />

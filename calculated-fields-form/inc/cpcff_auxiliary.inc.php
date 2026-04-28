@@ -1204,7 +1204,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
                     break;
                 }
             }
-            return strpos($csp, 'unsafe-eval') === false;
+            return !empty($csp) && strpos($csp, 'unsafe-eval') === false;
         } // End isEvalBlocked
 
 		/*********************************** PRIVATE METHODS  ********************************************/

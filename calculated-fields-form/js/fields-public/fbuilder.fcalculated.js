@@ -412,7 +412,7 @@
 							eq = eq.replace(/^\(/, '').replace(/\)$/, '').replace(/\b__ME__\b/g, __ME__);
 							var r;
 							try {
-								if ($.fbuilder['isEvalBlocked']) throw new EvalError("*");
+								if ($.fbuilder['isEvalBlocked']()) throw new EvalError("*");
 								r = eval(eq);
 							} catch (err) {
 								if ( err instanceof EvalError ) r = $.fbuilder['eval'].call(this, eq);
@@ -549,7 +549,7 @@
 																			.replace(/value\|r/gi, values.raw)
 																			.replace(/value/gi, values.value);
 										try {
-											if ($.fbuilder['isEvalBlocked']) throw new EvalError("*");
+											if ($.fbuilder['isEvalBlocked']()) throw new EvalError("*");
 											rule = eval(rule_src);
 										} catch (err) {
 											if ( err instanceof EvalError ) rule = $.fbuilder['eval'].call(this, rule_src);
