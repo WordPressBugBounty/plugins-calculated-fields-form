@@ -1198,10 +1198,13 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
         public static function is_eval_blocked() {
             $csp = '';
-            foreach (headers_list() as $header) {
-                if (stripos($header, 'Content-Security-Policy:') === 0) {
-                    $csp = $header;
-                    break;
+            $headers = get_headers(plugins_url('/css/stylepublic.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH));
+            if ( is_array( $headers ) ) {
+                foreach ($headers as $header) {
+                    if (stripos($header, 'Content-Security-Policy:') === 0) {
+                        $csp = $header;
+                        break;
+                    }
                 }
             }
             return !empty($csp) && strpos($csp, 'unsafe-eval') === false;

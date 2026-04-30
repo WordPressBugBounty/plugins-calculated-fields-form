@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.4.7.0 =
+
+* Enhances the Fields and Form Design settings to help you quickly identify incorrect CSS pairs of rules and values by displaying a clear warning icon whenever an issue is detected.
+* Improves usability for color-related CSS properties (such as background-color, border-color, color, etc.) by replacing the standard input with an intuitive color picker for faster and more accurate selection.
+* Adds support for the DeepSeek AI provider in both form generation and code asistant.
+* Updates the Classic CAPTCHA module with a modern design and ensures that browser autocomplete is disabled for a smoother and more secure user experience (Professional, Developer, and Platinum plugin distributions).
+
 = 5.4.6.9 =
 = 5.4.6.8 =
 
@@ -791,60 +798,7 @@ Since most users do not have devices with sufficient resources to run local infe
 * Fixes a minor conflict of column1 class styles into container with display:flex.
 
 = 5.3.20 =
-= 5.3.19 =
 
 * Optimizes plugin performance by eliminating the evaluation of duplicate equations, ensuring faster and more efficient processing.
 * Refines the columns layout system for a more intuitive and seamless user experience.
 * Elevates the AI assistant's capabilities, delivering smarter and more accurate support for your questions.
-
-= 5.3.18 =
-
-* Enhances the Date/Time control to improve the alignment between the date and time components for a more cohesive user experience.
-* Updates the container fields—DIV, FIELDSET, and POPUP—by introducing a new attribute that facilitates better alignment of the contained fields with one another.
-* Revamps the validation popup to make it easier to identify which validation rules have failed, including for hidden fields.
-
-= 5.3.17 =
-
-* Addresses an inconsistency in the validation of date fields.
-* Introduces a new predefined form for loading metadata from Archive.org.
-
-= 5.3.16 =
-
-* Enables validation of time components within date and time controls.
-* Introduces two new operations: DISABLEEQUATION and ENABLEEQUATION, to deactivate or activate equations in specific calculated fields.
-* Resolves an issue affecting quantity boxes in checkbox and radio button controls when the switch format is enabled.
-* Features a new video tutorial.
-* Updates the DS fields in both the Developer and Platinum plugin versions.
-
-= 5.3.15 =
-
-* Improve the SEO score when forms are accessed directly or embedded within an iframe.
-
-= 5.3.14 =
-
-* Introduces a new attribute in the form settings that enables the form to be reset after submission via AJAX.
-* Improves the visual presentation of radio buttons and checkboxes on smaller screens, such as mobile devices.
-* Resolves an issue with the font family used in captcha images for the Professional, Developer, and Platinum versions.
-* Updates the WooCommerce add-on for the Developer and Platinum versions.
-* Enhances the DISTANCE operations module for the Developer and Platinum versions.
-* Revamps the SagePay add-on for the Platinum version.
-
-= 5.3.13 =
-
-* Resolves a compatibility issue with WordPress versions prior to 5.5.
-* Addresses an issue with the confirmation dialog that appears when saving changes to the form.
-
-= 5.3.12 =
-
-* Prevents developers from closing the form builder without saving any modifications made to the form.
-* Resolves a notice by ensuring the language files are properly loaded.
-* Updates the Verification Code add-on to prevent the code from being sent to the email address if it matches the logged-in user's email (available in Developer and Platinum versions).
-
-= 5.3.11 =
-
-* Enhances the module responsible for evaluating equations to improve its capability to utilize fields from other forms on the same page.
-* Introduces a new predefined form that retrieves information from third-party services.
-
-= 5.3.10 =
-
-* Fixes an issue in the Phone control.

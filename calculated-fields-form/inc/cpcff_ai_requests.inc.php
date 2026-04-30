@@ -289,6 +289,25 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'max_tokens' => 8192
                             ]
                         ]
+                    ],
+                    'deepseek' => [
+                        'title'         => esc_html__('DeepSeek', 'calculated-fields-form'),
+                        'default_model' => 'deepseek-v4-flash',
+                        'api_key_url'   => 'https://platform.deepseek.com/api_keys',
+                        'models'        => [
+                            'deepseek-v4-pro' => [
+                                'title' => esc_html__('DeepSeek V4 Pro', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+                            'deepseek-v4-flash' => [
+                                'title' => esc_html__('DeepSeek V4 Flash', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ]
+                        ]
                     ]
                 ];
                 self::$default_model = self::$models[self::$default_provider]['default_model'];
@@ -367,6 +386,8 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                     return $this->call_minimax($prompt, $context);
                 case 'kimi':
                     return $this->call_kimi($prompt, $context);
+                case 'deepseek':
+                    return $this->call_deepseek($prompt, $context);
                 case 'wordpress-ai':
                     return $this->call_wordpress_ai($prompt, $context);
                 default:
@@ -741,6 +762,71 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
             }
 
             return ['error' => 'Failed Kimi request'];
+        }
+
+        /**
+         * Call DeepSeek API with automatic continuation handling
+         */
+        private function call_deepseek($prompt, $context) {
+            $url = 'https://api.deepseek.com/v1/chat/completions';
+
+            $model = $this->model ?: self::$models['deepseek']['default_model'];
+            $messages = [
+                [
+                    'role'    => 'system',
+                    'content' => $context
+                ],
+                [
+                    'role'    => 'user',
+                    'content' => $prompt
+                ]
+            ];
+
+            $data = [
+                'model'      => $model,
+                'messages'   => $messages,
+                'max_tokens' => $this->max_tokens
+            ];
+
+            $response = wp_remote_post($url, [
+                'headers' => [
+                    'Content-Type'  => 'application/json',
+                    'Authorization' => 'Bearer ' . $this->api_key
+                ],
+                'body'    => json_encode($data),
+                'timeout' => $this->timeout
+            ]);
+
+            if (is_wp_error($response)) {
+                return ['error' => $response->get_error_message()];
+            }
+
+            $body = json_decode(wp_remote_retrieve_body($response), true);
+
+            if (isset($body['choices'][0]['message']['content'])) {
+                $response_content = $body['choices'][0]['message']['content'];
+                $finish_reason    = $body['choices'][0]['finish_reason'] ?? 'unknown';
+
+                if ($finish_reason === 'length') {
+                    if ($this->retry_flag) {
+                        $this->retry_flag = false;
+                        $this->max_tokens *= 2;
+                        return $this->call_deepseek($prompt, $context);
+                    } else {
+                        return [
+                            'error' => sprintf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
+                        ];
+                    }
+                }
+
+                return ['response' => $response_content];
+            }
+
+            if (isset($body['error']['message'])) {
+                return ['error' => $body['error']['message']];
+            }
+
+            return ['error' => 'Failed DeepSeek request'];
         }
     }
 }

@@ -21,6 +21,8 @@ if ( function_exists( 'wp_enqueue_code_editor' ) ) {
 }
 wp_enqueue_style('cff-select2-css', plugins_url('/vendors/select2/select2.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array(), CP_CALCULATEDFIELDSF_VERSION);
 wp_enqueue_script('cff-select2-js', plugins_url('/vendors/select2/select2.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array("jquery"), CP_CALCULATEDFIELDSF_VERSION);
+wp_enqueue_style('cff-coloris-css', plugins_url('/vendors/coloris/coloris.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH));
+wp_enqueue_script('cff-coloris-js', plugins_url('/vendors/coloris/coloris.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH));
 
 if ( ! defined( 'CP_CALCULATEDFIELDSF_ID' ) ) {
 	define( 'CP_CALCULATEDFIELDSF_ID', isset( $_GET['cal'] ) && is_numeric( $_GET['cal'] ) ? intval( $_GET['cal'] ) : 0 );

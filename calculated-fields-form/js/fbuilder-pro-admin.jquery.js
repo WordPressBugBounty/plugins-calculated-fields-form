@@ -343,7 +343,7 @@
 					$('#tabs-2').html( items[id].showAllSettings() );
 					if ( scrollTopFlag ) $('#tabs-2')[0].scrollTop = 0;
                 } catch (e) { if( 'console' in window ) console.log(e); }
-				items[id].editItemEvents();
+                items[id].editItemEvents();
 				setTimeout(function(){
                     try{
                         $('#tabs-2 .choicesSet select:visible, #tabs-2 .cf_dependence_field:visible, #tabs-2 #sSelectedField, #tabs-2 #sFieldList').on('mouseover focus', function(){
@@ -472,7 +472,7 @@
 				$('#tabs-3')[0].scrollTop = 0;
 				selected = -1;
 
-				$("#calculated-fields-form-category-mirror").on( 'keyup', function()
+                $("#calculated-fields-form-category-mirror").on( 'keyup', function()
 				{
 					$('[name="calculated-fields-form-category"]').val($(this).val());
 				});
@@ -647,17 +647,18 @@
 				});
 
 				// Advanced section
-				$(document).off("keyup", '[name^="advanced[css]"]');
-				$(document).on("keyup", '[name^="advanced[css]"]', function(e) {
+				$(document).off("keyup change", '[name^="advanced[css]"]');
+				$(document).on("keyup change", '[name^="advanced[css]"]', function(e) {
 					$.fbuilder['updateAdvancedSettings'](theForm, $(this).attr('data-cff-css-component'));
 					$.fbuilder.reloadItems({'form':1});
 				});
-				$(document).off('click', '.cff-css-rule-delete');
+                $(document).off('click', '.cff-css-rule-delete');
 				$(document).on('click', '.cff-css-rule-delete', function(e) {
 					$(this).closest('.css-rule').remove();
 					$.fbuilder['updateAdvancedSettings'](theForm, $(this).attr('data-cff-css-component'));
 					$.fbuilder.reloadItems({'form':1});
 				});
+                $.fbuilder['advancedSettingsColorEvents']();
 			};
 
 		$.fbuilder[ 'defineGeneralEvents' ] = function()
@@ -1093,7 +1094,7 @@
 					'<label><input type="radio" name="fTextAlign" value="center" '+(me.textalign == 'center' ? 'checked' : '')+'><span>Center</span></label>'+
 					'<label><input type="radio" name="fTextAlign" value="right" '+(me.textalign == 'right' ? 'checked' : '')+'><span>Right</span></label></div></div>'+
 
-					'<div style="margin-top:10px;"><label for="fHeaderColor" style="display:inline-block;">Text Color</label> <input type="color" id="fHeaderColor" name="fHeaderColor" '+( me.headertextcolor !== '' ?  'value="'+cff_esc_attr( me.headertextcolor )+'"' : '')+'></div>'+
+					'<div style="margin-top:10px;display:flex; gap:10px;align-items:center;"><label for="fHeaderColor" style="display:inline-block;padding:0px;margin:0px;">Text Color</label> <input type="text" data-coloris class="cff-coloris small" id="fHeaderColor" name="fHeaderColor" '+( me.headertextcolor !== '' ?  'value="'+cff_esc_attr( me.headertextcolor )+'"' : '')+'></div>'+
 					/* General Settings */
 					'<hr style="margin-top:10px;" />'+
 					'<h3>Form Settings</h3>'+
@@ -1627,10 +1628,17 @@
 		}
 	};
 
+    $.fbuilder['isCSSColorRule'] = function (rule) {
+        let css_color_rules = ['color','background-color','border-color','border-top-color','border-right-color','border-bottom-color','border-left-color','outline-color','text-decoration-color','text-emphasis-color','column-rule-color','caret-color','accent-color','scrollbar-color','border-block-color','border-block-start-color','border-block-end-color','border-inline-color','border-inline-start-color','border-inline-end-color','flood-color','lighting-color','stop-color'];
+
+        rule = String(rule).toLowerCase().trim();
+        return css_color_rules.indexOf(rule) !== -1;
+    };
+
 	$.fbuilder['showAdvancedSettings'] = function( arg ) {
 		function css_rules_datalist() {
-			let css_rules = ['align-content', 'align-items', 'align-self', 'all', 'animation', 'animation-delay', 'animation-direction', 'animation-duration', 'animation-fill-mode', 'animation-iteration-count', 'animation-name', 'animation-play-state', 'animation-timing-function', 'backface-visibility', 'background', 'background-attachment', 'background-blend-mode', 'background-clip', 'background-color', 'background-image', 'background-origin', 'background-position', 'background-repeat', 'background-size', 'border', 'border-bottom', 'border-bottom-color', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-bottom-style', 'border-bottom-width', 'border-collapse', 'border-color', 'border-image', 'border-image-outset', 'border-image-repeat', 'border-image-slice', 'border-image-source', 'border-image-width', 'border-left', 'border-left-color', 'border-left-style', 'border-left-width', 'border-radius', 'border-right', 'border-right-color', 'border-right-style', 'border-right-width', 'border-spacing', 'border-style', 'border-top', 'border-top-color', 'border-top-left-radius', 'border-top-right-radius', 'border-top-style', 'border-top-width', 'border-width', 'bottom', 'box-shadow', 'box-sizing', 'caption-side', 'caret-color', 'clear', 'clip', 'clip-path', 'color', 'column-count', 'column-fill', 'column-gap', 'column-rule', 'column-rule-color', 'column-rule-style', 'column-rule-width', 'column-span', 'column-width', 'columns', 'content', 'counter-increment', 'counter-reset', 'cursor', 'direction', 'display', 'empty-cells', 'filter', 'flex', 'flex-basis', 'flex-direction', 'flex-flow', 'flex-grow', 'flex-shrink', 'flex-wrap', 'float', 'font', 'font-family', 'font-kerning', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'grid', 'grid-area', 'grid-auto-columns', 'grid-auto-flow', 'grid-auto-rows', 'grid-column', 'grid-column-end', 'grid-column-gap', 'grid-column-start', 'grid-gap', 'grid-row', 'grid-row-end', 'grid-row-gap', 'grid-row-start', 'grid-template', 'grid-template-areas', 'grid-template-columns', 'grid-template-rows', 'height', 'hyphens', 'justify-content', 'left', 'letter-spacing', 'line-height', 'list-style', 'list-style-image', 'list-style-position', 'list-style-type', 'margin', 'margin-bottom', 'margin-left', 'margin-right', 'margin-top', 'max-height', 'max-width', 'min-height', 'min-width', 'object-fit', 'object-position', 'opacity', 'order', 'outline', 'outline-color', 'outline-offset', 'outline-style', 'outline-width', 'overflow', 'overflow-x', 'overflow-y', 'padding', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'page-break-after', 'page-break-before', 'page-break-inside', 'perspective', 'perspective-origin', 'pointer-events', 'position', 'quotes', 'right', 'scroll-behavior', 'table-layout', 'text-align', 'text-align-last', 'text-decoration', 'text-decoration-color', 'text-decoration-line', 'text-decoration-style', 'text-indent', 'text-justify', 'text-overflow', 'text-shadow', 'text-transform', 'top', 'transform', 'transform-origin', 'transform-style', 'transition', 'transition-delay', 'transition-duration', 'transition-property', 'transition-timing-function', 'user-select', 'vertical-align', 'visibility', 'white-space', 'width', 'word-break', 'word-spacing', 'word-wrap', 'writing-mode', 'z-index'],
-			output = '<datalist id="cff-css-rules-datalist">';
+            let css_rules = ['align-content', 'align-items', 'align-self', 'all', 'animation', 'animation-delay', 'animation-direction', 'animation-duration', 'animation-fill-mode', 'animation-iteration-count', 'animation-name', 'animation-play-state', 'animation-timing-function', 'backface-visibility', 'background', 'background-attachment', 'background-blend-mode', 'background-clip', 'background-color', 'background-image', 'background-origin', 'background-position', 'background-repeat', 'background-size', 'border', 'border-bottom', 'border-bottom-color', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-bottom-style', 'border-bottom-width', 'border-collapse', 'border-color', 'border-image', 'border-image-outset', 'border-image-repeat', 'border-image-slice', 'border-image-source', 'border-image-width', 'border-left', 'border-left-color', 'border-left-style', 'border-left-width', 'border-radius', 'border-right', 'border-right-color', 'border-right-style', 'border-right-width', 'border-spacing', 'border-style', 'border-top', 'border-top-color', 'border-top-left-radius', 'border-top-right-radius', 'border-top-style', 'border-top-width', 'border-width', 'bottom', 'box-shadow', 'box-sizing', 'caption-side', 'caret-color', 'clear', 'clip', 'clip-path', 'color', 'column-count', 'column-fill', 'column-gap', 'column-rule', 'column-rule-color', 'column-rule-style', 'column-rule-width', 'column-span', 'column-width', 'columns', 'content', 'counter-increment', 'counter-reset', 'cursor', 'direction', 'display', 'empty-cells', 'filter', 'flex', 'flex-basis', 'flex-direction', 'flex-flow', 'flex-grow', 'flex-shrink', 'flex-wrap', 'float', 'font', 'font-family', 'font-kerning', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'grid', 'grid-area', 'grid-auto-columns', 'grid-auto-flow', 'grid-auto-rows', 'grid-column', 'grid-column-end', 'grid-column-gap', 'grid-column-start', 'grid-gap', 'grid-row', 'grid-row-end', 'grid-row-gap', 'grid-row-start', 'grid-template', 'grid-template-areas', 'grid-template-columns', 'grid-template-rows', 'height', 'hyphens', 'justify-content', 'left', 'letter-spacing', 'line-height', 'list-style', 'list-style-image', 'list-style-position', 'list-style-type', 'margin', 'margin-bottom', 'margin-left', 'margin-right', 'margin-top', 'max-height', 'max-width', 'min-height', 'min-width', 'object-fit', 'object-position', 'opacity', 'order', 'outline', 'outline-color', 'outline-offset', 'outline-style', 'outline-width', 'overflow', 'overflow-x', 'overflow-y', 'padding', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'page-break-after', 'page-break-before', 'page-break-inside', 'perspective', 'perspective-origin', 'pointer-events', 'position', 'quotes', 'right', 'scroll-behavior', 'table-layout', 'text-align', 'text-align-last', 'text-decoration', 'text-decoration-color', 'text-decoration-line', 'text-decoration-style', 'text-indent', 'text-justify', 'text-overflow', 'text-shadow', 'text-transform', 'top', 'transform', 'transform-origin', 'transform-style', 'transition', 'transition-delay', 'transition-duration', 'transition-property', 'transition-timing-function', 'user-select', 'vertical-align', 'visibility', 'white-space', 'width', 'word-break', 'word-spacing', 'word-wrap', 'writing-mode', 'z-index'],
+            output = '<datalist id="cff-css-rules-datalist">';
 
 			for ( let i in css_rules )
 				output += '<option value="'+cff_esc_attr( css_rules[i] )+'"></option>';
@@ -1638,22 +1646,22 @@
 			return output;
 		};
 
-		fbuilderjQuery.fbuilder['css_rule_pair'] = function( component, rule, value, restrict ) {
-			let output = '';
+		$.fbuilder['css_rule_pair'] = function( component, rule, value, restrict ) {
+            let output = '';
+
 			rule  = rule  || '';
 			value = value || '';
 			restrict = restrict || false;
 
-			output += '<div class="css-rule" style="margin-top:3px;">'+
+            output += '<div class="css-rule" style="margin-top:3px;">'+
 				'<div class="column width50"><input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_rule][]" value="'+cff_esc_attr(rule)+'" class="large" placeholder="CSS rule" list="cff-css-rules-datalist" aria-label="CSS rule name" ' + ( restrict ? 'readonly' : '' )+ '></div>'+
 				'<div class="column width50">'+
-				'<input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_value][]" value="'+cff_esc_attr(value)+'" placeholder="CSS value" style="width:'+ ( restrict ? '100%' : 'calc( 100% - 30px ) !important' )+';" aria-label="CSS rule value">'+
+                '<input type="text" data-cff-css-component="' + cff_esc_attr(component) + '" name="advanced[css][css_value][]" value="' + cff_esc_attr(value) + '" placeholder="CSS value" style="width:' + (restrict ? '100%' : 'calc( 100% - 30px )') + ';" aria-label="CSS rule value" class="' + (fbuilderjQuery.fbuilder['isCSSColorRule'](rule) ? 'cff-coloris' : '' ) + '" autocomplete="off">'+
 				(!restrict ? '<input type="button" data-cff-css-component="'+cff_esc_attr(component)+'" value="-" class="button-secondary cff-css-rule-delete">' : '')+
 				'</div>'+
 				'<div class="clearer"></div>'+
 				'</div>';
-
-			return output;
+            return output;
 		};
 
 		let output = '';
@@ -1716,6 +1724,50 @@
 		});
 		e.advanced.css = css;
 	};
+
+    $.fbuilder['advancedSettingsColorEvents'] = function() {
+        function initializeColoris() {
+            if (typeof Coloris !== 'undefined') Coloris({ el: '.cff-coloris', wrap: true, focusInput: false, closeButton: true, clearButton: true, onChange: function(color, input){} });
+        };
+
+        function colorisAttachDetach(evt) {
+            let e = $(evt.currentTarget);
+            let css_val_input = e.closest('.css-rule').find('[name^="advanced[css][css_value]"]');
+            if ($.fbuilder['isCSSColorRule'](e.val())) {
+                css_val_input.attr('data-coloris', '').addClass('cff-coloris');
+            } else if (css_val_input.hasClass('cff-coloris')) {
+                css_val_input.removeAttr('data-coloris').removeClass('cff-coloris').siblings('button').remove().end().unwrap('.clr-field');
+            }
+            initializeColoris();
+        };
+
+        function cssValidation( evt ) {
+            let css_rule_row = $(evt.currentTarget).closest('.css-rule');
+            let css_val  = String(css_rule_row.find('[name^="advanced[css][css_value]"]').val()).trim().toLowerCase();
+            let css_rule = String(css_rule_row.find('[name^="advanced[css][css_rule]"]').val()).trim().toLowerCase();
+
+            // Remove !important and final semicolor (;)
+            css_val = css_val.replace(/;+$/, "");
+            css_val = css_val.replace(/\s*!important\s*$/i, "");
+
+            if (css_rule !== '') {
+                css_rule_row.removeClass('cff-css-rule-value-error cff-css-rule-error');
+                if (css_val !== '') {
+                    css_rule_row[CSS.supports(css_rule, css_val) ? 'removeClass' : 'addClass'] ('cff-css-rule-value-error');
+                } else {
+                    css_rule_row[CSS.supports(css_rule, 'inherit') ? 'removeClass' : 'addClass']('cff-css-rule-error');
+                }
+            }
+        };
+
+        $(document).off("change", '[name^="advanced[css][css_rule]"]', colorisAttachDetach);
+        $(document).on("change", '[name^="advanced[css][css_rule]"]', colorisAttachDetach);
+
+        $(document).off("change", '[name^="advanced[css][css_rule]"],[name^="advanced[css][css_value]"]', cssValidation);
+        $(document).on("change", '[name^="advanced[css][css_rule]"],[name^="advanced[css][css_value]"]', cssValidation);
+
+        initializeColoris();
+    };
 
 	$.fbuilder.controls[ 'ffields' ] = function(){};
 	$.extend( $.fbuilder.controls[ 'ffields' ].prototype,
@@ -1960,8 +2012,8 @@
 					});
 
 				// Advanced section
-				$(document).off("keyup", '[name^="advanced[css]"]');
-				$(document).on("keyup", '[name^="advanced[css]"]', {obj: this}, function(e) {
+				$(document).off("keyup change", '[name^="advanced[css]"]');
+				$(document).on("keyup change", '[name^="advanced[css]"]', {obj: this}, function(e) {
 					$.fbuilder['updateAdvancedSettings'](e.data.obj, $(this).attr('data-cff-css-component'));
 					$.fbuilder.reloadItems({'field':e.data.obj});
 				});
@@ -1971,6 +2023,7 @@
 					$.fbuilder['updateAdvancedSettings'](e.data.obj, $(this).attr('data-cff-css-component'));
 					$.fbuilder.reloadItems({'field':e.data.obj});
 				});
+                $.fbuilder['advancedSettingsColorEvents']();
 			},
 
 			showColumnIcon:function()

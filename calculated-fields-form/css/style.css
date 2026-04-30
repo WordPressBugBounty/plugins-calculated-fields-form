@@ -553,9 +553,12 @@ textarea {resize: none}
 }
 
 .form-builder #tabs .css-rule,
-.form-builder #tabs .css-rule .column{display:flex;gap:5px;align-items:center;flex-grow:1;}
+.form-builder #tabs .css-rule .column{display:flex;gap:5px;align-items:center;flex-grow:1;position:relative;}
 .form-builder #tabs .css-rule .clearer {display: none;}
 .form-builder #tabs .css-rule .column input[type="text"] {flex-grow:1;}
+.form-builder #tabs .cff-css-rule-value-error .column::after {content:"\26A0";color:#cc3300;position:absolute;right:50px;}
+.form-builder #tabs .cff-css-rule-value-error .column:first-child::after {right:10px;}
+.form-builder #tabs .cff-css-rule-error .column:first-child::after {content:"\26A0";color:#cc3300;position:absolute;right:10px;}
 
 #metabox_default_settings.cff-metabox .cp_template_info img,
 .form-builder #tabs #fTemplateThumbnail img {width:150px; border: 1px solid #CDCDCD; }
@@ -608,6 +611,31 @@ textarea {resize: none}
 }
 .cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced input[type="text"]{
 	text-transform: lowercase;
+}
+/* Color control */
+.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced .clr-field{ width: calc( 100% - 30px); }
+.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced .clr-field input[type="text"]{
+    width: 100% !important;
+    padding-left:36px !important;
+}
+.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced .clr-field button{
+    width: 22px;
+    height: 22px;
+    min-width: initial;
+    min-height:initial;
+    left: 5px;
+    right: auto;
+    border-radius: 50%;
+}
+.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-basic .clr-field {width:25%;cursor: pointer;}
+.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-basic .clr-field button {
+    width: 100%;
+    height: 100%;
+    min-width: initial;
+    min-height: initial;
+}
+.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-basic .clr-field input[type="text"]{
+    width: 100%;
 }
 
 /* @media screen AND (min-width:710px) {

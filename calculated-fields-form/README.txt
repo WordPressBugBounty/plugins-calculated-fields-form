@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.6.9
+Stable tag: 5.4.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,8 @@ No. Despite its name, Calculated Fields Form is a complete, general-purpose Word
 * **Extensive add-on ecosystem** — payment gateways, CRM integrations, PDF generation, e-signatures, and more
 * **Real-time calculations** — a capability that most other form plugins lack or offer only in expensive tiers
 * **Actively maintained** — updated regularly with new features and compatibility fixes
+
+> At the moment, the plugin supports multiple AI providers, including Anthropic Claude, OpenAI, Gemini, MiniMax, DeepSeek, Kimi, as well as all AI connectors supported by the new WordPress 7.x Connectors module.
 
 [youtube https://www.youtube.com/watch?v=R8hEbD8w2RM]
 
@@ -461,6 +463,13 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.7.0 =
+
+* Enhances the Fields and Form Design settings to help you quickly identify incorrect CSS pairs of rules and values by displaying a clear warning icon whenever an issue is detected.
+* Improves usability for color-related CSS properties (such as background-color, border-color, color, etc.) by replacing the standard input with an intuitive color picker for faster and more accurate selection.
+* Adds support for the DeepSeek AI provider in both form generation and code asistant.
+* Updates the Classic CAPTCHA module with a modern design and ensures that browser autocomplete is disabled for a smoother and more secure user experience (Professional, Developer, and Platinum plugin distributions).
+
 = 5.4.6.9 =
 = 5.4.6.8 =
 
@@ -487,7 +496,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Enhances the Number, Currency, and Calculated Fields with improved performance and greater flexibility for more accurate and dynamic calculations.
 * Adds support for additional AI providers such as MiniMax and Kimi (Moonshot AI), offering powerful and cost-efficient models compared to other providers.
-
-= 5.4.6.5 =
-
-* Fixes an issue where the initial prefix and postfix symbols were not correctly applied to number fields, and currency symbols were not properly assigned to currency fields when automatic formatting was disabled.

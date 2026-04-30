@@ -55,7 +55,7 @@ define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', get_option( 'CP_CALCUL
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_width', '180' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_height', '60' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_chars', '5' );
-define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_font', 'font-1.ttf' );
+define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_font', 'font-4.ttf' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_min_font_size', '25' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_max_font_size', '35' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_noise', '200' );
