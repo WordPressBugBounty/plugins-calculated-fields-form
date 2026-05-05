@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.7.0
+Stable tag: 5.4.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -463,6 +463,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.7.1 =
+
+* Allows associating audio tutorials with fieldset controls.
+* Fixes the spinner behavior in number and currency fields, preventing overly sensitive responses that caused values to increase or decrease twice per step on touchpad only.
+
 = 5.4.7.0 =
 
 * Enhances the Fields and Form Design settings to help you quickly identify incorrect CSS pairs of rules and values by displaying a clear warning icon whenever an issue is detected.
@@ -491,8 +496,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Standardizes control sizing by setting the default size to medium across all controls.
 * Adds a preview button within the 'Customize Form Design' attribute when the CSS editor is in fullscreen, making it easier to preview changes without resizing the editor.
 * Updates default templates 15, 16, and 17.
-
-= 5.4.6.6 =
-
-* Enhances the Number, Currency, and Calculated Fields with improved performance and greater flexibility for more accurate and dynamic calculations.
-* Adds support for additional AI providers such as MiniMax and Kimi (Moonshot AI), offering powerful and cost-efficient models compared to other providers.

@@ -21,6 +21,7 @@
 			defaultCollapsed: true, // Public
 			collapsed:false, // Admin
             selfClosing:false,
+			audiotutorial:'',
 			initAdv:function(){
 					delete this.advanced.css.label;
 					delete this.advanced.css.input;
@@ -63,7 +64,13 @@
 					'<label style="padding-left:30px"><input type="checkbox" name="sSelfClosing" id="sSelfClosing" '+((this.selfClosing)?"checked":"")+'> Only one opened at a time <br><i>If there are several fieldsets configured as collapsible on the same level, this fieldset will auto-close when another fieldset is opened.</i></label>';
 				},
 			showSpecialDataInstance: function()
-			{
-				return $.fbuilder.controls[ 'fcontainer' ].prototype.showSpecialDataInstance.call(this) + this.showCollapsible();
-			}
+				{
+					return $.fbuilder.controls[ 'fcontainer' ].prototype.showSpecialDataInstance.call(this) + this.showCollapsible();
+				},
+			showUserhelp:function()
+				{
+					return '<hr />' +
+						$.fbuilder.showSettings.showAudioTutorial(this.audiotutorial) +
+						'<hr />';
+				}
 	});

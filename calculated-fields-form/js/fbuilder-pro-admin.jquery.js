@@ -1609,18 +1609,22 @@
 			}
 			return '<label for="sLayout">Field Layout</label><select name="sLayout" id="sLayout">'+str+'</select>';
 		},
-		showUserhelp: function(v,a,c,i,ai)
+		showUserhelp: function(v,c,i)
 		{
-			return '<hr>'+
-			'<label for="sUserhelp">Instructions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+cff_esc_attr(v)+'</textarea><label class="column"><input type="checkbox" name="sUserhelpTooltip" id="sUserhelpTooltip" '+((c)?"checked":"")+' value="1" > Show as floating tooltip&nbsp;&nbsp;</label><label class="column"><input type="checkbox" name="sTooltipIcon" id="sTooltipIcon" '+((i)?"checked":"")+' value="1" > Display on icon</label><div class="clearer"></div>'+
-			'<label for="sAudioSrc">Audio Tutorial</label>'+
-			'<div><input type="text" style="width:70%;" name="sAudioSrc" id="sAudioSrc" value="'+cff_esc_attr(a)+'"><input id="sSelectAudioBtn" type="button" value="Browse" style="width:28%;" class="button-secondary" /></div>'+
-			(typeof ai != 'undefined' ?
+			return '<label for="sUserhelp">Instructions for User</label><textarea class="large" name="sUserhelp" id="sUserhelp">'+cff_esc_attr(v)+'</textarea><label class="column"><input type="checkbox" name="sUserhelpTooltip" id="sUserhelpTooltip" '+((c)?"checked":"")+' value="1" > Show as floating tooltip&nbsp;&nbsp;</label><label class="column"><input type="checkbox" name="sTooltipIcon" id="sTooltipIcon" '+((i)?"checked":"")+' value="1" > Display on icon</label><div class="clearer"></div>';
+		},
+		showAudioTutorial: function(a)
+		{
+			return (typeof a != 'undefined' ? '<label for="sAudioSrc">Audio Tutorial</label>'+
+			'<div><input type="text" style="width:70%;" name="sAudioSrc" id="sAudioSrc" value="'+cff_esc_attr(a)+'"><input id="sSelectAudioBtn" type="button" value="Browse" style="width:28%;" class="button-secondary" /></div>' : '');
+		},
+		showAIAssistant: function(ai)
+		{
+			return (typeof ai != 'undefined' ?
                 '<label for="sAiAssistant"><input type="checkbox" name="sAiAssistant" id="sAiAssistant" ' + (ai ? 'CHECKED' : '') +'> Activate AI Assistant <span class="cff-ai-assistant-icon"></span> <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/K1A902TqwCc?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a></label>'+
 				"<div><i>Adds in-browser AI support to the form. It helps users fill field.</i></div>" :
 				''
-			)+
-			'<hr>';
+			);
 		},
 		showCsslayout: function(v)
 		{
@@ -2152,7 +2156,11 @@
 
 			showUserhelp:function()
 			{
-				return $.fbuilder.showSettings.showUserhelp(this.userhelp,this.audiotutorial,this.userhelpTooltip,this.tooltipIcon, this.aiAssistant);
+				return '<hr />' +
+					$.fbuilder.showSettings.showUserhelp(this.userhelp,this.userhelpTooltip,this.tooltipIcon) +
+					$.fbuilder.showSettings.showAudioTutorial(this.audiotutorial) +
+					$.fbuilder.showSettings.showAIAssistant(this.aiAssistant) +
+					'<hr />';
 			},
 
 			showCsslayout:function()

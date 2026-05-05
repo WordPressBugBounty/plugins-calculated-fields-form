@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.7.1 =
+
+* Allows associating audio tutorials with fieldset controls.
+* Fixes the spinner behavior in number and currency fields, preventing overly sensitive responses that caused values to increase or decrease twice per step on touchpad only.
+
 = 5.4.7.0 =
 
 * Enhances the Fields and Form Design settings to help you quickly identify incorrect CSS pairs of rules and values by displaying a clear warning icon whenever an issue is detected.

@@ -12,6 +12,7 @@
 			defaultCollapsed:true,
             selfClosing:false,
 			rearrange: 0,
+			audiotutorial:'',
 			show:function()
 				{
 					let title = cff_sanitize(this.title, true);

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.7.0';
+	$.fbuilder['version'] = '5.4.7.1';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -667,7 +667,14 @@
 										a = $('<audio src="'+cff_esc_attr(items[i].audiotutorial)+'" class="cff-audio-tutorial"></audio>');
 
 									a.appendTo(e.find('.dfield'));
-									c.appendTo($(e.children('label')[0] || e));
+									if (items[i].ftype == 'ffieldset') {
+										if ( e.find('>fieldset>legend').length )
+											c.appendTo(e.find('>fieldset>legend'));
+										else
+											c.prependTo(e.children('fieldset'));
+									} else {
+										c.appendTo($(e.children('label')[0] || e));
+									}
 
 									c.on( 'click', function(evt){
 										var e = $(this);
@@ -1454,7 +1461,7 @@
 					v = PREC(v,l);
 					o.setVal(v);
 					e.valid();
-					setTimeout(function(){ increase(); }, 150);
+					setTimeout(function(){ increase(); }, 250);
 				}
 			}
 			increase();
