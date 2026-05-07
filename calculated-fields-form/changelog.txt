@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.7.2 =
+
+* Includes new video tutorials.
+* The Calculated Fields Form introduces agentic capabilities, enabling AI editors and agents to access form submissions directly.
+
 = 5.4.7.1 =
 
 * Allows associating audio tutorials with fieldset controls.

@@ -1061,7 +1061,8 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 
 /**** Video Tutorial ****/
 #cff-video-tutorial-modal,
-#cff-video-tutorial-ds-modal{
+#cff-video-tutorial-ds-modal,
+.cff-settings-dialog-modal{
 	position:fixed;
 	z-index:99999;
 	top:0;
@@ -1071,7 +1072,8 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 	background: rgba(0,0,0,.3);
 }
 #cff-video-tutorial,
-#cff-video-tutorial-ds{
+#cff-video-tutorial-ds,
+.cff-settings-dialog{
 	width:80%;
 	max-width:640px;
 	position:fixed;
@@ -1084,13 +1086,16 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 	transform:translate(-50%,-50%);
 	background:white;
 	border: 1px solid #c3c4c7; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	z-index:99999;
 }
-.cff-video-tutorial-header{
+.cff-video-tutorial-header,
+.cff-settings-dialog-header{
 	height:30px;
 	text-align:right;
-	padding:10px 10px 0 0;
+	padding:10px;
 }
-.cff-video-tutorial-close{
+.cff-video-tutorial-close,
+.cff-settings-dialog-close{
 	font-family:Sans-Serif;
 	font-size:20px;
 	text-align:right;
@@ -1100,10 +1105,12 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 	box-shadow:none !important;
 	outline:none !important;
 }
-.cff-video-tutorial-close:hover{
+.cff-video-tutorial-close:hover,
+.cff-settings-dialog-close:hover{
 	zoom: 1.1;
 }
-.cff-video-tutorial-container{
+.cff-video-tutorial-container,
+.cff-settings-dialog-container{
 	flex-grow:1;
 	padding:10px;
 }

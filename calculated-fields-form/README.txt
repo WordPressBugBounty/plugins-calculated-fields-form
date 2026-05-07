@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.7.1
+Stable tag: 5.4.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,6 +122,8 @@ For any other editor, use the shortcode to insert forms anywhere:
 * Dashboard widget showing the last week's form submissions.
 * Form caching to increase rendering speed.
 * [Export submissions to CSV](https://cff.dwbooster.com/documentation#export-submissions) for use in Excel, OpenOffice, LibreOffice, or any spreadsheet tool.
+
+[youtube https://www.youtube.com/watch?v=ZF5SoaKVmOg]
 
 = Developer version features: =
 
@@ -463,6 +465,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.7.2 =
+
+* Includes new video tutorials.
+* The Calculated Fields Form introduces agentic capabilities, enabling AI editors and agents to access form submissions directly.
+
 = 5.4.7.1 =
 
 * Allows associating audio tutorials with fieldset controls.
@@ -483,16 +490,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Fixes an issue affecting the CSS editor in the Customize Form Design setting and the HTML editor in HTML Content fields when using fullscreen mode. In Firefox, the scrolling of elements behind the editor could be visible for a few seconds.
 * Improves usability by keeping the form preview button accessible while the HTML editor is in fullscreen mode, making it easier to review changes.
 * Resolves a conflict with Content Security Policy (CSP) rules.
-
-= 5.4.6.7 =
-
-* Allows closing the banner in the form preview.
-* Improves the 'Create New Form' popup: adds a forward button to return to the generated form after going back, and provides feedback when a large model is selected and generation takes longer than usual.
-* Adds support for the Kimi-2.6 model.
-* Displays the 'Add-ons' option in the form builder navigation bar when add-ons or complementary plugins are available.
-* Refines the right floating menu to clearly separate action-related options (such as generate preview, save form, or create a new form) from section navigation controls.
-* Optimizes the plugin installation process.
-* Updates the 'Advanced Settings' section in controls, renaming it to 'Design Settings' and simplifying the instructional text.
-* Standardizes control sizing by setting the default size to medium across all controls.
-* Adds a preview button within the 'Customize Form Design' attribute when the CSS editor is in fullscreen, making it easier to preview changes without resizing the editor.
-* Updates default templates 15, 16, and 17.
