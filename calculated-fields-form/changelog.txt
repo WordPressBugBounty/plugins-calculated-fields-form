@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.7.3 =
+
+* Updates the module responsible for validating the page headers.
+
 = 5.4.7.2 =
 
 * Includes new video tutorials.

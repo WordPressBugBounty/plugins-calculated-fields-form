@@ -1207,7 +1207,8 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
                     }
                 }
             }
-            return !empty($csp) && strpos($csp, 'unsafe-eval') === false;
+
+			return !empty($csp) && ((stripos( $csp, 'script-src' ) !== false || stripos( $csp, 'default-src' ) !== false) && stripos($csp, 'unsafe-eval') === false);
         } // End isEvalBlocked
 
 		/*********************************** PRIVATE METHODS  ********************************************/

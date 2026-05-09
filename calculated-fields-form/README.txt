@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.7.2
+Stable tag: 5.4.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -465,6 +465,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.7.3 =
+
+* Updates the module responsible for validating the page headers.
+
 = 5.4.7.2 =
 
 * Includes new video tutorials.
@@ -483,7 +487,6 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Updates the Classic CAPTCHA module with a modern design and ensures that browser autocomplete is disabled for a smoother and more secure user experience (Professional, Developer, and Platinum plugin distributions).
 
 = 5.4.6.9 =
-= 5.4.6.8 =
 
 * Adds support for GPT-5.5 and GPT-5.5 Pro models.
 * Introduces integration with the WordPress Connector module, allowing the use of AI providers configured under Settings > Connector in WordPress 7.0.
