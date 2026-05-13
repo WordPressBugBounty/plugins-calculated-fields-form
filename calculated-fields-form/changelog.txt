@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.7.5 =
+
+* Fixes an issue affecting tab navigation through the form when calculated fields are configured as editable.
+
 = 5.4.7.4 =
 
 * Improves the Radio Buttons and Checkbox fields, making it easier to associate images with their choices.

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.7.4
+Stable tag: 5.4.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -465,6 +465,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.7.5 =
+
+* Fixes an issue affecting tab navigation through the form when calculated fields are configured as editable.
+
 = 5.4.7.4 =
 
 * Improves the Radio Buttons and Checkbox fields, making it easier to associate images with their choices.
@@ -483,10 +487,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Allows associating audio tutorials with fieldset controls.
 * Fixes the spinner behavior in number and currency fields, preventing overly sensitive responses that caused values to increase or decrease twice per step on touchpad only.
-
-= 5.4.7.0 =
-
-* Enhances the Fields and Form Design settings to help you quickly identify incorrect CSS pairs of rules and values by displaying a clear warning icon whenever an issue is detected.
-* Improves usability for color-related CSS properties (such as background-color, border-color, color, etc.) by replacing the standard input with an intuitive color picker for faster and more accurate selection.
-* Adds support for the DeepSeek AI provider in both form generation and code asistant.
-* Updates the Classic CAPTCHA module with a modern design and ensures that browser autocomplete is disabled for a smoother and more secure user experience (Professional, Developer, and Platinum plugin distributions).

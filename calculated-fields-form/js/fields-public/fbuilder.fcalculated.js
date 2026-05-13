@@ -146,8 +146,8 @@
                                          );
                             }
                         }
-                    ).on('keyup', function(){
-                        if(!me.readonly)
+                    ).on('keyup', function(evt){
+                        if(!me.readonly && evt.keyCode != 9) // Tab key shouldn't trigger the event
                         {
 							e.data('manually', 1);
 							e.data('bk', e.val());
