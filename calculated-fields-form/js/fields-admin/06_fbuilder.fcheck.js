@@ -93,6 +93,11 @@
 							e.data.obj.layout = $(this).val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
+					$(".choice_image").on("click", {obj: this}, function(e)
+						{
+							var i = $(this).attr("i")*1;
+							$.fbuilder[ 'loadMedia' ]('input.choice_text[i="'+i+'"]', 'image', true);
+						});
 					$(".choice_up").on("click", {obj: this}, function(e)
 						{
 							var i = $(this).attr("i")*1;
@@ -292,7 +297,18 @@
 					for (var i=0;i<l.length;i++)
 					{
 						str1 = '';
-						str += '<div class="choicesEdit"><input class="choice_check" i="'+i+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+' title="Choice selected by default" aria-label="Select choice by default" /><input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+cff_esc_attr(l[i])+'" aria-label="Choice text" /><input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+cff_esc_attr(lv[i])+'" aria-label="Choice value" /><div class="choice-ctrls"><a class="choice_down ui-icon ui-icon-arrowthick-1-s" i="'+i+'" n="'+(l.length-1)+'" title="Down"></a><a class="choice_up ui-icon ui-icon-arrowthick-1-n" i="'+i+'" title="Up"></a><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div></div>';
+						str += '<div class="choicesEdit">'+
+
+						'<input class="choice_check" i="'+i+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+' title="Choice selected by default" aria-label="Select choice by default" />'+
+
+						'<input class="choice_text" i="'+i+'" type="text" name="sChoice'+this.name+'" id="sChoice'+this.name+'" value="'+cff_esc_attr(l[i])+'" aria-label="Choice text" />'+
+						'<a class="choice_image ui-icon ui-icon-image" i="'+i+'" title="Image"></a>'+
+						'<input class="choice_value" i="'+i+'" type="text" name="sChoice'+this.name+'V'+i+'" id="sChoice'+this.name+'V'+i+'" value="'+cff_esc_attr(lv[i])+'" aria-label="Choice value" />'+
+
+						'<div class="choice-ctrls"><a class="choice_down ui-icon ui-icon-arrowthick-1-s" i="'+i+'" n="'+(l.length-1)+'" title="Down"></a><a class="choice_up ui-icon ui-icon-arrowthick-1-n" i="'+i+'" title="Up"></a><a class="choice_add ui-icon ui-icon-circle-plus" i="'+i+'" title="Add another choice."></a><a class="choice_remove ui-icon ui-icon-circle-minus" i="'+i+'" title="Delete this choice."></a></div>'+
+
+						'</div>';
+
 						j = d[i].length;
 						if(j)
 						{
@@ -307,7 +323,7 @@
 							str += '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="" aria-label="Dependent field"></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
 						}
 					}
-					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/s4FM59LC-H4?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div class="clearer"></div></div>'+str+
+					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep video" href="https://www.youtube.com/embed/s4FM59LC-H4?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" target="_blank">&#9654; help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div class="choicesHeadersLine"><div class="t">Text</div><div class="t">Value</div><div></div></div>'+str+
                     '<div style="text-align:right;"><input type="button" class="button cff-ai-assistant" value="AI List Generation" onclick="if(\'cff_ai_assistant_open\' in window) cff_ai_assistant_open(\'list\');" style="float:none;"></div>' +
                     this.mergeValues()+this.attributeToSubmit()+'<hr style="margin-top:20px;margin-bottom:20px;" />'+this.minChoices()+this.maxChoices()+'</div>';
 				}

@@ -86,7 +86,13 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'ai-assistant' => true,
                                 'max_tokens' => 120000
                             ],
-                            'gpt-5' => [
+							'gpt-5.4-nano' => [
+								'title' => esc_html__('GPT-5.4 Nano (Fast and Cheap)', 'calculated-fields-form'),
+								'form-generation' => false,
+								'ai-assistant' => true,
+								'max_tokens' => 120000
+							],
+							'gpt-5' => [
                                 'title' => esc_html__('GPT-5', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
@@ -99,7 +105,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'max_tokens' => 120000
                             ],
                             'gpt-5-nano' => [
-                                'title' => esc_html__('GPT-5 Nano (Fast and Cheap)', 'calculated-fields-form'),
+                                'title' => esc_html__('GPT-5 Nano', 'calculated-fields-form'),
                                 'form-generation' => false,
                                 'ai-assistant' => true,
                                 'max_tokens' => 120000
@@ -111,8 +117,14 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'claude-haiku-4-5-20251001',
                         'api_key_url'   => 'https://console.anthropic.com/settings/keys',
                         'models'        => [
+                            'claude-opus-4-7' => [
+                                'title' => esc_html__('Claude Opus 4.7 (Most Capable)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
                             'claude-opus-4-6' => [
-                                'title' => esc_html__('Claude Opus 4.6 (Most Capable)', 'calculated-fields-form'),
+                                'title' => esc_html__('Claude Opus 4.6', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
@@ -125,12 +137,6 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                             ],
                             'claude-sonnet-4-6' => [
                                 'title' => esc_html__('Claude Sonnet 4.6 (Recommended)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'claude-sonnet-4-20250514' => [
-                                'title' => esc_html__('Claude Sonnet 4.5', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
@@ -154,7 +160,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
-                            'gemini-3.1-flash-lite-preview' => [
+                            'gemini-3.1-flash-lite' => [
                                 'title' => esc_html__('Gemini 3.1 Flash-Lite', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,

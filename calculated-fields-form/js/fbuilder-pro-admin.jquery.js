@@ -250,6 +250,46 @@
         $( '.form-builder-error-messages' ).html( '<div class="error-text">' + str + '</div>' );
     };
 
+    $.fbuilder[ 'loadMedia' ] = function( selector, type, as_tag )
+    {
+		as_tag = as_tag || false;
+
+		var src_field = $( selector );
+
+		if ( ! src_field.length ) return false;
+
+		var	media = wp.media({
+				title: 'Select Source',
+				button: {
+					text: 'Select Source'
+				},
+				multiple: false
+		}).on('select',
+			(function( field, type ){
+				return function() {
+					var regExp = new RegExp( type, 'i'),
+						attachment = media.state().get('selection').first().toJSON();
+					if( !regExp.test( attachment.mime ) )
+					{
+						alert( 'Invalid mime type' );
+						return;
+					}
+
+					let val = attachment.url;
+					if ( as_tag ) {
+						switch (type) {
+							case 'image' : val = '<img src="'+cff_esc_attr(val)+'">'; break;
+							case 'audio' : val = '<audio src="'+cff_esc_attr(val)+'">'; break;
+							case 'video' : val = '<video src="'+cff_esc_attr(val)+'">'; break;
+						}
+					}
+					field.val( val ).trigger('change');
+				};
+			})( src_field, type )
+		).open();
+		return false;
+    };
+
     // fbuilder plugin
 	$.fn.fbuilder = function(){
 		var typeList = 	$.fbuilder.typeList,
@@ -1958,26 +1998,9 @@
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sSelectAudioBtn").on("click", {obj: this}, function(e)
+				$("#sSelectAudioBtn").off('click').on("click", {obj: this}, function(e)
 					{
-						var media = wp.media({
-									title: 'Select Source',
-									button: {
-										text: 'Select Source'
-									},
-									multiple: false
-							}).on('select',
-								function() {
-									var regExp = new RegExp( 'audio', 'i'),
-										attachment = media.state().get('selection').first().toJSON();
-									if( !regExp.test( attachment.mime ) )
-									{
-										alert( 'Invalid mime type' );
-										return;
-									}
-									$( '#sAudioSrc' ).val( attachment.url ).trigger('change');
-								}
-							).open();
+						$.fbuilder[ 'loadMedia' ]('#sAudioSrc', 'audio');
 						return false;
 					});
 

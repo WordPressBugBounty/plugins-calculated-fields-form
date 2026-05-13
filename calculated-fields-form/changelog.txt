@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.7.4 =
+
+* Improves the Radio Buttons and Checkbox fields, making it easier to associate images with their choices.
+* Updates the AI form generation and assistant models by removing deprecated ones.
+
 = 5.4.7.3 =
 
 * Updates the module responsible for validating the page headers.

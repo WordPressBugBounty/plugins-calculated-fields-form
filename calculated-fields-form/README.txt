@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 6.9
-Stable tag: 5.4.7.3
+Stable tag: 5.4.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -465,6 +465,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.7.4 =
+
+* Improves the Radio Buttons and Checkbox fields, making it easier to associate images with their choices.
+* Updates the AI form generation and assistant models by removing deprecated ones.
+
 = 5.4.7.3 =
 
 * Updates the module responsible for validating the page headers.
@@ -485,11 +490,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Improves usability for color-related CSS properties (such as background-color, border-color, color, etc.) by replacing the standard input with an intuitive color picker for faster and more accurate selection.
 * Adds support for the DeepSeek AI provider in both form generation and code asistant.
 * Updates the Classic CAPTCHA module with a modern design and ensures that browser autocomplete is disabled for a smoother and more secure user experience (Professional, Developer, and Platinum plugin distributions).
-
-= 5.4.6.9 =
-
-* Adds support for GPT-5.5 and GPT-5.5 Pro models.
-* Introduces integration with the WordPress Connector module, allowing the use of AI providers configured under Settings > Connector in WordPress 7.0.
-* Fixes an issue affecting the CSS editor in the Customize Form Design setting and the HTML editor in HTML Content fields when using fullscreen mode. In Firefox, the scrolling of elements behind the editor could be visible for a few seconds.
-* Improves usability by keeping the form preview button accessible while the HTML editor is in fullscreen mode, making it easier to review changes.
-* Resolves a conflict with Content Security Policy (CSP) rules.

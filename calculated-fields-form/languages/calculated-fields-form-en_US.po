@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-05-07 22:47+0200\n"
-"PO-Revision-Date: 2026-05-07 22:47+0200\n"
+"POT-Creation-Date: 2026-05-12 01:52+0200\n"
+"PO-Revision-Date: 2026-05-12 01:52+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -1602,150 +1602,154 @@ msgid "GPT-5.4 Mini (Balanced)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:90
-msgid "GPT-5"
+msgid "GPT-5.4 Nano (Fast and Cheap)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:96
-msgid "GPT-5 Mini"
+msgid "GPT-5"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:102
-msgid "GPT-5 Nano (Fast and Cheap)"
+msgid "GPT-5 Mini"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:110
+#: inc/cpcff_ai_requests.inc.php:108
+msgid "GPT-5 Nano"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:116
 msgid "Anthropic (Claude)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:115
-msgid "Claude Opus 4.6 (Most Capable)"
-msgstr ""
-
 #: inc/cpcff_ai_requests.inc.php:121
-msgid "Claude Opus 4.5"
+msgid "Claude Opus 4.7 (Most Capable)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:127
-msgid "Claude Sonnet 4.6 (Recommended)"
+msgid "Claude Opus 4.6"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:133
-msgid "Claude Sonnet 4.5"
+msgid "Claude Opus 4.5"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:139
+msgid "Claude Sonnet 4.6 (Recommended)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:145
 msgid "Claude Haiku 4.5 (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:147
+#: inc/cpcff_ai_requests.inc.php:153
 msgid "Google (Gemini)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:152
+#: inc/cpcff_ai_requests.inc.php:158
 msgid "Gemini 3.1 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:158
+#: inc/cpcff_ai_requests.inc.php:164
 msgid "Gemini 3.1 Flash-Lite"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:164
+#: inc/cpcff_ai_requests.inc.php:170
 msgid "Gemini 3 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:170
+#: inc/cpcff_ai_requests.inc.php:176
 msgid "Gemini 2.5 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:176
+#: inc/cpcff_ai_requests.inc.php:182
 msgid "Gemini 2.5 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:182
+#: inc/cpcff_ai_requests.inc.php:188
 msgid "Gemini 2.5 Flash-Lite"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:190
+#: inc/cpcff_ai_requests.inc.php:196
 msgid "MiniMax"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:195
+#: inc/cpcff_ai_requests.inc.php:201
 msgid "MiniMax M2.7 Highspeed"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:201
+#: inc/cpcff_ai_requests.inc.php:207
 msgid "MiniMax M2.7"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:207
+#: inc/cpcff_ai_requests.inc.php:213
 msgid "MiniMax M2.5 Highspeed"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:213
+#: inc/cpcff_ai_requests.inc.php:219
 msgid "MiniMax M2.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:219
+#: inc/cpcff_ai_requests.inc.php:225
 msgid "MiniMax M2.1 Highspeed"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:225
+#: inc/cpcff_ai_requests.inc.php:231
 msgid "MiniMax M2.1"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:231
+#: inc/cpcff_ai_requests.inc.php:237
 msgid "MiniMax M2"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:239
+#: inc/cpcff_ai_requests.inc.php:245
 msgid "Kimi (Moonshot AI)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:244
+#: inc/cpcff_ai_requests.inc.php:250
 msgid "Kimi K2.6"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:250
+#: inc/cpcff_ai_requests.inc.php:256
 msgid "Kimi K2.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:256
+#: inc/cpcff_ai_requests.inc.php:262
 msgid "Kimi K2 Thinking Turbo"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:262
+#: inc/cpcff_ai_requests.inc.php:268
 msgid "Kimi K2 Thinking"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:268
+#: inc/cpcff_ai_requests.inc.php:274
 msgid "Kimi K2 Turbo Preview"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:274
+#: inc/cpcff_ai_requests.inc.php:280
 msgid "Moonshot V1 128K"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:280
+#: inc/cpcff_ai_requests.inc.php:286
 msgid "Moonshot V1 32K"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:286
+#: inc/cpcff_ai_requests.inc.php:292
 msgid "Moonshot V1 8K"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:294
+#: inc/cpcff_ai_requests.inc.php:300
 msgid "DeepSeek"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:299
+#: inc/cpcff_ai_requests.inc.php:305
 msgid "DeepSeek V4 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:305
+#: inc/cpcff_ai_requests.inc.php:311
 msgid "DeepSeek V4 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:321
+#: inc/cpcff_ai_requests.inc.php:327
 msgid "WordPress AI Connector"
 msgstr ""
 

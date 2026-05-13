@@ -124,15 +124,15 @@
                     var me = this;
                     $("#sMediaBtn").on("click", function(e)
 						{
-							me._loadMedia( 'sSrc', me.sMediaType );
+							$.fbuilder[ 'loadMedia' ]( '#sSrc', me.sMediaType );
 						});
                     $("#sMediaAltBtn").on("click", function(e)
 						{
-							me._loadMedia( 'sSrcAlt', me.sMediaType );
+							$.fbuilder[ 'loadMedia' ]( '#sSrcAlt', me.sMediaType );
 						});
                     $("#sPosterBtn").on("click", function(e)
 						{
-							me._loadMedia( 'sPoster', 'image' );
+							$.fbuilder[ 'loadMedia' ]( '#sPoster', 'image' );
 						});
                     $("[name='sMediaType'],[name='sAlignment']").on("click", {obj: this}, function(e)
                         {
@@ -179,31 +179,6 @@
                         r += '<label class="column width30"><input type="radio" name="sMediaType" value="'+v+'" '+((this.sMediaType == v) ? 'CHECKED' : '')+' >'+v+'</label>';
                     }
                     return '<label>Select media type</label>'+r+'<div class="clearer"></div>';
-                },
-            _loadMedia: function( f, type )
-                {
-                    var src_field = $( '#'+f ),
-                        media = wp.media({
-                            title: 'Select Source',
-                            button: {
-                                text: 'Select Source'
-                            },
-                            multiple: false
-                    }).on('select',
-                        (function( field, type ){
-                            return function() {
-                                var regExp = new RegExp( type, 'i'),
-                                    attachment = media.state().get('selection').first().toJSON();
-                                if( !regExp.test( attachment.mime ) )
-                                {
-                                    alert( 'Invalid mime type' );
-                                    return;
-                                }
-                                field.val( attachment.url ).trigger('change');
-                            };
-                        })( src_field, type )
-                    ).open();
-                    return false;
                 },
             _showSettingsBox: function()
                 {
