@@ -862,6 +862,5 @@ body{
 	box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
 }
 #cff_ai_assistant_use_suggestion{display:block;margin-left:auto !important;margin-top:20px !important;}
-#cff_ai_assistant_bubble_close{text-align:right;}
-#cff_ai_assistant_bubble_close::before{content:'X';display:inline-block;cursor:pointer;}
-#cff_ai_assistant_bubble_close:hover::before{font-weight:600;}
+#cff_ai_assistant_bubble_close{text-align:right;cursor:pointer;font-weight:600;font-size:20px;}
+#cff_ai_assistant_bubble_close::hover{font-weight:800;}

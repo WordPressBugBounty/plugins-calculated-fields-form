@@ -12,18 +12,13 @@ const messages = [{
 ];
 
 let wordpress_ai = 'wordpress-ai';
-let selectedModel;
-selectedModel = "Qwen2.5-Coder-3B-Instruct-q4f32_1-MLC";
-
-let loadedModel   = false,
-    loadingModel  = false;
 
 let unsavedSettings = false;
+
 // UI components
 let aiDlgCrl 			= document.getElementById("cff-ai-assistant-container");
 let aiAssistantLoadingMss = document.getElementById('cff-ai-assistant-loading-message');
-let statusCrl 			= document.getElementById("cff-ai-assistant-status");
-let progressBarCrl 		= document.getElementById("cff-ai-assistant-progress-bar");
+let statusCtrl 			= document.getElementById("cff-ai-assistant-status");
 let userQuestionCtrl 	= document.getElementById("cff-ai-assistant-question");
 let chatBoxCtrl 		= document.getElementById("cff-ai-assistant-answer-row");
 let chatStatsCtrl 		= document.getElementById("cff-ai-assistant-stats");
@@ -59,9 +54,29 @@ resizeObserver.observe(userQuestionCtrl);
 
 // Callback function for initializing progress
 function updateEngineInitProgressCallback(report) {
+    function getLastVisibleByClass(className) {
+        const elements = document.querySelectorAll(`.${className}`);
+
+        for (let i = elements.length - 1; i >= 0; i--) {
+            const el = elements[i];
+
+            // Fast visibility check
+            if (el.offsetParent !== null) {
+                return el;
+            }
+        }
+        return null;
+    }
+    let progressBarCtrl = getLastVisibleByClass("cff-ai-assistant-progress-bar");
+    let statusCtrl = getLastVisibleByClass("cff-ai-assistant-status");
+
     console.log("initialize", report.progress);
-    statusCrl.textContent = report.progress === 1 ? cff_ai_texts['ready'] + ' 100%' : report.text;
-	if (report.progress !== undefined)  progressBarCrl.style.width = `${report.progress * 100}%`;
+    if (statusCtrl) {
+        statusCtrl.textContent = report.progress === 1 ? cff_ai_texts['ready'] + ' 100%' : report.text;
+    }
+    if (report.progress !== undefined && progressBarCtrl) {
+        progressBarCtrl.style.width = `${report.progress * 100}%`;
+    }
 }
 
 function setPlaceholder() {
@@ -79,26 +94,217 @@ function setPlaceholder() {
 	);
 }
 
-// Create engine instance
-let engine = new webllm.MLCEngine();
-engine.setInitProgressCallback(updateEngineInitProgressCallback);
+// ---------- LOCAL INFERENCE ----------
+
+let localAPI = {
+    'native': {
+        session: null,
+        languages: ['en'],
+        isModelLoaded: function() {
+            return true; // Browser API is always "loaded" as it's just an interface to the native implementation
+        },
+        isModelLoading: function() {
+            return false; // No loading state for browser API
+        },
+        isModelUnmountable: function() {
+            return false; // Browser API does not support manual unloading
+        },
+        isDescriptionNeeded: function() {
+            return false; // Browser API is optimized and does not require user to understand model differences, so no description is needed.
+        },
+        initializeModel: async function () {
+            const languageCode = navigator.language.slice(0, 2).toLowerCase();
+            if (!this.languages.includes(languageCode)) { this.languages.push(languageCode); }
+            if (this.session !== null) return true; // Already initialized
+            return await this.resetChat();
+        },
+        unloadModel: async function () {
+            if (this.session) {
+                this.session.destroy();
+                this.session = null;
+            }
+            return true;
+        },
+        resetChat: async function() {
+            if (this.session) {
+                this.session.destroy();
+                this.session = null;
+            }
+            try {
+                this.session = await LanguageModel.create({
+                    expectedInputs: [{ type: "text", languages: this.languages }],
+                    expectedOutputs: [{ type: "text", languages: this.languages }],
+                    monitor: function (m) {
+                        m.addEventListener('downloadprogress', (e) => {
+                            console.log(e.loaded, e.total);
+                            let progress = e.total ? e.loaded / e.total : undefined;
+                            let report = {
+                                progress: progress,
+                                text: 'Downloading model: ' + (progress ? (progress * 100) + '%' : e.loaded)
+                            };
+                            updateEngineInitProgressCallback(report);
+                        });
+                    },
+                });
+                return true;
+            } catch (err) {
+                console.error('Error initializing native model:', err);
+                return false;
+            }
+        },
+        makeInference: async function(messages, onUpdate, onFinish, onError) {
+            if (!this.session) {
+                await this.initializeModel();
+            } else {
+                await this.resetChat(); // Clear previous context to avoid contamination between different questions
+            }
+            try {
+                let response = await this.session.prompt(messages);
+                onFinish(response, ''); // Browser API does not provide usage stats
+            } catch (err) {
+                onError(err);
+            }
+        },
+    },
+    'webLLM': {
+        model: "Qwen2.5-Coder-3B-Instruct-q4f16_1-MLC",
+        engine: null,
+        loadedModel: false,
+        loadingModel: false,
+        firstInference: true,
+        isModelLoaded: function() {
+            return this.loadedModel;
+        },
+        isModelLoading: function() {
+            return this.loadingModel;
+        },
+        isModelUnmountable: function() {
+            return true;
+        },
+        isDescriptionNeeded: async function() {
+            return true;
+        },
+       initializeModel: async function() {
+            if (this.engine == null) {
+                this.engine = new webllm.MLCEngine();
+                this.engine.setInitProgressCallback(updateEngineInitProgressCallback);
+            }
+
+            if (typeof navigator == 'undefined' || !navigator.gpu) {
+                document.getElementById('cff-ai-gpu-error').style.display = 'block';
+                document.getElementById('cff-ai-gpu-error').parentElement.classList.add('cff-ai-assistance-error-message');
+                sendBtnCtrl.disabled = true;
+                userQuestionCtrl.disabled = true;
+                return false;
+            }
+
+            if (typeof window == 'undefined' || !window.caches) {
+                document.getElementById('cff-ai-caches-error').style.display = 'block';
+                document.getElementById('cff-ai-caches-error').parentElement.classList.add('cff-ai-assistance-error-message');
+                sendBtnCtrl.disabled = true;
+                userQuestionCtrl.disabled = true;
+                return false;
+            }
+
+            if (this.isModelLoaded()) return true;
+            try {
+                this.loadingModel = true;
+                let modelToLoad = this.model;
+                const config = {
+                        temperature: 0.0,
+                        top_p: 1,
+                    };
+                await this.engine.reload(
+                    modelToLoad,
+                    config
+                );
+                this.loadedModel = true;
+                this.loadingModel = false;
+                return true;
+            } catch (error) {
+                this.loadingModel = false;
+                this.loadedModel = false;
+                await handleEngineError(error, 'loading');
+                return false;
+            }
+        },
+        unloadModel: async function() {
+            try {
+                await this.engine.unload();
+                // Also clear WebLLM caches
+                const cacheNames = await caches.keys();
+                for (const name of cacheNames) {
+                    if (/^webllm\//i.test(name)) {
+                        await caches.delete(name);
+                    }
+                }
+            } catch (e) {
+                console.warn('Error during unload:', e);
+                return false;
+            } finally {
+                this.engine = null;
+                this.loadedModel = false;
+                this.firstInference = true;
+            }
+            return true;
+        },
+        resetChat: async function() {
+            try {
+                await this.engine.resetChat();
+                this.firstInference = true;
+                return true;
+            } catch (e) {
+                console.warn('Error during reset:', e);
+                return false;
+            }
+        },
+        makeInference: async function (messages, onUpdate, onFinish, onError) {
+            try {
+                if (! this.firstInference) {
+                    await this.engine.resetChat();
+                }
+                this.firstInference = false;
+                const completion = await this.engine.chat.completions.create({
+                    stream: false,
+                    messages
+                });
+
+                const finalMessage = completion.choices[0].message.content;
+                onUpdate(finalMessage);
+                onFinish(finalMessage, "");
+            } catch (err) {
+                onError(err);
+            }
+        }
+    }
+};
+
+let localModelAvailable = null;
+function handleFirstInteraction() {
+    document.removeEventListener("mousedown", handleFirstInteraction);
+    document.removeEventListener("click", handleFirstInteraction);
+    document.removeEventListener("keydown", handleFirstInteraction);
+    document.removeEventListener("touchstart", handleFirstInteraction);
+
+    localModelAvailable = 'LanguageModel' in window ? 'native' : 'webLLM';
+}
+
+// Listen for first interaction
+document.addEventListener("mousedown", handleFirstInteraction);
+document.addEventListener("click", handleFirstInteraction);
+document.addEventListener("keydown", handleFirstInteraction);
+document.addEventListener("touchstart", handleFirstInteraction);
+
+function evaluateAPIMethod(methodName, ...args) {
+    if (methodName in localAPI[localModelAvailable]) {
+        return localAPI[localModelAvailable][methodName](...args);
+    }
+}
+
 
 // ---------- Robust error handling helpers ----------
 async function unloadModel() {
-    try {
-        await engine.unload();
-        // Also clear WebLLM caches
-        const cacheNames = await caches.keys();
-        for (const name of cacheNames) {
-            if (/^webllm\//i.test(name)) {
-                await caches.delete(name);
-            }
-        }
-    } catch (e) {
-        console.warn('Error during unload:', e);
-    } finally {
-        loadedModel = false;
-    }
+    await evaluateAPIMethod('unloadModel');
 }
 
 function showLocalModelError(message) {
@@ -111,7 +317,7 @@ function showLocalModelError(message) {
     chatBoxCtrl.appendChild(errorDiv);
     chatBoxCtrl.scrollTop = chatBoxCtrl.scrollHeight;
 
-    statusCrl.textContent = 'Error: ' + message;
+    if (statusCtrl) statusCtrl.textContent = 'Error.';
     sendBtnCtrl.disabled = true;
     userQuestionCtrl.disabled = true;
     unmountBtnCtrl.style.display = 'none';
@@ -141,6 +347,7 @@ function isFatalError(msg) {
         /internal error/i,
         /assertion failed/i,
         /unexpected state/i,
+        /ModelNotLoadedError/i,
         /GPU/i,                  // any GPU-related crash
     ];
     return fatalPatterns.some(pattern => pattern.test(msg));
@@ -148,14 +355,15 @@ function isFatalError(msg) {
 
 async function handleEngineError(error, context = 'inference') {
     console.error(`Fatal error during ${context}:`, error);
-	const msg = error?.message || '';
+	const msg = (error?.name || '') + (error?.message || '');
 
     if (isFatalError(msg) || context === 'loading') {
-        await unloadModel();
-		showLocalModelError(window['cff_ai_texts']['fatal_error']+' '+(msg ? `(${msg})` : ''));
+        showLocalModelError(window['cff_ai_texts']['fatal_error'].replace('%s', msg ? `<br><br><i>${msg}</i><br><br>` : '') +'<div><div class="cff-ai-assistant-progress-bar"></div></div><div class="cff-ai-assistant-status"></div>');
+
+        sendBtnCtrl.disabled = false;
+        userQuestionCtrl.disabled = false;
+        unmountBtnCtrl.style.display = 'inline-block';
     } else {
-        // Non-fatal, maybe just reset chat
-        try { await engine.resetChat(); } catch (e) {}
         // Display a generic error message (not as severe)
         const errorDiv = document.createElement('div');
         errorDiv.className = 'cff-ai-assistance-error';
@@ -166,112 +374,37 @@ async function handleEngineError(error, context = 'inference') {
 }
 
 // ---------- Core engine initialization ----------
-async function initializeWebLLMEngine() {
-    statusCrl.style.display = 'block';
-
-    if (typeof navigator == 'undefined' || !navigator.gpu) {
-		document.getElementById('cff-ai-gpu-error').style.display = 'block';
-		document.getElementById('cff-ai-gpu-error').parentElement.classList.add('cff-ai-assistance-error-message');
-		sendBtnCtrl.disabled = true;
-		userQuestionCtrl.disabled = true;
-		return false;
-	}
-
-	if ( typeof window == 'undefined' || ! window.caches ) {
-		document.getElementById('cff-ai-caches-error').style.display = 'block';
-		document.getElementById('cff-ai-caches-error').parentElement.classList.add('cff-ai-assistance-error-message');
-		sendBtnCtrl.disabled = true;
-		userQuestionCtrl.disabled = true;
-		return false;
-	}
-    if ( loadedModel ) return true;
-    try {
-        loadingModel = true;
-        const config = {
-            temperature: 0.0,
-            top_p: 1,
-            context_window_size: -1,
-            sliding_window_size: 2048,
-            attention_sink_size: 1024,
-        };
-        // try { await engine.unload(); } catch (err) {}
-        await engine.reload(selectedModel, config);
-        await engine.resetChat();
-        loadedModel = true;
-        loadingModel = false;
-        return true;
-    } catch( error ) {
-        loadingModel = false;
-        loadedModel = false;
-        await handleEngineError(error, 'loading');
-        return false;
-    }
+async function initializeLocalEngine() {
+    statusCtrl.style.display = 'block';
+    return evaluateAPIMethod('initializeModel');
 }
 
 // ---------- Streaming generation ----------
-async function streamingGenerating(messages, onUpdate, onFinish, onError) {
-    try {
-        let curMessage = "";
-		let usageMessage = "";
-		let finalChunk;
-
-        const completion = await engine.chat.completions.create({
-            stream: true,
-            messages,
-			stream_options: { include_usage: true }
-        });
-
-        for await(const chunk of completion) {
-			try {
-				const curDelta = chunk.choices[0].delta.content;
-				if (curDelta) {
-					curMessage += curDelta;
-				}
-				onUpdate(curMessage);
-			} catch (err) {
-                console.warn('Error processing chunk:', err);
-            }
-			finalChunk = chunk;
-        }
-
-		if (finalChunk && finalChunk.usage) {
-			if ( 'extra' in finalChunk.usage ) {
-				let message_components = [];
-				if ('prefill_tokens_per_s' in finalChunk.usage['extra']) {
-					message_components.push( 'prefill: '+finalChunk.usage['extra']['prefill_tokens_per_s'].toFixed(4)+' tk/s');
-				}
-
-				if ('time_per_output_token_s' in finalChunk.usage['extra']) {
-					message_components.push( 'decoding: '+finalChunk.usage['extra']['time_per_output_token_s'].toFixed(4)+' tk/s');
-				}
-				usageMessage = message_components.join(', ');
-			}
-		}
-        const finalMessage = await engine.getMessage();
-        onFinish(finalMessage, usageMessage);
-    } catch (err) {
-        onError(err);
-    }
+async function makeInference(messages, onUpdate, onFinish, onError) {
+    return await evaluateAPIMethod('makeInference', messages, onUpdate, onFinish, onError);
 }
 
 // ---------- Model loading orchestration ----------
-function loadingEngine() {
+async function loadingEngine() {
     if (window['cff_ai_provider'] === '') {
         window['cff_ai_provider'] = window['cff_ai_default_provider'] || 'local';
         window['cff_ai_model'] = window['cff_ai_default_model'] || '';
         openAIAssistantSettings();
     } else if (isLocalModel()) {
-        aiAssistantLoadingMss.style.display = (loadingModel || !loadedModel)  ? 'block': 'none';
-        if (!loadingModel) {
-            initializeWebLLMEngine().then(success => {
+        let isModelLoading = await evaluateAPIMethod('isModelLoading');
+        let isModelLoaded  = await evaluateAPIMethod('isModelLoaded');
+
+        aiAssistantLoadingMss.style.display = (isModelLoading || ! isModelLoaded)  ? 'block': 'none';
+        if (! isModelLoading) {
+            initializeLocalEngine().then(async function (success) {
                 if (success) {
                     sendBtnCtrl.disabled = false;
-                    unmountBtnCtrl.style.display = 'inline-block';
+                    if(evaluateAPIMethod('isModelUnmountable')) unmountBtnCtrl.style.display = 'inline-block';
                     aiAssistantLoadingMss.style.display = 'none';
                 }
             });
-        } else if (loadedModel) {
-            unmountBtnCtrl.style.display = 'inline-block';
+        } else if (isModelLoaded) {
+            if (evaluateAPIMethod('isModelUnmountable')) unmountBtnCtrl.style.display = 'inline-block';
             sendBtnCtrl.disabled = false;
         }
     } else {
@@ -291,7 +424,7 @@ async function onMessageSend() {
 	let message = input;
 
     const aiMessage = {
-        content: ( 'cff_ai_texts' in window ? window['cff_ai_texts']['typing'] : "typing..." ),
+        content: '<div style="display: flex; align-items: center; gap: 3px;"><span style="flex-grow:1;">' + ('cff_ai_texts' in window ? window['cff_ai_texts']['thinking'] : "Thinking...") +'</span><span style="font-weight:600;">&#9201;</span></div>',
         role: "assistant",
     };
 
@@ -311,37 +444,37 @@ async function onMessageSend() {
 			message = "Create an block of HTML tags, including style attributes when required. To display the fields values within the tags, use the data-cff-field attribute in the corresponding text. Enclose the code between ``` symbols." + ( "" != variables ? " You have access to the fields:\n" + variables + "Use these fields in code when appropriate. Example: ```html\n<div>User name: <span data-cff-field=\"fieldname1\"></span></div><br><div>Email: <span data-cff-field=\"fieldname2\"></span></div><br><div>Message: <p data-cff-field=\"fieldname3\"></p></div>```" : "" ) + "\nDescription: " + input;
 		break;
 		default:
-            message = "Create an immediately invoked JavaScript function expressions (IIFE) that run automatically. It must start with (function(){ and enter with })(). It must include a return statement with the result as scalar value. Use only valid JavaScript syntax. Test your code mentally for syntax errors before submitting. Do not include any non-JavaScript text or characters. Keep the code simple and focused on the calculation. Enclose the code between ``` symbols. DO NOT include commentS into the function code." + ("" != variables ? " \n\n CRITICAL INSTRUCTION: The following variables ALREADY EXIST in the system and contain values. DO NOT DEFINE, INITIALIZE, OR ASIGN ANY VALUE TO THEM IN YOUR CODE:\n" + variables : "") + "\n\nFunction description: " + input.replace(/equation/ig, 'function');
+            message = "Create an immediately invoked JavaScript function expressions (IIFE) that run automatically. It must start with (function(){ and enter with })(). It must include a return statement with the result as scalar value. Use only valid JavaScript syntax. Test your code mentally for syntax errors before submitting. Do not include any non-JavaScript text or characters. Keep the code simple and focused on the calculation. Enclose the code between ``` symbols. DO NOT include comments into the function code." + ("" != variables ? " \n\n CRITICAL INSTRUCTION: The following variables ALREADY EXIST in the system and contain values. DO NOT DEFINE, INITIALIZE, OR ASSIGN ANY VALUE TO THEM IN YOUR CODE:\n\n" + variables : "") + "\n\nFunction description: " + input.replace(/equation/ig, 'function');
         break;
 	}
 
     if ( isLocalModel() ) {
         appendMessage({ content: input, role: "user" });
-        appendMessage(aiMessage);
-        await engine.resetChat();
+        appendMessage(aiMessage, true);
         messages.splice(1);
         messages.push({content: message, role: "user"});
-
-        const onFinishGenerating = (finalMessage, usageMessage) => {
+console.log(messages);
+        const onFinish = (finalMessage, usageMessage) => {
             updateLastMessage(finalMessage);
             sendBtnCtrl.disabled = false;
             setPlaceholder();
             chatStatsCtrl.textContent = usageMessage;
         };
 
-        streamingGenerating(
+        const onError = async (err) => {
+            // Error during generation
+            console.error('Inference error: ', err);
+            sendBtnCtrl.disabled = false;
+            userQuestionCtrl.value = input;  // restore input
+            setPlaceholder();
+            await handleEngineError(err, 'inference');
+        };
+
+        makeInference(
             messages,
             updateLastMessage,
-            onFinishGenerating,
-            async function (err) {
-                // Error during generation
-                console.error('Inference error: ', err);
-                sendBtnCtrl.disabled = false;
-                userQuestionCtrl.value = input;  // restore input
-                setPlaceholder();
-
-                await handleEngineError(err, 'inference');
-            }
+            onFinish,
+            onError
         );
     } else {
         // Check settings for cloud provider.
@@ -387,7 +520,7 @@ async function onMessageSend() {
     }
 }
 
-function appendMessage(message) {
+function appendMessage(message, asHTML = false) {
 
 	const newMessage = document.createElement("div");
     newMessage.classList.add("cff-ai-assistance-message");
@@ -397,7 +530,11 @@ function appendMessage(message) {
     } else {
 		newMessage.classList.add("cff-ai-assistance-bot-message");
     }
-	newMessage.textContent = message.content;
+	if (asHTML) {
+		newMessage.innerHTML = message.content;
+	} else {
+		newMessage.textContent = message.content;
+	}
 
     chatBoxCtrl.appendChild(newMessage);
     chatBoxCtrl.scrollTop = chatBoxCtrl.scrollHeight; // Scroll to the latest message
@@ -490,11 +627,11 @@ window['cff_ai_assistant_use_list'] = function ( btn ) {
                 const t = item.textContent.trim();
                 if (t) {
                     const p = t.split('|');
-                    values.push(p[0]);
+                    texts.push(p[0]);
                     if(1 < p.length) {
-                        texts.push(p[1]);
+                        values.push(p[1]);
                     } else {
-                        texts.push(p[0]);
+                        values.push(p[0]);
                     }
                 }
             });
@@ -532,7 +669,7 @@ window['cff_ai_assistant_use_list'] = function ( btn ) {
 window['cff_ai_assistant_open'] = function( answer_topic ){
     sendBtnCtrl.disabled = true;
     aiAssistantLoadingMss.style.display = 'none';
-	variables = '';
+	variables = "";
 	topic = answer_topic || 'js';
 
 	setPlaceholder();
@@ -549,6 +686,7 @@ window['cff_ai_assistant_open'] = function( answer_topic ){
 			variables += item.name + " (existing constant that represents " + l + ")\n";
 		}
 	} );
+
     loadingEngine();
 	aiDlgCrl.style.display = 'flex';
 	btnHeight();
@@ -667,7 +805,9 @@ providerCtrl.addEventListener("change", async function () {
         modelContainer.style.display = 'none';
         apiKeyContainer.style.display = 'none';
         apiKeyCtrl.removeAttribute('required');
-        document.querySelector('.cff-ai-local-model-description').style.display = 'block';
+        if ( evaluateAPIMethod('isDescriptionNeeded') ) {
+            document.querySelector('.cff-ai-local-model-description').style.display = 'block';
+        }
     } else {
         document.querySelector('.cff-ai-local-model-description').style.display = 'none';
         // Update the link to the provider's API Key page.
@@ -696,12 +836,14 @@ closeSettingsBtnCtrl.addEventListener("click", async function () {
 });
 
 unmountBtnCtrl.addEventListener("click", async function (evt) {
-	const confirm_message = ( 'cff_ai_texts' in window ? window['cff_ai_texts']['unload'] : 'Would you like to proceed?' );
-	if (loadedModel && window.confirm(confirm_message)) {
-        await unloadModel();
-	}
-	evt.target.style.display = 'none';
-	aiDlgCrl.style.display = 'none';
+    if (evaluateAPIMethod('isModelLoaded')) {
+        const confirm_message = ( 'cff_ai_texts' in window ? window['cff_ai_texts']['unload'] : 'Would you like to proceed?' );
+        if (window.confirm(confirm_message)) {
+            await evaluateAPIMethod('unloadModel');
+            evt.target.style.display = 'none';
+            aiDlgCrl.style.display = 'none';
+        }
+    }
 });
 
 saveSettingsBtnCtrl.addEventListener("click", async function () {

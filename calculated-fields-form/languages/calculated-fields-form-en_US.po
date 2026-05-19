@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-05-12 01:52+0200\n"
-"PO-Revision-Date: 2026-05-12 01:52+0200\n"
+"POT-Creation-Date: 2026-05-19 22:28+0200\n"
+"PO-Revision-Date: 2026-05-19 22:28+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -80,7 +80,7 @@ msgid "Ready"
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:63
-msgid "Typing..."
+msgid "Thinking..."
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:64
@@ -138,13 +138,19 @@ msgid "Do you want to close the settings without saving?"
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:77
+#, php-format
 msgid ""
-"A fatal error has occurred and the model has been unloaded. Please close any "
-"other open browser tabs and try again, or switch to a different provider."
+"A fatal error has occurred: %s This error most likely indicates that your "
+"device does not have enough available resources to run local inference. The "
+"recommended solution is to switch to a Cloud Provider. You can also try "
+"closing other browser tabs and applications to free up memory, then reload "
+"the page and try again."
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:78
-msgid "An error occurred. You can try again."
+msgid ""
+"An error occurred. Please close other browser tabs to free up memory, and "
+"try again."
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:79
@@ -228,7 +234,7 @@ msgstr ""
 msgid ""
 "Please wait while the AI model downloads. This may take a moment depending "
 "on your network speed. Alternatively, click the gear icon to use online AI "
-"services like OpenAI, Anthropic (Claude), or Google Gemini."
+"services like OpenAI, Anthropic (Claude), Google Gemini, ..."
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:160

@@ -17,6 +17,7 @@
 #cff-ai-assistant-settings-container label{display:block;font-weight:normal;margin:10px 0 5px 0}
 #cff-ai-assistant-settings-container input,
 #cff-ai-assistant-settings-container select {width: 100%;}
+#cff-ai-assistant-unmount,
 #cff-ai-assistant-close,
 #cff-ai-assistant-settings{border-color: white; color: white; background: transparent;box-shadow: none;}
 #cff-ai-assistant-settings::before{ content:"\2699";}

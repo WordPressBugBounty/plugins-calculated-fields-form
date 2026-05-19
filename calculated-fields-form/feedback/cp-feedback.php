@@ -84,6 +84,7 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 							},
 							{
 								text: "No",
+								class:'button-secondary',
 								click: function()
 								{
 									dlg.siblings().css('pointer-events', 'none');

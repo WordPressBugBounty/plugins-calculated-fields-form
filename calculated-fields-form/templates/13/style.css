@@ -1,3 +1,9 @@
+:root {
+  /* Global variables */
+  --primary-cff-13-blue-color: #2e6fd9;
+  --primary-cff-13-blue-dark-color: #2354a5;
+}
+
 #cff_ai_assistant_bubble,
 .cp_cff_13 #fbuilder * {
   box-sizing: border-box;
@@ -101,8 +107,8 @@
 .cp_cff_13 #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:focus,
 .cp_cff_13 #fbuilder select:focus,
 .cp_cff_13 #fbuilder textarea:focus {
-	border-color: #007cba;
-	box-shadow: 0 0 0 1px #007cba;
+	border-color: var(--primary-cff-13-blue-color,#007cba);
+	box-shadow: 0 0 0 1px var(--primary-cff-13-blue-color,#007cba);
 	outline: 2px solid transparent;
 }
 .cp_cff_13 #fbuilder select{
@@ -125,7 +131,7 @@
 	direction: ltr;
 }
 .cp_cff_13 #fbuilder .select2-selection{border:1px solid #7e8993;}
-.cp_cff_13 #fbuilder .select2-results__option--highlighted{background:#007cba;}
+.cp_cff_13 #fbuilder .select2-results__option--highlighted{background:var(--primary-cff-13-blue-color,#007cba);}
 .cp_cff_13 #fbuilder .select2-dropdown .select2-search__field{width:100% !important;}
 
 @media only screen{
@@ -259,8 +265,8 @@
 	white-space: nowrap;
 	box-sizing: border-box;
 	vertical-align: baseline;
-	background: #007cba;
-	border-color: #007cba;
+	background: var(--primary-cff-13-blue-color,#007cba);
+	border-color: var(--primary-cff-13-blue-color,#007cba);
 	color: #fff;
 	text-shadow: none;
 }
@@ -284,18 +290,18 @@
 .cp_cff_13 #fbuilder input[type="submit"]:hover,
 .cp_cff_13 #fbuilder input[type="button"]:hover,
 .cp_cff_13 #fbuilder input[type="reset"]:hover{
-    background: #0071a1;
-	border-color: #0071a1;
+    background: var(--primary-cff-13-blue-dark-color, #0071a1);
+	border-color: var(--primary-cff-13-blue-dark-color, #0071a1);
 	color: #fff;
 }
 .cp_cff_13 #fbuilder .pbEnd .pbNext,
 .cp_cff_13 #fbuilder .pb0 .pbPrevious{display:none;}
 
 .cp_cff_13 #fbuilder .r{color:#FF0000;}
-.cp_cff_13 #fbuilder .ui-slider-handle{background:#007cba;border:2px solid #fff;border-radius:15px;height: 1em;width: 1em;}
+.cp_cff_13 #fbuilder .ui-slider-handle{background:var(--primary-cff-13-blue-color,#007cba);border:2px solid #fff;border-radius:15px;height: 1em;width: 1em;}
 .cp_cff_13 #fbuilder .dfield.slider-container{border-radius: 10px;}
 .cp_cff_13 #fbuilder .slider{background: #ececec; border-radius: 10px;border:0;height: .3em;}
-.cp_cff_13 #fbuilder .ui-slider-range{background: #007cba;}
+.cp_cff_13 #fbuilder .ui-slider-range{background: var(--primary-cff-13-blue-color,#007cba);}
 .cp_cff_13 #fbuilder .cff-slider-field .mark{top:5px;}
 .cp_cff_13 #fbuilder span.uh{
     font-size: 11px;

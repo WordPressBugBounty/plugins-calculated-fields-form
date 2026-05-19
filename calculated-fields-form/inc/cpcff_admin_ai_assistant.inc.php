@@ -60,7 +60,7 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CAL
     <?php
     $ai_config_obj = [
         'ready'              => __('Ready', 'calculated-fields-form'),
-        'typing'             => __('Typing...', 'calculated-fields-form'),
+        'thinking'           => __('Thinking...', 'calculated-fields-form'),
         'generating'         => __('Generating...', 'calculated-fields-form'),
         'placeholder'        => __('Please, enter your question ...', 'calculated-fields-form'),
         'placeholder_css'    => __('Please, enter your CSS related question ...', 'calculated-fields-form'),
@@ -74,8 +74,8 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CAL
         'unload'             => __('This action will completely unload the model and remove it from your browser cache. Would you like to proceed?', 'calculated-fields-form'),
         'api_key_required'   => __('API Key is required for the selected provider.', 'calculated-fields-form'),
         'unsave_settings'    => __('Do you want to close the settings without saving?', 'calculated-fields-form'),
-        'fatal_error'        => __('A fatal error has occurred and the model has been unloaded. Please close any other open browser tabs and try again, or switch to a different provider.', 'calculated-fields-form'),
-        'try_again_error'    => __('An error occurred. You can try again.', 'calculated-fields-form'),
+        'fatal_error'        => __('A fatal error has occurred: %s This error most likely indicates that your device does not have enough available resources to run local inference. The recommended solution is to switch to a Cloud Provider. You can also try closing other browser tabs and applications to free up memory, then reload the page and try again.', 'calculated-fields-form'),
+        'try_again_error'    => __('An error occurred. Please close other browser tabs to free up memory, and try again.', 'calculated-fields-form'),
         'field_type_error'   => __('Select a Radio Button, Checkbox, or Dropdown field before applying the list.', 'calculated-fields-form')
     ];
 
@@ -149,7 +149,7 @@ wp_enqueue_style('cff-ai-assistant-css', plugins_url('/css/style.ai.css', CP_CAL
             ?>
             <div id="cff-ai-assistant-loading-message">
                 <?php
-                esc_html_e('Please wait while the AI model downloads. This may take a moment depending on your network speed. Alternatively, click the gear icon to use online AI services like OpenAI, Anthropic (Claude), or Google Gemini.',  'calculated-fields-form');
+                esc_html_e('Please wait while the AI model downloads. This may take a moment depending on your network speed. Alternatively, click the gear icon to use online AI services like OpenAI, Anthropic (Claude), Google Gemini, ...',  'calculated-fields-form');
                 ?>
                 <div class="cff-ai-assistant-progress-container">
                     <div class="cff-ai-assistant-progress-bar" id="cff-ai-assistant-progress-bar"></div>

@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.7.6 =
+
+* Added support for the new Chrome Browser AI API in the AI Assistant module to enhance the local AI inference directly in the browser.
+* Included minor updates to the default template to ensure compatibility with WordPress 7.0.
+
 = 5.4.7.5 =
 
 * Fixes an issue affecting tab navigation through the form when calculated fields are configured as editable.
