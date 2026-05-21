@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.7.6
+Stable tag: 5.4.7.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -465,6 +465,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.7.7 =
+
+* Modifies the Coloris integration.
+
 = 5.4.7.6 =
 
 * Added support for the new Chrome Browser AI API in the AI Assistant module to enhance the local AI inference directly in the browser.
@@ -482,8 +486,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.4.7.3 =
 
 * Updates the module responsible for validating the page headers.
-
-= 5.4.7.2 =
-
-* Includes new video tutorials.
-* The Calculated Fields Form introduces agentic capabilities, enabling AI editors and agents to access form submissions directly.

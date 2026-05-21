@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.7.7 =
+
+* Modifies the Coloris integration.
+
 = 5.4.7.6 =
 
 * Added support for the new Chrome Browser AI API in the AI Assistant module to enhance the local AI inference directly in the browser.

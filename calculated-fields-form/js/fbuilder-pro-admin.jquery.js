@@ -642,8 +642,9 @@
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				// CSS Editor
+				// CSS Editor and coloris
 				$('.cff-form-settings-tabs-headers .cff-field-settings-tab-header-advanced').on('click', function(){
+					$.fbuilder['advancedSettingsColorEvents']();
 					setTimeout(function(){
 						if( 'codeEditor' in wp)
 						{
@@ -698,7 +699,6 @@
 					$.fbuilder['updateAdvancedSettings'](theForm, $(this).attr('data-cff-css-component'));
 					$.fbuilder.reloadItems({'form':1});
 				});
-                $.fbuilder['advancedSettingsColorEvents']();
 			};
 
 		$.fbuilder[ 'defineGeneralEvents' ] = function()
@@ -712,6 +712,7 @@
 						$('.cff-field-settings-tab-body-basic').addClass('cff-field-settings-tab-body-active');
 					} else {
 						$('.cff-field-settings-tab-body-advanced').addClass('cff-field-settings-tab-body-active');
+						$.fbuilder['advancedSettingsColorEvents']();
 					}
 				});
 
@@ -1771,7 +1772,11 @@
 
     $.fbuilder['advancedSettingsColorEvents'] = function() {
         function initializeColoris() {
-            if (typeof Coloris !== 'undefined') Coloris({ el: '.cff-coloris', wrap: true, focusInput: false, closeButton: true, clearButton: true, onChange: function(color, input){} });
+            if (typeof Coloris !== 'undefined') {
+				try {
+					Coloris({ el: '.cff-coloris', wrap: true, focusInput: false, closeButton: true, clearButton: true, onChange: function(color, input){} });
+				} catch (err) {}
+			}
         };
 
         function colorisAttachDetach(evt) {
@@ -2050,7 +2055,6 @@
 					$.fbuilder['updateAdvancedSettings'](e.data.obj, $(this).attr('data-cff-css-component'));
 					$.fbuilder.reloadItems({'field':e.data.obj});
 				});
-                $.fbuilder['advancedSettingsColorEvents']();
 			},
 
 			showColumnIcon:function()
