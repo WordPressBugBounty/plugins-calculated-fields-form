@@ -290,6 +290,66 @@
 		return false;
     };
 
+    $.fbuilder[ 'confirmationDialog' ] = function( title_text, message_text, yes_button_text, no_button_text,  callback_function ) {
+        title_text = title_text || 'Confirmation dialog';
+        message_text = message_text || 'Are you sure you want to proceed with this action?';
+        yes_button_text = yes_button_text || 'Yes';
+        no_button_text = no_button_text || 'No';
+        callback_function = callback_function || null;
+
+        let dialog_src = `
+        <div id="cp_calculatedfieldsf_action_dialog_overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:9998;display:none;">
+            <div id="cp_calculatedfieldsf_action_dialog" style="width:400px;max-width:90%;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);background-color:#fff;padding:20px;z-index:9999;display:none;">
+                <div class="cp_calculatedfieldsf_action_dialog_title" style="font-weight:bold;">${title_text}</div>
+                <div class="cp_calculatedfieldsf_action_dialog_message" style="margin-top:20px;margin-bottom:20px;">
+                    ${message_text}
+                </div>
+                <div style="text-align:right;">
+                    <button id="cp_calculatedfieldsf_confirm_action" class="button-primary">${yes_button_text}</button>
+                    <button id="cp_calculatedfieldsf_cancel_action" class="button-secondary">${no_button_text}</button>
+                </div>
+            </div>
+        </div>
+        `;
+
+        $('#cp_calculatedfieldsf_action_dialog_overlay').remove();
+        $('body').append(dialog_src);
+
+        let dialog = $('#cp_calculatedfieldsf_action_dialog'),
+            overlay = $('#cp_calculatedfieldsf_action_dialog_overlay'),
+            yes_button = dialog.find('#cp_calculatedfieldsf_confirm_action'),
+            no_button = dialog.find('#cp_calculatedfieldsf_cancel_action');
+
+        function closeDialog(evt) {
+            overlay.hide();
+            dialog.hide();
+        }
+
+        function onKeyDown(evt) {
+            if (evt.keyCode === 27) {
+                closeDialog();
+            }
+        }
+        $(document).off('keydown', onKeyDown).on('keydown', onKeyDown);
+
+        no_button.off('click').on('click', function (e) {
+            closeDialog();
+        });
+
+        yes_button.off('click').on('click', function (e) {
+            if (typeof callback_function === 'function') {
+                if (callback_function()) {
+                    closeDialog();
+                }
+            } else {
+                closeDialog();
+            }
+        });
+
+        overlay.show();
+        dialog.show();
+    };
+
     // fbuilder plugin
 	$.fn.fbuilder = function(){
 		var typeList = 	$.fbuilder.typeList,

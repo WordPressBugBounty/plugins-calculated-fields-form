@@ -130,6 +130,10 @@ class Elementor_CFF_Widget extends Widget_Base {
 		$this->end_controls_section();
 	} // End register_controls
 
+	public function has_widget_inner_wrapper(): bool {
+		return false;
+	}
+
 	private function _get_shortcode() {
 		$settings  	= $this->get_settings_for_display();
 
@@ -154,13 +158,7 @@ class Elementor_CFF_Widget extends Widget_Base {
 
 	protected function render() {
 		$shortcode = $this->_get_shortcode();
-		if (
-			isset( $_REQUEST['action'] ) &&
-			(
-				'elementor' == $_REQUEST['action'] ||
-				'elementor_ajax' == $_REQUEST['action']
-			)
-		) {
+		if( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 			if ( empty( $shortcode ) ) {
 				print '<div style="padding:20px;background:#fff3cd;border:1px solid #ffeeba;color:#856404">' .
 				'&#x26a0; ' . esc_html__( 'Please select a form from the module settings', 'calculated-fields-form' ) .
@@ -189,7 +187,7 @@ class Elementor_CFF_Widget extends Widget_Base {
 			?>
 			<div class="cff-iframe-container" style="position:relative;">
 				<div class="cff-iframe-overlay" style="position:absolute;top:0;right:0;bottom:0;left:0;"></div>
-				<iframe height="0" width="100%" src="<?php print esc_attr( $url ); ?>">
+				<iframe height="0" width="100%" src="<?php print esc_attr( $url ); ?>"></iframe>
 			</div>
 			<?php
 		} else {
@@ -223,6 +221,10 @@ class Elementor_CFFV_Widget extends Widget_Shortcode {
 	public function is_reload_preview_required() {
 		return true;
 	} // End is_reload_preview_required
+
+	public function has_widget_inner_wrapper(): bool {
+		return false;
+	}
 
 	protected function register_controls() {
 		$this->start_controls_section(

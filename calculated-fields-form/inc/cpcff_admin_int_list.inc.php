@@ -179,7 +179,7 @@ if ( $message ) {
 if ( get_option( 'cff-t-f', 0 ) ) :
 	?>
 	<div style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;margin:10px 0;font-size:1.3em;">
-	<?php print get_option( 'cff-t-t', '' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+	<?php print wp_kses_post( get_option( 'cff-t-t', '' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 	</div>
 	<?php
 	delete_option( 'cff-t-f' );
@@ -272,16 +272,25 @@ function cp_BookingsList(id)
 
 function cp_deleteItem(id)
 {
-	if (confirm('<?php esc_html_e( 'Are you sure you want to delete this item?', 'calculated-fields-form' ); ?>'))
-	{
+	let title = "<?php print esc_js(__( 'Delete form', 'calculated-fields-form' )); ?>";
+	let yes_button = "<?php print esc_js(__( 'Yes, delete form', 'calculated-fields-form' )); ?>";
+	let no_button = "<?php print esc_js(__( 'No, keep form', 'calculated-fields-form' )); ?>";
+	let message = "<?php print esc_js(__( 'You are about to delete the form with id: ', 'calculated-fields-form' )); ?>" + id + "<br><b><?php print esc_js(__( 'Are you sure that you want to delete it?', 'calculated-fields-form' )); ?></b>";
+
+	fbuilderjQuery.fbuilder.confirmationDialog( title, message, yes_button, no_button, function() {
 		document.location = 'admin.php?page=cp_calculated_fields_form&d='+id+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-delete-form' ) ); ?>';
-	}
+		return true;
+	} );
 }
 
 function cp_updateConfig()
 {
-	if (confirm('<?php esc_html_e( 'Are you sure you want to update these settings?', 'calculated-fields-form' ); ?>'))
-	{
+    let title = "<?php print esc_js(__( 'Update settings', 'calculated-fields-form' )); ?>";
+    let yes_button = "<?php print esc_js(__( 'Yes, update settings', 'calculated-fields-form' )); ?>";
+    let no_button = "<?php print esc_js(__( 'No, keep current settings', 'calculated-fields-form' )); ?>";
+    let message = "<?php print esc_js(__( 'You are about to update the plugin settings: ', 'calculated-fields-form' )); ?><br><b><?php print esc_js(__( 'Are you sure that you want to update them?', 'calculated-fields-form' )); ?></b>";
+
+    fbuilderjQuery.fbuilder.confirmationDialog( title, message, yes_button, no_button, function() {
 		var scr = document.getElementById("ccscriptload").value,
 			chs = document.getElementById("cccharsets").value,
 			dr  = (document.getElementById("ccdisablerevisions").checked) ? 1 : 0,
@@ -296,7 +305,8 @@ function cp_updateConfig()
             mtts = document.getElementById("ccminimumtimetosubmit").value.replace( /[^\d]/g, '' );
 
 		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&ov='+ov+'&amp='+amp+'&nc='+nc+'&mtts='+encodeURIComponent( mtts )+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
-	}
+        return true;
+    });
 }
 
 function cp_select_template()

@@ -267,7 +267,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @return void.
 		 */
 		public function media_buttons() {
-			print '<a href="javascript:cp_calculatedfieldsf_insertForm();" title="' . esc_attr__( 'Insert Calculated Fields Form', 'calculated-fields-form' ) . '"><img src="' . esc_attr( $this->_plugin_url ) . 'images/cp_form.gif" alt="' . esc_attr__( 'Insert Calculated Fields Form', 'calculated-fields-form' ) . '" /></a><a href="javascript:cp_calculatedfieldsf_insertVar();" title="' . esc_attr__( 'Create a JavaScript var from POST, GET, SESSION, or COOKIE var', 'calculated-fields-form' ) . '"><img src="' . esc_attr( $this->_plugin_url ) . 'images/cp_var.gif" alt="' . esc_attr__( 'Create a JavaScript var from POST, GET, SESSION, or COOKIE var', 'calculated-fields-form' ) . '" /></a>';
+			print '<a href="javascript:cp_calculatedfieldsf_insertForm();" title="'.esc_attr__('Insert Calculated Fields Form', 'calculated-fields-form' ).'" style="display:inline-block;margin-left:4px;margin-right:4px;"><img src="'.$this->_plugin_url.'images/cp_form.svg" alt="'.esc_attr__('Insert Calculated Fields Form', 'calculated-fields-form' ).'" style="height:22px;padding:0;" /></a><a href="javascript:cp_calculatedfieldsf_insertVar();" title="'.esc_attr__('Create a JavaScript var from POST, GET, or SESSION', 'calculated-fields-form' ).'" style="display:inline-block;margin-left:4px;margin-right:4px;"><img src="'.$this->_plugin_url.'images/cp_var.svg" alt="'.esc_attr__('Create a JavaScript var from POST, GET, SESSION, or COOKIE var', 'calculated-fields-form' ).'" style="height:22px;padding:0;" /></a>';
 		} // End media_buttons.
 
 		/**

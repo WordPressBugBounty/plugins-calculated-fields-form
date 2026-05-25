@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.4.7.8 =
+
+* Improves WordPress 7.0 integration, helping prevent timeouts when working with large prompts.
+* Implements a new confirmation dialog module to prevent users from taking irreversible actions without a clear and explicit confirmation.
+* Updates the list of supported AI provider modules.
+
 = 5.4.7.7 =
 
 * Modifies the Coloris integration.

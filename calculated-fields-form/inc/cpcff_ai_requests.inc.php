@@ -160,6 +160,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
+                            'gemini-3.5-flash' => [
+                                'title' => esc_html__('Gemini 3.5 Flash', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
                             'gemini-3.1-flash-lite' => [
                                 'title' => esc_html__('Gemini 3.1 Flash-Lite', 'calculated-fields-form'),
                                 'form-generation' => true,
@@ -414,9 +420,16 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
          * Call WordPress AI connector
          */
         private function call_wordpress_ai($prompt, $context) {
-            $response = wp_ai_client_prompt($prompt)
-                ->using_system_instruction($context)
-                ->generate_text();
+			$_set_timeout = function($timeout){ return 120; };
+			add_filter('wp_ai_client_default_request_timeout', $_set_timeout, 999);
+
+			try {
+				$response = wp_ai_client_prompt($prompt)
+					->using_system_instruction($context)
+					->generate_text();
+			} finally {
+				remove_filter('wp_ai_client_default_request_timeout', $_set_timeout, 999);
+			}
 
             if (is_wp_error($response)) {
                 return ['error' => $response->get_error_message()];
