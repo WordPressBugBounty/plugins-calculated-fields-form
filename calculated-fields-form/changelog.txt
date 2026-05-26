@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.7.9 =
+
+* Fixes a 504 timeout issue that could occur under certain server configurations.
+
 = 5.4.7.8 =
 
 * Improves WordPress 7.0 integration, helping prevent timeouts when working with large prompts.

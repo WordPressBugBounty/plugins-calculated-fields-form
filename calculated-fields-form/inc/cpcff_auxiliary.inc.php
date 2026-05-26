@@ -1196,20 +1196,30 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			);
 		} // End parsing_fields_on_text.
 
-        public static function is_eval_blocked() {
-            $csp = '';
-            $headers = get_headers(plugins_url('/css/stylepublic.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH));
-            if ( is_array( $headers ) ) {
-                foreach ($headers as $header) {
-                    if (stripos($header, 'Content-Security-Policy:') === 0) {
-                        $csp = $header;
-                        break;
-                    }
-                }
+        public static function is_eval_blocked()
+        {
+            $cache_key = 'cpcff_csp_check';
+            $cached = get_transient($cache_key);
+            if (false !== $cached) {
+                return (bool) $cached;
             }
+            $csp = '';
+            $response = wp_remote_head(
+                plugins_url('/css/stylepublic.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH),
+                array('timeout' => 2)
+            );
+            if (!is_wp_error($response)) {
+                $headers = wp_remote_retrieve_headers($response);
+                $csp = !empty($headers['content-security-policy']) ? $headers['content-security-policy'] : '';
 
-			return !empty($csp) && ((stripos( $csp, 'script-src' ) !== false || stripos( $csp, 'default-src' ) !== false) && stripos($csp, 'unsafe-eval') === false);
-        } // End isEvalBlocked
+            }
+            $result = !empty($csp) && (
+                (stripos($csp, 'script-src') !== false || stripos($csp, 'default-src') !== false) &&
+                stripos($csp, 'unsafe-eval') === false
+            );
+            set_transient($cache_key, $result ? 1 : 0, HOUR_IN_SECONDS);
+            return $result;
+        } // End is_eval_blocked
 
 		/*********************************** PRIVATE METHODS  ********************************************/
 
