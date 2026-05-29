@@ -1,11 +1,18 @@
 @import url('fonts.css');
 
+/* ============================================
+   Base / Reset
+   ============================================ */
+
 .cp_cff_11 #fbuilder * {
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   font-family: 'Lato', sans-serif;
 }
+
+/* ============================================
+   Form Header
+   ============================================ */
+
 .cp_cff_11 #fbuilder .fform{margin-bottom:20px;}
 
 .cp_cff_11 #fbuilder h1,
@@ -16,9 +23,16 @@
 .cp_cff_11 #fbuilder h6,
 .cp_cff_11 #fbuilder .fform p{ text-transform:uppercase; }
 
-.cp_cff_11 #fbuilder  .fields:not(.cff-container-field){padding: 10px;}
+/* ============================================
+   Fields
+   ============================================ */
 
+.cp_cff_11 #fbuilder  .fields:not(.cff-container-field){padding: 10px;}
 .cp_cff_11 #fbuilder  .fields.cff-highlight{background: #FFF9DF;}
+
+/* ============================================
+   Inputs
+   ============================================ */
 
 .cp_cff_11 #fbuilder  input[type="text"],
 .cp_cff_11 #fbuilder  input[type="password"],
@@ -44,26 +58,8 @@
 	height: auto;
 	line-height: normal;
 }
+
 .cp_cff_11 #fbuilder  .select2-selection{padding:0;padding-left:15px;}
-.cp_cff_11 #fbuilder .select2-selection{border:1px solid #dcdcdc;}
-.cp_cff_11 #fbuilder .select2-dropdown .select2-search__field{width:100% !important;}
-.cp_cff_11 #fbuilder .select2-dropdown{border:1px solid  #dcdcdc !important;}
-.cp_cff_11 #fbuilder .select2-selection--single{height:45px;}
-.cp_cff_11 #fbuilder .select2-selection--single .select2-selection__rendered{line-height:45px;}
-.cp_cff_11 #fbuilder .select2-selection__arrow{min-height:45px;}
-.cp_cff_11 #fbuilder .select2-results__option--highlighted{background:#1485e5;}
-
-.cp_cff_11 #fbuilder .large {width: 100%;}
-
-@media screen and (min-width: 740px),print{
-	.cp_cff_11 #fbuilder .medium {width: 50%;}
-	.cp_cff_11 #fbuilder .small {width: 25%;}
-}
-
-@media screen and (max-width: 640px){
-	.cp_cff_11 #fbuilder .medium,
-	.cp_cff_11 #fbuilder .small {width: 100%;}
-}
 
 .cp_cff_11 #fbuilder  input[type="date"]:focus,
 .cp_cff_11 #fbuilder  input[type="password"]:focus,
@@ -79,6 +75,27 @@
     border-color: #1795FF;
 	outline: none;
 }
+
+/* ============================================
+   Field Sizes
+   ============================================ */
+
+.cp_cff_11 #fbuilder .large {width: 100%;}
+
+@media screen and (min-width: 740px),print{
+	.cp_cff_11 #fbuilder .medium {width: 50%;}
+	.cp_cff_11 #fbuilder .small {width: 25%;}
+}
+
+@media screen and (max-width: 640px){
+	.cp_cff_11 #fbuilder .medium,
+	.cp_cff_11 #fbuilder .small {width: 100%;}
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
 #cff_ai_assistant_use_suggestion,
 .cp_cff_11 .cff-spinner .cff-spinner-down,
 .cp_cff_11 .cff-spinner .cff-spinner-up,
@@ -98,8 +115,10 @@
 	padding:10px 30px;
 	cursor:pointer;
 }
+
 .cp_cff_11 #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_11 #fbuilder .cff-spinner .cff-spinner-up{padding:10px 0;}
+
 #cff_ai_assistant_use_suggestion:hover,
 .cp_cff_11 #fbuilder .pbSubmit:hover,
 .cp_cff_11 #fbuilder .pbreak .pbPrevious:hover,
@@ -110,19 +129,55 @@
 .cp_cff_11 #fbuilder input[type=reset]:hover{
     background: #1485e5;
 }
+
 .cp_cff_11 #fbuilder .pbEnd .pbNext,
 .cp_cff_11 #fbuilder .pb0 .pbPrevious{display:none;}
 
+/* ============================================
+   Select2
+   ============================================ */
+
+.cp_cff_11 #fbuilder .select2-selection{border:1px solid #dcdcdc;}
+.cp_cff_11 #fbuilder .select2-dropdown .select2-search__field{width:100% !important;}
+.cp_cff_11 #fbuilder .select2-dropdown{border:1px solid  #dcdcdc !important;}
+.cp_cff_11 #fbuilder .select2-selection--single{height:45px;}
+.cp_cff_11 #fbuilder .select2-selection--single .select2-selection__rendered{line-height:45px;}
+.cp_cff_11 #fbuilder .select2-selection__arrow{min-height:45px;}
+.cp_cff_11 #fbuilder .select2-results__option--highlighted{background:#1485e5;}
+
+/* ============================================
+   Required Indicator
+   ============================================ */
+
 .cp_cff_11 #fbuilder .r{color:#FF0000;}
+
+/* ============================================
+   Slider
+   ============================================ */
+
 .cp_cff_11 #fbuilder .ui-slider-handle{background:#1485e5;border:0;border-radius:15px;height: .8em;width: .8em;}
 .cp_cff_11 #fbuilder .dfield.slider-container{border-radius: 10px;}
 .cp_cff_11 #fbuilder .slider{background: #ececec; border-radius: 10px;border:0;height: .3em;}
 .cp_cff_11 #fbuilder .ui-slider-range{background: #1795FF;}
 .cp_cff_11 #fbuilder .cff-slider-field .mark{top:5px;background:#1795FF;}
+
+@media print, screen and (min-width: 24em) {
+	.cp_cff_11 #fbuilder .right_aligned .dfield.slider-container,
+	.cp_cff_11 #fbuilder .left_aligned .dfield.slider-container{padding-top:10px;}
+}
+
+/* ============================================
+   Helper Text
+   ============================================ */
+
 .cp_cff_11 #fbuilder span.uh{
     font-size: 11px;
 	font-style: italic;
 }
+
+/* ============================================
+   Fieldset & Legend
+   ============================================ */
 
 .cp_cff_11 #fbuilder fieldset{
 	border-left:1px solid #dcdcdc;
@@ -139,18 +194,24 @@
 	margin-left:-11px;
 }
 
+/* ============================================
+   Section Breaks
+   ============================================ */
+
 .cp_cff_11 #fbuilder .fields.section_breaks{ border-left: 3px solid #1795FF;margin-top:10px; margin-bottom:10px;}
 .cp_cff_11 #fbuilder .fields.section_breaks>label{font-size:1.3em;font-weight:900;text-transform:uppercase;}
 .cp_cff_11 #fbuilder .fields.section_breaks .section_break{border:0;}
 
+/* ============================================
+   Misc
+   ============================================ */
+
 .cp_cff_11 #fbuilder .discount-container{margin-top:10px;font-weight:bold;}
-
-@media print, screen and (min-width: 24em) {
-	.cp_cff_11 #fbuilder .right_aligned .dfield.slider-container,
-	.cp_cff_11 #fbuilder .left_aligned .dfield.slider-container{padding-top:10px;}
-}
-
 .cp_cff_11 #fbuilder span.files-list img{border-color:#dcdcdc;}
+
+/* ============================================
+   Time Slots
+   ============================================ */
 
 .cp_cff_11 #fbuilder .cff-timeslot{border-color:initial;}
 .cp_cff_11 #fbuilder .cff-timeslot[data-active="0"]{text-shadow:none;border-color:#dddddd;color:#dddddd;}

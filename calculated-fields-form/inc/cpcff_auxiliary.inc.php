@@ -705,7 +705,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				if ( function_exists('finfo_open') ) {
 					$finfo = finfo_open(FILEINFO_MIME_TYPE);
 					$mimeType = strtolower( finfo_file( $finfo, $file_path ) );
-					finfo_close($finfo);
+					// finfo_close($finfo); // Deprecated in PHP 8.0.
 					$mimeType = explode(';', $mimeType)[0];
 					if ( isset( $mimeMap[ $mimeType ] ) ) return $mimeMap[ $mimeType ];
 				}
@@ -1217,7 +1217,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
                 (stripos($csp, 'script-src') !== false || stripos($csp, 'default-src') !== false) &&
                 stripos($csp, 'unsafe-eval') === false
             );
-            set_transient($cache_key, $result ? 1 : 0, HOUR_IN_SECONDS);
+            set_transient($cache_key, $result ? 1 : 0, DAY_IN_SECONDS);
             return $result;
         } // End is_eval_blocked
 

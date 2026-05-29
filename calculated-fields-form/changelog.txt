@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.4.8.0 =
+
+* Optimizes all CSS templates for improved performance and compatibility.
+* Updates the list of supported Anthropic/Claude models.
+* Resolves all PHP 8.5 deprecation warnings and compatibility issues.
+* Fixes minor issues affecting the Slider control.
+
 = 5.4.7.9 =
 
 * Fixes a 504 timeout issue that could occur under certain server configurations.
@@ -785,62 +792,3 @@ Since most users do not have devices with sufficient resources to run local infe
 * Streamlines the configuration of the email copy for users (available in Professional, Developer, and Platinum plugin versions).
 * Improves the functionality of the reCAPTCHA add-on (available in Developer and Platinum plugin versions).
 * Provides support for using short labels in Stripe integration metadata (available in the Platinum plugin version).
-
-= 5.3.29 =
-
-* Improves dynamic formatting for Number and Currency controls, making them more coherent.
-* Enhances functionality of Phone controls.
-* Resolves a minor issue with the RESETFORM operation.
-* Fixes a notice in the load language module.
-* Improves the user accessibility.
-
-= 5.3.28 =
-
-* Redesigned interface for form creation.
-* Improved accessibility.
-* Enhanced equations editor.
-
-= 5.3.27 =
-
-* Fixes an issue related to the ignorefield CSS class.
-* Adds support for reCAPTCHA Enterprise in both the Developer and Platinum plugin versions.
-
-= 5.3.26 =
-
-* Enhances Date/Time controls to enable showing/hiding the date-time format in field labels and to customize their design via the fields' Advanced Settings section.
-* Enhances the Summary control to simplify customization of the fields' row design in generated summaries using the Advanced Settings section.
-* Enhances the Fieldset control to allow modification of the styles applied to the fieldset tag through the fields' Advanced Settings sections.
-
-= 5.3.25 =
-
-* Updates the "Troubleshoots Area and General Settings" section, providing website developers with additional control over the form.
-
-= 5.3.24 =
-
-* Introduces a new attribute in the media controls to defer image loading until images are visible within the viewport.
-* Updates the Text Operations module, implementing the CHARAT, CHARTOCODE, and CODETOCHAR operations.
-* Enhances the Mathematics Operations module with improved ISFRACTION and SIMPLIFYFRACTION operations.
-
-= 5.3.23 =
-
-* Includes new predefined forms.
-* Enhances the WooCommerce add-on by addressing a minor multipage form issue (Developer and Platinum versions).
-* Overhauls the CSV Generator add-on for the Platinum version, reducing memory usage by 50%.
-
-= 5.3.22 =
-
-* Resolves an issue with date format validation on the server side.
-* Adjusts the appearance of date/time fields by applying a minimum width to the date component.
-* Enhances user experience in the form builder and streamlines access to various sections.
-* Associates an icon with the plugin menu option in the WordPress sidebar for easier identification.
-* Improves the layout of columns for better organization and readability.
-
-= 5.3.21 =
-
-* Fixes a minor conflict of column1 class styles into container with display:flex.
-
-= 5.3.20 =
-
-* Optimizes plugin performance by eliminating the evaluation of duplicate equations, ensuring faster and more efficient processing.
-* Refines the columns layout system for a more intuitive and seamless user experience.
-* Elevates the AI assistant's capabilities, delivering smarter and more accurate support for your questions.

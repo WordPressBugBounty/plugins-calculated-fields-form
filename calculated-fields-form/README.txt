@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.7.9
+Stable tag: 5.4.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -465,6 +465,13 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.8.0 =
+
+* Optimizes all CSS templates for improved performance and compatibility.
+* Updates the list of supported Anthropic/Claude models.
+* Resolves all PHP 8.5 deprecation warnings and compatibility issues.
+* Fixes minor issues affecting the Slider control.
+
 = 5.4.7.9 =
 
 * Fixes a 504 timeout issue that could occur under certain server configurations.
@@ -483,7 +490,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Added support for the new Chrome Browser AI API in the AI Assistant module to enhance the local AI inference directly in the browser.
 * Included minor updates to the default template to ensure compatibility with WordPress 7.0.
-
-= 5.4.7.5 =
-
-* Fixes an issue affecting tab navigation through the form when calculated fields are configured as editable.

@@ -63,7 +63,7 @@ if ( ! empty( $form_data ) ) {
 			if ( isset( $object->ftype ) && 'fhtml' == $object->ftype && isset( $object->replaceShortcodes ) && $object->replaceShortcodes ) {
 				$wrapper_callback = function($output, $tag, $attr, $m) {
 					if ( ! empty( $output ) ) {
-						$uniqid = 'cff-embedded-shortcode-' . uniqid();
+						$uniqid = wp_unique_id('cff-embedded-shortcode-');
 						$output = '<template id="' . esc_attr( $uniqid ) . '">' . $output . '</template>';
 					}
 					return $output;

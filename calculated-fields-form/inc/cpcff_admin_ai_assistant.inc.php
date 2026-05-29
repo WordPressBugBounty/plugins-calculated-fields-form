@@ -26,7 +26,7 @@ if (isset($_POST['_cpcff_ai_assistant_nonce'])) {
         }
 
         $model = isset($_POST['_cpcff_ai_assistant_model']) ? sanitize_text_field(wp_unslash($_POST['_cpcff_ai_assistant_model'])) : '';
-        $model = ($provider !== 'local' && isset($models[$provider]['models'][$model])) ? $model : ($provider === 'local' ? 'local' :  $models[$provider]['default_model']);
+        $model = (($provider !== 'local' && isset($models[$provider]['models'][$model])) ? $model : (($provider === 'local') ? 'local' :  $models[$provider]['default_model']));
         update_option('cff_ai_assistant_model', $model);
     } elseif (wp_verify_nonce($_cpcff_ai_assistant_nonce, 'cff_ai_request_nonce')) { // Handle AI Assistant Request
         require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_ai_requests.inc.php';

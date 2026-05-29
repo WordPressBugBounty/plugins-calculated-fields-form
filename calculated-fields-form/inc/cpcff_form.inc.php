@@ -358,7 +358,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			$row = $this->_get_settings();
 			if ( ! empty( $row ) ) {
 				unset( $row['id'] );
-				$row['form_name'] = ! empty( $form_name ) ? $form_name : ( ! empty( $row['form_name'] ) ? 'Cloned: ' . $row['form_name'] : '' );
+				$row['form_name'] = ((! empty( $form_name )) ? $form_name : ( (! empty( $row['form_name'] )) ? 'Cloned: ' . $row['form_name'] : '' ));
 				if ( isset( $row['extra'] ) && is_array( $row['extra'] ) ) {
 					$row['extra'] = json_encode( $row['extra'] );
 				}

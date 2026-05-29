@@ -117,8 +117,14 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'claude-haiku-4-5-20251001',
                         'api_key_url'   => 'https://console.anthropic.com/settings/keys',
                         'models'        => [
+                            'claude-opus-4-8' => [
+                                'title' => esc_html__('Claude Opus 4.8 (Most Capable)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
                             'claude-opus-4-7' => [
-                                'title' => esc_html__('Claude Opus 4.7 (Most Capable)', 'calculated-fields-form'),
+                                'title' => esc_html__('Claude Opus 4.7', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000

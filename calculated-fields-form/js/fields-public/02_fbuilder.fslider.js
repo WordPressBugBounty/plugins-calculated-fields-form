@@ -94,14 +94,16 @@
 							$('#'+me.name+'_component_left').val(cff_esc_attr(vlf));
 							$('#'+me.name+'_component_right').val(cff_esc_attr(vrf));
 							$('#'+me.name).val('['+vl+','+vr+']').attr('vt', '['+cff_esc_attr(vlf)+','+cff_esc_attr(vrf)+']');
-							$('#'+me.name+'_caption').html(
-								cff_sanitize(
-									me.caption
-									.replace(/\{\s*0\s*\}/, vlf)
-									.replace(/\{\s*0\s*\}/, vrf)
-									, true
-								 )
-							);
+                            if (/\{\s*0\s*\}/.test(me.caption)) {
+                                $('#'+me.name+'_caption').html(
+                                    cff_sanitize(
+                                        me.caption
+                                        .replace(/\{\s*0\s*\}/, vlf)
+                                        .replace(/\{\s*0\s*\}/, vrf)
+                                        , true
+                                    )
+                                );
+                            }
 						}
 						else
 						{
@@ -111,12 +113,14 @@
 							$('.'+me.name).find('.cff-slider-tooltip-value').first().html(cff_sanitize(vf, true));
 							$('#'+me.name).val(v).attr('vt', cff_esc_attr(vf));
 							$('#'+me.name+'_component_center').val(cff_esc_attr(vf));
-							$('#'+me.name+'_caption').html(
-								cff_sanitize(
-									me.caption.replace(/\{\s*0\s*\}/g, vf)
-									, true
-								)
-							);
+                            if (/\{\s*0\s*\}/.test(me.caption)) {
+                                $('#'+me.name+'_caption').html(
+                                    cff_sanitize(
+                                        me.caption.replace(/\{\s*0\s*\}/g, vf)
+                                        , true
+                                    )
+                                );
+                            }
 						}
 						if(!nochange) $('#'+me.name).trigger('change');
 					},
@@ -225,7 +229,7 @@
 								'<div class="corner-captions '+cff_esc_attr(me.size)+'">'+
 									'<span class="left-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_left'))+'">'+cff_sanitize(me.minCaption, true)+'</span>'+
 									'<span class="right-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_right'))+'">'+cff_sanitize(me.maxCaption, true)+'</span>'+
-									'<div id="'+me.name+'_caption" class="slider-caption" style="'+cff_esc_attr(me.getCSSComponent('caption'))+'"></div>'+
+									'<div id="'+me.name+'_caption" class="slider-caption" style="'+cff_esc_attr(me.getCSSComponent('caption'))+'">'+cff_sanitize(me.caption, true)+'</div>'+
 									'<div class="clearer"></div>'+
 								'</div>'+
 								'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span>'+
@@ -267,7 +271,9 @@
 					{
 						try{
 							var e = $('.'+this.name+' .left-corner');
-							e.html(cff_sanitize(this.minCaption.replace(/\{\s*0\s*\}/, v), true));
+                            if (/\{\s*0\s*\}/.test(this.minCaption)) {
+							    e.html(cff_sanitize(this.minCaption.replace(/\{\s*0\s*\}/, v), true));
+                            }
 						}
 						catch(err){}
 					},
@@ -275,7 +281,9 @@
 					{
 						try{
 							var e = $('.'+this.name+' .right-corner');
-							e.html(cff_sanitize(this.maxCaption.replace(/\{\s*0\s*\}/, v), true));
+                            if (/\{\s*0\s*\}/.test(this.maxCaption)) {
+							    e.html(cff_sanitize(this.maxCaption.replace(/\{\s*0\s*\}/, v), true));
+                            }
 						}
 						catch(err){}
 					},

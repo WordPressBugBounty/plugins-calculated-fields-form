@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.7.9
+ * Version: 5.4.8.0
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.7.9' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.0' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -479,7 +479,7 @@ function cp_calculated_fields_form_check_posted_data() {
 
 					$ipaddr                            = ( 'true' == $form_obj->get_option( 'fp_inc_additional_info', CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info ) && ! empty( $_SERVER['REMOTE_ADDR'] ) ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 					$params['ipaddress']               = $ipaddr;
-					$params['from_page']               = ! empty( $_POST['cp_ref_page'] ) ? sanitize_text_field( wp_unslash( $_POST['cp_ref_page'] ) ) : ( ! empty( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '' );
+					$params['from_page']               = ((! empty( $_POST['cp_ref_page'] )) ? sanitize_text_field( wp_unslash( $_POST['cp_ref_page'] ) ) : ( (! empty( $_SERVER['HTTP_REFERER'] )) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '' ));
 					$params['submissiondate_mmddyyyy'] = current_time( 'm/d/Y H:i:s' );
 					$params['submissiondate_ddmmyyyy'] = current_time( 'd/m/Y H:i:s' );
 

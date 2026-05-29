@@ -388,7 +388,7 @@ function cp_update_default_settings(e)
 				<form name="additem">
                     <div>
 						<input type="text" name="cp_itemname" id="cp_itemname"  value="<?php print esc_attr( ! empty( $_GET['form_name']) ? sanitize_text_field( wp_unslash( $_GET['form_name'] ) ) : '' ); ?>" onkeyup="cp_addItem_keyup( event );"  style="margin-top:5px;" required placeholder="<?php esc_attr_e( 'New form name', 'calculated-fields-form' ); ?> (*)" />
-						<input type="text" name="calculated-fields-form-category" id="calculated-fields-form-category"  value="<?php print esc_attr(isset( $_GET['form_category'] ) ? sanitize_text_field( wp_unslash( $_GET['form_category'] ) ) : $cff_current_form_category); ?>" style="margin-top:5px;" placeholder="<?php esc_attr_e('Category', 'calculated-fields-form'); ?>" list="calculated-fields-form-categories" />
+						<input type="text" name="calculated-fields-form-category" id="calculated-fields-form-category"  value="<?php print esc_attr((isset( $_GET['form_category'] )) ? sanitize_text_field( wp_unslash( $_GET['form_category'] ) ) : $cff_current_form_category); ?>" style="margin-top:5px;" placeholder="<?php esc_attr_e('Category', 'calculated-fields-form'); ?>" list="calculated-fields-form-categories" />
 						<datalist id="calculated-fields-form-categories">
 							<?php
 								print $cpcff_main->get_categories( 'DATALIST' ); // phpcs:ignore WordPress.Security.EscapeOutput
@@ -599,14 +599,14 @@ function cp_update_default_settings(e)
 						$template_options     = '<option value="none">- No Change Template -</option><option value="">Use default template</option>';
 						$template_information = '';
 					foreach ( $templates_list as $template_item ) {
-						$template_options     .= '<option value="' . esc_attr( $template_item['prefix'] ) . '" ' . ( $template_item['prefix'] == $cp_default_template ? 'SELECTED' : '' ) . '>' . esc_html( $template_item['title'] ) . '</option>';
-						$template_information .= '<div class="width50 cp_template_info cp_template_' . esc_attr( $template_item['prefix'] ) . '" style="text-align:center;padding:10px 0; display:' . ( $template_item['prefix'] == $cp_default_template ? 'block' : 'none' ) . '; margin:10px 0; border: 1px dashed #CCC;">' . ( ! empty( $template_item['thumbnail'] ) ? '<img src="' . esc_attr( $template_item['thumbnail'] ) . '"><br>' : '' ) . ( ! empty( $template_item['description'] ) ? esc_html( $template_item['description'] ) : '' ) . '</div>';
+						$template_options     .= '<option value="' . esc_attr( $template_item['prefix'] ) . '" ' . ( ($template_item['prefix'] == $cp_default_template) ? 'SELECTED' : '' ) . '>' . esc_html( $template_item['title'] ) . '</option>';
+						$template_information .= '<div class="width50 cp_template_info cp_template_' . esc_attr( $template_item['prefix'] ) . '" style="text-align:center;padding:10px 0; display:' . ( ($template_item['prefix'] == $cp_default_template) ? 'block' : 'none' ) . '; margin:10px 0; border: 1px dashed #CCC;">' . ( (! empty( $template_item['thumbnail'] )) ? '<img src="' . esc_attr( $template_item['thumbnail'] ) . '"><br>' : '' ) . ( (! empty( $template_item['description'] )) ? esc_html( $template_item['description'] ) : '' ) . '</div>';
 					}
 					?>
 					<select name="cp_default_template" id="cp_default_template"class="width50" onchange="cp_select_template();"><?php print $template_options; // phpcs:ignore WordPress.Security.EscapeOutput ?></select><br />
 					<?php print $template_information; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					<br /><br />
-					<label><input type="checkbox" aria-label="<?php esc_attr_e('Display Submit Button by Default', 'calculated-fields-form'); ?>" name="cp_default_submit" <?php print( '' == $cp_default_submit ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Display Submit Button by Default', 'calculated-fields-form' ); ?></label><br /><br />
+					<label><input type="checkbox" aria-label="<?php esc_attr_e('Display Submit Button by Default', 'calculated-fields-form'); ?>" name="cp_default_submit" <?php print( ('' == $cp_default_submit) ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Display Submit Button by Default', 'calculated-fields-form' ); ?></label><br /><br />
 					<div style="border:1px solid #DADADA; padding:10px;" class="width50">
 						<label><input type="checkbox" aria-label="<?php esc_attr_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?>" name="cp_default_existing_forms" /> <?php esc_html_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?> (<i><?php esc_html_e( 'It will modify the settings of existing forms', 'calculated-fields-form' ); ?></i>)</label>
 					</div>
@@ -643,7 +643,7 @@ function cp_update_default_settings(e)
 						<em><?php esc_html_e( '* Update the charset if you are getting problems displaying special/non-latin characters. After updated you need to edit the special characters again.', 'calculated-fields-form' ); ?></em>
 						<br /><br />
 						<?php esc_html_e( 'The emails contain invalid characters', 'calculated-fields-form' ); ?>:<br />
-						<label><input type="checkbox" name="ccencodingemail" id="ccencodingemail" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_ENCODING_EMAIL', false ) ) ? 'CHECKED' : ''; ?> /><em><?php esc_html_e( '* Encodes the notification emails as ISO-8859-2 and base64.', 'calculated-fields-form' ); ?></em></label>
+						<label><input type="checkbox" name="ccencodingemail" id="ccencodingemail" <?php echo ( (get_option( 'CP_CALCULATEDFIELDSF_ENCODING_EMAIL', false )) ? 'CHECKED' : ''); ?> /><em><?php esc_html_e( '* Encodes the notification emails as ISO-8859-2 and base64.', 'calculated-fields-form' ); ?></em></label>
 						<br /><br />
 						<?php
 							$compatibility_warnings = $cpcff_main->compatibility_warnings();
@@ -651,7 +651,7 @@ function cp_update_default_settings(e)
 							print '<div style="margin:10px 0; border:1px dashed #FF0000; padding:10px; color:red;">' . $compatibility_warnings; // phpcs:ignore WordPress.Security.EscapeOutput
 						}
 							esc_html_e( 'There is active an optimization plugin in WordPress', 'calculated-fields-form' ); ?>:<br />
-						<label><input type="checkbox" id="ccoptimizationplugin" name="ccoptimizationplugin" value="1" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN', CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN ) ) ? 'CHECKED' : ''; ?> /><em><?php esc_html_e( '* Tick the checkbox if there is an optimization plugin active on the website, and the forms are not visible.', 'calculated-fields-form' ); ?></em></label>
+						<label><input type="checkbox" id="ccoptimizationplugin" name="ccoptimizationplugin" value="1" <?php echo (( get_option( 'CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN', CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN ) ) ? 'CHECKED' : ''); ?> /><em><?php esc_html_e( '* Tick the checkbox if there is an optimization plugin active on the website, and the forms are not visible.', 'calculated-fields-form' ); ?></em></label>
 						<?php
 						if ( ! empty( $compatibility_warnings ) ) {
 							print '</div>';
@@ -659,17 +659,17 @@ function cp_update_default_settings(e)
 						?>
 					</div>
 					<br />
-					<label><input type="checkbox" name="ccdisablerevisions" id="ccdisablerevisions" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Disable Form Revisions', 'calculated-fields-form' ); ?></label>
+					<label><input type="checkbox" name="ccdisablerevisions" id="ccdisablerevisions" <?php echo (( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) ) ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Disable Form Revisions', 'calculated-fields-form' ); ?></label>
 					<br /><br />
-					<label><input type="checkbox" name="ccjscache" id="ccjscache" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Activate Javascript Cache', 'calculated-fields-form' ); ?></label>
+					<label><input type="checkbox" name="ccjscache" id="ccjscache" <?php echo (( get_option( 'CP_CALCULATEDFIELDSF_USE_CACHE', CP_CALCULATEDFIELDSF_USE_CACHE ) ) ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Activate Javascript Cache', 'calculated-fields-form' ); ?></label>
 					<br /><br />
-                    <label><input type="checkbox" name="cconlyvisible" id="cconlyvisible" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', true ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Render only the visible forms to improve page performance', 'calculated-fields-form' ); ?></label>
+                    <label><input type="checkbox" name="cconlyvisible" id="cconlyvisible" <?php echo (( get_option( 'CP_CALCULATEDFIELDSF_RENDER_ONLY_VISIBLE', true ) ) ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Render only the visible forms to improve page performance', 'calculated-fields-form' ); ?></label>
                     <br /><br />
-					<label><input type="checkbox" name="ccdirectform" id="ccdirectform" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Allows to access the forms directly', 'calculated-fields-form' ); ?></label>
+					<label><input type="checkbox" name="ccdirectform" id="ccdirectform" <?php echo (( get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS ) ) ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Allows to access the forms directly', 'calculated-fields-form' ); ?></label>
 					<br /><br />
-					<label><input type="checkbox" name="ccampform" id="ccampform" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_AMP', CP_CALCULATEDFIELDSF_AMP ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Allows to access the forms from amp pages', 'calculated-fields-form' ); ?></label>
+					<label><input type="checkbox" name="ccampform" id="ccampform" <?php echo (( get_option( 'CP_CALCULATEDFIELDSF_AMP', CP_CALCULATEDFIELDSF_AMP ) ) ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Allows to access the forms from amp pages', 'calculated-fields-form' ); ?></label>
 					<br /><br />
-					<label><input type="checkbox" name="ccexcludecrawler" id="ccexcludecrawler" <?php echo ( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ) ? 'CHECKED' : ''; ?> /> <?php esc_html_e( 'Do not load the forms with crawlers', 'calculated-fields-form' ); ?></label>
+					<label><input type="checkbox" name="ccexcludecrawler" id="ccexcludecrawler" <?php echo (( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ) ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Do not load the forms with crawlers', 'calculated-fields-form' ); ?></label>
 					<br /><i><?php esc_html_e( '* The forms are not loaded when website is being indexed by searchers.', 'calculated-fields-form' ); ?></i>
 					<br /><br />
 					<label><input type="checkbox" name="ccusenonce" id="ccusenonce" <?php echo ( intval( get_option( 'CP_CALCULATEDFIELDSF_NONCE', 0 ) ) ? 'CHECKED' : '' ); ?> /> <?php _e( 'Protect the forms with nonce', 'calculated-fields-form' ); ?></label>
@@ -683,7 +683,7 @@ function cp_update_default_settings(e)
 		</div>
 	</div>
 </div><!-- End Forms & Settings Section -->
-<div style="margin-top:20px;display:<?php print ( ! empty( $_GET['cff-tab'] ) && 'marketplace' == $_GET['cff-tab'] ) ? 'block' : 'none'; ?>;"><!-- Marketplace Section -->
+<div style="margin-top:20px;display:<?php print (( ! empty( $_GET['cff-tab'] ) && 'marketplace' == $_GET['cff-tab'] ) ? 'block' : 'none'); ?>;"><!-- Marketplace Section -->
 	<div id="metabox_basic_settings" class="postbox cff-no-animate" >
 		<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Calculated Fields Form Marketplace', 'calculated-fields-form' ); ?></span></h3>
 		<div class="inside">
