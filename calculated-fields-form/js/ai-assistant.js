@@ -2,7 +2,9 @@ import * as webllm from "https://esm.run/@mlc-ai/web-llm";
 
 /*************** WebLLM logic ***************/
 let variables = "";
+let variables_tags = "";
 let topic = 'js';
+let extra = '';
 
 const context = `You are a code generator for JavaScript, CSS, and HTML. Always output your answer as the code block. No pre-amble. Do not respond to unrelated question.`;
 const messages = [{
@@ -424,9 +426,30 @@ async function onMessageSend() {
 	let message = input;
 
     const aiMessage = {
-        content: '<div style="display: flex; align-items: center; gap: 3px;"><span style="flex-grow:1;">' + ('cff_ai_texts' in window ? window['cff_ai_texts']['thinking'] : "Thinking...") +'</span><span style="font-weight:600;">&#9201;</span></div>',
+        content: '<div style="display: flex; align-items: center; gap: 3px;"><span style="flex-grow:1;" data-cff-ai-assistant-thinking="1">' + ('cff_ai_texts' in window ? window['cff_ai_texts']['thinking'] : "Thinking...") +'</span><span style="font-weight:600;">&#9201;</span></div>',
         role: "assistant",
     };
+
+    const waitingMessages = {
+        1: window?.cff_ai_texts?.waiting_message_1 ?? "Still working on it..." ,
+        2: window?.cff_ai_texts?.waiting_message_2 ?? "This is taking longer than usual, but please be patient..."
+    };
+
+    const firstWaitingInterval = setTimeout(() => {
+        const thinkingSpan = [...document.querySelectorAll('[data-cff-ai-assistant-thinking="1"]')].at(-1);
+        if (thinkingSpan) {
+            thinkingSpan.setAttribute("data-cff-ai-assistant-thinking", "2");
+            thinkingSpan.textContent = waitingMessages[1];
+        }
+    }, 8000);
+
+    const secondWaitingInterval = setTimeout(() => {
+        const waitingSpan = [...document.querySelectorAll('[data-cff-ai-assistant-thinking="2"]')].at(-1);
+        if (waitingSpan) {
+            waitingSpan.setAttribute("data-cff-ai-assistant-thinking", "3");
+            waitingSpan.textContent = waitingMessages[2];
+        }
+    }, 18000);
 
     userQuestionCtrl.value = "";
     userQuestionCtrl.setAttribute("placeholder", ( 'cff_ai_texts' in window ? window['cff_ai_texts']['generating'] : 'Generating...' ) );
@@ -443,6 +466,57 @@ async function onMessageSend() {
 		case 'html':
 			message = "Create an block of HTML tags, including style attributes when required. To display the fields values within the tags, use the data-cff-field attribute in the corresponding text. Enclose the code between ``` symbols." + ( "" != variables ? " You have access to the fields:\n" + variables + "Use these fields in code when appropriate. Example: ```html\n<div>User name: <span data-cff-field=\"fieldname1\"></span></div><br><div>Email: <span data-cff-field=\"fieldname2\"></span></div><br><div>Message: <p data-cff-field=\"fieldname3\"></p></div>```" : "" ) + "\nDescription: " + input;
 		break;
+        case 'message':
+			let output_format = (extra === 'html') ? 'an HTML structure' : 'a PLAIN TEXT';
+            // This promt requires to check if the payment, coupons, and extra settings are enabled in the form.
+            message = `
+You are a writer. Your job is to produce ${output_format} for a notification email. NEVER INCLUDE the information from the "PAYMENT & ORDER TAGS", or "METADATA TAGS", if they are not mentioned in the REQUEST section.
+
+The fields tags begin with the symbols [{ and end with the symbols }]
+
+- When needed to include a field label you must enter its tag: [{fieldname_label}],
+- When needed to include a field shortlabel you must enter its tag: [{fieldname_shortlabel}],
+- When needed to include a field value you must enter its tag: [{fieldname_value}],
+- When needed to include the tags to the uploaded files you must enter its tag: [{fieldname_urls}],
+
+## TAGS REFERENCE
+
+### FIELDS TAGS
+
+${variables_tags}
+
+### PAYMENT & ORDER TAGS
+
+  [{final_price}]
+  [{coupon}]
+  [{couponcode}]
+  [{payment_option}]
+  [{payment_status}]
+  [{transaction_id}]
+  [{subscription_id}]
+
+### METADATA TAGS
+
+  [{itemnumber}]
+  [{submissiondate_ddmmyyyy}]
+  [{submissiontime}]
+  [{currentdate_ddmmyyyy}]
+  [{currenttime}]
+  [{ipaddress}]
+  [{from_page}]
+  [{thank_you_page}]
+  [{form_title}]
+  [{form_description}]
+  [{formid}]
+  [{pdf_generator_url}]
+  [{csv_generator_url}]
+
+## REQUEST
+
+${input}
+`.trim();
+
+        break;
 		default:
             message = "Create an immediately invoked JavaScript function expressions (IIFE) that run automatically. It must start with (function(){ and enter with })(). It must include a return statement with the result as scalar value. Use only valid JavaScript syntax. Test your code mentally for syntax errors before submitting. Do not include any non-JavaScript text or characters. Keep the code simple and focused on the calculation. Enclose the code between ``` symbols. DO NOT include comments into the function code." + ("" != variables ? " \n\n CRITICAL INSTRUCTION: The following variables ALREADY EXIST in the system and contain values. DO NOT DEFINE, INITIALIZE, OR ASSIGN ANY VALUE TO THEM IN YOUR CODE:\n\n" + variables : "") + "\n\nFunction description: " + input.replace(/equation/ig, 'function');
         break;
@@ -453,8 +527,10 @@ async function onMessageSend() {
         appendMessage(aiMessage, true);
         messages.splice(1);
         messages.push({content: message, role: "user"});
-console.log(messages);
+
         const onFinish = (finalMessage, usageMessage) => {
+            clearTimeout(firstWaitingInterval);
+            clearTimeout(secondWaitingInterval);
             updateLastMessage(finalMessage);
             sendBtnCtrl.disabled = false;
             setPlaceholder();
@@ -462,6 +538,8 @@ console.log(messages);
         };
 
         const onError = async (err) => {
+            clearTimeout(firstWaitingInterval);
+            clearTimeout(secondWaitingInterval);
             // Error during generation
             console.error('Inference error: ', err);
             sendBtnCtrl.disabled = false;
@@ -485,7 +563,7 @@ console.log(messages);
             return;
         }
         appendMessage({ content: input, role: "user" });
-        appendMessage(aiMessage);
+        appendMessage(aiMessage, true);
         const data = new FormData();
         data.append('_cpcff_ai_assistant_action', 'cff_ai_assistant_get_response');
         data.append('_cpcff_ai_assistant_context', context);
@@ -516,6 +594,8 @@ console.log(messages);
             userQuestionCtrl.value = input;
         } finally {
             sendBtnCtrl.disabled = false;
+            clearTimeout(firstWaitingInterval);
+            clearTimeout(secondWaitingInterval);
         }
     }
 }
@@ -541,22 +621,47 @@ function appendMessage(message, asHTML = false) {
 }
 
 function updateLastMessage(content) {
-	function escapeHTML(str) {
-		return str
-			.replace(/&/g, "&amp;")
-			.replace(/</g, "&lt;")
-			.replace(/>/g, "&gt;");
-	}
+    function formatMessage(message) {
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        };
 
-	function formatMessage(message) {
+        function addTopicSection(escapedCode, topic) {
+            let topic_identifier = '<span>' + (topic ?? '') + '</span>';
+            let btn = '';
+            let btn_text = '';
+            switch (topic) {
+                case 'list':
+                    btn_text = window?.cff_ai_texts?.use_list_btn ?? 'Use list';
+                    btn = `<button type="button" id="cff-ai-assistant-use-list-btn" data-text="${btn_text}" class="button-secondary" onclick="cff_ai_assistant_use_list(this);">${btn_text}</button>`;
+                break;
+                case 'message':
+                    btn_text = window?.cff_ai_texts?.copy_message_btn ?? 'Copy message';
+                    btn = `<button type="button" id="cff-ai-assistant-use-message-btn" data-text="${btn_text}" class="button-secondary" onclick="cff_ai_assistant_copy(this);">${btn_text}</button>`;
+                break;
+                default:
+                    btn_text = window?.cff_ai_texts?.copy_btn ?? 'Copy';
+                    btn = `<button type="button" id="cff-ai-assistant-copy-btn" data-text="${btn_text}" class="button-secondary" onclick="cff_ai_assistant_copy(this);">${btn_text}</button>`;
+                break;
+            }
+            return `${topic_identifier}<pre><div style="text-align:right;margin-bottom:10px;">${btn}</div><code>${escapedCode}</code></pre>`;
+        };
+
 		message = message.replace(/fieldname(\d+)/ig, 'fieldname$1');
-		// Split message into parts: text and code blocks
-		const parts = [];
+		if ( topic === 'message' ) {
+			message = message.replace(/\[\{/g, '<%').replace(/\}\]/g, '%>');
+		}
+
+        // Split message into parts: text and code blocks
+        const parts = [];
 		let lastIndex = 0;
 		const regex = /```(?:\w+)?\n([\s\S]*?)```/g;
 		let match;
 
-		while ((match = regex.exec(message)) !== null) {
+		if ((match = regex.exec(message)) !== null) {
             let btn = '';
             const before = message.slice(lastIndex, match.index);
 			const code = match[1];
@@ -566,33 +671,29 @@ function updateLastMessage(content) {
 
 			// Add the raw code block
             let escapedCode = escapeHTML(code);
-            let topic_identifier = '<span>'+( topic ?? '' )+'</span>';
-            if (topic && topic === 'list') {
-                const replace_text = window?.cff_ai_texts?.use_list_btn ?? 'Use list';
-                btn = `<button type="button" id="cff-ai-assistant-use-list-btn" class="button-secondary" onclick="cff_ai_assistant_use_list(this);">${replace_text}</button>`;
-                escapedCode = '<ul>'+escapedCode.replace(/&lt;li&gt;/ig, '<li>').replace(/&lt;\/li&gt;/ig, '</li>').replace(/[\r\n]/g,'')+'</ul>';
-            } else {
-                const copy_text = window?.cff_ai_texts?.copy_btn ?? 'Copy';
-                btn = `<button type="button" id="cff-ai-assistant-copy-btn" class="button-secondary" onclick="cff_ai_assistant_copy(this);">${copy_text}</button>`;
+            if ( topic === 'list' ) {
+                escapedCode = '<ul>' + escapedCode.replace(/&lt;li&gt;/ig, '<li>').replace(/&lt;\/li&gt;/ig, '</li>').replace(/[\r\n]/g, '') + '</ul>';
+            } else if (topic === 'js') {
+                // Patch for specific case: replace new Date( with DATEOBJ(, this ensure using the plugin operation.
+                escapedCode = escapedCode.replace(/new Date\(/g, 'DATEOBJ(');
             }
+
 			parts.push(
-				`${topic_identifier}<pre><div style="text-align:right;margin-bottom:10px;">${btn}</div><code>${escapedCode}</code></pre>`
+                addTopicSection(escapedCode, topic)
 			);
 
 			lastIndex = regex.lastIndex;
-		}
-
-		// Add any remaining text after the last code block
-		const remaining = message.slice(lastIndex);
-		if (remaining.trim()) {
-			parts.push(`<p>${escapeHTML(remaining)}</p>`);
-		}
+            // Add any remaining text after the last code block
+            const remaining = message.slice(lastIndex);
+            if (remaining.trim()) {
+                parts.push(`<p>${escapeHTML(remaining)}</p>`);
+            }
+		} else if (topic === 'message') {
+            parts.push( addTopicSection(escapeHTML(message), topic) );
+        }
 
         let output = parts.join("");
-
-        // Patch for specific case: replace new Date( with DATEOBJ(, this ensure using the plugin operation.
-        output = output.replace(/new Date\(/g, 'DATEOBJ(');
-		return output;
+        return output;
 	}
 
     const messageDoms = chatBoxCtrl.querySelectorAll(".cff-ai-assistance-message");
@@ -602,7 +703,7 @@ function updateLastMessage(content) {
 
 window['cff_ai_assistant_copy'] = function ( btn ) {
 	const codeElement = btn.parentElement.parentElement.querySelector('code');
-	const copy_text = ( 'cff_ai_texts' in window ? window['cff_ai_texts']['copy_btn'] : 'Copy' );
+	const copy_text = btn.getAttribute('data-text') || ( 'cff_ai_texts' in window ? window['cff_ai_texts']['copy_btn'] : 'Copy' );
 	const copied_text = ( 'cff_ai_texts' in window ? window['cff_ai_texts']['copied_btn'] : 'Copied !!!' );
 	if (codeElement) {
 		const text = codeElement.textContent;
@@ -666,11 +767,13 @@ window['cff_ai_assistant_use_list'] = function ( btn ) {
     } catch (err) { alert(err); }
 };
 
-window['cff_ai_assistant_open'] = function( answer_topic ){
+window['cff_ai_assistant_open'] = function( _answer_topic, _extra = '' ){
+	extra = _extra;
     sendBtnCtrl.disabled = true;
     aiAssistantLoadingMss.style.display = 'none';
 	variables = "";
-	topic = answer_topic || 'js';
+    variables_tags = "";
+	topic = _answer_topic || 'js';
 
 	setPlaceholder();
 	// Get variables.
@@ -684,6 +787,15 @@ window['cff_ai_assistant_open'] = function( answer_topic ){
 			l = ( '' == l && 'userhelp' in item ) ? String(item.userhelp) : l;
 			if( 'dformat' in item && item['dformat'] == 'percent') l += ' ( it is the decimal value, it is not required to divide the variable value by 100 )';
 			variables += item.name + " (existing constant that represents " + l + ")\n";
+
+            if (!( 'exclude' in item ) || ! item.exclude) {
+                variables_tags += "- "+item.name+" (" + l + ")\n"+
+                "field label tag: [{"+item.name+"_label}]\n"+
+                "field shortlabel tag: [{"+item.name+"_shortlabel}]\n"+
+                "field value tag: [{"+item.name+"_value}]"+
+                (item.ftype == 'ffile' ? "\nuploaded files tag: [{"+item.name+"_urls}]" : "")+
+                "\n\n";
+            }
 		}
 	} );
 

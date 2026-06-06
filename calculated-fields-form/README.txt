@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.8.0
+Stable tag: 5.4.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -465,6 +465,12 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.8.1 =
+
+* Added a new AI Assistant feature that automatically generates notification email content.
+* Improved the plugin's user interface for a more streamlined experience.
+* Updated the Mollie SDK in the Platinum version of the plugin.
+
 = 5.4.8.0 =
 
 * Optimizes all CSS templates for improved performance and compatibility.
@@ -485,8 +491,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.4.7.7 =
 
 * Modifies the Coloris integration.
-
-= 5.4.7.6 =
-
-* Added support for the new Chrome Browser AI API in the AI Assistant module to enhance the local AI inference directly in the browser.
-* Included minor updates to the default template to ensure compatibility with WordPress 7.0.

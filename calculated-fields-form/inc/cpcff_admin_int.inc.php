@@ -43,7 +43,7 @@ if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' == $_SERVER['REQUEST_METHOD']
 $message = '';
 if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_calculatedfieldsf_post_options'] ) ) {
 	$message = esc_html__( 'Settings saved', 'calculated-fields-form' );
-	echo "<div id='setting-error-settings_updated' class='updated settings-error'> <p><strong>" . $message . '</strong></p></div>';
+	echo "<div id='setting-error-settings_updated' class='updated settings-error cff-admin-message'> <p><strong>" . $message . '</strong></p></div>';
 }
 
 $cpcff_texts_array = $form_obj->get_option( 'vs_all_texts', [] );
@@ -502,8 +502,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						<tr valign="top">
 							<th scope="row"><label for="fp_return_page"><?php esc_html_e( 'Thank you page (after sending the message)', 'calculated-fields-form' ); ?></label></th>
 							<td>
-								<input type="text" id="fp_return_page" name="fp_return_page" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page ) ); ?>" /><br />
-								<p><i><?php esc_html_e( 'Enter <%from_page%> to reload the form page after submission.', 'calculated-fields-form'); ?></i></p>
+								<input type="text" id="fp_return_page" name="fp_return_page" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page ) ); ?>" />
+								<p class="width75"><em style="font-size:11px;"><?php esc_html_e( 'Enter <%from_page%> to reload the form page after submission.', 'calculated-fields-form'); ?></em></p>
 								<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="cff-expand-mssg width75">
 									<p><?php esc_html_e( 'Commercial plugin versions allow you to include a summary of the information collected by the form on the "Thank You Page" content.', 'calculated-fields-form' ); ?> <a href="https://cff.dwbooster.com/download" target="_blank" class="button-primary"><?php esc_html_e( 'Upgrade Now', 'calculated-fields-form' ); ?></a></p>
 								</div>
@@ -553,20 +553,23 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					<table class="form-table">
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( '"From" email', 'calculated-fields-form' ); ?></th>
-							<td><input type="text" name="fp_from_email" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'fp_from_email', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email ) ); ?>" placeholder="<?php print esc_attr( 'Ex. admin@' . str_replace( 'www.', '', $_SERVER["HTTP_HOST"] ) ); ?>" /><br><b><em style="font-size:11px;">Ex. admin@<?php echo esc_html( isset( $_SERVER['HTTP_HOST'] ) ? str_replace( 'www.', '', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) ) : '' ); ?></em></b></td>
+							<td>
+                                <input type="text" name="fp_from_email" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_from_email', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email)); ?>" placeholder="<?php print esc_attr( 'Ex. admin@' . str_replace( 'www.', '', $_SERVER["HTTP_HOST"] ) ); ?>" />
+                                <p class="width75"><b><em style="font-size:11px;">Ex. admin@<?php echo str_replace('www.','',sanitize_text_field(wp_unslash($_SERVER["HTTP_HOST"]))); ?></em></b><br><em style="font-size:11px;"><?php _e( 'This email is required if the "From fixed email address" option is selected, or it is enabled the email copy to the user.', 'calculated-fields-form' ); ?></em></p>
+                            </td>
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Destination emails (comma separated)', 'calculated-fields-form' ); ?></th>
 							<td>
 								<input type="text" name="fp_destination_emails" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails)); ?>" placeholder="Ex. destination-email@domain.com" />
-								<p><a href="javascript:void(0);" onclick="document.getElementsByName('fp_destination_emails')[0].value='';"><?php esc_html_e( 'If you do not want to receive emails, please leave the "destination" attribute blank.', 'calculated-fields-form' ); ?></a></p>
+								<p class="width75"><a href="javascript:void(0);" onclick="document.getElementsByName('fp_destination_emails')[0].value='';"><?php esc_html_e( 'If you do not want to receive emails, please leave the "destination" attribute blank.', 'calculated-fields-form' ); ?></a></p>
 							</td>
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php _e( 'Reply-To (comma separated)', 'calculated-fields-form' ); ?></th>
 							<td>
 								<input type="text" name="fp_reply_to_emails" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_reply_to_emails', '')); ?>" placeholder="Ex. reply-to-email@domain.com" />
-								<p><em><?php esc_html_e( 'Please enter the email fields\' tags separated by commas (e.g., <%fieldname1%>,<%fieldname2%>). If the attribute is left empty, the plugin will utilize the email fields selected from the "Email field on the form" attribute in the "Email Copy to User" section.', 'calculated-fields-form' ); ?></em></p>
+								<p class="width75"><em style="font-size:11px;"><?php esc_html_e( 'Please enter the email fields\' tags separated by commas (e.g., <%fieldname1%>,<%fieldname2%>). If the attribute is left empty, the plugin will utilize the email fields selected from the "Email field on the form" attribute in the "Email Copy to User" section.', 'calculated-fields-form' ); ?></em></p>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -623,7 +626,13 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Message', 'calculated-fields-form' ); ?></th>
 							<td>
-								<textarea type="text" name="fp_message" rows="6" class="width75" style="resize:vertical;"><?php echo esc_textarea( $form_obj->get_option( 'fp_message', CP_CALCULATEDFIELDSF_DEFAULT_fp_message ) ); ?></textarea>
+                                <div class="width75">
+									<textarea type="text" name="fp_message" rows="6" class="width100" style="resize:vertical;margin-bottom:5px;"><?php echo esc_textarea( $form_obj->get_option( 'fp_message', CP_CALCULATEDFIELDSF_DEFAULT_fp_message ) ); ?></textarea>
+                                    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                                        <em style="font-size:11px;flex-grow:1;"><?php _e( 'In case to select HTML in the Email Format, use <strong>&lt;br&gt;</strong> tags for the changes of lines.', 'calculated-fields-form' ); ?></em>
+                                        <input type="button" class="button cff-ai-assistant" value="<?php esc_attr_e( 'AI Email Generation', 'calculated-fields-form' ); ?>" onclick="if('cff_ai_assistant_open' in window) cff_ai_assistant_open('message', document.querySelector('select[name=\'fp_emailformat\']').value);" style="float:none;">
+                                    </div>
+                                </div>
 								<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="cff-expand-mssg width75">
 									<p><?php esc_html_e( 'The plugin replaces the <%INFO%> tag in the email content with a summary of the information collected by the form. However, you can customize the email content and design by combining the fields and HTML tags. Learn more about the fields and informative tags supported by the notification emails by visiting the link:', 'calculated-fields-form' ); ?> <a href="https://cff.dwbooster.com/documentation#special-tags" target="_blank"><?php esc_html_e( 'Fields and informative tags', 'calculated-fields-form' ); ?></a></p>
 								</div>
@@ -818,13 +827,13 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'BCC', 'calculated-fields-form' ); ?></th>
 							<td><input type="email" name="cu_user_email_bcc_field" class="width75" placeholder="Ex. bcc-email@domain.com" disabled />
-							<p><em><?php esc_html_e( 'Email address for Blind Carbon Copy.', 'calculated-fields-form' ); ?></em></p></td>
+							<p><em style="font-size:11px;"><?php esc_html_e( 'Email address for Blind Carbon Copy.', 'calculated-fields-form' ); ?></em></p>
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php _e( 'Reply-To (comma separated)', 'calculated-fields-form' ); ?></th>
 							<td>
 								<input type="text" name="cu_reply_to_emails" class="width75" placeholder="Ex. reply-to-email@domain.com" disabled />
-								<p><em><?php esc_html_e( 'Kindly input email addresses separated by commas. If the field is left empty, the plugin will use the email address provided in the "From" attribute within the "Form Processing / Email Settings" section.', 'calculated-fields-form' ); ?></em></p>
+								<p class="width75"><em style="font-size:11px;"><?php esc_html_e( 'Kindly input email addresses separated by commas. If the field is left empty, the plugin will use the email address provided in the "From" attribute within the "Form Processing / Email Settings" section.', 'calculated-fields-form' ); ?></em></p>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -856,7 +865,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							<td>
 								<input type="text" name="cu_attach_static" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'cu_attach_static', '' ) ); ?>" />
 								<input type="button" value="<?php echo esc_attr__( 'Select file', 'calculated-fields-form' ); ?>" class="button-secondary cff-attach-file" />
-								<br><em style="font-size:11px;"><?php esc_html_e( 'Enter the path to a static file you wish to attach to the copy to user email.', 'calculated-fields-form' ); ?></em>
+								<p class="width75"><em style="font-size:11px;"><?php _e( 'Enter the path to a static file you wish to attach to the copy to user email.', 'calculated-fields-form' ); ?></em></p>
 							</td>
 						</tr>
 					</table>

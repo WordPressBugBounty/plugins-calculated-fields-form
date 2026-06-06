@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.4.8.1 =
+
+* Added a new AI Assistant feature that automatically generates notification email content.
+* Improved the plugin's user interface for a more streamlined experience.
+* Updated the Mollie SDK in the Platinum version of the plugin.
+
 = 5.4.8.0 =
 
 * Optimizes all CSS templates for improved performance and compatibility.
