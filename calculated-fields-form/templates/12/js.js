@@ -8,4 +8,8 @@ fbuilderjQuery(function(){
 	.add( '.cp_cff_12 #fbuilder input[type=reset]' )
 	.add( '.cp_cff_12 #fbuilder input[type=button]' )
 	.addClass( 'bttn-unite bttn-md bttn-primary' );
+
+    $('.cp_cff_12').on( 'cff-couponbutton-added', function() {
+        $( this ).find( '.apply-coupon' ).addClass( 'bttn-unite bttn-md bttn-primary' );
+    });
 });

@@ -1,19 +1,45 @@
-/* PROCESSING FORM ANIMATION */
-@keyframes cffspinner {to {transform: rotate(360deg);}}
-.cff-processing-form{position:fixed;top:calc( 50% - 50px );left:calc( 50% - 50px );width:100px;height:100px;z-index:99999;}
-.cff-processing-form:before {
-  content:'';box-sizing:border-box;position:absolute;width:100px;height:100px;
-  border-radius:50%;border-top:6px solid #333;
-  border-right:4px solid transparent;
-  animation:cffspinner .6s linear infinite;
+/* ===================================================================
+   LOADER ANIMATION STYLES
+   =================================================================== */
+
+/* -------------------------------------------------------------------
+   1. ANIMATION KEYFRAMES
+   ------------------------------------------------------------------- */
+@keyframes cffspinner {
+    to { transform: rotate(360deg); }
 }
+
+/* -------------------------------------------------------------------
+   2. PROCESSING FORM LOADER
+   ------------------------------------------------------------------- */
+.cff-processing-form {
+    position: fixed;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    z-index: 99999;
+}
+
+.cff-processing-form:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-top: 6px solid #333;
+    border-right: 4px solid transparent;
+    animation: cffspinner .6s linear infinite;
+}
+
 .cff-processing-form .cff-still-loading {
-  position: absolute;
-  top: 120px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-style: italic;
-  font-weight: 600;
-  color: #c52359 !important;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-style: italic;
+    font-weight: 600;
+    color: #c52359 !important;
 }

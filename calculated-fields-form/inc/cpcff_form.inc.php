@@ -470,13 +470,14 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			if ( ! empty( $this->_fields ) ) {
 				return $this->_fields;
 			}
-
+            $fields = [];
 			$form_structure = $this->get_option( 'form_structure', array() );
 			if ( ! empty( $form_structure[0] ) ) {
 				foreach ( $form_structure[0] as $field ) {
-					$this->_fields[ $field->name ] = $field;
+					$fields[$field->name] = $field;
 				}
 			}
+			$this->_fields = $fields;
 			return $this->_fields;
 		} // End get_fields.
 

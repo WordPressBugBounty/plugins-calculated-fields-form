@@ -1,5 +1,14 @@
 == Changelog ==
 
+= 5.4.8.2 =
+
+* Optimizes the admin interface styles.
+* Improves the banner design and functionality.
+* Enhances Template 12.
+* Includes various core improvements and optimizations.
+* Enhances the Coupons module to once you enter a coupon code, the discount hint text is updated automatically when the calculated price varies(available in the Professional, Developer, and Platinum editions).
+* Extends the CFFCHART operation to support a field name as the additional parameter used to store the generated image source of the chart, in addition to supporting the field object (available in the Developer and Platinum editions).
+
 = 5.4.8.1 =
 
 * Added a new AI Assistant feature that automatically generates notification email content.
