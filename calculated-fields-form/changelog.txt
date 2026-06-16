@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.4.8.3 =
+
+* Implements spam protection through integration with Akismet.
+* Enhances the form reset process for improved reliability and usability.
+* Updates the AI models to the latest available versions.
+* Introduces new hooks, including both actions and filters.
+
 = 5.4.8.2 =
 
 * Optimizes the admin interface styles.

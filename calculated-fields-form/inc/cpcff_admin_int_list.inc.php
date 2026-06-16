@@ -121,6 +121,12 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
     }
     update_option( 'CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', $mtts );
 
+    $ake = ( ! empty( $_GET["ake"] ) ) ? 1 : 0;
+    $aka = sanitize_text_field( wp_unslash( $_GET["aka"] ?? '' ) );
+    $akl = ( ! empty( $_GET["akl"] ) ) ? 1 : 0;
+    $akt = ( ! empty( $_GET["akt"] ) ) ? 1 : 0;
+    CPCFF_Akismet::get_instance()->save_settings( (bool) $ake, $aka, (bool) $akl, (bool) $akt );
+
 	update_option( 'CP_CALCULATEDFIELDSF_AMP', ( isset( $_GET['amp'] ) && '1' == $_GET['amp'] ? 1 : 0 ) );
 	update_option( 'CP_CALCULATEDFIELDSF_NONCE', ( isset( $_GET["nc"] ) && '1' == $_GET["nc"] ? 1 : 0 ) );
 
@@ -301,10 +307,14 @@ function cp_updateConfig()
 			amp = (document.getElementById("ccampform").checked) ? 1 : 0,
 			ecr = (document.getElementById("ccexcludecrawler").checked) ? 1 : 0,
 			nc  = (document.getElementById("ccusenonce").checked) ? 1 : 0,
-			em  = (document.getElementById("ccencodingemail").checked) ? 1 : 0;
-            mtts = document.getElementById("ccminimumtimetosubmit").value.replace( /[^\d]/g, '' );
+			em  = (document.getElementById("ccencodingemail").checked) ? 1 : 0,
+            mtts = document.getElementById("ccminimumtimetosubmit").value.replace( /[^\d]/g, '' ),
+            ake = (document.getElementById("ccenableakismet").checked) ? 1 : 0,
+            aka = String(document.getElementById("ccakismetapikey").value).trim(),
+            akl = (document.getElementById("ccakismetactivitylog").checked) ? 1 : 0,
+            akt = (document.getElementById("ccakismettestmode").checked) ? 1 : 0;
 
-		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&ov='+ov+'&amp='+amp+'&nc='+nc+'&mtts='+encodeURIComponent( mtts )+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
+		document.location = 'admin.php?page=cp_calculated_fields_form&ecr='+ecr+'&ac=st&scr='+scr+'&chs='+chs+'&dr='+dr+'&jsc='+jsc+'&optm='+optm+'&em='+em+'&df='+df+'&ov='+ov+'&amp='+amp+'&nc='+nc+'&mtts='+encodeURIComponent( mtts )+'&ake='+ake+'&aka='+encodeURIComponent( aka )+'&akl='+akl+'&akt='+akt+'&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-general-settings' ) ); ?>#metabox_troubleshoot_area';
         return true;
     });
 }
@@ -674,9 +684,43 @@ function cp_update_default_settings(e)
 					<br /><br />
 					<label><input type="checkbox" name="ccusenonce" id="ccusenonce" <?php echo ( intval( get_option( 'CP_CALCULATEDFIELDSF_NONCE', 0 ) ) ? 'CHECKED' : '' ); ?> /> <?php _e( 'Protect the forms with nonce', 'calculated-fields-form' ); ?></label>
                     <br /><br />
+                    <hr />
+                    <strong><?php _e( 'Protect the forms against the spam bots', 'calculated-fields-form' ); ?></strong><br /><br />
                     <label for="ccminimumtimetosubmit"><?php esc_html_e( 'Enable minimum time to submit (in seconds)', 'calculated-fields-form' );?></label> <input type="number" name="ccminimumtimetosubmit" id="ccminimumtimetosubmit" value="<?php print esc_attr( get_option( 'CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT ) ); ?>" size="3" />
                     <br /><br />
-					<input type="button" onclick="cp_updateConfig();" name="gobtn" value="<?php esc_attr_e( 'UPDATE', 'calculated-fields-form' ); ?>" class="button-secondary" />
+					<hr />
+                    <strong><?php esc_html_e( 'Spam protection with Akismet', 'calculated-fields-form' ); ?></strong><br /><br />
+                    <label for="ccenableakismet">
+                        <input type="checkbox" name="ccenableakismet" id="ccenableakismet" value="1"
+                        <?php echo (( CPCFF_Akismet::is_enabled() ) ? 'CHECKED' : ''); ?> />
+                        <?php esc_html_e( 'Enable Akismet spam protection', 'calculated-fields-form' ); ?>
+                    </label>
+                    <br /><br />
+                    <label for="ccakismetapikey"><?php esc_html_e( 'Akismet API Key', 'calculated-fields-form' ); ?> <?php echo CPCFF_Akismet::get_instance()->api_key_status(); ?></label><br>
+                    <input type="text" name="ccakismetapikey" id="ccakismetapikey" value="<?php print esc_attr( CPCFF_Akismet::get_api_key() ); ?>" class="width50" /><br />
+                    <em>
+                        <?php
+                        printf(
+                            /* translators: %s: link to akismet.com */
+                            esc_html__( 'Get your free key at %s', 'calculated-fields-form' ),
+                            '<a href="' . esc_url(CPCFF_Akismet::SIGNUP_URL ) . '" target="_blank">akismet.com</a>'
+                        );
+                        ?>
+                    </em>
+                    <br /><br />
+                    <label for="ccakismetactivitylog">
+                        <input type="checkbox" name="ccakismetactivitylog" id="ccakismetactivitylog" value="1"
+                        <?php echo (( CPCFF_Akismet::is_activity_log_enabled() ) ? 'CHECKED' : ''); ?> />
+                        <?php esc_html_e( 'Activity Log - Log Akismet results in the PHP log', 'calculated-fields-form' ); ?>
+                    </label>
+                    <br /><br />
+                    <label for="ccakismettestmode">
+                        <input type="checkbox" name="ccakismettestmode" id="ccakismettestmode" value="1"
+                        <?php echo (( CPCFF_Akismet::is_test_mode_enabled() ) ? 'CHECKED' : ''); ?> />
+                        <?php esc_html_e( 'Test Mode - Use Akismet in test mode', 'calculated-fields-form' ); ?>
+                    </label>
+                    <br /><br />
+                    <input type="button" onclick="cp_updateConfig();" name="gobtn" value="<?php esc_attr_e( 'UPDATE', 'calculated-fields-form' ); ?>" class="button-secondary" />
 					<br />
 				</form>
 			</div>

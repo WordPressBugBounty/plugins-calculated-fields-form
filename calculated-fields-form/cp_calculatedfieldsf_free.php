@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.8.2
+ * Version: 5.4.8.3
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.2' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.3' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -45,6 +45,7 @@ require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_trial.php';
 
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_form_cache.inc.php';
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_email_diagnostic.inc.php';
+require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_akismet.inc.php';
 
 // Global variables.
 CPCFF_MAIN::instance(); // Main plugin's object.
@@ -489,7 +490,11 @@ function cp_calculated_fields_form_check_posted_data() {
 					 * Action called after processing the data.
 					 * To the function is passed an array with submitted data.
 					 */
-					do_action_ref_array( 'cpcff_free_process_data', array(&$params) );
+					do_action_ref_array( 'cpcff_free_process_data', array(&$params, &$buffer, $fields) );
+
+					if ( isset( $params['aborting_submission']) && $params['aborting_submission'] === true ) {
+						return false;
+					}
 
 					foreach ( $passwords_to_delete as $password_to_delete ) {
 						unset( $params[ $password_to_delete ] );

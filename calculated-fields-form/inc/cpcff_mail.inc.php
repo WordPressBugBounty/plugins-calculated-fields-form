@@ -198,8 +198,8 @@ if ( ! class_exists( 'CPCFF_MAIL' ) ) {
 					try {
 						wp_mail(
 							$email,
-							$subject['text'],
-							$email_data['text'],
+							apply_filters('cpcff_free_notification_email_subject', $subject[ 'text' ], $params),
+							apply_filters('cpcff_free_notification_email_message', $email_data[ 'text' ], $params),
 							$headers,
 							$email_data['files']
 						);

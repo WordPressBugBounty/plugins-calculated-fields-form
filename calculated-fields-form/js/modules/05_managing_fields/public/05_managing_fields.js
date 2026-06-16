@@ -535,6 +535,7 @@
 									}
 									f.find('.cpefb_error.message').remove();
 									f.find('.cpefb_error').removeClass('cpefb_error');
+                                    f.find(':input').trigger('cff-reset-field');
 								},
 								50
 							);

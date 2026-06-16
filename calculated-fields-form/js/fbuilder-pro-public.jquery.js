@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.8.2';
+	$.fbuilder['version'] = '5.4.8.3';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1243,7 +1243,7 @@
                             if (_validSelector(s))
 							{
 								try {
-									$(document)[i]('change depEvent', s, function(evt){
+									$(document)[i]('change depEvent cff-reset-field', s, function(evt){
                                         let v = $(evt.target).val();
 										if(me['set_'+attr]) me['set_'+attr](v, $(evt.target).hasClass('ignore'));
 									});
