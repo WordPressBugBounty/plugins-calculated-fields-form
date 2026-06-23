@@ -70,7 +70,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 
 			$category 		 = isset( $args['category'] ) ? trim( $args['category'] ) : '';
 			$search_term 	 = isset( $args['search_term'] ) ? trim( $args['search_term'] ) : '';
-			$orderby 		 = empty( $args['order_by'] ) ? 'id' : $args['order_by'];
+			$orderby         = ( isset( $args['order_by'] ) && in_array( $args['order_by'], ['id', 'form_name'], true ) ) ? $args['order_by'] : 'id';
 			$include_desc    = ! empty( $args['description'] ) ? true : false;
 			$include_no_form = ! empty( $args['no_form'] ) ? true : false;
 
@@ -418,7 +418,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				$value = empty( $value ) ? $default : $value;
 
 				if ( is_string( $value ) ) {
-					$value = unserialize( $value );
+					$value = unserialize( $value, [ 'allowed_classes' => false ] );
 				}
 
 				if ( is_array( $value ) ) {

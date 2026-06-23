@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.8.3
+Stable tag: 5.4.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,14 +106,13 @@ For any other editor, use the shortcode to insert forms anywhere:
 * Form version control to recover previous versions.
 
 > **Free vs. Commercial Versions**
-> The free version includes the complete visual form builder, notification emails to the site owner, basic calculation operations, conditional logic, design customization, and multi-column layout.
-> Commercial versions (Professional, Developer, and Platinum) add payment gateway integration, submission storage, confirmation emails to users, advanced data source controls, financial and distance operation modules, chart generation, CRM integrations, PDF generation, e-signatures, and more.
+> The free version includes the complete visual form builder, notification emails to the site owner, basic calculation operations, conditional logic, design customization, multi-column layout, and submission storage on the website for review.
+> Commercial versions (Professional, Developer, and Platinum) add payment gateway integration, confirmation emails to users, advanced data source controls, financial and distance operation modules, chart generation, CRM integrations, PDF generation, e-signatures, and more.
 > All commercial versions are available as a **one-time purchase** with **lifetime access** to plugin updates. Visit https://cff.dwbooster.com/download for details.
 
 = Professional version features: =
 
 * All features of the free version.
-* [Store form submissions](https://cff.dwbooster.com/documentation#check-submissions) on the website for review.
 * [Send confirmation emails](https://cff.dwbooster.com/documentation#copy-user) to users with their submitted data.
 * [PayPal integration](https://cff.dwbooster.com/documentation#paypal-settings) and [Stripe integration](https://cff.dwbooster.com/documentation#stripe-checkout-addon) — dynamically compute the charge amount using a calculated field. SCA (Strong Customer Authentication) compatible with PSD2 (EU Payment Services Directive).
 * [Import and export forms](https://cff.dwbooster.com/documentation#import-export-form) between WordPress sites.
@@ -322,6 +321,10 @@ Forms can be published in any WordPress page, post, or template using the form's
 
 Yes. Sending confirmation emails to the user is included in the commercial versions (Professional, Developer, and Platinum). The free version sends notification emails to the site owner. [Compare versions](https://cff.dwbooster.com/download#comparison)
 
+= Can I store and review form submissions from the WordPress admin? =
+
+Yes. Starting with version 5.4.8.4, every form entry is saved to the WordPress database and accessible from the admin (Calculated Fields Form > Submissions). You can search, filter, view, and delete entries without leaving WordPress. Submission storage was previously available only in commercial versions.
+
 = Can I charge users the calculated price through the form? =
 
 Yes. Payment gateway integrations (PayPal, Stripe, and many others) are available in the commercial versions. The charge amount is dynamically computed using a calculated field. [PayPal configuration](https://cff.dwbooster.com/documentation#paypal-settings) | [Stripe configuration](https://cff.dwbooster.com/documentation#stripe-checkout-addon)
@@ -465,6 +468,12 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.8.4 =
+
+* Includes entry modules to store information collected by the form in the website's database.
+* Enhances boot protection.
+* Improves the plugin code.
+
 = 5.4.8.3 =
 
 * Implements spam protection through integration with Akismet.
@@ -493,7 +502,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Updates the list of supported Anthropic/Claude models.
 * Resolves all PHP 8.5 deprecation warnings and compatibility issues.
 * Fixes minor issues affecting the Slider control.
-
-= 5.4.7.9 =
-
-* Fixes a 504 timeout issue that could occur under certain server configurations.

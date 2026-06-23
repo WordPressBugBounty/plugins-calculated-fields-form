@@ -97,7 +97,7 @@ class CFF_DIVI extends ET_Builder_Module
             }
 
             $iframe = sanitize_text_field($this->props['cff_iframe']);
-            if (!empty($attributes)) {
+            if (!empty($iframe)) {
                 $output .= ' iframe="1"';
             }
 

@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.4.8.4 =
+
+* Includes entry modules to store information collected by the form in the website's database.
+* Enhances boot protection.
+* Improves the plugin code.
+
 = 5.4.8.3 =
 
 * Implements spam protection through integration with Akismet.

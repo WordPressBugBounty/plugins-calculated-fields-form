@@ -80,7 +80,7 @@ class CPCFF_Akismet {
     private function register_hooks(): void {
         // Check submission before CFF processes it
         add_action( 'cpcff_process_data_before_insert', [ $this, 'handle_submission' ], 10, 3 );
-        add_action( 'cpcff_free_process_data', [ $this, 'handle_submission' ], 10, 3 );
+        add_action( 'cpcff_free_process_data_before_insert', [ $this, 'handle_submission' ], 10, 3 );
 
         // Mark notification emails as spam/ham based on Akismet result
         add_filter( 'cpcff_free_notification_email_subject', [ $this, 'mark_email_as_spam' ], 10, 2 );

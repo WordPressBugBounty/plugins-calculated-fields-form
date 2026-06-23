@@ -116,7 +116,7 @@ if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
 				! empty( $this->_revisions ) &&
 				isset( $this->_revisions[ $revision_id ] )
 			) {
-				return unserialize( $this->_revisions[ $revision_id ]['revision'] );
+				return unserialize( $this->_revisions[ $revision_id ]['revision'], ['allowed_classes' => false] );
 			}
 			return array();
 		} // End data.

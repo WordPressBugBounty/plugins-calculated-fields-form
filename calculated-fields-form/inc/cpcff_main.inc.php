@@ -107,6 +107,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 */
 		private function __construct() {
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_form.inc.php';
+            require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_submissions.inc.php';
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_amp.inc.php';
 
 			// Initializes the $_is_admin property.
@@ -289,6 +290,8 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - New Form', 'Add New', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_new', array( $this, 'admin_pages' ) );
 
+            add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Entries', 'Entries', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), "cp_calculated_fields_form_sub_entries", array( $this, 'admin_pages' ) );
+
 			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Troubleshoot Area & General Settings', 'Troubleshoot Area & General Settings', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_troubleshoots_settings', array( $this, 'admin_pages' ) );
 
 			add_submenu_page( 'cp_calculated_fields_form', 'Upgrade', 'Upgrade', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_upgrade', array( $this, 'admin_pages' ) );
@@ -343,7 +346,12 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		public function admin_pages() {
 			// Settings page of the plugin.
 			if ( isset( $_GET['cal'] ) && '' != $_GET['cal'] ) {
-				@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_int.inc.php';
+                // Settings page of the plugin
+                if (isset($_GET["list"]) && $_GET["list"] == '1') {
+                    @include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_int_message_list.inc.php';
+                } else {
+                    @include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_int.inc.php';
+                }
 			} else {
 				if( get_transient('cff-video-tutorial') ) {
 					@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_landing_page.inc.php';
@@ -419,7 +427,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					);
 
 				} elseif (
-					in_array( $_GET['page'], array( 'cp_calculated_fields_form', 'cp_calculated_fields_form_sub_new', 'cp_calculated_fields_form_sub_troubleshoots_settings' ) )
+					in_array( $_GET['page'], array( 'cp_calculated_fields_form', 'cp_calculated_fields_form_sub_new', 'cp_calculated_fields_form_sub_entries', 'cp_calculated_fields_form_sub_troubleshoots_settings' ) )
 				) {
 
 					// Fix a Cachebuster plugin conflict.
@@ -508,7 +516,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 								'ai-default-model'      => CPCFF_AI_REQUESTS::get_default_model()
 							)
 						);
-					}
+					} elseif ('cp_calculated_fields_form_sub_entries' == $_GET["page"]) {
+                        print "<script data-category=\"functional\">document.location = 'admin.php?page=cp_calculated_fields_form&list=1&search&dfrom&dto&cal=0&ds=Filter&_cpcff_nonce=" . esc_js(wp_create_nonce('cff-submissions-list')) . "';</script>";
+                    }
 
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_caret', plugins_url( '/vendors/jquery.caret.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'jquery' ), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_purify', plugins_url( '/vendors/purify.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );

@@ -266,8 +266,12 @@ function cp_manageSettings(id)
 
 function cp_viewMessages(id)
 {
-	if ( confirm( "To store and access the information entered by users you need to upgrade your plugin copy. Do you want to visit the plugin website? \n\nhttps://cff.dwbooster.com/download" ) ) {
-		window.open( 'https://cff.dwbooster.com/download', '_blank' );
+    let url = 'admin.php?page=cp_calculated_fields_form&cal='+id+'&list=1&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce('cff-submissions-list' ) ); ?>';
+	// ctrl was held down during the click.
+	if (window.event.ctrlKey) {
+		window.open(url, '_blank');
+	} else {
+		document.location = url;
 	}
 }
 

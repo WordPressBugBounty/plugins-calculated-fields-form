@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.8.3
+ * Version: 5.4.8.4
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.3' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.4' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -184,7 +184,9 @@ function cp_calculated_fields_form_check_posted_data() {
 				{
 					if (
 						empty( $_POST['cff_form_start_time'] ) ||
-						empty( $start_time = CPCFF_AUXILIARY::decrypt( $_POST['cff_form_start_time'], $_POST['cff_form_start_time'] ) ) ||
+						empty( $start_time = CPCFF_AUXILIARY::decrypt( $_POST['cff_form_start_time'] ) ) ||
+                        ! is_numeric( $start_time ) ||
+                        (int) $start_time <= 0 ||
 						$start_time + $min_time > time()
 					) {
 						esc_html_e( 'You are submitting the form too quickly, or with invalid data, and are being identified as a spam bot. Please take more time to fill the form.', 'calculated-fields-form' );
@@ -484,35 +486,71 @@ function cp_calculated_fields_form_check_posted_data() {
 					$params['submissiondate_mmddyyyy'] = current_time( 'm/d/Y H:i:s' );
 					$params['submissiondate_ddmmyyyy'] = current_time( 'd/m/Y H:i:s' );
 
-					$params['itemnumber'] = str_replace( '.', '', strtoupper( uniqid( '', true ) ) ); // pseudo unique id.
+                    /**
+                     * Action called before insert the data into database.
+                     * To the function is passed an array with submitted data.
+                     */
+                    do_action_ref_array('cpcff_free_process_data_before_insert', array(&$params, &$buffer, $fields));
+
+                    if (isset($params['aborting_submission']) && $params['aborting_submission'] === true) {
+                        return false;
+                    }
+
+                    // insert into database
+                    //---------------------------------
+                    $item_number = CPCFF_SUBMISSIONS::insert(
+                        array(
+                            'formid' => CP_CALCULATEDFIELDSF_ID,
+                            'time' => current_time('mysql'),
+                            'ipaddr' => $ipaddr,
+                            'notifyto' => '',
+                            'paypal_post' => $params,
+                            'data' => $buffer
+                        )
+                    );
+
+                    if (!$item_number) {
+                        esc_html_e('Error saving data! Please try again.', 'calculated-fields-form');
+                        print '<br />';
+                        esc_html_e('Error debug information: ', 'calculated-fields-form');
+                        $wpdb->print_error();
+                        $js_redirect();
+                        exit;
+                    }
+
+                    $params['itemnumber'] = $item_number;
 
 					/**
 					 * Action called after processing the data.
 					 * To the function is passed an array with submitted data.
 					 */
-					do_action_ref_array( 'cpcff_free_process_data', array(&$params, &$buffer, $fields) );
+					do_action_ref_array( 'cpcff_free_process_data', array(&$params) );
 
-					if ( isset( $params['aborting_submission']) && $params['aborting_submission'] === true ) {
-						return false;
-					}
-
+                    $update_entry_by_password_handling = false;
 					foreach ( $passwords_to_delete as $password_to_delete ) {
 						unset( $params[ $password_to_delete ] );
+                        $update_entry_by_password_handling = true;
 					}
 
 					foreach ( $passwords_to_hash as $password_to_hash ) {
 						if ( ! empty( $params[ $password_to_hash ] ) ) {
 							$params[ $password_to_hash ] = wp_hash_password( $params[ $password_to_hash ] );
+                            $update_entry_by_password_handling = true;
 						}
 					}
 
 					foreach ( $passwords_to_plain as $password_to_plain ) {
 						if ( ! empty( $params[ $password_to_plain ] ) ) {
 							$params[ $password_to_plain ] = sanitize_text_field( $params[ $password_to_plain ] );
+                            $update_entry_by_password_handling = true;
 						}
 					}
 
-					require_once __DIR__ . '/inc/cpcff_mail.inc.php';
+                    if ($update_entry_by_password_handling) {
+                        CPCFF_SUBMISSIONS::update($params['itemnumber'], ['paypal_post' => $params]);
+                    }
+
+                    require_once __DIR__ . '/inc/cpcff_mail.inc.php';
 
 					$cpcff_mail = new CPCFF_MAIL();
 					$cpcff_mail->send_notification_email( $form_obj, $params, $buffer );

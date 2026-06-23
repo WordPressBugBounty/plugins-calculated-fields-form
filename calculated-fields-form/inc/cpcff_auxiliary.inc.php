@@ -433,7 +433,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		public static function array_map_recursive( $array, $callback ) {
 			return array_map(function($value) use ($callback) {
 				if (is_array($value)) {
-					return self::recursive_array_map($value, $callback);
+					return self::array_map_recursive($value, $callback);
 				} else {
 					return $callback($value);
 				}
@@ -442,11 +442,21 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 		public static function replace_params_into_url( $url, $params = array() ) {
 			try {
-				if (
+                if (
 					preg_match( '/^<%from_page%>/i', $url, $match ) &&
 					isset( $params['from_page'] )
 				) {
 					$url   = preg_replace( '/^<%from_page%>/i', $params['from_page'], $url );
+
+					$destination_host = parse_url( $url, PHP_URL_HOST );
+					$site_host        = parse_url( home_url(), PHP_URL_HOST );
+					if (
+						! empty( $destination_host ) &&
+						strcasecmp( $destination_host, $site_host ) !== 0
+					) {
+						$url = home_url( '/' );
+					}
+
 					$parts = explode( '?', $url );
 					$url   = array_shift( $parts );
 					if ( count( $parts ) ) {
@@ -557,20 +567,17 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			return $encrypted ? $encrypted : $plain;
 		} // End encrypt
 
-		public static function decrypt($encrypted, $on_invalid_return = false)
+		public static function decrypt($encrypted, $deprecated = false) // deprecated parameter is kept for backward compatibility
 		{
-            if($encrypted)
-            {
-                if ( ! function_exists( 'openssl_cipher_iv_length' ) || ! function_exists( 'openssl_decrypt' ) ) {
-                    return $on_invalid_return;
-                }
-				$key = self::_get_key();
-				$ivlen = openssl_cipher_iv_length("AES-256-CBC");
-				$iv = substr(md5($key), 0, $ivlen);
-				return openssl_decrypt($encrypted, "AES-256-CBC", $key, 0, $iv);
-			}
-			return $on_invalid_return;
-		} // End decrypt
+            if ( ! function_exists( 'openssl_cipher_iv_length' ) || ! function_exists( 'openssl_decrypt' ) ) {
+                return $encrypted;
+            }
+            $key = self::_get_key();
+            $ivlen = openssl_cipher_iv_length("AES-256-CBC");
+            $iv = substr(md5($key), 0, $ivlen);
+            $decrypted = openssl_decrypt($encrypted, "AES-256-CBC", $key, 0, $iv);
+            return $decrypted !== false ? $decrypted : $encrypted;
+        } // End decrypt
 
 		/**
 		 * Checks if the uploaded file is supported by WordPress and it is not a dangerous  file.

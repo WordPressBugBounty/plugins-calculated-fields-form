@@ -65,6 +65,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<div class="cff-navigation-main-menu" style="margin-bottom:10px;">
 		<a href="admin.php?page=cp_calculated_fields_form_sub_new" class="button-primary"><?php esc_html_e( 'Add New', 'calculated-fields-form' ); ?></a>
 		<a href="admin.php?page=cp_calculated_fields_form" class="button-secondary"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a>
+        <a href="<?php print esc_url('admin.php?page=cp_calculated_fields_form&cal='.CP_CALCULATEDFIELDSF_ID.'&list=1&r='.rand().'&_cpcff_nonce='.wp_create_nonce( 'cff-submissions-list' )); ?>" class="button-secondary"><?php esc_html_e( 'Go to submissions', 'calculated-fields-form' ); ?></a>
 		<span><?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?></span>
 	</div>
 	<h1 class="cff-form-name">

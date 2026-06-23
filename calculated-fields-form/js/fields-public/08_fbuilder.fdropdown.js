@@ -21,7 +21,7 @@
 				{
 					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices)
 					if ( this.multiple ) this.first_choice = false;
-					
+
 					var c	 = this.choices,
 						cv	 = this.choicesVal,
 						og   = (typeof this.optgroup == 'undefined') ? new Array() : this.optgroup,
@@ -234,12 +234,14 @@
 					if($.isPlainObject(choices))
 					{
 						var me = this,
-                            bk = me.val(true, false, true);
+                            bk = me.val(true, false, true),
+							addDepClass = false;
 
 						if('texts' in choices && Array.isArray(choices.texts)) me.choices = choices.texts;
 						if('values' in choices && Array.isArray(choices.values)) me.choicesVal = choices.values;
                         if('dependencies' in choices && Array.isArray(choices.dependencies))
                         {
+							addDepClass = true;
                             me.choicesDep = choices.dependencies.map(
                                 function(x){
                                     return (Array.isArray(x)) ? x.map(
@@ -251,8 +253,10 @@
                         }
 						if('optgroup' in choices && Array.isArray(choices.optgroup)) me.optgroup = choices.optgroup;
 						var html = me.show(),
-							e = $('.'+me.name);
-						e.find('select').html($(html).find('select').html());
+							e = $('.'+me.name),
+							s = e.find('select');
+						s.html($(html).find('select').html());
+						if (addDepClass) s.addClass('depItemSel');
 						if(!Array.isArray(bk)) bk = [bk];
                         for(var j in bk)
                         {

@@ -146,7 +146,7 @@ if(current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_opti
                         $output['error'] = $err->getMessage();
                     }
                 } else {
-                    $output['error'] = __('Empty API Key or form description', 'calculated-field-form');
+                    $output['error'] = __('Empty API Key or form description', 'calculated-fields-form');
                 }
             } else { // Save settings case.
                 update_option('cff_ai_form_generator_model', $model_selected);
