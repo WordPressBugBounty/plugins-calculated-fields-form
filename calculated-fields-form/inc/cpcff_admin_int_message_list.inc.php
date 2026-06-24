@@ -390,7 +390,7 @@ if ($message) {
             fbuilderjQuery.fbuilder.confirmationDialog(title, message, yes_button, no_button, function() {
                 let confirmation = jQuery('#cp_confirm_delete_all').val();
                 if (String(confirmation).toLowerCase().trim() != 'delete') {
-                    alert('<?php echo esc_js(__('Please enter the "delete" word to confirm.', 'calculated-fields-form')); ?>');
+                    alert( <?php print wp_json_encode(__('Please enter the "delete" word to confirm.', 'calculated-fields-form')); ?> );
                     return false;
                 }
                 document.location = 'admin.php?page=cp_calculated_fields_form&cal=<?php echo CP_CALCULATEDFIELDSF_ID; ?>&list=1&r=' + Math.random() + '&da=1&_cpcff_nonce=<?php echo wp_create_nonce('cff-delete-all-submissions'); ?>';

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.8.4
+Stable tag: 5.4.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.8.5 =
+
+* Fixed a minor conflict with Divi 4 that could load forms inside an iframe even when the iframe option was disabled.
+* Enhanced deletion confirmation dialogs by automatically setting focus on the confirmation button, improving accessibility and user experience.
+
 = 5.4.8.4 =
 
 * Includes entry modules to store information collected by the form in the website's database.
@@ -495,10 +500,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Added a new AI Assistant feature that automatically generates notification email content.
 * Improved the plugin's user interface for a more streamlined experience.
 * Updated the Mollie SDK in the Platinum version of the plugin.
-
-= 5.4.8.0 =
-
-* Optimizes all CSS templates for improved performance and compatibility.
-* Updates the list of supported Anthropic/Claude models.
-* Resolves all PHP 8.5 deprecation warnings and compatibility issues.
-* Fixes minor issues affecting the Slider control.

@@ -348,6 +348,17 @@
 
         overlay.show();
         dialog.show();
+        if (dialog.find('input[type="text"]').length > 0) {
+            let input = dialog.find('input[type="text"]').first();
+            input.focus();
+            input.off('keydown').on('keydown', function (e) {
+                if (e.keyCode === 13) {
+                    yes_button.trigger('click');
+                }
+            });
+        } else {
+            yes_button.focus();
+        }
     };
 
     // fbuilder plugin
