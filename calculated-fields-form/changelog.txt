@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.4.8.6 =
+
+* Redesigned plugin interface for a smoother, more intuitive experience.
+* Strengthened security and boosted performance across the board.
+* Updated Cloud AI models with the latest enhancements and accuracy improvements.
+* Added a lightweight local model for fast, efficient in-browser inference.
+
 = 5.4.8.5 =
 
 * Fixed a minor conflict with Divi 4 that could load forms inside an iframe even when the iframe option was disabled.

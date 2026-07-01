@@ -125,9 +125,21 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				return self::$_current_url;
 			}
 
-			$protocol = ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' != $_SERVER['HTTPS'] ) || ( ! empty( $_SERVER['SERVER_PORT'] ) && 443 == $_SERVER['SERVER_PORT'] ) ) ? 'https://' : 'http://';
+            $is_ssl = is_ssl();
 
-			self::$_current_url = $protocol . ( isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '' ) . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' );
+            if ( ! $is_ssl && defined('CPCFF_TRUST_PROXY_HEADERS') && CPCFF_TRUST_PROXY_HEADERS ) {
+                // Trust proxy headers only when explicitly enabled.
+                $forwarded = isset($_SERVER['HTTP_X_FORWARDED_PROTO']) ? strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) : '';
+                if ('https' === $forwarded || (! empty($_SERVER['HTTP_X_FORWARDED_SSL']) && 'off' !== $_SERVER['HTTP_X_FORWARDED_SSL'])) {
+                    $is_ssl = true;
+                }
+            }
+
+            $protocol = $is_ssl ? 'https://' : 'http://';
+
+            $site_host = wp_parse_url( home_url(), PHP_URL_HOST );
+            $raw_uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+            self::$_current_url = esc_url_raw( $protocol . $site_host . $raw_uri );
 			return self::$_current_url;
 		} // End wp_current_url.
 
@@ -223,6 +235,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 			if ( is_array( $v ) ) {
 				foreach ( $v as $k => $v2 ) {
+                    $k = sanitize_text_field( wp_unslash( $k ) );
 					$v[ $k ] = self::sanitize( $v2, $allow_cff_fields_tags );
 				}
 			} else if( is_string( $v ) ) {
@@ -339,23 +352,26 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			// get current PHP time, offset by a minute to avoid clashes with other tasks.
 			$threshold = time() - MINUTE_IN_SECONDS;
 
-			// delete expired transients, using the paired timeout record to find them.
-			$sql = "
+			$sql = $wpdb->prepare(
+				"
 				delete from t1, t2
 				using $table t1
 				join $table t2 on t2.option_name = replace(t1.option_name, '_timeout', '')
 				where t1.option_name like '\_transient\_timeout\_%'
-				and t1.option_value < '$threshold'
-			";
+				and t1.option_value < %d
+			",
+				$threshold
+			);
 			$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-			// delete orphaned transient expirations.
-			$sql = "
+			$sql = $wpdb->prepare(
+				"
 				delete from $table
 				where option_name like '\_transient\_timeout\_%'
-				and option_value < '$threshold'
-			";
-
+				and option_value < %d
+			",
+				$threshold
+			);
 			$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		} // End clean_transients.
 

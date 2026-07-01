@@ -55,17 +55,24 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 
 		/************** PRIVATE INSTANCE METHODS **************/
 		private function _generate_session_id() {
-			require_once ABSPATH . 'wp-includes/class-phpass.php';
-			$hash = new PasswordHash( 8, false );
-
-			return md5( $hash->get_random_bytes( 32 ) );
+			return md5( random_bytes( 32 ) );
 		}
 
 		private function _set_cookie() {
 			try {
 				$_SESSION[ self::$CP_COOKIE_NAME ] = $this->session_id . '||' . $this->expiration;
 				if ( ! headers_sent() ) {
-					@setcookie( self::$CP_COOKIE_NAME, $this->session_id . '||' . $this->expiration, 0, '/' );
+					@setcookie(
+						self::$CP_COOKIE_NAME,
+						$this->session_id . '||' . $this->expiration,
+						array(
+							'expires'  => 0,
+							'path'     => '/',
+							'httponly' => true,
+							'secure'   => is_ssl(),
+							'samesite' => 'Lax',
+						)
+					);
 				}
 			} catch ( Exception $err ) {
 				error_log( $err->getMessage() );
@@ -121,13 +128,14 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 				}
 
 				if ( ! empty( $options_names ) ) {
-					$options_names = array_map( 'esc_sql', $options_names );
-					$options_names = "'" . implode( "','", $options_names ) . "'";
-					$result        = $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name IN ({$options_names})" ); // phpcs:ignore
-
+					$placeholders = implode( ',', array_fill( 0, count( $options_names ), '%s' ) );
+					$result = $wpdb->query( $wpdb->prepare(
+						"DELETE FROM {$wpdb->options} WHERE option_name IN ($placeholders)",
+						$options_names
+					) );
 				}
 			} catch ( Exception $err ) {
-				error_log( $err->getMassage() );
+				error_log( $err->getMessage() );
 			}
 		}
 

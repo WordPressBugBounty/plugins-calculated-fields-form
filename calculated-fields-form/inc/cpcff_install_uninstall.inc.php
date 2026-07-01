@@ -326,6 +326,8 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 
 					foreach ( $new_columns as $column_name => $column_settings ) {
 						if ( ! isset( $current_columns[ $column_name ] ) ) {
+                            // ALTER TABLE identifiers cannot be parameterized via wpdb->prepare().
+                            // $table and $column_name from constants, not user input.
 							$sql = 'ALTER TABLE  `' . $table . '` ADD `' . $column_name . '` ' . $column_settings;
 							$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 						}

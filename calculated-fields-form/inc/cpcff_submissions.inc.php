@@ -97,7 +97,7 @@ if(!class_exists('CPCFF_SUBMISSIONS'))
 			}
 
 			// Unserialize the submitted fields if it is a text
-			if(is_string(self::$_submissions_cache[$submission_id]->paypal_post))
+			if(is_serialized(self::$_submissions_cache[$submission_id]->paypal_post))
 			{
 				self::$_submissions_cache[$submission_id]->paypal_post = (($tmp = unserialize(self::$_submissions_cache[$submission_id]->paypal_post, ['allowed_classes' => false])) !== false) ? $tmp : array();
 			}

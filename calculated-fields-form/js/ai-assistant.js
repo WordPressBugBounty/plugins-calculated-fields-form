@@ -1,6 +1,15 @@
-import * as webllm from "https://esm.run/@mlc-ai/web-llm";
-
 /*************** WebLLM logic ***************/
+
+// Lazy loader for the WebLLM module from esm.run CDN.
+// Avoids fetching hundreds of MB from a third-party CDN on every admin page load;
+// the module is only fetched the first time the user selects the "local" AI provider.
+// ES modules dedupe by spec, so the cached _webllmModule is shared across all callers.
+let _webllmModule = null;
+async function loadWebLLM() {
+    if (_webllmModule) return _webllmModule;
+    _webllmModule = await import("https://esm.run/@mlc-ai/web-llm");
+    return _webllmModule;
+}
 let variables = "";
 let variables_tags = "";
 let topic = 'js';
@@ -169,7 +178,7 @@ let localAPI = {
         },
     },
     'webLLM': {
-        model: "Qwen2.5-Coder-3B-Instruct-q4f16_1-MLC",
+        model: "Qwen2.5-Coder-1.5B-Instruct-q4f32_1-MLC",
         engine: null,
         loadedModel: false,
         loadingModel: false,
@@ -188,8 +197,17 @@ let localAPI = {
         },
        initializeModel: async function() {
             if (this.engine == null) {
-                this.engine = new webllm.MLCEngine();
-                this.engine.setInitProgressCallback(updateEngineInitProgressCallback);
+                try {
+                    const webllm = await loadWebLLM();
+                    this.engine = new webllm.MLCEngine();
+                    this.engine.setInitProgressCallback(updateEngineInitProgressCallback);
+                } catch (err) {
+                    // WebLLM module failed to load (CDN unreachable, CSP block, etc.).
+                    // Reuse the existing fatal-error UI path so the user sees a clear message
+                    // and can switch to a cloud provider.
+                    await handleEngineError(err, 'loading');
+                    return false;
+                }
             }
 
             if (typeof navigator == 'undefined' || !navigator.gpu) {

@@ -76,9 +76,10 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				}
 				if ( class_exists( 'Error' ) ) {
 					try {
-						wp_footer(); } catch ( Error $err ) {
-							error_log( $err->getMessage() );
-						}
+						@wp_footer();
+					} catch ( Error $err ) {
+						error_log( $err->getMessage() );
+					}
 				}
 				$message .= ob_get_contents();
 				ob_end_clean();

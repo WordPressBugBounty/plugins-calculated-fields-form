@@ -251,7 +251,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$links,
 				'<a href="https://cff.dwbooster.com/customization" target="_blank">' . __( 'Request custom changes' ) . '</a>',
 				'<a href="admin.php?page=cp_calculated_fields_form">' . __( 'Settings' ) . '</a>',
-				'<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#93003f;font-weight:700;">' . __( 'Upgrade' ) . '*</a>',
+				'<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#93003f;font-weight:700;">' . __( 'Upgrade' ) . '*</a>',
 				'<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank">' . __( 'Help' ) . '</a>'
 			);
 			return $links;
@@ -290,7 +290,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - New Form', 'Add New', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_new', array( $this, 'admin_pages' ) );
 
-            add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Entries', 'Entries', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), "cp_calculated_fields_form_sub_entries", array( $this, 'admin_pages' ) );
+            add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Entries', 'Entries<span class="cff-menu-new">&nbsp;NEW!</span>', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), "cp_calculated_fields_form_sub_entries", array( $this, 'admin_pages' ) );
 
 			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Troubleshoot Area & General Settings', 'Troubleshoot Area & General Settings', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_troubleshoots_settings', array( $this, 'admin_pages' ) );
 
@@ -331,8 +331,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			$styles .= 'a.calculated-fields-form-submenu-marketplace { background-color: #f0db4f !important; color: #323330 !important; font-weight: 600 !important; }';
 			$styles .= 'a.calculated-fields-form-submenu-upgrade { background-color: #ee7878 !important; color: #ffffff !important; font-weight: 600 !important; }';
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			printf( '<style>%s</style>', $styles );
+            $styles .= '#adminmenu .cff-menu-new { display: inline-block; color: #f18500; vertical-align: super; font-size: 9px; font-weight: 600; padding-inline-start: 2px; }';
+
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            printf( '<style>%s</style>', $styles );
 		} // End admin_menu_styles.
 
 		/**
@@ -379,7 +381,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
                     const replacements = {
                         'a[href*="cp_calculated_fields_form_sub_documentation"]': 'https://cff.dwbooster.com/documentation',
                         'a[href*="cp_calculated_fields_form_sub_marketplace"]': 'https://cff-bundles.dwbooster.com',
-                        'a[href*="cp_calculated_fields_form_sub_upgrade"]': 'https://cff.dwbooster.com/download',
+                        'a[href*="cp_calculated_fields_form_sub_upgrade"]': 'https://cff.dwbooster.com/download#comparison',
                         'a[href*="cp_calculated_fields_form_sub_forum"]': 'https://wordpress.org/support/plugin/calculated-fields-form/#new-post'
                     };
                     for (const selector in replacements) {
@@ -410,7 +412,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 							$cpcff_redirect['url'] = 'https://cff.dwbooster.com/documentation';
 							break;
 						case 'cp_calculated_fields_form_sub_upgrade':
-							$cpcff_redirect['url'] = 'https://cff.dwbooster.com/download';
+							$cpcff_redirect['url'] = 'https://cff.dwbooster.com/download#comparison';
 							break;
 						case 'cp_calculated_fields_form_sub_forum':
 							$cpcff_redirect['url'] = 'https://wordpress.org/support/plugin/calculated-fields-form#new-post';
@@ -667,14 +669,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						<div class="codepeople-review-banner-content">
                             <div class="codepeople-close-banner"><button>&times;</button></div>
 							<div class="codepeople-review-banner-text">
-								<div>Upgrade to the <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:700;color:#c52359;">Professional plugin version</a> for advanced features. It\'s a one-time purchase with lifetime updates, and you can install it on all your websites. Thank you!
-								<ul>
-									<li>Improve user experience by emailing them a copy of the form data, including calculated field results.</li>
-									<li>Save form data for analysis in tools like Excel or Google Sheets.</li>
-									<li>Export the forms to your other websites easily.</li>
-									<li>Integrate a payment gateway to charge users the calculated prices.</li>
-								</ul>
-								</div>
+								<div>' . esc_html__( "If the form isn't loading on the public website, try inserting its shortcode with the iframe attribute set to 1, e.g.:", 'calculated-fields-form' ) . ' <span style="font-weight:700;color:#c52359;white-space:nowrap;">[CP_CALCULATED_FIELDS id="' . esc_html($atts['shortcode_atts']['id'] ?? 123) . '" iframe="1"]</span></div>
 							</div>
 						</div>
 					</div>'
@@ -690,9 +685,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				}
 				if ( class_exists( 'Error' ) ) {
 					try {
-						wp_footer(); } catch ( Error $err ) {
-							error_log( $err->getMessage() );
-						}
+						@wp_footer();
+					} catch ( Error $err ) {
+						error_log( $err->getMessage() );
+					}
 				}
 				$message .= ob_get_contents();
 				ob_end_clean();
@@ -867,7 +863,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					$content .= '<script data-category="functional">';
 					foreach ( $atts as $i => $v ) {
 						if ( 'id' != $i && 'class' != $i && ! is_numeric( $i ) ) {
-							$nV = ( is_numeric( $v ) ) ? $v : json_encode( $v ); // Sanitizing the attribute's value.
+							$nV = ( is_numeric( $v ) ) ? $v : wp_json_encode( $v ); // Sanitizing the attribute's value.
 							if ( is_scalar( $i ) ) {
 								$i        = preg_replace( '/[^a-z0-9_\-]/i', '', $i );
 								$content .= 'try{ if( ! ( "cff_var" in window ) )	window["cff_var"] = {}; window["cff_var"]["' . $i . '"]=' . $nV . '; if(typeof window["' . $i . '_arr"] == "undefined") window["' . $i . '_arr"]={}; window["' . $i . '_arr"]["_' . self::$form_counter . '"]=' . $nV . '; }catch( err ){}';
@@ -911,7 +907,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				( $var = trim( $atts['name'] ) ) != '' // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 			) {
 				if ( isset( $atts['value'] ) ) {
-					$value = json_encode( $atts['value'] );
+					$value = $atts['value'];
 				} else {
 					$from = '_';
 					if ( isset( $atts['from'] ) ) {
@@ -919,16 +915,16 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					}
 					if ( in_array( $from, array( '_POST', '_GET' ) ) ) {
 						if ( isset( $GLOBALS[ $from ][ $var ] ) ) {
-							$value = json_encode( $GLOBALS[ $from ][ $var ] );
+							$value = $GLOBALS[ $from ][ $var ];
 						} elseif ( isset( $atts['default_value'] ) ) {
-							$value = json_encode( $atts['default_value'] );
+							$value = $atts['default_value'];
 						}
 					} elseif ( isset( $_POST[ $var ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_POST[ $var ] ) ); // phpcs:ignore
+						$value = CPCFF_AUXILIARY::sanitize( $_POST[ $var ] ); // phpcs:ignore
 					} elseif ( isset( $_GET[ $var ] ) ) {
-						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_GET[ $var ] ) ); // phpcs:ignore
+						$value = CPCFF_AUXILIARY::sanitize( $_GET[ $var ] ); // phpcs:ignore
 					} elseif ( isset( $atts['default_value'] ) ) {
-						$value = json_encode( CPCFF_AUXILIARY::sanitize( $atts['default_value'] ) ); // phpcs:ignore
+						$value = CPCFF_AUXILIARY::sanitize( $atts['default_value'] ); // phpcs:ignore
 					}
 				}
 				if ( isset( $value ) ) {
@@ -938,7 +934,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						<script data-category="functional">
 							try{
 							if( ! ( "cff_var" in window ) )	window["cff_var"] = {};
-							window["cff_var"]["' . $var . '"]=' . $value . ';
+							window["cff_var"]["'.$var.'"]='.wp_json_encode( $value, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ).';
 							}catch( err ){}
 						</script>
 						';
@@ -955,6 +951,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			global $wpdb;
 
 			if ( empty( $this->_categories ) ) {
+				// $wpdb->prefix and CP_CALCULATEDFIELDSF_FORMS_TABLE are not user input.
+				// $wpdb->prepare() cannot parameterize identifiers, so the existing
+				// concatenation is intentional.
 				$this->_categories = $wpdb->get_results( 'SELECT DISTINCT category FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE category IS NOT NULL AND category <> ""', ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			}
 			if ( empty( $html ) ) {
@@ -1272,6 +1271,32 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				<?php
 			}
 		} // End _public_resources.
+
+        /**
+         * Check if the a feature is availabe and return the promotion link or empty text
+         */
+        public function check_feature($args = []) {
+            if (
+                ! isset( $args['feature'] ) ||
+                ( isset($args['check_class']) && class_exists($args['check_class']) ) ||
+                ( isset($args['check_constant']) && defined($args['check_constant']) ) ||
+                ( isset($args['check_function']) && function_exists($args['check_function']) )
+            ) {
+                return '';
+            }
+
+            $output = esc_html( $args['feature'] );
+
+            if ( isset( $args['link'] ) ) {
+                $title = '';
+                if ( isset( $args['title'] ) ) {
+                    $title = 'title="' . esc_attr( $args['title'] ) . '"';
+                }
+                $output = '<a href="' . esc_url( $args['link'] ) . '" target="_blank" ' . $title . '>' . $output . '</a>';
+            }
+
+            return $output;
+        }
 
 		/** TROUBLESHOOTS SECTION **/
 		public function compatibility_warnings() {

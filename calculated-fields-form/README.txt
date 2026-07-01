@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.8.5
+Stable tag: 5.4.8.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,13 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.8.6 =
+
+* Redesigned plugin interface for a smoother, more intuitive experience.
+* Strengthened security and boosted performance across the board.
+* Updated Cloud AI models with the latest enhancements and accuracy improvements.
+* Added a lightweight local model for fast, efficient in-browser inference.
+
 = 5.4.8.5 =
 
 * Fixed a minor conflict with Divi 4 that could load forms inside an iframe even when the iframe option was disabled.
@@ -494,9 +501,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Includes various core improvements and optimizations.
 * Enhances the Coupons module to once you enter a coupon code, the discount hint text is updated automatically when the calculated price varies(available in the Professional, Developer, and Platinum editions).
 * Extends the CFFCHART operation to support a field name as the additional parameter used to store the generated image source of the chart, in addition to supporting the field object (available in the Developer and Platinum editions).
-
-= 5.4.8.1 =
-
-* Added a new AI Assistant feature that automatically generates notification email content.
-* Improved the plugin's user interface for a more streamlined experience.
-* Updated the Mollie SDK in the Platinum version of the plugin.

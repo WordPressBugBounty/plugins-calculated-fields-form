@@ -9,7 +9,7 @@
 				<?php wp_nonce_field( 'calculated-fields-form-feedback', '_wpnonce' ); ?>
 				<div class="cp-feedback-reason-block">
 					<label>
-						<input type="radio" name="answer" value="collect-data">
+						<input type="radio" name="answer" value="confirmation-email">
 						I want to send a confirmation email to the user after submitting the form with the information collected and the calculated fields values.<br />
 					</label>
 					<div id="cp_feedback_collect_data" style="margin-left:25px;display:none;padding:10px;border:1px dotted gray;color:#660000">
@@ -82,7 +82,7 @@
 								case 'better-plugin':
 									form.find("#cp_feedback_otherplugin").show();
 								break;
-								case 'collect-data':
+								case 'confirmation-email':
 									form.find("#cp_feedback_collect_data").show();
 								break;
 							}

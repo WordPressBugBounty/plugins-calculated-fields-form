@@ -36,8 +36,7 @@ jQuery(function () {
     }
 
     // Texts
-	let video_tutorial_url			= 'https://www.youtube.com/embed/KB4VOFrbAT0?start=48',
-		txt_api_key_placeholder 	= cpcff_forms_library_config['texts']['api_key_placeholder'] ?? '',
+	let txt_api_key_placeholder 	= cpcff_forms_library_config['texts']['api_key_placeholder'] ?? '',
 		form_description_placeholder = cpcff_forms_library_config['texts']['form_descritpion_placeholder'] ?? '',
 		form_modifications_placeholder = cpcff_forms_library_config['texts']['form_modifications_placeholder'] ?? '',
 		txt_search_placeholder 		= cpcff_forms_library_config['texts']['search_placeholder'] ?? '',
@@ -45,7 +44,6 @@ jQuery(function () {
 
 		txt_form_descritpion_label = cpcff_forms_library_config['texts']['form_descritpion_label'],
 		txt_no_form_label 		   = cpcff_forms_library_config['texts']['no_form_label'],
-		txt_video_label 		   = cpcff_forms_library_config['texts']['video_label'],
 
 		txt_api_key_instruct 	   = cpcff_forms_library_config['texts']['api_key_instruct'],
 		txt_wordpress_instruct 	   = cpcff_forms_library_config['texts']['wordpress_instruct'],
@@ -89,13 +87,7 @@ jQuery(function () {
 						<button id="cff-ai-save-btn" class="button-primary" title="">${txt_save_api_key_btn}</button>
 						<button id="cff-ai-clear-btn" class="button-secondary">${txt_clear_api_key_btn}</button>
 					</div>
-					<div class="cff-ai-video-tutorial">
-						<div style="text-align:right;">
-							<div class="cff-form-library-close-back cff-form-library-close-video" onclick="document.getElementsByClassName(\'cff-ai-video-tutorial\')[0].remove();"></div>
-						</div>
-						<iframe width="1360" height="507" src="${video_tutorial_url}" title="Form AI Generator" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-					</div>
-					<i class="cff-ai-description">${txt_api_key_instruct} <a href="${video_tutorial_url}" target="_blank">${txt_video_label}</a></i>
+					<i class="cff-ai-description">${txt_api_key_instruct}</i>
 					<div class="cff-form-library-form-title">${txt_form_descritpion_label}</div>
 					<textarea id="cff-ai-form-description" rows="4" placeholder="${form_description_placeholder}"></textarea>
 					<div style="display:flex;gap:5px;align-items:center;">
@@ -230,12 +222,12 @@ jQuery(function () {
 
 						let tmp = $(form_tpl);
 						if (version_n[version] < version_n[j]) {
-							tmp.addClass( 'cff-form-library-form-disabled' ).append('<div class="cff-form-library-form-lock"></div>').on('click', function(){window.open('https://cff.dwbooster.com/download', '_blank');});
+							tmp.addClass( 'cff-form-library-form-disabled' ).append('<div class="cff-form-library-form-lock"></div>').on('click', function(){window.open('https://cff.dwbooster.com/download#comparison', '_blank');});
 							tmp.find('[type="button"]')
 								.prop( 'disabled', true )
 								.on(
 									'click',
-									function(){ window.open('https://cff.dwbooster.com/download', '_blank'); }
+									function(){ window.open('https://cff.dwbooster.com/download#comparison', '_blank'); }
 								);
 						} else {
 							tmp.find('[type="button"].cff-select-form').on(
@@ -342,9 +334,6 @@ jQuery(function () {
 		$('.cff-form-library-main').hide();
 		$('.cff-ai-form-generator').show();
         $('#cff-ai-model-provider').trigger('change');
-        if ( ai_api_key == '' && ai_default_provider != wordpress_ai ) {
-			$('.cff-ai-video-tutorial').css('display', 'flex');
-		}
 	};
 
     function formsByText(me) {

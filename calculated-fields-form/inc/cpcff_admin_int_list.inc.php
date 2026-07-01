@@ -157,6 +157,9 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 
 		$tables = array( $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE, $wpdb->prefix . CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX );
 		foreach ( $tables as $tab ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+            // DESCRIBE/ALTER TABLE identifiers cannot be parameterized via wpdb->prepare().
+            // $tab comes from a SHOW TABLES iteration (constants), $name from DESCRIBE schema.
+            // Not user input.
 			$myrows = $wpdb->get_results( "DESCRIBE {$tab}" ); // phpcs:ignore WordPress.DB.PreparedSQL
 			foreach ( $myrows as $item ) {
 				$name = $item->Field;
@@ -184,7 +187,7 @@ if ( $message ) {
 <?php
 if ( get_option( 'cff-t-f', 0 ) ) :
 	?>
-	<div style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;margin:10px 0;font-size:1.3em;">
+	<div style='display: flex;align-items: center;background: #fffaf4;border: 1px solid #F0AD4E;padding: 16px 20px;margin: 20px 30px 20px 0;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);gap: 16px;height: auto;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;justify-content: center;'>
 	<?php print wp_kses_post( get_option( 'cff-t-t', '' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 	</div>
 	<?php
@@ -273,11 +276,6 @@ function cp_viewMessages(id)
 	} else {
 		document.location = url;
 	}
-}
-
-function cp_BookingsList(id)
-{
-	document.location = 'admin.php?page=cp_calculated_fields_form&cal='+id+'&list=1&r='+Math.random();
 }
 
 function cp_deleteItem(id)
@@ -377,11 +375,11 @@ function cp_update_default_settings(e)
 		<div class="cff-popup-icon-separator"></div>
 		<div class="cff-popup-icon cff-popup-icon-disabled">
 			<div class="cff-popup-bubble"><?php esc_html_e( 'Add Ons', 'calculated-fields-form' ); ?></div>
-			<a href="https://cff.dwbooster.com/download" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/icons/addons.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Add Ons', 'calculated-fields-form' ); ?>"></a>
+			<a href="https://cff.dwbooster.com/download#comparison" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/icons/addons.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Add Ons', 'calculated-fields-form' ); ?>"></a>
 		</div>
 		<div class="cff-popup-icon cff-popup-icon-disabled">
 			<div class="cff-popup-bubble"><?php esc_html_e( 'Export/Import Forms', 'calculated-fields-form' ); ?></div>
-			<a href="https://cff.dwbooster.com/download" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/icons/import-export.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Export/Import Forms', 'calculated-fields-form' ); ?>"></a>
+			<a href="https://cff.dwbooster.com/download#comparison" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/icons/import-export.svg', __FILE__) ); ?>" alt="<?php esc_attr_e( 'Export/Import Forms', 'calculated-fields-form' ); ?>"></a>
 		</div>
 	</div>
 	<div id="normal-sortables" class="meta-box-sortables">
@@ -455,7 +453,8 @@ function cp_update_default_settings(e)
 				$myrows           = CPCFF_FORM::forms_list( [
 					'category' 		=> $cff_current_form_category,
 					'search_term' 	=> $cff_search_form_term,
-					'order_by'		=> $orderby
+					'order_by'		=> $orderby,
+                    'stats'         => true
 				] );
 
 				$total_pages  = ceil( count( $myrows ) / $records_per_page );
@@ -530,7 +529,7 @@ function cp_update_default_settings(e)
 							if ( 'form_name' == $orderby ) {
 								print 'class="cff-active-column"';} ?>><?php esc_html_e( 'Form Name', 'calculated-fields-form' ); ?></a></th>
 							<th align="center"><?php esc_html_e( 'Options', 'calculated-fields-form' ); ?></th>
-							<th align="left"><?php esc_html_e( 'Category/Shortcode', 'calculated-fields-form' ); ?></th>
+							<th align="left"><?php esc_html_e( 'Category / Shortcode / Stats', 'calculated-fields-form' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -571,19 +570,20 @@ function cp_update_default_settings(e)
 								<input type="button" name="calclone_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Duplicate', 'calculated-fields-form' ); ?>" onclick="cp_cloneItem(<?php echo esc_attr( $item->id ); ?>);" class="button-secondary" />
 								<input type="button" name="caldelete_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Delete', 'calculated-fields-form' ); ?>" onclick="cp_deleteItem(<?php echo esc_attr( $item->id ); ?>);" class="button-secondary cff-delete-form" />
 							</td>
-							<td><?php
-							if ( ! empty( $item->category ) ) {
-								print esc_html__( 'Category: ', 'calculated-fields-form' ) . '<b>' . esc_html( $item->category ) . '</b><br>';
-							} ?>
-								<div style="white-space:nowrap;">
-								<?php
-									if ( $_cff_include_link_to_form ) {
-										print '<a href="' . esc_attr( $_cff_link_to_form_base_url . $item->id ) . '" target="_blank">[CP_CALCULATED_FIELDS id="' . $item->id. '"]</a>';
-									} else {
-										print '[CP_CALCULATED_FIELDS id="' . $item->id. '"]';
-									}
+							<td nowrap>
+                                <?php
+                                if ( ! empty( $item->category ) ) {
+                                    print esc_html__( 'Category: ', 'calculated-fields-form' ) . '<b>' . esc_html( $item->category ) . '</b><br>';
+                                }
+                                if ( $_cff_include_link_to_form ) {
+                                    print '<a href="' . esc_attr( $_cff_link_to_form_base_url . $item->id ) . '" target="_blank">[CP_CALCULATED_FIELDS id="' . $item->id. '"]</a>';
+                                } else {
+                                    print '[CP_CALCULATED_FIELDS id="' . $item->id. '"]';
+                                }
 								?>
-								</div>
+                                <span style="margin-left:10px;">
+                                    (<a href="#" onclick="return cp_viewMessages(<?php echo esc_attr( $item->id ); ?>);" style="font-weight:600"><?php echo esc_html( $item->stats??0 ); ?></a>)
+                                </span>
 							</td>
 						</tr>
 						<?php
@@ -739,7 +739,7 @@ function cp_update_default_settings(e)
 		</div>
 	</div>
 </div><!-- End Marketplace Section -->
-[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://cff.dwbooster.com/download" target="_blank"><?php esc_html_e( 'Upgrade', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
+[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://cff.dwbooster.com/download#comparison" target="_blank"><?php esc_html_e( 'Upgrade', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
 </div>
 <script data-category="functional">cff_current_version='free';</script>
 <script data-category="functional" src="https://cff-bundles.dwbooster.com/plugins/plugins.js?v=<?php print esc_attr( CP_CALCULATEDFIELDSF_VERSION . '_' . gmdate( 'Y-m-d' ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>"></script>

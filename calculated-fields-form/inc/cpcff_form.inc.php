@@ -70,9 +70,12 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 
 			$category 		 = isset( $args['category'] ) ? trim( $args['category'] ) : '';
 			$search_term 	 = isset( $args['search_term'] ) ? trim( $args['search_term'] ) : '';
+			// Column-name ordering: $wpdb->prepare() cannot parameterize identifiers,
+			// so the only safe gate here is the strict in_array allowlist below.
 			$orderby         = ( isset( $args['order_by'] ) && in_array( $args['order_by'], ['id', 'form_name'], true ) ) ? $args['order_by'] : 'id';
 			$include_desc    = ! empty( $args['description'] ) ? true : false;
 			$include_no_form = ! empty( $args['no_form'] ) ? true : false;
+            $stats           = ! empty( $args['stats'] ) ? true : false;
 
 			$rows = $wpdb->get_results(
 				'SELECT id,form_name,category' .
@@ -91,6 +94,14 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				});
 			}
 
+            $submissions_stats = [];
+            if ($stats) {
+                $submissions_stats = $wpdb->get_results(
+                    'SELECT formid, count(formid) as stats FROM `' . CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME . '` GROUP BY formid',
+                    OBJECT_K
+                );
+            }
+
 			$return = [];
 
 			foreach( $rows as $row ) {
@@ -99,6 +110,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				$data->form_name 	= sanitize_text_field( $row->form_name );
 				$data->category  	= sanitize_text_field( $row->category );
 				$data->description 	= '';
+                $data->stats        = isset($submissions_stats[$row->id]) ? $submissions_stats[$row->id]->stats : 0;
 
 				if ( ! property_exists( $row, 'form_structure') ) {
 					$form_structure = '';
@@ -181,7 +193,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						}
 					}
 				} else if ( is_string( $form_template ) ) {
-					json_decode( $form_template, 'mormal' );
+					json_decode( $form_template, true );
 					if ( json_last_error() === JSON_ERROR_NONE ) {
 						$_form_structure = $form_template;
 					}
@@ -311,15 +323,15 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 		 */
 		public static function sanitize_structure( $structure ) {
 
-			function sanitize_attributes( $v, $i = '', $arr = [] ) { // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+			$sanitize_attributes = function( $v, $i = '', $arr = [] ) use ( &$sanitize_attributes ) { // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
 				if ( is_array( $v ) ) {
 					foreach ( $v as $k => $v1 ) {
-						$v[ $k ] = sanitize_attributes( $v1, $k, $v );
+						$v[ $k ] = $sanitize_attributes( $v1, $k, $v );
 					}
 				} elseif ( is_object( $v ) ) {
 					$keys = array_keys( get_object_vars( $v ) );
 					foreach ( $keys as $k ) {
-						$v->$k = sanitize_attributes( $v->$k, $k, (array) $v );
+						$v->$k = $sanitize_attributes( $v->$k, $k, (array) $v );
 					}
 				} elseif ( is_string( $v )  ) {
 					$v = preg_replace( '/(\b)_style\s*=/i', '$1style=', $v);
@@ -342,9 +354,9 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				}
 
 				return $v;
-			}
+			};
 
-			return sanitize_attributes( $structure );
+			return $sanitize_attributes( $structure );
 		} // End sanitize_structure.
 
 		/**
@@ -417,7 +429,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 
 				$value = empty( $value ) ? $default : $value;
 
-				if ( is_string( $value ) ) {
+				if ( is_serialized( $value ) ) {
 					$value = unserialize( $value, [ 'allowed_classes' => false ] );
 				}
 

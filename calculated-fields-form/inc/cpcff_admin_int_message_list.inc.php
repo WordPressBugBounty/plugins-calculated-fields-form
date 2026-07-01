@@ -143,19 +143,19 @@ if ($message) {
     </div>
 
 
-    <form action="admin.php" method="get" class="cff-filter-entries">
+    <form action="admin.php" method="get" class="cff-filter-entries" style="display:flex; flex-wrap:wrap; gap:10px;align-items:center;">
         <input type="hidden" name="page" value="cp_calculated_fields_form" />
         <input type="hidden" name="list" value="1" />
-        <div style="display:inline-block; white-space:nowrap; margin-right:20px;">
+        <div style="display:inline-block; white-space:nowrap;">
             <?php esc_html_e('Search for', 'calculated-fields-form'); ?>: <input type="text" name="search" value="<?php echo esc_attr((! empty($to_search)) ? $to_search : ''); ?>" />
         </div>
-        <div style="display:inline-block; white-space:nowrap; margin-right:20px;" class="cff-filter-left-column">
+        <div style="display:inline-block; white-space:nowrap;" class="cff-filter-left-column">
             <?php esc_html_e('From', 'calculated-fields-form'); ?>: <input type="text" id="dfrom" name="dfrom" value="<?php echo esc_attr((! empty($from_date)) ? $from_date : ''); ?>" />
         </div>
-        <div style="display:inline-block; white-space:nowrap; margin-right:20px;" class="cff-filter-right-column">
+        <div style="display:inline-block; white-space:nowrap;" class="cff-filter-right-column">
             <?php esc_html_e('To', 'calculated-fields-form'); ?>: <input type="text" id="dto" name="dto" value="<?php echo esc_attr(! empty($to_date) ? $to_date : ''); ?>" />
         </div>
-        <div style="display:inline-block; white-space:nowrap; margin-right:20px;">
+        <div style="display:inline-block; white-space:nowrap;">
             <?php esc_html_e('In', 'calculated-fields-form'); ?>: <select id="cal" name="cal">
                 <option value="0"><?php esc_html_e('All forms', 'calculated-fields-form'); ?></option><?php echo $form_list_opts; ?>
             </select>
@@ -166,7 +166,11 @@ if ($message) {
          */
         do_action('cpcff_messages_filters');
         ?>
-        <nobr><span class="submit"><input type="submit" name="ds" value="<?php esc_attr_e('Filter', 'calculated-fields-form'); ?>" class="button-primary" style="min-width:100px;margin-right:10px;" /><input type="button" value="<?php esc_attr_e('Export to CSV', 'calculated-fields-form'); ?>" class="button-secondary cff-upgrade-button" onclick="cff_open_upgrade_confirm();" /></span></nobr>
+        <nobr style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+            <input type="submit" name="ds" value="<?php esc_attr_e('Filter', 'calculated-fields-form'); ?>" class="button button-primary" style="min-width:100px;" />
+            <input type="button" value="<?php esc_attr_e('Export to CSV', 'calculated-fields-form'); ?>" class="button button-secondary cff-upgrade-button" onclick="cff_open_upgrade_confirm();" />
+            <input type="button" name="cp_calculatedfieldsf_reset" value="<?php esc_attr_e('Reset', 'calculated-fields-form'); ?>" class="button button-secondary" onclick="cp_reset_filter_form();" />
+        </nobr>
         <input type="hidden" name="_cpcff_nonce" value="<?php echo wp_create_nonce('cff-submissions-list'); ?>" />
     </form>
 
@@ -217,8 +221,8 @@ if ($message) {
                     <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Form', 'calculated-fields-form'); ?></th>
                     <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Date', 'calculated-fields-form'); ?></th>
                     <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('IP Address', 'calculated-fields-form'); ?></th>
-                    <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Email', 'calculated-fields-form'); ?><a href="jasvascript:void(0);" onclick="cff_open_upgrade_confirm();" style="text-decoration:none;margin-left:5px;">&#128712;</a></th>
-                    <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Payment info', 'calculated-fields-form'); ?><a href="jasvascript:void(0);" onclick="cff_open_upgrade_confirm();" style="text-decoration:none;margin-left:5px;">&#128712;</a></th>
+                    <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Email', 'calculated-fields-form'); ?><a href="javascript:void(0);" onclick="cff_open_upgrade_confirm();" style="text-decoration:none;margin-left:5px;">&#128712;</a></th>
+                    <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Payment info', 'calculated-fields-form'); ?><a href="javascript:void(0);" onclick="cff_open_upgrade_confirm();" style="text-decoration:none;margin-left:5px;">&#128712;</a></th>
                     <?php
                     /**
                      * Action called to include new headers in the table of messages
@@ -245,7 +249,7 @@ if ($message) {
                         <td><?php echo esc_html($event->id); ?></td>
                         <td><?php echo esc_html($event->formid); ?></td>
                         <td><?php echo esc_html(date('Y-m-d H:i', $time)); ?></td>
-                        <td><?php echo esc_html($event->ipaddr); ?></td>
+                        <td><?php echo '<a href="' . esc_url('http://whatismyipaddress.com/ip/' . $event->ipaddr) . '" target="_blank">' . esc_html($event->ipaddr) . '</a>'; ?></td>
                         <td>-</td>
                         <td>-</td>
                         <?php
@@ -312,119 +316,133 @@ if ($message) {
     echo $page_links_bottom;
     ?>
     <p class="submit"><input type="button" name="pbutton" value="<?php esc_attr_e('Delete all checked', 'calculated-fields-form'); ?>" onclick="cp_deleteAllTicked();" class="button-secondary" /> <input type="button" name="pbutton" value="<?php esc_attr_e('Print', 'calculated-fields-form'); ?>" onclick="cp_do_dexapp_print();" class="button-secondary" /> <span style="display:inline-block;float:right;text-align:right;"><input type="button" name="pbutton" value="<?php esc_attr_e('Delete all entries from all forms', 'calculated-fields-form'); ?>" onclick="cp_deleteAll();" class="button-secondary" style="background-color:#951717;border-color:#951717;color:white;" /><br><i><?php esc_html_e('Caution: "Delete all" erases all submissions in the database.', 'calculated-fields-form'); ?></i></span></p>
-
-    <div style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;">
-        <p><?php
-        esc_html_e('The commercial version of the "Calculated Fields Form" plugin allows you to add a summary of the information collected by the form on the "Thank You Page" content, manage payments, send user confirmation emails, analyze data by using AI agents, and much more.', 'calculated-fields-form');
-        ?></p>
-        <p style="text-transform: uppercase; font-weight:700; font-size:24px;margin-top:15px;margin-bottom:15px;line-height:28px;"><a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;color:#3c434a;text-shadow:1px 1px 2px white;"><?php esc_html_e('Pay only ONCE, use it FOREVER', 'calculated-fields-form'); ?></a></p>
-        <p style="font-size:18px; font-weight:400;line-height:28px;"><?php esc_html_e('No additional charges, ', 'calculated-fields-form'); ?> <span style="background:white;display:inline-block;padding:0 5px;"><a href="https://cff.dwbooster.com/terms" target="_blank" style="text-decoration:none;"><?php esc_html_e('lifetime updates', 'calculated-fields-form'); ?></a></span>, <?php esc_html_e('one copy for all your websites', 'calculated-fields-form'); ?> <a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;" class="button-primary"><?php esc_html_e('Get it now', 'calculated-fields-form'); ?></a></p>
+    <style type="text/css">
+        div#cff-upgrade-frame { display: flex; align-items: center; background: #fffaf4; border: 1px solid #F0AD4E; padding: 16px 20px; margin: 20px 0; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); gap: 16px; height: auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; } div#cff-upgrade-frame .cff-plugin-promote { width: 100%; flex-grow: 1; display: block; } div#cff-upgrade-frame .cff-premium-label { margin-bottom: 2px; font-weight: 600; color: #495057; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; } div#cff-upgrade-frame .cff-premium-title { font-size: 17px; font-weight: 800; color: #212529; margin-bottom: 4px; line-height: 1.2; } div#cff-upgrade-frame .cff-premium-desc { font-size: 13px; color: #495057; margin-bottom: 10px; line-height: 1.4; } div#cff-upgrade-frame .cff-premium-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; } @media screen and (max-width:710px) { div#cff-upgrade-frame { display: none; } }
+    </style>
+    <div id="cff-upgrade-frame">
+        <div class="cff-plugin-promote">
+            <div class="cff-premium-label"><?php esc_html_e( 'Premium Features', 'calculated-fields-form' ); ?></div>
+            <div class="cff-premium-desc">
+                <?php
+                esc_html_e('The commercial version of the "Calculated Fields Form" plugin allows you to add a summary of the information collected by the form on the "Thank You Page" content, manage payments, send user confirmation emails, analyze data by using AI agents, and much more.', 'calculated-fields-form');
+                ?>
+            </div>
+            <div class="cff-premium-title">
+                <?php esc_html_e('Pay only ONCE, use it FOREVER', 'calculated-fields-form'); ?>
+            </div>
+            <div class="cff-premium-desc">
+                <?php esc_html_e('No additional charges, ', 'calculated-fields-form'); ?> <span style="font-weight: 600; color: #228be6;"><?php esc_html_e('lifetime updates', 'calculated-fields-form'); ?></span>, <?php esc_html_e('one copy for all your websites', 'calculated-fields-form'); ?> <a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="text-decoration:none;" class="button-primary"><?php esc_html_e('Get it now', 'calculated-fields-form'); ?></a>
+            </div>
+        </div>
     </div>
-</div>
 
-<script data-category="functional" type="text/javascript">
-    (function() {
-        let $ = fbuilderjQuery;
-        $(function() {
-            $("#dfrom").datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
-            $("#dto").datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
-        });
-    })();
-
-    function cp_checkAllItems(e) {
-        try {
+    <script data-category="functional" type="text/javascript">
+        (function() {
             let $ = fbuilderjQuery;
-            $(e).closest('table').find('input[type="checkbox"]').prop('checked', $(e).prop('checked'));
-        } catch (err) {}
-    }
-
-    function cp_deleteMessageItem(id, form_id) {
-        let title = "<?php echo esc_js(__('Delete entry', 'calculated-fields-form')); ?>";
-        let yes_button = "<?php echo esc_js(__('Yes, delete it', 'calculated-fields-form')); ?>";
-        let no_button = "<?php echo esc_js(__('No, keep it', 'calculated-fields-form')); ?>";
-        let message = "<?php echo esc_js(__('You are about to delete the item with id: ', 'calculated-fields-form')); ?>" + id + " <?php echo esc_js(__('in the form: ', 'calculated-fields-form')); ?>" + form_id + "<br><b><?php echo esc_js(__('Are you sure that you want to delete this item?', 'calculated-fields-form')); ?></b>";
-
-        fbuilderjQuery.fbuilder.confirmationDialog(title, message, yes_button, no_button, function() {
-            document.location = 'admin.php?page=cp_calculated_fields_form&cal=<?php echo CP_CALCULATEDFIELDSF_ID; ?>&list=1&ld=' + id + '&r=' + Math.random() + '&_cpcff_nonce=<?php echo wp_create_nonce('cff-delete-submission'); ?>';
-            return true;
-        });
-    }
-
-    function cp_deleteAllTicked() {
-        try {
-            let $ = fbuilderjQuery,
-                ld = [],
-                ids = [];
-
-            $('.cp_item:checked').each(function() {
-                ids.push(this.value);
-                ld.push('ld[]=' + this.value);
-            });
-            if (ld.length) {
-                let title = "<?php echo esc_js(__('Delete entries', 'calculated-fields-form')); ?>";
-                let yes_button = "<?php echo esc_js(__('Yes, delete them', 'calculated-fields-form')); ?>";
-                let no_button = "<?php echo esc_js(__('No, keep them', 'calculated-fields-form')); ?>";
-                let message = "<?php echo esc_js(__('You are about to delete the checked item(s) with id(s): ', 'calculated-fields-form')); ?>" + ids.join(', ') + "<br><b><?php echo esc_js(__('Are you sure that you want to delete the item(s)?', 'calculated-fields-form')); ?></b>";
-
-                fbuilderjQuery.fbuilder.confirmationDialog(title, message, yes_button, no_button, function() {
-                    document.location = 'admin.php?page=cp_calculated_fields_form&cal=<?php echo CP_CALCULATEDFIELDSF_ID; ?>&list=1&' + ld.join('&') + '&r=' + Math.random() + '&_cpcff_nonce=<?php echo wp_create_nonce('cff-delete-submission'); ?>';
-                    return true;
+            $(function() {
+                $("#dfrom").datepicker({
+                    dateFormat: 'yy-mm-dd'
                 });
-            } else {
-                alert('<?php echo esc_js(__('Please select at least one item to delete.', 'calculated-fields-form')); ?>');
-            }
-        } catch (err) {}
-    }
+                $("#dto").datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+            });
+        })();
 
-    function cp_deleteAll() {
-        try {
-            let title = "<?php echo esc_js(__('Delete all entries from all forms', 'calculated-fields-form')); ?>";
-            let yes_button = "<?php echo esc_js(__('Yes, delete them', 'calculated-fields-form')); ?>";
-            let no_button = "<?php echo esc_js(__('No, keep them', 'calculated-fields-form')); ?>";
-            let message = "<b><?php echo esc_js(__('Are you sure that you want to delete all items from all the forms? Please note that you will not be able to recover them.', 'calculated-fields-form')); ?></b>" + "<label for='cp_confirm_delete_all' style='display:block;margin-top:20px;'>" + <?php echo wp_json_encode(__('Enter the <b>"delete"</b> word to confirm:', 'calculated-fields-form')); ?> + "</label><input type='text' id='cp_confirm_delete_all' style='width:100%;margin-top:10px;' />";
+        function cp_checkAllItems(e) {
+            try {
+                let $ = fbuilderjQuery;
+                $(e).closest('table').find('input[type="checkbox"]').prop('checked', $(e).prop('checked'));
+            } catch (err) {}
+        }
+
+        function cp_deleteMessageItem(id, form_id) {
+            let title = "<?php echo esc_js(__('Delete entry', 'calculated-fields-form')); ?>";
+            let yes_button = "<?php echo esc_js(__('Yes, delete it', 'calculated-fields-form')); ?>";
+            let no_button = "<?php echo esc_js(__('No, keep it', 'calculated-fields-form')); ?>";
+            let message = "<?php echo esc_js(__('You are about to delete the item with id: ', 'calculated-fields-form')); ?>" + id + " <?php echo esc_js(__('in the form: ', 'calculated-fields-form')); ?>" + form_id + "<br><b><?php echo esc_js(__('Are you sure that you want to delete this item?', 'calculated-fields-form')); ?></b>";
 
             fbuilderjQuery.fbuilder.confirmationDialog(title, message, yes_button, no_button, function() {
-                let confirmation = jQuery('#cp_confirm_delete_all').val();
-                if (String(confirmation).toLowerCase().trim() != 'delete') {
-                    alert( <?php print wp_json_encode(__('Please enter the "delete" word to confirm.', 'calculated-fields-form')); ?> );
-                    return false;
-                }
-                document.location = 'admin.php?page=cp_calculated_fields_form&cal=<?php echo CP_CALCULATEDFIELDSF_ID; ?>&list=1&r=' + Math.random() + '&da=1&_cpcff_nonce=<?php echo wp_create_nonce('cff-delete-all-submissions'); ?>';
+                document.location = 'admin.php?page=cp_calculated_fields_form&cal=<?php echo CP_CALCULATEDFIELDSF_ID; ?>&list=1&ld=' + id + '&r=' + Math.random() + '&_cpcff_nonce=<?php echo wp_create_nonce('cff-delete-submission'); ?>';
                 return true;
             });
-        } catch (err) {}
-    }
+        }
 
-    function cp_do_dexapp_print() {
-        w = window.open('', '_blank', 'noopener,noreferrer');
-        w.document.write("<style>table{border:2px solid black;width:100%;}th{border-bottom:2px solid black;text-align:left}td{padding-left:10px;border-bottom:1px solid black;} img{max-width:100%;}</style>" + document.getElementById('dex_printable_contents').innerHTML);
-        w.document.close();
-        w.focus();
-        w.print();
-        w.close();
-    }
+        function cp_deleteAllTicked() {
+            try {
+                let $ = fbuilderjQuery,
+                    ld = [],
+                    ids = [];
 
-    function cp_toggle_details(e) {
-        fbuilderjQuery.ajax({
-            url: '<?php echo esc_url(admin_url('admin.php?page=cp_calculated_fields_form')); ?>',
-            type: 'GET',
-            data: {
-                _cpcff_nonce: '<?php echo esc_js(wp_create_nonce('cff-toggle-details')); ?>',
-                list: 1,
-                cal: 0,
-                cff_toggle_details: 1,
-                show_details: e.checked ? 1 : 0
-            }
-        });
-        document.getElementsByClassName('cff-events-list')[0].classList[e.checked ? 'add' : 'remove']('cff-event-show-details');
-    }
+                $('.cp_item:checked').each(function() {
+                    ids.push(this.value);
+                    ld.push('ld[]=' + this.value);
+                });
+                if (ld.length) {
+                    let title = "<?php echo esc_js(__('Delete entries', 'calculated-fields-form')); ?>";
+                    let yes_button = "<?php echo esc_js(__('Yes, delete them', 'calculated-fields-form')); ?>";
+                    let no_button = "<?php echo esc_js(__('No, keep them', 'calculated-fields-form')); ?>";
+                    let message = "<?php echo esc_js(__('You are about to delete the checked item(s) with id(s): ', 'calculated-fields-form')); ?>" + ids.join(', ') + "<br><b><?php echo esc_js(__('Are you sure that you want to delete the item(s)?', 'calculated-fields-form')); ?></b>";
 
-    function cff_open_upgrade_confirm() {
-        if (confirm("<?php print esc_js(__('These features aren\'t available in this version. Do you want to open the plugin\'s page to check other versions?', 'calculated-fields-form')); ?>"))
-            window.open('https://cff.dwbooster.com/download', '_blank');
-    }
-</script>
+                    fbuilderjQuery.fbuilder.confirmationDialog(title, message, yes_button, no_button, function() {
+                        document.location = 'admin.php?page=cp_calculated_fields_form&cal=<?php echo CP_CALCULATEDFIELDSF_ID; ?>&list=1&' + ld.join('&') + '&r=' + Math.random() + '&_cpcff_nonce=<?php echo wp_create_nonce('cff-delete-submission'); ?>';
+                        return true;
+                    });
+                } else {
+                    alert('<?php echo esc_js(__('Please select at least one item to delete.', 'calculated-fields-form')); ?>');
+                }
+            } catch (err) {}
+        }
+
+        function cp_deleteAll() {
+            try {
+                let title = "<?php echo esc_js(__('Delete all entries from all forms', 'calculated-fields-form')); ?>";
+                let yes_button = "<?php echo esc_js(__('Yes, delete them', 'calculated-fields-form')); ?>";
+                let no_button = "<?php echo esc_js(__('No, keep them', 'calculated-fields-form')); ?>";
+                let message = "<b><?php echo esc_js(__('Are you sure that you want to delete all items from all the forms? Please note that you will not be able to recover them.', 'calculated-fields-form')); ?></b>" + "<label for='cp_confirm_delete_all' style='display:block;margin-top:20px;'>" + <?php echo wp_json_encode(__('Enter the <b>"delete"</b> word to confirm:', 'calculated-fields-form')); ?> + "</label><input type='text' id='cp_confirm_delete_all' style='width:100%;margin-top:10px;' />";
+
+                fbuilderjQuery.fbuilder.confirmationDialog(title, message, yes_button, no_button, function() {
+                    let confirmation = jQuery('#cp_confirm_delete_all').val();
+                    if (String(confirmation).toLowerCase().trim() != 'delete') {
+                        alert(<?php print wp_json_encode(__('Please enter the "delete" word to confirm.', 'calculated-fields-form')); ?>);
+                        return false;
+                    }
+                    document.location = 'admin.php?page=cp_calculated_fields_form&cal=<?php echo CP_CALCULATEDFIELDSF_ID; ?>&list=1&r=' + Math.random() + '&da=1&_cpcff_nonce=<?php echo wp_create_nonce('cff-delete-all-submissions'); ?>';
+                    return true;
+                });
+            } catch (err) {}
+        }
+
+        function cp_do_dexapp_print() {
+            w = window.open('', '_blank', 'noopener,noreferrer');
+            w.document.write("<style>table{border:0 !important;width:100%;}th{border-bottom:2px solid black !important;text-align:left}td{padding-left:10px;border-bottom:1px solid black !important;} img{max-width:100%;} table tr.alternate td:first-child, table thead tr th:first-child, table thead tr th:last-child,hr,.cff-events-actions{display:none;}</style>" + document.getElementById('dex_printable_contents').innerHTML);
+            w.document.close();
+            w.focus();
+            w.print();
+            w.close();
+        }
+
+        function cp_toggle_details(e) {
+            fbuilderjQuery.ajax({
+                url: '<?php echo esc_url(admin_url('admin.php?page=cp_calculated_fields_form')); ?>',
+                type: 'GET',
+                data: {
+                    _cpcff_nonce: '<?php echo esc_js(wp_create_nonce('cff-toggle-details')); ?>',
+                    list: 1,
+                    cal: 0,
+                    cff_toggle_details: 1,
+                    show_details: e.checked ? 1 : 0
+                }
+            });
+            document.getElementsByClassName('cff-events-list')[0].classList[e.checked ? 'add' : 'remove']('cff-event-show-details');
+        }
+
+        function cff_open_upgrade_confirm() {
+            if (confirm("<?php print esc_js(__('These features aren\'t available in this version. Do you want to open the plugin\'s page to check other versions?', 'calculated-fields-form')); ?>"))
+                window.open('https://cff.dwbooster.com/download#comparison', '_blank');
+        }
+
+        function cp_reset_filter_form() {
+            document.location = 'admin.php?page=cp_calculated_fields_form&cal=0&list=1&_cpcff_nonce=<?php echo wp_create_nonce('cff-submissions-list'); ?>';
+        }
+    </script>

@@ -28,6 +28,8 @@ function cp_calculatedfieldsf_form_cache() {
 
 			if ( $result  = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM `' . $table_name . '` WHERE id=%d', $form_id ), ARRAY_A ) ) {
 				if ( ! array_key_exists( 'extra', $result ) ) {
+					// ALTER TABLE identifiers cannot be parameterized via wpdb->prepare().
+					// $table_name is the class property $this->form_table - not user input.
 					$wpdb->query( "ALTER TABLE  `" . $table_name . "` ADD `extra` LONGTEXT" );
 				}
 

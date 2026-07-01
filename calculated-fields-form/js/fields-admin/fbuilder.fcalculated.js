@@ -467,7 +467,7 @@
                                     }
                                     else
                                     {
-                                        this.setTip('The module is distributed with the <a href="https://cff.dwbooster.com/download" target="_blank">Developer and Platinum versions</a> of the plugin.');
+                                        this.setTip('The module is distributed with the <a href="https://cff.dwbooster.com/download#comparison" target="_blank">Developer and Platinum versions</a> of the plugin.');
                                     }
 								}
 

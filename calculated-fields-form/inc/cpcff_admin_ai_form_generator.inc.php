@@ -133,6 +133,16 @@ if(current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_opti
                         }
 
                         $form_structure = CPCFF_AI_FORM_GENERATOR::model_inference($provider_selected, $model_selected, $form_description, $api_key, $current_form_structure);
+
+                        // Defense against prompt injection: AI responses are treated as untrusted.
+                        // Sanitize the decoded structure before storing in transient so the same
+                        // protections applied to manual saves (PR 4 change 1) also apply here.
+                        $decoded_structure = json_decode($form_structure, true);
+                        if (is_array($decoded_structure)) {
+                            $sanitized = CPCFF_FORM::sanitize_structure($decoded_structure);
+                            $form_structure = json_encode($sanitized);
+                        }
+
                         $form_preview = CPCFF_MAIN::instance()->no_form_preview($form_structure);
 
                         $transient_form_structure_expiration = 24 * 60 * 60; // 224 hours.

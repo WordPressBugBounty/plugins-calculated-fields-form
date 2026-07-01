@@ -129,8 +129,14 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
+							'claude-sonnet-5' => [
+                                'title' => esc_html__('Claude Sonnet 5 (Recommended)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
                             'claude-sonnet-4-6' => [
-                                'title' => esc_html__('Claude Sonnet 4.6 (Recommended)', 'calculated-fields-form'),
+                                'title' => esc_html__('Claude Sonnet 4.6', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
@@ -173,19 +179,19 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'max_tokens' => 64000
                             ],
                             'gemini-2.5-pro' => [
-                                'title' => esc_html__('Gemini 2.5 Pro', 'calculated-fields-form'),
+                                'title' => esc_html__('Gemini 2.5 Pro (Legacy)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'gemini-2.5-flash' => [
-                                'title' => esc_html__('Gemini 2.5 Flash', 'calculated-fields-form'),
+                                'title' => esc_html__('Gemini 2.5 Flash (Legacy)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'gemini-2.5-flash-lite' => [
-                                'title' => esc_html__('Gemini 2.5 Flash-Lite', 'calculated-fields-form'),
+                                'title' => esc_html__('Gemini 2.5 Flash-Lite (Legacy)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
@@ -216,31 +222,31 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'max_tokens' => 64000
                             ],
                             'MiniMax-M2.5-highspeed' => [
-                                'title' => esc_html__('MiniMax M2.5 Highspeed', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2.5 Highspeed (Legacy)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'MiniMax-M2.5' => [
-                                'title' => esc_html__('MiniMax M2.5', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2.5 (Legacy)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'MiniMax-M2.1-highspeed' => [
-                                'title' => esc_html__('MiniMax M2.1 Highspeed', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2.1 Highspeed (Legacy)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'MiniMax-M2.1' => [
-                                'title' => esc_html__('MiniMax M2.1', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2.1 (Legacy)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'MiniMax-M2' => [
-                                'title' => esc_html__('MiniMax M2', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2 (Legacy)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
@@ -252,6 +258,18 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'kimi-k2.5',
                         'api_key_url'   => 'https://platform.moonshot.ai/console/api-keys',
                         'models'        => [
+                            'kimi-k2.7-code' => [
+                                'title' => esc_html__('Kimi K2.7 Code', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
+							'kimi-k2.7-code-highspeed' => [
+                                'title' => esc_html__('Kimi K2.7 Code Highspeed (Fast)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
                             'kimi-k2.6' => [
                                 'title' => esc_html__('Kimi K2.6', 'calculated-fields-form'),
                                 'form-generation' => true,

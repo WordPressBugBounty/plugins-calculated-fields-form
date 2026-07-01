@@ -82,7 +82,7 @@ if ($currentTime < $targetTime):
 	}
 </style>
 <div class="countdown">
-	<h2 class="countdown-title" style="margin-top:10px;margin-bottom:15px;clear:both;"><?php print esc_html( $offer_text ); ?> <a href="https://cff.dwbooster.com/download" target="_blank" class="cff-offer-a"style="">40% OFF</a></h2>
+	<h2 class="countdown-title" style="margin-top:10px;margin-bottom:15px;clear:both;"><?php print esc_html( $offer_text ); ?> <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="cff-offer-a"style="">40% OFF</a></h2>
 	<div class="countdown-container">
 		<div class="countdown-time-unit">
 			<div class="countdown-time-box">

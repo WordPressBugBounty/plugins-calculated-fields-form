@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.8.5
+ * Version: 5.4.8.6
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.5' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.6' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -99,7 +99,11 @@ function cp_calculated_fields_form_direct_form_access() {
 		$cpcff_main     = CPCFF_MAIN::instance();
 		$shortcode_atts = array( 'id' => $form_id );
 
+		$js_reserved = array( '__proto__', 'constructor', 'prototype', 'hasOwnProperty', 'toString', 'valueOf' );
 		foreach ( $_GET as $_param_name => $_param_value ) {
+			if ( in_array( $_param_name, $js_reserved, true ) ) continue;
+			if ( ! preg_match( '/^[a-z_][a-z0-9_]*$/i', $_param_name ) ) continue;
+
 			$_param_name  = sanitize_text_field( wp_unslash( $_param_name ) );
 			$_param_value = sanitize_text_field( wp_unslash( $_param_value ) );
 
