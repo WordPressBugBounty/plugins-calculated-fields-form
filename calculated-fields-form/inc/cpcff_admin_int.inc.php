@@ -725,6 +725,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 
                     <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px; border-top:1px solid #eaeaea;margin-top:15px;padding-top:15px;">
                         <?php
+                        echo '<b>' . esc_html__('Payment Gateways:', 'calculated-fields-form') . '</b>';
                         echo implode(
                             '|',
                             [
@@ -761,6 +762,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                                 $cpcff_main->check_feature(['feature' => esc_html__('eWay Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/eway', 'title' => esc_html__('Australian online gateway for global card processing', 'calculated-fields-form')]),
 
                                 $cpcff_main->check_feature(['feature' => esc_html__('Payrexx Integration', 'calculated-fields-form'), 'link' => 'https://cff-bundles.dwbooster.com/product/payrexx-payment-gateway', 'title' => esc_html__('Swiss all-in-one payment solution for online businesses', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('(All Payment Gateways supported by WooCommerce)', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/woocommerce', 'title' => esc_html__('Delegate payment processing to WooCommerce', 'calculated-fields-form')]),
                             ]
                         );
                         ?>
@@ -786,6 +789,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                     <p><?php esc_html_e('Add an extra shield with CAPTCHA Verification. On top of the plugin\'s built-in bot protection and Akismet spam filtering, it adds a human-only challenge that blocks automated abuse before it reaches your inbox. Cleaner data, happier visitors, total peace of mind.', 'calculated-fields-form'); ?> [<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="font-weight:600;">Upgrade</a>]</p>
                     <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px; border-top:1px solid #eaeaea;margin-top:15px;padding-top:15px;">
                         <?php
+                        echo '<b>' . esc_html__('CAPTCHA Protection Options:', 'calculated-fields-form') . '</b>';
                         echo implode(
                             '|',
                             [
@@ -826,6 +830,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 
     <?php
     include_once dirname(__FILE__) . '/cpcff_admin_ai_assistant.inc.php';
+    include_once dirname(__FILE__) . '/cpcff-clippy/cpcff-clippy.php';
     ?>
 
 </div>

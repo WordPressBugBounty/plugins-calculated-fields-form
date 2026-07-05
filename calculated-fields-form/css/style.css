@@ -806,6 +806,39 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 
 .form-builder-error-messages .error-text{ color: #FF0000; border: 1px solid #FF0000; margin-bottom: 10px; padding:5px; }
 .form-builder-success-messages .success-text{ color: #46b450; border: 1px solid #46b450; margin-bottom: 10px; padding:5px; }
+.cff-admin-message {
+    position: fixed !important;
+    top: 50%;
+    width: 480px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
+    border-left: 3px solid #4ab866 !important;
+    border-right: 3px solid #4ab866 !important;
+    border-top: 1px solid #fff !important;
+    border-bottom: 1px solid #fff !important;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.cff-admin-message::after {
+    content: "\2715";
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    color: #666;
+    transition: all 0.2s ease;
+    text-shadow: 1px 1px 1px #ffffff;
+}
+
+/* Hover del icono al pasar el ratón por encima de TODO el mensaje */
+.cff-admin-message:hover::after {
+    color: #4ab866 !important;
+}
 
 .form-builder #tabs label{ font-size:12px !important; display:block;margin-top:10px;}
 

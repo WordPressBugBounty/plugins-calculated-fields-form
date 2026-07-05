@@ -1,10 +1,10 @@
-=== Calculated Fields Form ===
+=== Calculated Fields Form - AI Form Builder for WordPress - Contact, Payment, Quote, Quiz & More ===
 Contributors: codepeople
 Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.8.6
+Stable tag: 5.4.8.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,14 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.8.7 =
+
+* Enhanced the AI Form Generator module and fixed a minor issue in the form JSON schema.
+* Updated the list of supported AI models.
+* Added new menu options.
+* Improved the user interface.
+* Introduced Clippy.
+
 = 5.4.8.6 =
 
 * Redesigned plugin interface for a smoother, more intuitive experience.
@@ -492,12 +500,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Enhances the form reset process for improved reliability and usability.
 * Updates the AI models to the latest available versions.
 * Introduces new hooks, including both actions and filters.
-
-= 5.4.8.2 =
-
-* Optimizes the admin interface styles.
-* Improves the banner design and functionality.
-* Enhances Template 12.
-* Includes various core improvements and optimizations.
-* Enhances the Coupons module to once you enter a coupon code, the discount hint text is updated automatically when the calculated price varies(available in the Professional, Developer, and Platinum editions).
-* Extends the CFFCHART operation to support a field name as the additional parameter used to store the generated image source of the chart, in addition to supporting the field object (available in the Developer and Platinum editions).

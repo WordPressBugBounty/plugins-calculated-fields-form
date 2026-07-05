@@ -2373,6 +2373,18 @@
 					).open();
 	} );
 
+    $(document).on('click', '.cff-admin-message', function(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        $(this).fadeOut(400, function() {
+			$(this).remove();
+		});
+    });
+
+    setTimeout(function() {
+        $('.cff-admin-message').trigger('click');
+    }, 4000);
+
 	// Redirect to the admin list sections
 	function cff_jump_to_section() {
 		if ( /cp_calculated_fields_form_sub_addons/i.test(document.location.search) ) {

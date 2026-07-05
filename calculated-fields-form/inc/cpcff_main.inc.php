@@ -298,26 +298,25 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 			add_submenu_page( 'cp_calculated_fields_form', 'Marketplace', 'Marketplace', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_marketplace', array( $this, 'admin_pages' ) );
 
+			add_submenu_page( 'cp_calculated_fields_form', 'Get a custom quote', 'Get a custom quote', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_customization', array( $this, 'admin_pages' ) );
+
 			add_submenu_page( 'cp_calculated_fields_form', 'Documentation', 'Documentation', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_documentation', array( $this, 'admin_pages' ) );
 
 			add_submenu_page( 'cp_calculated_fields_form', 'Online Help', 'Online Help', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_forum', array( $this, 'admin_pages' ) );
 
 			// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 			if ( ! empty( $submenu ) && is_array( $submenu ) && ! empty( $submenu['cp_calculated_fields_form'] ) ) {
+                $_link_replacement = array(
+                    'cp_calculated_fields_form_sub_marketplace'     => 'calculated-fields-form-submenu-marketplace',
+                    'cp_calculated_fields_form_sub_upgrade'         => 'calculated-fields-form-submenu-upgrade',
+                    'cp_calculated_fields_form_sub_customization'   => 'calculated-fields-form-submenu-customization'
+                );
 				foreach ( $submenu['cp_calculated_fields_form'] as $index => $item ) {
-					if ( 'cp_calculated_fields_form_sub_marketplace' == $item[2] ) {
+                    if ( isset($_link_replacement[$item[2]]) ) {
 						if ( isset( $item[4] ) ) {
-							$submenu['cp_calculated_fields_form'][ $index ][4] .= ' calculated-fields-form-submenu-marketplace';
+							$submenu['cp_calculated_fields_form'][ $index ][4] .= ' ' . $_link_replacement[$item[2]];
 						} else {
-							$submenu['cp_calculated_fields_form'][ $index ][] = 'calculated-fields-form-submenu-marketplace';
-						}
-					}
-
-					if ( 'cp_calculated_fields_form_sub_upgrade' == $item[2] ) {
-						if ( isset( $item[4] ) ) {
-							$submenu['cp_calculated_fields_form'][ $index ][4] .= ' calculated-fields-form-submenu-upgrade';
-						} else {
-							$submenu['cp_calculated_fields_form'][ $index ][] = 'calculated-fields-form-submenu-upgrade';
+							$submenu['cp_calculated_fields_form'][ $index ][] = $_link_replacement[$item[2]];
 						}
 					}
 				}
@@ -328,9 +327,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		public function admin_menu_styles() {
 			$styles = '';
 
-			$styles .= 'a.calculated-fields-form-submenu-marketplace { background-color: #f0db4f !important; color: #323330 !important; font-weight: 600 !important; }';
-			$styles .= 'a.calculated-fields-form-submenu-upgrade { background-color: #ee7878 !important; color: #ffffff !important; font-weight: 600 !important; }';
-
+			$styles .= 'a.calculated-fields-form-submenu-upgrade{background-color: #f69a1b !important; color: #000000 !important; font-weight: 600 !important; margin-top:4px !important; margin-bottom:4px !important;}';
+			$styles .= 'a.calculated-fields-form-submenu-marketplace {background-color: #3858e9 !important; color: #ffffff !important; font-weight: 600 !important; margin-top:4px !important; margin-bottom:4px !important;}';
+            $styles .= 'a.calculated-fields-form-submenu-customization {background-color: #4a4a4a !important; color: #ffffff !important; font-weight: 600 !important; margin-top:4px !important; margin-bottom:4px !important;}';
             $styles .= '#adminmenu .cff-menu-new { display: inline-block; color: #f18500; vertical-align: super; font-size: 9px; font-weight: 600; padding-inline-start: 2px; }';
 
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -382,6 +381,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
                         'a[href*="cp_calculated_fields_form_sub_documentation"]': 'https://cff.dwbooster.com/documentation',
                         'a[href*="cp_calculated_fields_form_sub_marketplace"]': 'https://cff-bundles.dwbooster.com',
                         'a[href*="cp_calculated_fields_form_sub_upgrade"]': 'https://cff.dwbooster.com/download#comparison',
+                        'a[href*="cp_calculated_fields_form_sub_customization"]': 'https://cff.dwbooster.com/customization',
                         'a[href*="cp_calculated_fields_form_sub_forum"]': 'https://wordpress.org/support/plugin/calculated-fields-form/#new-post'
                     };
                     for (const selector in replacements) {
@@ -402,6 +402,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					'cp_calculated_fields_form_sub_documentation' == $_GET['page'] ||
 					'cp_calculated_fields_form_sub_marketplace' == $_GET['page'] ||
 					'cp_calculated_fields_form_sub_upgrade' == $_GET['page'] ||
+					'cp_calculated_fields_form_sub_customization' == $_GET['page'] ||
 					'cp_calculated_fields_form_sub_forum' == $_GET['page']
 				) {
 
@@ -413,6 +414,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 							break;
 						case 'cp_calculated_fields_form_sub_upgrade':
 							$cpcff_redirect['url'] = 'https://cff.dwbooster.com/download#comparison';
+							break;
+						case 'cp_calculated_fields_form_sub_customization':
+							$cpcff_redirect['url'] = 'https://cff.dwbooster.com/customization';
 							break;
 						case 'cp_calculated_fields_form_sub_forum':
 							$cpcff_redirect['url'] = 'https://wordpress.org/support/plugin/calculated-fields-form#new-post';

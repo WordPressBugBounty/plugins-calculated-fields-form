@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.4.8.7 =
+
+* Enhanced the AI Form Generator module and fixed a minor issue in the form JSON schema.
+* Updated the list of supported AI models.
+* Added new menu options.
+* Improved the user interface.
+* Introduced Clippy.
+
 = 5.4.8.6 =
 
 * Redesigned plugin interface for a smoother, more intuitive experience.

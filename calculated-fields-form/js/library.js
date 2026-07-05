@@ -120,7 +120,7 @@ jQuery(function () {
 					<div class="cff-form-library-column-left">
 						<div class="cff-form-library-search-box">
 							<div class="cff-form-library-close-back cff-form-library-close"></div>
-							<input type="search" placeholder="${txt_search_placeholder}" oninput="cff_filteringFormsByText(this)">
+							<input type="search" placeholder="${txt_search_placeholder}" oninput="cff_filteringFormsByText(this)" autocomplete="new-password">
 						</div>
 						<div class="cff-form-library-ai-forms">
 							<ul>
@@ -141,7 +141,7 @@ jQuery(function () {
 					<div class="cff-form-library-column-right">
 						<div class="cff-form-library-blank-form-container" style="display:flex;">
 							<div class="cff-form-library-blank-form">
-								<input type="text" placeholder="${txt_form_name_placeholder}" id="cp_itemname_library">
+								<input type="text" placeholder="${txt_form_name_placeholder}" id="cp_itemname_library" autocomplete="new-password">
 								<input type="button" value="${txt_create_form_btn}" class="button-primary" onclick="cff_getTemplate(0);">
 							</div>
 							<div class="cff-form-library-close-back cff-form-library-close"></div>

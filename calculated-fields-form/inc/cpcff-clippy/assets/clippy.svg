@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-labelledby="clippy-b-title">
+  <title id="clippy-b-title">Friendly round robot assistant with an antenna</title>
+
+  <defs>
+    <!-- Warm coral-to-orange gradient. Distinct from the plugin blue; reads as friendly/helper. -->
+    <linearGradient id="bgB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffb37a" />
+      <stop offset="100%" stop-color="#f08260" />
+    </linearGradient>
+    <radialGradient id="visorB" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0%" stop-color="#7ad7f0" />
+      <stop offset="100%" stop-color="#2271b1" />
+    </radialGradient>
+  </defs>
+
+  <!-- Soft drop shadow. -->
+  <ellipse cx="48" cy="86" rx="24" ry="3" fill="#1d2327" opacity="0.18" />
+
+  <!-- Antenna: small line + glowing dot. -->
+  <line x1="48" y1="6" x2="48" y2="14" stroke="#1d2327" stroke-width="2" stroke-linecap="round" />
+  <circle cx="48" cy="6" r="3.2" fill="#ffd166" stroke="#1d2327" stroke-width="1.5" />
+  <!-- Antenna glow. -->
+  <circle cx="48" cy="6" r="5.6" fill="#ffd166" opacity="0.25" />
+
+  <!-- Head: rounded square in coral gradient. -->
+  <rect x="14" y="14" width="68" height="58" rx="18" ry="18" fill="url(#bgB)" stroke="#a8421f" stroke-width="2" />
+
+  <!-- Side ear-circles: small rounded speakers/earpieces. -->
+  <rect x="9"  y="34" width="8" height="18" rx="3" ry="3" fill="#a8421f" />
+  <rect x="79" y="34" width="8" height="18" rx="3" ry="3" fill="#a8421f" />
+
+  <!-- Visor: large rounded rectangle taking the upper portion of the face. -->
+  <rect x="22" y="24" width="52" height="26" rx="11" ry="11" fill="url(#visorB)" stroke="#0f4f87" stroke-width="1.6" />
+
+  <!-- Eyes inside the visor: white circles with dark pupils. -->
+  <circle cx="36" cy="37" r="4.4" fill="#ffffff" />
+  <circle cx="60" cy="37" r="4.4" fill="#ffffff" />
+  <circle cx="37" cy="38" r="2.0" fill="#1d2327" />
+  <circle cx="61" cy="38" r="2.0" fill="#1d2327" />
+  <!-- Eye highlights. -->
+  <circle cx="35.5" cy="36" r="0.7" fill="#ffffff" />
+  <circle cx="59.5" cy="36" r="0.7" fill="#ffffff" />
+
+  <!-- Mouth: small smile line below the visor. -->
+  <path d="M40 60 q8 5 16 0" stroke="#1d2327" stroke-width="2.2" fill="none" stroke-linecap="round" />
+
+  <!-- Body hint: a small panel below the head. -->
+  <rect x="30" y="72" width="36" height="8" rx="4" ry="4" fill="#ffd9c2" stroke="#a8421f" stroke-width="1.2" />
+  <circle cx="42" cy="76" r="1.4" fill="#a8421f" />
+  <circle cx="48" cy="76" r="1.4" fill="#a8421f" />
+  <circle cx="54" cy="76" r="1.4" fill="#a8421f" />
+</svg>

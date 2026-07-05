@@ -13,8 +13,8 @@ if (!defined('CP_CALCULATEDFIELDSF_ID')) {
  */
 
 global $wpdb;
-
 $message = "";
+
 if (
     isset($_REQUEST['cff_toggle_details']) &&
     check_admin_referer('cff-toggle-details', '_cpcff_nonce')
@@ -128,7 +128,7 @@ $events_query = apply_filters('cpcff_messages_query', $events_query);
 $events = CPCFF_SUBMISSIONS::populate($events_query);
 
 if ($message) {
-    echo "<div id='setting-error-settings_updated' class='updated settings-error'><p><strong>" . esc_html($message) . "</strong></p></div>";
+    echo "<div id='setting-error-settings_updated' class='updated settings-error cff-admin-message'><p><strong>" . esc_html($message) . "</strong></p></div>";
 }
 ?>
 <div class="wrap cff-entries-backend">
@@ -244,7 +244,7 @@ if ($message) {
                         echo '<tr><td colspan="100%" style="font-weight:bold;text-align:center;background-color:#ffeebc;text-transform:uppercase;border-bottom: 1px solid #c3c4c7;">' . esc_html(date_i18n('F Y', $time)) . '</td></tr>';
                     }
                 ?>
-                    <tr class='alternate author-self status-draft format-default iedit' valign="top">
+                    <tr id="cff_event_<?php echo esc_attr($event->id);?>" class='alternate author-self status-draft format-default iedit' valign="top">
                         <td><input type="checkbox" value="<?php echo esc_attr($event->id); ?>" class="cp_item" style="margin-left:8px;"></td>
                         <td><?php echo esc_html($event->id); ?></td>
                         <td><?php echo esc_html($event->formid); ?></td>
