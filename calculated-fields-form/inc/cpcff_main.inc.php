@@ -278,31 +278,41 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 */
 		public function admin_menu() {
 			global $submenu;
+            $hooks_suffix = [];
 
 			// Settings page.
-			add_options_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_options_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
 
 			// Menu option.
-			add_menu_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ), 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0Ij48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI1IiByeT0iNSIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjAiIC8+PGxpbmUgeDE9IjE0IiB5MT0iMjQiIHgyPSIzMCIgeTI9IjI0IiBzdHJva2U9IiMxZDIzMjciIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPjxsaW5lIHgxPSIyMiIgeTE9IjE2IiB4Mj0iMjIiIHkyPSIzMiIgc3Ryb2tlPSIjMWQyMzI3IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz48bGluZSB4MT0iMzQiIHkxPSI0MCIgeDI9IjUwIiB5Mj0iNDAiIHN0cm9rZT0iIzFkMjMyNyIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+PGxpbmUgeDE9IjQ4IiB5MT0iMTYiIHgyPSIxNiIgeTI9IjQ4IiBzdHJva2U9IiMxZDIzMjciIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPjwvc3ZnPg==' );
+			$hooks_suffix[] = add_menu_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ), 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0Ij48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI1IiByeT0iNSIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjAiIC8+PGxpbmUgeDE9IjE0IiB5MT0iMjQiIHgyPSIzMCIgeTI9IjI0IiBzdHJva2U9IiMxZDIzMjciIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPjxsaW5lIHgxPSIyMiIgeTE9IjE2IiB4Mj0iMjIiIHkyPSIzMiIgc3Ryb2tlPSIjMWQyMzI3IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz48bGluZSB4MT0iMzQiIHkxPSI0MCIgeDI9IjUwIiB5Mj0iNDAiIHN0cm9rZT0iIzFkMjMyNyIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+PGxpbmUgeDE9IjQ4IiB5MT0iMTYiIHgyPSIxNiIgeTI9IjQ4IiBzdHJva2U9IiMxZDIzMjciIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPjwvc3ZnPg==' );
 
 			// Submenu options.
-			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form', 'All Forms', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form', 'All Forms', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - New Form', 'Add New', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_new', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - New Form', 'Add New', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_new', array( $this, 'admin_pages' ) );
 
-            add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Entries', 'Entries<span class="cff-menu-new">&nbsp;NEW!</span>', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), "cp_calculated_fields_form_sub_entries", array( $this, 'admin_pages' ) );
+            $hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Entries', 'Entries<span class="cff-menu-new">&nbsp;NEW!</span>', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), "cp_calculated_fields_form_sub_entries", array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Troubleshoot Area & General Settings', 'Troubleshoot Area & General Settings', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_troubleshoots_settings', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Troubleshoot Area & General Settings', 'Troubleshoot Area & General Settings', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_troubleshoots_settings', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Upgrade', 'Upgrade', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_upgrade', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Upgrade', 'Upgrade', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_upgrade', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Marketplace', 'Marketplace', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_marketplace', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Marketplace', 'Marketplace', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_marketplace', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Get a custom quote', 'Get a custom quote', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_customization', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Get a custom quote', 'Get a custom quote', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_customization', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Documentation', 'Documentation', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_documentation', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Documentation', 'Documentation', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_documentation', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Online Help', 'Online Help', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_forum', array( $this, 'admin_pages' ) );
+			$hooks_suffix[] = add_submenu_page( 'cp_calculated_fields_form', 'Online Help', 'Online Help', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_forum', array( $this, 'admin_pages' ) );
+
+            foreach ($hooks_suffix as $hook_suffix) {
+                if ($hook_suffix) {
+                    add_action("load-{$hook_suffix}", function ($arg = '') {
+                        remove_all_actions('admin_notices');
+                        remove_all_actions('all_admin_notices');
+                    });
+                }
+            }
 
 			// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 			if ( ! empty( $submenu ) && is_array( $submenu ) && ! empty( $submenu['cp_calculated_fields_form'] ) ) {

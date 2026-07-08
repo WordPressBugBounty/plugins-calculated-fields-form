@@ -243,7 +243,29 @@
 									return (state.id) ? $('<span class="prefix-selected-option">'+state.text+'</span>').find('.country-code').text() : state.text;
 								},
 								'dropdownAutoWidth' : true,
-								'dropdownParent':prefix.next('.cff-select2-container')
+								'dropdownParent':prefix.next('.cff-select2-container'),
+                                'matcher': function(params, data) {
+                                    function stripHtml(str) {
+                                        var doc = new DOMParser().parseFromString(str, 'text/html');
+                                        return doc.body.textContent || '';
+                                    };
+
+                                    if ($.trim(params.term) === '') {
+                                        return data;
+                                    }
+
+                                    if (typeof data.text === 'undefined') {
+                                        return null;
+                                    }
+
+                                    var plainText = stripHtml(data.text).trim();
+
+                                    if (plainText.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+                                        return data;
+                                    }
+
+                                    return null;
+                                }
                            });
 						}
 						prefix.trigger('change');

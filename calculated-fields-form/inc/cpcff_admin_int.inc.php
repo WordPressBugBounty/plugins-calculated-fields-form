@@ -603,7 +603,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php esc_html_e('Include attachments?', 'calculated-fields-form'); ?></th>
+                            <th scope="row"><?php esc_html_e('Attach uploaded files?', 'calculated-fields-form'); ?></th>
                             <td>
                                 <select name="fp_inc_attachments">
                                     <option value="0" <?php
@@ -794,6 +794,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                             '|',
                             [
                                 $cpcff_main->check_feature(['feature' => esc_html__('Classic Captcha', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/documentation#captcha-settings', 'title' => esc_html__('Built-in image and text challenges to verify human visitors', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Math Captcha', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/documentation#captcha-settings', 'title' => esc_html__('Challenge-response test that asks the user to solve a simple arithmetic problem', 'calculated-fields-form')]),
 
                                 $cpcff_main->check_feature(['feature' => esc_html__('reCaptcha', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/recaptcha', 'title' => esc_html__("Google's invisible or checkbox challenge with advanced risk analysis", 'calculated-fields-form')]),
 

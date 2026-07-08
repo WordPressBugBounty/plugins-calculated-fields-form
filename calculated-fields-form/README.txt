@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.8.7
+Stable tag: 5.4.8.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -468,6 +468,13 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.8.8 =
+
+* Prevents third-party plugins from injecting notices into the Forms List and Form Builder pages.
+* Enhances various visual elements.
+* Fixes a minor issue with the search box in phone number controls.
+* Implements an arithmetic CAPTCHA in the commercial editions of the plugin (Professional, Developer, and Platinum).
+
 = 5.4.8.7 =
 
 * Enhanced the AI Form Generator module and fixed a minor issue in the form JSON schema.
@@ -493,10 +500,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Includes entry modules to store information collected by the form in the website's database.
 * Enhances boot protection.
 * Improves the plugin code.
-
-= 5.4.8.3 =
-
-* Implements spam protection through integration with Akismet.
-* Enhances the form reset process for improved reliability and usability.
-* Updates the AI models to the latest available versions.
-* Introduces new hooks, including both actions and filters.

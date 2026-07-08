@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.4.8.8 =
+
+* Prevents third-party plugins from injecting notices into the Forms List and Form Builder pages.
+* Enhances various visual elements.
+* Fixes a minor issue with the search box in phone number controls.
+* Implements an arithmetic CAPTCHA in the commercial editions of the plugin (Professional, Developer, and Platinum).
+
 = 5.4.8.7 =
 
 * Enhanced the AI Form Generator module and fixed a minor issue in the form JSON schema.

@@ -63,7 +63,7 @@ if ( ! function_exists( 'codepeople_add_promote_banner' ) ) {
 					#codepeople-review-banner  .main-button{height: 28px;border-width:1px;border-style:solid;border-radius:5px;text-decoration: none;}
 					@media screen AND (max-width:600px)
 					{
-						#codepeople-review-banner{position:relative;top:50px;}
+						#codepeople-review-banner{position:relative;top:50px;z-index:1;}
 						#codepeople-review-banner .codepeople-review-banner-picture{display:none;}
 						#codepeople-review-banner .codepeople-review-banner-content{width:calc( 100% - 20px );width:-webkit-calc( 100% - 20px );width:-moz-calc( 100% - 20px );width:-o-calc( 100% - 20px );}
 					}

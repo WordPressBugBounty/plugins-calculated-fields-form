@@ -147,7 +147,7 @@ if ( ! class_exists( 'CPCFF_MAIL' ) ) {
 				$from = '"' . $from . '" <' . $from . '>';
 			}
 
-			if ( ! $form_obj->get_option( 'fp_inc_attachments', 0 ) ) {
+			if ( ! $form_obj->get_option( 'fp_inc_attachments', 0 ) || empty($email_data['files']) ) {
 				$email_data['files'] = array();
 			}
 

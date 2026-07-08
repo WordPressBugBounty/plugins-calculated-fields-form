@@ -32,7 +32,7 @@ function cpcff_clippy_init() {
         define('CPCFF_CLIPPY_VISIBLE_MS', 60000);
     }
     if (! defined('CPCFF_CLIPPY_REAPPEAR_MS')) {
-        define('CPCFF_CLIPPY_REAPPEAR_MS', 600000);
+        define('CPCFF_CLIPPY_REAPPEAR_MS', 1200000);
     }
     if (! defined('CPCFF_CLIPPY_Z_INDEX')) {
         define('CPCFF_CLIPPY_Z_INDEX', 1000001);

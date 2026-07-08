@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-07-05 02:54+0200\n"
-"PO-Revision-Date: 2026-07-05 02:54+0200\n"
+"POT-Creation-Date: 2026-07-08 03:20+0200\n"
+"PO-Revision-Date: 2026-07-08 03:21+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -262,7 +262,7 @@ msgstr ""
 msgid "Get yout API Key from"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:144 inc/cpcff_main.inc.php:494
+#: inc/cpcff_admin_ai_assistant.inc.php:144 inc/cpcff_main.inc.php:504
 msgid "Save Settings"
 msgstr ""
 
@@ -561,7 +561,7 @@ msgid "Form Settings"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:295 inc/cpcff_admin_int.inc.php:315
-#: inc/cpcff_admin_int.inc.php:697 inc/cpcff_admin_int.inc.php:825
+#: inc/cpcff_admin_int.inc.php:697 inc/cpcff_admin_int.inc.php:827
 msgid "Save Changes"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgstr ""
 #: inc/cpcff_admin_int.inc.php:415 inc/cpcff_admin_int.inc.php:475
 #: inc/cpcff_admin_int.inc.php:544 inc/cpcff_admin_int.inc.php:682
 #: inc/cpcff_admin_int.inc.php:771 inc/cpcff_admin_int.inc.php:781
-#: inc/cpcff_admin_int.inc.php:810
+#: inc/cpcff_admin_int.inc.php:812
 msgid "Up to form structure"
 msgstr ""
 
@@ -796,7 +796,7 @@ msgid ""
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:606
-msgid "Include attachments?"
+msgid "Attach uploaded files?"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:623
@@ -878,12 +878,12 @@ msgid ""
 "Divi, and for the other page builders insert the shortcode directly."
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:700 inc/cpcff_admin_int.inc.php:828
+#: inc/cpcff_admin_int.inc.php:700 inc/cpcff_admin_int.inc.php:830
 #: inc/cpcff_admin_int_list.inc.php:742
 msgid "Request Custom Modifications"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:700 inc/cpcff_admin_int.inc.php:828
+#: inc/cpcff_admin_int.inc.php:700 inc/cpcff_admin_int.inc.php:830
 #: inc/cpcff_admin_int_list.inc.php:742 inc/cpcff_main.inc.php:255
 msgid "Help"
 msgstr ""
@@ -1116,38 +1116,48 @@ msgid "Built-in image and text challenges to verify human visitors"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:798
-msgid "reCaptcha"
+msgid "Math Captcha"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:798
+msgid ""
+"Challenge-response test that asks the user to solve a simple arithmetic "
+"problem"
+msgstr ""
+
+#: inc/cpcff_admin_int.inc.php:800
+msgid "reCaptcha"
+msgstr ""
+
+#: inc/cpcff_admin_int.inc.php:800
 msgid "Google's invisible or checkbox challenge with advanced risk analysis"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:800
+#: inc/cpcff_admin_int.inc.php:802
 msgid "Turnstile"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:800
+#: inc/cpcff_admin_int.inc.php:802
 msgid "Cloudflare's privacy-first, puzzle-free human verification"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:802
+#: inc/cpcff_admin_int.inc.php:804
 msgid "hCaptcha"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:802
+#: inc/cpcff_admin_int.inc.php:804
 msgid "Privacy-focused challenge with strong bot protection"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:804
+#: inc/cpcff_admin_int.inc.php:806
 msgid "CleanTalk"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:804
+#: inc/cpcff_admin_int.inc.php:806
 msgid "Cloud-based spam shield filtering bots and abuse silently"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:817
+#: inc/cpcff_admin_int.inc.php:819
 msgid "<h2>Add-Ons - Complementary Plugin Settings:</h2><hr />"
 msgstr ""
 
@@ -2318,51 +2328,51 @@ msgstr ""
 msgid "Create a JavaScript var from POST, GET, SESSION, or COOKIE var"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:472
+#: inc/cpcff_main.inc.php:482
 msgid "Search..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:473
+#: inc/cpcff_main.inc.php:483
 msgid "Form name..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:474
+#: inc/cpcff_main.inc.php:484
 msgid "Enter your Google AI Studio API Key"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:475
+#: inc/cpcff_main.inc.php:485
 msgid "Please provide the form description preferably in English."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:476
+#: inc/cpcff_main.inc.php:486
 msgid "Please provide the form modifications preferably in English."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:479
+#: inc/cpcff_main.inc.php:489
 msgid "AI Form Generator"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:480
+#: inc/cpcff_main.inc.php:490
 msgid "Use My Forms As Template"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:481
+#: inc/cpcff_main.inc.php:491
 msgid "All Categories"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:484
+#: inc/cpcff_main.inc.php:494
 msgid "Enter form description"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:485
+#: inc/cpcff_main.inc.php:495
 msgid "No form meets the search criteria"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:486
+#: inc/cpcff_main.inc.php:496
 msgid "[video tutorial]"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:489
+#: inc/cpcff_main.inc.php:499
 #, php-format
 msgid ""
 "Get your API Key from %s. The model and API keys used for form generation "
@@ -2370,75 +2380,75 @@ msgid ""
 "allowing you to choose the most appropriate model for each situation."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:490
+#: inc/cpcff_main.inc.php:500
 #, php-format
 msgid ""
 "Uses the AI Connector configured in the \"Settings>Connector\" section: %s"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:493
+#: inc/cpcff_main.inc.php:503
 msgid "Create Basic Form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:495
+#: inc/cpcff_main.inc.php:505
 msgid "Saving..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:496
+#: inc/cpcff_main.inc.php:506
 msgid "Clear Settings"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:497
+#: inc/cpcff_main.inc.php:507
 msgid "Generate"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:498
+#: inc/cpcff_main.inc.php:508
 msgid "Apply Modifications"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:499
+#: inc/cpcff_main.inc.php:509
 msgid "Use It"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:500
+#: inc/cpcff_main.inc.php:510
 msgid "+ Describe Modifications"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:501
+#: inc/cpcff_main.inc.php:511
 msgid "- Hide Description"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:502
+#: inc/cpcff_main.inc.php:512
 msgid "back"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:503
+#: inc/cpcff_main.inc.php:513
 msgid "Go to form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:505
+#: inc/cpcff_main.inc.php:515
 msgid "Be patient, still thinking..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:508
+#: inc/cpcff_main.inc.php:518
 msgid "The API Key is empty."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:509
+#: inc/cpcff_main.inc.php:519
 msgid "Please enter the form description."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:577
+#: inc/cpcff_main.inc.php:587
 msgid "Invalid form structure"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:614 inc/cpcff_main.inc.php:707
+#: inc/cpcff_main.inc.php:624 inc/cpcff_main.inc.php:717
 msgid ""
 "This is a preview of the form, letting you see its setup and design before "
 "it goes live."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:626
+#: inc/cpcff_main.inc.php:636
 msgid ""
 "If the form isn't displayed below, it means the AI was unable to generate a "
 "valid structure. We apologize for any inconvenience. Please click the \"Back "
@@ -2446,7 +2456,7 @@ msgid ""
 "\"Generate\" again."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:676
+#: inc/cpcff_main.inc.php:686
 msgid ""
 "If the form isn't loading on the public website, try inserting its shortcode "
 "with the iframe attribute set to 1, e.g.:"
