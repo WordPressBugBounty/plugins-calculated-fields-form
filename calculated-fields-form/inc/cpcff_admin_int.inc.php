@@ -832,6 +832,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 
     <?php
     include_once dirname(__FILE__) . '/cpcff_admin_ai_assistant.inc.php';
+    CPCFF_AI_ASSISTANT::view();
     include_once dirname(__FILE__) . '/cpcff-clippy/cpcff-clippy.php';
     ?>
 

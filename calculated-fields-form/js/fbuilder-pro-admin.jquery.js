@@ -2383,7 +2383,7 @@
 
     setTimeout(function() {
         $('.cff-admin-message').trigger('click');
-    }, 4000);
+    }, 6000);
 
 	// Redirect to the admin list sections
 	function cff_jump_to_section() {
@@ -2425,6 +2425,7 @@
 	(function(){
 		try {
 			const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('le')) return; // Do not apply when editing an entry.
 			const scroll_x = urlParams.get('scrollx');
 			const scroll_y = urlParams.get('scrolly');
 			if ( scroll_x && scroll_y && 'scrollTo' in window && ( ! $('.form-builder-error-messages').length || $('.form-builder-error-messages:empty').length ) ) {

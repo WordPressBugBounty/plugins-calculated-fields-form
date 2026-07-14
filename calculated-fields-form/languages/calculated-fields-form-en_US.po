@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-07-08 03:20+0200\n"
-"PO-Revision-Date: 2026-07-08 03:21+0200\n"
+"POT-Creation-Date: 2026-07-14 11:55+0200\n"
+"PO-Revision-Date: 2026-07-14 11:55+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -91,93 +91,93 @@ msgstr ""
 msgid "Get a custom quote"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:39
+#: inc/cpcff_admin_ai_assistant.inc.php:42
 msgid "API Key, Provider, and Model are required."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:46
+#: inc/cpcff_admin_ai_assistant.inc.php:49
 msgid "Prompt and Context are required."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:62
+#: inc/cpcff_admin_ai_assistant.inc.php:70
 msgid "Ready"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:63
+#: inc/cpcff_admin_ai_assistant.inc.php:71
 msgid "Thinking..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:64
+#: inc/cpcff_admin_ai_assistant.inc.php:72
 msgid "Still working on it..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:65
+#: inc/cpcff_admin_ai_assistant.inc.php:73
 msgid "This is taking longer than usual, but please be patient..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:66
+#: inc/cpcff_admin_ai_assistant.inc.php:74
 msgid "Generating..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:67
+#: inc/cpcff_admin_ai_assistant.inc.php:75
 msgid "Please, enter your question ..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:68
+#: inc/cpcff_admin_ai_assistant.inc.php:76
 msgid "Please, enter your CSS related question ..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:69
+#: inc/cpcff_admin_ai_assistant.inc.php:77
 msgid "Create an equation that ..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:70
+#: inc/cpcff_admin_ai_assistant.inc.php:78
 msgid "Generate a summary of the fields ..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:71
+#: inc/cpcff_admin_ai_assistant.inc.php:79
 msgid "Generate a list of items that ..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:72
+#: inc/cpcff_admin_ai_assistant.inc.php:80
 msgid "Generate a message that ..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:73
+#: inc/cpcff_admin_ai_assistant.inc.php:81
 msgid "Use list"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:74
+#: inc/cpcff_admin_ai_assistant.inc.php:82
 msgid "Copy"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:75
+#: inc/cpcff_admin_ai_assistant.inc.php:83
 msgid "Copy message"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:76
+#: inc/cpcff_admin_ai_assistant.inc.php:84
 msgid "Copied !!!"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:77
+#: inc/cpcff_admin_ai_assistant.inc.php:85
 msgid "Switch to Cloud Provider"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:78
+#: inc/cpcff_admin_ai_assistant.inc.php:86
 msgid ""
 "This action will completely unload the model and remove it from your browser "
 "cache. Would you like to proceed?"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:79
+#: inc/cpcff_admin_ai_assistant.inc.php:87
 msgid "API Key is required for the selected provider."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:80
+#: inc/cpcff_admin_ai_assistant.inc.php:88
 msgid "Do you want to close the settings without saving?"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:81
+#: inc/cpcff_admin_ai_assistant.inc.php:89
 #, php-format
 msgid ""
 "A fatal error has occurred: %s This error most likely indicates that your "
@@ -187,48 +187,48 @@ msgid ""
 "the page and try again."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:82
+#: inc/cpcff_admin_ai_assistant.inc.php:90
 msgid ""
 "An error occurred. Please close other browser tabs to free up memory, and "
 "try again."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:83
+#: inc/cpcff_admin_ai_assistant.inc.php:91
 msgid ""
 "Select a Radio Button, Checkbox, or Dropdown field before applying the list."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:104 inc/cpcff_admin_int.inc.php:130
+#: inc/cpcff_admin_ai_assistant.inc.php:114 inc/cpcff_admin_int.inc.php:130
 #: inc/cpcff_admin_landing_page.inc.php:67 inc/cpcff_video_tutorial.inc.php:17
 msgid "AI Assistant"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:106
+#: inc/cpcff_admin_ai_assistant.inc.php:116
 msgid "unload model"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:107 inc/cpcff_main.inc.php:253
+#: inc/cpcff_admin_ai_assistant.inc.php:117 inc/cpcff_main.inc.php:253
 msgid "Settings"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:108
-#: inc/cpcff_admin_ai_assistant.inc.php:113
+#: inc/cpcff_admin_ai_assistant.inc.php:118
+#: inc/cpcff_admin_ai_assistant.inc.php:123
 msgid "close"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:112
+#: inc/cpcff_admin_ai_assistant.inc.php:122
 msgid "AI Assistant Settings"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:115
+#: inc/cpcff_admin_ai_assistant.inc.php:125
 msgid "Select your preferred AI provider:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:117
+#: inc/cpcff_admin_ai_assistant.inc.php:127
 msgid "Locally in the browser"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:126
+#: inc/cpcff_admin_ai_assistant.inc.php:136
 msgid ""
 "Running AI models in the browser requires modern hardware. You’ll need a "
 "recent browser, enough RAM (about 8–16 GB), and ideally a GPU with WebGPU "
@@ -236,154 +236,238 @@ msgid ""
 "models from loading."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:127
+#: inc/cpcff_admin_ai_assistant.inc.php:137
 msgid "Are you using Chrome browser? Please watch this video:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:129
+#: inc/cpcff_admin_ai_assistant.inc.php:139
 msgid ""
 "If your device doesn’t meet these requirements, choose another AI provider "
 "for reliable performance without relying on your hardware."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:132
+#: inc/cpcff_admin_ai_assistant.inc.php:142
 msgid "Select a model:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:138
+#: inc/cpcff_admin_ai_assistant.inc.php:148
 msgid "Provider API Key (required):"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:139
+#: inc/cpcff_admin_ai_assistant.inc.php:149
 msgid "Enter your API key here..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:140
+#: inc/cpcff_admin_ai_assistant.inc.php:150
 msgid "Get yout API Key from"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:144 inc/cpcff_main.inc.php:504
+#: inc/cpcff_admin_ai_assistant.inc.php:154
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:656
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:700 inc/cpcff_main.inc.php:504
 msgid "Save Settings"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:152
+#: inc/cpcff_admin_ai_assistant.inc.php:162
 msgid "Hi! I'm your Code Assistant."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:156
+#: inc/cpcff_admin_ai_assistant.inc.php:166
 msgid ""
 "Please wait while the AI model downloads. This may take a moment depending "
 "on your network speed. Alternatively, click the gear icon to use online AI "
 "services like OpenAI, Anthropic (Claude), Google Gemini, ..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:164
+#: inc/cpcff_admin_ai_assistant.inc.php:174
 msgid "WebGPU is not supported in your browser"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:165
+#: inc/cpcff_admin_ai_assistant.inc.php:175
 msgid ""
 "WebGPU is a modern graphics API for the web. To use this application, you'll "
 "need a browser with WebGPU support."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:167
+#: inc/cpcff_admin_ai_assistant.inc.php:177
 msgid "Recommended browsers with WebGPU support:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:169
+#: inc/cpcff_admin_ai_assistant.inc.php:179
 msgid "Chrome 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:170
+#: inc/cpcff_admin_ai_assistant.inc.php:180
 msgid "Edge 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:171
+#: inc/cpcff_admin_ai_assistant.inc.php:181
 msgid "Firefox 121 or later (with the 'dom.webgpu.enabled' flag enabled)"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:172
+#: inc/cpcff_admin_ai_assistant.inc.php:182
 msgid "Safari 17.4 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:175
+#: inc/cpcff_admin_ai_assistant.inc.php:185
 msgid "How to enable WebGPU:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:176
+#: inc/cpcff_admin_ai_assistant.inc.php:186
 msgid "In Chrome/Edge:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:178
+#: inc/cpcff_admin_ai_assistant.inc.php:188
 msgid "Ensure your browser is updated to version 113 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:179
-#: inc/cpcff_admin_ai_assistant.inc.php:194
+#: inc/cpcff_admin_ai_assistant.inc.php:189
+#: inc/cpcff_admin_ai_assistant.inc.php:204
 msgid "WebGPU should be enabled by default"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:182
+#: inc/cpcff_admin_ai_assistant.inc.php:192
 msgid "In Firefox:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:184
+#: inc/cpcff_admin_ai_assistant.inc.php:194
 msgid "Ensure you have Firefox 121 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:185
+#: inc/cpcff_admin_ai_assistant.inc.php:195
 msgid "Type \"about:config\" in the URL bar"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:186
+#: inc/cpcff_admin_ai_assistant.inc.php:196
 msgid "Search for \"dom.webgpu.enabled\""
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:187
+#: inc/cpcff_admin_ai_assistant.inc.php:197
 msgid "Set it to \"true\" by clicking the toggle button"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:188
+#: inc/cpcff_admin_ai_assistant.inc.php:198
 msgid "Restart the browser"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:191
+#: inc/cpcff_admin_ai_assistant.inc.php:201
 msgid "In Safari:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:193
+#: inc/cpcff_admin_ai_assistant.inc.php:203
 msgid "Ensure you have Safari 17.4 or later"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:200
+#: inc/cpcff_admin_ai_assistant.inc.php:210
 msgid "Cache API not available!"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:201
+#: inc/cpcff_admin_ai_assistant.inc.php:211
 msgid ""
 "Your browser may be using HTTP instead of HTTPS, or it may not support the "
 "Cache API."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:202
+#: inc/cpcff_admin_ai_assistant.inc.php:212
 msgid "For full functionality, please:"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:204
+#: inc/cpcff_admin_ai_assistant.inc.php:214
 msgid "Open this website using HTTPS (e.g., https://example.com)"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:205
+#: inc/cpcff_admin_ai_assistant.inc.php:215
 msgid "Use a modern browser that supports the Cache API"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:214
+#: inc/cpcff_admin_ai_assistant.inc.php:224
 msgid "Please, enter your question..."
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:215
+#: inc/cpcff_admin_ai_assistant.inc.php:225
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:658
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:711
 msgid "Send"
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:186
+#: inc/cpcff_admin_ai_form_generator.inc.php:104
+msgid "Unknown error from AI model."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:312
+msgid "Invalid response from AI model."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:506
+msgid "The email_address parameter must be a valid e-mail address."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:548
+msgid "A database error occurred while retrieving form entries"
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:657
+msgid "Saving settings..."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:659
+msgid "Sending..."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:660
+msgid "An error occurred."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:661
+msgid "Please enter a search criteria."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:662 inc/cpcff_main.inc.php:515
+msgid "Be patient, still thinking..."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:694
+msgid "AI Searcher"
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:699
+msgid "Enter your API key"
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:701 inc/cpcff_main.inc.php:506
+msgid "Clear Settings"
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:710
+msgid "Ask about your form entries..."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:728
+msgid "Use AI Filter"
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:731
+msgid "Use Basic Filter"
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:754
+#: inc/cpcff_admin_ai_form_generator.inc.php:180
+msgid "Please select a provider."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:758
+#: inc/cpcff_admin_ai_form_generator.inc.php:184
+msgid "Please select a model."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:762
+#: inc/cpcff_admin_ai_form_generator.inc.php:190
+msgid "Please enter your API key."
+msgstr ""
+
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:768
+msgid "Search criteria is required."
 msgstr ""
 
 #: inc/cpcff_admin_ai_form_generator.inc.php:21
@@ -392,10 +476,6 @@ msgstr ""
 
 #: inc/cpcff_admin_ai_form_generator.inc.php:35
 msgid "Invalid AI provider selected."
-msgstr ""
-
-#: inc/cpcff_admin_ai_form_generator.inc.php:104
-msgid "Unknown error from AI model."
 msgstr ""
 
 #: inc/cpcff_admin_ai_form_generator.inc.php:106
@@ -412,16 +492,12 @@ msgstr ""
 msgid "No form preview available."
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:226
-msgid "Empty API Key or form description"
+#: inc/cpcff_admin_ai_form_generator.inc.php:195
+msgid "Form description is required."
 msgstr ""
 
-#: inc/cpcff_admin_ai_form_generator.inc.php:232
+#: inc/cpcff_admin_ai_form_generator.inc.php:241
 msgid "Settings saved successfully"
-msgstr ""
-
-#: inc/cpcff_admin_ai_form_generator.inc.php:235
-msgid "Model or provider not selected"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:45
@@ -468,7 +544,7 @@ msgstr ""
 msgid "Add New"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:67 inc/cpcff_admin_int_message_list.inc.php:135
+#: inc/cpcff_admin_int.inc.php:67 inc/cpcff_admin_int_message_list.inc.php:166
 msgid "Back to forms list..."
 msgstr ""
 
@@ -476,7 +552,7 @@ msgstr ""
 msgid "Go to submissions"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:73 inc/cpcff_admin_int_message_list.inc.php:221
+#: inc/cpcff_admin_int.inc.php:73 inc/cpcff_admin_int_message_list.inc.php:264
 #: pagebuilders/divi/divi4/divi.pb.php:17
 msgid "Form"
 msgstr ""
@@ -542,7 +618,7 @@ msgid ""
 "lose. Do you want continue?"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:243 inc/cpcff_admin_int_message_list.inc.php:441
+#: inc/cpcff_admin_int.inc.php:243 inc/cpcff_admin_int_message_list.inc.php:538
 msgid ""
 "These features aren't available in this version. Do you want to open the "
 "plugin's page to check other versions?"
@@ -892,7 +968,7 @@ msgstr ""
 msgid "- Empty Area -"
 msgstr ""
 
-#: inc/cpcff_admin_int.inc.php:709 inc/cpcff_admin_int_message_list.inc.php:324
+#: inc/cpcff_admin_int.inc.php:709 inc/cpcff_admin_int_message_list.inc.php:367
 msgid "Premium Features"
 msgstr ""
 
@@ -1299,7 +1375,7 @@ msgid "Form Categories"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:424 inc/cpcff_admin_int_list.inc.php:483
-#: inc/cpcff_admin_int_message_list.inc.php:160
+#: inc/cpcff_admin_int_message_list.inc.php:193
 #: widgets/widget.cff-form/cff-form.widget.php:101
 msgid "All forms"
 msgstr ""
@@ -1313,7 +1389,7 @@ msgid "- search term -"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:432
-#: inc/cpcff_admin_int_message_list.inc.php:172
+#: inc/cpcff_admin_int_message_list.inc.php:205
 msgid "Reset"
 msgstr ""
 
@@ -1334,12 +1410,12 @@ msgid "100 forms"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:498
-#: inc/cpcff_admin_int_message_list.inc.php:189
+#: inc/cpcff_admin_int_message_list.inc.php:239
 msgid "&laquo; Previous"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:499
-#: inc/cpcff_admin_int_message_list.inc.php:190
+#: inc/cpcff_admin_int_message_list.inc.php:240
 msgid "Next &raquo;"
 msgstr ""
 
@@ -1360,7 +1436,7 @@ msgid "search term(s)"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:527
-#: inc/cpcff_admin_int_message_list.inc.php:220
+#: inc/cpcff_admin_int_message_list.inc.php:263
 msgid "ID"
 msgstr ""
 
@@ -1369,7 +1445,7 @@ msgid "Form Name"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:531
-#: inc/cpcff_admin_int_message_list.inc.php:232
+#: inc/cpcff_admin_int_message_list.inc.php:275
 msgid "Options"
 msgstr ""
 
@@ -1414,7 +1490,7 @@ msgid "Duplicate"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:571
-#: inc/cpcff_admin_int_message_list.inc.php:265
+#: inc/cpcff_admin_int_message_list.inc.php:308
 msgid "Delete"
 msgstr ""
 
@@ -1597,109 +1673,113 @@ msgstr ""
 msgid "Upgrade"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:48
-#: inc/cpcff_admin_int_message_list.inc.php:59
+#: inc/cpcff_admin_int_message_list.inc.php:50
+#: inc/cpcff_admin_int_message_list.inc.php:61
 msgid "Item(s) deleted"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:138
+#: inc/cpcff_admin_int_message_list.inc.php:142
+msgid "Your previous AI search has expired. Please enter a new search term"
+msgstr ""
+
+#: inc/cpcff_admin_int_message_list.inc.php:169
 msgid "Calculated Fields Form - Message List"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:142
+#: inc/cpcff_admin_int_message_list.inc.php:178
 msgid "This message list is from"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:142
+#: inc/cpcff_admin_int_message_list.inc.php:178
 msgid "every form"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:150
+#: inc/cpcff_admin_int_message_list.inc.php:183
 msgid "Search for"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:153
+#: inc/cpcff_admin_int_message_list.inc.php:186
 msgid "From"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:156
+#: inc/cpcff_admin_int_message_list.inc.php:189
 msgid "To"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:159
+#: inc/cpcff_admin_int_message_list.inc.php:192
 msgid "In"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:170
+#: inc/cpcff_admin_int_message_list.inc.php:203
 msgid "Filter"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:171
+#: inc/cpcff_admin_int_message_list.inc.php:204
 msgid "Export to CSV"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:204
+#: inc/cpcff_admin_int_message_list.inc.php:247
 msgid "Show all entry details"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:222
+#: inc/cpcff_admin_int_message_list.inc.php:265
 msgid "Date"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:223
+#: inc/cpcff_admin_int_message_list.inc.php:266
 msgid "IP Address"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:224
+#: inc/cpcff_admin_int_message_list.inc.php:267
 msgid "Email"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:225
+#: inc/cpcff_admin_int_message_list.inc.php:268
 msgid "Payment info"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:237
+#: inc/cpcff_admin_int_message_list.inc.php:280
 msgid "No events found."
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:266
+#: inc/cpcff_admin_int_message_list.inc.php:309
 msgid "Change Payment Status"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:267
+#: inc/cpcff_admin_int_message_list.inc.php:310
 msgid "Edit (Raw)"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:268
+#: inc/cpcff_admin_int_message_list.inc.php:311
 msgid "Send Mails"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:277
+#: inc/cpcff_admin_int_message_list.inc.php:320
 msgid "Show/hide details"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:302
+#: inc/cpcff_admin_int_message_list.inc.php:345
 msgid "Form Page"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:318
+#: inc/cpcff_admin_int_message_list.inc.php:361
 msgid "Delete all checked"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:318
+#: inc/cpcff_admin_int_message_list.inc.php:361
 msgid "Print"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:318
-#: inc/cpcff_admin_int_message_list.inc.php:399
+#: inc/cpcff_admin_int_message_list.inc.php:361
+#: inc/cpcff_admin_int_message_list.inc.php:490
 msgid "Delete all entries from all forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:318
+#: inc/cpcff_admin_int_message_list.inc.php:361
 msgid "Caution: \"Delete all\" erases all submissions in the database."
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:327
+#: inc/cpcff_admin_int_message_list.inc.php:370
 msgid ""
 "The commercial version of the \"Calculated Fields Form\" plugin allows you "
 "to add a summary of the information collected by the form on the \"Thank You "
@@ -1707,87 +1787,87 @@ msgid ""
 "by using AI agents, and much more."
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:331
+#: inc/cpcff_admin_int_message_list.inc.php:374
 msgid "Pay only ONCE, use it FOREVER"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:334
+#: inc/cpcff_admin_int_message_list.inc.php:377
 msgid "No additional charges, "
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:334
+#: inc/cpcff_admin_int_message_list.inc.php:377
 msgid "lifetime updates"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:334
+#: inc/cpcff_admin_int_message_list.inc.php:377
 msgid "one copy for all your websites"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:334
+#: inc/cpcff_admin_int_message_list.inc.php:377
 msgid "Get it now"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:360
+#: inc/cpcff_admin_int_message_list.inc.php:443
 msgid "Delete entry"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:361
+#: inc/cpcff_admin_int_message_list.inc.php:444
 msgid "Yes, delete it"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:362
+#: inc/cpcff_admin_int_message_list.inc.php:445
 msgid "No, keep it"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:363
+#: inc/cpcff_admin_int_message_list.inc.php:446
 msgid "You are about to delete the item with id: "
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:363
+#: inc/cpcff_admin_int_message_list.inc.php:446
 msgid "in the form: "
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:363
+#: inc/cpcff_admin_int_message_list.inc.php:446
 msgid "Are you sure that you want to delete this item?"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:382
+#: inc/cpcff_admin_int_message_list.inc.php:467
 msgid "Delete entries"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:383
-#: inc/cpcff_admin_int_message_list.inc.php:400
+#: inc/cpcff_admin_int_message_list.inc.php:468
+#: inc/cpcff_admin_int_message_list.inc.php:491
 msgid "Yes, delete them"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:384
-#: inc/cpcff_admin_int_message_list.inc.php:401
+#: inc/cpcff_admin_int_message_list.inc.php:469
+#: inc/cpcff_admin_int_message_list.inc.php:492
 msgid "No, keep them"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:385
+#: inc/cpcff_admin_int_message_list.inc.php:470
 msgid "You are about to delete the checked item(s) with id(s): "
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:385
+#: inc/cpcff_admin_int_message_list.inc.php:470
 msgid "Are you sure that you want to delete the item(s)?"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:392
+#: inc/cpcff_admin_int_message_list.inc.php:483
 msgid "Please select at least one item to delete."
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:402
+#: inc/cpcff_admin_int_message_list.inc.php:493
 msgid ""
 "Are you sure that you want to delete all items from all the forms? Please "
 "note that you will not be able to recover them."
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:402
+#: inc/cpcff_admin_int_message_list.inc.php:493
 msgid "Enter the <b>\"delete\"</b> word to confirm:"
 msgstr ""
 
-#: inc/cpcff_admin_int_message_list.inc.php:407
+#: inc/cpcff_admin_int_message_list.inc.php:498
 msgid "Please enter the \"delete\" word to confirm."
 msgstr ""
 
@@ -1975,183 +2055,195 @@ msgstr ""
 msgid "Upgrade your plugin copy"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:55
+#: inc/cpcff_ai_requests.inc.php:60
 msgid "OpenAI"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:60
-msgid "GPT-5.5 Pro (Most Capable)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:66
-msgid "GPT-5.5"
+#: inc/cpcff_ai_requests.inc.php:65
+msgid "GPT-5.6 Sol (Most Capable)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:72
+msgid "GPT-5.6 Terra (Balanced)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:79
+msgid "GPT-5.6 Luna (Fast and Cheap)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:86
+msgid "GPT-5.5 Pro"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:93
+msgid "GPT-5.5"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:100
 msgid "GPT-5.4 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:78
+#: inc/cpcff_ai_requests.inc.php:107
 msgid "GPT-5.4"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:84
-msgid "GPT-5.4 Mini (Balanced)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:90
-msgid "GPT-5.4 Nano (Fast and Cheap)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:98
-msgid "Anthropic (Claude)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:103
-msgid "Claude Fable 5 (Most Powerful)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:109
-msgid "Claude Opus 4.8 (Most Capable)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:115
-msgid "Claude Opus 4.7"
+#: inc/cpcff_ai_requests.inc.php:114
+msgid "GPT-5.4 Mini"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:121
+msgid "GPT-5.4 Nano"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:130
+msgid "Anthropic (Claude)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:135
+msgid "Claude Fable 5 (Most Powerful)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:142
+msgid "Claude Opus 4.8 (Most Capable)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:149
+msgid "Claude Opus 4.7"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:156
 msgid "Claude Opus 4.6"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:127
+#: inc/cpcff_ai_requests.inc.php:163
 msgid "Claude Opus 4.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:133
+#: inc/cpcff_ai_requests.inc.php:170
 msgid "Claude Sonnet 5 (Recommended)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:139
+#: inc/cpcff_ai_requests.inc.php:177
 msgid "Claude Sonnet 4.6"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:145
+#: inc/cpcff_ai_requests.inc.php:184
 msgid "Claude Sonnet 4.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:151
+#: inc/cpcff_ai_requests.inc.php:191
 msgid "Claude Haiku 4.5 (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:159
+#: inc/cpcff_ai_requests.inc.php:200
 msgid "Google (Gemini)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:164
+#: inc/cpcff_ai_requests.inc.php:205
 msgid "Gemini 3.1 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:170
+#: inc/cpcff_ai_requests.inc.php:212
 msgid "Gemini 3.5 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:176
+#: inc/cpcff_ai_requests.inc.php:219
 msgid "Gemini 3.1 Flash-Lite"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:182
+#: inc/cpcff_ai_requests.inc.php:226
 msgid "Gemini 2.5 Pro (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:188
+#: inc/cpcff_ai_requests.inc.php:233
 msgid "Gemini 2.5 Flash (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:194
+#: inc/cpcff_ai_requests.inc.php:240
 msgid "Gemini 2.5 Flash-Lite (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:202
+#: inc/cpcff_ai_requests.inc.php:249
 msgid "MiniMax"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:207
+#: inc/cpcff_ai_requests.inc.php:254
 msgid "MiniMax M3 (Latest)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:213
+#: inc/cpcff_ai_requests.inc.php:261
 msgid "MiniMax M2.7 Highspeed"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:219
+#: inc/cpcff_ai_requests.inc.php:268
 msgid "MiniMax M2.7"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:225
+#: inc/cpcff_ai_requests.inc.php:275
 msgid "MiniMax M2.5 Highspeed (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:231
+#: inc/cpcff_ai_requests.inc.php:282
 msgid "MiniMax M2.5 (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:237
+#: inc/cpcff_ai_requests.inc.php:289
 msgid "MiniMax M2.1 Highspeed (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:243
+#: inc/cpcff_ai_requests.inc.php:296
 msgid "MiniMax M2.1 (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:249
+#: inc/cpcff_ai_requests.inc.php:303
 msgid "MiniMax M2 (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:257
+#: inc/cpcff_ai_requests.inc.php:312
 msgid "Kimi (Moonshot AI)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:262
+#: inc/cpcff_ai_requests.inc.php:317
 msgid "Kimi K2.7 Code"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:268
+#: inc/cpcff_ai_requests.inc.php:324
 msgid "Kimi K2.7 Code Highspeed (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:274
+#: inc/cpcff_ai_requests.inc.php:331
 msgid "Kimi K2.6"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:280
+#: inc/cpcff_ai_requests.inc.php:338
 msgid "Kimi K2.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:286
+#: inc/cpcff_ai_requests.inc.php:345
 msgid "Moonshot V1 128K"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:292
+#: inc/cpcff_ai_requests.inc.php:352
 msgid "Moonshot V1 32K"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:298
+#: inc/cpcff_ai_requests.inc.php:359
 msgid "Moonshot V1 8K"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:306
+#: inc/cpcff_ai_requests.inc.php:368
 msgid "DeepSeek"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:311
+#: inc/cpcff_ai_requests.inc.php:373
 msgid "DeepSeek V4 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:317
+#: inc/cpcff_ai_requests.inc.php:380
 msgid "DeepSeek V4 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:333
+#: inc/cpcff_ai_requests.inc.php:397
 msgid "WordPress AI Connector"
 msgstr ""
 
@@ -2394,10 +2486,6 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:506
-msgid "Clear Settings"
-msgstr ""
-
 #: inc/cpcff_main.inc.php:507
 msgid "Generate"
 msgstr ""
@@ -2426,10 +2514,6 @@ msgstr ""
 msgid "Go to form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:515
-msgid "Be patient, still thinking..."
-msgstr ""
-
 #: inc/cpcff_main.inc.php:518
 msgid "The API Key is empty."
 msgstr ""
@@ -2438,17 +2522,17 @@ msgstr ""
 msgid "Please enter the form description."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:587
+#: inc/cpcff_main.inc.php:581
 msgid "Invalid form structure"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:624 inc/cpcff_main.inc.php:717
+#: inc/cpcff_main.inc.php:618 inc/cpcff_main.inc.php:711
 msgid ""
 "This is a preview of the form, letting you see its setup and design before "
 "it goes live."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:636
+#: inc/cpcff_main.inc.php:630
 msgid ""
 "If the form isn't displayed below, it means the AI was unable to generate a "
 "valid structure. We apologize for any inconvenience. Please click the \"Back "
@@ -2456,7 +2540,7 @@ msgid ""
 "\"Generate\" again."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:686
+#: inc/cpcff_main.inc.php:680
 msgid ""
 "If the form isn't loading on the public website, try inserting its shortcode "
 "with the iframe attribute set to 1, e.g.:"

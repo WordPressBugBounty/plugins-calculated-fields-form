@@ -156,6 +156,7 @@ class CPCFF_Akismet {
         update_option( self::LOG_OPTION, $enable_log );
         update_option( self::ENABLE_OPTION, $is_enabled );
         update_option( self::TEST_MODE_OPTION, $test_mode );
+		do_action( 'cff_admin_state_changed', 'akismet_settings_save' );
     }
 
     /**

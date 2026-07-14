@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.8.8
+ * Version: 5.4.8.9
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.8' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.8.9' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -629,8 +629,5 @@ function cp_calculatedfieldsf_save_options() {
 
 // Loads the AI related modules.
 add_action('admin_init', function(){
-	if( ! empty( $_REQUEST['_cpcff_ai_assistant_action'] ) && ! empty( $_POST['_cpcff_ai_assistant_nonce'] ) )
-		require_once __DIR__ . '/inc/cpcff_admin_ai_assistant.inc.php';
-	else
-		require_once __DIR__ . '/inc/cpcff_admin_ai_form_generator.inc.php';
+    require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_ai_dispatcher.inc.php';
 });

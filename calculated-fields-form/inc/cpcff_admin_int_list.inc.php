@@ -57,7 +57,7 @@ if ( isset( $_REQUEST['cp_default_template'] ) ) { // I don't need to check for 
 		}
 	}
 	$message = __( 'Default settings updated', 'calculated-fields-form' );
-
+	do_action( 'cff_admin_state_changed', 'default_template_save' );
 }
 
 if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
@@ -171,6 +171,7 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 		}
 	}
 	$message = __( 'Troubleshoot settings updated', 'calculated-fields-form' );
+	do_action( 'cff_admin_state_changed', 'troubleshoot_settings_save' );
 }
 
 // For sortin the forms list.

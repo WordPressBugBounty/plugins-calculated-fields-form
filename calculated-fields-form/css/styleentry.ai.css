@@ -1,0 +1,19 @@
+/*
+ * CFF Entries AI Chat — minimal styles for the in-admin chat panel.
+ */
+div:has(>.cff-filter-toggle) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.cff-filter-toggle{margin:5px !important;}
+.cff-ai-searcher-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#cff-ai-searcher-input{flex-basis: 1;resize: vertical;min-height: 60px;}
+#cff-ai-searcher-send{align-self: flex-end;flex-basis: 0;flex-grow: 0;flex-shrink: 0;}
+.cff-ai-api-key-container{display:flex;gap:10px;align-items:center;margin-bottom:10px;}
+#cff-ai-model-provider,
+#cff-ai-api-key{flex-grow:1;flex-basis:0;min-width:0;}

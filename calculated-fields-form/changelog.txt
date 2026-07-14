@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.4.8.9 =
+
+* Implements a new AI-powered feature in the Entries section that allows filtering submissions using natural language search queries.
+* Modifies the Entries section to preserve the current filtering options when performing actions on submissions.
+* Updates the list of supported AI models and improves the integration with the WordPress AI Connectors.
+
 = 5.4.8.8 =
 
 * Prevents third-party plugins from injecting notices into the Forms List and Form Builder pages.

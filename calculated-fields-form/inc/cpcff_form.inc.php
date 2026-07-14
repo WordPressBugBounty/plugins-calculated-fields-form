@@ -74,13 +74,14 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			// so the only safe gate here is the strict in_array allowlist below.
 			$orderby         = ( isset( $args['order_by'] ) && in_array( $args['order_by'], ['id', 'form_name'], true ) ) ? $args['order_by'] : 'id';
 			$include_desc    = ! empty( $args['description'] ) ? true : false;
+			$include_title   = ! empty( $args['title'] ) ? true : false;
 			$include_no_form = ! empty( $args['no_form'] ) ? true : false;
             $stats           = ! empty( $args['stats'] ) ? true : false;
 
 			$rows = $wpdb->get_results(
 				'SELECT id,form_name,category' .
 				(
-					$include_desc ?
+					( $include_desc || $include_title ) ?
 					',form_structure' :
 					''
 				) .
@@ -109,6 +110,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				$data->id 			= $row->id;
 				$data->form_name 	= sanitize_text_field( $row->form_name );
 				$data->category  	= sanitize_text_field( $row->category );
+                $data->title 		= '';
 				$data->description 	= '';
                 $data->stats        = isset($submissions_stats[$row->id]) ? $submissions_stats[$row->id]->stats : 0;
 
@@ -133,7 +135,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 					! empty( $form_structure[1][0] ) &&
 					is_array( $form_structure[1][0] )
 				) {
-					if ( empty( $data->form_name ) && ! empty( $form_structure[1][0]['title'] ) ) $data->form_name = sanitize_text_field( $form_structure[1][0]['title'] );
+                    $data->title = isset( $form_structure[1][0]['title'] ) ? sanitize_text_field( $form_structure[1][0]['title'] ) : '';
+					if ( empty( $data->form_name ) ) $data->form_name = $data->title;
 
 					if ( ! empty( $form_structure[1][0]['description'] ) ) $data->description = sanitize_text_field( $form_structure[1][0]['description'] );
 				}
@@ -666,6 +669,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			) {
 				$this->_revisions_obj->create_revision();
 			}
+			do_action( 'cff_admin_state_changed', 'form_settings_save' );
 			return $updated_rows;
 		} // End save_settings.
 

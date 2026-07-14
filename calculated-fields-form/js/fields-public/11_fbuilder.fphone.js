@@ -258,9 +258,10 @@
                                         return null;
                                     }
 
-                                    var plainText = stripHtml(data.text).trim();
+                                    var plainText = stripHtml(String(data.text)).trim();
+                                    var term = String(params.term).toUpperCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-                                    if (plainText.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+                                    if (new RegExp('(?:^|\\W)' + term, 'i').test(plainText)) {
                                         return data;
                                     }
 

@@ -519,15 +519,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'description_requirement_error' => esc_html__( 'Please enter the form description.', 'calculated-fields-form' ),
 								],
 								'ai-providers'          => CPCFF_AI_REQUESTS::get_models(),
-								'ai-selected-provider'  => get_option('cff_ai_form_generator_provider',
-									get_option('cff_ai_assistant_provider', '')
-								),
-								'ai-selected-model'     => get_option('cff_ai_form_generator_model',
-									get_option('cff_ai_assistant_model', '')
-								),
-								'ai-api-key'            => get_option('cff_ai_form_generator_api_key',
-									get_option('cff_ai_assistant_api_key', '')
-								),
+								'ai-selected-provider'  => CPCFF_AI_REQUESTS::get_selected_provider_from_context('form-generation'),
+								'ai-selected-model'     => CPCFF_AI_REQUESTS::get_selected_model_from_context('form-generation'),
+								'ai-api-key'            => CPCFF_AI_REQUESTS::get_selected_api_key_from_context('form-generation'),
 								'ai-default-provider'   => CPCFF_AI_REQUESTS::get_default_provider(),
 								'ai-default-model'      => CPCFF_AI_REQUESTS::get_default_model()
 							)
@@ -538,7 +532,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_caret', plugins_url( '/vendors/jquery.caret.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'jquery' ), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script_purify', plugins_url( '/vendors/purify.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
-					wp_enqueue_style( 'cp_calculatedfieldsf_builder_style', plugins_url( '/css/style.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
+					wp_enqueue_style( 'cp_calculatedfieldsf_builder_style', plugins_url( '/css/styleadmin.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_style( 'cp_calculatedfieldsf_builder_library_style', plugins_url( '/css/stylelibrary.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'cp_calculatedfieldsf_builder_style' ), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_style( 'jquery-style', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css', array(), CP_CALCULATEDFIELDSF_VERSION );
 
@@ -1428,6 +1422,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 							}
 						}
 					} catch ( Exception $err ) {}
+				});
+
+				add_action( 'cff_admin_state_changed', function( $context = '' ) {
+					do_action( 'litespeed_purge_all_object' );
 				});
 			}
 		} // End troubleshoots.

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.8.8
+Stable tag: 5.4.8.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,7 @@ No. Despite its name, Calculated Fields Form is a complete, general-purpose Word
 
 * **No recurring fees** — all commercial versions are a one-time purchase with lifetime updates
 * **AI-powered form builder** — generate forms and formulas using an integrated AI assistant
+* **AI-powered entries filter** — filter form submissions using natural language with integrated AI models
 * **4.9/5 rating** with over 960 verified reviews on WordPress.org
 * **40,000+ active installations**
 * **Compatible with all major page builders** — Gutenberg, Elementor, Divi, Beaver Builder, WPBakery, SiteOrigin
@@ -323,7 +324,7 @@ Yes. Sending confirmation emails to the user is included in the commercial versi
 
 = Can I store and review form submissions from the WordPress admin? =
 
-Yes. Starting with version 5.4.8.4, every form entry is saved to the WordPress database and accessible from the admin (Calculated Fields Form > Submissions). You can search, filter, view, and delete entries without leaving WordPress. Submission storage was previously available only in commercial versions.
+Yes. Starting with version 5.4.8.4, every form entry is saved to the WordPress database and accessible from the admin (Calculated Fields Form > Entries). You can search, filter, view, and delete entries without leaving WordPress. Submission storage was previously available only in commercial versions.
 
 = Can I charge users the calculated price through the form? =
 
@@ -468,6 +469,12 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.8.9 =
+
+* Implements a new AI-powered feature in the Entries section that allows filtering submissions using natural language search queries.
+* Modifies the Entries section to preserve the current filtering options when performing actions on submissions.
+* Updates the list of supported AI models and improves the integration with the WordPress AI Connectors.
+
 = 5.4.8.8 =
 
 * Prevents third-party plugins from injecting notices into the Forms List and Form Builder pages.
@@ -494,9 +501,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Fixed a minor conflict with Divi 4 that could load forms inside an iframe even when the iframe option was disabled.
 * Enhanced deletion confirmation dialogs by automatically setting focus on the confirmation button, improving accessibility and user experience.
-
-= 5.4.8.4 =
-
-* Includes entry modules to store information collected by the form in the website's database.
-* Enhances boot protection.
-* Improves the plugin code.

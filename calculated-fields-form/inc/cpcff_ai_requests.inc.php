@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
     class CPCFF_AI_REQUESTS {
         // Static properties.
+        private static $contexts = [
+            'form-generation'    => 'cff_ai_form_generator',
+            'ai-assistant'       => 'cff_ai_assistant'
+        ];
         private static $models;
         private static $default_provider = 'gemini';
         private static $default_model;
@@ -56,8 +60,26 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'gpt-5.4-mini',
                         'api_key_url' => 'https://platform.openai.com/api-keys',
                         'models' => [
+                            'gpt-5.6-sol' => [
+                                'title' => esc_html__('GPT-5.6 Sol (Most Capable)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 120000
+                            ],
+                            'gpt-5.6-terra' => [
+                                'title' => esc_html__('GPT-5.6 Terra (Balanced)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 120000
+                            ],
+                            'gpt-5.6-luna' => [
+                                'title' => esc_html__('GPT-5.6 Luna (Fast and Cheap)', 'calculated-fields-form'),
+                                'form-generation' => false,
+                                'ai-assistant' => true,
+                                'max_tokens' => 120000
+                            ],
                             'gpt-5.5-pro' => [
-                                'title' => esc_html__('GPT-5.5 Pro (Most Capable)', 'calculated-fields-form'),
+                                'title' => esc_html__('GPT-5.5 Pro', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 120000
@@ -78,20 +100,20 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'title' => esc_html__('GPT-5.4', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 120000
+                                'max_tokens' => 128000
                             ],
                             'gpt-5.4-mini' => [
-                                'title' => esc_html__('GPT-5.4 Mini (Balanced)', 'calculated-fields-form'),
+                                'title' => esc_html__('GPT-5.4 Mini', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
-                                'max_tokens' => 120000
+                                'max_tokens' => 128000
                             ],
-							'gpt-5.4-nano' => [
-								'title' => esc_html__('GPT-5.4 Nano (Fast and Cheap)', 'calculated-fields-form'),
-								'form-generation' => false,
-								'ai-assistant' => true,
-								'max_tokens' => 120000
-							]
+                            'gpt-5.4-nano' => [
+                                'title' => esc_html__('GPT-5.4 Nano', 'calculated-fields-form'),
+                                'form-generation' => false,
+                                'ai-assistant' => true,
+                                'max_tokens' => 128000
+                            ]
                         ]
                     ],
                     'claude' => [
@@ -335,7 +357,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                             'api_key_url'   => admin_url('options-connectors.php'),
                             'models'        => [
                                 '*' => [
-                                    'form-generation' => false,
+                                    'form-generation' => true,
                                     'ai-assistant' => true,
                                     'max_tokens' => 64000
                                 ]
@@ -374,6 +396,62 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
         public static function get_default_model() {
             self::init_models();
             return self::$default_model;
+        }
+
+        private static function get_attribute_from_context( $context, $attribute ) {
+            if (! isset(self::$contexts[$context])) {
+                return '';
+            }
+            self::init_models();
+            $contexts = unserialize(serialize(self::$contexts));
+            $prefix = $contexts[$context];
+            $attribute_value = get_option($prefix . '_' . $attribute);
+            if ($attribute_value !== false) {
+                return $attribute_value;
+            }
+            unset($contexts[$context]);
+            foreach ($contexts as $other_context => $prefix) {
+                $attribute_value = get_option($prefix . '_' . $attribute);
+                if ($attribute_value !== false) {
+                    return $attribute_value;
+                }
+            }
+            return '';
+        }
+
+        private static function set_attribute_from_context($context, $attribute, $value)
+        {
+            if (! isset(self::$contexts[$context])) {
+                return;
+            }
+            update_option(self::$contexts[$context] . '_' . $attribute, $value);
+        }
+
+        public static function get_selected_provider_from_context($context) {
+            return self::get_attribute_from_context($context, 'provider');
+        }
+
+        public static function get_selected_model_from_context($context) {
+            return self::get_attribute_from_context($context, 'model');
+        }
+
+        public static function get_selected_api_key_from_context($context) {
+            return self::get_attribute_from_context($context, 'api_key');
+        }
+
+        public static function set_selected_provider_from_context($context, $value)
+        {
+            return self::set_attribute_from_context($context, 'provider', $value);
+        }
+
+        public static function set_selected_model_from_context($context, $value)
+        {
+            return self::set_attribute_from_context($context, 'model', $value);
+        }
+
+        public static function set_selected_api_key_from_context($context, $value)
+        {
+            return self::set_attribute_from_context($context, 'api_key', $value);
         }
 
         // Instance methods.
@@ -424,9 +502,13 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 			add_filter('wp_ai_client_default_request_timeout', $_set_timeout, 999);
 
 			try {
-				$response = wp_ai_client_prompt($prompt)
-					->using_system_instruction($context)
-					->generate_text();
+                if ( function_exists('wp_ai_client_prompt') ) {
+                    $response = wp_ai_client_prompt($prompt)
+                        ->using_system_instruction($context)
+                        ->generate_text();
+                } else {
+                    return ['error' => esc_html__('WordPress AI inference is not available', 'calculated-fields-form')];
+                }
 			} finally {
 				remove_filter('wp_ai_client_default_request_timeout', $_set_timeout, 999);
 			}

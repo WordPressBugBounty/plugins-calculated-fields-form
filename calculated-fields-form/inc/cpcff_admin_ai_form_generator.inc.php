@@ -26,7 +26,7 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
 		/**
 		 * Main inference method with caching support.
 		 */
-		static public function model_inference($provider, $model, $form_description, $api_key, $base_form_structure = null) {
+		static public function model_inference($provider, $model, $api_key, $form_description, $base_form_structure = null) {
 			$schema_pretty = self::load_schema_pretty();
 
             $models = CPCFF_AI_REQUESTS::get_models();
@@ -147,94 +147,101 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
             $output = json_encode( $decoded );
             return $output;
 		}
-	} // End class CPCFF_AI_FORM_GENERATOR.
-}
 
-// Main code
+        static public function dispatch() {
+            $make_output = function ($value, $type) {
+                wp_send_json([$type => $value]);
+            };
 
-/** CALL THE AI FORM GENERATOR **/
-if(current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_options'))) {
-    if (
-        isset($_GET['cff_ai_form_preview']) ||
-        isset($_POST['cff_ai_form_generator_description']) ||
-        isset($_POST['cff_ai_form_save_settings'])
-    ) {
+            if(current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_options'))) {
+                if (
+                    isset($_GET['cff_ai_form_preview']) ||
+                    isset($_POST['cff_ai_form_generator_description']) ||
+                    isset($_POST['cff_ai_form_save_settings'])
+                ) {
 
-        remove_all_actions('shutdown');
-        check_admin_referer('cff-ai-form-generator', '_cpcff_nonce');
+                    remove_all_actions('shutdown');
+                    check_admin_referer('cff-ai-form-generator', '_cpcff_nonce');
 
-        if ( isset($_GET['cff_ai_form_preview']) ) {
-            $transient_name_form_preview   = 'cff_ai_form_preview_' . get_current_user_id();
-            $form_preview = get_transient($transient_name_form_preview);
-            delete_transient($transient_name_form_preview);
-            if (! empty($form_preview)) print $form_preview;
-            else print esc_html_e('No form preview available.', 'calculated-fields-form');
-            exit;
-        }
-
-        $output = [];
-
-        $model_selected     = isset($_POST['cff_ai_form_generator_model']) ? sanitize_text_field(wp_unslash($_POST['cff_ai_form_generator_model'])) : get_option('cff_ai_form_generator_model', '');
-        $provider_selected = isset($_POST['cff_ai_form_generator_provider']) ? sanitize_text_field(wp_unslash($_POST['cff_ai_form_generator_provider'])) : get_option('cff_ai_form_generator_provider', '');
-        $api_key            = isset($_POST['cff_ai_form_generator_api_key']) ? sanitize_text_field(wp_unslash($_POST['cff_ai_form_generator_api_key'])) : get_option('cff_ai_form_generator_api_key', '');
-
-        if (! empty($model_selected) && ! empty($provider_selected) ) {
-            if ( isset($_POST['cff_ai_form_generator_description']) ) {
-
-                $form_description = sanitize_textarea_field(wp_unslash($_POST['cff_ai_form_generator_description']));
-
-                if (! empty($form_description) && ($provider_selected == 'wordpress-ai' || ! empty($api_key))) {
-                    try {
-                        $transient_name_form_structure = 'cff_ai_form_structure_' . get_current_user_id();
+                    if ( isset($_GET['cff_ai_form_preview']) ) {
                         $transient_name_form_preview   = 'cff_ai_form_preview_' . get_current_user_id();
-                        $current_form_structure = null;
-                        if ( ! empty( $_POST['modify_form'] ) ) {
-                            $current_form_structure = get_transient($transient_name_form_structure);
-                        } else {
+                        $form_preview = get_transient($transient_name_form_preview);
+                        delete_transient($transient_name_form_preview);
+                        if (! empty($form_preview)) print $form_preview;
+                        else print esc_html_e('No form preview available.', 'calculated-fields-form');
+                        exit;
+                    }
+
+                    $model_selected     = isset($_POST['cff_ai_form_generator_model']) ? sanitize_text_field(wp_unslash($_POST['cff_ai_form_generator_model'])) : CPCFF_AI_REQUESTS::get_selected_model_from_context('form-generation');
+                    $provider_selected = isset($_POST['cff_ai_form_generator_provider']) ? sanitize_text_field(wp_unslash($_POST['cff_ai_form_generator_provider'])) : CPCFF_AI_REQUESTS::get_selected_provider_from_context('form-generation');
+                    $api_key            = isset($_POST['cff_ai_form_generator_api_key']) ? sanitize_text_field(wp_unslash($_POST['cff_ai_form_generator_api_key'])) : CPCFF_AI_REQUESTS::get_selected_api_key_from_context('form-generation');
+
+                    if (empty($provider_selected)) {
+                        $make_output(esc_html__('Please select a provider.', 'calculated-fields-form'), 'error');
+                    }
+
+                    if (empty($model_selected) && $provider_selected != 'wordpress-ai') {
+                        $make_output(esc_html__('Please select a model.', 'calculated-fields-form'), 'error');
+                    }
+
+                    if ( isset($_POST['cff_ai_form_generator_description']) ) {
+
+                        if (empty($api_key) && $provider_selected != 'wordpress-ai') {
+                            $make_output(esc_html__('Please enter your API key.', 'calculated-fields-form'), 'error');
+                        }
+
+                        $form_description = sanitize_textarea_field(wp_unslash($_POST['cff_ai_form_generator_description']));
+                        if (empty($form_description)) {
+                            $make_output(esc_html__('Form description is required.', 'calculated-fields-form'), 'error');
+                        }
+
+                        try {
+                            $transient_name_form_structure = 'cff_ai_form_structure_' . get_current_user_id();
+                            $transient_name_form_preview   = 'cff_ai_form_preview_' . get_current_user_id();
+                            $current_form_structure = null;
+                            if ( ! empty( $_POST['modify_form'] ) ) {
+                                $current_form_structure = get_transient($transient_name_form_structure);
+                            } else {
+                                delete_transient($transient_name_form_structure);
+                                delete_transient($transient_name_form_preview);
+                            }
+
+                            $form_structure = self::model_inference($provider_selected, $model_selected, $api_key, $form_description, $current_form_structure);
+
+                            // Defense against prompt injection: AI responses are treated as untrusted.
+                            // Sanitize the decoded structure before storing in transient so the same
+                            // protections applied to manual saves (PR 4 change 1) also apply here.
+                            $decoded_structure = json_decode($form_structure, true);
+                            if (is_array($decoded_structure)) {
+                                $sanitized = CPCFF_FORM::sanitize_structure($decoded_structure);
+                                $form_structure = json_encode($sanitized);
+                            }
+
+                            $form_preview = CPCFF_MAIN::instance()->no_form_preview($form_structure);
+
+                            $transient_form_structure_expiration = 24 * 60 * 60; // 24 hours.
+                            $transient_form_preview_expiration = 5 * 60; // 5 minutes.
+
+                            // Enforce deletion.
                             delete_transient($transient_name_form_structure);
                             delete_transient($transient_name_form_preview);
+
+                            set_transient($transient_name_form_structure, $form_structure, $transient_form_structure_expiration);
+                            set_transient($transient_name_form_preview, $form_preview, $transient_form_preview_expiration);
+
+                            $make_output('ok', 'success');
+                        } catch (Exception $err) {
+                            $make_output($err->getMessage(), 'error');
                         }
 
-                        $form_structure = CPCFF_AI_FORM_GENERATOR::model_inference($provider_selected, $model_selected, $form_description, $api_key, $current_form_structure);
-
-                        // Defense against prompt injection: AI responses are treated as untrusted.
-                        // Sanitize the decoded structure before storing in transient so the same
-                        // protections applied to manual saves (PR 4 change 1) also apply here.
-                        $decoded_structure = json_decode($form_structure, true);
-                        if (is_array($decoded_structure)) {
-                            $sanitized = CPCFF_FORM::sanitize_structure($decoded_structure);
-                            $form_structure = json_encode($sanitized);
-                        }
-
-                        $form_preview = CPCFF_MAIN::instance()->no_form_preview($form_structure);
-
-                        $transient_form_structure_expiration = 24 * 60 * 60; // 24 hours.
-                        $transient_form_preview_expiration = 5 * 60; // 5 minutes.
-
-                        // Enforce deletion.
-                        delete_transient($transient_name_form_structure);
-                        delete_transient($transient_name_form_preview);
-
-                        set_transient($transient_name_form_structure, $form_structure, $transient_form_structure_expiration);
-                        set_transient($transient_name_form_preview, $form_preview, $transient_form_preview_expiration);
-
-                        $output['success']     = 'ok';
-                    } catch (Exception $err) {
-                        $output['error'] = $err->getMessage();
+                    } else { // Save settings case.
+                        CPCFF_AI_REQUESTS::set_selected_model_from_context('form-generation', $model_selected);
+                        CPCFF_AI_REQUESTS::set_selected_provider_from_context('form-generation', $provider_selected);
+                        CPCFF_AI_REQUESTS::set_selected_api_key_from_context('form-generation', $api_key);
+                        $make_output(esc_html__('Settings saved successfully', 'calculated-fields-form'), 'success');
                     }
-                } else {
-                    $output['error'] = __('Empty API Key or form description', 'calculated-fields-form');
                 }
-            } else { // Save settings case.
-                update_option('cff_ai_form_generator_model', $model_selected);
-                update_option('cff_ai_form_generator_provider', $provider_selected);
-                update_option('cff_ai_form_generator_api_key', $api_key);
-                $output['success']     = __('Settings saved successfully', 'calculated-fields-form');
             }
-        } else {
-            $output['error'] = __('Model or provider not selected', 'calculated-fields-form');
-        }
-        print json_encode($output);
-        exit;
-    }
+        } // End dispatch
+	} // End class CPCFF_AI_FORM_GENERATOR.
 }
