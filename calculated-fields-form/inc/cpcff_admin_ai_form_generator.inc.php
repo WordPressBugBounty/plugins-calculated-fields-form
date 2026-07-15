@@ -1,5 +1,5 @@
 <?php
-if ( !is_admin() ) {
+if ( ! defined('ABSPATH') || ! is_admin() ) {
 	print 'Direct access not allowed.';
 	exit;
 }

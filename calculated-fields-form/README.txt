@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.8.9
+Stable tag: 5.4.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.9.0 =
+
+* Fixes an issue introduced in the previews plugin update.
+
 = 5.4.8.9 =
 
 * Implements a new AI-powered feature in the Entries section that allows filtering submissions using natural language search queries.
@@ -496,8 +500,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Strengthened security and boosted performance across the board.
 * Updated Cloud AI models with the latest enhancements and accuracy improvements.
 * Added a lightweight local model for fast, efficient in-browser inference.
-
-= 5.4.8.5 =
-
-* Fixed a minor conflict with Divi 4 that could load forms inside an iframe even when the iframe option was disabled.
-* Enhanced deletion confirmation dialogs by automatically setting focus on the confirmation button, improving accessibility and user experience.

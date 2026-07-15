@@ -6,7 +6,7 @@
  * @package calculated-fields-form
  */
 
-if (! defined('ABSPATH')) {
+if ( ! defined('ABSPATH') ) {
     exit;
 }
 

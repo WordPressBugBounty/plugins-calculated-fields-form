@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.9.0 =
+
+* Fixes an issue introduced in the previews plugin update.
+
 = 5.4.8.9 =
 
 * Implements a new AI-powered feature in the Entries section that allows filtering submissions using natural language search queries.
@@ -844,12 +848,3 @@ Since most users do not have devices with sufficient resources to run local infe
 * Enhances forms performance.
 * Updates the form preview module.
 * Refines the Users Permissions add-on—streamlining role and user selection/deselection for an improved user experience (available in Developer and Platinum plugin versions).
-
-= 5.3.30 =
-
-* Introduces a new option in the floating menu for easier access to the form preview.
-* Enhances the form creation module.
-* Enables customization of error bubble designs via the Form Settings / Advanced Settings tab.
-* Streamlines the configuration of the email copy for users (available in Professional, Developer, and Platinum plugin versions).
-* Improves the functionality of the reCAPTCHA add-on (available in Developer and Platinum plugin versions).
-* Provides support for using short labels in Stripe integration metadata (available in the Platinum plugin version).

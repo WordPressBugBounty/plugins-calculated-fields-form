@@ -1,6 +1,6 @@
 <?php
 
-if (! is_admin() || ! current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_options'))) {
+if ( ! defined('ABSPATH') || ! is_admin() ) {
     print 'Unauthorized access.';
     exit;
 }
@@ -9,7 +9,7 @@ require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_ai_requests.inc.php';
 if ( ! class_exists('CPCFF_AI_ASSISTANT')) {
     class CPCFF_AI_ASSISTANT {
         public static function dispatch() {
-            if (isset($_POST['_cpcff_ai_assistant_nonce'])) {
+            if (isset($_POST['_cpcff_ai_assistant_nonce']) &&  current_user_can(apply_filters('cpcff_forms_edition_capability', 'manage_options'))) {
                 $models = CPCFF_AI_REQUESTS::get_models();
                 $wordpress_ai = 'wordpress-ai';
                 $_cpcff_ai_assistant_nonce = sanitize_text_field(wp_unslash($_POST['_cpcff_ai_assistant_nonce']));
