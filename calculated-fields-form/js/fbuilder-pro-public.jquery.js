@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.9.0';
+	$.fbuilder['version'] = '5.4.9.2';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1228,43 +1228,45 @@
 				_setHndl:function(attr, one)
 					{
                         let _validSelector = function (s) {
+                            if (!s || s === '*') return false;
                             try {
                                 document.querySelectorAll(s);
                                 return true;
                             } catch (err) { return false; }
                         };
-						var me = this, v = String(me[attr]).trim();
+						var me = this,
+                            v = String(me[attr]).trim(); // v is type string.
 						if($.fbuilder.isNumeric(v)) return;
+
+						// NEW: only treat non-fieldname values as selectors if they look like one
+						// (start with . # or contain [). Anything else is a literal value — no dependency wiring.
+						if (!/^fieldname\d+$/i.test(v) && !/^[.#\[]/.test(v)) return;
 						var s = (/^fieldname\d+$/i.test(v)) ? '.'+v+me.form_identifier+' [id*="'+v+me.form_identifier+'"]' : v,
 							i = (one) ? 'one' : 'on';
-						if('string' == typeof s)
-						{
-							s = String(s).trim();
-                            if (_validSelector(s))
-							{
-								try {
-									$(document)[i]('change depEvent cff-reset-field', s, function(evt){
-                                        let v = $(evt.target).val();
-										if(me['set_'+attr]) me['set_'+attr](v, $(evt.target).hasClass('ignore'));
-									});
-								} catch( err ) {}
+                        if (_validSelector(s))
+                        {
+                            try {
+                                $(document)[i]('change depEvent cff-reset-field', s, function(evt){
+                                    let v = $(evt.target).val();
+                                    if(me['set_'+attr]) me['set_'+attr](v, $(evt.target).hasClass('ignore'));
+                                });
+                            } catch( err ) {}
 
-								try {
-									$(document)['one']('showHideDepEvent', function(evt,formId){
-										try
-										{
-											if(me['set_'+attr])
-											{
-												me['set_'+attr](me._getAttr(attr), $(s).hasClass('ignore'));
-												$('#'+formId+' .cpefb_error.message').remove();
-												$('#'+formId+' .cpefb_error').removeClass('cpefb_error');
-											}
-										}
-										catch(err){}
-									});
-								} catch( err ) {}
-							}
-						}
+                            try {
+                                $(document)['one']('showHideDepEvent', function(evt,formId){
+                                    try
+                                    {
+                                        if(me['set_'+attr])
+                                        {
+                                            me['set_'+attr](me._getAttr(attr), $(s).hasClass('ignore'));
+                                            $('#'+formId+' .cpefb_error.message').remove();
+                                            $('#'+formId+' .cpefb_error').removeClass('cpefb_error');
+                                        }
+                                    }
+                                    catch(err){}
+                                });
+                            } catch( err ) {}
+                        }
 					},
 				getField: function(f){return $.fbuilder['forms'][this.form_identifier].getItem(f);},
 				jQueryRef: function(){return $('.'+this.name);},

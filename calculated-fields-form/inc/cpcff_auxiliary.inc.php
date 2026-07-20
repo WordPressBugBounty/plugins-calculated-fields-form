@@ -115,7 +115,6 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		/**
 		 * Returns the URL to the current post url.
 		 *
-		 * @return string.
 		 */
 		public static function wp_current_url() {
 			if ( is_admin() ) {

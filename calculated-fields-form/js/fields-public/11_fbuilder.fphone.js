@@ -38,8 +38,12 @@
 						el = $(this);
 						el.on('change', function(){
 							var v = '';
-                            $(':input[id*="'+me.name+'_"]').each(function(){v+=$(this).val();});
-							$('#'+me.name).val(v).trigger('change');
+                            var p = '';
+                            $(':input[id*="'+me.name+'_"]').each(function(){
+                                if(this.tagName == 'SELECT') p = $(this).val();
+                                v+=$(this).val();
+                            });
+                            $('#'+me.name).val(v != p ? v : '').trigger('change');
 						})
 						.on('keyup', function(evt){
 							var e = $(this);

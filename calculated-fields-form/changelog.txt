@@ -1,5 +1,19 @@
 == Changelog ==
 
+= 5.4.9.2 =
+
+* Improved the drag-and-drop behavior of controls in the form builder for greater accuracy.
+* Updated the list of supported AI models.
+* Enhanced nonce handling to ensure compatibility with LiteSpeed Cache.
+* Updated the _setHandle function in the plugin core.
+* Enhanced the Google Places add-on to support all address components (Platinum edition).
+
+= 5.4.9.1 =
+
+* Refactored compatibility with third-party cache and optimization plugins, while improving overall plugin performance.
+* Updated the Slider control to make it easier to identify in the form builder.
+* Updated the Phone control to prevent submitting the country code when no phone number digits have been entered.
+
 = 5.4.9.0 =
 
 * Fixes an issue introduced in the previews plugin update.

@@ -373,6 +373,8 @@ body:has( #metabox_form_structure.fullscreen ) .select2-container.cff-ctrl-selec
 #fbuilder legend{ border:1px solid #CDCDCD; background:#FFF; margin-left:5px; padding: 0 5px; }
 #fbuilder .fcontainer{ border:1px solid #CDCDCD;min-height:67px;padding:5px 10px;position:relative;border-radius:2px;}
 #fbuilder .fieldscontainer{min-height:67px;}
+#fbuilder .fieldscontainer:not(:has(> .fields)){padding:20px;outline:3px dashed #C0C0C0;outline-offset:-3px;color: #CDCDCD; font-size: 18px;min-height: 85px;display:flex;align-items:center;justify-content:center;}
+#fbuilder .fieldscontainer:empty::before{content:"Drop fields here";}
 #fbuilder .cff-popup-header{position:relative;padding:5px;}
 #fbuilder .cff-popup-header:not(:empty){border:1px solid #CDCDCD;border-bottom:0;background:white;min-height:24px;}
 #fbuilder .cff-popup-close{position:absolute;top:50%;right:10px;transform:translateY(-50%);}
@@ -845,7 +847,7 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 
 .form-builder #tabs label{ font-size:12px !important; display:block;margin-top:10px;}
 
-#fbuilder .ui-state-highlight { height: 65px; line-height: 65px; border-radius:2px; opacity:.7; border-color: var(--cff-container-highlight-border-color); background: var(--cff-container-highlight-color);}
+#fbuilder .ui-state-highlight { height: 65px; line-height: 65px; border-radius:2px; opacity:.7; border-color: var(--cff-container-highlight-border-color); background: var(--cff-container-highlight-color); width:100%;}
 
 .cff-revisions-container{padding:10px 10px 0 10px;}
 .cff-revisions-container-flex{display:flex;flex-wrap:wrap;gap:2px;align-items:center;}

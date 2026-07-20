@@ -121,12 +121,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'claude-haiku-4-5-20251001',
                         'api_key_url'   => 'https://console.anthropic.com/settings/keys',
                         'models'        => [
-							'claude-fable-5' => [
-								'title'           => esc_html__('Claude Fable 5 (Most Powerful)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 96000  // soporta hasta 128k output
-							],
+                            'claude-fable-5' => [
+                                'title'           => esc_html__('Claude Fable 5 (Most Powerful)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant'    => true,
+                                'max_tokens'      => 96000
+                            ],
                             'claude-opus-4-8' => [
                                 'title' => esc_html__('Claude Opus 4.8 (Most Capable)', 'calculated-fields-form'),
                                 'form-generation' => true,
@@ -151,7 +151,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
-							'claude-sonnet-5' => [
+                            'claude-sonnet-5' => [
                                 'title' => esc_html__('Claude Sonnet 5 (Recommended)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
@@ -163,12 +163,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
-							'claude-sonnet-4-5-20250929' => [
-								'title'           => esc_html__('Claude Sonnet 4.5', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 64000
-							],
+                            'claude-sonnet-4-5-20250929' => [
+                                'title'           => esc_html__('Claude Sonnet 4.5', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant'    => true,
+                                'max_tokens'      => 64000
+                            ],
                             'claude-haiku-4-5-20251001' => [
                                 'title' => esc_html__('Claude Haiku 4.5 (Fast)', 'calculated-fields-form'),
                                 'form-generation' => true,
@@ -179,41 +179,23 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                     ],
                     'gemini' => [
                         'title'         => esc_html__('Google (Gemini)', 'calculated-fields-form'),
-                        'default_model' => 'gemini-2.5-flash',
+                        'default_model' => 'gemini-3.5-flash',
                         'api_key_url'   => 'https://aistudio.google.com/app/api-keys',
                         'models'        => [
                             'gemini-3.1-pro-preview' => [
-                                'title' => esc_html__('Gemini 3.1 Pro', 'calculated-fields-form'),
+                                'title' => esc_html__('Gemini 3.1 Pro (Most Capable)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'gemini-3.5-flash' => [
-                                'title' => esc_html__('Gemini 3.5 Flash', 'calculated-fields-form'),
+                                'title' => esc_html__('Gemini 3.5 Flash (Recommended)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'gemini-3.1-flash-lite' => [
-                                'title' => esc_html__('Gemini 3.1 Flash-Lite', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'gemini-2.5-pro' => [
-                                'title' => esc_html__('Gemini 2.5 Pro (Legacy)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'gemini-2.5-flash' => [
-                                'title' => esc_html__('Gemini 2.5 Flash (Legacy)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'gemini-2.5-flash-lite' => [
-                                'title' => esc_html__('Gemini 2.5 Flash-Lite (Legacy)', 'calculated-fields-form'),
+                                'title' => esc_html__('Gemini 3.1 Flash-Lite (Fast)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
@@ -225,12 +207,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'MiniMax-M2.7',
                         'api_key_url'   => 'https://platform.minimax.io/user-center/basic-information',
                         'models'        => [
-							'MiniMax-M3' => [
-								'title'           => esc_html__('MiniMax M3 (Latest)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 64000
-							],
+                            'MiniMax-M3' => [
+                                'title'           => esc_html__('MiniMax M3 (Latest)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant'    => true,
+                                'max_tokens'      => 64000
+                            ],
                             'MiniMax-M2.7-highspeed' => [
                                 'title' => esc_html__('MiniMax M2.7 Highspeed', 'calculated-fields-form'),
                                 'form-generation' => true,
@@ -277,16 +259,22 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                     ],
                     'kimi' => [
                         'title'         => esc_html__('Kimi (Moonshot AI)', 'calculated-fields-form'),
-                        'default_model' => 'kimi-k2.5',
+                        'default_model' => 'kimi-k2.6',
                         'api_key_url'   => 'https://platform.moonshot.ai/console/api-keys',
                         'models'        => [
+                            'kimi-k3' => [
+                                'title' => esc_html__('Kimi K3 (Latest)', 'calculated-fields-form'),
+                                'form-generation' => true,
+                                'ai-assistant' => true,
+                                'max_tokens' => 64000
+                            ],
                             'kimi-k2.7-code' => [
                                 'title' => esc_html__('Kimi K2.7 Code', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
-							'kimi-k2.7-code-highspeed' => [
+                            'kimi-k2.7-code-highspeed' => [
                                 'title' => esc_html__('Kimi K2.7 Code Highspeed (Fast)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
@@ -297,30 +285,6 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
-                            ],
-                            'kimi-k2.5' => [
-                                'title' => esc_html__('Kimi K2.5', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'moonshot-v1-128k' => [
-                                'title' => esc_html__('Moonshot V1 128K', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'moonshot-v1-32k' => [
-                                'title' => esc_html__('Moonshot V1 32K', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 32768
-                            ],
-                            'moonshot-v1-8k' => [
-                                'title' => esc_html__('Moonshot V1 8K', 'calculated-fields-form'),
-                                'form-generation' => false,
-                                'ai-assistant' => true,
-                                'max_tokens' => 8192
                             ]
                         ]
                     ],

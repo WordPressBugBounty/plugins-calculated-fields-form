@@ -105,7 +105,7 @@
 							'connectWith': '.ui-sortable',
 							'items': '.fields',
 							'placeholder': 'ui-state-highlight',
-							'tolerance': 'pointer',
+							'tolerance': 'intersect', // 'pointer',
 							'update': function( event, ui )
 									{
                                         if ('invalidItem' in me && me.invalidItem) { delete me.invalidItem; return; }

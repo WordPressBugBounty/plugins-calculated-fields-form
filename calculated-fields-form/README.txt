@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.9.0
+Stable tag: 5.4.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,20 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.9.2 =
+
+* Improved the drag-and-drop behavior of controls in the form builder for greater accuracy.
+* Updated the list of supported AI models.
+* Enhanced nonce handling to ensure compatibility with LiteSpeed Cache.
+* Updated the _setHandle function in the plugin core.
+* Enhanced the Google Places add-on to support all address components (Platinum edition).
+
+= 5.4.9.1 =
+
+* Refactored compatibility with third-party cache and optimization plugins, while improving overall plugin performance.
+* Updated the Slider control to make it easier to identify in the form builder.
+* Updated the Phone control to prevent submitting the country code when no phone number digits have been entered.
+
 = 5.4.9.0 =
 
 * Fixes an issue introduced in the previews plugin update.
@@ -485,18 +499,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Enhances various visual elements.
 * Fixes a minor issue with the search box in phone number controls.
 * Implements an arithmetic CAPTCHA in the commercial editions of the plugin (Professional, Developer, and Platinum).
-
-= 5.4.8.7 =
-
-* Enhanced the AI Form Generator module and fixed a minor issue in the form JSON schema.
-* Updated the list of supported AI models.
-* Added new menu options.
-* Improved the user interface.
-* Introduced Clippy.
-
-= 5.4.8.6 =
-
-* Redesigned plugin interface for a smoother, more intuitive experience.
-* Strengthened security and boosted performance across the board.
-* Updated Cloud AI models with the latest enhancements and accuracy improvements.
-* Added a lightweight local model for fast, efficient in-browser inference.

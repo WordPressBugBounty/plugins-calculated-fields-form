@@ -1251,7 +1251,7 @@
 				'distance': 5,
 				'items': '.fields',
 				'placeholder': 'ui-state-highlight',
-				'tolerance': 'pointer',
+				'tolerance': 'intersect', // 'pointer',
 				'update': function( event, ui )
 				{
 					if (ui.item.hasClass("fPageBreak") && ui.item.closest(".fieldscontainer").length)  {
@@ -2383,7 +2383,7 @@
 
     setTimeout(function() {
         $('.cff-admin-message').trigger('click');
-    }, 6000);
+    }, 4000);
 
 	// Redirect to the admin list sections
 	function cff_jump_to_section() {

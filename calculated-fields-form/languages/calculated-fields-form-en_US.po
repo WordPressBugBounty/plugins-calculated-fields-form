@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-07-14 11:55+0200\n"
-"PO-Revision-Date: 2026-07-14 11:55+0200\n"
+"POT-Creation-Date: 2026-07-20 01:28+0200\n"
+"PO-Revision-Date: 2026-07-20 01:28+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -207,7 +207,7 @@ msgstr ""
 msgid "unload model"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:117 inc/cpcff_main.inc.php:253
+#: inc/cpcff_admin_ai_assistant.inc.php:117 inc/cpcff_main.inc.php:254
 msgid "Settings"
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:154
 #: inc/cpcff_admin_ai_entry_searcher.inc.php:656
-#: inc/cpcff_admin_ai_entry_searcher.inc.php:700 inc/cpcff_main.inc.php:504
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:700 inc/cpcff_main.inc.php:505
 msgid "Save Settings"
 msgstr ""
 
@@ -423,7 +423,7 @@ msgstr ""
 msgid "Please enter a search criteria."
 msgstr ""
 
-#: inc/cpcff_admin_ai_entry_searcher.inc.php:662 inc/cpcff_main.inc.php:515
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:662 inc/cpcff_main.inc.php:516
 msgid "Be patient, still thinking..."
 msgstr ""
 
@@ -435,7 +435,7 @@ msgstr ""
 msgid "Enter your API key"
 msgstr ""
 
-#: inc/cpcff_admin_ai_entry_searcher.inc.php:701 inc/cpcff_main.inc.php:506
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:701 inc/cpcff_main.inc.php:507
 msgid "Clear Settings"
 msgstr ""
 
@@ -683,7 +683,7 @@ msgid "Captcha Settings"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:362 inc/cpcff_admin_int.inc.php:363
-#: inc/cpcff_admin_int_list.inc.php:377 inc/cpcff_admin_int_list.inc.php:378
+#: inc/cpcff_admin_int_list.inc.php:378 inc/cpcff_admin_int_list.inc.php:379
 msgid "Add Ons"
 msgstr ""
 
@@ -955,12 +955,12 @@ msgid ""
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:700 inc/cpcff_admin_int.inc.php:830
-#: inc/cpcff_admin_int_list.inc.php:742
+#: inc/cpcff_admin_int_list.inc.php:743
 msgid "Request Custom Modifications"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:700 inc/cpcff_admin_int.inc.php:830
-#: inc/cpcff_admin_int_list.inc.php:742 inc/cpcff_main.inc.php:255
+#: inc/cpcff_admin_int_list.inc.php:743 inc/cpcff_main.inc.php:256
 msgid "Help"
 msgstr ""
 
@@ -1265,7 +1265,7 @@ msgstr ""
 msgid "Troubleshoot settings updated"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:200 inc/cpcff_page_builders.inc.php:270
+#: inc/cpcff_admin_int_list.inc.php:201 inc/cpcff_page_builders.inc.php:270
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:9
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:11
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:12
@@ -1276,400 +1276,400 @@ msgstr ""
 msgid "Calculated Fields Form"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:283
+#: inc/cpcff_admin_int_list.inc.php:284
 msgid "Delete form"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:284
+#: inc/cpcff_admin_int_list.inc.php:285
 msgid "Yes, delete form"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:285
+#: inc/cpcff_admin_int_list.inc.php:286
 msgid "No, keep form"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:286
+#: inc/cpcff_admin_int_list.inc.php:287
 msgid "You are about to delete the form with id: "
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:286
+#: inc/cpcff_admin_int_list.inc.php:287
 msgid "Are you sure that you want to delete it?"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:296
+#: inc/cpcff_admin_int_list.inc.php:297
 msgid "Update settings"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:297
+#: inc/cpcff_admin_int_list.inc.php:298
 msgid "Yes, update settings"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:298
+#: inc/cpcff_admin_int_list.inc.php:299
 msgid "No, keep current settings"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:299
+#: inc/cpcff_admin_int_list.inc.php:300
 msgid "You are about to update the plugin settings: "
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:299
+#: inc/cpcff_admin_int_list.inc.php:300
 msgid "Are you sure that you want to update them?"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:334
+#: inc/cpcff_admin_int_list.inc.php:335
 msgid ""
 "Are you sure you want to modify existing forms?\\nWe recommend modifying the "
 "forms one by one."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:345
+#: inc/cpcff_admin_int_list.inc.php:346
 msgid "Forms and Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:348
+#: inc/cpcff_admin_int_list.inc.php:349
 msgid "Marketplace"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:355 inc/cpcff_admin_int_list.inc.php:409
+#: inc/cpcff_admin_int_list.inc.php:356 inc/cpcff_admin_int_list.inc.php:410
 msgid "Create Form"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:364 inc/cpcff_admin_int_list.inc.php:365
+#: inc/cpcff_admin_int_list.inc.php:365 inc/cpcff_admin_int_list.inc.php:366
 msgid "Forms List"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:368 inc/cpcff_admin_int_list.inc.php:369
+#: inc/cpcff_admin_int_list.inc.php:369 inc/cpcff_admin_int_list.inc.php:370
 msgid "Default Forms Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:372 inc/cpcff_admin_int_list.inc.php:373
+#: inc/cpcff_admin_int_list.inc.php:373 inc/cpcff_admin_int_list.inc.php:374
 msgid "Troubleshoot Area & General Plugin Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:381 inc/cpcff_admin_int_list.inc.php:382
+#: inc/cpcff_admin_int_list.inc.php:382 inc/cpcff_admin_int_list.inc.php:383
 msgid "Export/Import Forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:398
+#: inc/cpcff_admin_int_list.inc.php:399
 msgid "New Form"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:402
+#: inc/cpcff_admin_int_list.inc.php:403
 msgid "New form name"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:403
+#: inc/cpcff_admin_int_list.inc.php:404
 msgid "Category"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:410
+#: inc/cpcff_admin_int_list.inc.php:411
 msgid "From Template"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:411
+#: inc/cpcff_admin_int_list.inc.php:412
 msgid "AI Generator"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:422
+#: inc/cpcff_admin_int_list.inc.php:423
 msgid "Form Categories"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:424 inc/cpcff_admin_int_list.inc.php:483
+#: inc/cpcff_admin_int_list.inc.php:425 inc/cpcff_admin_int_list.inc.php:484
 #: inc/cpcff_admin_int_message_list.inc.php:193
 #: widgets/widget.cff-form/cff-form.widget.php:101
 msgid "All forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:429 inc/cpcff_admin_int_list.inc.php:431
+#: inc/cpcff_admin_int_list.inc.php:430 inc/cpcff_admin_int_list.inc.php:432
 msgid "Search"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:430
+#: inc/cpcff_admin_int_list.inc.php:431
 msgid "- search term -"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:432
+#: inc/cpcff_admin_int_list.inc.php:433
 #: inc/cpcff_admin_int_message_list.inc.php:205
 msgid "Reset"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:471
+#: inc/cpcff_admin_int_list.inc.php:472
 msgid "10 forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:474
+#: inc/cpcff_admin_int_list.inc.php:475
 msgid "20 forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:477
+#: inc/cpcff_admin_int_list.inc.php:478
 msgid "50 forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:480
+#: inc/cpcff_admin_int_list.inc.php:481
 msgid "100 forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:498
+#: inc/cpcff_admin_int_list.inc.php:499
 #: inc/cpcff_admin_int_message_list.inc.php:239
 msgid "&laquo; Previous"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:499
+#: inc/cpcff_admin_int_list.inc.php:500
 #: inc/cpcff_admin_int_message_list.inc.php:240
 msgid "Next &raquo;"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:511
+#: inc/cpcff_admin_int_list.inc.php:512
 msgid "Form List / Items List"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:514
+#: inc/cpcff_admin_int_list.inc.php:515
 msgid "in"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:514 inc/cpcff_admin_int_list.inc.php:546
+#: inc/cpcff_admin_int_list.inc.php:515 inc/cpcff_admin_int_list.inc.php:547
 msgid "category"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:518
+#: inc/cpcff_admin_int_list.inc.php:519
 msgid "search term(s)"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:527
+#: inc/cpcff_admin_int_list.inc.php:528
 #: inc/cpcff_admin_int_message_list.inc.php:263
 msgid "ID"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:530
+#: inc/cpcff_admin_int_list.inc.php:531
 msgid "Form Name"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:531
+#: inc/cpcff_admin_int_list.inc.php:532
 #: inc/cpcff_admin_int_message_list.inc.php:275
 msgid "Options"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:532
+#: inc/cpcff_admin_int_list.inc.php:533
 msgid "Category / Shortcode / Stats"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:539
+#: inc/cpcff_admin_int_list.inc.php:540
 msgid "Forms list is empty."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:542
+#: inc/cpcff_admin_int_list.inc.php:543
 msgid "No forms match the search term(s)"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:545
+#: inc/cpcff_admin_int_list.inc.php:546
 msgid "in the"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:548
+#: inc/cpcff_admin_int_list.inc.php:549
 msgid "reset"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:567
+#: inc/cpcff_admin_int_list.inc.php:568
 msgid "Rename"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:568
+#: inc/cpcff_admin_int_list.inc.php:569
 msgid "Build"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:568
+#: inc/cpcff_admin_int_list.inc.php:569
 msgid "Ctrl+Click to open in new tab"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:569
+#: inc/cpcff_admin_int_list.inc.php:570
 msgid "Entries"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:570
+#: inc/cpcff_admin_int_list.inc.php:571
 msgid "Duplicate"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:571
+#: inc/cpcff_admin_int_list.inc.php:572
 #: inc/cpcff_admin_int_message_list.inc.php:308
 msgid "Delete"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:576
+#: inc/cpcff_admin_int_list.inc.php:577
 msgid "Category: "
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:605
+#: inc/cpcff_admin_int_list.inc.php:606
 msgid "Default Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:607
+#: inc/cpcff_admin_int_list.inc.php:608
 msgid "Applies the default settings to new forms."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:609
+#: inc/cpcff_admin_int_list.inc.php:610
 msgid "Default Template"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:623
+#: inc/cpcff_admin_int_list.inc.php:624
 msgid "Display Submit Button by Default"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:625
+#: inc/cpcff_admin_int_list.inc.php:626
 msgid "Apply To Existing Forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:625
+#: inc/cpcff_admin_int_list.inc.php:626
 msgid "It will modify the settings of existing forms"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:628
+#: inc/cpcff_admin_int_list.inc.php:629
 msgid "Update"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:634
+#: inc/cpcff_admin_int_list.inc.php:635
 msgid "Troubleshoot Area & General Settings"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:638
+#: inc/cpcff_admin_int_list.inc.php:639
 msgid ""
 "<strong>Important!</strong>: Use this area <strong>only</strong> if you are "
 "experiencing conflicts with third party plugins, with the theme scripts or "
 "with the character encoding."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:639
+#: inc/cpcff_admin_int_list.inc.php:640
 msgid "Script load method"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:643
+#: inc/cpcff_admin_int_list.inc.php:644
 msgid "Classic (Recommended)"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:646
+#: inc/cpcff_admin_int_list.inc.php:647
 msgid "Direct"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:648
+#: inc/cpcff_admin_int_list.inc.php:649
 msgid ""
 "* Change the script load method if the form doesn't appear in the public "
 "website."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:650
+#: inc/cpcff_admin_int_list.inc.php:651
 msgid "Character encoding"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:652
+#: inc/cpcff_admin_int_list.inc.php:653
 msgid "Keep current charset (Recommended)"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:653
+#: inc/cpcff_admin_int_list.inc.php:654
 msgid "try this first"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:654
+#: inc/cpcff_admin_int_list.inc.php:655
 msgid "Only from MySQL 5.5"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:657
+#: inc/cpcff_admin_int_list.inc.php:658
 msgid ""
 "* Update the charset if you are getting problems displaying special/non-"
 "latin characters. After updated you need to edit the special characters "
 "again."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:659
+#: inc/cpcff_admin_int_list.inc.php:660
 msgid "The emails contain invalid characters"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:660
+#: inc/cpcff_admin_int_list.inc.php:661
 msgid "* Encodes the notification emails as ISO-8859-2 and base64."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:667
+#: inc/cpcff_admin_int_list.inc.php:668
 msgid "There is active an optimization plugin in WordPress"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:668
+#: inc/cpcff_admin_int_list.inc.php:669
 msgid ""
 "* Tick the checkbox if there is an optimization plugin active on the "
 "website, and the forms are not visible."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:676
+#: inc/cpcff_admin_int_list.inc.php:677
 msgid "Disable Form Revisions"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:678
+#: inc/cpcff_admin_int_list.inc.php:679
 msgid "Activate Javascript Cache"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:680
+#: inc/cpcff_admin_int_list.inc.php:681
 msgid "Render only the visible forms to improve page performance"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:682
+#: inc/cpcff_admin_int_list.inc.php:683
 msgid "Allows to access the forms directly"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:684
+#: inc/cpcff_admin_int_list.inc.php:685
 msgid "Allows to access the forms from amp pages"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:686
+#: inc/cpcff_admin_int_list.inc.php:687
 msgid "Do not load the forms with crawlers"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:687
+#: inc/cpcff_admin_int_list.inc.php:688
 msgid "* The forms are not loaded when website is being indexed by searchers."
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:689
+#: inc/cpcff_admin_int_list.inc.php:690
 msgid "Protect the forms with nonce"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:692
+#: inc/cpcff_admin_int_list.inc.php:693
 msgid "Protect the forms against the spam bots"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:693
+#: inc/cpcff_admin_int_list.inc.php:694
 msgid "Enable minimum time to submit (in seconds)"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:696
+#: inc/cpcff_admin_int_list.inc.php:697
 msgid "Spam protection with Akismet"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:700
+#: inc/cpcff_admin_int_list.inc.php:701
 msgid "Enable Akismet spam protection"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:703
+#: inc/cpcff_admin_int_list.inc.php:704
 msgid "Akismet API Key"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:709
+#: inc/cpcff_admin_int_list.inc.php:710
 #, php-format
 msgid "Get your free key at %s"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:718
+#: inc/cpcff_admin_int_list.inc.php:719
 msgid "Activity Log - Log Akismet results in the PHP log"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:724
+#: inc/cpcff_admin_int_list.inc.php:725
 msgid "Test Mode - Use Akismet in test mode"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:727
+#: inc/cpcff_admin_int_list.inc.php:728
 msgid "UPDATE"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:736
+#: inc/cpcff_admin_int_list.inc.php:737
 msgid "Calculated Fields Form Marketplace"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:742 inc/cpcff_main.inc.php:254
+#: inc/cpcff_admin_int_list.inc.php:743 inc/cpcff_main.inc.php:255
 msgid "Upgrade"
 msgstr ""
 
@@ -2055,207 +2055,187 @@ msgstr ""
 msgid "Upgrade your plugin copy"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:60
+#: inc/cpcff_ai_requests.inc.php:59
 msgid "OpenAI"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:65
+#: inc/cpcff_ai_requests.inc.php:64
 msgid "GPT-5.6 Sol (Most Capable)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:72
+#: inc/cpcff_ai_requests.inc.php:70
 msgid "GPT-5.6 Terra (Balanced)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:79
+#: inc/cpcff_ai_requests.inc.php:76
 msgid "GPT-5.6 Luna (Fast and Cheap)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:86
+#: inc/cpcff_ai_requests.inc.php:82
 msgid "GPT-5.5 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:93
+#: inc/cpcff_ai_requests.inc.php:88
 msgid "GPT-5.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:100
+#: inc/cpcff_ai_requests.inc.php:94
 msgid "GPT-5.4 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:107
+#: inc/cpcff_ai_requests.inc.php:100
 msgid "GPT-5.4"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:114
+#: inc/cpcff_ai_requests.inc.php:106
 msgid "GPT-5.4 Mini"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:121
+#: inc/cpcff_ai_requests.inc.php:112
 msgid "GPT-5.4 Nano"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:130
+#: inc/cpcff_ai_requests.inc.php:120
 msgid "Anthropic (Claude)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:135
+#: inc/cpcff_ai_requests.inc.php:125
 msgid "Claude Fable 5 (Most Powerful)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:142
+#: inc/cpcff_ai_requests.inc.php:131
 msgid "Claude Opus 4.8 (Most Capable)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:149
+#: inc/cpcff_ai_requests.inc.php:137
 msgid "Claude Opus 4.7"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:156
+#: inc/cpcff_ai_requests.inc.php:143
 msgid "Claude Opus 4.6"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:163
+#: inc/cpcff_ai_requests.inc.php:149
 msgid "Claude Opus 4.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:170
+#: inc/cpcff_ai_requests.inc.php:155
 msgid "Claude Sonnet 5 (Recommended)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:177
+#: inc/cpcff_ai_requests.inc.php:161
 msgid "Claude Sonnet 4.6"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:184
+#: inc/cpcff_ai_requests.inc.php:167
 msgid "Claude Sonnet 4.5"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:191
+#: inc/cpcff_ai_requests.inc.php:173
 msgid "Claude Haiku 4.5 (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:200
+#: inc/cpcff_ai_requests.inc.php:181
 msgid "Google (Gemini)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:205
-msgid "Gemini 3.1 Pro"
+#: inc/cpcff_ai_requests.inc.php:186
+msgid "Gemini 3.1 Pro (Most Capable)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:212
-msgid "Gemini 3.5 Flash"
+#: inc/cpcff_ai_requests.inc.php:192
+msgid "Gemini 3.5 Flash (Recommended)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:219
-msgid "Gemini 3.1 Flash-Lite"
+#: inc/cpcff_ai_requests.inc.php:198
+msgid "Gemini 3.1 Flash-Lite (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:226
-msgid "Gemini 2.5 Pro (Legacy)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:233
-msgid "Gemini 2.5 Flash (Legacy)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:240
-msgid "Gemini 2.5 Flash-Lite (Legacy)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:249
+#: inc/cpcff_ai_requests.inc.php:206
 msgid "MiniMax"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:254
+#: inc/cpcff_ai_requests.inc.php:211
 msgid "MiniMax M3 (Latest)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:261
+#: inc/cpcff_ai_requests.inc.php:217
 msgid "MiniMax M2.7 Highspeed"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:268
+#: inc/cpcff_ai_requests.inc.php:223
 msgid "MiniMax M2.7"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:275
+#: inc/cpcff_ai_requests.inc.php:229
 msgid "MiniMax M2.5 Highspeed (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:282
+#: inc/cpcff_ai_requests.inc.php:235
 msgid "MiniMax M2.5 (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:289
+#: inc/cpcff_ai_requests.inc.php:241
 msgid "MiniMax M2.1 Highspeed (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:296
+#: inc/cpcff_ai_requests.inc.php:247
 msgid "MiniMax M2.1 (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:303
+#: inc/cpcff_ai_requests.inc.php:253
 msgid "MiniMax M2 (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:312
+#: inc/cpcff_ai_requests.inc.php:261
 msgid "Kimi (Moonshot AI)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:317
+#: inc/cpcff_ai_requests.inc.php:266
+msgid "Kimi K3 (Latest)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:272
 msgid "Kimi K2.7 Code"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:324
+#: inc/cpcff_ai_requests.inc.php:278
 msgid "Kimi K2.7 Code Highspeed (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:331
+#: inc/cpcff_ai_requests.inc.php:284
 msgid "Kimi K2.6"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:338
-msgid "Kimi K2.5"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:345
-msgid "Moonshot V1 128K"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:352
-msgid "Moonshot V1 32K"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:359
-msgid "Moonshot V1 8K"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:368
+#: inc/cpcff_ai_requests.inc.php:292
 msgid "DeepSeek"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:373
+#: inc/cpcff_ai_requests.inc.php:297
 msgid "DeepSeek V4 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:380
+#: inc/cpcff_ai_requests.inc.php:303
 msgid "DeepSeek V4 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:397
+#: inc/cpcff_ai_requests.inc.php:319
 msgid "WordPress AI Connector"
 msgstr ""
 
-#: inc/cpcff_akismet.inc.php:171
-msgid "Valid API key"
+#: inc/cpcff_ai_requests.inc.php:474
+msgid "WordPress AI inference is not available"
 msgstr ""
 
 #: inc/cpcff_akismet.inc.php:172
+msgid "Valid API key"
+msgstr ""
+
+#: inc/cpcff_akismet.inc.php:173
 msgid "Invalid API key"
 msgstr ""
 
-#: inc/cpcff_akismet.inc.php:421
+#: inc/cpcff_akismet.inc.php:422
 msgid "[POSSIBLE SPAM]"
 msgstr ""
 
@@ -2263,34 +2243,34 @@ msgstr ""
 msgid "Click to expand"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:148
+#: inc/cpcff_auxiliary.inc.php:147
 msgid "Page"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:149
+#: inc/cpcff_auxiliary.inc.php:148
 msgid "page"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:188
+#: inc/cpcff_auxiliary.inc.php:187
 msgid "&hellip;"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:1156
+#: inc/cpcff_auxiliary.inc.php:1155
 msgid "Paid"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:1156
+#: inc/cpcff_auxiliary.inc.php:1155
 msgid "Not Paid"
 msgstr ""
 
-#: inc/cpcff_compatibility.inc.php:18
+#: inc/cpcff_compatibility.inc.php:20
 msgid ""
 "There is active the <b>Breeze - WordPress Cache Plugin</b> plugin. If the "
 "forms are not visible, please tick the <i>\"There is active an optimization "
 "plugin in WordPress\"</i> and Purge the Breeze cache."
 msgstr ""
 
-#: inc/cpcff_compatibility.inc.php:24
+#: inc/cpcff_compatibility.inc.php:26
 msgid ""
 "There is active the <b>Fast Velocity Minify</b> plugin. If the forms are not "
 "visible, please try disabling the <i>\"Disable minification on JS files\"</"
@@ -2298,13 +2278,13 @@ msgid ""
 "Velocity Minify</b> settings."
 msgstr ""
 
-#: inc/cpcff_compatibility.inc.php:30
+#: inc/cpcff_compatibility.inc.php:32
 msgid ""
 "There is active the <b>W3 Total Cache</b> plugin. If the forms are not "
 "visible, please tick the checkbox."
 msgstr ""
 
-#: inc/cpcff_compatibility.inc.php:36
+#: inc/cpcff_compatibility.inc.php:38
 msgid ""
 "There is active the <b>Autoptimize</b> plugin. If the forms are not visible, "
 "please try disabling the <i>\"Force JavaScript in &lt;head&gt;\"</i> option "
@@ -2312,14 +2292,14 @@ msgid ""
 "<i>\"Exclude scripts from Autoptimize\"</i> one."
 msgstr ""
 
-#: inc/cpcff_compatibility.inc.php:42
+#: inc/cpcff_compatibility.inc.php:44
 msgid ""
 "There is active the <b>LiteSpeed Cache</b> plugin. If the forms are not "
 "visible, please try disabling the <i>\"JS Combine\"</i> option in the "
 "<b>Optimize</b> tab of <b>LiteSpeed Cache</b> settings."
 msgstr ""
 
-#: inc/cpcff_compatibility.inc.php:48
+#: inc/cpcff_compatibility.inc.php:50
 msgid ""
 "There is active the <b>WP Rocket</b> plugin. If the forms are not visible, "
 "please try disabling the <i>\"Combine JavaScript files\"</i> option in the "
@@ -2327,7 +2307,7 @@ msgid ""
 "clear the website cache."
 msgstr ""
 
-#: inc/cpcff_compatibility.inc.php:54
+#: inc/cpcff_compatibility.inc.php:56
 msgid ""
 "There is active the <b>SG Optimizer</b> plugin. If the forms are not "
 "visible, please, follows the steps below: <ol><li>Go to the menu option: "
@@ -2339,7 +2319,7 @@ msgid ""
 "once more, to purge the website cache."
 msgstr ""
 
-#: inc/cpcff_compatibility.inc.php:60
+#: inc/cpcff_compatibility.inc.php:62
 msgid ""
 "There is active the <b>Hummingbird</b> plugin. If the forms are not visible, "
 "check the <i>\"Hummingbird &gt; Asset Optimization\"</i> options. Make sure "
@@ -2404,67 +2384,67 @@ msgid ""
 "email functionality."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:252
+#: inc/cpcff_main.inc.php:253
 msgid "Request custom changes"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:271
+#: inc/cpcff_main.inc.php:272
 msgid "Insert Calculated Fields Form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:271
+#: inc/cpcff_main.inc.php:272
 msgid "Create a JavaScript var from POST, GET, or SESSION"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:271
+#: inc/cpcff_main.inc.php:272
 msgid "Create a JavaScript var from POST, GET, SESSION, or COOKIE var"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:482
+#: inc/cpcff_main.inc.php:483
 msgid "Search..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:483
+#: inc/cpcff_main.inc.php:484
 msgid "Form name..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:484
+#: inc/cpcff_main.inc.php:485
 msgid "Enter your Google AI Studio API Key"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:485
+#: inc/cpcff_main.inc.php:486
 msgid "Please provide the form description preferably in English."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:486
+#: inc/cpcff_main.inc.php:487
 msgid "Please provide the form modifications preferably in English."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:489
+#: inc/cpcff_main.inc.php:490
 msgid "AI Form Generator"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:490
+#: inc/cpcff_main.inc.php:491
 msgid "Use My Forms As Template"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:491
+#: inc/cpcff_main.inc.php:492
 msgid "All Categories"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:494
+#: inc/cpcff_main.inc.php:495
 msgid "Enter form description"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:495
+#: inc/cpcff_main.inc.php:496
 msgid "No form meets the search criteria"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:496
+#: inc/cpcff_main.inc.php:497
 msgid "[video tutorial]"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:499
+#: inc/cpcff_main.inc.php:500
 #, php-format
 msgid ""
 "Get your API Key from %s. The model and API keys used for form generation "
@@ -2472,67 +2452,67 @@ msgid ""
 "allowing you to choose the most appropriate model for each situation."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:500
+#: inc/cpcff_main.inc.php:501
 #, php-format
 msgid ""
 "Uses the AI Connector configured in the \"Settings>Connector\" section: %s"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:503
+#: inc/cpcff_main.inc.php:504
 msgid "Create Basic Form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:505
+#: inc/cpcff_main.inc.php:506
 msgid "Saving..."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:507
+#: inc/cpcff_main.inc.php:508
 msgid "Generate"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:508
+#: inc/cpcff_main.inc.php:509
 msgid "Apply Modifications"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:509
+#: inc/cpcff_main.inc.php:510
 msgid "Use It"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:510
+#: inc/cpcff_main.inc.php:511
 msgid "+ Describe Modifications"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:511
+#: inc/cpcff_main.inc.php:512
 msgid "- Hide Description"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:512
+#: inc/cpcff_main.inc.php:513
 msgid "back"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:513
+#: inc/cpcff_main.inc.php:514
 msgid "Go to form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:518
+#: inc/cpcff_main.inc.php:519
 msgid "The API Key is empty."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:519
+#: inc/cpcff_main.inc.php:520
 msgid "Please enter the form description."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:581
+#: inc/cpcff_main.inc.php:582
 msgid "Invalid form structure"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:618 inc/cpcff_main.inc.php:711
+#: inc/cpcff_main.inc.php:619 inc/cpcff_main.inc.php:712
 msgid ""
 "This is a preview of the form, letting you see its setup and design before "
 "it goes live."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:630
+#: inc/cpcff_main.inc.php:631
 msgid ""
 "If the form isn't displayed below, it means the AI was unable to generate a "
 "valid structure. We apologize for any inconvenience. Please click the \"Back "
@@ -2540,7 +2520,7 @@ msgid ""
 "\"Generate\" again."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:680
+#: inc/cpcff_main.inc.php:681
 msgid ""
 "If the form isn't loading on the public website, try inserting its shortcode "
 "with the iframe attribute set to 1, e.g.:"
