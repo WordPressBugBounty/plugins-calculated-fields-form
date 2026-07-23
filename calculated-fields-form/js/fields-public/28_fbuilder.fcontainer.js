@@ -4,14 +4,17 @@
 		columns:1,
 		align:"top",
 		rearrange: 0,
-		after_show: function(e)
+		after_show: function(e, l)
 			{
-				var e  = e || $('#'+this.name), f,
+				e = e || $('#'+this.name);
+				l = l || this.fields;
+
+				var f,
 					to_ignore = 0; // Ignores the RecordSet DS and Hidden fields.
-                for(var i = 0, h = this.fields.length; i < h; i++)
+                for(var i = 0, h = l.length; i < h; i++)
 				{
 					let flag = true;
-					f = $('.fields.'+this.fields[i]+this.form_identifier);
+					f = $('.fields.'+l[i]+this.form_identifier);
 					if( f.hasClass('cff-hidden-field') ) { to_ignore++; }
 					f = f.detach();
 					f.addClass('column'+this.columns);

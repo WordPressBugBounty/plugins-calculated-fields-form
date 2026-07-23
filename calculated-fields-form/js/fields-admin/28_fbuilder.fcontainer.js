@@ -107,45 +107,44 @@
 							'placeholder': 'ui-state-highlight',
 							'tolerance': 'intersect', // 'pointer',
 							'update': function( event, ui )
+								{
+									if ('invalidItem' in me && me.invalidItem) { delete me.invalidItem; return; }
+									var p = ui.item.parents('.fields');
+									if( p.length && $(this ).parents( '.fields' ).attr( 'id' ) == p.attr( 'id' ) )
 									{
-                                        if ('invalidItem' in me && me.invalidItem) { delete me.invalidItem; return; }
-                                        var p = ui.item.parents('.fields');
-										if( p.length && $(this ).parents( '.fields' ).attr( 'id' ) == p.attr( 'id' ) )
+										var index = ui.item.index(), field, old_index;
+										if(ui.item.hasClass('cff-button-drag')) // It is  an new control
 										{
-											var index = ui.item.index(), field, old_index;
-                                            if(ui.item.hasClass('cff-button-drag')) // It is  an new control
-                                            {
-                                                ui.item = $('.'+window['cff_form'].fBuild.addItem(ui.item.data('control'), -3).name);
-                                            }
-
-                                            // receive or or changing the ordering in the fieldscontainer
-                                            field = /((fieldname)|(separator))\d+/.exec(ui.item.attr('class'))[0];
-
-                                            old_index = $.inArray(field, me.fields);
-                                            if(old_index != -1) me.fields.splice(old_index,1);
-
-											me.fields.splice(index,0,field);
-											$.fbuilder.reloadItems();
-                                            $('.'+/((fieldname)|(separator))\d+/.exec(ui.item.attr('class'))[0]).trigger('click');
+											ui.item = $('.'+window['cff_form'].fBuild.addItem(ui.item.data('control'), -3).name);
 										}
-										else
-										{
-											// remove
-											var index = $.inArray( me.fBuild.getItems()[ ui.item.attr( 'id' ).replace( 'field-', '' ) ].name, me.fields );
-											if( index != -1 ) me.fields.splice( index, 1 );
-										}
-									},
+
+										// receive or or changing the ordering in the fieldscontainer
+										field = /((fieldname)|(separator))\d+/.exec(ui.item.attr('class'))[0];
+
+										old_index = $.inArray(field, me.fields);
+										if(old_index != -1) me.fields.splice(old_index,1);
+
+										me.fields.splice(index,0,field);
+										$.fbuilder.reloadItems();
+										$('.'+/((fieldname)|(separator))\d+/.exec(ui.item.attr('class'))[0]).trigger('click');
+									}
+									else
+									{
+										// remove
+										var index = $.inArray( me.fBuild.getItems()[ ui.item.attr( 'id' ).replace( 'field-', '' ) ].name, me.fields );
+										if( index != -1 ) me.fields.splice( index, 1 );
+									}
+								},
                             'receive': function (event, ui)
                                 {
-									// No page break allowed in containers. Cancel the move and alert the user.
-                                    if (ui.item.is('.fPageBreak')) {
+									let ctrl = ui.item.data('control');
+                                    if (ctrl && !me.acceptedChild(ctrl)) {
 										me.invalidItem = true;
 										if ( ui.item.hasClass('cff-button-drag') ) {
 											ui.item.remove();
 										} else {
 											ui.sender.sortable('cancel');
 										}
-                                        me.alertInvalidChild();
                                     } else me.invalidItem = false;
                                 }
 						}

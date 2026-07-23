@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.9.3 =
+
+* Automatically opens popups or expands collapsed fieldsets when a validation error occurs in a contained field during form submission or when navigating to the next page.
+* Adds the new addItem, removeItem, and getItemsNames methods to the public JavaScript API.
+
 = 5.4.9.2 =
 
 * Improved the drag-and-drop behavior of controls in the form builder for greater accuracy.

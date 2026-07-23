@@ -502,7 +502,7 @@ body{
 #fbuilder span.files-list span{display: inline-block;word-break:break-all;}
 #fbuilder span.files-list span:not(:last-child):not(:has(img))::after{content:","; }
 #fbuilder span.files-list img{padding:2px;border:1px solid rgb(59, 59, 59);}
-#fbuilder .cff-file-clearer{display:inline-block;line-height:14px;position:absolute;z-index:9999;top:5px;right:5px;}
+#fbuilder .cff-file-clearer{display:inline-block;line-height:14px;position:absolute;z-index:999;top:5px;right:5px;}
 #fbuilder .cff-file-clearer::before{content:'[X]';cursor:pointer;margin-left:5px;font-family:'century gothic', Arial, Helvetica, sans-serif;font-size:14px;line-height:14px;}
 #fbuilder .cff-file-clearer:hover{color:#dc3545;}
 #fbuilder .cff-file-field input[type="file"]{position:absolute;top:0;left:0;right:0;bottom:0;opacity:0;cursor:pointer;z-index:9999;max-width:100%;}

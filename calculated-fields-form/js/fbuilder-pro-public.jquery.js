@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.9.2';
+	$.fbuilder['version'] = '5.4.9.3';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -291,7 +291,21 @@
 
 			while(i != _to)
 			{
-				if(direction == 1 && ( ! ( 'forcing' in config ) ||  config[ 'forcing' ] == false ) && !formDom.valid() ) break;
+				if(direction == 1 && ( ! ( 'forcing' in config ) ||  config[ 'forcing' ] == false ) && !formDom.valid()) {
+                    // Check if the field is inside a popup.
+                    formDom.find('.pbreak:visible .cpefb_error:not(.message):not(.ignore)').each(function () {
+                        let p = $(this).closest('.cff-popup-field');
+                        if (p.length > 0) {
+                            SHOWFIELD(p);
+                        }
+                        let f = $(this).closest('.cff-collapsed');
+                        if (f.length > 0) {
+                            f.removeClass('cff-collapsed');
+                        }
+                    });
+
+                    break;
+                }
 				i += direction;
 			}
 			formObj['currentPage'] = i;
@@ -1045,6 +1059,22 @@
 				toHide : {},
 				hiddenByContainer : {},
 				isRTL  : false,
+				addItem: function (item) {
+					if (!item.name) return false;
+					items.push(item);
+					fieldsIndex[item.name] = items.length - 1;
+					return true;
+				},
+				removeItem: function (item) {
+					if (
+						! item.name ||
+						! (item.name in fieldsIndex)
+					) return false;
+
+					if (fieldsIndex[item.name] in items) items[fieldsIndex[item.name]] = null;
+					delete fieldsIndex[item.name];
+					return true;
+				},
 				getItem: function( name )
 					{
 						if(name in fieldsIndex) return items[fieldsIndex[name]];
@@ -1061,6 +1091,14 @@
 				getItems: function()
 					{
 					   return items;
+					},
+				getItemsNames: function( withSequence )
+					{
+						withSequence = withSequence || false;
+						let names = Object.keys(fieldsIndex);
+						if(withSequence) return names;
+						let names_only = names.map( (n) => { return n.match(/(fieldname\d+)_\d+/)[1]; });
+						return names_only;
 					},
 				loadData:function(f)
 					{
@@ -1396,9 +1434,20 @@
 
 		form.validate().settings.ignore = '.ignore';
 		if (!form.valid()) {
-			let page = $('.cpefb_error:not(.message):not(.ignore):eq(0)').closest('.pbreak').attr('page') * 1;
+			let page = form.find('.cpefb_error:not(.message):not(.ignore):eq(0)').closest('.pbreak').attr('page') * 1;
 			gotopage(page, form);
-			form.trigger('cff-form-validation', false);
+            // Check if the field is inside a popup.
+            form.find('.pbreak:visible .cpefb_error:not(.message):not(.ignore)').each(function(){
+                let p = $(this).closest('.cff-popup-field');
+                if(p.length > 0) {
+                   SHOWFIELD(p);
+                }
+                let f = $(this).closest('.cff-collapsed');
+                if(f.length > 0) {
+                    f.removeClass('cff-collapsed');
+                }
+            });
+            form.trigger('cff-form-validation', false);
 			enabling_form();
 			setTimeout(function(){$.fbuilder.openErrorDlg(form);},50);
 			return false;
