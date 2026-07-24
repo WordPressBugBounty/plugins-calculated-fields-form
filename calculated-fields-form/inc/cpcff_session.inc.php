@@ -35,9 +35,10 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 			if ( ! is_admin() ) {
 				return;
 			}
-			if ( session_id() == '' && ! headers_sent() ) {
+			
+			/* if ( session_id() == '' && ! headers_sent() ) {
 				@session_start();
-			}
+			} */
 
 			if ( isset( $_SESSION[ self::$CP_COOKIE_NAME ] ) || isset( $_COOKIE[ self::$CP_COOKIE_NAME ] ) ) {
 				$cookie = sanitize_text_field( wp_unslash( ( isset( $_SESSION[ self::$CP_COOKIE_NAME ] ) ) ? $_SESSION[ self::$CP_COOKIE_NAME ] : $_COOKIE[ self::$CP_COOKIE_NAME ] ) );

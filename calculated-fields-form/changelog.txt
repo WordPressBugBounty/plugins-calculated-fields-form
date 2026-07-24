@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.4.9.4 =
+
+* Prevents the use of PHP sessions, as WordPress does not rely on native PHP session handling.
+
 = 5.4.9.3 =
 
 * Automatically opens popups or expands collapsed fieldsets when a validation error occurs in a contained field during form submission or when navigating to the next page.

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.9.3
+Stable tag: 5.4.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.9.4 =
+
+* Prevents the use of PHP sessions, as WordPress does not rely on native PHP session handling.
+
 = 5.4.9.3 =
 
 * Automatically opens popups or expands collapsed fieldsets when a validation error occurs in a contained field during form submission or when navigating to the next page.
@@ -491,9 +495,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.4.9.0 =
 
 * Fixes an issue introduced in the previews plugin update.
-
-= 5.4.8.9 =
-
-* Implements a new AI-powered feature in the Entries section that allows filtering submissions using natural language search queries.
-* Modifies the Entries section to preserve the current filtering options when performing actions on submissions.
-* Updates the list of supported AI models and improves the integration with the WordPress AI Connectors.
