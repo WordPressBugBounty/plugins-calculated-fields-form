@@ -1,4 +1,4 @@
-	$.fbuilder.typeList.push(
+﻿	$.fbuilder.typeList.push(
 		{
 			id:"fpassword",
 			name:"Password",
@@ -33,7 +33,7 @@
 				{
 					css_class = css_class || '';
 					let id = 'field'+this.form_identifier+'-'+this.index;
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Password')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input id="'+id+'-box" class="field disabled '+this.size+'" type="password" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div data-control="'+this.ftype+'" class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Password')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input id="'+id+'-box" class="field disabled '+this.size+'" type="password" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -54,11 +54,12 @@
 					$('.equalTo').each(function()
 						{
 							var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
-							for (var i=0;i<items.length;i++)
+						for (var i=0;i<items.length;i++)
 							{
 								if (
 									$.inArray(items[i].ftype, ['ftext', 'femail', 'fpassword', 'ftextds', 'femailds']) != -1 &&
-									items[i].name != $(this).attr("dname")
+									items[i].name != $(this).attr("dname") &&
+									!$.fbuilder.inRepeater(items[i].name)
 								)
 								{
 									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+cff_esc_attr(items[i].title)+'</option>';

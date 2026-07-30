@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.9.4
+Stable tag: 5.4.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.9.5 =
+
+* Implements the Repeater control.
+* Updates the list of supported AI models.
+
 = 5.4.9.4 =
 
 * Prevents the use of PHP sessions, as WordPress does not rely on native PHP session handling.
@@ -491,7 +496,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Refactored compatibility with third-party cache and optimization plugins, while improving overall plugin performance.
 * Updated the Slider control to make it easier to identify in the form builder.
 * Updated the Phone control to prevent submitting the country code when no phone number digits have been entered.
-
-= 5.4.9.0 =
-
-* Fixes an issue introduced in the previews plugin update.

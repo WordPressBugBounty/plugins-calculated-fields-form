@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.4.9.5 =
+
+* Implements the Repeater control.
+* Updates the list of supported AI models.
+
 = 5.4.9.4 =
 
 * Prevents the use of PHP sessions, as WordPress does not rely on native PHP session handling.

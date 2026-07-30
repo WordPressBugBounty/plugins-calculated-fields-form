@@ -222,6 +222,12 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			return $dir;
 		} // End upload_dir.
 
+		public static function clear_js_cache()
+		{
+			$path = dirname(__FILE__).'/../js/cache/all.js';
+			if(file_exists($path)) @unlink($path);
+		} // End clear_js_cache
+
 		/**
 		 * Sanitizes the value received as parameter, supporting the same posts tags
 		 *
@@ -863,39 +869,51 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 *
 		 * @return array with the elements: "text" with the formatted text, "files" with the list of submitted files.
 		 */
-		public static function parsing_fields_on_text( $fields, $params, $text, $summary, $format, $postid ) {
-			$text        = str_replace( array( '&lt;%', '&lt; %', '< %' ), '<%', $text );
-			$text        = str_replace( array( '%&gt;', '% &lt;', '% >' ), '%>', $text );
+		public static function parsing_fields_on_text($fields, $params, $text, $summary, $format, $postid)
+		{
+			$text = str_replace( array('&lt;%','&lt; %','< %'), '<%', $text );
+			$text = str_replace( array('%&gt;','% &lt;','% >'), '%>', $text );
 			$attachments = array();
 
-			// Remove empty blocks.
-			$offset = 0;
-			while ( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_block\s*(?:(?!%>).)*%>/", $text, $matches, 0, $offset ) ) {
-				$tags   = self::_extract_tags( $matches[0] );
-				$tags   = array_pop( $tags );
-				$tags   = array_pop( $tags );
-				$remove = false;
-				if ( isset( $params[ $matches[1] ] ) ) {
-					$tmp_param = $params[ $matches[1] ];
-					$value     = is_array( $tmp_param ) ? implode( ',', $tmp_param ) : $tmp_param;
-					$value     = trim( $value );
-
-					if (
-						'' == $value ||
-						! ( is_null( $tags['if_value_is_greater_than'] ) || self::value( $tags['if_value_is_greater_than'] ) < self::value( $value ) ) ||
-						! ( is_null( $tags['if_value_is_greater_than_or_equal_to'] ) || self::value( $tags['if_value_is_greater_than_or_equal_to'] ) <= self::value( $value ) ) ||
-						! ( is_null( $tags['if_value_is_less_than'] ) || self::value( $value ) < self::value( $tags['if_value_is_less_than'] ) ) ||
-						! ( is_null( $tags['if_value_is_less_than_or_equal_to'] ) || self::value( $value ) <= self::value( $tags['if_value_is_less_than_or_equal_to'] ) ) ||
-						! ( is_null( $tags['if_value_is'] ) || $value == $tags['if_value_is'] ) ||
-						! ( is_null( $tags['if_value_is_not'] ) || $value != $tags['if_value_is_not'] ) ||
-						! ( is_null( $tags['if_value_like'] ) || preg_match( '/' . preg_quote( $tags['if_value_like'] ) . '/i', $value ) ) ||
-						! ( is_null( $tags['if_value_unlike'] ) || ! preg_match( '/' . preg_quote( $tags['if_value_unlike'] ) . '/i', $value ) )
-					) {
-						$remove = true;
+			$_flatten = function($v) use (&$_flatten) {
+				if (is_array($v)) {
+					$parts = [];
+					foreach ($v as $item) {
+						$flat = $_flatten($item);
+						if ($flat !== '') $parts[] = $flat;
 					}
-				} else {
-					$remove = true;
+					return implode(',', $parts);
 				}
+				return (string)$v;
+			};
+
+			// Remove empty blocks
+			$offset = 0;
+			while( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_block\s*(?:(?!%>).)*%>/", $text, $matches, 0, $offset ) )
+			{
+				$tags = self::_extract_tags( $matches[0] );
+				$tags = array_pop($tags);
+				$tags = array_pop($tags);
+				$remove = false;
+				if(isset( $params[ $matches[ 1 ] ] ))
+				{
+					$tmp_param = $params[ $matches[ 1 ] ];
+					$value = $_flatten($tmp_param);
+					$value = trim($value);
+
+					if(
+						$value == '' ||
+						!(is_null($tags['if_value_is_greater_than']) || self::value($tags['if_value_is_greater_than']) < self::value($value)) ||
+						!(is_null($tags['if_value_is_greater_than_or_equal_to']) || self::value($tags['if_value_is_greater_than_or_equal_to']) <= self::value($value)) ||
+						!(is_null($tags['if_value_is_less_than']) || self::value($value) < self::value($tags['if_value_is_less_than'])) ||
+						!(is_null($tags['if_value_is_less_than_or_equal_to']) || self::value($value) <= self::value($tags['if_value_is_less_than_or_equal_to'])) ||
+						!(is_null($tags['if_value_is']) || $value == $tags['if_value_is']) ||
+						!(is_null($tags['if_value_is_not']) ||  $value != $tags['if_value_is_not']) ||
+						!(is_null($tags['if_value_like']) || preg_match('/'.preg_quote($tags['if_value_like']).'/i', $value)) ||
+						!(is_null($tags['if_value_unlike']) || !preg_match('/'.preg_quote($tags['if_value_unlike']).'/i', $value))
+					) $remove = true;
+				}
+				else $remove = true;
 
 				$from = strpos( $text, $matches[ 0 ], $offset );
 				$length = strlen( $matches[ 0 ] );
@@ -919,15 +937,18 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				$offset = 0;
 			}
 
-			// Remove empty nonblocks.
+			// Remove empty nonblocks
 			$offset = 0;
-			while ( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_nonblock\s*%>/", $text, $matches, 0, $offset ) ) {
+			while( preg_match( "/<%\s*(fieldname\d+|final_price|payment_option|payment_status|coupon)_nonblock\s*%>/", $text, $matches, 0, $offset ) )
+			{
 				$remove = false;
-				if ( isset( $params[ $matches[1] ] ) ) {
-					$tmp_param = $params[ $matches[1] ];
-					$value     = is_array( $tmp_param ) ? implode( ',', $tmp_param ) : $tmp_param;
-					$value     = trim( $value );
-					if ( '' != $value ) {
+				if(isset($params[ $matches[ 1 ] ]))
+				{
+					$tmp_param = $params[ $matches[ 1 ] ];
+					$value = $_flatten($tmp_param);
+					$value = trim($value);
+					if($value != '')
+					{
 						$remove = true;
 					}
 				}
@@ -954,15 +975,37 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				$offset = 0;
 			}
 
-			$tags = self::_extract_tags( $text );
+			// Remove empty repeater rows.
+			foreach ($fields as $item => $field_obj) {
+				if (
+					! is_object($field_obj) ||
+					! property_exists($field_obj, 'ftype') ||
+					$field_obj->ftype != 'frepeater'
+				) continue;
 
-			if ( 'html' == $format ) {
-				$text    = str_replace( "\n", '', $text );
+				$value = isset($params[$item]) ? $params[$item] : [];
+
+				if (empty($value) || !is_array($value)) {
+					$text = preg_replace(
+						'/<%\s*' . preg_quote($item) . '_row\s*(?:(?!%>).)*%>.*?<%\s*' . preg_quote($item) . '_endrow\s*%>/is',
+						'',
+						$text
+					);
+				}
 			}
 
-			// Replace the INFO tags.
-			if ( ! empty( $tags['info'] ) ) {
-				foreach ( $tags['info'] as $tagData ) {
+			$tags = self::_extract_tags( $text );
+
+			if ( 'html' == $format )
+			{
+				$text = str_replace( "\n", "", $text );
+			}
+
+			// Replace the INFO tags
+			if( !empty( $tags[ 'info' ] ) )
+			{
+				foreach( $tags[ 'info' ] as $tagData )
+				{
 					$summary_copy = $summary;
 
 					if ( $tagData[ 'if_not_empty' ] ) {
@@ -1005,43 +1048,43 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 					self::_single_replacement( $tagData, $summary_copy, $text );
 				}
-				unset( $tags['info'] );
+				unset( $tags[ 'info' ] );
 			}
 
-			foreach ( $params as $item => $value ) {
+			$field_tag_replacement = function($item, $value, $tags, &$text, &$attachments) use ($postid, $fields, $params) {
 				$value_bk = $value;
 
-				if ( 'submissiondate_mmddyyyy' == $item || 'submissiondate_ddmmyyyy' == $item ) {
-					if ( ! empty( $value ) && is_string( $value ) ) {
-						$value = explode( ' ', $value );
+				if ($item == 'submissiondate_mmddyyyy' || $item == 'submissiondate_ddmmyyyy') {
+					if (!empty($value) && is_string($value)) {
+						$value = explode(' ', $value);
 						$value = $value[0];
 					}
 				}
 
-				if ( $item == 'final_price' && ! empty( $params['final_price_formatted'] ) ) {
+				if ($item == 'final_price' && ! empty($params['final_price_formatted'])) {
 					$value = $params['final_price_formatted'];
 				}
 
-				if ( isset( $tags[ $item ] ) ) {
-					$label      = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'title' ) ) ? $fields[ $item ]->title : '';
-					$shortlabel = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'shortlabel' ) ) ? $fields[ $item ]->shortlabel : '';
-					$value      = ( ! empty( $value ) || is_numeric( $value ) && 0 == $value ) ? ( ( is_array( $value ) ) ? implode( ( ! empty( $tags[ $item ][0] ) && ! empty( $tags[ $item ][0]['choices_separator'] ) ? $tags[ $item ][0]['choices_separator'] : ", " ), $value ) : $value ) : '';
+				if (isset($tags[$item])) {
+					$label 		= (isset($fields[$item]) && property_exists($fields[$item], 'title')) ? $fields[$item]->title : '';
+					$shortlabel = (isset($fields[$item]) && property_exists($fields[$item], 'shortlabel')) ? $fields[$item]->shortlabel : '';
+					$value = (!empty($value) || is_numeric($value) && $value == 0) ? ((is_array($value)) ? implode((! empty($tags[$item][0]) && ! empty($tags[$item][0]['choices_separator']) ? $tags[$item][0]['choices_separator'] : ", "), $value) : $value) : '';
 
-					foreach ( $tags[ $item ] as $tagData ) {
+					foreach ($tags[$item] as $tagData) {
 						if (
-							( is_null( $tagData['if_value_is_greater_than'] ) || self::value( $tagData['if_value_is_greater_than'] ) < self::value( $value ) ) &&
-							( is_null( $tagData['if_value_is_greater_than_or_equal_to'] ) || self::value( $tagData['if_value_is_greater_than_or_equal_to'] ) <= self::value( $value ) ) &&
-							( is_null( $tagData['if_value_is_less_than'] ) || self::value( $value ) < self::value( $tagData['if_value_is_less_than'] ) ) &&
-							( is_null( $tagData['if_value_is_less_than_or_equal_to'] ) || self::value( $value ) <= self::value( $tagData['if_value_is_less_than_or_equal_to'] ) ) &&
-							( is_null( $tagData['if_value_is'] ) || $value == $tagData['if_value_is'] ) &&
-							( is_null( $tagData['if_value_is_not'] ) || $value != $tagData['if_value_is_not'] ) &&
-							( is_null( $tagData['if_value_like'] ) || preg_match( '/' . preg_quote( $tagData['if_value_like'] ) . '/i', $value ) ) &&
-							( is_null( $tagData['if_value_unlike'] ) || ! preg_match( '/' . preg_quote( $tagData['if_value_unlike'] ) . '/i', $value ) ) &&
-							( 0 == $tagData['if_not_empty'] || '' !== $value )
+							(is_null($tagData['if_value_is_greater_than']) || self::value($tagData['if_value_is_greater_than']) < self::value($value)) &&
+							(is_null($tagData['if_value_is_greater_than_or_equal_to']) || self::value($tagData['if_value_is_greater_than_or_equal_to']) <= self::value($value)) &&
+							(is_null($tagData['if_value_is_less_than']) || self::value($value) < self::value($tagData['if_value_is_less_than'])) &&
+							(is_null($tagData['if_value_is_less_than_or_equal_to']) || self::value($value) <= self::value($tagData['if_value_is_less_than_or_equal_to'])) &&
+							(is_null($tagData['if_value_is']) || $value == $tagData['if_value_is']) &&
+							(is_null($tagData['if_value_is_not']) ||  $value != $tagData['if_value_is_not']) &&
+							(is_null($tagData['if_value_like']) || preg_match('/' . preg_quote($tagData['if_value_like']) . '/i', $value)) &&
+							(is_null($tagData['if_value_unlike']) || !preg_match('/' . preg_quote($tagData['if_value_unlike']) . '/i', $value)) &&
+							($tagData['if_not_empty'] == 0 || $value !== '')
 						) {
-							switch ( $tagData['tag'] ) {
+							switch ($tagData['tag']) {
 								case $item:
-									if ( strtolower( $item )  == 'itemnumber' ) {
+									if (strtolower($item)  == 'itemnumber') {
 										self::_single_replacement(
 											$tagData,
 											($postid ? ((isset($tagData['length']) && is_numeric($tagData['length'])) ? sprintf("%0{$tagData['length']}d", $postid) : $postid) : ''),
@@ -1049,125 +1092,213 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 										);
 										break;
 									}
-									if ( preg_match( '/_url(s?)$/i', $item ) && ! empty( $tagData['in_tag'] ) ) {
-										$file_fieldname = explode( '_', $item)[0];
+									if (preg_match('/_url(s?)$/i', $item) && !empty($tagData['in_tag'])) {
+										$file_fieldname = explode('_', $item)[0];
 										$_names = [];
-										if ( ! empty( $params[ $file_fieldname . '_name' ] ) ) {
-											$_names = $params[ $file_fieldname . '_name' ];
+										if (! empty($params[$file_fieldname . '_name'])) {
+											$_names = $params[$file_fieldname . '_name'];
 										}
 
-										$value  = preg_split( '/\n+/', $value );
-										$in_tag = strtolower( $tagData['in_tag'] );
-										switch ( $in_tag ) {
+										$value = preg_split('/\n+/', $value);
+										$in_tag = strtolower($tagData['in_tag']);
+										switch ($in_tag) {
 											case 'img':
 											case '<img>':
-												foreach ( $value as $_i => $_url ) {
+												foreach ($value as $_i => $_url) {
 													$_alt = '';
-													if ( ! empty( $_names ) && ! empty( $_names[ $_i ] ) ) {
-														$_alt = ' alt="' . esc_attr( $_names[ $_i ] ) . '"';
+													if (! empty($_names) && ! empty($_names[$_i])) {
+														$_alt = ' alt="' . esc_attr($_names[$_i]) . '"';
 													}
-													$value[ $_i ] = ( ! empty( $_url ) && @is_array( getimagesize( $_url ) ) ) ? '<img src="' . esc_attr( $_url ) . '"' . $_alt . '>' : $_url;
+													$value[$_i] = (!empty($_url) && @is_array(getimagesize($_url))) ? '<img src="' . esc_attr($_url) . '"' . $_alt . '>' : $_url;
 												}
 												break;
 											case 'a':
 											case '<a>':
-												foreach ( $value as $_i => $_url ) {
-													$_text = ( ! empty( $tagData['text'] ) && strtolower($tagData['text']) == 'name' && ! empty( $_names ) && ! empty( $_names[ $_i ] ) ) ? $_names[ $_i ] : $_url;
-													$value[ $_i ] = '<a href="' . esc_attr( $_url ) . '">' . esc_html( $_text ) . '</a>';
+												foreach ($value as $_i => $_url) {
+													$_text = (! empty($tagData['text']) && strtolower($tagData['text']) == 'name' && ! empty($_names) && ! empty($_names[$_i])) ? $_names[$_i] : $_url;
+													$value[$_i] = '<a href="' . esc_attr($_url) . '">' . esc_html($_text) . '</a>';
 												}
 												break;
 										}
-										$value = implode( "\n", $value );
+										$value = implode("\n", $value);
 									}
-									self::_single_replacement( $tagData, $label . $tagData['separator'] . $value, $text );
+									self::_single_replacement($tagData, $label . $tagData['separator'] . $value, $text);
 									break;
 								case $item . '_label':
-									self::_single_replacement( $tagData, $label, $text );
+									self::_single_replacement($tagData, $label, $text);
 									break;
 								case $item . '_value':
-									self::_single_replacement( $tagData, $value, $text );
+									self::_single_replacement($tagData, $value, $text);
 									break;
 								case $item . '_shortlabel':
-									self::_single_replacement( $tagData, $shortlabel, $text );
+									self::_single_replacement($tagData, $shortlabel, $text);
 									break;
 							}
 						} else {
-							$text = str_replace( $tagData['node'], '', $text );
+							$text = str_replace($tagData['node'], '', $text);
 						}
 					}
-					unset( $tags[ $item ] );
+					// unset($tags[$item]); // ---> 2026/07/26
 				}
 
-				if ( preg_match( "/_link\b/i", $item ) ) {
-					$attachments = array_merge( $attachments, $value_bk );
+				if (preg_match("/_link\b/i", $item)) {
+					$attachments = array_merge($attachments, $value_bk);
+				}
+			};
+
+			$repeater_row_replacement = function ($row_text_pattern, $value, &$attachments) use ($field_tag_replacement) {
+				$repeater_value = '';
+				$row_tags = self::_extract_tags($row_text_pattern);
+				if (is_array($value)) {
+					$row_separator = "";
+					foreach ($value as $row) {
+						if (is_array($row)) {
+							$repeater_row_text = $row_text_pattern;
+							foreach ($row as $field_name => $field_value) {
+								$field_tag_replacement($field_name, $field_value, $row_tags, $repeater_row_text, $attachments);
+							}
+							$repeater_value .= $row_separator . $repeater_row_text;
+							$row_separator = "\n";
+						}
+					}
+				}
+				return $repeater_value;
+			};
+
+			// Replace fields tags on text.
+			foreach ($params as $item => $value)
+			{
+				if (
+					! empty($fields[$item]) &&
+					is_object($fields[$item]) &&
+					property_exists($fields[$item], 'ftype') &&
+					$fields[$item]->ftype == 'frepeater'
+				) {
+					// Replace row/endrow tags for repeaters
+					$offset = 0;
+					while (preg_match("/<%\s*(" . preg_quote($item) . ")_row\s*(?:(?!%>).)*%>/", $text, $matches, PREG_OFFSET_CAPTURE, $offset)) {
+						$from = $matches[0][1];
+						$length = strlen($matches[0][0]);
+						$offset = $from + $length;
+						if (preg_match("/<%\s*" . $matches[1][0] . "_endrow\s*%>/", $text, $matches_end, PREG_OFFSET_CAPTURE, $offset)) {
+							$to = $matches_end[0][1];
+							$repeater_row_text_pattern = substr($text, $from+$length, $to-$from-$length);
+							$repeater_value = $repeater_row_replacement($repeater_row_text_pattern, $value, $attachments);
+							$text = substr_replace($text, $repeater_value, $from, $to+strlen($matches_end[0][0]) - $from);
+							$offset = $from + strlen($repeater_value);
+						} else {
+							$text = substr_replace($text, '', $from, $length);
+						}
+					}
+
+					// Replace simple repeater tags.
+					if (
+						property_exists($fields[$item], 'fields') &&
+						is_array($fields[$item]->fields) &&
+						! empty($fields[$item]->fields)
+					) {
+						$repeater_row_text_pattern = '';
+						$in_row_fields_separator = '';
+						// Repeater row format.
+						foreach ($fields[$item]->fields as $field_name) {
+							if (
+								! empty($fields[$field_name]) &&
+								is_object($fields[$field_name]) &&
+								property_exists($fields[$field_name], 'ftype')
+							) {
+								$repeater_row_text_pattern .= $in_row_fields_separator;
+								$ftype = strtolower($fields[$field_name]->ftype);
+								switch ($ftype) {
+									case 'fcommentarea':
+									case 'fsectionbreak':
+										$repeater_row_text_pattern .= "<%{$field_name}%>";
+										break;
+									default:
+										$repeater_row_text_pattern .= "<%{$field_name} separator={{: }}%>";
+										break;
+								}
+							}
+							$in_row_fields_separator = "\n";
+						}
+						$repeater_value = $repeater_row_replacement($repeater_row_text_pattern, $value, $attachments);
+						$field_tag_replacement($item, $repeater_value, $tags, $text, $attachments);
+					}
+				} else {
+					$field_tag_replacement($item, $value, $tags, $text, $attachments);
 				}
 			}
 
-			// To include the fCommentArea or fSectionBreak.
-			foreach ( $tags as $tag ) {
-				foreach ( $tag as $tagData ) {
-					if ( preg_match( '/fieldname\d+/i', $tagData['tag'], $item ) ) {
+			// To include the fCommentArea or fSectionBreak
+			foreach($tags as $tag)
+			{
+				foreach($tag as $tagData)
+				{
+					if(preg_match('/fieldname\d+/i',$tagData['tag'], $item))
+					{
 						$item = $item[0];
 
-						if ( isset( $fields[ $item ] ) && ( 'fCommentArea' == $fields[ $item ]->ftype || 'fSectionBreak' == $fields[ $item ]->ftype ) ) {
-							$label      = ( property_exists( $fields[ $item ], 'title' ) ) ? $fields[ $item ]->title : '';
-							$shortlabel = ( property_exists( $fields[ $item ], 'shortlabel' ) ) ? $fields[ $item ]->shortlabel : '';
+						if(isset($fields[$item]) && ($fields[$item]->ftype == 'fCommentArea' || $fields[$item]->ftype == 'fSectionBreak'))
+						{
+							$label 		= (property_exists($fields[$item], 'title')) ? $fields[$item]->title : '';
+							$shortlabel = (property_exists($fields[$item], 'shortlabel')) ? $fields[$item]->shortlabel : '';
 
-							switch ( $tagData['tag'] ) {
+							switch($tagData['tag'])
+							{
 								case $item:
-								case $item . '_label':
-								case $item . '_value':
+								case $item.'_label':
+								case $item.'_value':
 									self::_single_replacement( $tagData, $label, $text );
-									break;
-								case $item . '_shortlabel':
+								break;
+								case $item.'_shortlabel':
 									self::_single_replacement( $tagData, $shortlabel, $text );
-									break;
+								break;
 							}
-							unset( $tags[ $item ] );
+							unset($tags[$item]);
 						}
-					} elseif ( preg_match( '/itemnumber/i', $tagData['tag'] ) ) {
+					}
+					elseif(preg_match('/itemnumber/i',$tagData['tag']))
+					{
 						self::_single_replacement(
 							$tagData,
-							( $postid ? ( ( isset( $tagData['length'] ) && is_numeric( $tagData['length'] ) ) ? sprintf( "%0{$tagData['length']}d", $postid ) : $postid ) : '' ), // phpcs:ignore WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
+							($postid ? ((isset($tagData['length']) && is_numeric($tagData['length'])) ? sprintf("%0{$tagData['length']}d", $postid) : $postid) : ''), // phpcs:ignore WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
 							$text
 						);
 					}
 				}
 			}
 
-			self::_array_replacement( $tags, 'formid', ( ( ! empty( $params['formid'] ) ) ? $params['formid'] : '' ), $text );
-			self::_array_replacement( $tags, 'from_page', ( ( ! empty( $params['from_page'] ) ) ? $params['from_page'] : '' ), $text );
+			self::_array_replacement( $tags, 'formid', ((!empty($params['formid'])) ? $params['formid'] : ''), $text );
+			self::_array_replacement( $tags, 'from_page', ((!empty($params['from_page'])) ? $params['from_page'] : ''), $text );
 
-			if ( ! empty( $params['formid'] ) ) {
-				$form_obj    = new CPCFF_FORM( $params['formid'] );
-				$thanks_page = $form_obj->get_option( 'fp_return_page', '/', $postid );
-			}
-			self::_array_replacement( $tags, 'thank_you_page', ( ! empty( $thanks_page ) ? $thanks_page : '' ), $text );
+            if(!empty($params['formid']))
+            {
+                $form_obj = new CPCFF_FORM($params['formid']);
+                $thanks_page = $form_obj->get_option('fp_return_page', '/', $postid);
+            }
+			self::_array_replacement( $tags, 'thank_you_page', (!empty($thanks_page) ? $thanks_page : ''), $text );
 
-			self::_array_replacement( $tags, 'currentdate_mmddyyyy', gmdate( 'm/d/Y' ), $text );
-			self::_array_replacement( $tags, 'currentdate_ddmmyyyy', gmdate( 'd/m/Y' ), $text );
-			self::_array_replacement( $tags, 'currenttime', gmdate( 'H:i:s' ), $text );
+			self::_array_replacement( $tags, 'currentdate_mmddyyyy', date("m/d/Y"), $text );
+			self::_array_replacement( $tags, 'currentdate_ddmmyyyy', date("d/m/Y"), $text );
+			self::_array_replacement( $tags, 'currenttime', date("H:i:s"), $text );
 
-			self::_array_replacement( $tags, 'submissiondate_mmddyyyy', ( ( ! empty( $fields['submission_datetime'] ) ) ? gmdate( 'm/d/Y', strtotime( $fields['submission_datetime'] ) ) : '' ), $text );
-			self::_array_replacement( $tags, 'submissiondate_ddmmyyyy', ( ( ! empty( $fields['submission_datetime'] ) ) ? gmdate( 'd/m/Y', strtotime( $fields['submission_datetime'] ) ) : '' ), $text );
-			self::_array_replacement( $tags, 'submissiontime', ( ( ! empty( $fields['submission_datetime'] ) ) ? gmdate( 'H:i:s', strtotime( $fields['submission_datetime'] ) ) : '' ), $text );
+			self::_array_replacement( $tags, 'submissiondate_mmddyyyy', ((!empty($fields['submission_datetime'])) ? date('m/d/Y', strtotime($fields['submission_datetime'])) : ''), $text );
+			self::_array_replacement( $tags, 'submissiondate_ddmmyyyy', ((!empty($fields['submission_datetime'])) ? date('d/m/Y', strtotime($fields['submission_datetime'])) : ''), $text );
+			self::_array_replacement( $tags, 'submissiontime', ((!empty($fields['submission_datetime'])) ? date('H:i:s', strtotime($fields['submission_datetime'])) : ''), $text );
 
-			self::_array_replacement( $tags, 'payment_status', ( ( isset( $fields['paid'] ) ) ? ( ( $fields['paid'] * 1 ) ? __( 'Paid', 'calculated-fields-form' ) : __( 'Not Paid', 'calculated-fields-form' ) ) : '' ), $text );
-			self::_array_replacement( $tags, 'ipaddress', ( ( ! empty( $fields['ipaddr'] ) ) ? $fields['ipaddr'] : '' ), $text );
-			self::_array_replacement( $tags, 'form_name', ( ( ! empty( $form_obj ) ) ? $form_obj->get_option( 'form_name', '' ) : '' ), $text );
+			self::_array_replacement( $tags, 'payment_status', ((isset($fields['paid'])) ? (($fields['paid']*1) ? __('Paid', 'calculated-fields-form') : __('Not Paid', 'calculated-fields-form')) : ''), $text );
+			self::_array_replacement( $tags, 'ipaddress', ((!empty($fields['ipaddr'])) ? $fields['ipaddr'] : ''), $text );
+			self::_array_replacement( $tags, 'form_name', ((!empty($form_obj)) ? $form_obj->get_option('form_name', '') : ''), $text );
 
-			$form_title       = '';
+			$form_title = '';
 			$form_description = '';
-			if ( ! empty( $form_obj ) ) {
+			if ( !empty( $form_obj ) ) {
 				$form_structure = $form_obj->get_option( 'form_structure', array() );
 				if (
 					! empty( $form_structure ) &&
 					! empty( $form_structure[1] )
-				) {
-					if ( is_object( $form_structure[1] ) ) {
-						$form_structure[1] = (array) $form_structure[1];
-					}
-					if (
+				){
+					if( is_object( $form_structure[1] ) ) $form_structure[1] = (array) $form_structure[1];
+					if(
 						! empty( $form_structure[1][0] ) &&
 						is_object( $form_structure[1][0] )
 					) {
@@ -1184,39 +1315,40 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			self::_array_replacement( $tags, 'form_title', $form_title, $text );
 			self::_array_replacement( $tags, 'form_description', $form_description, $text );
 
-			self::_array_replacement( $tags, 'subscription_id', ( ( ! empty( $params['subscr_id'] ) ) ? $params['subscr_id'] : '' ), $text );
-			self::_array_replacement( $tags, 'transaction_id', ( ( ! empty( $params['txn_id'] ) ) ? $params['txn_id'] : '' ), $text );
-			self::_array_replacement( $tags, 'couponcode', ( ( ! empty( $params['couponcode'] ) ) ? $params['couponcode'] : '' ), $text );
-			self::_array_replacement( $tags, 'coupon', ( ( ! empty( $params['coupon'] ) ) ? $params['coupon'] : '' ), $text );
+			self::_array_replacement( $tags, 'subscription_id', ((!empty($params['subscr_id'])) ? $params['subscr_id'] : ''), $text );
+			self::_array_replacement( $tags, 'transaction_id', ((!empty($params['txn_id'])) ? $params['txn_id'] : ''), $text );
+			self::_array_replacement( $tags, 'couponcode', ((!empty($params['couponcode'])) ? $params['couponcode'] : ''), $text );
+			self::_array_replacement( $tags, 'coupon', ((!empty($params['coupon'])) ? $params['coupon'] : ''), $text );
 
-			foreach ( $tags as $tagArr ) {
-				foreach ( $tagArr as $tagData ) {
-					$text = str_replace( $tagData['node'], '', $text );
+			foreach( $tags as $tagArr )
+			{
+				foreach( $tagArr as $tagData )
+				{
+					$text = str_replace( $tagData[ 'node' ], '', $text );
 				}
 			}
 
-			if ( 'html' == $format ) {
+			if ( 'html' == $format )
+			{
 				$base_code = [];
 				while ( preg_match( '/<script\b[^>]*>(.*?)<\/script>/is', $text, $matches ) ) {
 					$index = count( $base_code );
 					$base_code[] = $matches[0];
 					$text = str_replace( $matches[0], 'cff-javascript-block-placeholder-' . $index, $text );
 				}
-				$text = str_replace( "\n", '<br>', $text );
+				$text = str_replace( "\n", "<br>", $text );
 				foreach ( $base_code as $index => $base_code_block ) {
 					$text = str_replace( 'cff-javascript-block-placeholder-' . $index, $base_code_block, $text );
 				}
 			}
 
+			// $text = str_ireplace( '&amp;', '&', $text ); // 2024-12-14
 			$text = apply_filters( 'cpcff_custom_tags', $text, $postid );
 			if ( 'html' !== $format ) {
 				$text = htmlspecialchars_decode( $text ); // 2024-12-30
 			}
-			return array(
-				'text'  => $text,
-				'files' => $attachments,
-			);
-		} // End parsing_fields_on_text.
+			return array( 'text' => $text, 'files' => array_unique($attachments) );
+		} // End parsing_fields_on_text
 
         public static function is_eval_blocked()
         {
@@ -1278,7 +1410,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 			if (
 				preg_match_all(
-					"/<%(info|fieldname\d+|fieldname\d+_label|fieldname\d+_block|fieldname\d+_endblock|fieldname\d+_shortlabel|fieldname\d+_value|fieldname\d+_url|fieldname\d+_urls|fieldname\d+_path|fieldname\d+_paths|coupon|coupon_block|coupon_endblock|couponcode|itemnumber|formid|subscription_id|transaction_id|final_price|final_price_block|final_price_endblock|payment_option|payment_option_block|payment_option_endblock|ipaddress|from_page|form_name|form_title|form_description|thank_you_page|currentdate_mmddyyyy|currentdate_ddmmyyyy|currenttime|submissiondate_mmddyyyy|submissiondate_ddmmyyyy|submissiontime|payment_status|payment_status_block|payment_status_endblock)\b(?:(?!%>).)*%>/i",
+					"/<%(info|fieldname\d+|fieldname\d+_label|fieldname\d+_block|fieldname\d+_endblock|fieldname\d+_shortlabel|fieldname\d+_value|fieldname\d+_url|fieldname\d+_urls|fieldname\d+_path|fieldname\d+_paths|coupon|coupon_block|coupon_endblock|couponcode|itemnumber|formid|subscription_id|transaction_id|final_price|final_price_block|final_price_endblock|payment_option|payment_option_block|payment_option_endblock|ipaddress|from_page|form_name|form_title|form_description|thank_you_page|currentdate_mmddyyyy|currentdate_ddmmyyyy|currenttime|submissiondate_mmddyyyy|submissiondate_ddmmyyyy|submissiontime|payment_status|payment_status_block|payment_status_endblock|fieldname\d+_row|fieldname\d+_endrow)\b(?:(?!%>).)*%>/i",
 					$text,
 					$matches
 				)

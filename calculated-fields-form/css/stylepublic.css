@@ -561,6 +561,49 @@ body{
 #fbuilder .cff-collapsible>fieldset>legend::after{content:"\276F";margin-left:10px;display:inline-block;transform: rotate(90deg);}
 #fbuilder .cff-collapsible.cff-collapsed>fieldset>legend::after{transform:rotate(0deg);}
 #fbuilder .cff-collapsible>fieldset>legend{cursor:pointer;}
+
+/* ─── Repeater ─── */
+
+/* 1. Make the main container behave like a table */
+@media (min-width: 710px) {
+	#fbuilder .cff-repeater-rows-container {
+		display: table;
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 0 10px;
+		/* Adjust 10px for vertical space between rows */
+	}
+
+
+	/* 2. Make each repeater row behave like a table-row */
+	#fbuilder .cff-repeater-rows-container .cff-repeater-row {
+		display: table-row;
+	}
+
+	/* 3. Make the containers behave like table-cells */
+	#fbuilder .cff-repeater-rows-container .cff-repeater-fields-container {
+		display: table-cell;
+		width: 100%;
+		vertical-align: bottom;
+		padding: 0;
+	}
+
+	#fbuilder .cff-repeater-rows-container .cff-repeater-row-controls {
+		display: table-cell;
+		width: 1%;
+		/* Shrinks to fit button, but syncs width across rows */
+		vertical-align: bottom;
+		white-space: nowrap;
+		padding: 0 0 0 10px;
+		/* Space between fields and button */
+		min-width: 40px;
+		/* Ensures the column exists even if empty */
+	}
+}
+#fbuilder .cff-repeater-controls {
+	margin-top: 10px;
+}
+
 #fbuilder .cpcaptchalayer,.cp_subbtn{display:none;}
 #fbuilder .captcha img{cursor:pointer;}
 #fbuilder .cff-recaptcha{overflow: hidden !important;}
@@ -569,22 +612,17 @@ body{
 
 @media (min-width:640px){#fbuilder .cff-align-container-bottom{display:flex;flex-wrap:wrap;align-items:flex-end;}}
 
-#fbuilder .cff-repeater-field .cff-repeater-field-add{margin-right:10px;}
-#fbuilder .cff-repeater-field .cff-repeater-field-btn:not(.cff-repeater-btn-label){
-    padding-left:10px;
-    padding-right:20px;
+#fbuilder .cff-repeater-add-row {
+	margin-right: 10px;
 }
-#fbuilder .cff-repeater-field .cff-repeater-field-btn:not(.cff-repeater-btn-label)::before{
-	content: "+";
-	width: 15px;
-    height: 15px;
-    display: inline-block;
-    font-size: 1.5em;
-    line-height:1.5em;
+
+#fbuilder .cff-repeater-add-row,
+#fbuilder .cff-repeater-remove-row {
+	padding-left: 10px;
+	padding-right: 20px;
 }
-#fbuilder .cff-repeater-field .cff-repeater-field-btn.cff-repeater-btn-icon-label::before{margin-right:10px;}
-#fbuilder .cff-repeater-field .cff-repeater-field-btn.cff-repeater-btn-icon::before{border:0;}
-#fbuilder .cff-repeater-field .cff-repeater-field-rmv:not(.cff-repeater-btn-label)::before{content: "-";}
+
+/* ─── End Repeater ─── */
 
 #fbuilder input[type='radio'],
 #fbuilder input[type='checkbox']{width:auto;height:auto;}

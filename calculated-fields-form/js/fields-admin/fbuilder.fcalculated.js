@@ -52,7 +52,7 @@
 					this.init();
 					let affectedFields = $.fbuilder.checkDeletedFields(this.eq);
 					let id = 'field'+this.form_identifier+'-'+this.index;
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+(affectedFields != '' ? ' cff-error' : '')+'" id="'+id+'" title="'+this.controlLabel(affectedFields)+'"><span class="developer-note">'+cff_esc_attr(this._developerNotes)+'</span><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input id="'+id+'-box" class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div data-control="'+this.ftype+'" class="fields '+this.name+' '+this.ftype+' '+css_class+(affectedFields != '' ? ' cff-error' : '')+'" id="'+id+'" title="'+this.controlLabel(affectedFields)+'"><span class="developer-note">'+cff_esc_attr(this._developerNotes)+'</span><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input id="'+id+'-box" class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -341,7 +341,7 @@
 								var opt = '<option value=""></option>', t = '';
 								for (var k=0;k<items.length;k++)
 								{
-									if (items[k].name != me.name && items[k].ftype != 'fPageBreak' && items[k].ftype != 'frecordsetds')
+									if (items[k].name != me.name && items[k].ftype != 'fPageBreak' && items[k].ftype != 'frecordsetds' && !$.fbuilder.inOtherRepeater(items[k].name, me.name))
 									{
 										t = ( 'title' in items[k] ) ? String( items[k].title ).trim() : '';
 										t = ( '' == t && 'shortlabel' in items[k] ) ? String( items[k].shortlabel ).trim() : t;
@@ -497,7 +497,7 @@
 					for(var i in items)
 					{
 						var item = items[i];
-						if(item['name'] != this.name && typeof invalidFields[item.ftype] == 'undefined')
+						if(item['name'] != this.name && typeof invalidFields[item.ftype] == 'undefined' && !$.fbuilder.inRepeater(item['name']))
 						{
 							var fName = item['name'],
 								fTitle = item['title'];

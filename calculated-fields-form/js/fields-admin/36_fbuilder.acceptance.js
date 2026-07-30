@@ -30,7 +30,7 @@
 				{
 					css_class = css_class || '';
 					var	str = '<div class="one_column"><label><input class="field disabled" disabled="true" type="checkbox"/> '+cff_sanitize(this.title, true)+((this.required)?"*":"")+'</label></div>';
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Acceptance (GDPR)')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<div class="dfield">'+this.showColumnIcon()+str+'<span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div data-control="'+this.ftype+'" class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Acceptance (GDPR)')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<div class="dfield">'+this.showColumnIcon()+str+'<span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

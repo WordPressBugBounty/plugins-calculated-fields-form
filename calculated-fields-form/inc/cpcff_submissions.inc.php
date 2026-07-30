@@ -286,7 +286,8 @@ if(!class_exists('CPCFF_SUBMISSIONS'))
 			$fields_list = array();
 			$chln = $html ? "<br />" : "\n";
 			try {
-				if ( ( $form_obj = self::get_form( $submission_id ) ) != false ) {
+				$form_obj = self::get_form( $submission_id );
+				if ( is_object( $form_obj ) ) {
 					$fields_list = $form_obj->get_fields();
 				}
 
@@ -294,21 +295,42 @@ if(!class_exists('CPCFF_SUBMISSIONS'))
 					$data = $submission_obj->paypal_post;
 				}
 
+				$_resolve_title = static function ( $key ) use ( &$fields_list ) {
+					if (
+						! empty( $fields_list[ $key ] ) &&
+						property_exists( $fields_list[ $key ], 'title' ) &&
+						! empty( $fields_list[ $key ]->title )
+					) {
+						return preg_replace( array( '/^\s+/', '/\s*\:*\s*$/' ), '', $fields_list[ $key ]->title );
+					}
+					return $key;
+				};
+
+				$_format_value = static function ( $value ) {
+					if ( is_array( $value ) ) $value = implode( ', ', $value );
+					return preg_replace( '/^\s*\:*\s*/', '', $value );
+				};
+
+				$_emit = static function ( $title, $value ) use ( &$summary, $chln ) {
+					$summary .= ( $title !== '' ? $title . ": " : '' ) . $value . $chln;
+				};
+
 				foreach ( $data as $field_name => $field_value ) {
 					$field_name = strtolower( $field_name );
-					if ( preg_match( '/^fieldname\d+$/', $field_name ) ) {
-						if (
-							! empty( $fields_list[ $field_name ] ) &&
-							property_exists( $fields_list[ $field_name ], 'title' ) &&
-							! empty( $fields_list[ $field_name ]->title )
-						) {
-							$field_label = trim( $fields_list[ $field_name ]->title );
-							$field_label = rtrim( $field_label, ':' );
-							$summary .= $field_label . ": ";
-						}
+					if ( ! preg_match( '/^fieldname\d+$/', $field_name ) ) continue;
 
-						$summary .= is_array( $field_value ) ? implode(', ', $field_value) : $field_value;
-						$summary .= $chln;
+					if ( is_array( $field_value ) && ! empty( $field_value ) && is_array( $field_value[0] ) ) {
+						foreach ( $field_value as $row ) {
+							if ( ! is_array( $row ) ) continue;
+							foreach ( $row as $sub_key => $sub_value ) {
+								$sub_key = strtolower( $sub_key );
+								// Skip file-companion sub-keys; the file field itself emits one line via its joined filenames (cp_calculatedfieldsf_platinum.php:654).
+								if ( preg_match( '/^fieldname\d+_(url|path|link|paths|urls|links|name)$/', $sub_key ) ) continue;
+								$_emit( $_resolve_title( $sub_key ), $_format_value( $sub_value ) );
+							}
+						}
+					} else {
+						$_emit( $_resolve_title( $field_name ), $_format_value( $field_value ) );
 					}
 				}
 			} catch ( Exception $err ) {

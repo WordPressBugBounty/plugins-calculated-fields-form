@@ -45,7 +45,7 @@
 				{
 					css_class = css_class || '';
 					let id = 'field'+this.form_identifier+'-'+this.index;
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Slider')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+'</label><div class="dfield">'+this.showColumnIcon()+
+					return '<div data-control="'+this.ftype+'" class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Slider')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+'</label><div class="dfield">'+this.showColumnIcon()+
                     '<div class="'+this.size+'">'+
                     '<input id="'+id+'-box" class="field disabled width100" type="text" value="'+( ( !this.range ) ? cff_esc_attr( this.predefined ) : cff_esc_attr( '['+this.predefinedMin+','+this.predefinedMax+']' ) )+'"/>'+
                     '<input id="'+id+'-range" class="field disabled width100" type="range" value="50" min="0" max="100" step="1" disabled />'+

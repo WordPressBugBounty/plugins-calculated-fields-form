@@ -351,18 +351,14 @@ body:has( #metabox_form_structure.fullscreen ) .select2-container.cff-ctrl-selec
 #fbuilder .fqrcode .dfield::before{content:"\002AF4\002AF4"; font-size:38px;}
 #fbuilder .fdatatableds table{width:100%;min-height:30px;border: 1px solid #CDCDCD;}
 
-#fbuilder .frepeater .cff-repeater-field-btn{padding:5px;}
-#fbuilder .frepeater .cff-repeater-field-add{margin-right:10px;}
-#fbuilder .frepeater .cff-repeater-field-btn:not(.cff-repeater-btn-label)::before{
-	content: "+";
-	border: 1px solid #ccc;
-    width: 15px;
-    height: 15px;
-    display: inline-block;
+#fbuilder .frepeater .cff-repeater-add-row,
+#fbuilder .frepeater .cff-repeater-remove-row {
+	padding: 5px;
 }
-#fbuilder .frepeater .cff-repeater-field-btn.cff-repeater-btn-icon-label::before{margin-right:10px;background:white;}
-#fbuilder .frepeater .cff-repeater-field-btn.cff-repeater-btn-icon::before{border:0;}
-#fbuilder .frepeater .cff-repeater-field-rmv:not(.cff-repeater-btn-label)::before{content: "-";}
+
+#fbuilder .frepeater .cff-repeater-add-row {
+	margin-right: 10px;
+}
 
 #fbuilder .fields .collapse,
 #fbuilder .fields .uncollapse,
@@ -392,6 +388,7 @@ body:has( #metabox_form_structure.fullscreen ) .select2-container.cff-ctrl-selec
 #fbuilder .ffieldset>.sticker i{background-color:rgba(255,238,165,0.7);}
 #fbuilder .fdiv>.sticker i{background-color:rgba(255,203,165,0.7);}
 #fbuilder .fpopup>.sticker i{background-color:rgba(223,202,225,1);}
+#fbuilder .frepeater>.sticker i{background-color:rgba(175, 122, 179, 0.7);}
 #fbuilder .sticker i.sticker-1{display:none;}
 #fbuilder .sticker i.sticker-2{width:32px;}
 #fbuilder .sticker i.sticker-3{width:21px;}

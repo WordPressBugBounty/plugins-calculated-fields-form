@@ -130,7 +130,7 @@
                         options			= '<option value=""></option>';
 
                     for (let i = 0; i < items.length; i++) {
-                        if (allowedTypes[items[i].ftype]) {
+                        if (allowedTypes[items[i].ftype] && !$.fbuilder.inRepeater(items[i].name)) {
 							let item = items[i];
 							options += '<option value="'+cff_esc_attr(item.name)+'" '+((item.name == me.associated_address_field)?"selected":"")+'>'+cff_esc_attr(item.title+' ('+item.name+')')+'</option>';
 						}
@@ -164,7 +164,7 @@
 					});
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this,evt);
 				},
-			showShortLabel: function() { return ''; },	
+			showShortLabel: function() { return ''; },
 			showSpecialDataInstance: function()
 				{
 					let output = '<label for="sMapProvider">Map Provider</label><select name="sMapProvider" id="sMapProvider" class="large">'+

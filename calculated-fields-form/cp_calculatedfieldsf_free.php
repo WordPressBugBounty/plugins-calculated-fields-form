@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.9.4
+ * Version: 5.4.9.5
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.9.4' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.9.5' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -216,266 +216,467 @@ function cp_calculated_fields_form_check_posted_data() {
 					);
 
 					$form_data = $form_obj->get_option( 'form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure );
-					$fields    = array();
 
-					foreach ( $form_data[0] as $item ) {
-						$fields[ $item->name ] = $item;
+					$fields    					= [];
+					$clone_fields_to_original 	= []; // Use for repeaters
 
-						if ( 'fPhone' == $item->ftype && isset( $_POST[ $item->name . $sequence ] ) ) { // join fields for phone fields.
-							$_POST[ $item->name . $sequence ] = '';
-							$i = 0;
-
-							$_phone_connector_symbol = '-';
-							if ( property_exists( $item, 'dseparator' ) ) {
-								switch( $item->dseparator ) {
-									case 'space': $_phone_connector_symbol = " "; break;
-									case 'none' : $_phone_connector_symbol = ""; break;
-									case '.'	: $_phone_connector_symbol = "."; break;
-									case '-'	: $_phone_connector_symbol = "-"; break;
-								}
-							}
-
-							$_phone_connector = (
-								isset( $_POST[$item->name.$sequence."_2"] ) ||
-								(
-									isset( $_POST[$item->name.$sequence."_1"] ) &&
-									(
-										! property_exists( $item, 'countryComponent' ) ||
-										! $item->countryComponent
-									)
-								)
-							) ? $_phone_connector_symbol : '';
-
-							while ( isset( $_POST[$item->name.$sequence."_".$i] ) ) {
-								$_POST[ $item->name . $sequence ] .=
-									! empty( $_POST[ $item->name . $sequence . '_' . $i ] ) && '' != CPCFF_AUXILIARY::sanitize( $_POST[ $item->name . $sequence . '_' . $i ] ) ? ( 0 == $i ? '' : $_phone_connector ) . CPCFF_AUXILIARY::sanitize( $_POST[ $item->name . $sequence . '_' . $i ] ) : ''; // phpcs:ignore
-
-								unset( $_POST[ $item->name . $sequence . '_' . $i ] );
-								$i++;
-							}
-						}
-					}
-
+					// grab posted data
+					//---------------------------
 					$buffer = '';
 					$passwords_to_delete = [];
 					$passwords_to_hash   = [];
 					$passwords_to_plain  = [];
-
 					$count_of_non_empty_fields = 0;
-					foreach ( $_POST as $item => $value ) {
-						$fieldname = str_replace( $sequence, '', $item );
-						if ( isset( $fields[ $fieldname ] ) ) {
-							$current_field = $fields[$fieldname];
-							$_title = property_exists( $current_field, 'title' ) ? CPCFF_AUXILIARY::sanitize( $current_field->title ) : '';
-							$ftype = '';
 
-							// Sanitize the values based on their settings and type.
-							if(
-								property_exists($current_field,'ftype') &&
-								! empty( $value )
+					foreach ($form_data[0] as $item) {
+						$fields[$item->name] = $item;
+					}
+
+					// Preprocess phone components.
+					$preprocess_phone_components = function ($field_name, $item) use ($sequence) {
+						if (
+							! ($item->ftype == 'fPhone' || $item->ftype == 'fPhoneds') ||
+							! isset($_POST[$field_name . $sequence])
+						) {
+							return;
+						}
+
+						static $processed_phone_fields = [];
+						if (in_array($field_name, $processed_phone_fields)) {
+							return;
+						}
+						$processed_phone_fields[] = $field_name;
+
+						$i = 0;
+						$formatted_phone = '';
+						$_phone_connector_symbol = '-';
+						if (property_exists($item, 'dseparator')) {
+							switch ($item->dseparator) {
+								case 'space':
+									$_phone_connector_symbol = " ";
+									break;
+								case 'none':
+									$_phone_connector_symbol = "";
+									break;
+								case '.':
+									$_phone_connector_symbol = ".";
+									break;
+								case '-':
+									$_phone_connector_symbol = "-";
+									break;
+							}
+						}
+
+						$_phone_connector = (
+							isset($_POST[$field_name . $sequence . "_2"]) ||
+							(
+								isset($_POST[$field_name . $sequence . "_1"]) &&
+								(
+									! property_exists($item, 'countryComponent') ||
+									! $item->countryComponent
+								)
+							)
+						) ? $_phone_connector_symbol : '';
+
+						while (isset($_POST[$field_name . $sequence . "_" . $i])) {
+							$formatted_phone .= $_POST[$field_name . $sequence . "_" . $i] != '' ? ($i == 0 ? '' : $_phone_connector) . CPCFF_AUXILIARY::sanitize($_POST[$field_name . $sequence . "_" . $i]) : ''; // phpcs:ignore
+							unset($_POST[$field_name . $sequence . "_" . $i]);
+							$i++;
+						}
+
+						$_POST[$field_name . $sequence] = $formatted_phone;
+
+					}; // END --> $preprocess_phone_components
+
+					// Preprocess repeater matrix.
+					$preprocess_repeater_matrix = function ($field_name, $item) use ($sequence, &$clone_fields_to_original, $fields, $preprocess_phone_components) {
+						if (
+							$item->ftype !== 'frepeater' ||
+							empty($item->fields) ||
+							! is_array($item->fields)
+						) {
+							return;
+						}
+
+						$matrix_key = $field_name . $sequence;
+						if (
+							! isset($_POST[$matrix_key]) ||
+							! is_string($_POST[$matrix_key]) ||
+							strlen($_POST[$matrix_key]) > 1000000  // 1MB max - extra security
+						) {
+							return;
+						}
+
+						$matrix = json_decode(wp_unslash($_POST[$matrix_key]), true);
+						if (json_last_error() !== JSON_ERROR_NONE || ! is_array($matrix)) {
+							return;
+						}
+
+						if (
+							is_numeric($item->maxRows) &&
+							0 < ($maxRows = intval($item->maxRows)) &&
+							count($matrix) > $maxRows ||
+							count($matrix) > 1000 // 1k max - extra security
+						) {  // max rows
+							return;
+						}
+
+						// Schema lookup: fieldname => 0 (for isset checks)
+						$valid_schema = array_flip($item->fields);
+						$count = count($valid_schema);
+
+						$processed_matrix 	= [];
+						$seen_clones 		= [];
+
+						foreach ($matrix as $row) {
+							if (
+								! is_array($row) ||
+								count($row) !== $count
 							) {
-								$invalid_format = false;
+								continue;
+							}
 
-								$ftype = strtolower($current_field->ftype);
-								if ( is_array( $value ) ) {
-									$value = CPCFF_AUXILIARY::array_map_recursive( $value, 'wp_unslash' );
-									$count_of_non_empty_fields += count($value) ? 1 : 0;
-								} else {
-									$value = wp_unslash( $value );
-									$count_of_non_empty_fields += $value !== '' ? 1 : 0;
+							$flipped = [];
+							$valid_row = true;
+							foreach ($row as $schema_fieldname => $cloned_fieldname) {
+								if (! isset($valid_schema[$schema_fieldname])) {
+									$valid_row = false;
+									break;
 								}
 
-								if ( $ftype == 'ftextarea' || $ftype == 'ftextareads' ) {
-									if (
-										! property_exists( $current_field,'accept_html' ) ||
+								// Check cloned fieldname format.
+								if (! is_string($cloned_fieldname) || ! preg_match('/^fieldname\d+$/', $cloned_fieldname)) {
+									$valid_row = false;
+									break;
+								}
+
+								// Ownership: cloned names must be self-maps (initial row)
+								// OR must not collide with top-level fieldnames.
+								if (
+									$cloned_fieldname !== $schema_fieldname &&
+									isset($fields[$cloned_fieldname])
+								) {
+									$valid_row = false;
+									break;
+								}
+
+								// Uniqueness: no clone name may appear twice in the matrix.
+								if (isset($seen_clones[$cloned_fieldname])) {
+									$valid_row = false;
+									break;
+								}
+								$seen_clones[$cloned_fieldname] = true;
+
+								$flipped[$cloned_fieldname] = $schema_fieldname;
+							}
+
+							if (! $valid_row) continue;
+
+							foreach ($flipped as $cloned => $original) {
+								$preprocess_phone_components($cloned, $fields[$original]);
+							}
+
+							$clone_fields_to_original = array_merge($clone_fields_to_original, $flipped);
+							$processed_matrix[] = $row;
+
+						}
+
+						$_POST[$field_name . $sequence] = $processed_matrix;
+
+					}; // END --> $preprocess_repeater_matrix
+
+					$process_field = function ($current_field, $value, &$summary, &$list) use (&$passwords_to_delete, &$passwords_to_hash, &$passwords_to_plain, &$count_of_non_empty_fields) {
+						$fieldname = $current_field->name;
+						$_title = property_exists($current_field, 'title') ? CPCFF_AUXILIARY::sanitize($current_field->title) : '';
+						$ftype = '';
+
+						// Sanitize the values based on their settings and type.
+						if (
+							property_exists($current_field, 'ftype') &&
+							! empty($value)
+						) {
+							$invalid_format = false;
+
+							$ftype = strtolower($current_field->ftype);
+							if (is_array($value)) {
+								$value = CPCFF_AUXILIARY::array_map_recursive($value, 'wp_unslash');
+								$count_of_non_empty_fields += count($value) ? 1 : 0;
+							} else {
+								$value = wp_unslash($value);
+								$count_of_non_empty_fields += $value !== '' ? 1 : 0;
+							}
+
+							if ($ftype == 'ftextarea' || $ftype == 'ftextareads') {
+								if (
+									! property_exists($current_field, 'accept_html') ||
+									! $current_field->accept_html
+								) {
+									$value = sanitize_textarea_field($value);
+								}
+							} else {
+								if (
+									$ftype != 'fpassword' &&
+									(
+										! property_exists($current_field, 'accept_html') ||
 										! $current_field->accept_html
-									) {
-										$value = sanitize_textarea_field( $value );
-									}
-								} else {
-									if (
-										$ftype != 'fpassword' &&
-										(
-											! property_exists( $current_field,'accept_html' ) ||
-											! $current_field->accept_html
-										)
-									) {
-										if ( is_array( $value ) ) {
-											$value = CPCFF_AUXILIARY::array_map_recursive( $value, 'sanitize_text_field' );
-										} else {
-											$value = sanitize_text_field( $value );
-										}
-									}
-
-									switch( $ftype ) {
-										case 'fpassword':
-											if ( ! property_exists( $current_field,'store' ) || $current_field->store == 'plain' ) {
-												if ( $value !== '' ) $passwords_to_plain[] = $current_field->name;
-											} else if ( $current_field->store == 'no' ) {
-												$passwords_to_delete[] = $current_field->name;
-											} else if ( $current_field->store == 'hash' ) {
-												if ( $value !== '' ) $passwords_to_hash[] = $current_field->name;
-											}
-											break;
-										case 'femail':
-										case 'femailds':
-											$value = sanitize_email( $value );
-											if ( empty( $value ) ) {
-												$invalid_format = true;
-											}
-											break;
-										case 'fphone':
-										case 'fPhoneds':
-											if ( ! preg_match( '/^\+?[\.\s\-\d]+$/', $value ) ) {
-												$invalid_format = true;
-											}
-											break;
-										case 'fnumber':
-										case 'fnumberds':
-											if ( 'digits' === $current_field->dformat ) {
-												if ( preg_match( '/[^\d]/', $value ) ) {
-													$invalid_format = true;
-												}
-											} elseif ( preg_match( '/^[^\d]*$/', $value ) ) {
-												$invalid_format = true;
-											}
-											break;
-										case 'fcurrency':
-										case 'fcurrencyds':
-										case 'fslider':
-											if ( preg_match( '/^[^\d]*$/', $value ) ) {
-												$invalid_format = true;
-											}
-											break;
-										case 'fcolor':
-											if ( ! preg_match( '/#?[0-9,a-f]{6,9}/i', $value ) ) {
-												$invalid_format = true;
-											}
-											break;
-										case 'fdate':
-										case 'fdateds':
-											if ( ! preg_match( '/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4}))?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value ) ) {
-												$invalid_format = true;
-											}
-											break;
-										case 'ftimeslots':
-										case 'ftimeslotsds':
-											if ( ! preg_match( '/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4})\s*\:\s*\d{1,2}\:\d{1,2}\s*\-\s*\d{1,2}\:\d{1,2}(\,\s*)?)*$/i', $value ) ) {
-												$invalid_format = true;
-											}
-											break;
+									)
+								) {
+									if (is_array($value)) {
+										$value = CPCFF_AUXILIARY::array_map_recursive($value, 'sanitize_text_field');
+									} else {
+										$value = sanitize_text_field($value);
 									}
 								}
 
-								if ( $invalid_format ) {
-									$error_mssg = esc_html__('The', 'calculated-fields-form') . ' ' . ( ! empty( $_title ) ? $_title : $fieldname ) . ' ' . esc_html__('value is invalid', 'calculated-fields-form');
-									error_log( 'Calculated Fields Form: ' . $error_mssg );
-									print( $error_mssg );
-									exit;
+								switch ($ftype) {
+									case 'fpassword':
+										if (! property_exists($current_field, 'store') || $current_field->store == 'plain') {
+											if ($value !== '') $passwords_to_plain[] = $current_field->name;
+										} else if ($current_field->store == 'no') {
+											$passwords_to_delete[] = $current_field->name;
+										} else if ($current_field->store == 'hash') {
+											if ($value !== '') $passwords_to_hash[] = $current_field->name;
+										}
+										break;
+									case 'femail':
+									case 'femailds':
+										$value = sanitize_email($value);
+										if (empty($value)) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fphone':
+									case 'fPhoneds':
+										if (! preg_match('/^\+?[\.\s\-\d]+$/', $value)) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fnumber':
+									case 'fnumberds':
+										if ('digits' === $current_field->dformat) {
+											if (preg_match('/[^\d]/', $value)) {
+												$invalid_format = true;
+											}
+										} elseif (preg_match('/^[^\d]*$/', $value)) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fcurrency':
+									case 'fcurrencyds':
+									case 'fslider':
+										if (preg_match('/^[^\d]*$/', $value)) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fcolor':
+										if (! preg_match('/#?[0-9,a-f]{6,9}/i', $value)) {
+											$invalid_format = true;
+										}
+										break;
+									case 'fdate':
+									case 'fdateds':
+										if (! preg_match('/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4}))?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value)) {
+											$invalid_format = true;
+										}
+										break;
+									case 'ftimeslots':
+									case 'ftimeslotsds':
+										if (! preg_match('/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4})\s*\:\s*\d{1,2}\:\d{1,2}\s*\-\s*\d{1,2}\:\d{1,2}(\,\s*)?)*$/i', $value)) {
+											$invalid_format = true;
+										}
+										break;
 								}
 							}
 
-							// Check if the field is required and it is empty.
-							if (
-								property_exists( $current_field, 'required' ) &&
-								! empty( $current_field->required ) &&
-								( '' === $value || ( is_array( $value ) && count( $value ) == 0 ) )
-							) {
-								$error_mssg = esc_html__('The', 'calculated-fields-form') . ' ' . ( ! empty( $_title ) ? $_title : $fieldname ) . ' ' . esc_html__('is empty', 'calculated-fields-form');
-								error_log( 'Calculated Fields Form: ' . $error_mssg );
-								print( $error_mssg );
+							if ($invalid_format) {
+								$error_mssg = esc_html__('The', 'calculated-fields-form') . ' ' . (! empty($_title) ? $_title : $fieldname) . ' ' . esc_html__('value is invalid', 'calculated-fields-form');
+								error_log('Calculated Fields Form: ' . $error_mssg);
+								print($error_mssg);
 								exit;
 							}
+						}
 
-							// Processing the title and value to include in the summary.
-							$params[ $fieldname ] = $ftype == 'fpassword' ? $value : CPCFF_AUXILIARY::sanitize( $value );
-							$_value               = is_array( $params[ $fieldname ] ) ? implode( ', ', $params[ $fieldname ] ) : $params[ $fieldname ];
-							$_value               = preg_replace( '/^\s*\:*\s*/', '', $_value );
-							if ( $ftype != 'fpassword' ) {
-								$_title = preg_replace( array( '/^\s+/', '/\s*\:*\s*$/' ), '', $_title );
-								$buffer .= ( '' !== $_title ? $_title . ': ' : '' ) . $_value . "\n";
+						// Check if the field is required and it is empty
+						if (
+							property_exists($current_field, 'required') &&
+							!empty($current_field->required) &&
+							($value === '' || (is_array($value) && count($value) == 0))
+						) {
+							$error_mssg = esc_html__('The', 'calculated-fields-form') . ' ' . (! empty($_title) ? $_title : $fieldname) . ' ' . esc_html__('is empty', 'calculated-fields-form');
+							error_log('Calculated Fields Form: ' . $error_mssg);
+							print($error_mssg);
+							exit;
+						}
+
+						// Processing the title and value to include in the summary
+						$list[$fieldname] = $ftype == 'fpassword' ? $value : CPCFF_AUXILIARY::sanitize($value);
+						$_value = is_array($list[$fieldname]) ? implode(", ", $list[$fieldname]) : $list[$fieldname];
+						$_value = preg_replace('/^\s*\:*\s*/', '', $_value);
+						if ($ftype != 'fpassword') {
+							$_title = preg_replace(array('/^\s+/', '/\s*\:*\s*$/'), '', $_title);
+							$summary .= ($_title !== '' ?  $_title . ": " : "") . $_value . "\n";
+						}
+					}; // END --> $process_field
+
+					$process_files_field = function ($current_field, $value, $field_name, &$summary, &$list) use ($form_obj, &$count_of_non_empty_fields) {
+						if ($current_field->ftype == 'ffile' || $current_field->ftype == 'frecordav') {
+							// Get accepted file extension.
+							$accepted_file_extensions = [];
+							if (! empty($current_field->accept) && is_string($current_field->accept)) {
+								$tmp = strtolower($current_field->accept);
+								$tmp = preg_replace('/[^\d,a-z\,]/i', '', $tmp);
+								$tmp = trim($tmp);
+								if (! empty($tmp)) $accepted_file_extensions = explode(',', $tmp);
+							}
+
+							// Get maximum file size.
+							$max_file_size = 0;
+							if (! empty($current_field->upload_size)) {
+								$tmp = $current_field->upload_size;
+								if (is_numeric($tmp)) $max_file_size = intval($tmp);
+								elseif (is_string($tmp)) {
+									$tmp = preg_replace('/[^\d\.]/', '', $tmp);
+									if (is_numeric($tmp)) $max_file_size = intval($tmp);
+								}
+							}
+
+							$files_names_arr = array();
+							$files_links_arr = array();
+							$files_urls_arr  = array();
+							for ($f = 0; $f < count($value['name']); $f++) {
+								if (!empty($value['name'][$f])) {
+									$uploaded_file = array(
+										'name' 		=> $value['name'][$f],
+										'type' 		=> $value['type'][$f],
+										'tmp_name' 	=> $value['tmp_name'][$f],
+										'error' 	=> $value['error'][$f],
+										'size' 		=> $value['size'][$f],
+									);
+
+									if (CPCFF_AUXILIARY::check_uploaded_file($uploaded_file, $accepted_file_extensions, $max_file_size)) {
+										$movefile = wp_handle_upload($uploaded_file, array('test_form' => false));
+										if (empty($movefile['error'])) {
+											$files_links_arr[] = $movefile["file"];
+											$files_urls_arr[]  = $movefile["url"];
+											$files_names_arr[] = sanitize_file_name($uploaded_file['name']);
+
+											/**
+											 * Action called when the file is uploaded, the file's data is passed as parameter
+											 */
+											do_action(
+												'cpcff_file_uploaded',
+												$movefile,
+												array(
+													'names' => &$files_names_arr,
+													'links' => &$files_links_arr,
+													'urls'  => &$files_urls_arr,
+													'formid' => $form_obj->get_id(),
+													'params' => &$list,
+													'item'  => $field_name,
+													'index' => $f
+												)
+											);
+
+											$list[$field_name . "_link"][$f] = end($files_links_arr);
+											$list[$field_name . "_path"][$f] = $list[$field_name . "_link"][$f];
+											$list[$field_name . "_url"][$f]  = end($files_urls_arr);
+										}
+									}
+								}
+							}
+
+							$joinned_files_names = implode(", ", $files_names_arr);
+
+							$_title = property_exists($current_field, 'title') ? CPCFF_AUXILIARY::sanitize($current_field->title) : '';
+							$_title = preg_replace(array('/^\s+/', '/\s*\:*\s*$/'), '', $_title);
+
+							$summary .= (! empty($_title) ? $_title . ": " : "") . $joinned_files_names . "\n";
+							$list[$field_name] = $joinned_files_names;
+							$list[$field_name . "_name"]  = $files_names_arr;
+							$list[$field_name . "_links"] = implode("\n",  $files_links_arr);
+							$list[$field_name . "_paths"] = $list[$field_name . "_links"];
+							$list[$field_name . "_urls"]  = implode("\n",  $files_urls_arr);
+							$count_of_non_empty_fields += ! empty($list[$field_name]) ? 1 : 0;
+						}
+
+					}; // END --> $process_files_field
+
+					add_filter( 'upload_dir', 'CPCFF_AUXILIARY::upload_dir', 1 );
+					// Preprocess the fields.
+					foreach ($fields as $field => $item)
+					{
+						// Phone fields.
+						$preprocess_phone_components($item->name, $item);
+
+						// Repeater.
+						$preprocess_repeater_matrix($item->name, $item);
+					}
+
+					// Process the form data.
+					foreach ($_POST as $item => $value)
+					{
+						$fieldname = str_replace($sequence,'',$item);
+						if ( isset( $clone_fields_to_original[$fieldname] ) ) { // The fields into repeaters are managed differently.
+							continue;
+						}
+
+						if (array_key_exists($fieldname, $fields)) {
+							$current_field = $fields[$fieldname];
+
+							if ($current_field->ftype == 'frepeater') {
+								if (is_array($value)) {
+									$repeater_values_matrix = [];
+									foreach ($value as $row) {
+										if (is_array($row)) {
+											$row_values = [];
+											foreach($row as $original => $cloned) {
+												if ( array_key_exists($original, $fields) ) {
+													if (isset($_POST[$cloned . $sequence])) {
+														$process_field($fields[$original], $_POST[ $cloned . $sequence ], $buffer, $row_values);
+													} elseif( isset($_FILES[$cloned . $sequence]) ) {
+														$process_files_field($fields[$original], $_FILES[$cloned . $sequence], $original, $buffer, $row_values);
+													}
+												}
+											}
+											// Skip rows where all values are semantically empty.
+											$row_has_data = false;
+											foreach ($row_values as $v) {
+												if ($v !== '' && (!is_array($v) || !empty($v))) {
+													$row_has_data = true;
+													break;
+												}
+											}
+											if ($row_has_data) {
+												$repeater_values_matrix[] = $row_values;
+											}
+										}
+									}
+									if ( ! empty($repeater_values_matrix) ) {
+										$params[$fieldname] = $repeater_values_matrix;
+									}
+								}
+							} else { // Process directly.
+								$process_field($current_field, $value, $buffer, $params);
 							}
 						}
 					}
 
-					if ( ! empty( $_FILES ) ) {
-						add_filter( 'upload_dir', 'CPCFF_AUXILIARY::upload_dir', 1 );
-						foreach ( $_FILES as $item => $value ) {
-							$item = str_replace( $sequence, '', $item );
-							if (
-								isset( $fields[ $item ] ) &&
-								(
-									'ffile' == $fields[ $item ]->ftype || 'frecordav' == $fields[ $item ]->ftype
-								)
-							) {
-								// Get accepted file extension.
-								$accepted_file_extensions = [];
-								if ( ! empty( $fields[$item]->accept ) && is_string( $fields[$item]->accept ) ) {
-									$tmp = strtolower( $fields[$item]->accept );
-									$tmp = preg_replace( '/[^\d,a-z\,]/i', '', $tmp );
-									$tmp = trim( $tmp );
-									if ( ! empty( $tmp ) ) $accepted_file_extensions = explode( ',', $tmp );
-								}
+					// Process uploaded files.
+					if (! empty($_FILES)) {
+						foreach ($_FILES as $item => $value)
+						{
+							$fieldname = str_replace($sequence, '', $item);
+							if (isset($clone_fields_to_original[$fieldname])) { // The fields into repeaters were treated previously.
+								continue;
+							}
 
-								// Get maximum file size.
-								$max_file_size = 0;
-								if ( ! empty( $fields[$item]->upload_size ) ) {
-									$tmp = $fields[$item]->upload_size;
-									if ( is_numeric( $tmp ) ) $max_file_size = intval( $tmp );
-									elseif ( is_string( $tmp ) ) {
-										$tmp = preg_replace( '/[^\d\.]/', '', $tmp );
-										if ( is_numeric( $tmp ) ) $max_file_size = intval( $tmp );
-									}
-								}
-
-								$files_names_arr = array();
-								$files_links_arr = array();
-								$files_urls_arr  = array();
-
-								$_uploaded_files_count = count( $value['name'] );
-								for ( $f = 0; $f < $_uploaded_files_count; $f++ ) {
-									if ( ! empty( $value['name'][ $f ] ) ) {
-										$uploaded_file = array(
-											'name'     => sanitize_text_field( $value['name'][ $f ] ),
-											'type'     => sanitize_text_field( $value['type'][ $f ] ),
-											'tmp_name' => sanitize_text_field( $value['tmp_name'][ $f ] ),
-											'error'    => sanitize_text_field( $value['error'][ $f ] ),
-											'size'     => sanitize_text_field( $value['size'][ $f ] ),
-										);
-
-
-										if ( CPCFF_AUXILIARY::check_uploaded_file( $uploaded_file, $accepted_file_extensions, $max_file_size ) ) {
-											$movefile = wp_handle_upload( $uploaded_file, array( 'test_form' => false ) );
-											if ( empty( $movefile['error'] ) ) {
-												$files_links_arr[] = $movefile['file'];
-												$files_urls_arr[]  = $movefile['url'];
-												$files_names_arr[] = sanitize_file_name( $uploaded_file['name'] );
-
-												$params[ $item . '_link' ][ $f ] = end( $files_links_arr );
-												$params[ $item . '_path' ][ $f ] = $params[ $item . '_link' ][ $f ];
-												$params[ $item . '_url' ][ $f ]  = end( $files_urls_arr );
-											}
-										}
-									}
-								}
-
-								$joinned_files_names = implode( ', ', $files_names_arr );
-
-								$_title = property_exists( $fields[ $item ], 'title' ) ? CPCFF_AUXILIARY::sanitize( $fields[ $item ]->title ) : '';
-								$_title = preg_replace( array( '/^\s+/', '/\s*\:*\s*$/' ), '', $_title );
-
-								$buffer                    .= ( ! empty( $_title ) ? $_title . ': ' : '' ) . $joinned_files_names . "\n";
-								$params[ $item ]            = $joinned_files_names;
-								$params[ $item . '_name' ] 	= $files_names_arr;
-								$params[ $item . '_links' ] = implode( "\n", $files_links_arr );
-								$params[ $item . '_paths' ] = $params[ $item . '_links' ];
-								$params[ $item . '_urls' ]  = implode( "\n", $files_urls_arr );
-								$count_of_non_empty_fields += ! empty( $params[$item] ) ? 1 : 0;
+							if(isset($fields[$fieldname]) &&  ( $fields[$fieldname]->ftype == 'ffile' || $fields[$fieldname]->ftype == 'frecordav' ))
+							{
+								$process_files_field($fields[$fieldname], $value, $fieldname, $buffer, $params);
 							}
 						}
-						remove_filter( 'upload_dir', 'CPCFF_AUXILIARY::upload_dir', 1 );
-
-					} // End uploaded files processing
+					}
+					remove_filter( 'upload_dir', 'CPCFF_AUXILIARY::upload_dir', 1 );
 
 					if(count($params) < 2 || $count_of_non_empty_fields == 0) // only formid or empty fields, so the form is empty
 					{

@@ -442,6 +442,7 @@
 		// Create a items object
 		var items = [],
             fieldsIndex = {},
+            inRepeaterNames = {},
             selected = -3;
 
 		$.fbuilder[ 'editItem' ] = function( id )
@@ -1020,6 +1021,18 @@
 					$("#fieldlist").html("");
 					fieldsIndex = {};
 
+					inRepeaterNames = {};
+					for ( var i = 0, h = items.length; i < h; i++ )
+					{
+						if ( items[i].ftype === 'frepeater' && Array.isArray(items[i].fields) )
+						{
+							for ( var j = 0, l = items[i].fields.length; j < l; j++ )
+							{
+								inRepeaterNames[ items[i].fields[j] ] = items[i]['name'];
+							}
+						}
+					}
+
 					$.fbuilder[ 'intializeDeletedFields' ]();
 					var item, playlist_html = '';
 					for ( var i=0, h = items.length; i < h; i++ )
@@ -1032,6 +1045,8 @@
 
 						if( i == selected && $('#tabs').tabs("option", "active") != 1 ) $.fbuilder[ 'editItem' ]( i );
 						playlist_html += item.display( i == selected ? 'ui-selected' : '' ).replace(/(\b)fields(\b)/i, '$1fields$2'+('fieldlayout' in item && item.fieldlayout != 'default' ? ' '+item.fieldlayout : ''));
+
+						if ($.fbuilder.inRepeater(item.name)) continue; // Skip Repeater children
 
 						// Email fields
 						if (item.ftype=="femail" || item.ftype=="femailds")
@@ -1328,6 +1343,17 @@
 					}
 			}
 		);
+
+		// Returns true if `itemName` lives inside a Repeater container.
+		$.fbuilder.inRepeater = function(itemName) {
+			return !!(itemName && inRepeaterNames[itemName]);
+		};
+
+		// Returns true if `itemName` is in a different Repeater than `refName` (or refName is top-level).
+		$.fbuilder.inOtherRepeater = function(itemName, refName) {
+			var cRep = inRepeaterNames[itemName];
+			return cRep !== undefined && cRep !== inRepeaterNames[refName];
+		};
 
 	    var ffunct = {
             getSelected: function() {

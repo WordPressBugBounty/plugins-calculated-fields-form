@@ -127,8 +127,14 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'ai-assistant'    => true,
                                 'max_tokens'      => 96000
                             ],
-                            'claude-opus-4-8' => [
-                                'title' => esc_html__('Claude Opus 4.8 (Most Capable)', 'calculated-fields-form'),
+							'claude-opus-5' => [
+								'title'           => esc_html__('Claude Opus 5 (Most Capable)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
+							'claude-opus-4-8' => [
+                                'title' => esc_html__('Claude Opus 4.8', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000

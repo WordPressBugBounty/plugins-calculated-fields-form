@@ -117,7 +117,7 @@
 				{
 					css_class = css_class || '';
 					let align = this.sAlignment != 'default' ? 'style="text-align:'+this.sAlignment+';"' : '';
-					return '<div class="fields fmark '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Media')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<div '+align+'>'+this[ '_display_'+this.sMediaType ]()+'</div><div '+align+'>'+cff_sanitize(this.data[ this.sMediaType ][ 'sFigcaption' ])+'</div><div class="clearer"></div></div>';
+					return '<div data-control="'+this.ftype+'" class="fields fmark '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Media')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+this.showColumnIcon()+'<div '+align+'>'+this[ '_display_'+this.sMediaType ]()+'</div><div '+align+'>'+cff_sanitize(this.data[ this.sMediaType ][ 'sFigcaption' ])+'</div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

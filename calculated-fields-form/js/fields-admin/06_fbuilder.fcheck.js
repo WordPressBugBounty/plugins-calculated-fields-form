@@ -57,7 +57,7 @@
 					{
 						str += '<div class="'+this.layout+'"><label><input disabled class="field disabled" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> '+cff_sanitize(this.choices[i])+'</label></div>';
 					}
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Checkboxes')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label>'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+str+'<span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div data-control="'+this.ftype+'" class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Checkboxes')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label>'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+str+'<span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -238,7 +238,7 @@
 							var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>', t = '';
 							for (var i=0;i<items.length;i++)
                             {
-								if (items[i].name != me.name && items[i].ftype != 'fPageBreak' && items[i].ftype != 'frecordsetds')
+								if (items[i].name != me.name && items[i].ftype != 'fPageBreak' && items[i].ftype != 'frecordsetds' && !$.fbuilder.inOtherRepeater(items[i].name, me.name))
                                 {
 									t = ( 'title' in items[i] ) ? String( items[i].title ).trim() : '';
 									t = ( '' == t && 'shortlabel' in items[i] ) ? String( items[i].shortlabel ).trim() : t;

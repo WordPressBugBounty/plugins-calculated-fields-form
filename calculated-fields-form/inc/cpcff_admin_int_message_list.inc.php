@@ -324,17 +324,32 @@ if ($message) {
                                     <?php
                                     echo str_replace("\n", "<br />", wp_kses_post(wp_unslash($event->data)));
 
+									// Support reapeaters.
+									$print_links = function($_field_name, $_field_value) use (&$print_links){
+										if (is_array($_field_value) ) {
+											if (preg_match('/fieldname\d+_url/', $_field_name)) {
+												$_urls = $_field_value;
+											} else {
+												foreach ($_field_value as $_key => $_value) {
+													$print_links( $_key, $_value );
+												}
+											}
+										}
+
+										if ( ! empty($_urls) ) {
+											foreach ($_urls as $_url) {
+												print '<p><a href="' . esc_url($_url) . '" target="_blank">' . esc_html($_url) . '</a></p>';
+											}
+										}
+									};
+
                                     // Add links
                                     $serialized_entry_details = $event->paypal_post;
                                     $entry_details = unserialize($serialized_entry_details, ['allowed_classes' => false]);
                                     if ($entry_details !== false) {
                                         if (preg_match('/fieldname\d+_url/', $serialized_entry_details)) {
                                             foreach ($entry_details as $_key => $_value) {
-                                                if (is_array($_value) && strpos($_key, '_url')) {
-                                                    foreach ($_value as $_url) {
-                                                        echo '<p><a href="' . esc_url($_url) . '" target="_blank">' . esc_html($_url) . '</a></p>';
-                                                    }
-                                                }
+												$print_links( $_key, $_value );
                                             }
                                         }
 
