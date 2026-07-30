@@ -95,13 +95,16 @@
 
 			acceptedChild: function( childType )
 			{
-				var containers = [ 'fdiv', 'ffieldset', 'fpopup', 'frepeater' ];
+				childType = String( childType ).toLowerCase();
+
+				let containers = [ 'fdiv', 'ffieldset', 'fpopup', 'frepeater' ];
 				if ( containers.indexOf( childType ) !== -1 ) {
 					this.alertInvalidChild( 'container' );
 					return false;
 				}
-				if ( childType === 'fPageBreak' ) {
-					this.alertInvalidChild( 'pagebreak' );
+				let invalid = [ 'fpagebreak', 'fmap_widget', 'formimporter_widget', 'ffieldssync' ];
+				if ( invalid.indexOf( childType ) !== -1 ) {
+					this.alertInvalidChild( childType );
 					return false;
 				}
 				var dsTypes = [];
@@ -123,11 +126,14 @@
 
 			alertInvalidChild: function( kind )
 			{
-				var msgs = {
+				let msgs = {
 					container:  'Repeater controls do not support other container controls inside them. Please add container controls outside the Repeater.',
-					pagebreak:  'Repeater controls do not support page break controls inside them. Please add the page break control outside the Repeater.',
+					fpagebreak:  'Repeater controls do not support page break controls inside them. Please add the page break control outside the Repeater.',
+					fmap_widget:  'Repeater controls do not support Map widget control inside them.',
+					formimporter_widget:  'Repeater controls do not support importing other forms inside them.',
 					datasource: 'Repeater controls do not support Data Source controls inside them. Please add Data Source controls outside the Repeater.'
 				};
+
 				if ( typeof console !== 'undefined' ) console.warn( '[CFF frepeater] rejected child:', kind );
 				alert( msgs[ kind ] || 'Invalid child control type for a Repeater.' );
 			},

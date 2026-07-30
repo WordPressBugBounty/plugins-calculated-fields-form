@@ -43,7 +43,7 @@
 					let radius = this.radius || 0;
 					let zoom = this.zoom || 13;
 					let staticMapUrl = cpcff_static_map_url_template.replace('{lat}', lat).replace('{lng}', lng).replace('{radius}', radius).replace('{zoom}', zoom);
-					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Single Line Text')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<div style="width:100%;height:250px;"><iframe id="staticMapIframe_'+id+'" style="width:100%; height:100%; border:none; pointer-events:none;" src="'+cff_esc_attr(staticMapUrl)+'"></iframe></div><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div data-control="'+this.ftype+'" class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="'+id+'" title="'+this.controlLabel('Single Line Text')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label for="'+id+'-box">'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<div style="width:100%;height:250px;"><iframe id="staticMapIframe_'+id+'" style="width:100%; height:100%; border:none; pointer-events:none;" src="'+cff_esc_attr(staticMapUrl)+'"></iframe></div><span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

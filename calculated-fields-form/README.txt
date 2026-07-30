@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.9.5
+Stable tag: 5.4.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.9.6 =
+
+* Fixes a minor issue by using Repeater fields in equations.
+
 = 5.4.9.5 =
 
 * Implements the Repeater control.
@@ -490,9 +494,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Enhanced nonce handling to ensure compatibility with LiteSpeed Cache.
 * Updated the _setHandle function in the plugin core.
 * Enhanced the Google Places add-on to support all address components (Platinum edition).
-
-= 5.4.9.1 =
-
-* Refactored compatibility with third-party cache and optimization plugins, while improving overall plugin performance.
-* Updated the Slider control to make it easier to identify in the form builder.
-* Updated the Phone control to prevent submitting the country code when no phone number digits have been entered.
