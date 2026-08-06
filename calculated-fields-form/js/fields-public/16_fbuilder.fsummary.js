@@ -27,11 +27,7 @@
 			},
 			show:function() {
 				let me = this;
-				if(me.fieldsArray.length)
-				{
-					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-summary-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'">'+((!/^\s*$/.test(me.title)) ? '<h2 style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+'</h2>': '')+'<div id="'+me.name+'"></div></div>';
-				}
-				return '';
+				return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-summary-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'">'+((!/^\s*$/.test(me.title)) ? '<h2 style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+cff_sanitize(me.title, true)+'</h2>': '')+'<div id="'+me.name+'"></div></div>';
 			},
 			after_show: function () {
 				let me = this;

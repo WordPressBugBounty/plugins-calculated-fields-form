@@ -240,7 +240,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						'vs_all_texts'                => serialize( $cpcff_default_texts_array ),
 
 						// Paypal settings.
-						'enable_paypal'               => get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL', CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL ),
+						'enable_paypal' 			  => CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL,
 						'paypal_email'                => CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_EMAIL,
 						'request_cost'                => 'fieldname1',
 						'paypal_product_name'         => CP_CALCULATEDFIELDSF_DEFAULT_PRODUCT_NAME,
@@ -454,7 +454,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
                     $option,
                     apply_filters(
                         'cpcff_get_extra_form_settings',
-                        [ 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions' ],
+                        [ 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions', 'cv_captcha_method', 'cv_captcha_math_complexity' ],
                         $this->_id
                     )
                 )
@@ -578,6 +578,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			if( isset( $params['fp_thanks_mssg'] ) ) {
 				$extra['fp_thanks_mssg'] = sanitize_textarea_field( $params['fp_thanks_mssg'] );
 			}
+			$extra['cv_captcha_method'] = CP_CALCULATEDFIELDSF_DEFAULT_cv_captcha_method;
+			$extra['cv_captcha_math_complexity'] = (isset($params['cv_captcha_math_complexity']) && in_array($params['cv_captcha_math_complexity'], array(1, 2, 3))) ? intval($params['cv_captcha_math_complexity']) : 1;
 
             $extra = apply_filters('cpcff_save_extra_form_settings', $extra, $params, $this->_id );
 

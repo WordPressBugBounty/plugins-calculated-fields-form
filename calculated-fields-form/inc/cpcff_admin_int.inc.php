@@ -52,13 +52,13 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="#metabox_define_texts">' . esc_html__('Texts definition', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_define_validation_texts">' . esc_html__('Error texts', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_submit_thank">' . esc_html__('Submit button and thank you page', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
-	<a href="#metabox_notification_email">' . esc_html__('Notification email', 'calculated-fields-form') . '</a>' .
+	<a href="#metabox_notification_email">' . esc_html__('Notification email', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>' .
+	'<a href="#metabox_captcha_settings">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>' .
     '<span class="cff-addon-menu-option" style="display:none;"><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_addons_section">' . esc_html__('Add ons', 'calculated-fields-form') . '</a></span>' .
     '&nbsp;<span>[</span><b>' . esc_html__('Commercial Features', 'calculated-fields-form') . ':</b>
 	<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#fc6756;">' . esc_html__('Payment settings', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
-	<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#fc6756;">' . esc_html__('Email copy to user', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
-	<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#fc6756;">' . esc_html__('Captcha settings', 'calculated-fields-form') . '</a><span>]</span>
+	<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#fc6756;">' . esc_html__('Email copy to user', 'calculated-fields-form') . '</a><span>]</span>
  </div>';
 ?>
 <div class="wrap cff-form-builder-backend">
@@ -344,6 +344,14 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                     <div class="cff-popup-bubble"><?php esc_html_e('Notification Email', 'calculated-fields-form'); ?></div>
                     <a href="#metabox_notification_email"><img src="<?php print esc_attr(plugins_url('../images/icons/email.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Notification Email', 'calculated-fields-form'); ?>"></a>
                 </div>
+				<div class="cff-popup-icon">
+                    <div class="cff-popup-bubble"><?php esc_html_e('Captcha Settings', 'calculated-fields-form'); ?></div>
+                    <a href="#metabox_captcha_settings"><img src="<?php print esc_attr(plugins_url('../images/icons/captcha.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Captcha Settings', 'calculated-fields-form'); ?>"></a>
+                </div>
+				<div class="cff-popup-icon">
+                    <div class="cff-popup-bubble"><?php esc_html_e('Add Ons', 'calculated-fields-form'); ?></div>
+                    <a href="#metabox_addons_section"><img src="<?php print esc_attr(plugins_url('../images/icons/addons.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Add Ons', 'calculated-fields-form'); ?>"></a>
+                </div>
                 <div class="cff-popup-icon-separator"></div>
                 <div class="cff-popup-icon cff-popup-icon-disabled">
                     <div class="cff-popup-bubble"><?php esc_html_e('Payment Settings', 'calculated-fields-form'); ?></div>
@@ -352,15 +360,6 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                 <div class="cff-popup-icon cff-popup-icon-disabled">
                     <div class="cff-popup-bubble"><?php esc_html_e('Email Copy to User', 'calculated-fields-form'); ?></div>
                     <a href="#metabox_email_copy_to_user"><img src="<?php print esc_attr(plugins_url('../images/icons/usercopy.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Email Copy to User', 'calculated-fields-form'); ?>"></a>
-                </div>
-                <div class="cff-popup-icon cff-popup-icon-disabled">
-                    <div class="cff-popup-bubble"><?php esc_html_e('Captcha Settings', 'calculated-fields-form'); ?></div>
-                    <a href="#metabox_captcha_settings"><img src="<?php print esc_attr(plugins_url('../images/icons/captcha.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Captcha Settings', 'calculated-fields-form'); ?>"></a>
-                </div>
-                <div class="cff-popup-icon-separator"></div>
-                <div class="cff-popup-icon">
-                    <div class="cff-popup-bubble"><?php esc_html_e('Add Ons', 'calculated-fields-form'); ?></div>
-                    <a href="#metabox_addons_section"><img src="<?php print esc_attr(plugins_url('../images/icons/addons.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Add Ons', 'calculated-fields-form'); ?>"></a>
                 </div>
             </div>
             <?php print $section_nav_bar; // phpcs:ignore WordPress.Security.EscapeOutput
@@ -510,7 +509,20 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                         <tr valign="top">
                             <th scope="row"><label for="fp_return_page"><?php esc_html_e('Thank you page (after sending the message)', 'calculated-fields-form'); ?></label></th>
                             <td>
-                                <input type="text" id="fp_return_page" name="fp_return_page" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page)); ?>" />
+								<div>
+									<input type="text" id="fp_return_page" name="fp_return_page"
+									list="fp_return_page_list" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page)); ?>" />
+									<a href="javascript:void(0);" onclick="document.getElementById('fp_return_page').value ='<%from_page%>';"><?php esc_html_e( 'Use current page', 'calculated-fields-form' ); ?></a>
+									<datalist id="fp_return_page_list">
+										<?php
+										$pages = get_pages();
+										foreach( $pages as $page )
+										{
+											print '<option value="' . esc_attr(get_permalink($page->ID )) . '">' . esc_html( $page->post_title ) . '</option>';
+										}
+										?>
+									</datalist>
+								</div>
                                 <p class="width75"><em style="font-size:11px;"><?php esc_html_e('Enter <%from_page%> to reload the form page after submission.', 'calculated-fields-form'); ?></em></p>
                                 <div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="width75">
                                     <p><?php esc_html_e('Commercial plugin versions allow you to include a summary of the information collected by the form on the "Thank You Page" content.', 'calculated-fields-form'); ?> <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-primary"><?php esc_html_e('Upgrade Now', 'calculated-fields-form'); ?></a></p>
@@ -772,7 +784,6 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                 </div>
             </div>
 
-
             <div id="metabox_email_copy_to_user" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_email_copy_to_user')); ?>">
                 <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Email Copy to User (Pro)', 'calculated-fields-form'); ?></span></h3>
                 <div class="inside">
@@ -783,10 +794,39 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
             </div>
 
             <div id="metabox_captcha_settings" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_captcha_settings')); ?>">
-                <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Captcha Verification (Pro)', 'calculated-fields-form'); ?></span></h3>
+                <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Captcha Verification', 'calculated-fields-form'); ?></span></h3>
                 <div class="inside">
                     <!-- Captcha -->
-                    <p><?php esc_html_e('Add an extra shield with CAPTCHA Verification. On top of the plugin\'s built-in bot protection and Akismet spam filtering, it adds a human-only challenge that blocks automated abuse before it reaches your inbox. Cleaner data, happier visitors, total peace of mind.', 'calculated-fields-form'); ?> [<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="font-weight:600;">Upgrade</a>]</p>
+					<table class="form-table">
+						<tr valign="top">
+                            <th scope="row"><?php esc_html_e( 'Use Captcha Verification?', 'calculated-fields-form' ); ?></th>
+                            <td>
+                                <?php $option = $form_obj->get_option('cv_enable_captcha', CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha); ?>
+                                <select name="cv_enable_captcha">
+                                    <option value="true"<?php if ($option == 'true') echo ' selected'; ?>><?php esc_html_e( 'Yes', 'calculated-fields-form' ); ?></option>
+                                    <option value="false"<?php if ($option == 'false') echo ' selected'; ?>><?php esc_html_e( 'No', 'calculated-fields-form' ); ?></option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+					<input type="hidden" name="cv_captcha_method" value="math" />
+					<div id="cpcff_captcha_math">
+                        <p><?php
+                            esc_html_e( 'This captcha is a challenge-response test that asks the user to solve a simple arithmetic problem.', 'calculated-fields-form' );
+                        ?></p>
+                        <?php
+                            $cpff_captcha_math_complexity = $form_obj->get_option('cv_captcha_math_complexity', 1);
+                        ?>
+                        <table class="form-table">
+						    <tr valign="top">
+                                <th scope="row">
+                                    <label style="display:block;margin-bottom:10px;"><input type="radio" name="cv_captcha_math_complexity" value="1" <?php if (1 == $cpff_captcha_math_complexity) echo 'checked'; ?> /> <?php esc_html_e( 'Simple, one digit operands: a + b = c', 'calculated-fields-form' ); ?></label>
+                                    <label style="display:block;margin-bottom:10px;"><input type="radio" name="cv_captcha_math_complexity" value="2" <?php if (2 == $cpff_captcha_math_complexity) echo 'checked'; ?> /> <?php esc_html_e( 'Medium, two digit operands: ab + cd = ef', 'calculated-fields-form' ); ?></label>
+                                    <label style="display:block;margin-bottom:10px;"><input type="radio" name="cv_captcha_math_complexity" value="3" <?php if (3 == $cpff_captcha_math_complexity) echo 'checked'; ?> /> <?php esc_html_e( 'Advanced, three digit operands: abc + def = ghi', 'calculated-fields-form' ); ?></label>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
                     <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px; border-top:1px solid #eaeaea;margin-top:15px;padding-top:15px;">
                         <?php
                         echo '<b>' . esc_html__('CAPTCHA Protection Options:', 'calculated-fields-form') . '</b>';
@@ -794,8 +834,6 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                             '|',
                             [
                                 $cpcff_main->check_feature(['feature' => esc_html__('Classic Captcha', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/documentation#captcha-settings', 'title' => esc_html__('Built-in image and text challenges to verify human visitors', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Math Captcha', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/documentation#captcha-settings', 'title' => esc_html__('Challenge-response test that asks the user to solve a simple arithmetic problem', 'calculated-fields-form')]),
 
                                 $cpcff_main->check_feature(['feature' => esc_html__('reCaptcha', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/recaptcha', 'title' => esc_html__("Google's invisible or checkbox challenge with advanced risk analysis", 'calculated-fields-form')]),
 

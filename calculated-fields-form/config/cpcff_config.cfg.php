@@ -51,7 +51,8 @@ define( 'CP_CALCULATEDFIELDSF_DEFAULT_cu_message', "Thank you for your message. 
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_email_format', 'text' );
 
 // Captcha constants.
-define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', 'true' ) );
+define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', 'false' ) );
+define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_captcha_method', 'math' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_width', '180' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_height', '60' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_chars', '5' );
@@ -109,7 +110,27 @@ $cpcff_default_texts_array = array(
 		'label' => 'Page X of Y (text)',
 		'text'  => 'Page {0} of {0}',
 	),
-	'audio_tutorial_text' => array(
+	'captcha_text' => array(
+		'label' => 'Captcha label (text)',
+		'text' =>  'Please enter the security code'
+	),
+	/* 'refresh_captcha_text' => array(
+		'label' => 'Refresh captcha (text)',
+		'text' => 'If you cannot understand the captcha code, press the image'
+	),
+    'security_code_text' => array(
+		'label' => 'Security code label (text)',
+		'text' => 'Security Code (lowercase letters)'
+	), */
+	'captcha_required_text' => array(
+		'label' => 'Captcha required (text)',
+		'text' => 'Please enter the captcha verification code.'
+	),
+    'incorrect_captcha_text' => array(
+		'label' => 'Captcha error (text)',
+		'text' => 'Incorrect captcha code. Please try again.'
+	),
+    'audio_tutorial_text' => array(
 		'label' => 'Audio tutorial (text)',
 		'text'  => 'Help',
 	),

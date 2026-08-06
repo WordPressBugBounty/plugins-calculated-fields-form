@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.4.9.7 =
+
+* Implements Math CAPTCHA in the free plugin distribution and makes it the default CAPTCHA method.
+* Adds support for repeater fields in the AI Assistant when generating equations.
+* Removes the payment gateway activation options from the Default Settings section in the commercial plugin distributions, as they support multiple payment gateways.
+* Converts the custom query attribute in Data Source controls from a single-line input field to a text area, making queries easier to edit.
+
 = 5.4.9.6 =
 
 * Fixes a minor issue by using Repeater fields in equations.

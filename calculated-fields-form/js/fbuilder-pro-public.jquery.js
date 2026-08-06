@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.9.6';
+	$.fbuilder['version'] = '5.4.9.7';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1353,7 +1353,8 @@
 	$.fbuilder['doValidate'] = function(form) {
 		form = $(form);
 
-		let enabling_form = function () {
+		let validation_rules = {},
+			enabling_form = function () {
 				form.validate().settings.ignore = '.ignore,.ignorepb';
 				form.removeData('being-submitted');
 				form.find('.submitbtn-disabled').removeClass('submitbtn-disabled').prop('disabled', false);
@@ -1369,6 +1370,12 @@
 				return ('undefined' != typeof form.data('being-submitted'));
 			},
 			processing_form = function () {
+				for (let rule in validation_rules) {
+					if (!validation_rules[rule]) {
+						form.trigger('cff-form-validation', false);
+						return;
+					}
+				}
 				try{
 					form.find('[name="cp_ref_page"]').val(parent.window.document.location.href);
 				} catch (err) {
@@ -1398,6 +1405,7 @@
 					form.attr('target', 'cff_iframe_for_submission'+form_identifier);
 					$(document).one('cff-form-submitted', function(){
 						form.find( '.cff-thanks-message' ).fadeIn(400);
+						reset_captcha_box();
 						$(document).one('click', function(){ $('.cff-thanks-message').hide(); });
 						if ( $('#cff_iframe_for_submission'+form_identifier).attr('data-cff-reset') == 1 ) {
 							RESETFORM( form );
@@ -1424,7 +1432,30 @@
 				if('nativeSubmit' in form[0]) form[0].nativeSubmit();
 				else form[0].submit();
 			},
-			form_identifier = form.find('[name="cp_calculatedfieldsf_pform_psequence"]').val();
+			reset_captcha_box = function () {
+				let captcha_box = form.find('[id="hdcaptcha_cp_calculated_fields_form_post' + form_identifier + '"]');
+				if (captcha_box.length) {
+					$.ajax({
+						type: "GET",
+						url: form.prop('action').replace(/\?$/g, ''),
+						data: {
+							ps: form_identifier,
+							cp_calculatedfieldsf: 'captcha',
+							cff: cff_identifier,
+							no_cache: Date.now()
+						},
+						success: function (response) {
+							if (response.success && response.data.captcha) {
+								form.find('[id^="cff_captcha_math_"]').text(response.data.captcha);
+							}
+						}
+					});
+
+					captcha_box.val('');
+				}
+			},
+			form_identifier = form.find('[name="cp_calculatedfieldsf_pform_psequence"]').val(),
+			cff_identifier 	= form.find('[name="cp_calculatedfieldsf_id"]').val() || 1;
 
 		if (form_disabled()) return false;
 
@@ -1453,19 +1484,73 @@
 			return false;
 		}
 
-		if (
+		validation_rules['no_pending'] = ! (
 			(
 				form_identifier in $.fbuilder.calculator.processing_queue &&
-				$.fbuilder.calculator.processing_queue[form_identifier]) ||
-			$.fbuilder.calculator.thereIsPending(form_identifier)) {
+				$.fbuilder.calculator.processing_queue[form_identifier]
+			) ||
+			$.fbuilder.calculator.thereIsPending(form_identifier)
+		);
+
+		if (
+			!validation_rules['no_pending']
+		) {
 			$(document).on('equationsQueueEmpty', function (evt, formId) {
 				if (formId == form_identifier) {
 					$(document).off('equationsQueueEmpty');
+					validation_rules['no_pending'] = true;
 					processing_form();
 				}
 			});
 			enabling_form();
 			return false;
+		}
+
+		// captcha validation.
+		let captcha_box = form.find('[id="hdcaptcha_cp_calculated_fields_form_post' + form_identifier + '"]');
+		if (captcha_box.length) {
+			let cff_messages;
+			try {
+				cff_messages = $.fbuilder.forms[form_identifier]['settings']['messages'];
+			} catch (e) { cff_messages = {}; }
+			if (captcha_box.val() == '') {
+				form.trigger('cff-form-validation', false);
+				let captcha_error = (
+					'captcha_required_text' in cff_messages
+				) ? cff_messages.captcha_required_text : 'Captcha is required.';
+				alert(captcha_error);
+				enabling_form();
+				return false;
+			}
+
+			disabling_form();
+			validation_rules['captcha'] = false;
+			$.ajax({
+				type: "GET",
+				url: form.prop('action').replace(/\?$/g, ''),
+				data: {
+					ps: form_identifier,
+					hdcaptcha_cp_calculated_fields_form_post: captcha_box.val(),
+					cp_calculatedfieldsf_id: cff_identifier,
+					no_cache: Date.now()
+				},
+				success: function (result) {
+					enabling_form();
+					if (result == "captchafailed") {
+                        reset_captcha_box();
+						form.trigger('cff-form-validation', false);
+						let invalid_captcha_error = (
+							'incorrect_captcha_text' in cff_messages
+						) ? cff_messages.incorrect_captcha_text : 'Invalid captcha.';
+						alert(invalid_captcha_error);
+						return false;
+					}
+					else {
+						validation_rules['captcha'] = true;
+						processing_form();
+					}
+				}
+			});
 		}
 
 		processing_form();

@@ -1172,7 +1172,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					'upload_size'    => $cpcff_texts_array['errors']['upload_size']['text'],
 					'phone'          => $cpcff_texts_array['errors']['phone']['text'],
 					'currency'       => $cpcff_texts_array['errors']['currency']['text'],
-				),
+					'captcha_required_text'  	=> $cpcff_texts_array['captcha_required_text']['text'],
+					'incorrect_captcha_text'  	=> $cpcff_texts_array['incorrect_captcha_text']['text'],
+					),
 			);
 				return json_encode( $obj );
 		} // End _get_form_configuration.

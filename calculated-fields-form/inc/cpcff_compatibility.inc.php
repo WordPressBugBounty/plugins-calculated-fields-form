@@ -10,6 +10,8 @@ if(!class_exists('CPCFF_COMPATIBILITY'))
 {
 	class CPCFF_COMPATIBILITY
 	{
+		private static $elementor_cache = array();
+
 		private static function init()
 		{
 			return array(
@@ -295,5 +297,14 @@ if(!class_exists('CPCFF_COMPATIBILITY'))
             }
             return $content;
         } // End breeze_return_content
-    } // End CPCFF_COMPATIBILITY
+
+		public static function set_elementor_cache($id, $value) {
+			self::$elementor_cache[$id] = $value;
+		} // End set_elementor_cache
+
+		public static function get_elementor_cache($id) {
+			if ( ! isset( self::$elementor_cache[$id] ) ) return null;
+			return self::$elementor_cache[$id];
+		} // End get_elementor_cache
+	} // End CPCFF_COMPATIBILITY
 }

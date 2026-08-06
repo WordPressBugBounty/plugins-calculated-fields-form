@@ -12,10 +12,22 @@ async function loadWebLLM() {
 }
 let variables = "";
 let variables_tags = "";
+let has_repeater = false;
 let topic = 'js';
 let extra = '';
 
 const context = `You are a code generator for JavaScript, CSS, and HTML. Always output your answer as the code block. No pre-amble. Do not respond to unrelated question.`;
+const repeater_prompt_block = "\n\nRepeater fields: each repeater's value is an object with two keys — rows (array of row objects, one per row) and total (object with one key per child field, holding the aggregate across all rows).\n" +
+	"Access a specific row by zero-based index: repeaterName['rows'][i][childName] — childName already includes |n where applicable, use it exactly as declared above.\n" +
+	"Access an aggregate: repeaterName['total'][childName] — childName already includes |n where applicable, use it exactly as declared above. Prefer totals over hand-written loops.\n" +
+	"Worked example (sum of a numeric child across all rows):\n" +
+	"```js\n" +
+	"(function(){ return fieldname123['total'][fieldname456|n]; })()\n" +
+	"```\n" +
+	"Worked example (value of a numeric child in the first row):\n" +
+	"```js\n" +
+	"(function(){ return fieldname123['rows'][0][fieldname456|n]; })()\n" +
+	"```";
 const messages = [{
 		content: context,
 		role: "system",
@@ -536,7 +548,7 @@ ${input}
 
         break;
 		default:
-            message = "Create an immediately invoked JavaScript function expressions (IIFE) that run automatically. It must start with (function(){ and enter with })(). It must include a return statement with the result as scalar value. Use only valid JavaScript syntax. Test your code mentally for syntax errors before submitting. Do not include any non-JavaScript text or characters. Keep the code simple and focused on the calculation. Enclose the code between ``` symbols. DO NOT include comments into the function code." + ("" != variables ? " \n\n CRITICAL INSTRUCTION: The following variables ALREADY EXIST in the system and contain values. DO NOT DEFINE, INITIALIZE, OR ASSIGN ANY VALUE TO THEM IN YOUR CODE:\n\n" + variables : "") + "\n\nFunction description: " + input.replace(/equation/ig, 'function');
+			message = "Create an immediately invoked JavaScript function expressions (IIFE) that run automatically. It must start with (function(){ and enter with })(). It must include a return statement with the result as scalar value. Use only valid JavaScript syntax. Test your code mentally for syntax errors before submitting. Do not include any non-JavaScript text or characters. Keep the code simple and focused on the calculation. Enclose the code between ``` symbols. DO NOT include comments into the function code." + ("" != variables ? " \n\n CRITICAL INSTRUCTION: The following variables ALREADY EXIST in the system and contain values. DO NOT DEFINE, INITIALIZE, OR ASSIGN ANY VALUE TO THEM IN YOUR CODE:\n\n" + variables : "") + (has_repeater ? repeater_prompt_block : "") + "\n\nFunction description: " + input.replace(/equation/ig, 'function');
         break;
 	}
 
@@ -795,7 +807,41 @@ window['cff_ai_assistant_open'] = function( _answer_topic, _extra = '' ){
 
 	setPlaceholder();
 	// Get variables.
-	window.cff_form.fBuild.getItems().forEach( (item) => {
+	const items = window.cff_form.fBuild.getItems();
+	const fieldsIndex = window.cff_form.fBuild.getFieldsIndex();
+	has_repeater = false;
+
+	items.forEach( (item) => {
+		if (!item || !item.name) return;
+
+		// Repeater: emit descriptor with children listed using the same label resolution as scalars.
+		if (item.ftype === 'frepeater') {
+			const repeaterName = item.name;
+			const validChildren = [];
+			if (Array.isArray(item.fields)) {
+				for (let j = 0; j < item.fields.length; j++) {
+					const childIdx = fieldsIndex[item.fields[j]];
+					if (childIdx !== undefined) validChildren.push(items[childIdx]);
+				}
+			}
+			if (validChildren.length === 0) return;
+
+			variables += repeaterName + " (repeater field containing:\n";
+			for (let k = 0; k < validChildren.length; k++) {
+				const child = validChildren[k];
+				let cl = ('title' in child) ? String(child.title).trim() : '';
+				cl = ('' == cl && 'shortlabel' in child) ? String(child.shortlabel).trim() : cl;
+				cl = ('' == cl && 'userhelp' in child) ? String(child.userhelp) : cl;
+				variables += "  " + child.name + "|n (existing constant that represents " + cl + ")\n";
+			}
+			variables += ")\n";
+			has_repeater = true;
+			return;
+		}
+
+		// Skip repeater children — they're emitted inside their parent's descriptor.
+		if (fbuilderjQuery.fbuilder.inRepeater(item.name)) return;
+
 		if (
 			'ftype' in item &&
 			['ftext', 'fcurrency', 'fnumber', 'fslider', 'fcolor', 'femail', 'fdate', 'ftextarea', 'fcheck', 'fradio', 'fdropdown', 'ffile', 'fpassword', 'fPhone', 'fhidden', 'frecordsetds', 'ftextds', 'femailds', 'ftextareads', 'fcheckds', 'fradiods', 'fPhoneds', 'fdropdownds', 'fhiddends', 'fnumberds', 'fcurrencyds', 'fdateds', 'fqrcode', 'fCalculated'].indexOf(item.ftype) != -1

@@ -167,6 +167,12 @@ if ( property_exists( $form_data[1][0], 'direction' ) ) {
 		<div id="fieldlist_<?php echo esc_attr( CPCFF_MAIN::$form_counter ); ?>"></div>
 		<div class="clearer"></div>
 	</div>
+	<div id="cpcaptchalayer_<?php echo CPCFF_MAIN::$form_counter; ?>" class="cpcaptchalayer" style="display:none;">
+		<?php
+			$cpcff_texts_array = $form_obj->get_option('vs_all_texts', []);
+			CPCFF_CAPTCHA::display_captcha($form_obj, CPCFF_MAIN::$form_counter, $cpcff_texts_array);
+		?>
+	</div>
 </div>
 	<?php
 	if ( $form_obj->get_option( 'enable_submit', '' ) == '' ) {

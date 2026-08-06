@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.4.9.6
+ * Version: 5.4.9.7
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,11 +25,20 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.9.6' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.4.9.7' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
 define( 'CP_CALCULATEDFIELDSF_BASE_NAME', plugin_basename( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
+
+require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_session.inc.php';
+// Start Session
+add_action('init', function () {
+	if (is_admin()) return;
+	if (defined('REST_REQUEST') && REST_REQUEST) return;
+	if (defined('DOING_CRON') && DOING_CRON) return;
+	CP_SESSION::session_start();
+}, 0);
 
 // Feedback system.
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/feedback/cp-feedback.php';
@@ -47,6 +56,8 @@ require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_form_cache.inc.php';
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_email_diagnostic.inc.php';
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_akismet.inc.php';
 
+require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/captcha/cpcff_captcha.inc.php'; // Captcha
+
 // Global variables.
 CPCFF_MAIN::instance(); // Main plugin's object.
 
@@ -54,11 +65,19 @@ add_action( 'init', 'cp_calculated_fields_form_check_posted_data', 99 );
 add_action( 'init', 'cp_calculated_fields_form_direct_form_access', 99 );
 add_action( 'init', function(){
 	add_filter( 'get_post_metadata', function( $v, $object_id, $meta_key, $single, $meta_type = '' ){
-		if ( '_elementor_element_cache' == $meta_key ) {
-			global $wpdb;
-			if ( $wpdb->get_var( $wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->postmeta . ' WHERE post_id=%d AND meta_key="_elementor_element_cache" AND meta_value LIKE "%calculatedfields%";', $object_id ) ) ) return false;
+		if ('_elementor_element_cache' != $meta_key) return $v;
+		require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_compatibility.inc.php';
+		global $wpdb;
+
+		$cached = CPCFF_COMPATIBILITY::get_elementor_cache($object_id);
+		if ($cached !== null) {
+			return $cached ? false : $v;
 		}
-		return $v;
+
+		$has_cff = (int) $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->postmeta . ' WHERE post_id=%d AND meta_key="_elementor_element_cache" AND meta_value LIKE "%calculatedfields%";', $object_id));
+
+		CPCFF_COMPATIBILITY::set_elementor_cache($object_id, $has_cff ? true : false);
+		return $has_cff ? false : $v;
 	}, 10, 5 );
 } );
 add_filter( 'nonce_life', function($life){
@@ -127,6 +146,48 @@ function cp_calculated_fields_form_check_posted_data() {
 	global $wpdb;
 
 	$cpcff_main = CPCFF_MAIN::instance();
+
+	if (
+		isset($_GET['cp_calculatedfieldsf']) &&
+		$_GET['cp_calculatedfieldsf'] == 'captcha'
+	) {
+		$form_id = isset($_GET['cff']) ? intval($_GET['cff']) : 0;
+		$ps = isset($_GET['ps']) ? sanitize_key(wp_unslash($_GET['ps'])) : '';
+		CPCFF_CAPTCHA::get_captcha($form_id, $ps);
+		exit('Invalid Request');
+	}
+
+	// Check if the captcha is enabled and validate it in background.
+	$captcha_value = '';
+	$captcha_is_valid = false;
+	if (
+		isset($_REQUEST['hdcaptcha_cp_calculated_fields_form_post'])
+	) {
+		$captcha_value = sanitize_text_field(wp_unslash($_REQUEST['hdcaptcha_cp_calculated_fields_form_post']));
+		$sequence = '';
+		if (isset($_GET["ps"])) {
+			$sequence = sanitize_text_field(wp_unslash($_GET["ps"]));
+		} elseif (isset($_POST["cp_calculatedfieldsf_pform_psequence"])) {
+			$sequence = sanitize_text_field(wp_unslash($_POST["cp_calculatedfieldsf_pform_psequence"]));
+		}
+		$form_id = $_REQUEST['cp_calculatedfieldsf_id'] ?? 0;
+		if (
+			! is_numeric( $form_id ) ||
+			($form_id = intval( $form_id )) <= 0 ||
+			false == ($form_obj = $cpcff_main->get_form($form_id)) ||
+			CPCFF_CAPTCHA::validate_captcha(
+				$form_obj,
+				$sequence,
+				$captcha_value
+			) === false
+		) {
+			echo 'captchafailed';
+			remove_all_actions('shutdown');
+			exit;
+		} else {
+			$captcha_is_valid = true;
+		}
+	} // End if captcha validation.
 
 	if (
 		isset( $_SERVER['REQUEST_METHOD'] ) &&
@@ -201,6 +262,20 @@ function cp_calculated_fields_form_check_posted_data() {
 
 				$form_obj = $cpcff_main->get_form( CP_CALCULATEDFIELDSF_ID );
 				if ( $form_obj ) {
+					// Validate captcha after form submission.
+					if (
+						$captcha_is_valid === false &&
+						CPCFF_CAPTCHA::validate_captcha(
+							$form_obj,
+							$sequence,
+							$captcha_value
+						) === false
+					) {
+						echo 'captchafailed';
+						remove_all_actions('shutdown');
+						exit;
+					}
+
 					require_once( ABSPATH . "wp-admin" . '/includes/file.php' );
 
 					// If for submissions is disabled echo message and exit.
@@ -723,6 +798,8 @@ function cp_calculated_fields_form_check_posted_data() {
                         exit;
                     }
 
+					// Clear captcha
+					CP_SESSION::set_var('rand_code' . $sequence, '');
                     $params['itemnumber'] = $item_number;
 
 					/**

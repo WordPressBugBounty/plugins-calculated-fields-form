@@ -24,6 +24,8 @@ if ( isset( $_GET['orderby'] ) ) {
 
 $cp_default_template = CP_CALCULATEDFIELDSF_DEFAULT_template;
 $cp_default_submit   = CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button;
+$cp_default_captcha  = CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha;
+$cp_default_captcha_method = CP_CALCULATEDFIELDSF_DEFAULT_cv_captcha_method;
 
 if ( isset( $_REQUEST['cp_default_template'] ) ) { // I don't need to check for the submit button at this moment.
 	check_admin_referer( 'cff-default-settings', '_cpcff_nonce' );
@@ -31,27 +33,43 @@ if ( isset( $_REQUEST['cp_default_template'] ) ) { // I don't need to check for 
 	if ( 'none' != $_REQUEST['cp_default_template'] ) {
 		$cp_default_template = sanitize_text_field( wp_unslash( $_REQUEST['cp_default_template'] ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	}
-	$cp_default_submit = isset( $_REQUEST['cp_default_submit'] ) ? '' : 'no';
+	$cp_default_submit  = isset( $_REQUEST['cp_default_submit'] ) ? '' : 'no';
+	$cp_default_captcha = isset($_REQUEST['cp_default_captcha']) ? 'true' : 'false';
+	$cp_default_captcha_method = CP_CALCULATEDFIELDSF_DEFAULT_cv_captcha_method;
 
 	// Update default settings.
 	update_option( 'CP_CALCULATEDFIELDSF_DEFAULT_template', $cp_default_template );
 	update_option( 'CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', $cp_default_submit );
+	update_option( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', $cp_default_captcha );
+	update_option( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_captcha_method', $cp_default_captcha_method );
 
 	if ( isset( $_REQUEST['cp_default_existing_forms'] ) ) {
-		$myrows = $wpdb->get_results( 'SELECT id,form_structure,enable_submit,cv_enable_captcha FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$myrows = $wpdb->get_results('SELECT id,form_structure,enable_submit,cv_enable_captcha,extra FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		foreach ( $myrows as $item ) {
 			$form_structure = preg_replace( '/"formtemplate"\s*\:\s*"[^"]*"/', '"formtemplate":"' . esc_js( $cp_default_template ) . '"', $item->form_structure );
+
+			// Merge default captcha method into extra (SKIP if already set per-form)
+			$extra_data = !empty($item->extra) ? json_decode($item->extra, true) : [];
+			if (!is_array($extra_data)) {
+				$extra_data = [];
+			}
+			$extra_data['cv_captcha_method'] = $cp_default_captcha_method;
+			if ($cp_default_captcha_method === 'math' && !isset($extra_data['cv_captcha_math_complexity'])) {
+				$extra_data['cv_captcha_math_complexity'] = 1;
+			}
 
 			$wpdb->update(
 				$wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE,
 				array(
 					'form_structure' => $form_structure,
 					'enable_submit' => $cp_default_submit,
+					'cv_enable_captcha' => $cp_default_captcha,
+					'extra' => json_encode($extra_data)
 				),
 				array(
 					'id' => $item->id,
 				),
-				array( '%s', '%s' ),
+				array( '%s', '%s', '%s', '%s' ),
 				array( '%d' )
 			);
 		}
@@ -606,7 +624,7 @@ function cp_update_default_settings(e)
 			<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Default Settings', 'calculated-fields-form' ); ?></span></h3>
 			<div class="inside">
 				<p><?php esc_html_e( 'Applies the default settings to new forms.', 'calculated-fields-form' ); ?></p>
-				<form name="defaultsettings" action="admin.php?page=cp_calculated_fields_form" method="post">
+                <form name="defaultsettings" action="admin.php?page=cp_calculated_fields_form#default-settings-section" method="post">
 					<?php esc_html_e( 'Default Template', 'calculated-fields-form' ); ?>:<br />
 					<?php
 						require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_templates.inc.php';
@@ -618,9 +636,10 @@ function cp_update_default_settings(e)
 						$template_information .= '<div class="width50 cp_template_info cp_template_' . esc_attr( $template_item['prefix'] ) . '" style="text-align:center;padding:10px 0; display:' . ( ($template_item['prefix'] == $cp_default_template) ? 'block' : 'none' ) . '; margin:10px 0; border: 1px dashed #CCC;">' . ( (! empty( $template_item['thumbnail'] )) ? '<img src="' . esc_attr( $template_item['thumbnail'] ) . '"><br>' : '' ) . ( (! empty( $template_item['description'] )) ? esc_html( $template_item['description'] ) : '' ) . '</div>';
 					}
 					?>
-					<select name="cp_default_template" id="cp_default_template"class="width50" onchange="cp_select_template();"><?php print $template_options; // phpcs:ignore WordPress.Security.EscapeOutput ?></select><br />
+					<select name="cp_default_template" id="cp_default_template" class="width50" onchange="cp_select_template();"><?php print $template_options; // phpcs:ignore WordPress.Security.EscapeOutput ?></select><br />
 					<?php print $template_information; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					<br /><br />
+					<label><input type="checkbox" aria-label="<?php esc_attr_e('Activate Captcha by Default', 'calculated-fields-form'); ?>" name="cp_default_captcha" <?php print(($cp_default_captcha == 'true') ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Activate Captcha by Default', 'calculated-fields-form' ); ?></label><br /><br />
 					<label><input type="checkbox" aria-label="<?php esc_attr_e('Display Submit Button by Default', 'calculated-fields-form'); ?>" name="cp_default_submit" <?php print( ('' == $cp_default_submit) ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Display Submit Button by Default', 'calculated-fields-form' ); ?></label><br /><br />
 					<div style="border:1px solid #DADADA; padding:10px;" class="width50">
 						<label><input type="checkbox" aria-label="<?php esc_attr_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?>" name="cp_default_existing_forms" /> <?php esc_html_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?> (<i><?php esc_html_e( 'It will modify the settings of existing forms', 'calculated-fields-form' ); ?></i>)</label>

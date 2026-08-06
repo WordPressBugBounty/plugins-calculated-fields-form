@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.9.6
+Stable tag: 5.4.9.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,8 +107,8 @@ For any other editor, use the shortcode to insert forms anywhere:
 * Form version control to recover previous versions.
 
 > **Free vs. Commercial Versions**
-> The free version includes the complete visual form builder, notification emails to the site owner, basic calculation operations, conditional logic, design customization, multi-column layout, and submission storage on the website for review.
-> Commercial versions (Professional, Developer, and Platinum) add payment gateway integration, confirmation emails to users, advanced data source controls, financial and distance operation modules, chart generation, CRM integrations, PDF generation, e-signatures, and more.
+> The free version includes the complete visual form builder, notification emails to the site owner, basic calculation operations, conditional logic, design customization, multi-column layout, submission storage on the website for review, and Math CAPTCHA for spam protection.
+> The commercial versions (Professional, Developer, and Platinum) add Math and Classic CAPTCHA options alongside the free Math CAPTCHA, payment gateway integration, confirmation emails to users, advanced data source controls, financial and distance operation modules, chart generation, CRM integrations, PDF generation, e-signatures, and more.
 > All commercial versions are available as a **one-time purchase** with **lifetime access** to plugin updates. Visit https://cff.dwbooster.com/download for details.
 
 = Professional version features: =
@@ -117,7 +117,7 @@ For any other editor, use the shortcode to insert forms anywhere:
 * [Send confirmation emails](https://cff.dwbooster.com/documentation#copy-user) to users with their submitted data.
 * [PayPal integration](https://cff.dwbooster.com/documentation#paypal-settings) and [Stripe integration](https://cff.dwbooster.com/documentation#stripe-checkout-addon) — dynamically compute the charge amount using a calculated field. SCA (Strong Customer Authentication) compatible with PSD2 (EU Payment Services Directive).
 * [Import and export forms](https://cff.dwbooster.com/documentation#import-export-form) between WordPress sites.
-* Form protection: [CAPTCHA](https://cff.dwbooster.com/documentation#captcha-settings), WordPress nonces, and honeypot fields.
+* Form protection: [Math and Classic CAPTCHA](https://cff.dwbooster.com/documentation#captcha-settings), WordPress nonces, and honeypot fields.
 * "Thank You" page with a summary of the form submission.
 * Dashboard widget showing the last week's form submissions.
 * Form caching to increase rendering speed.
@@ -469,6 +469,13 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.4.9.7 =
+
+* Implements Math CAPTCHA in the free plugin distribution and makes it the default CAPTCHA method.
+* Adds support for repeater fields in the AI Assistant when generating equations.
+* Removes the payment gateway activation options from the Default Settings section in the commercial plugin distributions, as they support multiple payment gateways.
+* Converts the custom query attribute in Data Source controls from a single-line input field to a text area, making queries easier to edit.
+
 = 5.4.9.6 =
 
 * Fixes a minor issue by using Repeater fields in equations.
@@ -486,11 +493,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Automatically opens popups or expands collapsed fieldsets when a validation error occurs in a contained field during form submission or when navigating to the next page.
 * Adds the new addItem, removeItem, and getItemsNames methods to the public JavaScript API.
-
-= 5.4.9.2 =
-
-* Improved the drag-and-drop behavior of controls in the form builder for greater accuracy.
-* Updated the list of supported AI models.
-* Enhanced nonce handling to ensure compatibility with LiteSpeed Cache.
-* Updated the _setHandle function in the plugin core.
-* Enhanced the Google Places add-on to support all address components (Platinum edition).

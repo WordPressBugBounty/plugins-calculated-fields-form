@@ -403,6 +403,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 					'cv_background'                => CP_CALCULATEDFIELDSF_DEFAULT_cv_background,
 					'cv_border'                    => CP_CALCULATEDFIELDSF_DEFAULT_cv_border,
 					'cv_text_enter_valid_captcha'  => CP_CALCULATEDFIELDSF_DEFAULT_cv_text_enter_valid_captcha,
+					'extra' 					   => wp_json_encode(['cv_captcha_method' => CP_CALCULATEDFIELDSF_DEFAULT_cv_captcha_method])
 				);
 				$values['id']             = 1;
 				$values['form_name']      = 'Simple Operations';
