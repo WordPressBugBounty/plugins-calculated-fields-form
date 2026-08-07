@@ -17,6 +17,7 @@
 			exclude:false,
 			readonly:false,
 			dformat:"### ### ####",
+			showFormatAsHint:-1,
 			dseparator:"-", // none, space, -, .
 			predefined:"888 888 8888",
 			predefinedClick:true,
@@ -38,15 +39,19 @@
 				{
 					css_class = css_class || '';
 					var str = "",
-                        tmp = this.dformat.split(/\s+/),
-                        tmpv = this.predefined.split(/\s+/),
-						nc   = this.dformat.replace(/\s/g, '').length;
+						isFree = (String(this.dformat).trim().length == 0),
+						FREE_MAX_DIGITS = 40,
+                        tmp  = isFree ? [Array(FREE_MAX_DIGITS + 1).join('#')] : this.dformat.split(/\s+/),
+                        tmpv = isFree ? [this.predefined] : this.predefined.split(/\s+/),
+						nc   = Math.max(1,this.dformat.replace(/\s/g, '').length);
 
 					str = '<div class="'+this.size+' components_container">';
 					for (var i=0;i<tmp.length;i++)
 					{
-						if (String(tmp[i]).trim()!="")
-							str += '<div class="uh_phone" style="min-width:'+(100/nc*tmp[i].length)+'%"><input type="text" class="field disabled" value="'+cff_esc_attr((tmpv[i])?tmpv[i]:"")+'" maxlength="'+String(tmp[i]).trim().length+'" aria-label="Phone component" /><div class="l">'+cff_esc_attr(String(tmp[i]).trim())+'</div></div>';
+						if (String(tmp[i]).trim()!="") {
+							let w = isFree ? '100%' : (100 / nc * tmp[i].length) + '%';
+							str += '<div class="uh_phone" style="min-width:'+w+';"><input type="text" class="field disabled" value="'+cff_esc_attr((tmpv[i])?tmpv[i]:"")+'" aria-label="Phone component" />'+( ! isFree && this.showFormatAsHint !== false ? '<div class="l">'+cff_esc_attr(String(tmp[i]).trim())+'</div>' : '')+'</div>';
+						}
 					}
 					str += '</div>';
 					return '<div data-control="'+this.ftype+'" class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Phone Field')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div>'+this.iconsContainer()+'<label>'+cff_sanitize(this.title, true)+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+str+'<span class="uh">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
@@ -55,6 +60,7 @@
 				{
 					var evt = [
                         {s:"#sFormat",e:"change keyup", l:"dformat", f:function(el){return (el.val()+'').replace(/^\s+/, '').replace(/\s+$/, '').replace(/\s+/g, ' ')}},
+                        {s:"#sShowFormatAsHint",e:"click", l:"showFormatAsHint", f:function(el){return el.is(':checked');}},
 						{s:"#sSeparator",e:"change", l:"dseparator", x:1},
                         {s:"#sCountryComponent",e:"click", l:"countryComponent", f:function(el){return el.is(':checked');}},
                         {s:"#sDynamic",e:"click", l:"dynamic", f:function(el){return el.is(':checked');}},
@@ -80,6 +86,7 @@
 					'<div style="flex-grow:1"><label for="sFormat">Number Format</label><input type="text" name="sFormat" id="sFormat" value="'+cff_esc_attr(this.dformat)+'" class="large" /></div>'+
 					'<div class="width25"><label for="sSeparator">Parts separator</label><select name="sSeparator" id="sSeparator" class="large">'+options+'</select></div>'+
 					'</div>'+
+					'<label><input type="checkbox" name="sShowFormatAsHint" id="sShowFormatAsHint" '+(this.showFormatAsHint != false ? 'CHECKED' : '')+' '+(this.showFormatAsHint ? 'CHECKED' : '')+'/> Show format as hint</label>'+
                     '<hr />'+
 
                     '<label><input type="checkbox" name="sCountryComponent" id="sCountryComponent" '+(this.countryComponent ? 'CHECKED' : '')+'/> Include country code selector</label>'+

@@ -135,7 +135,7 @@ if ( isset( $_GET['a'] ) && '1' == $_GET['a'] ) {
 
     $mtts = sanitize_text_field(wp_unslash($_GET["mtts"] ?? ''));
     if ( ! empty( $mtts ) )  {
-        $mtts = is_numeric( $mtts ) ? intval( $mtts ) : CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT;
+        $mtts = is_numeric( $mtts ) ? max(0, intval( $mtts )) : CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT;
     }
     update_option( 'CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', $mtts );
 
@@ -329,7 +329,7 @@ function cp_updateConfig()
 			ecr = (document.getElementById("ccexcludecrawler").checked) ? 1 : 0,
 			nc  = (document.getElementById("ccusenonce").checked) ? 1 : 0,
 			em  = (document.getElementById("ccencodingemail").checked) ? 1 : 0,
-            mtts = document.getElementById("ccminimumtimetosubmit").value.replace( /[^\d]/g, '' ),
+            mtts = document.getElementById("ccminimumtimetosubmit").value,
             ake = (document.getElementById("ccenableakismet").checked) ? 1 : 0,
             aka = String(document.getElementById("ccakismetapikey").value).trim(),
             akl = (document.getElementById("ccakismetactivitylog").checked) ? 1 : 0,
@@ -710,7 +710,7 @@ function cp_update_default_settings(e)
                     <br /><br />
                     <hr />
                     <strong><?php _e( 'Protect the forms against the spam bots', 'calculated-fields-form' ); ?></strong><br /><br />
-                    <label for="ccminimumtimetosubmit"><?php esc_html_e( 'Enable minimum time to submit (in seconds)', 'calculated-fields-form' );?></label> <input type="number" name="ccminimumtimetosubmit" id="ccminimumtimetosubmit" value="<?php print esc_attr( get_option( 'CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT ) ); ?>" size="3" />
+                    <label for="ccminimumtimetosubmit"><?php esc_html_e( 'Enable minimum time to submit (in seconds)', 'calculated-fields-form' );?></label> <input type="number" name="ccminimumtimetosubmit" id="ccminimumtimetosubmit" value="<?php print esc_attr( get_option( 'CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT', CP_CALCULATEDFIELDSF_MINIMUM_TIME_TO_SUBMIT ) ); ?>" min="0" size="3" />
                     <br /><br />
 					<hr />
                     <strong><?php esc_html_e( 'Spam protection with Akismet', 'calculated-fields-form' ); ?></strong><br /><br />
