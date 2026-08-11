@@ -69,7 +69,7 @@
 					for(var i = 0, h = l.length; i < h; i++)
                     {
                         v = cff_esc_attr(l[i]);
-                        r += '<label><input type="radio" name="sType" value="'+v+'" '+((this.sType == v) ? 'CHECKED' : '')+' ><span>'+v+'</span></label>';
+                        r += '<label tabindex="0"><input type="radio" name="sType" value="'+v+'" '+((this.sType == v) ? 'CHECKED' : '')+' ><span>'+v+'</span></label>';
                     }
 					r += '</div>';
 

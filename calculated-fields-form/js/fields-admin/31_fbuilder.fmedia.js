@@ -163,10 +163,10 @@
 					let l = 'sAlignment' in this ? this.sAlignment : 'default';
 					return '<div><label>Alignment</label>'+
 					'<div class="cff-radio-group-ctrl">'+
-					'<label><input type="radio" name="sAlignment" value="default" '+(l == 'default' ? 'checked' : '')+'><span>Default</span></label>'+
-					'<label><input type="radio" name="sAlignment" value="left" '+(l == 'left' ? 'checked' : '')+'><span>Left</span></label>'+
-					'<label><input type="radio" name="sAlignment" value="center" '+(l == 'center' ? 'checked' : '')+'><span>Center</span></label>'+
-					'<label><input type="radio" name="sAlignment" value="right" '+(l == 'right' ? 'checked' : '')+'><span>Right</span></label></div></div>';
+					'<label tabindex="0"><input type="radio" name="sAlignment" value="default" '+(l == 'default' ? 'checked' : '')+'><span>Default</span></label>'+
+					'<label tabindex="0"><input type="radio" name="sAlignment" value="left" '+(l == 'left' ? 'checked' : '')+'><span>Left</span></label>'+
+					'<label tabindex="0"><input type="radio" name="sAlignment" value="center" '+(l == 'center' ? 'checked' : '')+'><span>Center</span></label>'+
+					'<label tabindex="0"><input type="radio" name="sAlignment" value="right" '+(l == 'right' ? 'checked' : '')+'><span>Right</span></label></div></div>';
 				},
 		    _showMediaList: function()
                 {

@@ -208,6 +208,17 @@ let localAPI = {
             return true;
         },
        initializeModel: async function() {
+			let showErrorBlock = function(el) {
+				if (el) {
+					el.style.display = 'block';
+					let parent = el.parentElement;
+					parent.classList.add('cff-ai-assistance-error-message');
+					const childToRemove = parent.querySelector('.cff-ai-assistance-error-actions');
+					if (childToRemove) childToRemove.remove();
+					parent.insertAdjacentHTML('beforeend', getSwitchButton());
+				}
+			};
+
             if (this.engine == null) {
                 try {
                     const webllm = await loadWebLLM();
@@ -223,24 +234,46 @@ let localAPI = {
             }
 
             if (typeof navigator == 'undefined' || !navigator.gpu) {
-                document.getElementById('cff-ai-gpu-error').style.display = 'block';
-                document.getElementById('cff-ai-gpu-error').parentElement.classList.add('cff-ai-assistance-error-message');
+				showErrorBlock(document.getElementById('cff-ai-gpu-error'));
                 sendBtnCtrl.disabled = true;
                 userQuestionCtrl.disabled = true;
-                return false;
+				return false;
             }
+
+			if (typeof navigator !== 'undefined' && navigator.gpu) {
+				let adapter = null;
+				try {
+					adapter = await navigator.gpu.requestAdapter();
+				} catch (e) {
+					adapter = null;
+				}
+				if (!adapter) {
+					showErrorBlock(document.getElementById('cff-ai-gpu-error'));
+					sendBtnCtrl.disabled = true;
+					userQuestionCtrl.disabled = true;
+					return false;
+				}
+			}
+
+		    if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory < 8) {
+			   	showErrorBlock(document.getElementById('cff-ai-ram-error'));
+			   	sendBtnCtrl.disabled = true;
+			   	userQuestionCtrl.disabled = true;
+			   	return false;
+		    }
 
             if (typeof window == 'undefined' || !window.caches) {
-                document.getElementById('cff-ai-caches-error').style.display = 'block';
-                document.getElementById('cff-ai-caches-error').parentElement.classList.add('cff-ai-assistance-error-message');
+				showErrorBlock(document.getElementById('cff-ai-caches-error'));
                 sendBtnCtrl.disabled = true;
                 userQuestionCtrl.disabled = true;
-                return false;
+				return false;
             }
 
-            if (this.isModelLoaded()) return true;
+		   	if (this.isModelLoaded()) {
+			   	return true;
+		   	}
+			this.loadingModel = true;
             try {
-                this.loadingModel = true;
                 let modelToLoad = this.model;
                 const config = {
                         temperature: 0.0,
@@ -258,7 +291,7 @@ let localAPI = {
                 this.loadedModel = false;
                 await handleEngineError(error, 'loading');
                 return false;
-            }
+			}
         },
         unloadModel: async function() {
             try {
@@ -339,12 +372,20 @@ async function unloadModel() {
     await evaluateAPIMethod('unloadModel');
 }
 
+function getSwitchButton() {
+	return `
+	<p class="cff-ai-assistance-error-actions">
+		<button type="button" class="button-secondary" onclick="cff_open_ai_assistant_settings(true);">${window['cff_ai_texts']['switch_btn']}</button>
+	</p>
+	`;
+}
+
 function showLocalModelError(message) {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'cff-ai-assistance-error';
     errorDiv.innerHTML = `
         <p>${message}</p>
-        <button type="button" class="button-secondary" onclick="cff_open_ai_assistant_settings(true);">${window['cff_ai_texts']['switch_btn']}</button>
+		${getSwitchButton()}
     `;
     chatBoxCtrl.appendChild(errorDiv);
     chatBoxCtrl.scrollTop = chatBoxCtrl.scrollHeight;
@@ -588,7 +629,7 @@ ${input}
         // Check settings for cloud provider.
         if ( !isWPModel() && (! ('cff_ai_api_key' in window) || window.cff_ai_api_key.trim() === '' ) ) {
             userQuestionCtrl.value = input;
-            alert( ( 'cff_ai_texts' in window ? window['cff_ai_texts']['api_key_required'] : 'API Key is required for the selected provider.' ) );
+            fbuilderjQuery.fbuilder.confirmationDialog(false, window?.cff_ai_texts?.api_key_required || 'API Key is required for the selected provider.', 'Ok', false);
             openAIAssistantSettings();
             return;
         }
@@ -606,15 +647,15 @@ ${input}
             });
 
             if (!response.ok) {
-                alert(`HTTP error! status: ${response.status}`);
+                fbuilderjQuery.fbuilder.confirmationDialog(false, `HTTP error! status: ${response.status}`, 'Ok', false);
             }
             const result = await response.json();
             if (result.error) {
-                alert(result.error);
+                fbuilderjQuery.fbuilder.confirmationDialog(false, result.error, 'Ok', false);
                 throw new Error(result.error);
             } else {
                 if (result.warning) {
-                    alert(result.warning);
+                    fbuilderjQuery.fbuilder.confirmationDialog(false, result.warning, 'Ok', false);
                 }
                 updateLastMessage(result.response);
             }
@@ -794,7 +835,9 @@ window['cff_ai_assistant_use_list'] = function ( btn ) {
                 }
             }
         }
-    } catch (err) { alert(err); }
+    } catch (err) {
+		fbuilderjQuery.fbuilder.confirmationDialog(false, err, 'Ok', false);
+	}
 };
 
 window['cff_ai_assistant_open'] = function( _answer_topic, _extra = '' ){
@@ -891,19 +934,26 @@ function openAIAssistantSettings(cloud) {
 }
 
 function closeAIAssistantSettings() {
-    if ( ! unsavedSettings || window.confirm( window?.cff_ai_texts?.unsave_settings || 'Do you want to close the settings without saving?' )) {
-        settingsBtnCtrl.classList.remove('cff-ai-assistant-settings-active');
-        document.getElementById('cff-ai-assistant-settings-container').classList.remove('cff-ai-assistant-settings-opened');
-        sendBtnCtrl.disabled = false;
-        userQuestionCtrl.disabled = false;
-        if (
-            window['cff_ai_provider'] === 'local' &&
-            providerCtrl.value === window['cff_ai_provider']
-        ) {
+	let _closeAssistantSettings = function() {
+		settingsBtnCtrl.classList.remove('cff-ai-assistant-settings-active');
+		document.getElementById('cff-ai-assistant-settings-container').classList.remove('cff-ai-assistant-settings-opened');
+		sendBtnCtrl.disabled = false;
+		userQuestionCtrl.disabled = false;
+		if (
+			window['cff_ai_provider'] === 'local' &&
+			providerCtrl.value === window['cff_ai_provider']
+		) {
 			removeErrorMessages();
-            cff_ai_assistant_open(topic);
-        }
-    }
+			cff_ai_assistant_open(topic);
+		}
+	};
+    if ( ! unsavedSettings) {
+		_closeAssistantSettings();
+	} else {
+		fbuilderjQuery.fbuilder.confirmationDialog('', window?.cff_ai_texts?.unsave_settings || 'Do you want to close the settings without saving?', 'Ok', 'Cancel', async function () {
+			_closeAssistantSettings();
+		});
+	}
 }
 
 function initializeAIAssistantSettings() {
@@ -1013,12 +1063,11 @@ closeSettingsBtnCtrl.addEventListener("click", async function () {
 
 unmountBtnCtrl.addEventListener("click", async function (evt) {
     if (evaluateAPIMethod('isModelLoaded')) {
-        const confirm_message = ( 'cff_ai_texts' in window ? window['cff_ai_texts']['unload'] : 'Would you like to proceed?' );
-        if (window.confirm(confirm_message)) {
-            await evaluateAPIMethod('unloadModel');
-            evt.target.style.display = 'none';
-            aiDlgCrl.style.display = 'none';
-        }
+        fbuilderjQuery.fbuilder.confirmationDialog('', window?.cff_ai_texts?.unload || 'Would you like to proceed?', 'Ok', 'Cancel', async function() {
+			await evaluateAPIMethod('unloadModel');
+			evt.target.style.display = 'none';
+			aiDlgCrl.style.display = 'none';
+		});
     }
 });
 
@@ -1027,7 +1076,7 @@ saveSettingsBtnCtrl.addEventListener("click", async function () {
     const selectedModel = modelCtrl.value;
     const apiKey = apiKeyCtrl.value;
     if (selectedProvider !== 'local' && selectedProvider !== wordpress_ai && apiKey.trim() === '') {
-        alert( ( 'cff_ai_texts' in window ? window['cff_ai_texts']['api_key_required'] : 'API Key is required for the selected provider.' ) );
+		fbuilderjQuery.fbuilder.confirmationDialog(false, window?.cff_ai_texts?.api_key_required || 'API Key is required for the selected provider.', 'Ok', false);
         return;
     }
 
@@ -1039,14 +1088,23 @@ saveSettingsBtnCtrl.addEventListener("click", async function () {
     data.append('_cpcff_ai_assistant_api_key', apiKey);
     data.append('_cpcff_ai_assistant_nonce', cff_ai_save_settings_nonce);
 
-    await fetch(window.location.href, {
-        method: 'POST',
-        body: data,
-    });
+    const response = await fetch(window.location.href, {
+		method: 'POST',
+		body: data,
+	}).then(r => r.json()).catch(() => null);
 
-    window.cff_ai_provider = selectedProvider;
-    window.cff_ai_model = selectedModel;
-    window.cff_ai_api_key = apiKey;
+	if (response && response.reason === 'empty_api_key') {
+		fbuilderjQuery.fbuilder.confirmationDialog(false, response.message, 'Ok', false);
+		// Reset local state to reflect server-side fallback
+		window.cff_ai_provider = 'local';
+		window.cff_ai_model = 'local';
+		window.cff_ai_api_key = '';
+	} else {
+		window.cff_ai_provider = selectedProvider;
+		window.cff_ai_model = selectedModel;
+		window.cff_ai_api_key = apiKey;
+	}
+
     unsavedSettings = false;
     cff_ai_assistant_open(topic);
     this.removeAttribute('disabled');

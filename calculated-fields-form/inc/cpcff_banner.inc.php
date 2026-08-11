@@ -74,7 +74,7 @@ if ( ! function_exists( 'codepeople_add_promote_banner' ) ) {
 					</div>
 					<div class="codepeople-review-banner-content">
 						<div class="codepeople-review-banner-text">
-							<p><strong>Want to help to the development of the "<?php print esc_html( $plugin_data['plugin_name'] ); ?>" plugin?</strong> The main features of this plugin are provided free of charge. We need your help to continue developing it and adding new features. If you want to help with the development please <span style="color:var(--wp-admin-theme-color, #1582AB);font-weight:bold;">add a review to support it</span>. Thank you!</p>
+							<p><strong>Want to help to the development of the "<?php print esc_html( $plugin_data['plugin_name'] ); ?>" plugin?</strong> The core form builder is free; some add-ons and modules require a commercial license. We need your help to continue developing it and adding new features. If you want to help with the development please <span style="color:var(--wp-admin-theme-color, #1582AB);font-weight:bold;">add a review to support it</span>. Thank you!</p>
 						</div>
 						<div class="codepeople-review-banner-buttons">
 							<form method="post" target="_blank">

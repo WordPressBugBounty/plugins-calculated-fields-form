@@ -112,7 +112,7 @@
 				{
                     if(typeof hiddenByContainer == 'undefined') hiddenByContainer = {};
 					var me		= this,
-						item 	= $('input[id*="'+me.name+'_"]'),
+						item 	= $('input[type="checkbox"][id*="'+me.name+'_"]'),
 						formObj	= item.closest('form'),
 						form_identifier = me.form_identifier,
 						isHidden = (typeof toHide[me.name] != 'undefined' || typeof hiddenByContainer[me.name] != 'undefined'),

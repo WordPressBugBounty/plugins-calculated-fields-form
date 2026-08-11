@@ -422,7 +422,7 @@
 						}
 						catch( err2 )
 						{
-							console.log(eq, 'Error:', err2.message);
+							console.log('[CFF] equation eval failed:', eq, err2.message);
 							return false;
 						}
 					};
@@ -580,7 +580,7 @@
 									}
 									catch(err2)
 									{
-										console.log(err2.message);
+										console.log('[CFF] dependency rule ' + i + ' failed:', err2.message);
 										continue;
 									}
 								}

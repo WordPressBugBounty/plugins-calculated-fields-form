@@ -1,7 +1,7 @@
 @import url("loader.css");
 :root {
-    --wp-admin-theme-color: #0073aa; /* fallback default */
-    --cff-container-border-color-1: rgba(255, 120, 150, .6);
+    --wp-admin-theme-color: #3858e9; /* fallback default */
+    --cff-container-border-color-1: var(--wp-admin-theme-color, rgba(255, 120, 150, .6));
     --cff-container-border-color-2: rgba(132, 70, 255, .6);
     --cff-container-border-color-3: rgba(50, 200, 100, .6);
     --cff-container-border-color-4: rgba(255, 160, 50, .6);
@@ -9,7 +9,7 @@
     --cff-container-highlight-border-color: rgb(202, 202, 202);
     --cff-container-highlight-color: rgba(202, 202, 202, .5);
 
-    --cff-container-highlight-color-1: rgba(255, 120, 150, 0.2);
+    --cff-container-highlight-color-1: var(--wp-admin-theme-color,rgba(255, 120, 150, 0.2));
     --cff-container-highlight-color-2: rgba(132, 70, 255, 0.2);
     --cff-container-highlight-color-3: rgba(50, 200, 100, 0.2);
     --cff-container-highlight-color-4: rgba(255, 160, 50, 0.2);
@@ -18,7 +18,7 @@
     --cff-container-shadow-color-3: rgba(50, 200, 100, .8);
     --cff-container-shadow-color-4: rgba(255, 160, 50, .8);
 
-    --cff-box-shadow-color:rgba(2, 147, 226, 0.8);
+    --cff-box-shadow-color:var(--wp-admin-theme-color,rgba(2, 147, 226, 0.8));
 }
 @font-face {
   font-family: 'Material Icons';
@@ -255,7 +255,7 @@
 .cff-form-builder-backend button,
 #metabox_form_structure [name="cff_expand_btn"],
 #metabox_form_structure [name="cff_shrink_btn"],
-.cff-form-builder-backend select{min-height:30px;line-height:30px;padding-top:0;padding-bottom:0;height:30px;font-size:12px;box-shadow: none !important;}
+.cff-form-builder-backend select{min-height:30px;line-height:30px;padding-top:0;padding-bottom:0;height:30px;font-size:12px;}
 .ctrlsColumn input[type="checkbox"],
 .ctrlsColumn input[type="radio"]{margin-right:5px;}
 .ctrlsColumn.expanded{min-width:380px;width:75%;position:absolute;}
@@ -369,6 +369,7 @@ body:has( #metabox_form_structure.fullscreen ) .select2-container.cff-ctrl-selec
 #fbuilder legend{ border:1px solid #CDCDCD; background:#FFF; margin-left:5px; padding: 0 5px; }
 #fbuilder .fcontainer{ border:1px solid #CDCDCD;min-height:67px;padding:5px 10px;position:relative;border-radius:2px;}
 #fbuilder .fieldscontainer{min-height:67px;}
+#fbuilder .fieldscontainer>.fields{margin-top:10px;margin-bottom:10px;}
 #fbuilder .fieldscontainer:not(:has(> .fields)){padding:20px;outline:3px dashed #C0C0C0;outline-offset:-3px;color: #CDCDCD; font-size: 18px;min-height: 85px;display:flex;align-items:center;justify-content:center;}
 #fbuilder .fieldscontainer:empty::before{content:"Drop fields here";}
 #fbuilder .cff-popup-header{position:relative;padding:5px;}
@@ -439,7 +440,7 @@ body:has( #metabox_form_structure.fullscreen ) .select2-container.cff-ctrl-selec
 .ui-widget-content .choice_removeDep.ui-icon {background-image: url(ui-icons_2e83ff_256x240.png); }
 .cf_dependence_field{width:calc( 100% - 150px );-moz-calc( 100% - 150px );-webkit-calc( 100% - 150px );-o-calc( 100% - 150px );}
 .showHideDependencies,.dep{float:right}
-.cf_dependence_operator,.cf_dependence_value{width:calc( 50% - 50px );width:-webkit-calc( 50% - 50px );width:-moz-calc( 50% - 50px );width:-o-calc( 50% - 50px );}
+.cf_dependence_operator,.cf_dependence_value{width:-webkit-calc( 50% - 50px );width:-moz-calc( 50% - 50px );width:-o-calc( 50% - 50px );width: calc(50% - 50px);}
 .showHideDependencies,.dep{float:right}
 
 .datasourceSet.hide,
@@ -449,7 +450,7 @@ a.helpfbuilder.dep{font-size:100%;margin-left:10px}
 input [disabled] {background-color: #f00;}
 input [readonly] {background-color: #f00;}
 #fbuilder .fform.ui-selected,
-#fbuilder .fields.ui-selected{background-color:#f0f0f1;box-shadow: 0 0 0 1px var(--cff-box-shadow-color); border-radius: 2px;}
+#fbuilder .fields.ui-selected{background-color:#f0f0f1;box-shadow: 0 0 0 var(--wp-admin-border-width-focus, 1.5px) var(--cff-box-shadow-color); border-radius: 2px;}
 #fbuilder .fields.ui-selected .arrow,#fbuilder .fields.ui-selected>.cff-field-controls,#fbuilder .fields.ui-selected>.cff-field-controls>.remove,#fbuilder .fields.ui-selected>.cff-field-controls>.copy,#fbuilder .fields.ui-selected:not(.collapsed)>.cff-field-controls>.collapse,#fbuilder .fields.ui-selected.collapsed>.cff-field-controls>.uncollapse{display:inline-block;}
 
 #fbuilder .fields.collapsed>.dfield>.fcontainer{border-color: rgba(255,201,38,.75);}
@@ -458,7 +459,7 @@ input [readonly] {background-color: #f00;}
 #fbuilder .fields.collapsed>.dfield>.fcontainer>.collapsed-label{display:block;}
 #fbuilder .fields.collapsed>.dfield>.fcontainer>.fieldscontainer{display:none;}
 #fbuilder .fform.ui-over,
-#fbuilder .fields.ui-over{box-shadow: 0 0 0 1px var(--cff-box-shadow-color);border-radius:2px;}
+#fbuilder .fields.ui-over{box-shadow: 0 0 0 var(--wp-admin-border-width-focus, 1.5px) var(--cff-box-shadow-color);border-radius:2px;}
 
 #fbuilder .fields.fmark .cff-empty-image,
 #fbuilder .fields.fmark img:not([src]){
@@ -722,7 +723,7 @@ textarea {resize: none}
 	-moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
 	box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
 }
-.cff-save-controls-floating-popup a {text-decoration:none;outline:none;box-shadow:none;}
+.cff-save-controls-floating-popup a {text-decoration:none;/*outline:none;box-shadow:none;*/}
 .cff-save-controls-floating-popup #save3 {width:100%; text-align:center;}
 .cff-save-controls-floating-popup .cff-popup-icon {position:relative;}
 .cff-save-controls-floating-popup .cff-popup-icon-separator {
@@ -790,7 +791,7 @@ textarea {resize: none}
     background-size: 17px !important;
     color: #ffffff !important;
 }
-.cff-ai-assistant:focus{box-shadow:none !important;}
+.cff-ai-assistant:focus{box-shadow:0 0 0 var(--wp-admin-border-width-focus, 1.5px) currentcolor !important;}
 #sAdvancedEditor{text-align:center; text-transform: uppercase; padding:5px;margin-bottom:10px;cursor:pointer;font-weight:bold;}
 #facceptance span{padding-left: 0; padding-right:0;}
 #metabox_captcha_settings td{vertical-align:top;}
@@ -847,7 +848,7 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 #fbuilder .ui-state-highlight { height: 65px; line-height: 65px; border-radius:2px; opacity:.7; border-color: var(--cff-container-highlight-border-color); background: var(--cff-container-highlight-color); width:100%;}
 
 .cff-revisions-container{padding:10px 10px 0 10px;}
-.cff-revisions-container-flex{display:flex;flex-wrap:wrap;gap:2px;align-items:center;}
+.cff-revisions-container-flex{display:flex;flex-wrap:wrap;gap:5px;align-items:center;}
 .cff-revisions-container-flex *{margin:0;}
 .cff-form-name{display:inline-block !important;margin-top:0 !important;padding-top:0 !important;font-size:18px !important;}
 
@@ -1176,8 +1177,10 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 	font-weight:500;
 	cursor:pointer;
 	text-decoration:none;
+	/****
 	box-shadow:none !important;
 	outline:none !important;
+	****/
 }
 .cff-video-tutorial-close:hover,
 .cff-settings-dialog-close:hover{
@@ -1200,6 +1203,6 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 	white-space:nowrap;
 }
 .cff-video-tutorial-thumbnail{width:100px;padding:5px;border:1px solid #dadada;margin:5px;flex-shrink:0;}
-.cff-video-tutorial-thumbnail a{text-decoration:none;display:block;text-decoration:none!important;box-shadow:none!important;}
+.cff-video-tutorial-thumbnail a{text-decoration:none;display:block;border-radius:initial !important;/*text-decoration:none!important;box-shadow:none!important;*/}
 .cff-video-tutorial-thumbnail a:has(img){line-height:0;}
 .cff-video-tutorial-thumbnail img{width:100%;}

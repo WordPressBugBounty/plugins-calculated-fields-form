@@ -162,7 +162,7 @@
     border-color: #fff;
     color: #fff;
     background: transparent;
-    box-shadow: none;
+    /* box-shadow: none; */
 }
 
 #cff-ai-assistant-settings::before {
@@ -214,6 +214,11 @@
     padding-top: 10px;
 }
 
+.cff-ai-assistance-error-actions {
+	margin-top: 12px;
+	margin-bottom: 0;
+}
+
 /* -------------------------------------------------------------------
    9. MESSAGE STYLES
    ------------------------------------------------------------------- */
@@ -243,9 +248,10 @@
 .cff-ai-assistance-error-message {
     background: #fe5a5a;
     color: #fff;
+	padding: 10px;
 }
 
-.cff-ai-assistance-error-message * {
+.cff-ai-assistance-error-message *:not(button) {
     color: #fff !important;
 }
 

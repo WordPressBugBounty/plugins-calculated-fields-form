@@ -45,7 +45,8 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				$atts       = $this->_params_to_attrs();
 				$page_title = ( ! empty( $atts['page_title'] ) ) ? $atts['page_title'] : '';
 				print '<!DOCTYPE html><html ' .
-				( ( function_exists( 'is_rtl' ) && is_rtl() ) ? 'dir="rtl"' : '' ) .
+				((function_exists( 'is_rtl' ) && is_rtl()) ? ' dir="rtl"' : '').
+				((function_exists( 'get_locale' ) && '' !== ($locale = trim(get_locale()))) ? ' lang="' . esc_attr(substr($locale, 0, 2)) . '"' : '').
 				'>' .
 				'<head>' .
 				( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ) .

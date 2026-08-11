@@ -291,23 +291,20 @@
     };
 
     $.fbuilder[ 'confirmationDialog' ] = function( title_text, message_text, yes_button_text, no_button_text,  callback_function ) {
-        title_text = title_text || 'Confirmation dialog';
         message_text = message_text || 'Are you sure you want to proceed with this action?';
-        yes_button_text = yes_button_text || 'Yes';
-        no_button_text = no_button_text || 'No';
         callback_function = callback_function || null;
 
         let dialog_src = `
-        <div id="cp_calculatedfieldsf_action_dialog_overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:9998;display:none;">
-            <div id="cp_calculatedfieldsf_action_dialog" style="width:400px;max-width:90%;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);background-color:#fff;padding:20px;z-index:9999;display:none;">
-                <div class="cp_calculatedfieldsf_action_dialog_title" style="font-weight:bold;">${title_text}</div>
-                <div class="cp_calculatedfieldsf_action_dialog_message" style="margin-top:20px;margin-bottom:20px;">
+        <div id="cp_calculatedfieldsf_action_dialog_overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:999999;display:none;">
+            <div id="cp_calculatedfieldsf_action_dialog" style="width:400px;max-width:90%;position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);background-color:#fff;padding:20px;z-index:9999;display:none;">`+
+				((title_text) ? `<div class="cp_calculatedfieldsf_action_dialog_title" style="font-weight:bold;">${title_text}</div>` : '')+
+                `<div class="cp_calculatedfieldsf_action_dialog_message" style="margin-top:20px;margin-bottom:20px;">
                     ${message_text}
                 </div>
-                <div style="text-align:right;">
-                    <button id="cp_calculatedfieldsf_confirm_action" class="button-primary">${yes_button_text}</button>
-                    <button id="cp_calculatedfieldsf_cancel_action" class="button-secondary">${no_button_text}</button>
-                </div>
+                <div style="display:flex;justify-content:flex-end;width:100%;gap:5px;">`+
+                    ((yes_button_text) ? `<button id="cp_calculatedfieldsf_confirm_action" class="button-primary">${yes_button_text}</button>` : '')+
+                    ((no_button_text) ? `<button id="cp_calculatedfieldsf_cancel_action" class="button-secondary">${no_button_text}</button>` : '')+
+				`</div>
             </div>
         </div>
         `;
@@ -411,7 +408,7 @@
 				for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
 				{
 					var index = categoryList[ i ].typeList[ j ];
-					$("#tabs-1"+category_selector).append('<div '+(i == 20 ? 'disabled style="pointer-events:none;"' : '')+' class="button itemForm width48" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
+					$("#tabs-1"+category_selector).append('<div '+(i == 20 ? 'disabled style="pointer-events:none;"' : '')+' class="button itemForm width48" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'" tabindex="0">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
 				}
 			}
 
@@ -1097,7 +1094,18 @@
                 $(document).trigger('cff_reloadItems', items);
 				$(document).on('mouseover', '.arrow.ui-icon.ui-icon-grip-dotted-vertical', function(){ $(this).attr('title', 'Drag and drop handler')});
 				$(document).on('mouseover', '.sticker i', function(){ $(this).attr('title', 'Column identifier')});
-
+				$('.arrow.ui-icon.ui-icon-grip-dotted-vertical').each(function () {
+					$(this).attr({
+						'role': 'button',
+						'aria-label': 'Drag and drop handler',
+						'tabindex': '0'
+					});
+				}).off('keydown.cff-handle').on('keydown.cff-handle', function(e) {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						$(this).trigger('mousedown');
+					}
+				});
                 // Restore scroll position in the dashboard after reload.
                 document.getElementById('fbuilder').scrollTop = dashboardScrollHistory;
 			};
@@ -1216,10 +1224,10 @@
 
 					'<div><label>Text Align</label>'+
 					'<div class="cff-radio-group-ctrl">'+
-					'<label><input type="radio" name="fTextAlign" value="default" '+(me.textalign == 'default' ? 'checked' : '')+'><span>Default</span></label>'+
-					'<label><input type="radio" name="fTextAlign" value="left" '+(me.textalign == 'left' ? 'checked' : '')+'><span>Left</span></label>'+
-					'<label><input type="radio" name="fTextAlign" value="center" '+(me.textalign == 'center' ? 'checked' : '')+'><span>Center</span></label>'+
-					'<label><input type="radio" name="fTextAlign" value="right" '+(me.textalign == 'right' ? 'checked' : '')+'><span>Right</span></label></div></div>'+
+					'<label tabindex="0"><input type="radio" name="fTextAlign" value="default" '+(me.textalign == 'default' ? 'checked' : '')+'><span>Default</span></label>'+
+					'<label tabindex="0"><input type="radio" name="fTextAlign" value="left" '+(me.textalign == 'left' ? 'checked' : '')+'><span>Left</span></label>'+
+					'<label tabindex="0"><input type="radio" name="fTextAlign" value="center" '+(me.textalign == 'center' ? 'checked' : '')+'><span>Center</span></label>'+
+					'<label tabindex="0"><input type="radio" name="fTextAlign" value="right" '+(me.textalign == 'right' ? 'checked' : '')+'><span>Right</span></label></div></div>'+
 
 					'<div style="margin-top:10px;display:flex; gap:10px;align-items:center;"><label for="fHeaderColor" style="display:inline-block;padding:0px;margin:0px;">Text Color</label> <input type="text" data-coloris class="cff-coloris small" id="fHeaderColor" name="fHeaderColor" '+( me.headertextcolor !== '' ?  'value="'+cff_esc_attr( me.headertextcolor )+'"' : '')+'></div>'+
 					/* General Settings */
@@ -1266,7 +1274,7 @@
 				'distance': 5,
 				'items': '.fields',
 				'placeholder': 'ui-state-highlight',
-				'tolerance': 'intersect', // 'pointer',
+				'tolerance': 'pointer', //'intersect', 'pointer',
 				'update': function( event, ui )
 				{
 					if (ui.item.hasClass("fPageBreak") && ui.item.closest(".fieldscontainer").length)  {
@@ -1660,10 +1668,10 @@
 			return '<label for="sTitle">Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(v)+'</textarea>'+
 					'<div><label>Label Placement</label>'+
 					'<div class="cff-radio-group-ctrl">'+
-					'<label><input type="radio" name="sFieldLayout" value="default" '+(l == 'default' ? 'checked' : '')+'><span>Default</span></label>'+
-					'<label><input type="radio" name="sFieldLayout" value="top_aligned" '+(l == 'top_aligned' ? 'checked' : '')+'><span>Top</span></label>'+
-					'<label><input type="radio" name="sFieldLayout" value="left_aligned" '+(l == 'left_aligned' ? 'checked' : '')+'><span>Left</span></label>'+
-					'<label><input type="radio" name="sFieldLayout" value="right_aligned" '+(l == 'right_aligned' ? 'checked' : '')+'><span>Right</span></label></div></div>';
+					'<label tabindex="0"><input type="radio" name="sFieldLayout" value="default" '+(l == 'default' ? 'checked' : '')+'><span>Default</span></label>'+
+					'<label tabindex="0"><input type="radio" name="sFieldLayout" value="top_aligned" '+(l == 'top_aligned' ? 'checked' : '')+'><span>Top</span></label>'+
+					'<label tabindex="0"><input type="radio" name="sFieldLayout" value="left_aligned" '+(l == 'left_aligned' ? 'checked' : '')+'><span>Left</span></label>'+
+					'<label tabindex="0"><input type="radio" name="sFieldLayout" value="right_aligned" '+(l == 'right_aligned' ? 'checked' : '')+'><span>Right</span></label></div></div>';
 		},
 		showShortLabel: function( v )
 		{
@@ -1733,7 +1741,7 @@
 			var str = '<div class="cff-radio-group-ctrl">';
 			for (var i=0;i<this.sizeList.length;i++)
 			{
-				str += '<label><input type="radio" name="sSize" value="'+cff_esc_attr(this.sizeList[i].id)+'" '+( this.sizeList[i].id==v ? 'checked' : '')+'><span>'+cff_esc_attr(this.sizeList[i].name)+'</span></label>';
+				str += '<label tabindex="0"><input type="radio" name="sSize" value="'+cff_esc_attr(this.sizeList[i].id)+'" '+( this.sizeList[i].id==v ? 'checked' : '')+'><span>'+cff_esc_attr(this.sizeList[i].name)+'</span></label>';
 			}
 			str += '</div>'
 			return '<label>Field Size</label>'+str;

@@ -471,11 +471,23 @@ jQuery(function () {
 		}
 
 		// Display the loading process and call the server side code.
-        $('.cff-ai-form-generator').append('<div class="cff-processing-form"></div>');
-		setTimeout(function(){
-			$('.cff-ai-form-generator .cff-processing-form').append('<div class="cff-still-loading">'+txt_still_loading+'</div>');
-		}, 5000);
-        $('.cff-form-library-back').prop('disabled', true);
+		$('.cff-ai-form-generator').append('<div class="cff-processing-form"><div class="cff-still-loading"></div></div>');
+		var stageTexts = cpcff_forms_library_config['texts'] || {};
+		[
+			[2000, stageTexts?.still_loading_1s || 'Hang tight…'],
+			[5000, stageTexts?.still_loading_3s || 'Still working on it…'],
+			[8000, stageTexts?.still_loading_5s || 'Almost there…'],
+			[12000, stageTexts?.still_loading_10s || 'Complex request, thank you for your patience…']
+		].forEach(function (stage) {
+			setTimeout(function () {
+				let el = $('.cff-ai-form-generator .cff-processing-form .cff-still-loading');
+				el.fadeOut(150, function () {
+					$(this).text(stage[1]);
+					$(this).fadeIn(200);
+				});
+			}, stage[0]);
+		});
+		$('.cff-form-library-back').prop('disabled', true);
 		description_field.prop('disabled', true);
 		this.disabled = true;
         extra_params?.trigger_btn?.prop('disabled', true);

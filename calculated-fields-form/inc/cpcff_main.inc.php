@@ -250,10 +250,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		public function links( $links ) {
 			array_unshift(
 				$links,
-				'<a href="https://cff.dwbooster.com/customization" target="_blank">' . __( 'Request custom changes' ) . '</a>',
-				'<a href="admin.php?page=cp_calculated_fields_form">' . __( 'Settings' ) . '</a>',
-				'<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#93003f;font-weight:700;">' . __( 'Upgrade' ) . '*</a>',
-				'<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank">' . __( 'Help' ) . '</a>'
+				'<a href="https://cff.dwbooster.com/customization" target="_blank">' . esc_html__( 'Request custom changes', 'calculated-fields-form' ) . '</a>',
+				'<a href="admin.php?page=cp_calculated_fields_form">' . esc_html__( 'Settings', 'calculated-fields-form' ) . '</a>',
+				'<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#93003f;font-weight:700;">' . esc_html__( 'Upgrade', 'calculated-fields-form' ) . '*</a>',
+				'<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank">' . esc_html__( 'Help', 'calculated-fields-form' ) . '</a>'
 			);
 			return $links;
 		} // End links.
@@ -514,6 +514,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'forward_btn' 		   		   => esc_attr__( 'Go to form', 'calculated-fields-form' ),
 
 									'still_loading' 		   	   => esc_attr__( 'Be patient, still thinking...', 'calculated-fields-form' ),
+									'still_loading_1s' 	   	   => esc_attr__('Hang tight…', 'calculated-fields-form'),
+									'still_loading_3s' 	   	   => esc_attr__('Still working on it…', 'calculated-fields-form'),
+									'still_loading_5s' 	   	   => esc_attr__('Almost there…', 'calculated-fields-form'),
+									'still_loading_10s' 	   => esc_attr__('Complex request, thank you for your patience…', 'calculated-fields-form'),
 
 									// Errors.
 									'api_key_requirement_error'	   	=> esc_html__( 'The API Key is empty.', 'calculated-fields-form' ),

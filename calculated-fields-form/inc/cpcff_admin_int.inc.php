@@ -724,8 +724,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                         <?php printf(esc_html__('Get %slifetime updates%s, notification emails, payment gateways, and advanced data exports with a single one-time payment.', 'calculated-fields-form'), '<span style="font-weight: 600; color: #228be6;">', '</span>'); ?>
                     </div>
                     <div class="cff-premium-actions">
-                        <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-primary"><?php esc_html_e('Go Professional', 'calculated-fileds-form'); ?></a>
-                        <a href="admin.php?page=cp_calculated_fields_form&cal=7&_cpcff_nonce=9f6fe85ce5&cff-install-trial=1#cff-upgrade-frame" class="button-secondary"><?php esc_html_e('Try the trial version', 'calculated-fileds-form'); ?></a>
+                        <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-primary"><?php esc_html_e('Go Professional', 'calculated-fields-form'); ?></a>
+                        <a href="admin.php?page=cp_calculated_fields_form&cal=7&_cpcff_nonce=9f6fe85ce5&cff-install-trial=1#cff-upgrade-frame" class="button-secondary"><?php esc_html_e('Try the trial version', 'calculated-fields-form'); ?></a>
                     </div>
                 </div>
             </div>

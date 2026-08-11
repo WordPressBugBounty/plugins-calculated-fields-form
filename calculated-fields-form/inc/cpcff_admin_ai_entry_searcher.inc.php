@@ -696,7 +696,7 @@ if (! class_exists('CPCFF_AI_ENTRY_SEARCHER')) {
                     <select id="cff-ai-model-provider" name="cff-ai-model-provider">
                         <?php echo $model_options; ?>
                     </select>
-                    <input type="password" id="cff-ai-api-key" name="cff-ai-api-key" placeholder="<?php esc_attr_e('Enter your API key', 'calculated-fields-form'); ?>" value="<?php echo esc_attr($api_key_selected); ?>" autocomplete="new-password" />
+                    <input type="password" id="cff-ai-api-key" name="cff-ai-api-key" placeholder="<?php esc_attr_e('Enter your API key', 'calculated-fields-form'); ?>" value="<?php echo esc_attr($api_key_selected); ?>" autocomplete="new-password" spellcheck="false" autocapitalize="off" autocorrect="off" />
                     <button type="button" id="cff-ai-save-btn" class="button-primary" title=""><?php esc_html_e('Save Settings', 'calculated-fields-form'); ?></button>
                     <button type="button" id="cff-ai-clear-btn" class="button-secondary"><?php esc_html_e('Clear Settings', 'calculated-fields-form'); ?></button>
                 </div>

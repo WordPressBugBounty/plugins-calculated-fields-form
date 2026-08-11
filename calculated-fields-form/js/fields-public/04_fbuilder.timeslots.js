@@ -341,8 +341,8 @@
 
 					// Date
 					me.dformat		= me.dformat.replace(/\//g, me.dseparator);
-                    me.invalidDates = _preprocessDates(me.invalidDates.replace(/\s+/g, ''));
-                    me.validDates   = _preprocessDates(me.validDates.replace(/\s+/g, ''));
+					if( typeof me.invalidDates == 'string' ) me.invalidDates = _preprocessDates(me.invalidDates.replace(/\s+/g, ''));
+					if( typeof me.validDates == 'string' ) me.validDates   = _preprocessDates(me.validDates.replace(/\s+/g, ''));
 
 					if(me.dropdownRange.indexOf(':') == -1) me.dropdownRange = '-10:+10';
 

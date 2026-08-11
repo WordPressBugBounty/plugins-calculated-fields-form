@@ -15,12 +15,20 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
 		 * field-by-field rather than facing 60KB on a single line.
 		 */
 		static private function load_schema_pretty() {
+			$cache_key = 'cff_schema_pretty_v1';
+			$cached = wp_cache_get($cache_key, 'cff_ai_form_generator');
+			if ($cached !== false) {
+				return $cached;
+			}
+
 			$raw = file_get_contents( plugin_dir_path( __FILE__ ) . '../js/schema.min.json' );
 			$decoded = json_decode( $raw, true );
 			if ( ! is_array( $decoded ) ) {
 				throw new Exception( __('Could not parse schema.min.json. The schema file may be malformed.', 'calculated-fields-form') );
 			}
-			return json_encode( $decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
+			$pretty = json_encode($decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+			wp_cache_set($cache_key, $pretty, 'cff_ai_form_generator', HOUR_IN_SECONDS);
+			return $pretty;
 		}
 
 		/**

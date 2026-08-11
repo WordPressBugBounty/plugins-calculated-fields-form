@@ -10,7 +10,7 @@ if ( !is_admin() )
 	<div id="cff-video-tutorial">
 		<div class="cff-video-tutorial-header"><a href="javascript:void(0);" onclick="fbuilderjQuery('#cff-video-tutorial-modal iframe').attr('src','');fbuilderjQuery('#cff-video-tutorial-modal').animate({'opacity':0}, 'fast', function(){this.style.display='none';});" title="<?php esc_attr_e( 'Close video popup', 'calculated-fields-form'); ?>" class="cff-video-tutorial-close">X</a></div>
 		<div class="cff-video-tutorial-container">
-			<iframe src="https://www.youtube.com/embed/R8hEbD8w2RM?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X" title="Calculated Fields Form Plugin - How it works?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
+			<iframe src="https://www.youtube.com/embed/R8hEbD8w2RM?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X&cc_load_policy=1" title="Calculated Fields Form Plugin - How it works?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
 		</div>
 		<div class="cff-video-tutorial-other-videos">
 			<div class="cff-video-tutorial-thumbnail"><a href="https://youtu.be/R8hEbD8w2RM" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/th-video-0.png', __FILE__) ); ?>" alt="<?php esc_attr_e('Basic contact form', 'calculated-fields-form'); ?>"></a><div class="cff-video-tutorial-thumbnail-title"><?php esc_html_e('Basic Form', 'calculated-fields-form'); ?></div></div>
