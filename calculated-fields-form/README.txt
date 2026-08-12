@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.0
-Stable tag: 5.4.9.9
+Stable tag: 5.5.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.0 =
+
+* Fixes a dependency application issue in checkbox controls configured to allow only one selection, emulating radio-button behavior.
+
 = 5.4.9.9 =
 
 * Improves accessibility and user experience in the Form Builder as part of the first phase of the ongoing UX improvement process.
@@ -495,8 +499,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.4.9.6 =
 
 * Fixes a minor issue by using Repeater fields in equations.
-
-= 5.4.9.5 =
-
-* Implements the Repeater control.
-* Updates the list of supported AI models.

@@ -64,7 +64,13 @@
                     {
 						if ( 1 == m.max ) { // Set radio button behavior.
 							if ( !! e && e.checked ) {
-								$('[id*="'+m.name+'_"]:checked').prop('checked', false);
+								let t = $('[id*="'+m.name+'_"]:not([id="'+e.id+'"]):checked');
+								if ( t.length ) {
+									t.prop('checked', false);
+									if(t.hasClass('depItem')) {
+										t.trigger('cff-dep-event');
+									}
+								}
 								$(e).prop('checked', true);
 							} else {
 								$('[id*="'+m.name+'_"]:checked').each(function(){
@@ -237,7 +243,8 @@
 					if(!Array.isArray(v)) v = [v];
 
 					let bk = JSON.stringify(me.val(true)),
-						bk_vt = JSON.stringify(me.val('vt'));
+						bk_vt = JSON.stringify(me.val('vt')),
+						bk_checked = $('[id*="'+n+'_"]:checked').map(function(){return this.id;}).get();
 
 					$('[id*="'+n+'_"]').prop('checked', false);
 					for(let i in v)
@@ -246,7 +253,18 @@
                         if(0 < me.max && me.max < c+1) break;
                         if(_default) e = aux(t, 'vt');
                         if(!_default || !e.length)  e = aux(t, 'value');
-                        if(e.length){ e.prop('checked', true);c++;}
+                        if(e.length){
+							e.prop('checked', true);
+							let bk_checked_index = bk_checked.indexOf(e.attr('id'));
+							if(bk_checked_index != -1) bk_checked.splice(bk_checked_index, 1);
+							else if(e.hasClass('depItem')) {
+								e.trigger('cff-dep-event');
+							}
+							c++;
+						}
+					}
+					for(let i in bk_checked) {
+						$('[id="'+bk_checked[i]+'"].depItem').trigger('cff-dep-event');
 					}
                     me.enable_disable();
 					if (

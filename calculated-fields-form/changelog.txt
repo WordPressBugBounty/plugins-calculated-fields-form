@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.5.0.0 =
+
+* Fixes a dependency application issue in checkbox controls configured to allow only one selection, emulating radio-button behavior.
+
 = 5.4.9.9 =
 
 * Improves accessibility and user experience in the Form Builder as part of the first phase of the ongoing UX improvement process.
@@ -804,53 +808,3 @@ Since most users do not have devices with sufficient resources to run local infe
 = 5.3.50 =
 
 * We have introduced three new predefined forms: two for lifestyle, namely the Carbon Footprint Calculator and the Solar Power Investment Calculator, and one for the transportation category, the Car Purchase vs Lease Calculator.
-
-= 5.3.49 =
-
-* Modifies the AJAX-based form submission process to prevent users from inadvertently submitting the form multiple times.
-* Updates the CSS and HTML code editor to address a scrolling issue when the editor is in fullscreen mode.
-
-= 5.3.48 =
-
-* We have implemented two new predefined forms in the Financial category: one for generating the Form 1040 U.S. Individual Income Tax Return, and another for generating Schedule C - Business Income and Expenses.
-
-= 5.3.47 =
-
-* Modified the spinner components in number and currency fields so they become continuous, eliminating the need to click repeatedly to adjust control values.
-* Ensured that placeholders remain synchronized with third-party fields when used as default values.
-* Improved the WooCommerce add-on to resolve a conflict with third-party themes that alter the behavior of add-to-cart buttons on WooCommerce products (applies to Developer and Platinum plugin versions).
-* Implemented a new feature in the WebHooks add-on that allows the use of short labels instead of field names in the WebHook URL. This enhancement simplifies reusing the same WebHook URL for multiple forms (applies to Developer and Platinum plugin versions).
-
-= 5.3.46 =
-
-* Modifies the plugin interface by removing unnecessary sections. In the commercial plugin distributions, it unifies all payment methods—including those implemented via add-ons and complementary plugins—under the Payment Settings section.
-* Implements adjustments in form generation that ensure compatibility with browser Speculation.
-* Expands Stripe Checkout integration support to the Professional and Developer plugin distributions, in addition to the Platinum edition.
-
-= 5.3.45 =
-
-* Revamped the AI Assistant module to utilize the WebMLL library, enabling completely free, in-browser inferencing.
-
-= 5.3.44 =
-
-* Modifies the WordPress editor block.
-
-= 5.3.43 =
-
-* Modifies the calculated fields: Now, when you check the currency option in the field settings, the plugin automatically enforces two decimal places for decimal results.
-* Adds a new, predefined form designed to evaluate password strength.
-
-= 5.3.42 =
-
-* Modifies the DIV control to give more control over the styles that affect the contained fields.
-* Fixes a minor issue in the fields list popup to enhance the user experience.
-* Adds a new predefined form and category of predefined forms for AI. This new form implements a texts translator using an AI model for translating texts directly in the browser.
-
-= 5.3.41 =
-= 5.3.40 =
-
-* Enhances Phone controls to display phone numbers with hyphen separators in summary views and HTML content fields.
-* Updates Number and Currency controls to support the assignment of unformatted numeric values.
-* Improves collapsible fieldset controls by enabling users to open and close fieldsets using keyboard-only interactions.
-* Adds a callback attribute to all DS fields, facilitating preprocessing of record values before they are assigned (affects both Developer and Platinum plugin distributions).
-* Upgrades the Google Places add-on to support the latest Google Place APIs while still maintaining compatibility with the legacy API (available in the Platinum plugin distribution).

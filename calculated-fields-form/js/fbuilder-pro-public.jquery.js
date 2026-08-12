@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.4.9.9';
+	$.fbuilder['version'] = '5.5.0.0';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -848,7 +848,7 @@
 					});
 
 					$(document).on(
-						'change',
+						'change cff-dep-event',
 						'#fieldlist'+opt.identifier+' .depItemSel,'+'#fieldlist'+opt.identifier+' .depItem',
 						{ 'identifier' : opt.identifier },
 						function( evt )
