@@ -3,8 +3,8 @@ Contributors: codepeople
 Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
-Tested up to: 7.0
-Stable tag: 5.5.0.0
+Tested up to: 7.1
+Stable tag: 5.5.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,18 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.1 =
+
+* Improves equation error messages in the browser console by identifying the field containing the equation that caused the error.
+* Fixes dependency handling in repeater fields by triggering dependency checks after a new row is added.
+* Fixes dependency handling in the Checkbox control when values are set programmatically or when the single selection option is enabled to emulate radio buttons.
+* Improves sortable field behavior in the form builder, particularly when working with deeply nested containers and large numbers of fields.
+* Fixes an issue with form submissions performed via AJAX.
+* Improves Chart.js compatibility by supporting chart defaults across Chart.js versions 2, 3, and 4 (Developer and Platinum distributions).
+* Improves the Signature add-on (Platinum distribution).
+* Adds a PDF layout preview to the form settings (Platinum distribution).
+* Adds a Test Connection button to the PayPal Checkout settings (Platinum distribution).
+
 = 5.5.0.0 =
 
 * Fixes a dependency application issue in checkbox controls configured to allow only one selection, emulating radio-button behavior.
@@ -495,7 +507,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Adds support for repeater fields in the AI Assistant when generating equations.
 * Removes the payment gateway activation options from the Default Settings section in the commercial plugin distributions, as they support multiple payment gateways.
 * Converts the custom query attribute in Data Source controls from a single-line input field to a text area, making queries easier to edit.
-
-= 5.4.9.6 =
-
-* Fixes a minor issue by using Repeater fields in equations.

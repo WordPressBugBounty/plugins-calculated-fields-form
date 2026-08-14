@@ -1,5 +1,17 @@
 == Changelog ==
 
+= 5.5.0.1 =
+
+* Improves equation error messages in the browser console by identifying the field containing the equation that caused the error.
+* Fixes dependency handling in repeater fields by triggering dependency checks after a new row is added.
+* Fixes dependency handling in the Checkbox control when values are set programmatically or when the single selection option is enabled to emulate radio buttons.
+* Improves sortable field behavior in the form builder, particularly when working with deeply nested containers and large numbers of fields.
+* Fixes an issue with form submissions performed via AJAX.
+* Improves Chart.js compatibility by supporting chart defaults across Chart.js versions 2, 3, and 4 (Developer and Platinum distributions).
+* Improves the Signature add-on (Platinum distribution).
+* Adds a PDF layout preview to the form settings (Platinum distribution).
+* Adds a Test Connection button to the PayPal Checkout settings (Platinum distribution).
+
 = 5.5.0.0 =
 
 * Fixes a dependency application issue in checkbox controls configured to allow only one selection, emulating radio-button behavior.

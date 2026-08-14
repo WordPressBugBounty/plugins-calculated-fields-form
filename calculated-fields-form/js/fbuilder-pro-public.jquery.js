@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.0.0';
+	$.fbuilder['version'] = '5.5.0.1';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1416,17 +1416,29 @@
 					form.attr( 'target', '_top' );
 				}
 				if (form.attr('target') != undefined && NOT(IN(form.attr('target').toLowerCase(), ['_blank', '_self', '_top', '']))) {
-					$('[name="' + form.prop('target') + '"]').one('load', function () {
-						form.find('[cff-val-bk]').each(function () {
-							let e = $(this);
-							e.val(e.attr('cff-val-bk')).removeAttr('cff-val-bk');
-						});
-						form.find('[cff-disabled]').prop('disabled', false).removeAttr('cff-disabled');
-						if (!/^(\s*|_self|_top|_parent)$/i.test(form.prop('target'))) {
-							enabling_form();
-						}
-						$(document).trigger('cff-form-submitted', form);
-					});
+					let loadHandler = function() {
+							if ( $processed_flag ) return;
+							$processed_flag = true;
+							form.find('[cff-val-bk]').each(function () {
+								let e = $(this);
+								e.val(e.attr('cff-val-bk')).removeAttr('cff-val-bk');
+							});
+							form.find('[cff-disabled]').prop('disabled', false).removeAttr('cff-disabled');
+							if (!/^(\s*|_self|_top|_parent)$/i.test(form.prop('target'))) {
+								enabling_form();
+							}
+							$(document).trigger('cff-form-submitted', form);
+						},
+						$iframe = $('[name="' + form.prop('target') + '"]'),
+						$processed_flag = false;
+
+					if ( $iframe.length ) {
+						$iframe.off('load.cff-form-submission').on('load.cff-form-submission', loadHandler);
+						setTimeout(function() {
+							$iframe.off('load.cff-form-submission');
+							loadHandler();
+						}, 3000);
+					}
 				}
 
 				if('nativeSubmit' in form[0]) form[0].nativeSubmit();

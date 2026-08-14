@@ -146,6 +146,10 @@
 					if ('init' in f) f.init();
 					if ('after_show' in f) f.after_show();
 				}
+
+				e.find('input.codepeoplecalculatedfield, select.depItemSel, input.depItem').each(function(){
+					$(this).trigger('cff-dep-event');
+				});
 			},
 
 			init: function(){
@@ -212,6 +216,7 @@
 			val: function (raw, no_quotes, disable_ignore_check) {
 				let rows = [],
 					total_row = {};
+				no_quotes = (typeof no_quotes === 'undefined') ? true : no_quotes;
 				if( $('[id="' + this.name + '"]').is(".ignorefield,.ignore") ) return false;
 				for (let i in this.matrix) {
 					rows[i] = {};

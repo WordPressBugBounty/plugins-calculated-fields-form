@@ -1206,3 +1206,19 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 .cff-video-tutorial-thumbnail a{text-decoration:none;display:block;border-radius:initial !important;/*text-decoration:none!important;box-shadow:none!important;*/}
 .cff-video-tutorial-thumbnail a:has(img){line-height:0;}
 .cff-video-tutorial-thumbnail img{width:100%;}
+
+/* SETTINGS HINTS & CALLOUTS */
+.cff-settings-hint-blue {
+	margin-top: 10px;
+	background: #EEF5FB;
+	border: 1px dotted #888888;
+	padding: 10px;
+}
+
+.cff-settings-hint-yellow {
+	border: 1px solid #F0AD4E;
+	background: #fffaf4;
+	padding: 10px;
+	color: #3c434a;
+	box-sizing: border-box;
+}

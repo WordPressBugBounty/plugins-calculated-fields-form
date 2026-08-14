@@ -422,7 +422,7 @@
 						}
 						catch( err2 )
 						{
-							console.log('[CFF] equation eval failed:', eq, err2.message);
+							console.log('[CFF - '+e.name.replace(/_\d+$/,'')+'] equation eval failed:', eq, err2.message);
 							return false;
 						}
 					};

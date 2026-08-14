@@ -524,7 +524,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 									</datalist>
 								</div>
                                 <p class="width75"><em style="font-size:11px;"><?php esc_html_e('Enter <%from_page%> to reload the form page after submission.', 'calculated-fields-form'); ?></em></p>
-                                <div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="width75">
+                                <div style="margin-top:20px;margin-bottom:20px;" class="width75 cff-settings-hint-yellow">
                                     <p><?php esc_html_e('Commercial plugin versions allow you to include a summary of the information collected by the form on the "Thank You Page" content.', 'calculated-fields-form'); ?> <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-primary"><?php esc_html_e('Upgrade Now', 'calculated-fields-form'); ?></a></p>
                                 </div>
                             </td>
@@ -659,7 +659,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                                         <input type="button" class="button cff-ai-assistant" value="<?php esc_attr_e('AI Email Generation', 'calculated-fields-form'); ?>" onclick="if('cff_ai_assistant_open' in window) cff_ai_assistant_open('message', document.querySelector('select[name=\'fp_emailformat\']').value);" style="float:none;">
                                     </div>
                                 </div>
-                                <div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="width75">
+                                <div style="margin-top:20px;margin-bottom:20px;" class="width75 cff-settings-hint-yellow">
                                     <p><?php esc_html_e('The plugin replaces the <%INFO%> tag in the email content with a summary of the information collected by the form. However, you can customize the email content and design by combining the fields and HTML tags. Learn more about the fields and informative tags supported by the notification emails by visiting the link:', 'calculated-fields-form'); ?> <a href="https://cff.dwbooster.com/documentation#special-tags" target="_blank"><?php esc_html_e('Fields and informative tags', 'calculated-fields-form'); ?></a></p>
                                 </div>
                             </td>
@@ -674,7 +674,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                         </tr>
                     </table>
 
-                    <div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;">
+                    <div style="margin-bottom:20px;" class="cff-settings-hint-yellow">
                         <p>
                             <?php
                             printf(esc_html__(
