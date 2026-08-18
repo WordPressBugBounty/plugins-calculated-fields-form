@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.5.0.2 =
+
+* Implements bulk actions in the Forms List, allowing multiple forms to be deleted simultaneously.
+* Fixes an issue with the Validate After Evaluate Equations attribute in calculated fields.
+* Improves place name identification in the Google Places add-on (Platinum distribution).
+
 = 5.5.0.1 =
 
 * Improves equation error messages in the browser console by identifying the field containing the equation that caused the error.

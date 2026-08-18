@@ -484,7 +484,7 @@ if ($message) {
                     let no_button = "<?php echo esc_js(__('No, keep them', 'calculated-fields-form')); ?>";
                     let message = "<?php echo esc_js(__('You are about to delete the checked item(s) with id(s): ', 'calculated-fields-form')); ?>" + ids.join(', ') + "<br><b><?php echo esc_js(__('Are you sure that you want to delete the item(s)?', 'calculated-fields-form')); ?></b>";
 
-                    fbuilderjQuery.fbuilder.confirmationDialog(title, message, yes_button, no_button, function() {
+                    $.fbuilder.confirmationDialog(title, message, yes_button, no_button, function() {
                         document.location = cff_buildActionURL({
                             cal: <?php echo CP_CALCULATEDFIELDSF_ID; ?>,
                             list: 1,
@@ -495,7 +495,7 @@ if ($message) {
                         return true;
                     });
                 } else {
-                    alert('<?php echo esc_js(__('Please select at least one item to delete.', 'calculated-fields-form')); ?>');
+					$.fbuilder.confirmationDialog('<?php esc_attr_e( 'Message', 'calculated-fields-form' ); ?>', '<?php esc_attr_e( 'Please select at least one item to delete.', 'calculated-fields-form' ); ?>', 'Ok', false);
                 }
             } catch (err) {}
         }

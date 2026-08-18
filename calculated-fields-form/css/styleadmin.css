@@ -542,20 +542,25 @@ textarea {resize: none}
 }
 
 #metabox_new_form_area form>div{display:flex;flex-wrap:wrap;flex-direction:column;gap:2px;}
-.cff-forms-pagination-area{margin-top:10px;margin-bottom:10px;text-align:right;}
+.cff-bulk-actions-pagination-container{display: flex;align-items: center;gap:30px;}
+.cff-forms-pagination-area{margin-top:10px;margin-bottom:10px;display:flex;align-items:center;justify-content:flex-end;flex-grow:1;}
 @media screen AND (min-width:710px) {
 	#metabox_new_form_area form>div{flex-direction:row;}
 	#metabox_new_form_area form>div>input:nth-of-type(1){flex-grow:1;}
 	#metabox_new_form_area form>div>input:nth-of-type(2){flex-grow:1;}
-    .cff-filter-area{display:flex;align-items:center;gap:30px;clear:both;}
+    .cff-filter-area{display:flex;align-items:center;clear:both;}
     #metabox_categories_list{flex-grow:1;display:flex;align-items:center;gap:5px;}
     #metabox_categories_list [name="calculated-fields-search-form"]{flex-grow:1;}
+	.cff-records-per-page-form{margin-left:10px;}
 }
 
 @media screen AND (max-width:710px) {
+	.cff-bulk-action,
+	.cff-records-per-page-form{display:none;}
+	.cff-forms-pagination-area,
 	.cff-navigation-main-menu{float:none !important;}
 	#metabox_categories_list,
-	#forms_pagination{float:none;, text-align:left;margin:5px 0;}
+	#forms_pagination{float:none;text-align:left;margin:5px 0;}
 	#metabox_categories_list select,
 	#metabox_categories_list input,
 	#forms_pagination select {width:100%;margin:0 0 5px 0 !important;}
@@ -871,7 +876,7 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 .cff-forms-list{width:100%;}
 .cff-forms-list tr{width:100%;}
 .cff-forms-list tbody tr {align-items: center;}
-.cff-forms-list tr td {padding-left:5px;padding-right:5px;}
+.cff-forms-list tr th, .cff-forms-list tr td {padding-left:5px;padding-right:5px;}
 .cff-forms-list th{white-space:nowrap;}
 .cff-forms-list th:not(:first-child){text-align:center}
 .cff-forms-list th:first-child,
@@ -948,8 +953,13 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 	.cff-custom-table tr:last-child {border-bottom: 0px !important;}
 	.cff-custom-table td {border-bottom: none !important;position: relative !important;}
 	.cff-custom-table input[type="text"]{margin:0 !important; width:100% !important;display:block !important;}
- 	.cff-forms-list  td:nth-of-type(1):before { content: "Id: " !important;}
-	.cff-events-list td:nth-of-type(2):before { content: "Id: " !important;}
+	.cff-forms-list input[type="checkbox"]{display:none !important;}
+ 	.cff-forms-list  td:nth-of-type(1):before,
+	.cff-events-list td:nth-of-type(2):before {
+			content: "Id: " !important;
+			position: initial !important;
+			display: initial !important;
+		}
  	.cff-events-list td:nth-of-type(3):before { content: "Form: " !important;}
  	.cff-events-list td:nth-of-type(4):before { content: "Date: " !important;}
  	.cff-events-list td:nth-of-type(5):before { content: "Email: " !important;}

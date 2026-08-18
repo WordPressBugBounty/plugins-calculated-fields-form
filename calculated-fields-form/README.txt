@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.0.1
+Stable tag: 5.5.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,12 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.2 =
+
+* Implements bulk actions in the Forms List, allowing multiple forms to be deleted simultaneously.
+* Fixes an issue with the Validate After Evaluate Equations attribute in calculated fields.
+* Improves place name identification in the Google Places add-on (Platinum distribution).
+
 = 5.5.0.1 =
 
 * Improves equation error messages in the browser console by identifying the field containing the equation that caused the error.
@@ -500,10 +506,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Improves the Phone control by making it easier to hide the format hint and allowing the phone format to be removed for unrestricted phone number input.
 * Updates the 'Minimum Time to Submit' setting to prevent negative values from being entered.
-
-= 5.4.9.7 =
-
-* Implements Math CAPTCHA in the free plugin distribution and makes it the default CAPTCHA method.
-* Adds support for repeater fields in the AI Assistant when generating equations.
-* Removes the payment gateway activation options from the Default Settings section in the commercial plugin distributions, as they support multiple payment gateways.
-* Converts the custom query attribute in Data Source controls from a single-line input field to a text area, making queries easier to edit.

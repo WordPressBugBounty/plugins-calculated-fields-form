@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.0.1';
+	$.fbuilder['version'] = '5.5.0.2';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1043,7 +1043,7 @@
 								window['cff_error_processing'+evt.target.name] = true;
 								setTimeout(function(){ delete window['cff_error_processing'+evt.target.name]; }, 10);
 							}
-							try{ if(!$(this).is(':file')) $(this).valid(); }catch(e){};
+							try { if (!$(this).is(':file') && !$(this).hasClass('codepeoplecalculatedfield')) $(this).valid(); }catch(e){};
 						});
 
 					if(!this.autocomplete) form.find('input[name*="fieldname"]:not([autocomplete]),input[id*="fieldname"]:not([autocomplete])').attr('autocomplete', 'new-password');
