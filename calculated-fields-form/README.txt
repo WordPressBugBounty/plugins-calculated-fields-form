@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.0.2
+Stable tag: 5.5.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.3 =
+
+* Updates the Forms List section to follow WordPress's standard structure and design.
+* Adds new row actions, including View to open the public form, Copy Shortcode to copy the form shortcode to the clipboard, and, in commercial versions, Export to export the form structure directly from the form row.
+
 = 5.5.0.2 =
 
 * Implements bulk actions in the Forms List, allowing multiple forms to be deleted simultaneously.
@@ -501,8 +506,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Improves confirmation dialogs and replaces browser alerts with the same dialog system used throughout the plugin.
 * Improves drag-and-drop functionality for nested containers in the Form Builder.
 * Fixes an issue affecting Math Captcha verification.
-
-= 5.4.9.8 =
-
-* Improves the Phone control by making it easier to hide the format hint and allowing the phone format to be removed for unrestricted phone number input.
-* Updates the 'Minimum Time to Submit' setting to prevent negative values from being entered.

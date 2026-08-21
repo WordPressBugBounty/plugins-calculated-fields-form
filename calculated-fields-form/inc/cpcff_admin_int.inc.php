@@ -72,12 +72,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
         <?php
         print esc_html__('Form', 'calculated-fields-form') . ' ' . esc_html(CP_CALCULATEDFIELDSF_ID) . ' - ' . esc_html($form_obj->get_option('form_name', '')) . ' | Shortcode: [CP_CALCULATED_FIELDS id="' . esc_html(CP_CALCULATEDFIELDSF_ID) . '"]';
 
-        if (get_option('CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS)) {
-            $url  = CPCFF_AUXILIARY::site_url();
-            $url .= (strpos($url, '?') === false) ? '?' : '&';
-            $url .= 'cff-form=' . CP_CALCULATEDFIELDSF_ID;
-            print '<br><span style="font-size:14px;font-style:italic;">' . esc_html__('Direct form URL', 'calculated-fields-form') . ': <a href="' . esc_attr($url) . '" target="_blank">' . esc_html($url) . '</a></span>';
-        }
+		$url  = CPCFF_AUXILIARY::site_url();
+		$url .= (strpos($url, '?') === false) ? '?' : '&';
+		$url .= 'cff-form=' . CP_CALCULATEDFIELDSF_ID;
+		print '<br><span style="font-size:14px;font-style:italic;">' . esc_html__('Direct form URL', 'calculated-fields-form') . ': <a href="' . esc_attr($url) . '" target="_blank">' . esc_html($url) . '</a></span>';
         ?>
     </h1>
     <?php

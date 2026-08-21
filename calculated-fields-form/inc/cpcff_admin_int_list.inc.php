@@ -308,6 +308,22 @@ function cp_addItem_keyup( e )
 	if(e.which == 13) cp_addItem();
 }
 
+ function cp_renameItem( id )
+ {
+	let $ = fbuilderjQuery;
+	let title = "<?php print esc_js(__( 'Rename Form', 'calculated-fields-form' )); ?>";
+	let yes_button = "<?php print esc_js(__( 'Yes, rename', 'calculated-fields-form' )); ?>";
+	let no_button = "<?php print esc_js(__( 'No, keep it', 'calculated-fields-form' )); ?>";
+	let message = "<label for='cff_new_form_name' style='font-weight:600;'><?php print esc_js(__( 'Form name: ', 'calculated-fields-form' )); ?></label>" +
+	"<input type='text' id='cff_new_form_name' style='width:100%;margin-top:10px;' value='" + cff_esc_attr(document.getElementById("calname_"+id).value) + "' onkeyup='cp_renameItem_keyup(event, "+cff_esc_attr(id)+");' />";
+
+	$.fbuilder.confirmationDialog( title, message, yes_button, no_button, function() {
+		document.getElementById("calname_"+id).value = document.getElementById("cff_new_form_name").value;
+		cp_updateItem(id);
+		return true;
+	} );
+ }
+
  function cp_renameItem_keyup( e, id )
  {
     e.which = e.which || e.keyCode;
@@ -338,11 +354,11 @@ function cp_manageSettings(id)
 	}
 }
 
-function cp_viewMessages(id)
+function cp_viewMessages(event, id)
 {
     let url = 'admin.php?page=cp_calculated_fields_form&cal='+id+'&list=1&r='+Math.random()+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce('cff-submissions-list' ) ); ?>';
 	// ctrl was held down during the click.
-	if (window.event.ctrlKey) {
+	if (event.ctrlKey) {
 		window.open(url, '_blank');
 	} else {
 		document.location = url;
@@ -361,6 +377,36 @@ function cp_deleteItem(id)
 		return true;
 	} );
 }
+
+ function cp_copyShortcode(e, id) {
+	let $ = fbuilderjQuery;
+	let $hint = $(e).closest('.cff-form-list-shortcode').siblings('.cff-form-list-shortcode-copied-hint');
+	let shortcodeText = document.getElementById("calshortcode_"+id).textContent.trim();
+
+	if (navigator.clipboard && window.isSecureContext) {
+		navigator.clipboard.writeText(shortcodeText).then(
+			function() { $hint.show().fadeOut(2500); },
+			function() { cp_copyShortcodeFallback(shortcodeText, $hint); }
+		);
+	} else {
+		cp_copyShortcodeFallback(shortcodeText, $hint);
+	}
+ }
+
+ function cp_copyShortcodeFallback(text, $hint) {
+	let $temp = fbuilderjQuery('<textarea>')
+		.val(text)
+		.css({ position: 'absolute', left: '-9999px', top: '0' })
+		.appendTo('body');
+	$temp[0].select();
+	try {
+		document.execCommand('copy');
+		$hint.show().fadeOut(2500);
+	} catch (err) {
+		console.error('Copy to clipboard failed', err);
+	}
+	$temp.remove();
+ }
 
 function cp_updateConfig()
 {
@@ -602,8 +648,9 @@ function cp_update_default_settings(e)
 							<th align="left"><a href="?page=cp_calculated_fields_form&orderby=form_name" <?php
 							if ( 'form_name' == $orderby ) {
 								print 'class="cff-active-column"';} ?>><?php esc_html_e( 'Form Name', 'calculated-fields-form' ); ?></a></th>
-							<th align="center"><?php esc_html_e( 'Options', 'calculated-fields-form' ); ?></th>
-							<th align="left"><?php esc_html_e( 'Category / Shortcode / Entries', 'calculated-fields-form' ); ?></th>
+                            <th align="left"><?php esc_html_e( 'Category', 'calculated-fields-form' ); ?></th>
+                            <th align="left"><?php esc_html_e( 'Shortcode', 'calculated-fields-form' ); ?></th>
+                            <th align="left"><?php esc_html_e( 'Entries', 'calculated-fields-form' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -625,7 +672,6 @@ function cp_update_default_settings(e)
 					}
 
 					// Variables to include the links the public forms.
-					$_cff_include_link_to_form   = get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS );
 					$_cff_link_to_form_base_url  = CPCFF_AUXILIARY::site_url();
 					$_cff_link_to_form_base_url .= ( strpos( $_cff_link_to_form_base_url, '?' ) === false ? '?' : '&' ) .'cff-form=';
 
@@ -636,30 +682,46 @@ function cp_update_default_settings(e)
 						?>
 						<tr>
 							<td nowrap><label><input type="checkbox" name="calid[]" id="calid_<?php echo esc_attr($item->id); ?>" value="<?php echo esc_attr($item->id); ?>" />&nbsp;<?php echo esc_html($item->id); ?></label></td>
-							<td nowrap><input type="text" name="calname_<?php echo esc_attr( $item->id ); ?>" id="calname_<?php echo esc_attr( $item->id ); ?>" value="<?php echo esc_attr( $form_name ); ?>" onkeyup="cp_renameItem_keyup(event, <?php echo esc_js( $item->id ); ?>);" /></td>
-							<td nowrap>
-								<input type="button" name="calupdate_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Rename', 'calculated-fields-form' ); ?>" onclick="cp_updateItem(<?php echo esc_attr( $item->id ); ?>);" class="button-secondary" />
-								<input type="button" name="calmanage_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Build', 'calculated-fields-form' ); ?>" onclick="cp_manageSettings(<?php echo esc_attr( $item->id ); ?>);" class="button-primary" style="padding-left:20px;padding-right:20px" title="<?php esc_attr_e( 'Ctrl+Click to open in new tab', 'calculated-fields-form' ); ?>" />
-								<input type="button" name="calentries_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Entries', 'calculated-fields-form' ); ?>" onclick="cp_viewMessages(<?php echo esc_attr( $item->id ); ?>);" class="button-secondary" />
-								<input type="button" name="calclone_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Duplicate', 'calculated-fields-form' ); ?>" onclick="cp_cloneItem(<?php echo esc_attr( $item->id ); ?>);" class="button-secondary" />
-								<input type="button" name="caldelete_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Delete', 'calculated-fields-form' ); ?>" onclick="cp_deleteItem(<?php echo esc_attr( $item->id ); ?>);" class="button-secondary cff-delete-form" />
-							</td>
-							<td nowrap>
-                                <?php
-                                if ( ! empty( $item->category ) ) {
-                                    print esc_html__( 'Category: ', 'calculated-fields-form' ) . '<b>' . esc_html( $item->category ) . '</b><br>';
-                                }
-                                if ( $_cff_include_link_to_form ) {
-                                    print '<a href="' . esc_attr( $_cff_link_to_form_base_url . $item->id ) . '" target="_blank">[CP_CALCULATED_FIELDS id="' . $item->id. '"]</a>';
-                                } else {
-                                    print '[CP_CALCULATED_FIELDS id="' . $item->id. '"]';
-                                }
+                            <td class="cff-form-list-name-cell">
+								<input type="hidden" name="calname_<?php echo $item->id; ?>" id="calname_<?php echo $item->id; ?>" value="<?php echo esc_attr($form_name); ?>" onkeyup="cp_renameItem_keyup(event, <?php echo esc_js( $item->id ); ?>);" />
+								<?php
+									$form_name = trim( $form_name );
+									print '<a href="javascript:void(0);" onclick="cp_manageSettings(' . esc_attr( $item->id ) . ');" class="cff-form-list-name ' . ( empty( $form_name ) ? 'cff-form-no-name' : '' ) . '" title="' . esc_attr__( 'Build form', 'calculated-fields-form' ) . '">' . esc_html( ! empty( $form_name ) ? $form_name : __( 'No name', 'calculated-fields-form' ) ).'</a>';
 								?>
-                                <span style="margin-left:10px;">
-                                    (<a href="#" onclick="return cp_viewMessages(<?php echo esc_attr( $item->id ); ?>);" style="font-weight:600"><?php echo esc_html( $item->stats??0 ); ?></a>)
-                                </span>
+								<!-- Buttons -->
+								<div class="cff-form-list-buttons">
+									<a href="javascript:void(0);" onclick="cp_manageSettings(<?php echo esc_attr( $item->id ); ?>);" class="cff-build-form"><?php esc_html_e( 'Build', 'calculated-fields-form' ); ?></a>
+									|
+									<a href="javascript:void(0);" onclick="cp_renameItem(<?php echo $item->id; ?>);"><?php esc_html_e( 'Rename', 'calculated-fields-form' ); ?></a>
+									|
+									<a href="javascript:void(0);" onclick="cp_viewMessages(event, <?php echo $item->id; ?>);"><?php esc_html_e( 'Entries', 'calculated-fields-form' ); ?></a>
+									|
+									<a href="javascript:void(0);" onclick="cp_cloneItem(<?php echo $item->id; ?>);"><?php esc_html_e( 'Duplicate', 'calculated-fields-form' ); ?></a>
+									|
+									<a href="javscript:void(0);"  onclick="cp_deleteItem(<?php echo $item->id; ?>);" class="cff-delete-form"><?php esc_html_e( 'Delete', 'calculated-fields-form' ); ?></a>
+									|
+									<a href="<?php print esc_attr( $_cff_link_to_form_base_url . $item->id ); ?>" target="_blank"><?php esc_html_e( 'View', 'calculated-fields-form' ); ?></a>
+
+								</div>
 							</td>
-						</tr>
+							<td class="cff-form-list-category-cell">
+								<?php
+									print esc_html( ! empty($item->category) ? $item->category : '-'  );
+								?>
+							</td>
+                            <td class="cff-form-list-shortcode-cell">
+								<div class="cff-form-list-shortcode">
+									<?php
+										print '<a href="' . esc_attr( $_cff_link_to_form_base_url . $item->id ) . '" target="_blank" id="calshortcode_' . $item->id . '" style="white-space:nowrap;">[CP_CALCULATED_FIELDS id="' . $item->id. '"]</a>';
+									?>
+									<img src="<?php print esc_attr( plugins_url('../images/icons/copy.svg', __FILE__) ); ?>" title="<?php esc_attr_e('Copy Shortcode','calculated-fields-form');?>" onclick="cp_copyShortcode(this, <?php echo $item->id; ?>);" style="cursor:pointer;" />
+								</div>
+								<div class="cff-form-list-shortcode-copied-hint"><?php esc_html_e('Copied!!!', 'calculated-fields-form'); ?></div>
+							</td>
+                            <td class="cff-form-list-entries-cell" data-label="<?php esc_attr_e('Entries', 'calculated-fields-form');?>">
+								<a href="javascript:void(0);" onclick="return cp_viewMessages(event, <?php echo $item->id; ?>);" style="font-weight:600"><?php print $item->stats??0; ?></a>
+							</td>
+                        </tr>
 						<?php
 					}
 					?>
