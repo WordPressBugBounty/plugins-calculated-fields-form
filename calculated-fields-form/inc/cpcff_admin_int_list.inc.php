@@ -698,7 +698,7 @@ function cp_update_default_settings(e)
 									|
 									<a href="javascript:void(0);" onclick="cp_cloneItem(<?php echo $item->id; ?>);"><?php esc_html_e( 'Duplicate', 'calculated-fields-form' ); ?></a>
 									|
-									<a href="javscript:void(0);"  onclick="cp_deleteItem(<?php echo $item->id; ?>);" class="cff-delete-form"><?php esc_html_e( 'Delete', 'calculated-fields-form' ); ?></a>
+									<a href="javascript:void(0);"  onclick="cp_deleteItem(<?php echo $item->id; ?>);" class="cff-delete-form"><?php esc_html_e( 'Delete', 'calculated-fields-form' ); ?></a>
 									|
 									<a href="<?php print esc_attr( $_cff_link_to_form_base_url . $item->id ); ?>" target="_blank"><?php esc_html_e( 'View', 'calculated-fields-form' ); ?></a>
 

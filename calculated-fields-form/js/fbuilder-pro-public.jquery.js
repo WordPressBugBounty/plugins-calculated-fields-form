@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.0.3';
+	$.fbuilder['version'] = '5.5.0.4';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1097,7 +1097,10 @@
 						withSequence = withSequence || false;
 						let names = Object.keys(fieldsIndex);
 						if(withSequence) return names;
-						let names_only = names.map( (n) => { return n.match(/(fieldname\d+)_\d+/)[1]; });
+						let names_only = names.map( (n) => {
+							let m = n.match(/(fieldname\d+)_\d+/);
+							return m ? m[1] : n;
+						});
 						return names_only;
 					},
 				loadData:function(f)

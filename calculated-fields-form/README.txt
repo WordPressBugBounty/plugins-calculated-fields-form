@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.0.3
+Stable tag: 5.5.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.4 =
+
+* Fixed an issue affecting repeaters in multi-page forms.
+* Fixed a typo in the links on the forms list.
+
 = 5.5.0.3 =
 
 * Updates the Forms List section to follow WordPress's standard structure and design.
@@ -495,14 +500,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.5.0.0 =
 
 * Fixes a dependency application issue in checkbox controls configured to allow only one selection, emulating radio-button behavior.
-
-= 5.4.9.9 =
-
-* Improves accessibility and user experience in the Form Builder as part of the first phase of the ongoing UX improvement process.
-* Enhances the AI Assistant by checking the available RAM before loading a local model and allowing users to remove the model while it is being downloaded.
-* Fixes a conflict affecting the Date/Time and Date/Timeslot controls when used inside repeaters.
-* Modifies the Password control to prevent browsers from applying spell checking, autocorrection, or automatic capitalization.
-* Improves the performance of the AI Form Generation feature.
-* Improves confirmation dialogs and replaces browser alerts with the same dialog system used throughout the plugin.
-* Improves drag-and-drop functionality for nested containers in the Form Builder.
-* Fixes an issue affecting Math Captcha verification.

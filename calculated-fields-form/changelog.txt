@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.5.0.4 =
+
+* Fixed an issue affecting repeaters in multi-page forms.
+* Fixed a typo in the links on the forms list.
+
 = 5.5.0.3 =
 
 * Updates the Forms List section to follow WordPress's standard structure and design.
