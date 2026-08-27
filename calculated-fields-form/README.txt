@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.0.4
+Stable tag: 5.5.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.5 =
+
+* Enhances the New Form module to display previews of available templates and existing forms, allowing users to make more informed decisions.
+* Updates the Data Source module to automatically discard invalid parameters. (Developer and Platinum distributions)
+
 = 5.5.0.4 =
 
 * Fixed an issue affecting repeaters in multi-page forms.
@@ -496,7 +501,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Improves the Signature add-on (Platinum distribution).
 * Adds a PDF layout preview to the form settings (Platinum distribution).
 * Adds a Test Connection button to the PayPal Checkout settings (Platinum distribution).
-
-= 5.5.0.0 =
-
-* Fixes a dependency application issue in checkbox controls configured to allow only one selection, emulating radio-button behavior.

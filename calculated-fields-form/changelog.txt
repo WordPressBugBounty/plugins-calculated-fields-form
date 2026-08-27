@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.5.0.5 =
+
+* Enhances the New Form module to display previews of available templates and existing forms, allowing users to make more informed decisions.
+* Updates the Data Source module to automatically discard invalid parameters. (Developer and Platinum distributions)
+
 = 5.5.0.4 =
 
 * Fixed an issue affecting repeaters in multi-page forms.

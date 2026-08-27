@@ -191,7 +191,8 @@
 
 .cff-form-library-ai-close::before,
 .cff-form-library-close-video::before,
-.cff-form-library-close::before {
+.cff-form-library-close::before,
+.cff-template-preview-close::before {
     content: "✖";
 }
 
@@ -431,6 +432,54 @@
     top: 0;
     z-index: 99999;
     gap: 10px;
+}
+
+/* -------------------------------------------------------------------
+   12B. TEMPLATE PREVIEW CONTAINER
+   ------------------------------------------------------------------- */
+.cff-template-preview-container {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.cff-template-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    background: #f5f5f5;
+    flex-shrink: 0;
+}
+
+.cff-template-preview-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #23282d;
+}
+
+.cff-template-preview-content {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    min-height: 0;
+}
+
+.cff-template-preview-content iframe {
+    flex-grow: 1;
+    border: 1px solid #ababab;
+    height: 100%;
+}
+
+.cff-template-preview-footer {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    background: #f5f5f5;
+    flex-shrink: 0;
 }
 
 /* -------------------------------------------------------------------

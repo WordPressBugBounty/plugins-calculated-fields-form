@@ -477,7 +477,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 								'version'     			=> 'free',
 								'website_url' 			=> 'admin.php?page=cp_calculated_fields_form&a=1&_cpcff_nonce=' . wp_create_nonce( 'cff-add-form' ),
 								'ai_form_generator_url' => 'admin.php?page=cp_calculated_fields_form&_cpcff_nonce=' . wp_create_nonce( 'cff-ai-form-generator' ),
+								'template_preview_url'  => 'admin.php?page=cp_calculated_fields_form&_cpcff_nonce=' . wp_create_nonce( 'cff-template-preview' ),
 								'website_forms' 		=> CPCFF_FORM::forms_list( [ 'description' => true ] ),
+								'admin_url' 			=> admin_url('admin.php'),
+								'ajax_url' 				=> admin_url('admin-ajax.php'),
 								'texts' => [
 									// Placeholders.
 									'search_placeholder' 		   => esc_attr__( 'Search...', 'calculated-fields-form' ),
@@ -508,10 +511,12 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'generate_form_btn'			   => esc_html__( 'Generate', 'calculated-fields-form' ),
 									'apply_modifications_btn'	   => esc_html__( 'Apply Modifications', 'calculated-fields-form' ),
 									'use_it_btn' 		   		   => esc_html__( 'Use It', 'calculated-fields-form' ),
+									'preview_btn' 		   		   => esc_html__( 'Preview', 'calculated-fields-form' ),
 									'open_modify_btn' 		   	   => esc_html__( '+ Describe Modifications', 'calculated-fields-form' ),
 									'close_modify_btn' 		   	   => esc_html__( '- Hide Description', 'calculated-fields-form' ),
 									'back_btn' 		   		   	   => esc_attr__( 'back', 'calculated-fields-form' ),
 									'forward_btn' 		   		   => esc_attr__( 'Go to form', 'calculated-fields-form' ),
+									'close_btn' 		   		   => esc_attr__( 'close', 'calculated-fields-form' ),
 
 									'still_loading' 		   	   => esc_attr__( 'Be patient, still thinking...', 'calculated-fields-form' ),
 									'still_loading_1s' 	   	   => esc_attr__('Hang tight…', 'calculated-fields-form'),

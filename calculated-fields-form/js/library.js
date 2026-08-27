@@ -61,11 +61,13 @@ jQuery(function () {
 		txt_generate_form_btn 		= cpcff_forms_library_config['texts']['generate_form_btn'],
 		txt_apply_modifications_btn = cpcff_forms_library_config['texts']['apply_modifications_btn'] ?? 'Apply Modifications',
 		txt_use_it_btn 				= cpcff_forms_library_config['texts']['use_it_btn'],
+		txt_preview_btn 			= cpcff_forms_library_config['texts']['preview_btn'] ?? 'Preview',
         txt_open_modify_btn         = cpcff_forms_library_config['texts']['open_modify_btn'] ?? '+ Describe Modifications',
         txt_close_modify_btn        = cpcff_forms_library_config['texts']['close_modify_btn'] ?? '- Hide Description',
 		txt_create_form_btn 		= cpcff_forms_library_config['texts']['create_form_btn'],
 		txt_back_btn 				= cpcff_forms_library_config['texts']['back_btn'],
 		txt_forward_btn 			= cpcff_forms_library_config['texts']['forward_btn'] ?? 'Go to form',
+		txt_close_btn 				= cpcff_forms_library_config['texts']['close_btn'] ?? 'close',
 
         txt_still_loading           = cpcff_forms_library_config['texts']['still_loading'] ?? 'Be patient, still thinking...',
 
@@ -119,7 +121,7 @@ jQuery(function () {
 				<div class="cff-form-library-container">
 					<div class="cff-form-library-column-left">
 						<div class="cff-form-library-search-box">
-							<div class="cff-form-library-close-back cff-form-library-close"></div>
+							<div class="cff-form-library-close-back cff-form-library-close" title="${txt_close_btn}"></div>
 							<input type="search" placeholder="${txt_search_placeholder}" oninput="cff_filteringFormsByText(this)" autocomplete="new-password">
 						</div>
 						<div class="cff-form-library-ai-forms">
@@ -144,7 +146,7 @@ jQuery(function () {
 								<input type="text" placeholder="${txt_form_name_placeholder}" id="cp_itemname_library" autocomplete="new-password">
 								<input type="button" value="${txt_create_form_btn}" class="button-primary" onclick="cff_getTemplate(0);">
 							</div>
-							<div class="cff-form-library-close-back cff-form-library-close"></div>
+							<div class="cff-form-library-close-back cff-form-library-close" title="${txt_close_btn}"></div>
 						</div>
 						<div class="cff-form-library-main">
 							<div class="cff-form-library-no-form">${txt_no_form_label}</div>
@@ -165,8 +167,22 @@ jQuery(function () {
 					<div class="cff-form-library-form-category"></div>
 					<div>
 						<input type="button" class="button-primary cff-select-form" value="${txt_use_it_btn}" />
-						<!--<input type="button" class="button-secondary cff-preview-form" value="Preview" />-->
+						<input type="button" class="button-secondary cff-preview-form" value="${txt_preview_btn}" />
 					</div>
+				</div>
+			</div>
+		`;
+
+		// Template preview container - hidden by default
+		var template_preview_tpl = `
+			<div class="cff-template-preview-container" style="display:none;">
+				<div class="cff-template-preview-header">
+					<span class="cff-template-preview-title"></span>
+					<div class="cff-form-library-close-back cff-template-preview-close" onclick="cff_closePreview()" title="${txt_close_btn}"></div>
+				</div>
+				<div class="cff-template-preview-content"></div>
+				<div class="cff-template-preview-footer">
+					<input type="button" class="button-primary cff-select-form-from-preview" value="${txt_use_it_btn}" />
 				</div>
 			</div>
 		`;
@@ -240,13 +256,21 @@ jQuery(function () {
 							);
 						}
 						tmp.attr('data-category', data[i]['category']);
+                        tmp.attr('data-template-id', data[i]['id']);
+                        tmp.attr('data-template-title', data[i]['title']);
 						if ( 'thumb' in data[i] ) {
 							tmp.find('.cff-form-library-form-title').before('<div class="cff-form-library-form-thumb"><img src="https://cdn.jsdelivr.net/gh/cffdwboostercom/formtemplates@main/'+data[i]['thumb']+'"></div>');
 						}
 						tmp.find('.cff-form-library-form-title').text(data[i]['title']);
 						tmp.find('.cff-form-library-form-description').text(data[i]['description']);
                         tmp.find('.cff-form-library-form-category').text(data[i]['category'].replace(/\|/g, ', '));
-
+						tmp.find('[type="button"].cff-preview-form').on(
+                            'click',
+                            (function (id, title) {
+                                return function () {
+                                    cff_previewTemplate(id, title);
+                                };
+                            })(data[i]['id'], data[i]['title']));
 						tmp.appendTo('.cff-form-library-main');
 					}
 				}
@@ -268,6 +292,14 @@ jQuery(function () {
 								cff_getTemplate(id, true);
 							};
 						})(data[i]['id'])
+					);
+					tmp.find('[type="button"].cff-preview-form').on(
+						'click',
+						(function (id, title) {
+							return function () {
+								cff_previewWebsiteForm(id, title);
+							};
+						})(data[i]['id'], data[i]['form_name'])
 					);
 					tmp.attr('data-category', '-1');
 					tmp.find('.cff-form-library-form-title').text( '('+data[i]['id']+') ' + data[i]['form_name']);
@@ -311,6 +343,14 @@ jQuery(function () {
     };
 
     function displayTemplates(me, category) {
+        // Close preview if open, then continue
+        var $preview = $('.cff-template-preview-container');
+        if ($preview.is(':visible')) {
+            cff_closePreview(function() {
+                displayTemplates(me, category);
+            });
+            return;
+        }
         $('.cff-ai-form-generator').hide();
 		$('.cff-form-library-main').show();
         hideNoFormMessage();
@@ -328,6 +368,14 @@ jQuery(function () {
     };
 
 	function displayAIGenerator(me) {
+		// Close preview if open, then continue
+		var $preview = $('.cff-template-preview-container');
+		if ($preview.is(':visible')) {
+			cff_closePreview(function() {
+				displayAIGenerator(me);
+			});
+			return;
+		}
 		$('.cff-form-library-search-box input').val('');
         $('.cff-form-library-active-category').removeClass('cff-form-library-active-category');
 		$(me).addClass('cff-form-library-active-category');
@@ -374,6 +422,94 @@ jQuery(function () {
         if ('cp_addItem' in window)
             cp_addItem();
     };
+
+    // Template preview functions
+    var _cff_template_preview_scroll_top = 0;
+    var _cff_template_preview_scroll_left = 0;
+    var _cff_current_template_id = null;
+    var _cff_current_template_title = null;
+    var _cff_current_is_website_form = false;
+
+    function cff_previewTemplate(templateId, templateTitle) {
+        _cff_current_is_website_form = false;
+        cff_previewForm(templateId, templateTitle, 'ftpl');
+    }
+
+    function cff_previewWebsiteForm(formId, formTitle) {
+        _cff_current_is_website_form = true;
+        cff_previewForm(formId, formTitle, 'form_id');
+    }
+
+    function cff_previewForm(formId, formTitle, paramName) {
+        var $main = $('.cff-form-library-main');
+        if (!$main.length) return;
+
+        // Validate paramName to prevent injection
+        if (paramName !== 'ftpl' && paramName !== 'form_id') {
+            return;
+        }
+
+        // Save scroll position
+        _cff_template_preview_scroll_top = $main.scrollTop();
+        _cff_template_preview_scroll_left = $main.scrollLeft();
+        _cff_current_template_id = formId;
+        _cff_current_template_title = formTitle;
+
+        // Hide grid, show preview container
+        $main.hide();
+        var $previewContainer = $('.cff-template-preview-container');
+        if (!$previewContainer.length) {
+            // Create preview container inside the library column-right
+            $('.cff-form-library-column-right').append(template_preview_tpl);
+            $previewContainer = $('.cff-template-preview-container');
+            // Attach select button handler
+            $previewContainer.find('.cff-select-form-from-preview').on('click', function() {
+                cff_selectFromPreview();
+            });
+        }
+        // Use text() for formTitle to prevent XSS
+        $previewContainer.find('.cff-template-preview-title').text(formTitle);
+        $previewContainer.find('.cff-template-preview-content').html('<div style="text-align:center;padding:40px;">Loading...</div>');
+        $previewContainer.css('display', 'flex');
+
+        // Set iframe src - follows AI Generator pattern: admin.php?page=...&cff_template_preview=1
+        var previewUrl = cpcff_forms_library_config['template_preview_url'] + '&cff_template_preview=1&' + paramName + '=' + encodeURIComponent(formId) + '&_=' + Date.now();
+        var iframe = document.createElement('iframe');
+        iframe.src = previewUrl;
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.style.background = '#fff';
+        $previewContainer.find('.cff-template-preview-content').html(iframe);
+    }
+
+    function cff_closePreview(callback) {
+        var $main = $('.cff-form-library-main');
+        var $previewContainer = $('.cff-template-preview-container');
+        if (!$main.length || !$previewContainer.length) {
+            if (callback) callback();
+            return;
+        }
+
+        $previewContainer.hide();
+        $main.show();
+
+        // Restore scroll position
+        $main.scrollTop(_cff_template_preview_scroll_top);
+        $main.scrollLeft(_cff_template_preview_scroll_left);
+
+        _cff_current_template_id = null;
+        _cff_current_template_title = null;
+        _cff_current_is_website_form = false;
+
+        if (callback) callback();
+    }
+
+    function cff_selectFromPreview() {
+        if (_cff_current_template_id !== null) {
+            cff_getTemplate(_cff_current_template_id, _cff_current_is_website_form);
+        }
+    }
 
     $(document).on('change', '#cff-ai-model-provider', function(){
         let provider_selected = getProviderSelected();
@@ -548,6 +684,9 @@ jQuery(function () {
     window['cff_templatesInCategory'] = displayTemplates;
     window['cff_filteringFormsByText'] = formsByText;
 	window['cff_displayAIGenerator'] = displayAIGenerator;
+    window['cff_previewTemplate'] = cff_previewTemplate;
+    window['cff_closePreview'] = cff_closePreview;
+    window['cff_selectFromPreview'] = cff_selectFromPreview;
 
     // Open the dialog if it is in the correct section:
     if (/cp_calculated_fields_form_sub_new/i.test(document.location.search)) {
