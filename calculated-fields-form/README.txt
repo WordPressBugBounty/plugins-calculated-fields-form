@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.0.5
+Stable tag: 5.5.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -469,6 +469,12 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.6 =
+
+* Introduces a new Template 18, a modernized variant of Template 13, and sets it as the plugin’s default template.
+* Enhances the other templates.
+* Updates the Default Settings section to use the previously selected options when available, instead of always falling back to the default values defined in the plugin code.
+
 = 5.5.0.5 =
 
 * Enhances the New Form module to display previews of available templates and existing forms, allowing users to make more informed decisions.
@@ -489,15 +495,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Implements bulk actions in the Forms List, allowing multiple forms to be deleted simultaneously.
 * Fixes an issue with the Validate After Evaluate Equations attribute in calculated fields.
 * Improves place name identification in the Google Places add-on (Platinum distribution).
-
-= 5.5.0.1 =
-
-* Improves equation error messages in the browser console by identifying the field containing the equation that caused the error.
-* Fixes dependency handling in repeater fields by triggering dependency checks after a new row is added.
-* Fixes dependency handling in the Checkbox control when values are set programmatically or when the single selection option is enabled to emulate radio buttons.
-* Improves sortable field behavior in the form builder, particularly when working with deeply nested containers and large numbers of fields.
-* Fixes an issue with form submissions performed via AJAX.
-* Improves Chart.js compatibility by supporting chart defaults across Chart.js versions 2, 3, and 4 (Developer and Platinum distributions).
-* Improves the Signature add-on (Platinum distribution).
-* Adds a PDF layout preview to the form settings (Platinum distribution).
-* Adds a Test Connection button to the PayPal Checkout settings (Platinum distribution).

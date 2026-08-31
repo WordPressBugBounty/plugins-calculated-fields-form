@@ -195,6 +195,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
                             error_log($err->getMessage());
 						}
 					}
+					$_form_structure = CPCFF_AUXILIARY::apply_default_visual_template( $_form_structure );
 				} else if ( is_string( $form_template ) ) {
 					json_decode( $form_template, true );
 					if ( json_last_error() === JSON_ERROR_NONE ) {

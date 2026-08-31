@@ -27,7 +27,7 @@ define( 'CP_CALCULATED_FIELDS_SETTINGS_PAGE', 'cp_calculated_fields_form' );
 define( 'CP_CALCULATED_FIELDS_SETTINGS_PAGE2', 'cp_calculated_fields_form_sub2' );
 define( 'CP_CALCULATED_FIELDS_SETTINGS_PAGE3', 'cp_calculated_fields_form_sub3' );
 
-define( 'CP_CALCULATEDFIELDSF_DEFAULT_template', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_template', 'cp_cff_13' ) );
+define( 'CP_CALCULATEDFIELDSF_DEFAULT_template', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_template', 'cp_cff_18' ) );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', 'no' ) );
 
 // Default forms.

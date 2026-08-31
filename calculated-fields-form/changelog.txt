@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.5.0.6 =
+
+* Introduces a new Template 18, a modernized variant of Template 13, and sets it as the plugin’s default template.
+* Enhances the other templates.
+* Updates the Default Settings section to use the previously selected options when available, instead of always falling back to the default values defined in the plugin code.
+
 = 5.5.0.5 =
 
 * Enhances the New Form module to display previews of available templates and existing forms, allowing users to make more informed decisions.

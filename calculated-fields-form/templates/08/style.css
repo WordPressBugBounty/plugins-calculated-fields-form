@@ -41,8 +41,8 @@ body {
 #cff_ai_assistant_bubble,
 #cff_ai_assistant_use_suggestion,
 .cp_cff_dark_notebook #fbuilder .pbSubmit,
-.cp_cff_dark_notebook #fbuilder .pbreak .pbPrevious,
-.cp_cff_dark_notebook #fbuilder .pbreak .pbNext,
+.cp_cff_dark_notebook #fbuilder .pbPrevious,
+.cp_cff_dark_notebook #fbuilder .pbNext,
 .cp_cff_dark_notebook #fbuilder input[type="date"],
 .cp_cff_dark_notebook #fbuilder input[type="file"],
 .cp_cff_dark_notebook #fbuilder input[type="datetime"],
@@ -141,13 +141,13 @@ body {
 .cp_cff_dark_notebook .cff-spinner .cff-spinner-down,
 .cp_cff_dark_notebook .cff-spinner .cff-spinner-up,
 .cp_cff_dark_notebook #fbuilder .pbSubmit,
-.cp_cff_dark_notebook #fbuilder .pbreak .pbPrevious,
-.cp_cff_dark_notebook #fbuilder .pbreak .pbNext,
+.cp_cff_dark_notebook #fbuilder .pbPrevious,
+.cp_cff_dark_notebook #fbuilder .pbNext,
 .cp_cff_dark_notebook #fbuilder button:not([class*="trumbowyg"]),
 .cp_cff_dark_notebook #fbuilder input[type="submit"],
 .cp_cff_dark_notebook #fbuilder input[type="reset"],
 .cp_cff_dark_notebook #fbuilder input[type="button"] {
-  background: #576E86;
+  background: #394d61;
   border: none;
   padding: 8px 10px 8px 10px;
   border-radius: 5px;
@@ -159,32 +159,42 @@ body {
 .cp_cff_dark_notebook #fbuilder button:not([class*="trumbowyg"]):hover,
 .cp_cff_dark_notebook #fbuilder input[type="submit"]:hover,
 .cp_cff_dark_notebook #fbuilder input[type="reset"]:hover,
-.cp_cff_dark_notebook #fbuilder input[type="button"]:hover {
-  background: #394D61;
+.cp_cff_dark_notebook #fbuilder input[type="button"]:hover,
+.cp_cff_dark_notebook #fbuilder .pbSubmit:hover,
+.cp_cff_dark_notebook #fbuilder .pbPrevious:hover,
+.cp_cff_dark_notebook #fbuilder .pbNext:hover {
+  background: #1b242d;
 }
 
 /* Checkbox / Radio custom images */
 .cp_cff_dark_notebook #fbuilder input[type="radio"],
 .cp_cff_dark_notebook #fbuilder input[type="checkbox"] { display: none; }
 
-.cp_cff_dark_notebook #fbuilder .cff-checkbox-field:not(.cff-switch-container) .dfield label > span:first-of-type,
-.cp_cff_dark_notebook #fbuilder .cff-radiobutton-field:not(.cff-switch-container) .dfield label span:first-of-type {
-  display: inline-block;
-  padding-left: 20px;
-  min-height: 16px;
-  background: url('checkbox.png') no-repeat 0 3px;
+.cp_cff_dark_notebook #fbuilder .cff-checkbox-field:not(.cff-switch-container) .dfield label>span:first-of-type::before,
+.cp_cff_dark_notebook #fbuilder .cff-radiobutton-field:not(.cff-switch-container) .dfield label span:first-of-type::before {
+	content: "\2716";
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border: 2px solid #A8BACE;
+	margin-right: 10px;
+	text-align: center;
+	line-height: 15px;
+	color: transparent;
 }
 
-.cp_cff_dark_notebook #fbuilder .cff-radiobutton-field:not(.cff-switch-container) .dfield label span:first-of-type {
-  background: url('radio.png') no-repeat 0 3px;
+.cp_cff_dark_notebook #fbuilder .cff-radiobutton-field:not(.cff-switch-container) .dfield label span:first-of-type::before {
+	border-radius: 15px;
 }
 
-.cp_cff_dark_notebook #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"]:checked + span {
-  background: url('checkbox_checked.png') no-repeat 0 3px;
+.cp_cff_dark_notebook #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"]:checked+span::before {
+	content: "\2716";
+	color: #A8BACE;
 }
 
-.cp_cff_dark_notebook #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:checked + span {
-  background: url('radio_checked.png') no-repeat 0 3px;
+.cp_cff_dark_notebook #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:checked+span::before {
+	content: "\25CF";
+	color: #A8BACE;
 }
 
 /* Fieldset / Legend / Section breaks */
@@ -244,3 +254,38 @@ body {
 
 .cp_cff_dark_notebook #fbuilder .cff-file-field .cff-file-field-container { border: 1px dashed #83A4C5; }
 .cp_cff_dark_notebook #fbuilder .cff-file-field .cff-file-field-container:hover { border-color: #D9FFA9; background-color: rgba(168, 186, 206, 0.1); }
+
+/* Data Tables*/
+.cp_cff_dark_notebook #fbuilder .cff-datatable-field tbody * {
+	text-shadow: none;
+	color: #000000;
+}
+
+.cp_cff_dark_notebook #fbuilder .cff-datatable-field .dataTables_info,
+.cp_cff_dark_notebook #fbuilder .cff-datatable-field .paginate_button {
+	color: white !important;
+}
+
+.cp_cff_dark_notebook #fbuilder .cff-datatable-field .paginate_button.current {
+	color: #394d61 !important;
+	box-shadow: none !important;
+	border-radius: 5px;
+	background: #A8BACE !important;
+}
+
+.cp_cff_dark_notebook #fbuilder .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+	background: #1b242d !important;
+	border-color: #1b242d;
+	color: #ffffff !important;
+	border-radius: 5px;
+}
+
+/* Record Button */
+.cp_cff_dark_notebook #fbuilder .cff-record-btn {
+	background: #394d61;
+	color: #A8BACE;
+}
+
+.cp_cff_dark_notebook #fbuilder .cff-record-btn:hover {
+	background: #1b242d;
+}

@@ -23,11 +23,19 @@
 .cp_cff_natural #fbuilder h5,
 .cp_cff_natural #fbuilder h6,
 .cp_cff_natural #fbuilder .fform p {
-  color: rgb(255, 255, 255);
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
   margin-bottom: 0;
   font-weight: normal;
   font-variant: small-caps;
+}
+.cp_cff_natural #fbuilder .fform h1,
+.cp_cff_natural #fbuilder .fform h2,
+.cp_cff_natural #fbuilder .fform h3,
+.cp_cff_natural #fbuilder .fform h4,
+.cp_cff_natural #fbuilder .fform h5,
+.cp_cff_natural #fbuilder .fform h6,
+.cp_cff_natural #fbuilder .fform p {
+	color: rgb(255, 255, 255);
 }
 .cp_cff_natural #fbuilder h1 { font-size: 2.6em; }
 .cp_cff_natural #fbuilder h2 { font-size: 2em; }

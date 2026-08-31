@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.0.5';
+	$.fbuilder['version'] = '5.5.0.6';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1081,6 +1081,7 @@
 						var regExp = new RegExp((parseInt(name,10) == name) ? 'fieldname'+name+'_' : name+'_', i);
 						for( var i in items )
 						{
+							if( !items[ i ]  || !('name' in items[ i ]) ) continue;
 							if( items[ i ].name == name || regExp.test(items[ i ].name))
 							{
 								return items[ i ];

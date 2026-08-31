@@ -22,9 +22,9 @@ if ( isset( $_GET['orderby'] ) ) {
 	update_option( 'CP_CALCULATEDFIELDSF_FORMS_LIST_ORDERBY', 'form_name' == $_GET['orderby'] ? 'form_name' : 'id' );
 }
 
-$cp_default_template = CP_CALCULATEDFIELDSF_DEFAULT_template;
-$cp_default_submit   = CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button;
-$cp_default_captcha  = CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha;
+$cp_default_template = get_option('CP_CALCULATEDFIELDSF_DEFAULT_template', CP_CALCULATEDFIELDSF_DEFAULT_template);
+$cp_default_submit = get_option('CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button);
+$cp_default_captcha = get_option('CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha);
 $cp_default_captcha_method = CP_CALCULATEDFIELDSF_DEFAULT_cv_captcha_method;
 
 if ( isset( $_REQUEST['cp_default_template'] ) ) { // I don't need to check for the submit button at this moment.

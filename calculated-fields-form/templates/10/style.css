@@ -203,3 +203,17 @@ body{
 
 .cp_cff_pastel #fbuilder .cff-file-field .cff-file-field-container{border: 1.5px dashed #d2d2d2;}
 .cp_cff_pastel #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: rgb(232, 238, 239);}
+
+/* Record Button */
+.cp_cff_pastel #fbuilder .cff-record-btn {
+	color: #FFF;
+	background: #1abc9c;
+	text-align: center;
+	font-style: normal;
+	border: 1px solid #16a085;
+	cursor: pointer;
+}
+
+.cp_cff_pastel #fbuilder .cff-record-btn:hover {
+	background: #109177;
+}

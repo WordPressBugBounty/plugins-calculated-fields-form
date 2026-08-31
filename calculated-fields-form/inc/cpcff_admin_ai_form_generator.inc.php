@@ -57,7 +57,7 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
                 } catch (Exception $err) {}
             } else {
                 if ( defined( 'CP_CALCULATEDFIELDSF_DEFAULT_template' ) ) {
-                    $template = CP_CALCULATEDFIELDSF_DEFAULT_template;
+                    $template = get_option('CP_CALCULATEDFIELDSF_DEFAULT_template', CP_CALCULATEDFIELDSF_DEFAULT_template);
                 }
             }
 

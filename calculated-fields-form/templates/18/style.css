@@ -1,0 +1,694 @@
+:root {
+  /* Brand */
+  --cff-18-color-brand-50:  #eaf2fd;
+  --cff-18-color-brand-100: #c8dcfb;
+  --cff-18-color-brand-500: #2c7ef8;
+  --cff-18-color-brand-600: #1d6fe6;
+  --cff-18-color-brand-700: #155abf;
+
+  /* Surface */
+  --cff-18-color-surface-base:    #ffffff;
+  --cff-18-color-surface-sunken:  #f6f8fa;
+  --cff-18-color-surface-raised:  #ffffff;
+  --cff-18-color-surface-overlay: rgba(15, 23, 42, 0.5);
+
+  /* Text */
+  --cff-18-color-text-primary:   #1f2328;
+  --cff-18-color-text-secondary: #57606a;
+  --cff-18-color-text-tertiary:  #8c959f;
+  --cff-18-color-text-disabled:  #afb8c1;
+  --cff-18-color-text-onbrand:   #ffffff;
+
+  /* Border */
+  --cff-18-color-border-default: #d0d7de;
+  --cff-18-color-border-strong:  #afb8c1;
+  --cff-18-color-border-focus:   var(--cff-18-color-brand-500);
+
+  /* State */
+  --cff-18-color-danger:       #cf222e;
+  --cff-18-color-danger-bg:    #ffebe9;
+  --cff-18-color-success:      #1a7f37;
+  --cff-18-color-success-bg:   #dafbe1;
+  --cff-18-color-warning:      #9a6700;
+  --cff-18-color-warning-bg:   #fff8c5;
+
+  /* Radius */
+  --cff-18-radius-sm:   6px;
+  --cff-18-radius-md:   10px;
+  --cff-18-radius-lg:   14px;
+
+  /* Spacing (4pt grid) */
+  --cff-18-space-1:  4px;
+  --cff-18-space-2:  8px;
+  --cff-18-space-3:  12px;
+  --cff-18-space-4:  16px;
+  --cff-18-space-5:  24px;
+  --cff-18-space-6:  32px;
+
+  /* Shadow */
+  --cff-18-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --cff-18-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --cff-18-shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+  --cff-18-shadow-focus: 0 0 0 4px rgba(44, 126, 248, 0.20);
+
+  /* Type */
+  --cff-18-font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --cff-18-text-xs:  12px;
+  --cff-18-text-sm:  13px;
+  --cff-18-text-md:  14px;
+  --cff-18-text-base: 16px;
+  --cff-18-text-lg:  18px;
+  --cff-18-text-xl:  20px;
+  --cff-18-text-2xl: 24px;
+  --cff-18-text-3xl: 28px;
+  --cff-18-text-4xl: 32px;
+  --cff-18-leading: 1.5;
+
+  /* Motion */
+  --cff-18-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --cff-18-transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base & box sizing */
+#cff_ai_assistant_bubble,
+.cp_cff_18 #fbuilder * {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Form header */
+.cp_cff_18 #fbuilder .fform {
+  margin-bottom: 20px;
+}
+.cp_cff_18 #fbuilder .fform span {
+  font-size: 16px;
+  color: var(--cff-18-color-text-secondary);
+}
+
+/* Typography */
+.cp_cff_18 #fbuilder h1,
+.cp_cff_18 #fbuilder h2,
+.cp_cff_18 #fbuilder h3,
+.cp_cff_18 #fbuilder h4,
+.cp_cff_18 #fbuilder h5,
+.cp_cff_18 #fbuilder h6,
+.cp_cff_18 #fbuilder .fform p {
+  font-weight: 600;
+  margin: 0;
+}
+.cp_cff_18 #fbuilder h1 { font-size: 2.6em; }
+.cp_cff_18 #fbuilder h2 { font-size: 2em; }
+.cp_cff_18 #fbuilder h3 { font-size: 1.5em; }
+.cp_cff_18 #fbuilder h4 { font-size: 1.3em; }
+.cp_cff_18 #fbuilder h5 { font-size: 1em; }
+.cp_cff_18 #fbuilder h6 { font-size: 0.8em; }
+
+.cp_cff_18 #fbuilder span.uh {
+  font-size: 11px;
+  font-style: italic;
+}
+
+/* Input, select, textarea — inherited font */
+.cp_cff_18 #fbuilder input,
+.cp_cff_18 #fbuilder select,
+.cp_cff_18 #fbuilder textarea,
+.cp_cff_18 #fbuilder button:not([class*="trumbowyg"]) {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.cp_cff_18 #fbuilder textarea,
+.cp_cff_18 #fbuilder input {
+  font-size: var(--cff-18-text-base);
+}
+
+/* Shared input-like appearance — single consolidated rule (input/select/textarea/.select2).
+   style_new sizing pattern; border color kept as literal per user directive. */
+.cp_cff_18 #fbuilder input[type="text"],
+.cp_cff_18 #fbuilder input[type="password"],
+.cp_cff_18 #fbuilder input[type="date"],
+.cp_cff_18 #fbuilder input[type="datetime"],
+.cp_cff_18 #fbuilder input[type="email"],
+.cp_cff_18 #fbuilder input[type="number"],
+.cp_cff_18 #fbuilder input[type="search"],
+.cp_cff_18 #fbuilder input[type="tel"],
+.cp_cff_18 #fbuilder input[type="time"],
+.cp_cff_18 #fbuilder input[type="url"],
+.cp_cff_18 #fbuilder input[type="week"],
+.cp_cff_18 #fbuilder input[type="color"],
+.cp_cff_18 #fbuilder select,
+.cp_cff_18 #fbuilder textarea,
+.cp_cff_18 #fbuilder .select2-selection {
+  background-color: var(--cff-18-color-surface-base);
+  border: 1px solid #7e8993;
+  border-radius: var(--cff-18-radius-md);
+  color: #32373c;
+  font-size: var(--cff-18-text-base);
+  line-height: var(--cff-18-leading);
+  padding: var(--cff-18-space-2) var(--cff-18-space-3);
+  min-height: 44px;
+  box-shadow: 0 0 0 transparent;
+}
+
+/* textarea — same paddings as input/select (8px 12px) */
+.cp_cff_18 #fbuilder textarea {
+  min-height: 96px;
+}
+
+.cp_cff_18 #fbuilder .select2-selection {
+  padding: 0;
+  line-height: 44px;
+}
+
+/* Textarea specifics — keep only overflow/resize (padding/line-height come from consolidated rule above) */
+.cp_cff_18 #fbuilder textarea {
+  overflow: auto;
+  resize: vertical;
+}
+
+/* Direction overrides */
+.cp_cff_18 #fbuilder input[type="email"],
+.cp_cff_18 #fbuilder input[type="url"] {
+  direction: ltr;
+}
+
+/* Select dropdown */
+.cp_cff_18 #fbuilder select {
+  border-color: #7e8993;
+  padding: 8px 24px 8px 8px;
+  min-height: 44px;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  background: #fff;
+  cursor: pointer;
+}
+
+.cp_cff_18 #fbuilder select:not([multiple]) {
+  background: #fff url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%;
+  background-size: 16px 16px;
+}
+
+/* Select2 integration */
+.cp_cff_18 #fbuilder .select2-selection {
+  border: 1px solid #7e8993;
+}
+
+.cp_cff_18 #fbuilder .select2-results__option--highlighted {
+  background: var(--cff-18-color-brand-500);
+}
+
+.cp_cff_18 #fbuilder .select2-dropdown .select2-search__field {
+  width: 100% !important;
+}
+
+/* Input focus — :focus applies on any focus (mouse, keyboard, programmatic); :focus-within for composites */
+.cp_cff_18 #fbuilder input[type="text"]:focus,
+.cp_cff_18 #fbuilder input[type="password"]:focus,
+.cp_cff_18 #fbuilder input[type="date"]:focus,
+.cp_cff_18 #fbuilder input[type="datetime"]:focus,
+.cp_cff_18 #fbuilder input[type="email"]:focus,
+.cp_cff_18 #fbuilder input[type="number"]:focus,
+.cp_cff_18 #fbuilder input[type="search"]:focus,
+.cp_cff_18 #fbuilder input[type="tel"]:focus,
+.cp_cff_18 #fbuilder input[type="time"]:focus,
+.cp_cff_18 #fbuilder input[type="url"]:focus,
+.cp_cff_18 #fbuilder input[type="week"]:focus,
+.cp_cff_18 #fbuilder input[type="color"]:focus,
+.cp_cff_18 #fbuilder select:focus,
+.cp_cff_18 #fbuilder textarea:focus,
+.cp_cff_18 #fbuilder .select2-selection:focus-within {
+  outline: 0;
+  border-color: #2c7ef8;
+  box-shadow: var(--cff-18-shadow-focus);
+}
+
+/* Checkbox / Radio focus — outline reset to override browser default */
+.cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"]:focus,
+.cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:focus {
+  outline: 0;
+  border-color: #2c7ef8;
+  box-shadow: var(--cff-18-shadow-focus);
+}
+
+/* Checkbox / Radio (non-switch) — style_new pattern */
+@media only screen {
+  .cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"],
+  .cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="radio"] {
+	-webkit-appearance: none;
+	appearance: none;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    margin: 0 var(--cff-18-space-1) 0 0;
+    padding: 0 !important;
+    border: 1.5px solid var(--cff-18-color-border-strong);
+    border-radius: var(--cff-18-radius-sm);
+    background: var(--cff-18-color-surface-base);
+    cursor: pointer;
+    vertical-align: middle;
+    position: relative;
+    transition:
+        border-color var(--cff-18-transition-fast),
+        background-color var(--cff-18-transition-fast),
+        box-shadow var(--cff-18-transition-fast);
+  }
+
+  .cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="radio"] {
+    border-radius: 50%;
+  }
+
+  .cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"]:checked {
+    background-color: var(--cff-18-color-brand-500);
+    border-color: var(--cff-18-color-brand-500);
+    background-image: url('data:image/svg+xml;utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"%3E%3Cpath d="M13.5 4.5L6 12L2.5 8.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px 12px;
+  }
+
+  .cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:checked {
+    border-color: var(--cff-18-color-brand-500);
+    background: var(--cff-18-color-surface-base);
+  }
+  .cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cff-18-color-brand-500);
+  }
+
+  .cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"]:disabled,
+  .cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* Switch (on/off) — hide native checkbox/radio inside switch containers */
+.cp_cff_18 #fbuilder .cff-switch-container input[type="checkbox"],
+.cp_cff_18 #fbuilder .cff-switch-container input[type="radio"] {
+  display: none !important;
+}
+
+/* Checkbox field with image/quantity — style_new layout */
+.cp_cff_18 #fbuilder .cff-checkbox-field .dfield label:has(.cff-checkbox-field-quantity) {
+  min-height: 50px;
+  margin-bottom: var(--cff-18-space-4);
+}
+.cp_cff_18 #fbuilder .cff-checkbox-field-quantity {
+  vertical-align: middle;
+}
+.cp_cff_18 #fbuilder .cff-checkbox-field-quantity input {
+  margin-left: var(--cff-18-space-2);
+}
+
+.cp_cff_18 #fbuilder .cff-checkbox-field > .dfield > div > label > span:has(img),
+.cp_cff_18 #fbuilder .cff-radiobutton-field>.dfield>div>label>span:has(img) {
+  position: relative;
+  display: inline-block;
+}
+
+/* Image — explicit size, border that changes color on selected */
+.cp_cff_18 #fbuilder .cff-checkbox-field > .dfield > div > label:has(img) > span > img,
+.cp_cff_18 #fbuilder .cff-radiobutton-field>.dfield>div>label:has(img)>span>img {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: var(--cff-18-radius-md);
+  border: 2px solid var(--cff-18-color-border-default);
+  transition: border-color var(--cff-18-transition-fast);
+}
+.cp_cff_18 #fbuilder .cff-checkbox-field > .dfield > div > label:has(input:checked):has(img) > span > img,
+.cp_cff_18 #fbuilder .cff-radiobutton-field>.dfield>div>label:has(input:checked):has(img)>span>img {
+  border-color: var(--cff-18-color-brand-500);
+  border-width: 3px;
+}
+
+@media screen and (max-width: 640px) {
+  .cp_cff_18 #fbuilder .cff-checkbox-field > .dfield > div > label:has(img) > span > img,
+  .cp_cff_18 #fbuilder .cff-radiobutton-field>.dfield>div>label:has(img) > span > img {
+    height: 64px;
+  }
+}
+
+/* Reset button hover/active */
+.cp_cff_18 #fbuilder input[type="reset"]:hover,
+.cp_cff_18 #fbuilder input[type="reset"]:active {
+  color: #00a0d2;
+}
+
+/* Disabled / readonly states */
+.cp_cff_18 #fbuilder input[readonly],
+.cp_cff_18 #fbuilder textarea[readonly] {
+  background-color: #eee;
+}
+
+.cp_cff_18 #fbuilder input:disabled,
+.cp_cff_18 #fbuilder select:disabled,
+.cp_cff_18 #fbuilder textarea:disabled {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(222, 222, 222, 0.75);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  color: rgba(51, 51, 51, 0.5);
+}
+
+.cp_cff_18 #fbuilder input[type="file"]:disabled,
+.cp_cff_18 #fbuilder input[type="range"]:disabled {
+  background: none;
+  box-shadow: none;
+  cursor: default;
+}
+
+.cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"]:disabled,
+.cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:disabled,
+.cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="checkbox"]:disabled:checked::before,
+.cp_cff_18 #fbuilder .fields:not(.cff-switch-container) input[type="radio"]:disabled:checked::before {
+  opacity: 0.7;
+}
+
+/* Field sizes */
+.cp_cff_18 #fbuilder .large { width: 100%; }
+
+@media screen and (min-width: 740px), print {
+  .cp_cff_18 #fbuilder .medium { width: 50%; }
+  .cp_cff_18 #fbuilder .small { width: 25%; }
+}
+
+@media screen and (max-width: 640px) {
+  .cp_cff_18 #fbuilder .medium,
+  .cp_cff_18 #fbuilder .small { width: 100%; }
+}
+
+/* Buttons */
+#cff_ai_assistant_use_suggestion,
+.cp_cff_18 .cff-spinner .cff-spinner-down,
+.cp_cff_18 .cff-spinner .cff-spinner-up,
+.cp_cff_18 #fbuilder .pbSubmit,
+.cp_cff_18 #fbuilder .pbreak .pbPrevious,
+.cp_cff_18 #fbuilder .pbreak .pbNext,
+.cp_cff_18 #fbuilder button:not([class*="trumbowyg"]),
+.cp_cff_18 #fbuilder input[type="submit"],
+.cp_cff_18 #fbuilder input[type="button"],
+.cp_cff_18 #fbuilder input[type="reset"] {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 2;
+  min-height: 44px;
+  padding: 10px 30px;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  -webkit-appearance: none;
+  border-radius: var(--cff-18-radius-md);
+  white-space: nowrap;
+  box-sizing: border-box;
+  vertical-align: baseline;
+  background: var(--cff-18-color-brand-500);
+  border-color: var(--cff-18-color-brand-500);
+  color: #fff;
+  text-shadow: none;
+}
+
+/* Buttons focus — :focus applies on any focus (click, keyboard, programmatic); outline:0 overrides browser default */
+.cp_cff_18 #fbuilder .pbSubmit:focus,
+.cp_cff_18 #fbuilder .pbreak .pbNext:focus,
+.cp_cff_18 #fbuilder .pbreak .pbPrevious:focus,
+.cp_cff_18 #fbuilder button:not([class*="trumbowyg"]):focus,
+.cp_cff_18 #fbuilder input[type="submit"]:focus,
+.cp_cff_18 #fbuilder input[type="button"]:focus,
+.cp_cff_18 #fbuilder input[type="reset"]:focus {
+  outline: 0;
+  box-shadow: var(--cff-18-shadow-focus);
+}
+
+/* Datepicker inline focus — :focus-within fires when any cell or descendant has focus */
+.cp_cff_18 #fbuilder .ui-datepicker-inline:focus-within {
+  outline: 0;
+  box-shadow: var(--cff-18-shadow-focus);
+}
+
+/* Datepicker nav focus */
+.cp_cff_18 #fbuilder .ui-datepicker-prev:focus,
+.cp_cff_18 #fbuilder .ui-datepicker-next:focus {
+  outline: 0;
+  box-shadow: var(--cff-18-shadow-focus);
+}
+
+.cp_cff_18 #fbuilder .cff-spinner .cff-spinner-down,
+.cp_cff_18 #fbuilder .cff-spinner .cff-spinner-up {
+  padding: 5px 0;
+}
+
+.cp_cff_18 .cff-spinner .cff-spinner-down,
+.cp_cff_18 .cff-spinner .cff-spinner-up {
+  padding: 0 5px;
+  line-height: initial;
+}
+
+.cp_cff_18 #fbuilder button:not([class*="trumbowyg"])::-moz-focus-inner,
+.cp_cff_18 #fbuilder input[type="reset"]::-moz-focus-inner,
+.cp_cff_18 #fbuilder input[type="button"]::-moz-focus-inner,
+.cp_cff_18 #fbuilder input[type="submit"]::-moz-focus-inner {
+  border-width: 0;
+  border-style: none;
+  padding: 0;
+}
+
+/* Secondary button (.pbPrevious) — visual separation from primary */
+.cp_cff_18 #fbuilder .pbreak .pbPrevious {
+  background: var(--cff-18-color-surface-base);
+  color: var(--cff-18-color-text-primary);
+  border-color: #7e8993;
+}
+.cp_cff_18 #fbuilder .pbreak .pbPrevious:hover {
+  background: var(--cff-18-color-surface-sunken);
+  border-color: var(--cff-18-color-border-strong);
+}
+
+/* Button hover */
+#cff_ai_assistant_use_suggestion:hover,
+.cp_cff_18 #fbuilder .pbSubmit:hover,
+.cp_cff_18 #fbuilder .pbreak .pbPrevious:hover,
+.cp_cff_18 #fbuilder .pbreak .pbNext:hover,
+.cp_cff_18 #fbuilder button:not([class*="trumbowyg"]):hover,
+.cp_cff_18 #fbuilder input[type="submit"]:hover,
+.cp_cff_18 #fbuilder input[type="button"]:hover,
+.cp_cff_18 #fbuilder input[type="reset"]:hover {
+  background: var(--cff-18-color-brand-600);
+  border-color: var(--cff-18-color-brand-600);
+  color: #fff;
+}
+
+/* Pagination */
+.cp_cff_18 #fbuilder .pbEnd .pbNext,
+.cp_cff_18 #fbuilder .pb0 .pbPrevious {
+  display: none;
+}
+
+/* Required indicator */
+.cp_cff_18 #fbuilder .r { color: #FF0000; }
+
+/* Pagination container */
+.cp_cff_18 #fbuilder .cff-form-buttons-container {
+  margin-top: var(--cff-18-space-5);
+  padding-top: var(--cff-18-space-4);
+  border-top: 1px solid var(--cff-18-color-border-default);
+  display: flex;
+  gap: var(--cff-18-space-3);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ─── Slider (modern) ─── */
+
+.cp_cff_18 #fbuilder .slider {
+    background: var(--cff-18-color-border-default);
+    border-radius: 9999px;
+    border: 0;
+    height: 0.3em;
+}
+.cp_cff_18 #fbuilder .ui-slider-range {
+    background: var(--cff-18-color-brand-500);
+    border-radius: 9999px;
+}
+.cp_cff_18 #fbuilder .ui-slider-handle {
+    background: var(--cff-18-color-text-onbrand);
+    border: 2px solid var(--cff-18-color-brand-500);
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    top: 50% !important;
+    margin-left: -12px;
+    transform: translateY(-50%);
+    box-shadow: var(--cff-18-shadow-sm);
+    cursor: pointer;
+    transition:
+        transform var(--cff-18-transition-fast),
+        box-shadow var(--cff-18-transition-fast);
+}
+.cp_cff_18 #fbuilder .ui-slider-handle:hover {
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: var(--cff-18-shadow-md);
+}
+.cp_cff_18 #fbuilder .ui-slider-handle:focus {
+    outline: 0;
+    box-shadow: var(--cff-18-shadow-focus);
+}
+.cp_cff_18 #fbuilder .cff-slider-field .mark {
+    top: 5px;
+    /* Background, width, height, border-radius: handled by JS plugin inline styles */
+}
+.cp_cff_18 #fbuilder .corner-captions,
+.cp_cff_18 #fbuilder .slider-caption {
+    margin-top: var(--cff-18-space-3);
+    color: var(--cff-18-color-text-secondary);
+    /* font-size: inherits from parent (same as labels) */
+}
+
+/* Timeslots */
+.cp_cff_18 #fbuilder .cff-timeslot{border-color:var(--cff-18-color-brand-500);}
+.cp_cff_18 #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover{border-color:var(--cff-18-color-brand-500);color:var(--cff-18-color-brand-500);}
+.cp_cff_18 #fbuilder .cff-timeslot[data-selected="1"]{border-color:var(--cff-18-color-brand-500);color:white;background:var(--cff-18-color-brand-500);}
+.cp_cff_18 #fbuilder .cff-timeslot-selected{background:var(--cff-18-color-brand-500);border-color:var(--cff-18-color-brand-500);}
+.cp_cff_18 #fbuilder .cff-timeslot-selected::after{color:var(--cff-18-color-brand-500);}
+
+/* Data Table */
+.cp_cff_18 #fbuilder .cff-datatable-field [type="search"] {
+	margin-left: 10px;
+}
+
+.cp_cff_18 #fbuilder .cff-datatable-field .paginate_button {
+	border-radius: var(--cff-18-radius-md);
+	box-shadow: none;
+}
+
+.cp_cff_18 #fbuilder .cff-datatable-field .paginate_button:hover {
+	background: var(--cff-18-color-surface-base);
+	color: var(--cff-18-color-text-primary) !important;
+	border-color: #7e8993;
+}
+
+.cp_cff_18 #fbuilder .cff-qrcode-container .cff-qrcode-field-close,
+.cp_cff_18 #fbuilder .cff-datatable-field .paginate_button.current,
+.cp_cff_18 #fbuilder .cff-datatable-field .paginate_button.current:hover {
+	background: var(--cff-18-color-surface-base);
+	color: var(--cff-18-color-text-primary);
+	background: var(--cff-18-color-brand-500);
+	border-color: var(--cff-18-color-brand-500);
+	color: #fff !important;
+}
+
+/* Fieldset / Legend */
+.cp_cff_18 #fbuilder fieldset {
+  border: 1px solid var(--cff-18-color-border-strong);
+  border-radius: var(--cff-18-radius-md);
+}
+
+.cp_cff_18 #fbuilder fieldset legend {
+  border: 0;
+  border-radius: 0;
+  padding: 0 var(--cff-18-space-3);
+  background: transparent;
+  font-weight: 600;
+  color: var(--cff-18-color-text-primary);
+}
+
+.cp_cff_18 #fbuilder .fields.section_breaks > label,
+.cp_cff_18 #fbuilder fieldset legend {
+  font-size: var(--cff-18-text-lg);
+  font-weight: 600;
+  color: var(--cff-18-color-text-primary);
+  margin: var(--cff-18-space-4) 0 var(--cff-18-space-3);
+}
+
+.cp_cff_18 #fbuilder .fields.section_breaks .section_break { border: 0; }
+
+/* Field labels */
+.cp_cff_18 #fbuilder .fields > label { font-weight: 500; }
+
+/* Misc */
+.cp_cff_18 #fbuilder .discount-container {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.cp_cff_18 #fbuilder .cff-date-field .dfield input,
+.cp_cff_18 #fbuilder .cff-date-field .dfield select {
+  vertical-align: top;
+}
+
+/* File upload */
+.cp_cff_18 #fbuilder .cff-file-clearer {
+  color: var(--cff-18-color-text-tertiary);
+  cursor: pointer;
+  transition: color var(--cff-18-transition-fast);
+}
+.cp_cff_18 #fbuilder .cff-file-clearer:hover {
+  color: var(--cff-18-color-danger);
+}
+.cp_cff_18 #fbuilder .cff-file-field .cff-file-field-container {
+  border: 1.5px dashed var(--cff-18-color-border-strong);
+  border-radius: var(--cff-18-radius-md);
+  padding: var(--cff-18-space-5) var(--cff-18-space-3);
+  min-height: 120px;
+  background: var(--cff-18-color-surface-base);
+  transition:
+      border-color var(--cff-18-transition-fast),
+      background-color var(--cff-18-transition-fast);
+  position: relative;
+}
+.cp_cff_18 #fbuilder .cff-file-field .cff-file-field-container:hover {
+  border-color: var(--cff-18-color-brand-500);
+  background: var(--cff-18-color-brand-50);
+}
+.cp_cff_18 #fbuilder span.files-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cff-18-space-2);
+  margin-bottom: var(--cff-18-space-2);
+}
+.cp_cff_18 #fbuilder span.files-list img {
+  border: 1px solid var(--cff-18-color-border-default);
+  border-radius: var(--cff-18-radius-sm);
+}
+.cp_cff_18 #fbuilder .cff-file-field input {
+  border: 1px solid var(--cff-18-color-border-default);
+  padding: var(--cff-18-space-3);
+  color: var(--cff-18-color-text-primary);
+}
+
+/* Repeater */
+.cp_cff_18 #fbuilder .cff-repeater-field .cff-repeater-rows-container {
+	padding: var(--cff-18-space-3);
+	background: var(--cff-18-color-surface-sunken);
+	border-radius: var(--cff-18-radius-md);
+}
+
+@media screen and (max-width: 480px) {
+  .cp_cff_18 #fbuilder .cff-form-buttons-container {
+    flex-direction: column-reverse;
+  }
+}
+
+/* Record Button */
+.cp_cff_18 #fbuilder .cff-record-btn {
+	border-radius: var(--cff-18-radius-md);
+	background: var(--cff-18-color-brand-500);
+	border-color: var(--cff-18-color-brand-500);
+	color: #fff;
+	text-shadow: none;
+}
+
+.cp_cff_18 #fbuilder .cff-record-btn:hover {
+	background: var(--cff-18-color-brand-600);
+	border-color: var(--cff-18-color-brand-600);
+	color: #fff;
+}

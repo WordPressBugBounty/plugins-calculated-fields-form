@@ -12,4 +12,8 @@ fbuilderjQuery(function(){
     $('.cp_cff_12').on( 'cff-couponbutton-added', function() {
         $( this ).find( '.apply-coupon' ).addClass( 'bttn-unite bttn-md bttn-primary' );
     });
+
+	$('.cp_cff_12').on('change', '.cff-repeater-field [type="hidden"]', function() {
+		$('.cp_cff_12 .cff-repeater-field .cff-repeater-remove-row').addClass('bttn-unite bttn-md bttn-primary');
+	});
 });

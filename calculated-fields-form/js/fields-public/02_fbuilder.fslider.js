@@ -225,7 +225,9 @@
 							'<div class="dfield slider-container">'+
 								typeValuesComponents()+
 								'<input id="'+me.name+'" name="'+me.name+'" class="field" type="hidden" value="'+cff_esc_attr(me.predefined)+'"/>'+
-								'<div id="'+me.name+'_slider" class="slider '+me.size+'"></div>'+
+								'<div class="slider-component-container '+cff_esc_attr(me.size)+'">'+
+								'<div id="'+me.name+'_slider" class="slider large"></div>'+
+								'</div>'+
 								'<div class="corner-captions '+cff_esc_attr(me.size)+'">'+
 									'<span class="left-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_left'))+'">'+cff_sanitize(me.minCaption, true)+'</span>'+
 									'<span class="right-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_right'))+'">'+cff_sanitize(me.maxCaption, true)+'</span>'+

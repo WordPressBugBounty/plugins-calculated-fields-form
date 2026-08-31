@@ -403,6 +403,31 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			return ( ! empty( $obj ) ) ? $obj : false;
 		} // End unserialize.
 
+		public static function apply_default_visual_template( $form_structure ) {
+			if ( ! is_string( $form_structure ) || $form_structure === '' ) {
+				return $form_structure;
+			}
+
+			$default = get_option(
+				'CP_CALCULATEDFIELDSF_DEFAULT_template',
+				defined( 'CP_CALCULATEDFIELDSF_DEFAULT_template' ) ? CP_CALCULATEDFIELDSF_DEFAULT_template : ''
+			);
+
+			$structure = json_decode( $form_structure, true );
+			if ( ! is_array( $structure ) ) {
+				return $form_structure;
+			}
+			if ( ! isset( $structure[1] ) || ! is_array( $structure[1] ) ) {
+				return $form_structure;
+			}
+			if ( ! isset( $structure[1][0] ) || ! is_array( $structure[1][0] ) ) {
+				return $form_structure;
+			}
+
+			$structure[1][0]['formtemplate'] = $default;
+			return json_encode( $structure );
+		} // End apply_default_visual_template
+
 		/**
 		 * Returns the real value.
 		 *

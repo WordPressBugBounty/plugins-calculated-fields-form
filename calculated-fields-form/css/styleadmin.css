@@ -193,6 +193,11 @@
 #fieldlist textarea{
 	border-radius:4px;
 }
+#fieldlist input[type="checkbox"],
+#fieldlist input[type="radio"]{margin:5px 10px 10px 0;}
+#fieldlist input[type="checkbox"]{appearance:checkbox;}
+#fieldlist input[type="radio"]{appearance:radio;}
+
 #fieldlist .cff-button-drag{width:90% !important;}
 
 #fieldlist .fields .ui-state-highlight{
@@ -493,10 +498,11 @@ input.large, select.large, textarea.large, .large{width:99%;}
 textarea {resize: none}
 .form-builder .ctrlsColumn textarea{resize:vertical;}
 .one_column{}
-.two_column{float:left;width:48%}
-.three_column{float:left;width:30%}
-.side_by_side{float:left;}
+.two_column{float:left;width:48%;margin-right:2%;}
+.three_column{float:left;width:30%;margin-right:3%;}
+.side_by_side{float:left;margin-right:10px;}
 
+#fbuilder .fields>label{display:inline-block;margin-bottom:5px;}
 .top_aligned .fields label,
 #fieldlist .top_aligned.fields label{float:none;width:100%;}
 .top_aligned .fields .dfield,

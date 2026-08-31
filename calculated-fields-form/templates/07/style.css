@@ -178,3 +178,20 @@ body {
 
 .cp_cff_minimalist #fbuilder .cff-file-field .cff-file-field-container { background-color: #FFFFFF; border: 1.5px solid #dddddd; }
 .cp_cff_minimalist #fbuilder .cff-file-field .cff-file-field-container:hover { background-color: rgba(222, 222, 222, 0.3); }
+
+/* Switch Components */
+.cp_cff_minimalist #fbuilder .cff-switch-container input:checked+span.cff-switch {
+	background: #27A0A0;
+}
+
+/* Recording */
+.cp_cff_minimalist #fbuilder .cff-record-av-field .cff-record-btn {
+	box-shadow: inset 0px 1px 0px 0px #45D6D6;
+	background-color: #108484;
+	border: 1px solid #27A0A0;
+}
+
+.cp_cff_minimalist #fbuilder .cff-record-av-field .cff-record-btn:hover {
+	background: linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+	background-color: #34CACA;
+}

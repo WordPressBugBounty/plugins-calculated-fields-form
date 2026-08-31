@@ -76,6 +76,8 @@ body {
   box-shadow: none !important;
 }
 
+.cp_cff_professional #fbuilder .ui-datepicker-inline *{text-shadow: none !important;}
+
 /* Scrollbar */
 .cp_cff_professional .select2-results__options::-webkit-scrollbar,
 .cp_cff_professional textarea::-webkit-scrollbar,
@@ -220,3 +222,23 @@ body {
 .cp_cff_professional #fbuilder .cff-timeslot-selected { border-color: #bfd255; background: #bfd255; text-shadow: none; color: #3d3627; }
 .cp_cff_professional #fbuilder .cff-timeslot[data-active="1"][data-selected="0"]:hover { border-color: #bfd255; color: #bfd255; }
 .cp_cff_professional #fbuilder .cff-timeslot-selected::after { border-color: #bfd255; color: #3d3627; }
+
+/* Data Tables*/
+.cp_cff_professional #fbuilder .cff-datatable-field tbody * {
+	text-shadow: none;
+	color: #100e0a;
+}
+
+.cp_cff_professional #fbuilder .cff-datatable-field .dataTables_info,
+.cp_cff_professional #fbuilder .cff-datatable-field .paginate_button {
+	color: white !important;
+}
+
+.cp_cff_professional #fbuilder .cff-datatable-field .paginate_button.current {
+	color: #100e0a !important;
+	box-shadow: none !important;
+}
+
+.cp_cff_professional #fbuilder .cff-datatable-field tbody .selected td {
+	background: #caab80;
+}

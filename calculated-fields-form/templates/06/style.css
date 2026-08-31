@@ -3,7 +3,6 @@
 .cp_cff_clean #fbuilder {
   color: #384248;
   font-family: "MuseoSans-100", "Lucida Grande", "Lucida Sans Unicode", Verdana, "Jamrul", sans-serif;
-  text-shadow: 0px 1px 0px #fff;
 }
 
 .cp_cff_clean #fbuilder .fields.section_breaks label,
@@ -152,3 +151,12 @@
 
 .cp_cff_clean #fbuilder .cff-file-field .cff-file-field-container { background-color: #FFFFFF; border-color: #D7D9DA; }
 .cp_cff_clean #fbuilder .cff-file-field .cff-file-field-container:hover { background-color: #dedede; }
+
+/* Recording */
+.cp_cff_clean #fbuilder .cff-record-av-field .cff-record-btn {
+	background: #005E8A;
+}
+
+.cp_cff_clean #fbuilder .cff-record-av-field .cff-record-btn:hover {
+	background: #024a6b;
+}

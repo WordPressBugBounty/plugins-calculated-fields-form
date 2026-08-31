@@ -153,6 +153,7 @@
 			},
 
 			init: function(){
+				this.matrix = [];
 				if (this.fields.length) {
 					let row = {};
 					for (let i in this.fields) {

@@ -8,7 +8,7 @@ fbuilderjQuery.fbuilderjQueryGenerator = function(){
 	(function($) {
 		// Namespace of fbuilder
 		$.fbuilder = $.fbuilder || {};
-		$.fbuilder.default_template = '<?php print esc_js( CP_CALCULATEDFIELDSF_DEFAULT_template ); ?>';
+		$.fbuilder.default_template = '<?php print esc_js( get_option('CP_CALCULATEDFIELDSF_DEFAULT_template', CP_CALCULATEDFIELDSF_DEFAULT_template) ); ?>';
 		$.fbuilder[ 'objName' ] = 'fbuilderjQuery';
 <?php
 // Load Module files.

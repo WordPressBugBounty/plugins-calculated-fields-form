@@ -390,7 +390,17 @@
 
                     '<label><input type="checkbox" name="sShowDropdown" id="sShowDropdown" '+((this.showDropdown)?"checked":"")+'/> Show Dropdown Year and Month</label><div id="divdropdownRange" style="display:'+((this.showDropdown)?"":"none")+'">Year Range [<a class="helpfbuilder" text="The range of years displayed in the year drop-down: either relative to today\'s year (&quot;-nn:+nn&quot;), absolute (&quot;nnnn:nnnn&quot;), or combinations of these formats (&quot;nnnn:-nn&quot;)">help?</a>]: <input aria-label="Dropdown range" type="text" name="sDropdownRange" id="sDropdownRange" value="'+cff_esc_attr(this.dropdownRange)+'"/></div>'+
 
-					'<div class="working_dates"><label>Selectable dates </label><input aria-label="Sunday" name="sWD0" id="sWD0" value="0" type="checkbox" '+((this.working_dates[0])?"checked":"")+'/>Su<input aria-label="Monday" name="sWD1" id="sWD1" value="1" type="checkbox" '+((this.working_dates[1])?"checked":"")+' />Mo<input aria-label="Tuesday" name="sWD2" id="sWD2" value="2" type="checkbox" '+((this.working_dates[2])?"checked":"")+' />Tu<input aria-label="Wednesday" name="sWD3" id="sWD3" value="3" type="checkbox" '+((this.working_dates[3])?"checked":"")+' />We<input aria-label="Thursday" name="sWD4" id="sWD4" value="4" type="checkbox" '+((this.working_dates[4])?"checked":"")+' />Th<input aria-label="Friday" name="sWD5" id="sWD5" value="5" type="checkbox" '+((this.working_dates[5])?"checked":"")+' />Fr<input aria-label="Saturday" name="sWD6" id="sWD6" value="6" type="checkbox" '+((this.working_dates[6])?"checked":"")+' />Sa</div>'+
+					'<div class="working_dates"><label>Selectable dates </label>' +
+						'<div style="display:flex;justify-content:space-between;">' +
+						'<label><input aria-label="Sunday" name="sWD0" id="sWD0" value="0" type="checkbox" ' + ((this.working_dates[0]) ? "checked" : "") + '/>Su</label>' +
+						'<label><input aria-label="Monday" name="sWD1" id="sWD1" value="1" type="checkbox" ' + ((this.working_dates[1]) ? "checked" : "") + ' />Mo</label>' +
+						'<label><input aria-label="Tuesday" name="sWD2" id="sWD2" value="2" type="checkbox" ' + ((this.working_dates[2]) ? "checked" : "") + ' />Tu</label>' +
+						'<label><input aria-label="Wednesday" name="sWD3" id="sWD3" value="3" type="checkbox" ' + ((this.working_dates[3]) ? "checked" : "") + ' />We</label>' +
+						'<label><input aria-label="Thursday" name="sWD4" id="sWD4" value="4" type="checkbox" ' + ((this.working_dates[4]) ? "checked" : "") + ' />Th</label>' +
+						'<label><input aria-label="Friday" name="sWD5" id="sWD5" value="5" type="checkbox" ' + ((this.working_dates[5]) ? "checked" : "") + ' />Fr</label>' +
+						'<label><input aria-label="Saturday" name="sWD6" id="sWD6" value="6" type="checkbox" ' + ((this.working_dates[6]) ? "checked" : "") + ' />Sa</label>' +
+						'</div>' +
+					'</div>' +
 
 					// Fields for timeslots
 					'<hr></hr>'+

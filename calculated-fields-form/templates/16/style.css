@@ -296,7 +296,6 @@
 .cp_cff_16 #fbuilder .cff-radiobutton-field .dfield label,
 .cp_cff_16 #fbuilder .cff-checkbox-field .dfield label {
     display: inline-flex;
-    align-items: center;
 }
 
 .cp_cff_16 #fbuilder .cff-radiobutton-field .one_column,
@@ -778,6 +777,8 @@
 .cp_cff_16 #fbuilder .cff-popup-header {
     background: var(--cff16-surface-warm);
     border-bottom: 2px solid var(--cff16-border);
+	border-top-left-radius: var(--cff16-radius-sm);
+	border-top-right-radius: var(--cff16-radius-sm);
 }
 
 .cp_cff_16 #fbuilder .cff-popup-header:not(:empty) { min-height: 36px; }
@@ -815,6 +816,11 @@
     background: var(--cff16-surface);
 }
 
+.cp_cff_16 #fbuilder .cff-datatable-field .paginate_button {
+	color: var(--cff16-text) !important;
+}
+
+.cp_cff_16 #fbuilder .cff-datatable-field .paginate_button:hover,
 .cp_cff_16 #fbuilder .cff-datatable-field .paginate_button.current {
     background: var(--cff16-surface-warm) !important;
     border-color: var(--cff16-primary) !important;
@@ -913,4 +919,14 @@
     .cp_cff_16 #fbuilder .medium,
     .cp_cff_16 #fbuilder .small { width: 100%; }
     .cp_cff_16 #fbuilder { padding: 28px; border-radius: 20px; }
+}
+/* Record Button */
+.cp_cff_16 #fbuilder .cff-record-btn {
+	background: linear-gradient(135deg, var(--cff16-primary) 0%, var(--cff16-primary-dark) 100%);
+	color: #ffffff;
+}
+
+.cp_cff_16 #fbuilder .cff-record-btn:hover {
+	transform: translateY(-3px);
+	box-shadow: var(--cff16-shadow-md);
 }

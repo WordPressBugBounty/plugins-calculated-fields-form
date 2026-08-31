@@ -351,3 +351,17 @@ body{
 
 .cp_cff_14 #fbuilder .cff-file-field .cff-file-field-container{border: 1.5px dashed #cccccc;background-color:white;}
 .cp_cff_14 #fbuilder .cff-file-field .cff-file-field-container:hover{background-color: #ececec;}
+
+/* Record Button */
+.cp_cff_14 #fbuilder .cff-record-btn {
+	border-radius: 0;
+	background: #3cce88;
+	border-color: #3cce88;
+	color: #fff;
+	text-shadow: none;
+}
+
+.cp_cff_14 #fbuilder .cff-record-btn:hover {
+	background: #33ad73;
+	border-color: #33ad73;
+}
