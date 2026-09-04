@@ -219,6 +219,9 @@ if ( $message ) {
 ?>
 <div class="wrap cff-main-backend">
 <div class="cff-navigation-main-menu">
+	<?php
+		require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_using_ai_agents.inc.php';
+	?>
 	<div style="text-align:right;"><?php include_once dirname( __FILE__) . '/cpcff_video_tutorial.inc.php'; ?></div>
 </div><div style="clear:both;"></div>
 <?php

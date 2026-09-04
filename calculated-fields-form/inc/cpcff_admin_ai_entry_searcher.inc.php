@@ -378,9 +378,9 @@ if (! class_exists('CPCFF_AI_ENTRY_SEARCHER')) {
 
         /**
          * Normalize a raw submitted value for JSON output.
-         * Mirrors the logic of CPCFF_ABILITY_API::decode_field_value()
-         * (defined in cpcff_connector_api.inc.php) because that helper
-         * is a private instance method and not callable from here.
+         *
+         * Intentionally duplicates the equivalent helper in CPCFF_ABILITY_API;
+         * accepted technical debt to keep MCP transport and admin UI decoupled.
          *
          * @param mixed $raw
          * @return string|array
@@ -480,25 +480,25 @@ if (! class_exists('CPCFF_AI_ENTRY_SEARCHER')) {
             }
 
             // From-date filter (timestamp, inclusive).
-            if (isset($input['from_date'])) {
+            if (isset($input['from_date']) && is_numeric($input['from_date'])) {
                 $where[]  = 'UNIX_TIMESTAMP(e.time) >= %d';
                 $params[] = intval($input['from_date']);
             }
 
             // To-date filter (timestamp, inclusive).
-            if (isset($input['to_date'])) {
+            if (isset($input['to_date']) && is_numeric($input['to_date'])) {
                 $where[]  = 'UNIX_TIMESTAMP(e.time) <= %d';
                 $params[] = intval($input['to_date']);
             }
 
             // Payment status filter.
-            if (isset($input['if_paid'])) {
+            if (isset($input['if_paid']) && is_numeric($input['if_paid'])) {
                 $where[]  = 'e.paid = %d';
                 $params[] = intval($input['if_paid']);
             }
 
             // Notification e-mail filter.
-            if (! empty($input['email_address'])) {
+            if (! empty($input['email_address']) && is_string($input['email_address'])) {
                 $email = sanitize_email($input['email_address']);
 
                 if (! is_email($email)) {

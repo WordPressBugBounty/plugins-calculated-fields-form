@@ -32,7 +32,7 @@
 									function(decodedText, decodedResult){me.setVal(decodedText);$('#html5-qrcode-button-camera-stop').trigger('click');},
 									function(error){console.warn(`Code scan error = ${error}`);}
 								);
-								qrc.prepend('<span class="cff-qrcode-field-close" onclick="fbuilderjQuery(this).parent().html(\'\')">X</span>');
+								qrc.prepend('<span class="cff-qrcode-field-close" onclick="fbuilderjQuery(this).parent().html(\'\')">&times;</span>');
 							}
 						}
 					);

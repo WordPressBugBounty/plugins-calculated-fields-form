@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.5.0.7 =
+
+* Implements an MCP that allows external AI agents, such as Claude Code, OpenCode, Codex, and any other agent supporting MCP integration, to build new forms and generate submission reports.
+
 = 5.5.0.6 =
 
 * Introduces a new Template 18, a modernized variant of Template 13, and sets it as the plugin’s default template.

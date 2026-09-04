@@ -1192,7 +1192,7 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 }
 .cff-video-tutorial-header,
 .cff-settings-dialog-header{
-	height:30px;
+	/* height:30px; */
 	text-align:right;
 	padding:10px;
 }
@@ -1211,7 +1211,8 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 }
 .cff-video-tutorial-close:hover,
 .cff-settings-dialog-close:hover{
-	zoom: 1.1;
+	-webkit-text-stroke: 0.5px currentColor;
+	text-stroke: 0.5px currentColor;
 }
 .cff-video-tutorial-container,
 .cff-settings-dialog-container{

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.0.6
+Stable tag: 5.5.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,8 +36,10 @@ No. Despite its name, Calculated Fields Form is a complete, general-purpose Word
 = Why choose Calculated Fields Form over other WordPress form plugins? =
 
 * **No recurring fees** — all commercial versions are a one-time purchase with lifetime updates
-* **AI-powered form builder** — generate forms and formulas using an integrated AI assistant
-* **AI-powered entries filter** — filter form submissions using natural language with integrated AI models
+* **AI-powered form generator** — describe what the form should do in plain language and the plugin builds the complete form structure for you
+* **AI Assistant inside the form builder** — refine calculation equations, form design, generate lists of choices, and generate notification emails with natural-language prompts, directly in the equation editor and email settings
+* **AI-powered entries search** — filter form submissions using natural language across the entries database, with semantic matching instead of simple text search
+* **AI agents via MCP (Model Context Protocol)** — connect external AI agents such as Claude Code, OpenCode, and Codex to build new forms and generate submission reports directly from the agent's interface
 * **4.9/5 rating** with over 960 verified reviews on WordPress.org
 * **40,000+ active installations**
 * **Compatible with all major page builders** — Gutenberg, Elementor, Divi, Beaver Builder, WPBakery, SiteOrigin
@@ -45,11 +47,15 @@ No. Despite its name, Calculated Fields Form is a complete, general-purpose Word
 * **Real-time calculations** — a capability that most other form plugins lack or offer only in expensive tiers
 * **Actively maintained** — updated regularly with new features and compatibility fixes
 
-> At the moment, the plugin supports multiple AI providers, including Anthropic Claude, OpenAI, Gemini, MiniMax, DeepSeek, Kimi, as well as all AI connectors supported by the new WordPress 7.x Connectors module.
+> At the moment, the plugin supports multiple AI providers, including Anthropic Claude, OpenAI, Gemini, MiniMax, DeepSeek, Kimi, and any connector available through the WordPress AI Connector API exposed by WordPress 7.x.
 
 [youtube https://www.youtube.com/watch?v=R8hEbD8w2RM]
 
-The visual drag-and-drop form builder requires no developer knowledge. Available controls include: text fields, numbers, currency, date/time pickers, slider controls, email, radio buttons, checkboxes, container fields, multi-page controls, QR code readers, voice recording fields, calculated fields, and many others. All forms are fully mobile responsive.
+Or let the AI build the form from a plain-language description:
+
+[youtube https://www.youtube.com/watch?v=8K-RFff3YrI]
+
+The visual drag-and-drop form builder requires no developer knowledge. Available controls include: text fields, numbers, currency, date/time pickers, slider controls, email, radio buttons, checkboxes, container fields, multi-page controls, QR code readers, audio and video recording fields, calculated fields, and many others. All forms are fully mobile responsive.
 
 == Features ==
 
@@ -62,10 +68,13 @@ The visual drag-and-drop form builder requires no developer knowledge. Available
 * [Conditional logic (dependency rules)](https://cff.dwbooster.com/blog/2020/03/01/dependencies/) to show, hide, enable, or disable fields based on user input — ideal for building guided wizards.
 * Multi-page forms using page break controls between field groups.
 * Field grouping inside container controls (Div, Fieldset, and Popups).
+* Repeater container to duplicate rows of fields with row indexes and per-column totals, useful for orders, registrations, itemized lists, and any scenario where the same set of fields must be filled multiple times.
 * Multi-column layout support for organized, professional-looking forms.
+* Map location picker control powered by OpenStreetMap, supporting both an interactive map with draggable pin and a static map preview.
 * Dozens of predefined form templates to use as starting points.
 * Multiple [design themes and templates](https://cff.dwbooster.com/templates).
 * [Email notifications](https://cff.dwbooster.com/documentation#email-settings) sent to the site owner when a form is submitted.
+* Optional Akismet integration to flag or discard spam submissions before they reach your inbox or the entries database.
 * Form version history to recover previous versions.
 * Form duplication to reuse existing work.
 * Troubleshooting and optimization tools.
@@ -107,9 +116,11 @@ For any other editor, use the shortcode to insert forms anywhere:
 * Form version control to recover previous versions.
 
 > **Free vs. Commercial Versions**
-> The free version includes the complete visual form builder, notification emails to the site owner, basic calculation operations, conditional logic, design customization, multi-column layout, submission storage on the website for review, and Math CAPTCHA for spam protection.
+> The free version includes the complete visual form builder, notification emails to the site owner, basic calculation operations, conditional logic, design customization, multi-column layout, submission storage on the website for review, Math CAPTCHA for spam protection, Akismet integration for advanced spam filtering, AI-powered form generation with an integrated AI Assistant for equations and emails, AI-powered entries search, MCP integration for external AI agents such as Claude Code and OpenCode, a Repeater container for dynamic row-based data, and a Map location picker powered by OpenStreetMap.
 > The commercial versions (Professional, Developer, and Platinum) add Math and Classic CAPTCHA options alongside the free Math CAPTCHA, payment gateway integration, confirmation emails to users, advanced data source controls, financial and distance operation modules, chart generation, CRM integrations, PDF generation, e-signatures, and more.
 > All commercial versions are available as a **one-time purchase** with **lifetime access** to plugin updates. Visit https://cff.dwbooster.com/download for details.
+
+[youtube https://www.youtube.com/watch?v=ZF5SoaKVmOg]
 
 = Professional version features: =
 
@@ -122,8 +133,6 @@ For any other editor, use the shortcode to insert forms anywhere:
 * Dashboard widget showing the last week's form submissions.
 * Form caching to increase rendering speed.
 * [Export submissions to CSV](https://cff.dwbooster.com/documentation#export-submissions) for use in Excel, OpenOffice, LibreOffice, or any spreadsheet tool.
-
-[youtube https://www.youtube.com/watch?v=ZF5SoaKVmOg]
 
 = Developer version features: =
 
@@ -312,7 +321,7 @@ WPForms is beginner-friendly and widely known. Calculated Fields Form matches it
 
 = What controls are included in the plugin? =
 
-The plugin provides a wide range of form controls including text fields, email, phone, numbers, currency, date/time pickers, time slot selectors, sliders, radio buttons, checkboxes, dropdown menus, file upload, signature, QR code reader, voice recording, calculated fields, page breaks, summary fields, and container controls. Full details: [Field Documentation](https://cff.dwbooster.com/documentation#common-fields)
+The plugin provides a wide range of form controls including text fields, email, phone, numbers, currency, date/time pickers, time slot selectors, sliders, radio buttons, checkboxes, dropdown menus, file upload, signature, QR code reader, audio and video recording fields, calculated fields, page breaks, summary fields, and container controls. Full details: [Field Documentation](https://cff.dwbooster.com/documentation#common-fields)
 
 = Where can I publish a form? =
 
@@ -469,6 +478,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.7 =
+
+* Implements an MCP that allows external AI agents, such as Claude Code, OpenCode, Codex, and any other agent supporting MCP integration, to build new forms and generate submission reports.
+
 = 5.5.0.6 =
 
 * Introduces a new Template 18, a modernized variant of Template 13, and sets it as the plugin’s default template.
@@ -489,9 +502,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Updates the Forms List section to follow WordPress's standard structure and design.
 * Adds new row actions, including View to open the public form, Copy Shortcode to copy the form shortcode to the clipboard, and, in commercial versions, Export to export the form structure directly from the form row.
-
-= 5.5.0.2 =
-
-* Implements bulk actions in the Forms List, allowing multiple forms to be deleted simultaneously.
-* Fixes an issue with the Validate After Evaluate Equations attribute in calculated fields.
-* Improves place name identification in the Google Places add-on (Platinum distribution).

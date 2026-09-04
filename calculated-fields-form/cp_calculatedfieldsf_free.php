@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.5.0.6
+ * Version: 5.5.0.7
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.0.6' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.0.7' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -57,6 +57,9 @@ require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_email_diagnostic.inc.p
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_akismet.inc.php';
 
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/captcha/cpcff_captcha.inc.php'; // Captcha
+
+require_once 'inc/cpcff_connector_api.inc.php'; // WordPress ability
+require_once 'inc/cpcff_mcp_server.inc.php'; // WordPress MCP
 
 // Global variables.
 CPCFF_MAIN::instance(); // Main plugin's object.

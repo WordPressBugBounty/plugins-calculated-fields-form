@@ -121,66 +121,72 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'claude-haiku-4-5-20251001',
                         'api_key_url'   => 'https://console.anthropic.com/settings/keys',
                         'models'        => [
-                            'claude-fable-5' => [
-                                'title'           => esc_html__('Claude Fable 5 (Most Powerful)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant'    => true,
-                                'max_tokens'      => 96000
-                            ],
+							'claude-fable-5-1' => [
+								'title'           => esc_html__('Claude Fable 5.1 (Most Powerful)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
 							'claude-opus-5' => [
 								'title'           => esc_html__('Claude Opus 5 (Most Capable)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 128000
 							],
+							'claude-sonnet-5' => [
+								'title' => esc_html__('Claude Sonnet 5 (Recommended)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
+							'claude-haiku-4-5-20251001' => [
+								'title' => esc_html__('Claude Haiku 4.5 (Fast)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
+							'claude-fable-5' => [
+								'title'           => esc_html__('Claude Fable 5 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 96000
+							],
 							'claude-opus-4-8' => [
-                                'title' => esc_html__('Claude Opus 4.8', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'claude-opus-4-7' => [
-                                'title' => esc_html__('Claude Opus 4.7', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'claude-opus-4-6' => [
-                                'title' => esc_html__('Claude Opus 4.6', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'claude-opus-4-5-20251101' => [
-                                'title' => esc_html__('Claude Opus 4.5', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'claude-sonnet-5' => [
-                                'title' => esc_html__('Claude Sonnet 5 (Recommended)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'claude-sonnet-4-6' => [
-                                'title' => esc_html__('Claude Sonnet 4.6', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'claude-sonnet-4-5-20250929' => [
-                                'title'           => esc_html__('Claude Sonnet 4.5', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant'    => true,
-                                'max_tokens'      => 64000
-                            ],
-                            'claude-haiku-4-5-20251001' => [
-                                'title' => esc_html__('Claude Haiku 4.5 (Fast)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ]
+								'title' => esc_html__('Claude Opus 4.8 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
+							'claude-opus-4-7' => [
+								'title' => esc_html__('Claude Opus 4.7 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
+							'claude-opus-4-6' => [
+								'title' => esc_html__('Claude Opus 4.6 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
+							'claude-opus-4-5-20251101' => [
+								'title' => esc_html__('Claude Opus 4.5 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
+							'claude-sonnet-4-6' => [
+								'title' => esc_html__('Claude Sonnet 4.6 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
+							'claude-sonnet-4-5-20250929' => [
+								'title'           => esc_html__('Claude Sonnet 4.5 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							]
                         ]
                     ],
                     'gemini' => [

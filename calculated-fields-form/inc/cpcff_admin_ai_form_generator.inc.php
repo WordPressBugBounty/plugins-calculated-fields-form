@@ -32,40 +32,20 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
 		}
 
 		/**
-		 * Main inference method with caching support.
+		 * Build the prompt string sent to the AI provider for form generation.
+		 *
+		 * @param string                $description          User-provided natural-language description.
+		 * @param array|string|null     $base_form_structure  Current form structure (truthy enables the modify-block branch).
+		 * @return string Complete prompt text (description + optional modify block + schema + critical rules + final instruction).
 		 */
-		static public function model_inference($provider, $model, $api_key, $form_description, $base_form_structure = null) {
+		static public function build_prompt_template( $description, $base_form_structure = null ) {
 			$schema_pretty = self::load_schema_pretty();
-
-            $models = CPCFF_AI_REQUESTS::get_models();
-
-            if ( ! isset( $models[ $provider ] ) ) {
-                throw new Exception( __('Invalid AI provider selected.', 'calculated-fields-form') );
-            }
-
-            if ( ! isset( $models[ $provider ]['models'][$model] ) ) {
-                $model = $models[ $provider ]['default_model'];
-            }
-
-            $template = '';
-            if ( ! empty( $base_form_structure ) ) {
-                try {
-                    $form_structure_obj = json_decode($base_form_structure, true);
-                    if (isset($form_structure_obj[1][0]['formtemplate'])) {
-                        $template = $form_structure_obj[1][0]['formtemplate'];
-                    }
-                } catch (Exception $err) {}
-            } else {
-                if ( defined( 'CP_CALCULATEDFIELDSF_DEFAULT_template' ) ) {
-                    $template = get_option('CP_CALCULATEDFIELDSF_DEFAULT_template', CP_CALCULATEDFIELDSF_DEFAULT_template);
-                }
-            }
 
             // Build the prompt: description FIRST, then (if modifying) the
             // current structure and preservation rules, then schema complete,
             // then critical rules + few-shot example, then final instruction.
             $prompt  = "=== USER DESCRIPTION ===\n";
-            $prompt .= $form_description;
+            $prompt .= $description;
             $prompt .= "\n=== END ===\n\n";
 
             if ( ! empty( $base_form_structure ) ) {
@@ -98,6 +78,39 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
             $prompt .= "</json>\n\n";
 			*/
             $prompt .= "Now generate the form described above. Output ONLY <json>...</json>:\n";
+
+			return $prompt;
+		}
+
+		/**
+		 * Main inference method with caching support.
+		 */
+		static public function model_inference($provider, $model, $api_key, $form_description, $base_form_structure = null) {
+            $models = CPCFF_AI_REQUESTS::get_models();
+
+            if ( ! isset( $models[ $provider ] ) ) {
+                throw new Exception( __('Invalid AI provider selected.', 'calculated-fields-form') );
+            }
+
+            if ( ! isset( $models[ $provider ]['models'][$model] ) ) {
+                $model = $models[ $provider ]['default_model'];
+            }
+
+            $template = '';
+            if ( ! empty( $base_form_structure ) ) {
+                try {
+                    $form_structure_obj = json_decode($base_form_structure, true);
+                    if (isset($form_structure_obj[1][0]['formtemplate'])) {
+                        $template = $form_structure_obj[1][0]['formtemplate'];
+                    }
+                } catch (Exception $err) {}
+            } else {
+                if ( defined( 'CP_CALCULATEDFIELDSF_DEFAULT_template' ) ) {
+                    $template = get_option('CP_CALCULATEDFIELDSF_DEFAULT_template', CP_CALCULATEDFIELDSF_DEFAULT_template);
+                }
+            }
+
+            $prompt = self::build_prompt_template( $form_description, $base_form_structure );
 
             $context = "You are a strict JSON form generator. You ALWAYS output structured data wrapped in <json>...</json> delimiters. You NEVER think out loud, never explain, never use markdown code fences. You NEVER invent property names \xe2\x80\x94 you only use properties that appear in the schema provided in the user message. You NEVER omit required properties. You NEVER include null values or empty defaults. Your entire response is exactly one <json>...</json> block.";
 

@@ -649,7 +649,7 @@ body{
 	max-width:100%;
 }
 #fbuilder .cff-checkbox-field .dfield>div>label,
-#fbuilder .cff-radiobutton-field .dfield>div>label{display:flex;gap:10px;margin-bottom:5px; cursor:pointer;align-items: flex-start;}
+#fbuilder .cff-radiobutton-field .dfield>div>label{display:flex;gap:10px;margin-bottom:5px; cursor:pointer;align-items: baseline;align-items: first baseline;}
 #fbuilder .cff-checkbox-field .dfield label>span:not(.cff-switch),
 #fbuilder .cff-radiobutton-field .dfield label>span:not(.cff-switch) {
 	flex-grow:1;

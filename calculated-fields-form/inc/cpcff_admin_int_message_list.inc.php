@@ -163,7 +163,12 @@ if ($message) {
 }
 ?>
 <div class="wrap cff-entries-backend">
-    <div class="cff-navigation-main-menu"><a onclick="document.location='admin.php?page=cp_calculated_fields_form';" class="button-secondary"><?php esc_html_e('Back to forms list...', 'calculated-fields-form'); ?></a></div>
+    <div class="cff-navigation-main-menu">
+		<?php
+		require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_using_ai_agents.inc.php';
+		?>
+		<a onclick="document.location='admin.php?page=cp_calculated_fields_form';" class="button-secondary"><?php esc_html_e('Back to forms list...', 'calculated-fields-form'); ?></a>
+	</div>
     <div style="clear:both;"></div>
 
 	<h1 style="display:block;margin-bottom:20px;"><?php esc_html_e( 'Calculated Fields Form - Message List', 'calculated-fields-form' ); ?></h1>

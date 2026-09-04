@@ -333,7 +333,23 @@
 			set_DefaultDate : function(init)
 				{
 					var me  = this,
-						aux = function (v) { return ( typeof v == 'number' || typeof v == 'string' || v instanceof Date ) ? v : ''; },
+						aux = function (v) { 
+							if (v === null || v === undefined) return undefined;
+							if (typeof v === 'number' && isFinite(v)) return v;
+							if (v instanceof Date && !isNaN(v.getTime())) return v;
+							if (typeof v === 'string') {
+								if (/^[+-]?\d+[dwmy]$/i.test(v.trim())) return v;
+								let fmt = me.dformat || $.datepicker._defaults.dateFormat;
+								try {
+									fmt = fmt.replace(/y+/, 'yy');
+									$.datepicker.parseDate(fmt, v);
+									return v;
+								} catch (e) {
+									return undefined;
+								}
+							}
+							return undefined;
+						},
 						p   = {
 							dateFormat: me.dformat.replace(/yyyy/g,"yy"),
 							minDate   : aux(me._getAttr('minDate')),
