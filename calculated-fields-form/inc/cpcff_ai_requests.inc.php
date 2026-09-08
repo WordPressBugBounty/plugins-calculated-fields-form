@@ -60,8 +60,14 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'gpt-5.4-mini',
                         'api_key_url' => 'https://platform.openai.com/api-keys',
                         'models' => [
+							'gpt-6-astra' => [
+								'title' => esc_html__('GPT-6 Astra (Most Capable)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 128000
+							],
                             'gpt-5.6-sol' => [
-                                'title' => esc_html__('GPT-5.6 Sol (Most Capable)', 'calculated-fields-form'),
+                                'title' => esc_html__('GPT-5.6 Sol (Flagship)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 120000
@@ -193,26 +199,50 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'title'         => esc_html__('Google (Gemini)', 'calculated-fields-form'),
                         'default_model' => 'gemini-3.5-flash',
                         'api_key_url'   => 'https://aistudio.google.com/app/api-keys',
-                        'models'        => [
-                            'gemini-3.1-pro-preview' => [
-                                'title' => esc_html__('Gemini 3.1 Pro (Most Capable)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'gemini-3.5-flash' => [
-                                'title' => esc_html__('Gemini 3.5 Flash (Recommended)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'gemini-3.1-flash-lite' => [
-                                'title' => esc_html__('Gemini 3.1 Flash-Lite (Fast)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ]
-                        ]
+						'models' => [
+							'gemini-3.5-flash' => [
+								'title'           => esc_html__('Gemini 3.5 Flash (Recommended)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-3.5-flash-lite' => [
+								'title'           => esc_html__('Gemini 3.5 Flash-Lite (Ultra Fast)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-3.1-pro-preview' => [
+								'title'           => esc_html__('Gemini 3.1 Pro Preview (Most Capable)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-3.1-flash-lite' => [
+								'title'           => esc_html__('Gemini 3.1 Flash-Lite (Fast)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-3-flash-preview' => [
+								'title'           => esc_html__('Gemini 3 Flash Preview (Balanced)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-2.5-pro' => [
+								'title'           => esc_html__('Gemini 2.5 Pro (Advanced Reasoning)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-2.5-flash' => [
+								'title'           => esc_html__('Gemini 2.5 Flash (Stable)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 8192
+							],
+						]
                     ],
                     'minimax' => [
                         'title'         => esc_html__('MiniMax', 'calculated-fields-form'),

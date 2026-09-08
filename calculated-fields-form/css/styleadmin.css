@@ -589,6 +589,17 @@ textarea {resize: none}
 
 #metabox_default_settings.cff-metabox .cp_template_info img,
 .form-builder #tabs #fTemplateThumbnail img {width:150px; border: 1px solid #CDCDCD; }
+#metabox_default_settings.cff-metabox .cff-default-settings-apply-existing-forms {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+#metabox_default_settings.cff-metabox .cff-default-settings-apply-existing-forms::before {
+	content: "\221F";
+	font-size: 24px;
+	font-weight: 100;
+	color: #999;
+}
 
 /* FIELDS SETTINGS TABS */
 .cff-field-settings-tabs-headers{

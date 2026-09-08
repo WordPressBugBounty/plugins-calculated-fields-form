@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.5.0.8 =
+
+* Updates the Default Settings section to allow selecting which attributes should be replaced in existing forms, instead of applying changes to all attributes at once.
+* Updates the list of supported AI models.
+* Fixes minor issues in the Email, Email Data Source, and Textarea Data Source controls.
+
 = 5.5.0.7 =
 
 * Implements an MCP that allows external AI agents, such as Claude Code, OpenCode, Codex, and any other agent supporting MCP integration, to build new forms and generate submission reports.

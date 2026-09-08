@@ -21,8 +21,11 @@
 				},
 			after_show:function()
 				{
-					if(this.regExp != "" && typeof $['validator'] != 'undefined')
-					{
+					if(
+						typeof this.regExp == 'string' &&
+						this.regExp != "" &&
+						typeof $['validator'] != 'undefined'
+					) {
 						try {
 							var parts 	= this.regExp.match(/(\/)(.*)(\/)([gimy]{0,4})$/i);
 							this.regExp = (parts === null) ? new RegExp(this.regExp) : new RegExp(parts[2],parts[4].toLowerCase());

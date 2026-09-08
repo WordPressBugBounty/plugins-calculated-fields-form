@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.0.7
+Stable tag: 5.5.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,12 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.0.8 =
+
+* Updates the Default Settings section to allow selecting which attributes should be replaced in existing forms, instead of applying changes to all attributes at once.
+* Updates the list of supported AI models.
+* Fixes minor issues in the Email, Email Data Source, and Textarea Data Source controls.
+
 = 5.5.0.7 =
 
 * Implements an MCP that allows external AI agents, such as Claude Code, OpenCode, Codex, and any other agent supporting MCP integration, to build new forms and generate submission reports.
@@ -497,8 +503,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Fixed an issue affecting repeaters in multi-page forms.
 * Fixed a typo in the links on the forms list.
-
-= 5.5.0.3 =
-
-* Updates the Forms List section to follow WordPress's standard structure and design.
-* Adds new row actions, including View to open the public form, Copy Shortcode to copy the form shortcode to the clipboard, and, in commercial versions, Export to export the form structure directly from the form row.
