@@ -67,8 +67,8 @@ class CFF_DIVI extends ET_Builder_Module
                 'label'           => esc_html__('Load the Form within an iFrame', 'calculated-fields-form'),
                 'type'            => 'yes_no_button',
 				'options'         => array(
-					'off' => esc_html__('No', 'your-text-domain'),
-					'on'  => esc_html__('Yes', 'your-text-domain'),
+					'off' => esc_html__('No', 'calculated-fields-form'),
+					'on'  => esc_html__('Yes', 'calculated-fields-form'),
 				),
 				'default'         => 'off',
                 'option_category' => 'basic_option',
@@ -86,7 +86,11 @@ class CFF_DIVI extends ET_Builder_Module
         if ($form > 0) {
             $output = '[CP_CALCULATED_FIELDS id="' . $form . '"';
 
-            $class_name = sanitize_text_field($this->props['cff_class_name']);
+			$class_name = trim(
+				preg_replace('/[^a-zA-Z0-9\-\_\s]/', ' ', $this->props['cff_class_name'])
+			);
+
+			$class_name = sanitize_text_field($class_name);
             if (!empty($class_name)) {
                 $output .= ' class="' . esc_attr($class_name) . '"';
             }

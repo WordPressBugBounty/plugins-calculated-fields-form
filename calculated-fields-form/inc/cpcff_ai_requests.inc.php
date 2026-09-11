@@ -335,6 +335,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'deepseek-v4-flash',
                         'api_key_url'   => 'https://platform.deepseek.com/api_keys',
                         'models'        => [
+							'deepseek-flash' => [
+								'title' => esc_html__('DeepSeek V4.1 Flash', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
                             'deepseek-v4-pro' => [
                                 'title' => esc_html__('DeepSeek V4 Pro', 'calculated-fields-form'),
                                 'form-generation' => true,

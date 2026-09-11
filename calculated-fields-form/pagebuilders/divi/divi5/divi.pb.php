@@ -21,7 +21,32 @@ class CFF_DIVI5_MODULE implements DependencyInterface {
      */
     public function load() {
         // Register module.
-        add_action( 'init', [ CFF_DIVI5_MODULE::class, 'register_module' ] );
+        static $registered = false;
+        if ( $registered ) {
+            return;
+        }
+        self::register_module();
+
+        // Process the conversion outline so the D5 Migrator's initial compatibility
+        self::maybe_process_outline();
+
+        $registered = true;
+    }
+
+    /**
+     * Process conversion outline so the D5 Migrator recognizes the module
+     * as convertible in its initial compatibility check (Step 1).
+     */
+    public static function maybe_process_outline() {
+        $outline_path = dirname( __FILE__ ) . '/conversion-outline.json';
+        if ( ! file_exists( $outline_path ) ) {
+            return;
+        }
+        $metadata = json_decode( file_get_contents( dirname( __FILE__ ) . '/module.json' ), true );
+        if ( empty( $metadata['name'] ) ) {
+            return;
+        }
+        ModuleRegistration::process_conversion_outline( $metadata, $outline_path );
     }
 
     /**

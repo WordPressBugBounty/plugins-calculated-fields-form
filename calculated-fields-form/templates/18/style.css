@@ -416,6 +416,10 @@
   text-shadow: none;
 }
 
+.cp_cff_18 #fbuilder .pbPrevious,
+.cp_cff_18 #fbuilder .pbNext,
+.cp_cff_18 #fbuilder .pbSubmit{margin: 0 5px;}
+
 /* Buttons focus — :focus applies on any focus (click, keyboard, programmatic); outline:0 overrides browser default */
 .cp_cff_18 #fbuilder .pbSubmit:focus,
 .cp_cff_18 #fbuilder .pbreak .pbNext:focus,
@@ -499,10 +503,11 @@
 .cp_cff_18 #fbuilder .cff-form-buttons-container {
   margin-top: var(--cff-18-space-5);
   padding-top: var(--cff-18-space-4);
+  padding-bottom: var(--cff-18-space-2);
   border-top: 1px solid var(--cff-18-color-border-default);
   display: flex;
-  gap: var(--cff-18-space-3);
-  justify-content: flex-end;
+  gap: var(--cff-18-space-2);
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 

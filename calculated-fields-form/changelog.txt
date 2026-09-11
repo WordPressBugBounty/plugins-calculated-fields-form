@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.5.0.9 =
+
+* Enhances the Divi 4 to Divi 5 migration module.
+* Includes several improvements to Template 18.
+* Updates the list of supported AI models.
+
 = 5.5.0.8 =
 
 * Updates the Default Settings section to allow selecting which attributes should be replaced in existing forms, instead of applying changes to all attributes at once.
