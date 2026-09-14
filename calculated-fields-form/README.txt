@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.0.9
+Stable tag: 5.5.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.1.0 =
+
+* Improves the Reload Page module to prevent rendering issues on iOS.
+* Adds a Preview button to the Equations Editor, making it easier to test equation changes.
+
 = 5.5.0.9 =
 
 * Enhances the Divi 4 to Divi 5 migration module.
@@ -499,8 +504,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Introduces a new Template 18, a modernized variant of Template 13, and sets it as the plugin’s default template.
 * Enhances the other templates.
 * Updates the Default Settings section to use the previously selected options when available, instead of always falling back to the default values defined in the plugin code.
-
-= 5.5.0.5 =
-
-* Enhances the New Form module to display previews of available templates and existing forms, allowing users to make more informed decisions.
-* Updates the Data Source module to automatically discard invalid parameters. (Developer and Platinum distributions)

@@ -79,6 +79,11 @@
                                 $.fbuilder.reloadItems({'field':e.data.obj});
                             }
 						});
+					$(document).on("click", ".cff-equation-editor-form-preview", function(e) {
+							e.stopPropagation();
+							e.preventDefault();
+							$.fbuilder.preview(document.getElementById("sEq"));
+						});
 					$(document).on('click', '.cff-light-modal-close-icon', function(){$('[id="cff-advanced-equation-editor"]').remove();$(this).remove(); if ('lockToBuilder' in $.fbuilder) $.fbuilder.lockToBuilder();});
 					$(document).on('keyup', function(e){if(e.key === 'Escape') $('.cff-light-modal-close-icon').trigger('click');});
 					$("#sAdvancedEditor").on("click", {obj: this}, function(e)
@@ -100,7 +105,7 @@
 							'</div>'+
 							'</div>'+
 							'</div>'+
-							'<div class="cff-light-modal-close-icon" aria-label="close" title="Close">Save & Close</div>',
+							'<div class="cff-light-modal-close-icon" aria-label="close" title="Close"><a href="javascript:void(0);" class="cff-equation-editor-form-preview">Preview</a> | Save & Close</div>',
 							eq = e.data.obj.eq;
 
 							$('body').append(advEditor);
