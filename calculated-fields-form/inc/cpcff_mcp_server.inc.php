@@ -543,8 +543,6 @@ class CFF_MCP_SERVER {
 			return $this->rpc_error( null, -32602, 'Tool not available' );
 		}
 
-		// wp_execute_ability() no existe aún en WordPress core.
-		// Obtenemos el objeto ability y lo ejecutamos directamente.
 		$result = null;
 
 		if ( function_exists( 'wp_execute_ability' ) ) {
@@ -561,13 +559,21 @@ class CFF_MCP_SERVER {
 		}
 
 		if ( is_wp_error( $result ) ) {
-			// Log the actual error server-side; return a generic message to the caller.
+			// Log the actual error server-side; surface the code+message to the caller so the agent can iterate.
 			error_log( 'CFF MCP call_tool error: ' . $result->get_error_code() . ' - ' . $result->get_error_message() );
+
+			$error_data = $result->get_error_data();
+			$body       = array(
+				'code'    => $result->get_error_code(),
+				'message' => $result->get_error_message(),
+				'data'    => is_array( $error_data ) ? $error_data : array(),
+			);
+
 			return array(
 				'content' => array(
 					array(
 						'type' => 'text',
-						'text' => 'Internal error',
+						'text' => wp_json_encode( $body ),
 					),
 				),
 				'isError' => true,

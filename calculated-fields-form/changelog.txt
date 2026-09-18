@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.5.1.1 =
+
+* Fixes an issue with Elementor Popups when a page contains both a regular form and a form inside an Elementor Popup.
+* Enhances the MCP form generator module, allowing external AI agents to validate the structure of generated forms and automatically correct any issues detected.
+
 = 5.5.1.0 =
 
 * Improves the Reload Page module to prevent rendering issues on iOS.

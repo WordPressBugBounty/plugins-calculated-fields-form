@@ -133,8 +133,9 @@ fbuilderjQuery(window).on('load',fbuilderjQuery.fbuilderjQueryGenerator);
 fbuilderjQuery( document ).on( 'elementor/popup/show', function( event, id, instance ){
 	var popup = fbuilderjQuery('[data-elementor-type="popup"]');
 	if(popup.length){
-		var psequence = fbuilderjQuery('[name="cp_calculatedfieldsf_pform_psequence"]'),
-			fnum,flist;
+		var psequence = popup.find('[name="cp_calculatedfieldsf_pform_psequence"]');
+		if (psequence.length == 0) psequence = fbuilderjQuery('[name="cp_calculatedfieldsf_pform_psequence"]');
+		var	fnum,flist;
 		if(psequence.length){
 			fnum = psequence.val();
 			if(popup.find('#fieldlist'+fnum+':empty').length) {

@@ -974,6 +974,16 @@ class CPCFF_ABILITY_API {
 //   CPCFF_ABILITY_API::init();
 //
 
-new CPCFF_ABILITY_API();
+add_action( 'plugins_loaded', static function () {
+    if ( ! class_exists( 'CPCFF_ABILITY_API' ) ) return;
+    if ( ! CPCFF_ABILITY_API::are_abilities_available() ) return;
+    try {
+        new CPCFF_ABILITY_API();
+    } catch ( \Throwable $e ) {
+        if ( function_exists( 'error_log' ) ) {
+            error_log( '[CFF] CPCFF_ABILITY_API init failed: ' . $e->getMessage() );
+        }
+    }
+}, 5 );
 
 endif;

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.1.0
+Stable tag: 5.5.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.1.1 =
+
+* Fixes an issue with Elementor Popups when a page contains both a regular form and a form inside an Elementor Popup.
+* Enhances the MCP form generator module, allowing external AI agents to validate the structure of generated forms and automatically correct any issues detected.
+
 = 5.5.1.0 =
 
 * Improves the Reload Page module to prevent rendering issues on iOS.
@@ -498,9 +503,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.5.0.7 =
 
 * Implements an MCP that allows external AI agents, such as Claude Code, OpenCode, Codex, and any other agent supporting MCP integration, to build new forms and generate submission reports.
-
-= 5.5.0.6 =
-
-* Introduces a new Template 18, a modernized variant of Template 13, and sets it as the plugin’s default template.
-* Enhances the other templates.
-* Updates the Default Settings section to use the previously selected options when available, instead of always falling back to the default values defined in the plugin code.

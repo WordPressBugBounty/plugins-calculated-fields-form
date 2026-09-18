@@ -111,7 +111,8 @@ if(!class_exists('CPCFF_COMPATIBILITY'))
         public static function troubleshoots()
         {
             if (! is_admin()) {
-                if (get_option('CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN', CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN) * 1) {
+				$optimization_plugin = get_option('CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN', CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN);
+                if (is_numeric($optimization_plugin) && $optimization_plugin * 1) {
                     // Solves a conflict caused by the "Speed Booster Pack" plugin
                     add_filter('option_sbp_settings', [self::class, 'speed_booster_pack_troubleshoot']);
 
