@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.1.1';
+	$.fbuilder['version'] = '5.5.1.2';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -37,8 +37,38 @@
 		}
 	};
 
-	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
+	$.fbuilder['timezoneInfo'] = function(form) {
+		if (!form || form.tagName !== 'FORM') return;
+		if (!form.querySelector('input[name="cpcff_tz"]')) {
+			let iana = '';
+			try {
+				if (typeof Intl !== 'undefined' && Intl.DateTimeFormat) {
+					let resolved = Intl.DateTimeFormat().resolvedOptions();
+					if (resolved && resolved.timeZone) iana = resolved.timeZone;
+				}
+			} catch (e) { iana = ''; }
+			let tzInput = document.createElement('input');
+			tzInput.type = 'hidden';
+			tzInput.name = 'cpcff_tz';
+			tzInput.value = iana;
+			form.appendChild(tzInput);
+		}
 
+		if (!form.querySelector('input[name="cpcff_tz_offset"]')) {
+			let offset = 0;
+			try {
+				let d = new Date();
+				offset = d.getTimezoneOffset();
+			} catch (e) { offset = 0; }
+			let offInput = document.createElement('input');
+			offInput.type = 'hidden';
+			offInput.name = 'cpcff_tz_offset';
+			offInput.value = String(offset);
+			form.appendChild(offInput);
+		}
+	};
+
+	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
     $.fbuilder['numberOfDecimals'] = function(value, symbol) {
         const s = String(symbol).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const match = String(value).match(new RegExp(`.*${s}(\\d*)`, 'i'));
@@ -805,7 +835,7 @@
 				}
 
                 // Set icon event
-				jQuery(document).on('click', '.cff-help-icon', function(evt){evt.stopPropagation(); evt.preventDefault();});
+				$(document).on('click', '.cff-help-icon', function(evt){evt.stopPropagation(); evt.preventDefault();});
 
 				// Set Captcha Event
 				$(document).on('click', '#fbuilder .captcha img', function(evt){
@@ -833,14 +863,16 @@
 				if (i>0)
 				{
                     theForm.after_show( opt.identifier );
+					let hasDateTimeControls = false;
 					for (var i=0;i<items.length;i++)
 					{
 						if ( ! ( i in items ) ) continue;
 						items[i].after_show();
                         if('csslayout' in items[i] && /\bignorefield\b/i.test(items[i]['csslayout']))
                             IGNOREFIELD(items[i].name, items[i].form_identifier);
+						if (['fdate', 'fdateds', 'ftimeslots', 'ftimeslotsds'].indexOf(items[i].ftype) > -1) hasDateTimeControls = true;
 					}
-
+					if (hasDateTimeControls) $.fbuilder.timezoneInfo(theForm.form_tag[0]);
 					theForm.form_tag.removeData('first_time');
 					// Evaluate delayed script in cached forms:
 					$('script[type="cff-script"]').each(function(){
@@ -1374,6 +1406,20 @@
 				return ('undefined' != typeof form.data('being-submitted'));
 			},
 			processing_form = function () {
+				if (
+					'extra_validations' in $.fbuilder &&
+					Object.prototype.toString.call($.fbuilder.extra_validations) === '[object Object]'
+				) {
+					for (let i in $.fbuilder.extra_validations) {
+						if (
+							typeof $.fbuilder.extra_validations[i] == 'function' &&
+							!$.fbuilder.extra_validations[i](form, validation_rules, processing_form)
+						) {
+							enabling_form();
+							return false;
+						}
+					}
+				}
 				for (let rule in validation_rules) {
 					if (!validation_rules[rule]) {
 						form.trigger('cff-form-validation', false);

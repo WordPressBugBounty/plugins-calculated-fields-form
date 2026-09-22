@@ -53,7 +53,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="#metabox_define_validation_texts">' . esc_html__('Error texts', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_submit_thank">' . esc_html__('Submit button and thank you page', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_notification_email">' . esc_html__('Notification email', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>' .
-	'<a href="#metabox_captcha_settings">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a><span>&nbsp;|&nbsp;</span>' .
+	'<a href="#metabox_captcha_settings">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a>' .
     '<span class="cff-addon-menu-option" style="display:none;"><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_addons_section">' . esc_html__('Add ons', 'calculated-fields-form') . '</a></span>' .
     '&nbsp;<span>[</span><b>' . esc_html__('Commercial Features', 'calculated-fields-form') . ':</b>
@@ -127,6 +127,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                             ?>
                             <input type="button" name="cff_fields_list" class="button-secondary" value="<?php print wp_is_mobile() ? '&#9776;' : esc_attr__('Fields List', 'calculated-fields-form'); ?>" title="<?php esc_attr_e('Fields List', 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.printFields();" />
                             <input type="button" name="previewbtn" id="previewbtn2" class="button-primary" value="<?php esc_attr_e('Preview', 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="<?php esc_attr_e("Saves the form's structure only, and opens a preview windows", 'calculated-fields-form'); ?>" />
+							<input type="submit" name="save" class="button-secondary" value="<?php esc_attr_e('Save Changes', 'calculated-fields-form'); ?>" title="<?php esc_attr_e("Saves the form's structure and settings", 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window(); this.form.action = this.form.action.replace(/#.*$/, '') + '#cpformconf';" />
                             &nbsp;|&nbsp;
                             <input type="button" name="cff_ai_assistant" class="button cff-ai-assistant" value="<?php esc_attr_e('AI Assistant', 'calculated-fields-form'); ?>" onclick="if('cff_ai_assistant_open' in window) cff_ai_assistant_open();" style="float:none;" />
                             <div class="cff-form-builder-extend-shrink">
@@ -138,14 +139,12 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                     <div class="clearer"></div>
                 </div>
                 <div class="inside">
-                    <div class="form-builder-error-messages">
-                        <?php
-                        global $cff_structure_error;
-                        if (! empty($cff_structure_error)) {
-                            echo $cff_structure_error; // phpcs:ignore WordPress.Security.EscapeOutput
-                        }
-                        ?>
-                    </div>
+                    <div class="form-builder-error-messages"><?php
+						global $cff_structure_error;
+						if (! empty($cff_structure_error)) {
+							echo $cff_structure_error; // phpcs:ignore WordPress.Security.EscapeOutput
+						}
+					?></div>
                     <input type="hidden" name="form_structure" id="form_structure" value="<?php print esc_attr(preg_replace('/&(quot|lt|gt);/i', '&amp;$1;', json_encode($form_obj->get_option('form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure)))); ?>" />
                     <input type="hidden" name="templates" id="templates" value="<?php print esc_attr(json_encode(CPCFF_TEMPLATES::load_templates())); ?>" />
                     <link href="<?php print esc_attr(plugins_url('/vendors/jquery-ui/jquery-ui.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH)); // phpcs:ignore WordPress.WP.EnqueuedResources
@@ -293,7 +292,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                 </div>
             </div>
             <p class="cff-save-controls-frame">
-                <input type="submit" name="save" id="save2" class="button-primary" value="<?php esc_attr_e('Save Changes', 'calculated-fields-form'); ?>" title="<?php esc_attr_e("Saves the form's structure and settings and creates a revision", 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
+                <input type="submit" name="save" id="save2" class="button-primary" value="<?php esc_attr_e('Save Changes', 'calculated-fields-form'); ?>" title="<?php esc_attr_e("Saves the form's structure and settings", 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
                 <input type="button" name="previewbtn" id="previewbtn" class="button-primary" value="<?php esc_attr_e('Preview', 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="<?php esc_attr_e("Saves the form's structure only, and opens a preview windows", 'calculated-fields-form'); ?>" />
                 <?php
                 if (get_option('CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS) == 0) :
@@ -314,7 +313,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                 <div class="cff-website-icon"></div>
                 <div class="cff-popup-icon">
                     <div class="cff-popup-bubble"><?php esc_html_e('Save Changes', 'calculated-fields-form'); ?></div>
-                    <button name="save" type="submit" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();">
+                    <button name="save" type="submit" onclick="this.form.action+=cff_getScrollForURL();fbuilderjQuery.fbuilder.delete_form_preview_window();">
                         <?php include plugin_dir_path(__FILE__) . '../images/icons/save.svg'; ?>
                     </button>
                 </div>
@@ -707,7 +706,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
             </div>
 
             <p class="submit">
-                <input type="submit" name="save" id="save1" class="button-primary" value="<?php esc_attr_e('Save Changes', 'calculated-fields-form'); ?>" title="<?php esc_attr_e("Saves the form's structure and settings and creates a revision", 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
+                <input type="submit" name="save" id="save1" class="button-primary" value="<?php esc_attr_e('Save Changes', 'calculated-fields-form'); ?>" title="<?php esc_attr_e("Saves the form's structure and settings", 'calculated-fields-form'); ?>" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
             </p>
 
             [<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e('Request Custom Modifications', 'calculated-fields-form'); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e('Help', 'calculated-fields-form'); ?></a>]

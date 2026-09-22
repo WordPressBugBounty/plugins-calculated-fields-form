@@ -1091,7 +1091,7 @@
 
 				ffunct.saveData("form_structure");
 // console.timeEnd('debugging');
-                $(document).trigger('cff_reloadItems', items);
+                $(document).trigger('cff_reloadItems', [items]);
 				$(document).on('mouseover', '.arrow.ui-icon.ui-icon-grip-dotted-vertical', function(){ $(this).attr('title', 'Drag and drop handler')});
 				$(document).on('mouseover', '.sticker i', function(){ $(this).attr('title', 'Column identifier')});
 				$('.arrow.ui-icon.ui-icon-grip-dotted-vertical').each(function () {
@@ -2458,11 +2458,19 @@
 	// Scroll page if scrollx and scrolly parameters are availables in the URL
 	(function(){
 		try {
+			const mssg = $('.form-builder-error-messages');
+			if ( mssg.length && ! mssg.filter(':empty').length ) return;
 			const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('le')) return; // Do not apply when editing an entry.
+            if ( urlParams.has('le') ) return; // Do not apply when editing an entry.
+			const hash = window.location.hash;
+			if ( hash !== '' ) {
+				const el = document.querySelector(hash);
+				if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
+				return;
+			}
 			const scroll_x = urlParams.get('scrollx');
 			const scroll_y = urlParams.get('scrolly');
-			if ( scroll_x && scroll_y && 'scrollTo' in window && ( ! $('.form-builder-error-messages').length || $('.form-builder-error-messages:empty').length ) ) {
+			if ( scroll_x !== null && scroll_y !== null && 'scrollTo' in window ) {
 				window.scrollTo(scroll_x, scroll_y);
 			}
 		} catch(err){}

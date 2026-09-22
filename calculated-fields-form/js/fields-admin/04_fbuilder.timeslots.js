@@ -65,6 +65,14 @@
 				if ( ! ( 'selectedtimeslot' in this.advanced.css ) ) this.advanced.css.selectedtimeslot = {label: 'Selected timeslot',rules:{}};
 				if ( ! ( 'disabledtimeslot' in this.advanced.css ) ) this.advanced.css.disabledtimeslot = {label: 'Disabled timeslot',rules:{}};
 			},
+			init:function()
+				{
+					$.fbuilder.controls[ 'ffields' ].prototype.init.call(this);
+					if(this.timeslotsDuration === '') {
+						this.timeslotsDuration = 30;
+						this.generateTimeslots();
+					}
+				},
 			display:function( css_class )
 				{
 					css_class = css_class || '';
@@ -329,7 +337,7 @@
 				{
 					let style = 'style="color:#1a73e8;font-weight:600;text-decoration:none;background:#e8f0fe;padding:4px 10px;            border-radius:16px;transition:background 0.2s ease,transform 0.1s ease;display:inline-block;"';
 
-					let link = $('#metabox_googlecalendar_addon_form_settings').length ? '<a href="#metabox_googlecalendar_addon_form_settings" '+style+'>Google Calendar</a>' : '<a href="https://cff-bundles.dwbooster.com/product/google-calendar" target="_blank" '+style+'>Google Calendar</a>';
+					let link = $('#metabox_googlecalendar_addon_form_settings').length ? '<a href="#metabox_googlecalendar_addon_form_settings" ' + style + '>Google Calendar</a>' : '<a href="https://wordpress.org/plugins/dwbooster-cff-google-calendar-integration/" target="_blank" '+style+'>Google Calendar</a>';
 
 					return '<div class="groupBox" style="display:flex;gap:10px;align-items:center;"><img alt="Google Calendar" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGFyaWEtbGFiZWw9Ikdvb2dsZSBDYWxlbmRhciIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxNSUiIGZpbGw9IiNmZmZmZmYiLz48cGF0aCBkPSJNMTAwIDM0MGg3NFYxNzRIMzQwdi03NEgxMzdRMTAwIDEwMCAxMDAgMTM1IiBmaWxsPSIjNDI4NWY0Ii8+PHBhdGggZD0iTTMzOCAxMDB2NzZoNzR2LTQxcTAtMzUtMzUtMzUiIGZpbGw9IiMxOTY3ZDIiLz48cGF0aCBkPSJNMzM4IDE3NGg3NFYzMzhoLTc0IiBmaWxsPSIjZmJiYzA0Ii8+PHBhdGggZD0iTTEwMCAzMzh2MzlxMCAzNSAzNSAzNWg0MXYtNzQiIGZpbGw9IiMxODgwMzgiLz48cGF0aCBkPSJNMTc0IDMzOEgzMzh2NzRIMTc0IiBmaWxsPSIjMzRhODUzIi8+PHBhdGggZD0iTTMzOCA0MTJ2LTc0aDc0IiBmaWxsPSIjZWE0MzM1Ii8+PHBhdGggZD0iTTIwNCAyMjlhMjUgMjIgMSAxIDEgMjUgMjdoLTloOWEyNSAyMiAxIDEgMS0yNSAyN00yNzAgMjMxbDI3LTE5aDR2LTdWMzA4IiBzdHJva2U9IiM0Mjg1ZjQiIHN0cm9rZS13aWR0aD0iMTUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiIGZpbGw9Im5vbmUiLz48L3N2Zz4=" style="width:26px;" /> Sync your time slots with ' + link + '</div>';
 				},

@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.5.1.2 =
+
+* Updates the Date/Timeslots control to properly initialize time intervals.
+* Adds a Save button above the Form Builder dashboard.
+* Updates the Save icon in the floating controls to save the form settings while preserving the current location.
+
 = 5.5.1.1 =
 
 * Fixes an issue with Elementor Popups when a page contains both a regular form and a form inside an Elementor Popup.
