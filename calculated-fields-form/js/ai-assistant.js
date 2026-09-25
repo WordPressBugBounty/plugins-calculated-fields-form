@@ -54,6 +54,7 @@ let providerCtrl        = document.getElementById("cff-ai-assistant-provider");
 let modelCtrl           = document.getElementById("cff-ai-assistant-model");
 let apiKeyCtrl          = document.getElementById("cff-ai-assistant-api-key");
 let saveSettingsBtnCtrl = document.getElementById("cff-ai-assistant-save-settings-btn");
+let chipRowCtrl         = document.getElementById("cff-ai-assistant-chip-row");
 
 // Check if the selected provider is local
 function isLocalModel() {
@@ -426,6 +427,13 @@ function isFatalError(msg) {
     return fatalPatterns.some(pattern => pattern.test(msg));
 }
 
+function removeLastThinkingBubble() {
+    const messages = chatBoxCtrl.querySelectorAll('.cff-ai-assistance-message');
+    const last = messages[messages.length - 1];
+    if (!last || !last.querySelector('[data-cff-ai-assistant-thinking]')) return;
+    last.remove();
+}
+
 async function handleEngineError(error, context = 'inference') {
     console.error(`Fatal error during ${context}:`, error);
 	const msg = (error?.name || '') + (error?.message || '');
@@ -588,6 +596,9 @@ ${input}
 `.trim();
 
         break;
+		case 'edit':
+			message = `Apply these modifications to the form: ${input}`;
+		break;
 		default:
 			message = "Create an immediately invoked JavaScript function expressions (IIFE) that run automatically. It must start with (function(){ and enter with })(). It must include a return statement with the result as scalar value. Use only valid JavaScript syntax. Test your code mentally for syntax errors before submitting. Do not include any non-JavaScript text or characters. Keep the code simple and focused on the calculation. Enclose the code between ``` symbols. DO NOT include comments into the function code." + ("" != variables ? " \n\n CRITICAL INSTRUCTION: The following variables ALREADY EXIST in the system and contain values. DO NOT DEFINE, INITIALIZE, OR ASSIGN ANY VALUE TO THEM IN YOUR CODE:\n\n" + variables : "") + (has_repeater ? repeater_prompt_block : "") + "\n\nFunction description: " + input.replace(/equation/ig, 'function');
         break;
@@ -611,6 +622,7 @@ ${input}
         const onError = async (err) => {
             clearTimeout(firstWaitingInterval);
             clearTimeout(secondWaitingInterval);
+            removeLastThinkingBubble();
             // Error during generation
             console.error('Inference error: ', err);
             sendBtnCtrl.disabled = false;
@@ -635,11 +647,20 @@ ${input}
         }
         appendMessage({ content: input, role: "user" });
         appendMessage(aiMessage, true);
+        const isEdit = topic === 'edit';
         const data = new FormData();
-        data.append('_cpcff_ai_assistant_action', 'cff_ai_assistant_get_response');
-        data.append('_cpcff_ai_assistant_context', context);
-        data.append('_cpcff_ai_assistant_message', message);
-        data.append('_cpcff_ai_assistant_nonce', cff_ai_request_nonce);
+        if (isEdit) {
+            const formStructure = document.getElementById('form_structure')?.value || '';
+            data.append('_cpcff_ai_assistant_action', 'cff_ai_assistant_get_edit_response');
+            data.append('_cpcff_ai_assistant_description', input);
+            data.append('_cpcff_ai_assistant_current_structure', formStructure);
+            data.append('_cpcff_ai_assistant_nonce', window.cff_ai_assistant_edit_nonce);
+        } else {
+            data.append('_cpcff_ai_assistant_action', 'cff_ai_assistant_get_response');
+            data.append('_cpcff_ai_assistant_context', context);
+            data.append('_cpcff_ai_assistant_message', message);
+            data.append('_cpcff_ai_assistant_nonce', window.cff_ai_request_nonce);
+        }
         try {
             const response = await fetch(window.location.href, {
                 method: 'POST',
@@ -647,12 +668,31 @@ ${input}
             });
 
             if (!response.ok) {
+                removeLastThinkingBubble();
                 fbuilderjQuery.fbuilder.confirmationDialog(false, `HTTP error! status: ${response.status}`, 'Ok', false);
             }
             const result = await response.json();
             if (result.error) {
+                removeLastThinkingBubble();
                 fbuilderjQuery.fbuilder.confirmationDialog(false, result.error, 'Ok', false);
                 throw new Error(result.error);
+            } else if (isEdit) {
+                if (!result.structure) {
+                    removeLastThinkingBubble();
+                    fbuilderjQuery.fbuilder.confirmationDialog(false, 'AI model returned no structure.', 'Ok', false);
+                    userQuestionCtrl.value = input;
+                } else {
+                    const applied = applyEditStructure(result.structure);
+                    removeLastThinkingBubble();
+                    if (applied.ok) {
+                        renderUndoButton(applied.undoEntry, 'Form updated.');
+                        userQuestionCtrl.value = '';
+                    } else {
+                        const msg = applied.error ? ('Failed to apply: ' + applied.error) : 'Failed to apply changes.';
+                        fbuilderjQuery.fbuilder.confirmationDialog(false, msg, 'Ok', false);
+                        userQuestionCtrl.value = input;
+                    }
+                }
             } else {
                 if (result.warning) {
                     fbuilderjQuery.fbuilder.confirmationDialog(false, result.warning, 'Ok', false);
@@ -661,6 +701,7 @@ ${input}
             }
             setPlaceholder();
         } catch (err) {
+            removeLastThinkingBubble();
             console.error(err);
             userQuestionCtrl.value = input;
         } finally {
@@ -832,8 +873,8 @@ window['cff_ai_assistant_use_list'] = function ( btn ) {
                     window?.fbuilderjQuery?.fbuilder?.editItem(field_index);
                     window?.fbuilderjQuery?.fbuilder?.reloadItems({ 'field': field });
                     return;
-                }
-            }
+                } else throw field_type_error;
+            } else throw field_type_error;
         }
     } catch (err) {
 		fbuilderjQuery.fbuilder.confirmationDialog(false, err, 'Ok', false);
@@ -846,7 +887,14 @@ window['cff_ai_assistant_open'] = function( _answer_topic, _extra = '' ){
     aiAssistantLoadingMss.style.display = 'none';
 	variables = "";
     variables_tags = "";
-	topic = _answer_topic || 'js';
+	if (_answer_topic) {
+		topic = _answer_topic;
+	} else if (typeof window.cff_ai_assistant_resolve_toolbar_topic === 'function') {
+		topic = window.cff_ai_assistant_resolve_toolbar_topic();
+	} else {
+		topic = 'js';
+	}
+	refreshChipRow();
 
 	setPlaceholder();
 	// Get variables.
@@ -1114,3 +1162,112 @@ saveSettingsBtnCtrl.addEventListener("click", async function () {
 sendBtnCtrl.addEventListener("click", function () {
     onMessageSend();
 });
+
+function refreshChipRow() {
+    if (!chipRowCtrl) return;
+    const editChip = chipRowCtrl.querySelector('.cff-ai-chip[data-topic="edit"]');
+    if (editChip) editChip.style.display = isLocalModel() ? 'none' : '';
+    chipRowCtrl.querySelectorAll('.cff-ai-chip').forEach(function (chip) {
+        chip.setAttribute('aria-pressed', chip.getAttribute('data-topic') === topic ? 'true' : 'false');
+    });
+}
+
+chipRowCtrl.addEventListener("click", function (evt) {
+    const btn = evt.target.closest('.cff-ai-chip');
+    if (!btn || !chipRowCtrl.contains(btn)) return;
+    const newTopic = btn.getAttribute('data-topic');
+    if (!newTopic || newTopic === topic) return;
+    if (newTopic === 'edit' && isLocalModel()) return;
+    cff_ai_assistant_open(newTopic);
+});
+
+function applyEditStructure(newStructureJson) {
+    const input = document.getElementById('form_structure');
+    const previousJson = input.value;
+    input.value = newStructureJson;
+    let ok = false;
+    let errorMsg = '';
+    try {
+        ok = window.cff_form.fBuild.loadData('form_structure');
+    } catch (e) {
+        ok = false;
+        errorMsg = (e && e.message) ? e.message : String(e);
+        if (typeof console !== 'undefined') console.error('[ai-assistant edit] loadData threw:', e);
+    }
+    if (ok) {
+        return {
+            ok: true,
+            undoEntry: {
+                id: 'cff-undo-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+                timestamp: new Date().toISOString(),
+                json: previousJson
+            }
+        };
+    }
+    input.value = previousJson;
+    try {
+        window.cff_form.fBuild.loadData('form_structure');
+    } catch (e2) {
+        if (typeof console !== 'undefined') console.error('[ai-assistant edit] revert loadData threw:', e2);
+    }
+    return { ok: false, error: errorMsg };
+}
+
+function renderUndoButton(undoEntry, message) {
+    const undoBubble = document.createElement('div');
+    undoBubble.className = 'cff-ai-assistance-message cff-ai-assistance-bot-message';
+    undoBubble.style.display = 'flex';
+    undoBubble.style.alignItems = 'center';
+    undoBubble.style.gap = '12px';
+    if (message) {
+        const msg = document.createElement('span');
+        msg.textContent = message;
+        undoBubble.appendChild(msg);
+    }
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = undoEntry.id;
+    btn.className = 'cff-ai-undo-button button-secondary';
+    btn.style.flexShrink = '0';
+    btn.textContent = 'Undo';
+    btn.onclick = function () {
+        const input = document.getElementById('form_structure');
+        input.value = undoEntry.json;
+        const ok = window.cff_form.fBuild.loadData('form_structure');
+        if (ok) {
+            btn.disabled = true;
+            btn.textContent = 'Undone';
+        } else {
+            fbuilderjQuery.fbuilder.confirmationDialog(false, 'Undo failed.', 'Ok', false);
+        }
+    };
+    undoBubble.appendChild(btn);
+    chatBoxCtrl.appendChild(undoBubble);
+    chatBoxCtrl.scrollTop = chatBoxCtrl.scrollHeight;
+}
+
+window.cff_ai_assistant_resolve_toolbar_topic = function () {
+    try {
+        if (window.cff_form && window.cff_form.fBuild) {
+            const sel = window.cff_form.fBuild.getSelected();
+            if (sel !== '' && !isNaN(sel * 1) && sel * 1 >= 0) {
+                const items = window.cff_form.fBuild.getItems();
+                const idx = sel * 1;
+                const f = items && items[idx];
+                if (f && f.ftype) {
+                    if (f.ftype === 'fCalculated') return 'js';
+                    if (f.ftype === 'fhtml') return 'html';
+                    if (f.ftype === 'fcheck' || f.ftype === 'fradio' || f.ftype === 'fdropdown') return 'list';
+                }
+            }
+        }
+    } catch (e) {}
+    try {
+        const adv = document.querySelector('#tabs-3 .cff-field-settings-tab-header-advanced.cff-field-settings-tab-active');
+        if (adv && adv.offsetParent !== null) {
+            return 'css';
+        }
+    } catch (e) {}
+    if (window.cff_ai_provider && window.cff_ai_provider !== 'local') return 'edit';
+    return 'js';
+};

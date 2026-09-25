@@ -288,3 +288,37 @@
 #cff-ai-assistant-stats {
     font-size: 11px;
 }
+
+/* -------------------------------------------------------------------
+   12. CHIP ROW (mode selector)
+   ------------------------------------------------------------------- */
+.cff-ai-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 8px;
+    border-bottom: 1px solid #ddd;
+    background: #f7f7f7;
+}
+
+.cff-ai-chip {
+    padding: 4px 10px;
+    height: 24px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.cff-ai-chip[aria-pressed="true"] {
+    background: var(--wp-admin-theme-color);
+    color: #fff;
+    border-color: var(--wp-admin-theme-color);
+}
+
+.cff-ai-chip:hover:not([aria-pressed="true"]) {
+    background: #eee;
+}

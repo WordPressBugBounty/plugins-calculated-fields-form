@@ -28,11 +28,6 @@
 						time_formatted = ( _has_hours ? ( hours < 10 ? '0' + hours : hours ) + ':' : '' ) + ( minutes < 10 ? '0' + minutes : minutes ) + ':' + ( seconds < 10 ? '0' + seconds : seconds );
 					return time_formatted;
 				},
-			_getUserMedia:function()
-				{
-					return navigator.getUserMedia || navigator.webkitGetUserMedia ||
-						navigator.mozGetUserMedia || navigator.msGetUserMedia || false;
-				},
 			init:function()
 				{
 					this.getCSSComponent('button', true, '#fbuilder .cff-record-av-field #'+this.name+'_record_btn', this.form_identifier);
@@ -54,7 +49,7 @@
 					'</div>' +
 					'<div class="clearer"></div>' +
 					'<div class="cff-record-status hide-strong" id="'+this.name+'_record_status">'+cff_sanitize(this.status_message, true)+'</div>' +
-					( this.preview ? (this._is_video() ? '<video id="'+this.name+'_media" width="'+cff_esc_attr(this.video_width)+'" height="'+cff_esc_attr(this.video_height)+'" class="hide-strong" style="margin-top:20px;" preload="metadata" style="'+cff_esc_attr(this.getCSSComponent('video'))+'"></video>': '<audio id="'+this.name+'_media" class="hide-strong" style="'+cff_esc_attr(this.getCSSComponent('audio'))+'"></audio>') : '' ) +
+					( this.preview ? (this._is_video() ? '<video id="'+this.name+'_media" width="'+cff_esc_attr(this.video_width)+'" height="'+cff_esc_attr(this.video_height)+'" class="hide-strong" style="margin-top:10px;" preload="metadata" style="'+cff_esc_attr(this.getCSSComponent('video'))+'"></video>': '<audio id="'+this.name+'_media" class="hide-strong" style="'+cff_esc_attr(this.getCSSComponent('audio'))+'"></audio>') : '' ) +
 					'<div class="clearer"></div>' +
 					'<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer" /></div>';
 				},
@@ -73,7 +68,6 @@
 					recording_flag = false;
 
 				play_btn[_files().length ? 'removeClass' : 'addClass' ]('hide-strong');
-				navigator.getUserMedia = me._getUserMedia();
 
 				if(media_ctrl.length)
 				{
@@ -86,7 +80,7 @@
 					};
 				}
 
-				if(!navigator.getUserMedia) {
+				if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
 					$('.'+me.name).remove();
 					return;
 				}
@@ -142,7 +136,7 @@
 
 				record_btn.on( 'click', function(evt){
 					var settings = {
-							video: (me._is_video()) ? {'facingMode':{exact:'user'}} : false,
+							video: (me._is_video()) ? {facingMode: 'user'} : false,
 							audio: (me._is_audio()) ? true : false
 						};
 
@@ -159,10 +153,11 @@
 						recording_flag = true;
 						if(me._is_video() && media_ctrl.length) media_ctrl.removeClass('hide-strong');
 
-						navigator.getUserMedia(
-							settings,
-							function(localMediaStream)
-							{
+						navigator.mediaDevices.getUserMedia(
+							settings
+						)
+						.then(function(localMediaStream)
+						{
 								streamRecorder = new MediaRecorder(localMediaStream);
 								streamRecorder.ondataavailable = function(evt) {chunks.push(evt.data);};
 								streamRecorder.start();
@@ -185,11 +180,11 @@
 									   _stopRecording();
 									}
 								}, 1000);
-							},
-							function(err){
-								$('.'+me.name+' .dfield').html('<div class="cff-record-error">'+cff_sanitize(err.name, true)+'</div>');
-							}
-						);
+							})
+						.catch(function(err)
+						{
+							$('.'+me.name+' .dfield').html('<div class="cff-record-error">'+cff_sanitize(err.name, true)+'</div>');
+						});
 					}
 					else
 					{

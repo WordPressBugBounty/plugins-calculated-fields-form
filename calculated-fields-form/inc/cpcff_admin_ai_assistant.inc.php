@@ -58,6 +58,45 @@ if (! class_exists('CPCFF_AI_ASSISTANT')) {
 
 					$response = $ai_requests->request($prompt, $context);
 					wp_send_json($response);
+				} elseif (wp_verify_nonce($_cpcff_ai_assistant_nonce, 'cff_ai_assistant_edit_nonce')) { // Handle AI Assistant Edit-Topic Request
+					require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_ai_form_generator.inc.php';
+
+					$api_key    = CPCFF_AI_REQUESTS::get_selected_api_key_from_context('ai-assistant');
+					$provider   = CPCFF_AI_REQUESTS::get_selected_provider_from_context('ai-assistant') ?: CPCFF_AI_REQUESTS::get_default_provider();
+					$model      = CPCFF_AI_REQUESTS::get_selected_model_from_context('ai-assistant') ?: CPCFF_AI_REQUESTS::get_default_model();
+
+					if ($provider !== $wordpress_ai && (empty($api_key) || empty($provider) || empty($model))) {
+						wp_send_json(['error' => __('API Key, Provider, and Model are required.', 'calculated-fields-form')]);
+					}
+
+					$description       = sanitize_textarea_field(wp_unslash($_POST['_cpcff_ai_assistant_description']        ?? ''));
+					$current_structure = wp_unslash($_POST['_cpcff_ai_assistant_current_structure'] ?? '');
+
+					if ($description === '') {
+						wp_send_json(['error' => __('Description is required.', 'calculated-fields-form')]);
+					}
+					if ($current_structure === '') {
+						wp_send_json(['error' => __('Current form structure is required.', 'calculated-fields-form')]);
+					}
+
+					$decoded = json_decode($current_structure, true);
+					if (!is_array($decoded) || count($decoded) !== 2 || !is_array($decoded[0])) {
+						wp_send_json(['error' => __('Invalid current form structure.', 'calculated-fields-form')]);
+					}
+
+					try {
+						$new_structure = CPCFF_AI_FORM_GENERATOR::model_inference($provider, $model, $api_key, $description, $current_structure);
+					} catch (Exception $err) {
+						wp_send_json(['error' => $err->getMessage()]);
+					}
+
+					$decoded_new = json_decode($new_structure, true);
+					if (!is_array($decoded_new) || count($decoded_new) !== 2 || empty($decoded_new[0])) {
+						wp_send_json(['error' => __('AI model returned an invalid or empty form structure.', 'calculated-fields-form')]);
+					}
+
+					$sanitized = CPCFF_FORM::sanitize_structure($decoded_new);
+					wp_send_json(['ok' => true, 'structure' => wp_json_encode($sanitized)]);
 				}
 				exit;
 			}
@@ -111,6 +150,7 @@ if (! class_exists('CPCFF_AI_ASSISTANT')) {
 				print 'var cff_ai_api_key="' . esc_js(CPCFF_AI_REQUESTS::get_selected_api_key_from_context('ai-assistant')) . '";';
 				print 'var cff_ai_save_settings_nonce="' . esc_js(wp_create_nonce('cff_ai_save_settings_nonce')) . '";';
 				print 'var cff_ai_request_nonce="' . esc_js(wp_create_nonce('cff_ai_request_nonce')) . '";';
+				print 'var cff_ai_assistant_edit_nonce="' . esc_js(wp_create_nonce('cff_ai_assistant_edit_nonce')) . '";';
 
 				?>
 			</script>
@@ -163,6 +203,14 @@ if (! class_exists('CPCFF_AI_ASSISTANT')) {
 						</div>
 
 					</div>
+				</div>
+				<div id="cff-ai-assistant-chip-row" class="cff-ai-chip-row">
+					<button type="button" class="cff-ai-chip" data-topic="js"><?php esc_html_e('Equation', 'calculated-fields-form'); ?></button>
+					<button type="button" class="cff-ai-chip" data-topic="list"><?php esc_html_e('List', 'calculated-fields-form'); ?></button>
+					<button type="button" class="cff-ai-chip" data-topic="css"><?php esc_html_e('Style', 'calculated-fields-form'); ?></button>
+					<button type="button" class="cff-ai-chip" data-topic="html"><?php esc_html_e('HTML', 'calculated-fields-form'); ?></button>
+					<button type="button" class="cff-ai-chip" data-topic="message"><?php esc_html_e('Email', 'calculated-fields-form'); ?></button>
+					<button type="button" class="cff-ai-chip" data-topic="edit"><?php esc_html_e('Edit', 'calculated-fields-form'); ?></button>
 				</div>
 				<div id="cff-ai-assistant-answer-row" class="cff-ai-assistant-answer-row">
 					<div class="cff-ai-assistance-first-message-local cff-ai-assistance-message cff-ai-assistance-bot-message cff-ai-assistance-loading-message">

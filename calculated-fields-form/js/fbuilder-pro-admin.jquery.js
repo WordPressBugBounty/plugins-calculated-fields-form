@@ -1484,49 +1484,57 @@
 			{
 				var structure,
 					templates = null,
-					fBuild = this;
+					fBuild = this,
+					success = true;
 
 				try{
 					structure =  JSON.parse( $("#"+form_structure).val() );
 				}
 				catch(err)
 				{
+					success = false;
 					structure = [];
 					if(typeof console != 'undefined') console.log(err);
 				}
 
-			    try{
+			    try {
 					 if( typeof available_templates != 'undefined' ) templates = JSON.parse( $("#"+available_templates).val() );
-				}
-				catch(err)
-				{
+				} catch(err) {
+					success = false;
 					templates = null;
 					if(typeof console != 'undefined') console.log(err);
 				}
 
-			    if ( structure )
-				{
-					$.fbuilder.defineGeneralEvents();
-					if (structure.length==2)
+				try {
+					if ( structure )
 					{
-						items = [];
-						for (var i=0;i<structure[0].length;i++)
+						$.fbuilder.defineGeneralEvents();
+						if (structure.length==2)
 						{
-						   var obj = new $.fbuilder.controls[structure[0][i].ftype]();
-						   obj = $.extend( true, {}, obj, structure[0][i] );
-						   obj.fBuild = fBuild;
-						   items[items.length] = obj;
+							items = [];
+							for (var i=0;i<structure[0].length;i++)
+							{
+							   var obj = new $.fbuilder.controls[structure[0][i].ftype]();
+							   obj = $.extend( true, {}, obj, structure[0][i] );
+							   obj.fBuild = fBuild;
+							   items[items.length] = obj;
+							}
+							theForm = (typeof theForm != 'undefined' ) ? theForm : new fform();
+							theForm = $.extend(true, {}, theForm, structure[1][0]);
+							$.fbuilder.reloadItems();
 						}
-						theForm = (typeof theForm != 'undefined' ) ? theForm : new fform();
-						theForm = $.extend(true, {}, theForm, structure[1][0]);
-						$.fbuilder.reloadItems();
 					}
+				} catch(err) {
+					success = false;
+					throw err;
 				}
 
 				if( templates )
 				{
 					$.fbuilder.showSettings.formTemplateDic = templates;
 				}
+
+				return success;
 		    },
 		    removeItem: $.fbuilder[ 'removeItem' ],
 		    editItem:   $.fbuilder[ 'editItem' ]

@@ -836,7 +836,7 @@ body{
 #fbuilder .cff-record-av-field .cff-record-stop-btn:before{background-image:url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMTAuMzM0IDEwLjMzNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTAuMzM0IDEwLjMzNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPHBhdGggc3R5bGU9ImZpbGw6IzAzMDEwNDsiIGQ9Ik0xMC4zMzMsOS44MTZjMCwwLjI4NS0wLjIzMSwwLjUxOC0wLjUxNywwLjUxOEgwLjUxN0MwLjIzMywxMC4zMzQsMCwxMC4xMDIsMCw5LjgxNlYwLjUxNw0KCQlDMCwwLjIzMiwwLjIzMSwwLDAuNTE3LDBoOS4yOTljMC4yODUsMCwwLjUxNywwLjIzMSwwLjUxNywwLjUxN1Y5LjgxNnoiLz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg==");}
 #fbuilder .cff-record-av-field .cff-record-play-btn:hover{background-color:#EBEBEB;border-color:#ADADAD;}
 #fbuilder .cff-record-av-field .cff-record-error,
-#fbuilder .cff-record-av-field .cff-record-status{background:#b0b0b0;display:inline-block;clear:both;padding-left:5px;padding-right:5px;color:white;font-style:italic;margin-top:5px;}
+#fbuilder .cff-record-av-field .cff-record-status{background:#b0b0b0;display:block;width:fit-content;clear:both;padding-left:5px;padding-right:5px;color:white;font-style:italic;margin-top:5px;text-align:center;}
 #fbuilder .cff-record-av-field .cff-record-time{display:inline-block;margin-left:10px;}
 #fbuilder .cff-record-av-field .cff-record-time:after{content:"/";margin-left:5px;margin-right:5px;}
 #fbuilder .cff-record-av-field .cff-record-max-time{display:inline-block;color:red;}

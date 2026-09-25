@@ -465,6 +465,11 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				} else {
 					$value = $default;
 				}
+			} else if ( $option == 'cv_enable_captcha' && (! is_admin() || isset($_POST['preview'])) ) {
+				// In public website the captcha is disabled if the submission is disabled.
+				if ( $this->get_option( 'fp_disable_submissions', 0 ) == 1 ) {
+					$value = 'false';
+				}
 			}
 			/**
 			 * Filters applied before returning a form option,

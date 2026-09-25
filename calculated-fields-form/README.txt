@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.1.2
+Stable tag: 5.5.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,13 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.1.3 =
+
+* Enhances the AI Assistant.
+* Updates the browser API used by the Recording Control.
+* Disables the CAPTCHA when form submissions are disabled in the form settings.
+* Enhances the Signature add-on included in the Platinum plugin distribution.
+
 = 5.5.1.2 =
 
 * Updates the Date/Timeslots control to properly initialize time intervals.
@@ -499,9 +506,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Enhances the Divi 4 to Divi 5 migration module.
 * Includes several improvements to Template 18.
 * Updates the list of supported AI models.
-
-= 5.5.0.8 =
-
-* Updates the Default Settings section to allow selecting which attributes should be replaced in existing forms, instead of applying changes to all attributes at once.
-* Updates the list of supported AI models.
-* Fixes minor issues in the Email, Email Data Source, and Textarea Data Source controls.

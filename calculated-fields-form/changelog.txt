@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.5.1.3 =
+
+* Enhances the AI Assistant.
+* Updates the browser API used by the Recording Control.
+* Disables the CAPTCHA when form submissions are disabled in the form settings.
+* Enhances the Signature add-on included in the Platinum plugin distribution.
+
 = 5.5.1.2 =
 
 * Updates the Date/Timeslots control to properly initialize time intervals.

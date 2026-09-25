@@ -59,82 +59,100 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'title' => esc_html__('OpenAI', 'calculated-fields-form'),
                         'default_model' => 'gpt-5.4-mini',
                         'api_key_url' => 'https://platform.openai.com/api-keys',
-                        'models' => [
+						'models' => [
 							'gpt-6-astra' => [
 								'title' => esc_html__('GPT-6 Astra (Most Capable)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant' => true,
 								'max_tokens' => 128000
 							],
-                            'gpt-5.6-sol' => [
-                                'title' => esc_html__('GPT-5.6 Sol (Flagship)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 120000
-                            ],
-                            'gpt-5.6-terra' => [
-                                'title' => esc_html__('GPT-5.6 Terra (Balanced)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 120000
-                            ],
-                            'gpt-5.6-luna' => [
-                                'title' => esc_html__('GPT-5.6 Luna (Fast and Cheap)', 'calculated-fields-form'),
-                                'form-generation' => false,
-                                'ai-assistant' => true,
-                                'max_tokens' => 120000
-                            ],
-                            'gpt-5.5-pro' => [
-                                'title' => esc_html__('GPT-5.5 Pro', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 120000
-                            ],
-                            'gpt-5.5' => [
-                                'title' => esc_html__('GPT-5.5', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 120000
-                            ],
-                            'gpt-5.4-pro' => [
-                                'title' => esc_html__('GPT-5.4 Pro', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 120000
-                            ],
-                            'gpt-5.4' => [
-                                'title' => esc_html__('GPT-5.4', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 128000
-                            ],
-                            'gpt-5.4-mini' => [
-                                'title' => esc_html__('GPT-5.4 Mini', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 128000
-                            ],
-                            'gpt-5.4-nano' => [
-                                'title' => esc_html__('GPT-5.4 Nano', 'calculated-fields-form'),
-                                'form-generation' => false,
-                                'ai-assistant' => true,
-                                'max_tokens' => 128000
-                            ]
-                        ]
+							'gpt-6-sol' => [
+								'title' => esc_html__('GPT-6 Sol (Coding and Agentic)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 128000
+							],
+							'gpt-6-luna' => [
+								'title' => esc_html__('GPT-6 Luna (Efficient)', 'calculated-fields-form'),
+								'form-generation' => false,
+								'ai-assistant' => true,
+								'max_tokens' => 128000
+							],
+							'gpt-5.6-sol' => [
+								'title' => esc_html__('GPT-5.6 Sol (Flagship)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 120000
+							],
+							'gpt-5.6-terra' => [
+								'title' => esc_html__('GPT-5.6 Terra (Balanced)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 120000
+							],
+							'gpt-5.6-luna' => [
+								'title' => esc_html__('GPT-5.6 Luna (Fast and Cheap)', 'calculated-fields-form'),
+								'form-generation' => false,
+								'ai-assistant' => true,
+								'max_tokens' => 120000
+							],
+							'gpt-5.5-pro' => [
+								'title' => esc_html__('GPT-5.5 Pro', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 120000
+							],
+							'gpt-5.5' => [
+								'title' => esc_html__('GPT-5.5', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 120000
+							],
+							'gpt-5.4-pro' => [
+								'title' => esc_html__('GPT-5.4 Pro', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 128000
+							],
+							'gpt-5.4' => [
+								'title' => esc_html__('GPT-5.4', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 128000
+							],
+							'gpt-5.4-mini' => [
+								'title' => esc_html__('GPT-5.4 Mini', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 128000
+							],
+							'gpt-5.4-nano' => [
+								'title' => esc_html__('GPT-5.4 Nano', 'calculated-fields-form'),
+								'form-generation' => false,
+								'ai-assistant' => true,
+								'max_tokens' => 128000
+							]
+						]
                     ],
                     'claude' => [
                         'title'         => esc_html__('Anthropic (Claude)', 'calculated-fields-form'),
                         'default_model' => 'claude-haiku-4-5-20251001',
                         'api_key_url'   => 'https://console.anthropic.com/settings/keys',
-                        'models'        => [
+						'models'        => [
 							'claude-fable-5-1' => [
 								'title'           => esc_html__('Claude Fable 5.1 (Most Powerful)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 128000
 							],
+							'claude-opus-5-5' => [
+								'title'           => esc_html__('Claude Opus 5.5 (Most Capable)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
 							'claude-opus-5' => [
-								'title'           => esc_html__('Claude Opus 5 (Most Capable)', 'calculated-fields-form'),
+								'title'           => esc_html__('Claude Opus 5 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 128000
@@ -193,15 +211,33 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							]
-                        ]
+						]
                     ],
                     'gemini' => [
                         'title'         => esc_html__('Google (Gemini)', 'calculated-fields-form'),
                         'default_model' => 'gemini-3.5-flash',
                         'api_key_url'   => 'https://aistudio.google.com/app/api-keys',
 						'models' => [
+							'gemini-3.8-flash' => [
+								'title'           => esc_html__('Gemini 3.8 Flash (Most Powerful)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-3.7-flash' => [
+								'title'           => esc_html__('Gemini 3.7 Flash (Advanced Coding)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-3.6-flash' => [
+								'title'           => esc_html__('Gemini 3.6 Flash (Balanced)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
 							'gemini-3.5-flash' => [
-								'title'           => esc_html__('Gemini 3.5 Flash (Recommended)', 'calculated-fields-form'),
+								'title'           => esc_html__('Gemini 3.5 Flash (Fast)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
@@ -212,14 +248,14 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
-							'gemini-3.1-pro-preview' => [
-								'title'           => esc_html__('Gemini 3.1 Pro Preview (Most Capable)', 'calculated-fields-form'),
+							'gemini-3.1-flash-lite' => [
+								'title'           => esc_html__('Gemini 3.1 Flash-Lite (Fast & Efficient)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
-							'gemini-3.1-flash-lite' => [
-								'title'           => esc_html__('Gemini 3.1 Flash-Lite (Fast)', 'calculated-fields-form'),
+							'gemini-3.1-pro-preview' => [
+								'title'           => esc_html__('Gemini 3.1 Pro Preview (Most Capable)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
@@ -242,6 +278,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'ai-assistant'    => true,
 								'max_tokens'      => 8192
 							],
+							'gemini-2.5-flash-lite' => [
+								'title'           => esc_html__('Gemini 2.5 Flash-Lite (Efficient)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 8192
+							]
 						]
                     ],
                     'minimax' => [
@@ -334,26 +376,20 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'title'         => esc_html__('DeepSeek', 'calculated-fields-form'),
                         'default_model' => 'deepseek-v4-flash',
                         'api_key_url'   => 'https://platform.deepseek.com/api_keys',
-                        'models'        => [
+						'models' => [
 							'deepseek-flash' => [
 								'title' => esc_html__('DeepSeek V4.1 Flash', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant' => true,
-								'max_tokens' => 64000
+								'max_tokens' => 128000
 							],
-                            'deepseek-v4-pro' => [
-                                'title' => esc_html__('DeepSeek V4 Pro', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'deepseek-v4-flash' => [
-                                'title' => esc_html__('DeepSeek V4 Flash', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ]
-                        ]
+							'deepseek-v4-pro' => [
+								'title' => esc_html__('DeepSeek V4 Pro', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 128000
+							]
+						]
                     ]
                 ];
                 self::$default_model = self::$models[self::$default_provider]['default_model'];
