@@ -457,7 +457,9 @@
                     try{
                         $('#tabs-2 .choicesSet select:visible, #tabs-2 .cf_dependence_field:visible, #tabs-2 #sSelectedField, #tabs-2 #sFieldList').on('mouseover focus', function(){
                             if( !$(this).data('select2') )
-                                $(this).select2({theme: 'default cff-ctrl-select2'});
+                                $(this).select2().on('select2:open', function(){
+    								$('.select2-container').addClass('cff-ctrl-select2');
+    							});
                         });
                     }catch(e){}}, 10);
 			};

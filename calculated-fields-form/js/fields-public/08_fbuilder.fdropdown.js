@@ -81,8 +81,14 @@
                     {
                         function formatState(state)
                         {
-							return !state.id ? state.text : $('<span>'+state.text+'</span>');
-                        };
+							let _text = state.text == null ? '' : state.text;
+							if ( ! state.id ) return _text;
+							if ('DOMPurify' in window) {
+								let sanitized = DOMPurify.sanitize('<span>'+_text+'</span>');
+								return $(sanitized);
+							}
+							return $('<span>').text(_text);
+						};
 
                         $('#'+me.name).after('<span class="cff-select2-container '+me.size+'"></span>');
                         $('#'+me.name).on('change', function(){ $(this).valid(); });

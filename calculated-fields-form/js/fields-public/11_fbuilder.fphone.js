@@ -259,10 +259,18 @@
 							prefix.after('<span class="cff-select2-container"></span>');
 							prefix.select2({
                                 'templateResult': function(state){
-									return (state.id) ? $('<span class="prefix-option">'+state.text+'</span>') : state.text;
+									if ( ! state.id ) return state.text;
+									if ('DOMPurify' in window) {
+										let sanitized = DOMPurify.sanitize('<span class="prefix-option">'+state.text+'</span>');
+										return $(sanitized);
+									}
+									return $('<span class="prefix-option">').text(state.text);
 								},
                                 'templateSelection': function(state){
-									return (state.id) ? $('<span class="prefix-selected-option">'+state.text+'</span>').find('.country-code').text() : state.text;
+									if ( ! state.id ) return state.text;
+									let doc = new DOMParser().parseFromString(String(state.text), 'text/html');
+									let code = doc.querySelector('.country-code');
+									return code ? code.textContent : doc.body.textContent || '';
 								},
 								'dropdownAutoWidth' : true,
 								'dropdownParent':prefix.next('.cff-select2-container'),

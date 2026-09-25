@@ -723,7 +723,11 @@ function appendMessage(message, asHTML = false) {
 		newMessage.classList.add("cff-ai-assistance-bot-message");
     }
 	if (asHTML) {
-		newMessage.innerHTML = message.content;
+		if ('DOMPurify' in window) {
+			newMessage.innerHTML = DOMPurify.sanitize(message.content);
+		} else {
+			newMessage.textContent = message.content;
+		}
 	} else {
 		newMessage.textContent = message.content;
 	}
