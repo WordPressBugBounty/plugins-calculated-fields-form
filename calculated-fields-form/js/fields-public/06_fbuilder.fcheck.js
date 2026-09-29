@@ -34,6 +34,8 @@
                         classDep,
 						n 	= this.name.match(/fieldname\d+/)[0];
 
+					if (typeof this.choiceSelected == "undefined" || this.choiceSelected == null)
+						this.choiceSelected = new Array();
 					if (typeof this.choicesDep == "undefined" || this.choicesDep == null)
 						this.choicesDep = new Array();
 

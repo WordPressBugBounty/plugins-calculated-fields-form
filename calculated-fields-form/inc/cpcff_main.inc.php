@@ -513,6 +513,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'use_it_btn' 		   		   => esc_html__( 'Use It', 'calculated-fields-form' ),
 									'preview_btn' 		   		   => esc_html__( 'Preview', 'calculated-fields-form' ),
 									'open_modify_btn' 		   	   => esc_html__( '+ Describe Modifications', 'calculated-fields-form' ),
+									'back_form_generator_btn' 	   => esc_html__( 'Back to Form Generator', 'calculated-fields-form' ),
 									'close_modify_btn' 		   	   => esc_html__( '- Hide Description', 'calculated-fields-form' ),
 									'back_btn' 		   		   	   => esc_attr__( 'back', 'calculated-fields-form' ),
 									'forward_btn' 		   		   => esc_attr__( 'Go to form', 'calculated-fields-form' ),

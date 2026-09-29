@@ -37,13 +37,17 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 
 				$cookie_crumbs = explode( '||', $cookie );
 
-				$this->session_id = $cookie_crumbs[0];
-				$this->expiration = $cookie_crumbs[1];
-			} else {
-				$this->session_id = $this->_generate_session_id();
-				$this->expiration = $this->expiration_interval;
-				$this->_set_cookie();
+				$this->session_id  = $cookie_crumbs[0] ?? null;
+				$this->expiration  = is_numeric( $cookie_crumbs[1] ?? null ) ? (int) $cookie_crumbs[1] : $this->expiration_interval;
 			}
+			else
+			{
+				// Lazy initialization: no SID generated, no cookie emitted.
+				// Cookie emission is deferred to _ensure_session() on first write.
+				$this->session_id = null;
+				$this->expiration = $this->expiration_interval;
+			}
+
 		}
 
 		/************** PRIVATE INSTANCE METHODS **************/
@@ -76,7 +80,16 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 			return self::$CP_COOKIE_NAME . '_' . $this->session_id . '_' . $name;
 		}
 
+		// Lazily creates a session_id and emits the cookie on demand,
+		// only when an actual write occurs. Read paths do not call this.
+		private function _ensure_session() {
+			if( $this->session_id !== null ) return;
+			$this->session_id = $this->_generate_session_id();
+			$this->_set_cookie();
+		}
+
 		private function _set_var( $name, $value ) {
+			$this->_ensure_session();
 			$_SESSION[ $name ] = $value;
 			$transient         = $this->_get_var_name( $name );
 			set_transient( $transient, $value, $this->expiration );
@@ -109,7 +122,7 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 			$expiration = time() - $this->expiration_interval;
 			try {
 				$transients = $wpdb->get_col(
-					$wpdb->prepare( "SELECT REPLACE(option_name, '_transient_timeout_', '') AS transient_name FROM {$wpdb->options} WHERE option_name LIKE %s AND option_value < %s", '_transient_timeout_' . $wpdb->esc_like( self::$CP_COOKIE_NAME ) . '%', $expiration )
+					$wpdb->prepare( "SELECT REPLACE(option_name, '_transient_timeout_', '') AS transient_name FROM {$wpdb->options} WHERE option_name LIKE %s AND option_value < %s", "_transient_timeout_" . $wpdb->esc_like( self::$CP_COOKIE_NAME ) . "%", $expiration )
 				);
 
 				$options_names = array();
@@ -146,6 +159,7 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 		/************** PUBLIC STATIC METHODS **************/
 		public static function session_start() {
 			$instance = self::_get_instance();
+			$instance->_ensure_session();
 		}
 
 		public static function session_id() {
@@ -164,7 +178,7 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 		}
 
 		public static function unset_var( $name ) {
-			 $instance = self::_get_instance();
+			$instance = self::_get_instance();
 			$instance->_unset_var( $name );
 		}
 
@@ -184,6 +198,23 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 			$cp_cff_form_data['latest']  = $formid;
 
 			self::set_var( 'cp_cff_form_data', $cp_cff_form_data );
+		}
+
+		public static function clear_event($formid) {
+			if ( empty( $formid ) || ! is_numeric( $formid ) ) {
+				return;
+			}
+			$formid = absint( $formid );
+			$cp_cff_form_data = self::get_var( 'cp_cff_form_data' );
+			if ( ! empty( $cp_cff_form_data ) && is_array( $cp_cff_form_data ) ) {
+				if ( isset( $cp_cff_form_data['latest'] ) && $cp_cff_form_data['latest'] == $formid ) {
+					unset( $cp_cff_form_data['latest'] );
+				}
+				if ( isset( $cp_cff_form_data[ $formid ] ) ) {
+					unset( $cp_cff_form_data[ $formid ] );
+				}
+				self::set_var( 'cp_cff_form_data', $cp_cff_form_data );
+			}
 		}
 
 		public static function registered_events() {

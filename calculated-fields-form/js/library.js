@@ -63,6 +63,7 @@ jQuery(function () {
 		txt_use_it_btn 				= cpcff_forms_library_config['texts']['use_it_btn'],
 		txt_preview_btn 			= cpcff_forms_library_config['texts']['preview_btn'] ?? 'Preview',
         txt_open_modify_btn         = cpcff_forms_library_config['texts']['open_modify_btn'] ?? '+ Describe Modifications',
+        txt_back_form_generator_btn  = cpcff_forms_library_config['texts']['back_form_generator_btn'] ?? 'Back to Form Generator',
         txt_close_modify_btn        = cpcff_forms_library_config['texts']['close_modify_btn'] ?? '- Hide Description',
 		txt_create_form_btn 		= cpcff_forms_library_config['texts']['create_form_btn'],
 		txt_back_btn 				= cpcff_forms_library_config['texts']['back_btn'],
@@ -105,6 +106,7 @@ jQuery(function () {
                     <div>
 					    <input type="button" class="button-primary cff-select-form" value="${txt_use_it_btn}"  onclick="cff_getTemplate('ai-generator');" />
                         <button type="button" class="button-secondary cff-modify-form">${txt_open_modify_btn}</button>
+                        <button type="button" class="button-secondary cff-back-form-generator">${txt_back_form_generator_btn}</button>
                     </div>
                     <div class="cff-ai-form-modifications-description-container">
                         <textarea id="cff-ai-form-modifications-description" rows="4" placeholder="${form_modifications_placeholder}"></textarea>
@@ -505,11 +507,30 @@ jQuery(function () {
         if (callback) callback();
     }
 
+	function cff_backFormGenerator() {
+		$('.cff-ai-form-preview-container').hide();
+		$('.cff-form-library-forward').show();
+	}
+
     function cff_selectFromPreview() {
         if (_cff_current_template_id !== null) {
             cff_getTemplate(_cff_current_template_id, _cff_current_is_website_form);
         }
     }
+
+	function cff_showModifySection() {
+		$('.cff-ai-form-modifications-description-container').addClass('cff-ai-form-modifications-description-container-active');
+		$('.cff-modify-form').text(txt_close_modify_btn);
+		let d = $('#cff-ai-form-modifications-description');
+		if ( String(d.val()).trim() == '' ) d.val($('#cff-ai-form-description').val());
+	}
+
+	function cff_hideModifySection(clearDescriptionOnHide) {
+		$('.cff-ai-form-modifications-description-container').removeClass('cff-ai-form-modifications-description-container-active');
+		$('.cff-modify-form').text(txt_open_modify_btn);
+		clearDescriptionOnHide = clearDescriptionOnHide || false;
+		if (clearDescriptionOnHide) $('#cff-ai-form-modifications-description').val('');
+	}
 
     $(document).on('change', '#cff-ai-model-provider', function(){
         let provider_selected = getProviderSelected();
@@ -568,15 +589,14 @@ jQuery(function () {
         $('#cff-ai-save-btn').trigger('click');
 	});
 	$(document).on('click', '.cff-form-library-close', closeDialog);
-	$(document).on('click', '.cff-form-library-back', function(){ $('.cff-ai-form-preview-container').hide(); $('.cff-form-library-forward').show();});
+	$(document).on('click', '.cff-form-library-back', cff_backFormGenerator);
+	$(document).on('click', '.cff-back-form-generator', cff_backFormGenerator);
 	$(document).on('click', '.cff-form-library-forward', function(){ $('.cff-ai-form-preview-container').css('display', 'flex'); });
     $(document).on('click', '.cff-modify-form', function(){
-        $('.cff-ai-form-modifications-description-container').toggleClass('cff-ai-form-modifications-description-container-active');
-        let e = $(this),
-            d = $('#cff-ai-form-modifications-description');
+		let e = $(this);
         e.toggleClass('cff-modify-form-active');
-        e.text(e.hasClass('cff-modify-form-active') ? txt_close_modify_btn : txt_open_modify_btn);
-        if ( String(d.val()).trim() == '' ) d.val($('#cff-ai-form-description').val());
+		if ( e.hasClass('cff-modify-form-active') ) cff_showModifySection();
+		else cff_hideModifySection(true);
     });
     $(document).on('click', '.cff-ai-generate2', function(){
         let e = $(this);
@@ -587,8 +607,11 @@ jQuery(function () {
         });
     });
 	$(document).on('click', '.cff-ai-generate', async function(evt, extra_params){
-		$('.cff-form-library-forward').hide();
         extra_params = extra_params || {};
+		$('.cff-form-library-forward').hide();
+		if ( ! ( 'trigger_btn' in extra_params) ) { // It was not triggered by the button that applies modifications.
+			cff_hideModifySection(true);
+		}
 		// Check API Key and form description.
 		let api_key 		  = String($('#cff-ai-api-key').val()).trim(),
             provider          = getProviderSelected(),

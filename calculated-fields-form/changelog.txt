@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.5.1.5 =
+
+* Updates the schema used by AI models to generate form structures, adding support for the remaining controls.
+* Improves the AI Form Generation module in the form creation dialog.
+* Enhances the Checkbox control.
+
 = 5.5.1.4 =
 
 * Improves the plugin security. Special thanks to UKO - Korea univ and WordFence team.

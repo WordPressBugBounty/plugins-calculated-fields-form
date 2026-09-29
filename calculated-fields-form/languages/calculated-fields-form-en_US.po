@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-09-25 01:46+0200\n"
-"PO-Revision-Date: 2026-09-25 01:46+0200\n"
+"POT-Creation-Date: 2026-09-29 18:36+0200\n"
+"PO-Revision-Date: 2026-09-29 18:36+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -15,49 +15,49 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: cp_calculatedfieldsf_free.php:227
+#: cp_calculatedfieldsf_free.php:220
 msgid "Form Preview"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:269
+#: cp_calculatedfieldsf_free.php:262
 msgid ""
 "You are submitting the form too quickly, or with invalid data, and are being "
 "identified as a spam bot. Please take more time to fill the form."
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:295
+#: cp_calculatedfieldsf_free.php:288
 msgid "Form submissions are currently disabled."
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:579 cp_calculatedfieldsf_free.php:592
+#: cp_calculatedfieldsf_free.php:572 cp_calculatedfieldsf_free.php:585
 msgid "The"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:579
+#: cp_calculatedfieldsf_free.php:572
 msgid "value is invalid"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:592
+#: cp_calculatedfieldsf_free.php:585
 msgid "is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:770
+#: cp_calculatedfieldsf_free.php:763
 msgid "The form is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:805
+#: cp_calculatedfieldsf_free.php:798
 msgid "Error saving data! Please try again."
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:807
+#: cp_calculatedfieldsf_free.php:800
 msgid "Error debug information: "
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:865
+#: cp_calculatedfieldsf_free.php:858
 msgid "Failed security check"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:905
+#: cp_calculatedfieldsf_free.php:898
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the database structure. Please, go to the plugins "
@@ -66,7 +66,7 @@ msgid ""
 "please <a href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:916
+#: cp_calculatedfieldsf_free.php:909
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the form structure. Please, try to save the data "
@@ -236,7 +236,7 @@ msgid "Settings"
 msgstr ""
 
 #: inc/cpcff_admin_ai_assistant.inc.php:166
-#: inc/cpcff_admin_ai_assistant.inc.php:171 inc/cpcff_main.inc.php:519
+#: inc/cpcff_admin_ai_assistant.inc.php:171 inc/cpcff_main.inc.php:520
 msgid "close"
 msgstr ""
 
@@ -498,7 +498,7 @@ msgstr ""
 msgid "Please enter a search criteria."
 msgstr ""
 
-#: inc/cpcff_admin_ai_entry_searcher.inc.php:662 inc/cpcff_main.inc.php:521
+#: inc/cpcff_admin_ai_entry_searcher.inc.php:662 inc/cpcff_main.inc.php:522
 msgid "Be patient, still thinking..."
 msgstr ""
 
@@ -2981,52 +2981,56 @@ msgid "+ Describe Modifications"
 msgstr ""
 
 #: inc/cpcff_main.inc.php:516
-msgid "- Hide Description"
+msgid "Back to Form Generator"
 msgstr ""
 
 #: inc/cpcff_main.inc.php:517
-msgid "back"
+msgid "- Hide Description"
 msgstr ""
 
 #: inc/cpcff_main.inc.php:518
+msgid "back"
+msgstr ""
+
+#: inc/cpcff_main.inc.php:519
 msgid "Go to form"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:522
+#: inc/cpcff_main.inc.php:523
 msgid "Hang tight…"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:523
+#: inc/cpcff_main.inc.php:524
 msgid "Still working on it…"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:524
+#: inc/cpcff_main.inc.php:525
 msgid "Almost there…"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:525
+#: inc/cpcff_main.inc.php:526
 msgid "Complex request, thank you for your patience…"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:528
+#: inc/cpcff_main.inc.php:529
 msgid "The API Key is empty."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:529
+#: inc/cpcff_main.inc.php:530
 msgid "Please enter the form description."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:591
+#: inc/cpcff_main.inc.php:592
 msgid "Invalid form structure"
 msgstr ""
 
-#: inc/cpcff_main.inc.php:628 inc/cpcff_main.inc.php:721
+#: inc/cpcff_main.inc.php:629 inc/cpcff_main.inc.php:722
 msgid ""
 "This is a preview of the form, letting you see its setup and design before "
 "it goes live."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:640
+#: inc/cpcff_main.inc.php:641
 msgid ""
 "If the form isn't displayed below, it means the AI was unable to generate a "
 "valid structure. We apologize for any inconvenience. Please click the \"Back "
@@ -3034,7 +3038,7 @@ msgid ""
 "\"Generate\" again."
 msgstr ""
 
-#: inc/cpcff_main.inc.php:690
+#: inc/cpcff_main.inc.php:691
 msgid ""
 "If the form isn't loading on the public website, try inserting its shortcode "
 "with the iframe attribute set to 1, e.g.:"

@@ -33,7 +33,7 @@
     animation: cffspinner .6s linear infinite;
 }
 
-.cff-processing-form .cff-still-loading {
+.cff-processing-form .cff-still-loading:not(:empty) {
     position: absolute;
     top: 120px;
     left: 50%;
@@ -42,4 +42,8 @@
     font-style: italic;
     font-weight: 600;
     color: #c52359 !important;
+	padding: 10px;
+  	background: rgba(255,255,255,.9);
+  	border-radius: 41px;
+  	border: 2px solid #c52359;
 }
