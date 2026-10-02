@@ -381,13 +381,17 @@
 						if($('#'+e.name).data('manually') == 1) return __ME__;
 
 						var	_match,
-							field_regexp = new RegExp('(fieldname\\d+'+suffix+')(_[cr]b\\d+)?(\\|[rnvq])?([\\D\\b])','i');
+							field_regexp = new RegExp('(fieldname\\d+'+suffix+')(_[cr]b\\d+)?(\\|[rnvq])?([\\D\\b])','ig');
 
 						$.fbuilder['currentFormId'] = $.fbuilder['forms'][suffix].formId;
 
-						eq = '('+eq+')';
-						while (_match = field_regexp.exec(eq))
+						var original  = '('+eq+')',
+							out       = '',
+							lastIndex = 0,
+							_match;
+						while (_match = field_regexp.exec(original))
 						{
+							out += original.substring(lastIndex, _match.index);
 							var field = $.fbuilder['forms'][suffix].getItem(_match[1]),
 								v = '',
 								r;
@@ -405,8 +409,11 @@
 									else if( r !== true && $.fbuilder.isNumeric(v)) v = '('+v+')';
 								}
 							}
-							eq = eq.replace(_match[0], v+''+_match[4]); // Replace the variable name by value
+							out += v+''+_match[4]; // Replace the variable name by value
+							lastIndex = field_regexp.lastIndex;
 						}
+						out += original.substring(lastIndex);
+						eq = out;
 						try
 						{
 							eq = eq.replace(/^\(/, '').replace(/\)$/, '').replace(/\b__ME__\b/g, __ME__);

@@ -5,13 +5,17 @@ if ( ! defined('WP_DEBUG') || true != WP_DEBUG ) {
 add_action( 'init', 'cp_calculatedfieldsf_form_cache', 1 );
 
 function cp_calculatedfieldsf_form_cache() {
+	if ( isset($_REQUEST['cffaction']) ) {
+		$cffaction  = sanitize_text_field( wp_unslash( $_REQUEST['cffaction'] ) );
+	}
+
 	if (
 		! empty( $_REQUEST['_nonce'] ) &&
 		wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_nonce'] ) ), 'cff-client-side-auxilary-nonce' )
 	) {
 		if (
-			! empty( $_REQUEST['cffaction'] ) &&
-			'cff_register_height' == sanitize_text_field( wp_unslash( $_REQUEST['cffaction'] ) ) &&
+			! empty( $cffaction ) &&
+			'cff_register_height' == $cffaction &&
 
 			! empty( $_REQUEST['form_height'] ) &&
 			is_numeric( $_REQUEST['form_height'] ) &&
@@ -78,5 +82,14 @@ function cp_calculatedfieldsf_form_cache() {
 			print 'ok';
 			exit;
 		}
+	}
+
+	// This code is a controller. If the code reaches here with some request, then it's not handled.
+	if (
+		isset( $cffaction ) &&
+		$cffaction == 'cff_register_height'
+	) {
+		print 'ko';
+		exit;
 	}
 } // End cp_calculatedfieldsf_form_cache

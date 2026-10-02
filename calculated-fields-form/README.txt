@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.1.5
+Stable tag: 5.5.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.1.6 =
+
+* Enhances the equation evaluation module to prevent nested replacements, improving plugin security. Special thanks to UKO - Korea University and Wordfence.
+* Adjusts the module responsible for registering the form height.
+
 = 5.5.1.5 =
 
 * Updates the schema used by AI models to generate form structures, adding support for the remaining controls.
@@ -501,8 +506,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Updates the Date/Timeslots control to properly initialize time intervals.
 * Adds a Save button above the Form Builder dashboard.
 * Updates the Save icon in the floating controls to save the form settings while preserving the current location.
-
-= 5.5.1.1 =
-
-* Fixes an issue with Elementor Popups when a page contains both a regular form and a form inside an Elementor Popup.
-* Enhances the MCP form generator module, allowing external AI agents to validate the structure of generated forms and automatically correct any issues detected.

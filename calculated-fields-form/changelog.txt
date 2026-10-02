@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.5.1.6 =
+
+* Enhances the equation evaluation module to prevent nested replacements, improving plugin security. Special thanks to UKO - Korea University and Wordfence.
+* Adjusts the module responsible for registering the form height.
+
 = 5.5.1.5 =
 
 * Updates the schema used by AI models to generate form structures, adding support for the remaining controls.
