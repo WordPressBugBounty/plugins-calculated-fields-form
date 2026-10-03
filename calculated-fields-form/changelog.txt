@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.5.1.7 =
+
+* Adds validation rules to the set step method in Slider and Number controls, preventing the assignment of invalid values.
+* Resolves an issue affecting delayed equation evaluation.
+* Updates deprecated PHP code.
+* Introduces an option to enable or disable nonce protection for server-side equations (Developer and Platinum versions)
+
 = 5.5.1.6 =
 
 * Enhances the equation evaluation module to prevent nested replacements, improving plugin security. Special thanks to UKO - Korea University and Wordfence.

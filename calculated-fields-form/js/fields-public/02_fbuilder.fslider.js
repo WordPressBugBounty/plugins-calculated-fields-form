@@ -292,14 +292,14 @@
 				set_step:function(v, ignore)
 					{
 						try{
-							if(ignore) v = this.step;
-							else this.step = this._toNumber(v);
-
+							let step = this._toNumber(ignore ? this.step : v);
+							if (isNaN(step) || step <= 0) return;
+							if(!ignore) this.step = step;
 							if(this.logarithmic) { // TO CHECK
-								this.calc_step = v;
-								v = Math.min(v,1);
+								this.calc_step = step;
+								step = Math.min(step,1);
 							}
-							$('[id="'+this.name+'_slider"]').slider("option", "step", cff_esc_attr(v));
+							$('[id="'+this.name+'_slider"]').slider("option", "step", step);
 						}
 						catch(err){}
 					},

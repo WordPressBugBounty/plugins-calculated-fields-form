@@ -47,7 +47,8 @@
 					else {
 						var vb = e.val();
 						e.removeAttr('value');
-						if(!isNaN(v*1)) e.attr('step', Math.abs(v*1 ? v : 1));
+						v = v*1;
+						if(!isNaN(v) && v) e.attr('step', Math.abs(v));
 						e.val(vb);
 					}
                     if(!e.hasClass('cpefb_error')) e.removeClass('required');

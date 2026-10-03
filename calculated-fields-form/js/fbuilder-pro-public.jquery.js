@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.1.6';
+	$.fbuilder['version'] = '5.5.1.7';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1206,11 +1206,12 @@
 
 										f.css({'height':'auto', 'minHeight':'auto'});
 
+										f.attr('data-evalequations', eval_equations_bk);
+
 										if( opt.evalequations ) {
 											fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
 										}
 
-										f.attr('data-evalequations', eval_equations_bk);
 										$('.cff-processing-form', f).remove(); // 2024-12-16
 
 										try {

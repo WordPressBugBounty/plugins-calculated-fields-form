@@ -240,7 +240,7 @@ endif;
 
 add_action( 'admin_menu', function () {
 	add_submenu_page(
-		null,
+		'',
 		__( 'CFF - Agent Preview', 'calculated-fields-form' ),
 		'',
 		apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ),

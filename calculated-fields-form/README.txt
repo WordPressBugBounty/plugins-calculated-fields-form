@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.1.6
+Stable tag: 5.5.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,13 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.1.7 =
+
+* Adds validation rules to the set step method in Slider and Number controls, preventing the assignment of invalid values.
+* Resolves an issue affecting delayed equation evaluation.
+* Updates deprecated PHP code.
+* Introduces an option to enable or disable nonce protection for server-side equations (Developer and Platinum versions)
+
 = 5.5.1.6 =
 
 * Enhances the equation evaluation module to prevent nested replacements, improving plugin security. Special thanks to UKO - Korea University and Wordfence.
@@ -500,9 +507,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Updates the browser API used by the Recording Control.
 * Disables the CAPTCHA when form submissions are disabled in the form settings.
 * Enhances the Signature add-on included in the Platinum plugin distribution.
-
-= 5.5.1.2 =
-
-* Updates the Date/Timeslots control to properly initialize time intervals.
-* Adds a Save button above the Form Builder dashboard.
-* Updates the Save icon in the floating controls to save the form settings while preserving the current location.
