@@ -421,7 +421,11 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				return $form_structure;
 			}
 			if ( ! isset( $structure[1][0] ) || ! is_array( $structure[1][0] ) ) {
-				return $form_structure;
+				if (! empty($structure[1])) {
+					$structure[1] = array($structure[1]);
+				} else {
+					return $form_structure;
+				}
 			}
 
 			$structure[1][0]['formtemplate'] = $default;
@@ -1126,24 +1130,24 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 										$value = preg_split('/\n+/', $value);
 										$in_tag = strtolower($tagData['in_tag']);
-										switch ($in_tag) {
-											case 'img':
-											case '<img>':
-												foreach ($value as $_i => $_url) {
+										foreach ($value as $_i => $_url) {
+											$corrected_tag = (empty($_url) || ! @is_array(getimagesize($_url))) ? 'a' : $in_tag;
+											switch ($corrected_tag) {
+												case 'img':
+												case '<img>':
 													$_alt = '';
 													if (! empty($_names) && ! empty($_names[$_i])) {
 														$_alt = ' alt="' . esc_attr($_names[$_i]) . '"';
 													}
-													$value[$_i] = (!empty($_url) && @is_array(getimagesize($_url))) ? '<img src="' . esc_attr($_url) . '"' . $_alt . '>' : $_url;
-												}
-												break;
-											case 'a':
-											case '<a>':
-												foreach ($value as $_i => $_url) {
+													$value[$_i] = '<img src="' . esc_attr($_url) . '"' . $_alt . ' class="cff-upload-file cff-image">';
+													break;
+												case 'a':
+												case '<a>':
+												default:
 													$_text = (! empty($tagData['text']) && strtolower($tagData['text']) == 'name' && ! empty($_names) && ! empty($_names[$_i])) ? $_names[$_i] : $_url;
-													$value[$_i] = '<a href="' . esc_attr($_url) . '">' . esc_html($_text) . '</a>';
-												}
-												break;
+													$value[$_i] = '<a href="' . esc_attr($_url) . '" class="cff-upload-file cff-link">' . esc_html($_text) . '</a>';
+													break;
+											}
 										}
 										$value = implode("\n", $value);
 									}

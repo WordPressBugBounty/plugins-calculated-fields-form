@@ -144,7 +144,7 @@ if ( ! class_exists( 'CPCFF_AI_FORM_GENERATOR' ) ) {
                 $candidate = trim( $candidate );
 
                 $decoded = json_decode( $candidate, true );
-                if ( is_array( $decoded ) && count( $decoded ) === 2 && is_array( $decoded[0] ) && is_array( $decoded[1] ) && count( $decoded[1] ) === 1 ) {
+                if ( is_array( $decoded ) && count( $decoded ) === 2 && is_array( $decoded[0] ) && is_array( $decoded[1] ) && count( $decoded[1] ) === 1 && isset( $decoded[1][0] ) ) {
                     break;
                 }
                 $decoded = null;

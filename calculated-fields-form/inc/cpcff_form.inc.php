@@ -159,7 +159,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 		public static function create_default( $form_name, $category_name = '', $form_template = 0 ) {
 			global $wpdb, $cpcff_default_texts_array;
 
-			$_form_structure = CP_CALCULATEDFIELDSF_DEFAULT_form_structure;
+			$_form_structure = CP_CALCULATEDFIELDSF_DEFAULT_form_structure_blank;
 			// Get form structure from server !!!
 			if ( ! empty( $form_template ) ) {
 				if( is_numeric( $form_template ) ) {
@@ -197,9 +197,16 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 					}
 					$_form_structure = CPCFF_AUXILIARY::apply_default_visual_template( $_form_structure );
 				} else if ( is_string( $form_template ) ) {
-					json_decode( $form_template, true );
-					if ( json_last_error() === JSON_ERROR_NONE ) {
-						$_form_structure = $form_template;
+					$decoded = json_decode( $form_template, true );
+					if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+						// Normalize: if $decoded[1] is assoc (no index 0), wrap it.
+						if (
+							isset($decoded[1]) && is_array($decoded[1])
+							&& !empty($decoded[1]) && !isset($decoded[1][0])
+						) {
+							$decoded[1] = array($decoded[1]);
+						}
+						$_form_structure = json_encode($decoded);
 					}
 				}
 			}

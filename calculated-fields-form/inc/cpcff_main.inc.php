@@ -504,7 +504,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 									'wordpress_instruct'            => sprintf( esc_html__('Uses the AI Connector configured in the "Settings>Connector" section: %s', 'calculated-fields-form'), '<span class="cff-ai-links"></span>' ),
 
 									// Buttons texts.
-									'create_form_btn' 			   => esc_html__( 'Create Basic Form', 'calculated-fields-form' ),
+									'create_form_btn' 			   => esc_html__( 'Create Blank Form', 'calculated-fields-form' ),
 									'save_api_key_btn' 			   => esc_html__( 'Save Settings', 'calculated-fields-form' ),
 									'saving_api_key_btn' 		   => esc_html__( 'Saving...', 'calculated-fields-form' ),
 									'clear_api_key_btn' 		   => esc_html__( 'Clear Settings', 'calculated-fields-form' ),

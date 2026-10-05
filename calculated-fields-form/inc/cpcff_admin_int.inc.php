@@ -49,9 +49,9 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && isset($_POST['cp_calculatedfieldsf_p
 $cpcff_texts_array = $form_obj->get_option('vs_all_texts', []);
 
 $section_nav_bar = '<div class="cff-navigation-sections-menu">
+	<a href="#metabox_submit_thank">' . esc_html__('Submit button and thank you page', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_define_texts">' . esc_html__('Texts definition', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_define_validation_texts">' . esc_html__('Error texts', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
-	<a href="#metabox_submit_thank">' . esc_html__('Submit button and thank you page', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_notification_email">' . esc_html__('Notification email', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>' .
 	'<a href="#metabox_captcha_settings">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a>' .
     '<span class="cff-addon-menu-option" style="display:none;"><span>&nbsp;|&nbsp;</span>
@@ -93,8 +93,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
             <!-- Form category -->
             <input type="hidden" name="calculated-fields-form-category" value="<?php print esc_attr($form_obj->get_option('category', '')); ?>" list="calculated-fields-form-categories" />
             <datalist id="calculated-fields-form-categories"><?php
-                                                                print $cpcff_main->get_categories('DATALIST'); // phpcs:ignore WordPress.Security.EscapeOutput
-                                                                ?></datalist>
+				print $cpcff_main->get_categories('DATALIST'); // phpcs:ignore WordPress.Security.EscapeOutput
+			?></datalist>
             <hr />
             <?php print $section_nav_bar; // phpcs:ignore WordPress.Security.EscapeOutput
             ?>
@@ -297,17 +297,16 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                 <?php
                 if (get_option('CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS) == 0) :
                 ?>
-                    | <label><input type="checkbox" name="cff-revisions-in-preview"
-                            <?php
-                            if (get_option('CP_CALCULATEDFIELDSF_REVISIONS_IN_PREVIEW', true)) {
-                                print 'CHECKED';
-                            }
-                            ?> />
-                        <?php
-                        esc_html_e('Generate revisions in the form preview as well', 'calculated-fields-form');
-                        ?></label><?php
-                                endif;
-                                    ?>
+                    | <label><input type="checkbox" name="cff-revisions-in-preview" <?php
+					if (get_option('CP_CALCULATEDFIELDSF_REVISIONS_IN_PREVIEW', true)) {
+						print 'CHECKED';
+					}
+					?> />
+					<?php
+					esc_html_e('Generate revisions in the form preview as well', 'calculated-fields-form');
+					?></label><?php
+				endif;
+				?>
             </p>
             <div class="cff-save-controls-floating-popup">
                 <div class="cff-website-icon"></div>
@@ -329,16 +328,16 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                     <a href="#cpformconf"><img src="<?php print esc_attr(plugins_url('../images/icons/form.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Form Structure', 'calculated-fields-form'); ?>"></a>
                 </div>
                 <div class="cff-popup-icon">
+                    <div class="cff-popup-bubble"><?php esc_html_e('Submit Button and Thank You Page', 'calculated-fields-form'); ?></div>
+                    <a href="#metabox_submit_thank"><img src="<?php print esc_attr(plugins_url('../images/icons/submit.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Submit Button and Thank You Page', 'calculated-fields-form'); ?>"></a>
+                </div>
+                <div class="cff-popup-icon">
                     <div class="cff-popup-bubble"><?php esc_html_e('General Texts', 'calculated-fields-form'); ?></div>
                     <a href="#metabox_define_texts"><img src="<?php print esc_attr(plugins_url('../images/icons/text.svg', __FILE__)); ?>" alt="<?php esc_attr_e('General Texts', 'calculated-fields-form'); ?>"></a>
                 </div>
                 <div class="cff-popup-icon">
                     <div class="cff-popup-bubble"><?php esc_html_e('Validation Texts', 'calculated-fields-form'); ?></div>
                     <a href="#metabox_define_validation_texts"><img src="<?php print esc_attr(plugins_url('../images/icons/error.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Validation Texts', 'calculated-fields-form'); ?>"></a>
-                </div>
-                <div class="cff-popup-icon">
-                    <div class="cff-popup-bubble"><?php esc_html_e('Submit Button and Thank You Page', 'calculated-fields-form'); ?></div>
-                    <a href="#metabox_submit_thank"><img src="<?php print esc_attr(plugins_url('../images/icons/submit.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Submit Button and Thank You Page', 'calculated-fields-form'); ?>"></a>
                 </div>
                 <div class="cff-popup-icon">
                     <div class="cff-popup-bubble"><?php esc_html_e('Notification Email', 'calculated-fields-form'); ?></div>
@@ -364,30 +363,120 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
             </div>
             <?php print $section_nav_bar; // phpcs:ignore WordPress.Security.EscapeOutput
             ?>
-            <div id="metabox_define_texts" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_define_texts')); ?>" style="margin-top:20px;">
+
+			<div id="metabox_submit_thank" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_submit_thank')); ?>" style="margin-top:20px;">
+                <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Submit Button and Thank You Page', 'calculated-fields-form'); ?></span></h3>
+                <div class="inside">
+                    <table class="form-table">
+                        <tr valign="top">
+                            <th scope="row"><label for="enable_submit"><?php esc_html_e('Display submit button?', 'calculated-fields-form'); ?></label></th>
+                            <td>
+                                <?php
+                                $option = $form_obj->get_option('enable_submit', CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button);
+                                ?>
+                                <select id="enable_submit" name="enable_submit">
+                                    <option value="" <?php
+										if ('' == $option) {
+											echo ' selected';
+										}
+										?>><?php esc_html_e('Yes', 'calculated-fields-form'); ?></option>
+                                    <option value="no" <?php
+										if ('no' == $option) {
+											echo ' selected';
+										}
+										?>><?php esc_html_e('No', 'calculated-fields-form'); ?></option>
+                                </select>
+                                <label style="margin-left:20px;<?php if ('no' != $option) print 'display:none;'; ?>" class="disable-submissions-section"><input type="checkbox" id="fp_disable_submissions" name="fp_disable_submissions" <?php
+									if ($form_obj->get_option('fp_disable_submissions', 0) && 'no' == $option) print 'CHECKED';
+								?>><?php esc_html_e('Turn off form submissions entirely (button & code)', 'calculated-fields-form'); ?>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label for="fp_return_page"><?php esc_html_e('Thank you page (after sending the message)', 'calculated-fields-form'); ?></label></th>
+                            <td>
+								<div>
+									<input type="text" id="fp_return_page" name="fp_return_page"
+									list="fp_return_page_list" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page)); ?>" />
+									<a href="javascript:void(0);" onclick="document.getElementById('fp_return_page').value ='<%from_page%>';"><?php esc_html_e( 'Use current page', 'calculated-fields-form' ); ?></a>
+									<datalist id="fp_return_page_list">
+										<?php
+										$pages = get_pages();
+										foreach( $pages as $page )
+										{
+											print '<option value="' . esc_attr(get_permalink($page->ID )) . '">' . esc_html( $page->post_title ) . '</option>';
+										}
+										?>
+									</datalist>
+								</div>
+                                <p class="width75"><em style="font-size:11px;"><?php esc_html_e('Enter <%from_page%> to reload the form page after submission.', 'calculated-fields-form'); ?></em></p>
+                                <div style="margin-top:20px;margin-bottom:20px;" class="width75 cff-settings-hint-yellow">
+                                    <p><?php esc_html_e('Commercial plugin versions allow you to include a summary of the information collected by the form on the "Thank You Page" content.', 'calculated-fields-form'); ?> <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-primary"><?php esc_html_e('Upgrade Now', 'calculated-fields-form'); ?></a></p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td colspan="2" style="text-align:center;">
+                                <?php esc_html_e('- OR -', 'calculated-fields-form'); ?>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td></td>
+                            <td>
+                                <label><input type="checkbox" name="fp_ajax" value="1" <?php echo $form_obj->get_option('fp_ajax', 0) ? 'CHECKED' : ''; ?> />
+                                    <?php esc_html_e('Submit the form using AJAX instead of redirecting the user to the thank you page.', 'calculated-fields-form'); ?></label><br />
+                                <label><input type="checkbox" name="fp_ajax_reset_form" value="1" <?php echo $form_obj->get_option('fp_ajax_reset_form', 0) ? 'CHECKED' : ''; ?> />
+                                    <?php esc_html_e("Reset the fields' values after submitting the form using AJAX.", 'calculated-fields-form'); ?></label>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label for="fp_thanks_mssg"><?php esc_html_e('Thank you message', 'calculated-fields-form'); ?></label></th>
+                            <td>
+                                <textarea id="fp_thanks_mssg" name="fp_thanks_mssg" class="width75" style="" rows="4"><?php
+									print esc_textarea($form_obj->get_option('fp_thanks_mssg', ''));
+								?></textarea>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e('Up to form structure', 'calculated-fields-form'); ?></a></div>
+                </div>
+            </div>
+            <script data-category="functional">
+                jQuery(document).on('change', '[name="enable_submit"]', function() {
+                    if ('no' == jQuery('[name="enable_submit"]').val()) {
+                        jQuery('.disable-submissions-section').css('display', 'inline-block');
+                    } else {
+                        jQuery('.disable-submissions-section').hide();
+                        jQuery('[name="fp_disable_submissions"]').prop('checked', false);
+                    }
+                });
+            </script>
+
+            <div id="metabox_define_texts" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_define_texts')); ?>">
                 <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Define Texts', 'calculated-fields-form'); ?></span></h3>
                 <div class="inside">
                     <table class="form-table">
                         <tr valign="top">
                             <th scope="row"><label for="vs_text_submitbtn"><?php esc_html_e('Submit button label (text)', 'calculated-fields-form'); ?>:</label></th>
                             <td><input type="text" id="vs_text_submitbtn" name="vs_text_submitbtn" class="width75" value="<?php
-                                                                                                                            $label = $form_obj->get_option('vs_text_submitbtn', 'Submit');
-                                                                                                                            echo esc_attr('' == $label ? 'Submit' : $label);
-                                                                                                                            ?>" /></td>
+								$label = $form_obj->get_option('vs_text_submitbtn', 'Submit');
+								echo esc_attr('' == $label ? 'Submit' : $label);
+							?>" /></td>
                         </tr>
                         <tr valign="top">
                             <th scope="row"><label for="vs_text_previousbtn"><?php esc_html_e('Previous button label (text)', 'calculated-fields-form'); ?>:</label></th>
                             <td><input type="text" id="vs_text_previousbtn" name="vs_text_previousbtn" class="width75" value="<?php
-                                                                                                                                $label = $form_obj->get_option('vs_text_previousbtn', 'Previous');
-                                                                                                                                echo esc_attr('' == $label ? 'Previous' : $label);
-                                                                                                                                ?>" /></td>
+								$label = $form_obj->get_option('vs_text_previousbtn', 'Previous');
+								echo esc_attr('' == $label ? 'Previous' : $label);
+							?>" /></td>
                         </tr>
                         <tr valign="top">
                             <th scope="row"><label for="vs_text_nextbtn"><?php esc_html_e('Next button label (text)', 'calculated-fields-form'); ?>:</label></th>
                             <td><input type="text" id="vs_text_nextbtn" name="vs_text_nextbtn" class="width75" value="<?php
-                                                                                                                        $label = $form_obj->get_option('vs_text_nextbtn', 'Next');
-                                                                                                                        echo esc_attr('' == $label ? 'Next' : $label);
-                                                                                                                        ?>" /></td>
+								$label = $form_obj->get_option('vs_text_nextbtn', 'Next');
+								echo esc_attr('' == $label ? 'Next' : $label);
+							?>" /></td>
                         </tr>
                         <tr valign="top">
                             <td colspan="2">
@@ -478,95 +567,6 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
             <h2><?php esc_html_e('Form Processing', 'calculated-fields-form'); ?>:</h2>
             <hr />
 
-            <div id="metabox_submit_thank" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_submit_thank')); ?>">
-                <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Submit Button and Thank You Page', 'calculated-fields-form'); ?></span></h3>
-                <div class="inside">
-                    <table class="form-table">
-                        <tr valign="top">
-                            <th scope="row"><label for="enable_submit"><?php esc_html_e('Display submit button?', 'calculated-fields-form'); ?></label></th>
-                            <td>
-                                <?php
-                                $option = $form_obj->get_option('enable_submit', CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button);
-                                ?>
-                                <select id="enable_submit" name="enable_submit">
-                                    <option value="" <?php
-                                                        if ('' == $option) {
-                                                            echo ' selected';
-                                                        }
-                                                        ?>><?php esc_html_e('Yes', 'calculated-fields-form'); ?></option>
-                                    <option value="no" <?php
-                                                        if ('no' == $option) {
-                                                            echo ' selected';
-                                                        }
-                                                        ?>><?php esc_html_e('No', 'calculated-fields-form'); ?></option>
-                                </select>
-                                <label style="margin-left:20px;<?php if ('no' != $option) print 'display:none;'; ?>" class="disable-submissions-section"><input type="checkbox" id="fp_disable_submissions" name="fp_disable_submissions" <?php
-                                                                                                                                                                                                                                            if ($form_obj->get_option('fp_disable_submissions', 0) && 'no' == $option) print 'CHECKED';
-                                                                                                                                                                                                                                            ?>><?php esc_html_e('Turn off form submissions entirely (button & code)', 'calculated-fields-form'); ?>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <th scope="row"><label for="fp_return_page"><?php esc_html_e('Thank you page (after sending the message)', 'calculated-fields-form'); ?></label></th>
-                            <td>
-								<div>
-									<input type="text" id="fp_return_page" name="fp_return_page"
-									list="fp_return_page_list" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page)); ?>" />
-									<a href="javascript:void(0);" onclick="document.getElementById('fp_return_page').value ='<%from_page%>';"><?php esc_html_e( 'Use current page', 'calculated-fields-form' ); ?></a>
-									<datalist id="fp_return_page_list">
-										<?php
-										$pages = get_pages();
-										foreach( $pages as $page )
-										{
-											print '<option value="' . esc_attr(get_permalink($page->ID )) . '">' . esc_html( $page->post_title ) . '</option>';
-										}
-										?>
-									</datalist>
-								</div>
-                                <p class="width75"><em style="font-size:11px;"><?php esc_html_e('Enter <%from_page%> to reload the form page after submission.', 'calculated-fields-form'); ?></em></p>
-                                <div style="margin-top:20px;margin-bottom:20px;" class="width75 cff-settings-hint-yellow">
-                                    <p><?php esc_html_e('Commercial plugin versions allow you to include a summary of the information collected by the form on the "Thank You Page" content.', 'calculated-fields-form'); ?> <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-primary"><?php esc_html_e('Upgrade Now', 'calculated-fields-form'); ?></a></p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <td colspan="2" style="text-align:center;">
-                                <?php esc_html_e('- OR -', 'calculated-fields-form'); ?>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <td></td>
-                            <td>
-                                <label><input type="checkbox" name="fp_ajax" value="1" <?php echo $form_obj->get_option('fp_ajax', 0) ? 'CHECKED' : ''; ?> />
-                                    <?php esc_html_e('Submit the form using AJAX instead of redirecting the user to the thank you page.', 'calculated-fields-form'); ?></label><br />
-                                <label><input type="checkbox" name="fp_ajax_reset_form" value="1" <?php echo $form_obj->get_option('fp_ajax_reset_form', 0) ? 'CHECKED' : ''; ?> />
-                                    <?php esc_html_e("Reset the fields' values after submitting the form using AJAX.", 'calculated-fields-form'); ?></label>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <th scope="row"><label for="fp_thanks_mssg"><?php esc_html_e('Thank you message', 'calculated-fields-form'); ?></label></th>
-                            <td>
-                                <textarea id="fp_thanks_mssg" name="fp_thanks_mssg" class="width75" style="" rows="4"><?php
-                                                                                                                        print esc_textarea($form_obj->get_option('fp_thanks_mssg', ''));
-                                                                                                                        ?></textarea>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e('Up to form structure', 'calculated-fields-form'); ?></a></div>
-                </div>
-            </div>
-            <script data-category="functional">
-                jQuery(document).on('change', '[name="enable_submit"]', function() {
-                    if ('no' == jQuery('[name="enable_submit"]').val()) {
-                        jQuery('.disable-submissions-section').css('display', 'inline-block');
-                    } else {
-                        jQuery('.disable-submissions-section').hide();
-                        jQuery('[name="fp_disable_submissions"]').prop('checked', false);
-                    }
-                });
-            </script>
-
             <div id="metabox_notification_email" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_notification_email')); ?>">
                 <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Form Processing / Email Settings', 'calculated-fields-form'); ?></span></h3>
                 <div class="inside">
@@ -602,15 +602,15 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                                 <?php $option = $form_obj->get_option('fp_inc_additional_info', CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info); ?>
                                 <select name="fp_inc_additional_info">
                                     <option value="true" <?php
-                                                            if ('true' == $option) {
-                                                                echo ' selected';
-                                                            }
-                                                            ?>><?php esc_html_e('Yes', 'calculated-fields-form'); ?></option>
+										if ('true' == $option) {
+											echo ' selected';
+										}
+										?>><?php esc_html_e('Yes', 'calculated-fields-form'); ?></option>
                                     <option value="false" <?php
-                                                            if ('false' == $option) {
-                                                                echo ' selected';
-                                                            }
-                                                            ?>><?php esc_html_e('No', 'calculated-fields-form'); ?></option>
+										if ('false' == $option) {
+											echo ' selected';
+										}
+										?>><?php esc_html_e('No', 'calculated-fields-form'); ?></option>
                                 </select>&nbsp;<em style="font-size:11px;"><?php esc_html_e('If the "No" option is selected the plugin won\'t capture the IP address of users.', 'calculated-fields-form'); ?></em>
                             </td>
                         </tr>
@@ -619,15 +619,15 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                             <td>
                                 <select name="fp_inc_attachments">
                                     <option value="0" <?php
-                                                        if ($form_obj->get_option('fp_inc_attachments', 0) != '1') {
-                                                            echo 'selected';
-                                                        }
-                                                        ?>><?php esc_html_e('No', 'calculated-fields-form'); ?></option>
+										if ($form_obj->get_option('fp_inc_attachments', 0) != '1') {
+											echo 'selected';
+										}
+										?>><?php esc_html_e('No', 'calculated-fields-form'); ?></option>
                                     <option value="1" <?php
-                                                        if ($form_obj->get_option('fp_inc_attachments', 0) == '1') {
-                                                            echo 'selected';
-                                                        }
-                                                        ?>><?php esc_html_e('Yes', 'calculated-fields-form'); ?></option>
+										if ($form_obj->get_option('fp_inc_attachments', 0) == '1') {
+											echo 'selected';
+										}
+										?>><?php esc_html_e('Yes', 'calculated-fields-form'); ?></option>
                                 </select>
                             </td>
                         </tr>
@@ -637,15 +637,15 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                                 <?php $option = $form_obj->get_option('fp_emailformat', CP_CALCULATEDFIELDSF_DEFAULT_email_format); ?>
                                 <select name="fp_emailformat" class="width75">
                                     <option value="text" <?php
-                                                            if ('html' != $option) {
-                                                                echo ' selected';
-                                                            }
-                                                            ?>><?php esc_html_e('Plain Text (default)', 'calculated-fields-form'); ?></option>
+										if ('html' != $option) {
+											echo ' selected';
+										}
+										?>><?php esc_html_e('Plain Text (default)', 'calculated-fields-form'); ?></option>
                                     <option value="html" <?php
-                                                            if ('html' == $option) {
-                                                                echo ' selected';
-                                                            }
-                                                            ?>><?php esc_html_e('HTML (use html in the textarea below)', 'calculated-fields-form'); ?></option>
+										if ('html' == $option) {
+											echo ' selected';
+										}
+										?>><?php esc_html_e('HTML (use html in the textarea below)', 'calculated-fields-form'); ?></option>
                                 </select>
                             </td>
                         </tr>
