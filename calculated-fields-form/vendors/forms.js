@@ -1,6 +1,6 @@
 cff_forms_templates = {
     "free": [{
-            "title": "Blank form",
+            "title": "From Scratch",
             "category": "Basic Operations",
             "description": "Blank form to start from scratch.",
 			"thumb":"35.png",

@@ -258,7 +258,15 @@
 					for (let j in v[i]) {
 						if (! (j in this.matrix[i])) continue;
 						let f = getField(this.matrix[i][j], this.form_identifier);
-						if (f) f.setVal(v[i][j], nochange, _default);
+						if (f) {
+							if (f.ftype === 'ffile' || f.ftype === 'frecordav') {
+								if (j + '_url' in v[i] && '_prefill' in f) {
+									f._prefill(v[i][j+'_url']);
+								}
+							} else {
+								f.setVal(v[i][j], nochange, _default);
+							}
+						}
 					}
 				}
 

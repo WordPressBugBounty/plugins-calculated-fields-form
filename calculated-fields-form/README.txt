@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.1.8
+Stable tag: 5.5.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,14 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.1.9 =
+
+* Enhances the repeater, file upload, and recording controls to support field pre-filling.
+* Improves the form submission processing module to preserve field order, including when file upload fields are present.
+* Fixes a minor issue in the Akismet integration module.
+* Enhances the Users Permissions add-on in the Developer and Platinum plugin distributions.
+* Enhances the Signature add-on in the Platinum plugin distribution.
+
 = 5.5.1.8 =
 
 * Sets the blank form as the default to simplify the form creation process.
@@ -502,8 +510,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Updates the schema used by AI models to generate form structures, adding support for the remaining controls.
 * Improves the AI Form Generation module in the form creation dialog.
 * Enhances the Checkbox control.
-
-= 5.5.1.4 =
-
-* Improves the plugin security. Special thanks to UKO - Korea univ and WordFence team.
-* Ensures the compatibility with the Select2 4.1.x versions.

@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.5.1.9 =
+
+* Enhances the repeater, file upload, and recording controls to support field pre-filling.
+* Improves the form submission processing module to preserve field order, including when file upload fields are present.
+* Fixes a minor issue in the Akismet integration module.
+* Enhances the Users Permissions add-on in the Developer and Platinum plugin distributions.
+* Enhances the Signature add-on in the Platinum plugin distribution.
+
 = 5.5.1.8 =
 
 * Sets the blank form as the default to simplify the form creation process.

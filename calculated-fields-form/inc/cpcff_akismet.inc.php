@@ -341,7 +341,10 @@ class CPCFF_Akismet {
      * @param  array  $form_fields         Original form field definitions (unused; kept for the hook signature).
      * @return void
      */
-    public function handle_submission( array &$submission_data, string &$submission_summary, array $form_fields ): void {
+    public function handle_submission( array &$submission_data, ?string &$submission_summary, array $form_fields ): void {
+		if ( is_null( $submission_summary ) || trim( $submission_summary ) === '' ) {
+			return;
+		}
 
         if ( ! $this->is_configured() ) {
             return; // No API key configured or Akismet not enabled, do nothing

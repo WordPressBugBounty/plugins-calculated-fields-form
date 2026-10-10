@@ -8,7 +8,7 @@
 			exclude:false,
 			size:"medium",
 			to_record:"video",
-			max_time:0,
+			max_time:60,
 			beep:0,
 			preview:false,
 			video_width:320,
@@ -16,6 +16,7 @@
 			record_label: 'Record',
 			stop_label: 'Stop',
 			status_message: 'Recording saved',
+			_patch: false,
 			_has_hours_component:function(){return Math.floor( this.max_time / 3600 ) ? 1 : 0;},
 			_is_video: function(){ return this.to_record == 'video' || this.to_record == 'audio-video';},
 			_is_audio: function(){ return this.to_record == 'audio' || this.to_record == 'audio-video';},
@@ -32,6 +33,8 @@
 				{
 					this.getCSSComponent('button', true, '#fbuilder .cff-record-av-field #'+this.name+'_record_btn', this.form_identifier);
 					this.getCSSComponent('button_hover', true, '#fbuilder .cff-record-av-field #'+this.name+'_record_btn:hover', this.form_identifier);
+					var form_identifier = this.form_identifier.replace(/[^\d]/g, '');
+					this._patch = ('cpcff_default' in window && form_identifier in cpcff_default) ? true : false;
 				},
             show:function()
 				{
@@ -41,7 +44,9 @@
 					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-record-av-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'">' +
 					'<label for="'+this.name+'_record_btn" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label>' +
 					'<div class="dfield">' +
+					'<input type="hidden" id="'+this.name+'_position" name="'+this.name+'"  value="1" />' +
 					'<input type="file" id="'+this.name+'" name="'+this.name+'[]" class="hide-strong" />' +
+					((this._patch) ? '<input type="hidden" id="'+this.name+'_patch" name="'+this.name+'_patch" value="1" />' : '') +
 					'<div class="cff-record-controls-container">' +
 					'<div class="cff-record-btn" id="'+this.name+'_record_btn">'+cff_sanitize(this.record_label, true)+'</div>' +
 					( this.preview ? '<div class="cff-record-play-btn hide-strong" id="'+this.name+'_play_btn"></div>' : '' ) +
@@ -65,9 +70,20 @@
 					chunks 		= [],
 					interval,
 					streamRecorder,
-					recording_flag = false;
+					recording_flag = false,
+					_prev_url = '';
 
-				play_btn[_files().length ? 'removeClass' : 'addClass' ]('hide-strong');
+				if (me._patch && media_ctrl.length) {
+					var _form_identifier = me.form_identifier.replace(/[^\d]/g, ''),
+						_field_name = me.name.match(/fieldname\d+/)[0],
+						_def = (cpcff_default[_form_identifier] || {});
+					_prev_url = String(_def[_field_name + '_urls'] || '').split('\n')[0].trim();
+					if (_prev_url) {
+						me._prefill(_prev_url);
+					}
+				}
+
+				play_btn[(_files().length || _prev_url) ? 'removeClass' : 'addClass' ]('hide-strong');
 
 				if(media_ctrl.length)
 				{
@@ -91,10 +107,12 @@
 
 				function _load_file() {
 					var files = _files();
-					if(files.length && media_ctrl.length)
+					if(media_ctrl.length)
 					{
-						media_ctrl[0].src = URL.createObjectURL(files[0]);
-						return true;
+						if (files.length) {
+							media_ctrl[0].src = URL.createObjectURL(files[0]);
+						}
+						if (media_ctrl[0].src) return true;
 					}
 					return false;
 				}
@@ -109,13 +127,16 @@
 						{
 							streamRecorder.onstop = function(evt) {
 								var container = new DataTransfer(),
+									_type = chunks.length > 0 && chunks[0].type ? chunks[0].type.split(';')[0] : 'video/webm';
+									_ext  = _type.split('/')[1],
 									file = new File(
 										chunks,
-										me.to_record+_random()+'.webm',
-										{type:'video/webm', lastModified:new Date().getTime()}
+										me.to_record+_random()+'.'+_ext,
+										{type:_type, lastModified:new Date().getTime()}
 									);
 								container.items.add(file);
 								file_ctrl[0].files = container.files;
+								$('[id="'+me.name+'_patch"]').remove();
 								play_btn.removeClass('cff-record-stop-btn hide-strong');
 								mssg.removeClass('hide-strong');
 								_load_file();
@@ -199,6 +220,24 @@
 						else media_ctrl[0].pause();
 					}
 				});
-			}
+			},
+			_prefill:function( _urls ) {
+				_urls = Array.isArray(_urls) ? _urls : [_urls];
+				if(!_urls.length && !_urls[0]) return;
+
+				var me 			= this,
+					media_ctrl	= $('#'+me.name+'_media'),
+					play_btn 	= $('#'+me.name+'_play_btn'),
+					mssg 		= $('#'+me.name+'_record_status'),
+					_url 		= String(_urls[0]).split('?')[0].trim();
+
+				if (media_ctrl.length && _url) {
+					media_ctrl[0].src = _url;
+					media_ctrl.removeClass('hide-strong');
+					play_btn.removeClass('hide-strong');
+					mssg.removeClass('hide-strong');
+				}
+			},
+			setVal:function( v, nochange){}
 		}
 	);

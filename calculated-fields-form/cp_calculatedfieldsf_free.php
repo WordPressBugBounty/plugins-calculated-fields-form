@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.5.1.8
+ * Version: 5.5.1.9
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.1.8' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.1.9' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -465,7 +465,7 @@ function cp_calculated_fields_form_check_posted_data() {
 
 					}; // END --> $preprocess_repeater_matrix
 
-					$process_field = function ($current_field, $value, &$summary, &$list) use (&$passwords_to_delete, &$passwords_to_hash, &$passwords_to_plain, &$count_of_non_empty_fields) {
+					$process_field = function ($current_field, $value, &$summary, &$list) use ($sequence, &$passwords_to_delete, &$passwords_to_hash, &$passwords_to_plain, &$count_of_non_empty_fields, &$process_files_field) {
 						$fieldname = $current_field->name;
 						$_title = property_exists($current_field, 'title') ? CPCFF_AUXILIARY::sanitize($current_field->title) : '';
 						$ftype = '';
@@ -586,6 +586,25 @@ function cp_calculated_fields_form_check_posted_data() {
 							error_log('Calculated Fields Form: ' . $error_mssg);
 							print($error_mssg);
 							exit;
+						}
+
+						// Process uploaded files.
+						if ($ftype == 'ffile' || $ftype == 'frecordav') {
+							if (! empty($_FILES)) {
+								foreach ($_FILES as $item => $file_value) {
+									$file_fieldname = str_replace($sequence, '', $item);
+									if (
+										$file_fieldname != $fieldname || // Process only the current field.
+										isset($clone_fields_to_original[$file_fieldname]) // The fields into repeaters were treated previously.
+									) {
+										continue;
+									}
+									$process_files_field($current_field, $file_value, $fieldname, $summary, $list);
+								}
+							}
+
+							// Skip file fields here, they are processed separately.
+							return;
 						}
 
 						// Processing the title and value to include in the summary
@@ -711,10 +730,10 @@ function cp_calculated_fields_form_check_posted_data() {
 											$row_values = [];
 											foreach($row as $original => $cloned) {
 												if ( array_key_exists($original, $fields) ) {
-													if (isset($_POST[$cloned . $sequence])) {
-														$process_field($fields[$original], $_POST[ $cloned . $sequence ], $buffer, $row_values);
-													} elseif( isset($_FILES[$cloned . $sequence]) ) {
+													if ( isset($_FILES[$cloned . $sequence]) ) {
 														$process_files_field($fields[$original], $_FILES[$cloned . $sequence], $original, $buffer, $row_values);
+													} elseif (isset($_POST[$cloned . $sequence])) {
+														$process_field($fields[$original], $_POST[ $cloned . $sequence ], $buffer, $row_values);
 													}
 												}
 											}
@@ -741,21 +760,6 @@ function cp_calculated_fields_form_check_posted_data() {
 						}
 					}
 
-					// Process uploaded files.
-					if (! empty($_FILES)) {
-						foreach ($_FILES as $item => $value)
-						{
-							$fieldname = str_replace($sequence, '', $item);
-							if (isset($clone_fields_to_original[$fieldname])) { // The fields into repeaters were treated previously.
-								continue;
-							}
-
-							if(isset($fields[$fieldname]) &&  ( $fields[$fieldname]->ftype == 'ffile' || $fields[$fieldname]->ftype == 'frecordav' ))
-							{
-								$process_files_field($fields[$fieldname], $value, $fieldname, $buffer, $params);
-							}
-						}
-					}
 					remove_filter( 'upload_dir', 'CPCFF_AUXILIARY::upload_dir', 1 );
 
 					if(count($params) < 2 || $count_of_non_empty_fields == 0) // only formid or empty fields, so the form is empty

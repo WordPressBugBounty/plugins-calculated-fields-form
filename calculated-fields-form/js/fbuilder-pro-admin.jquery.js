@@ -2427,7 +2427,7 @@
 
     setTimeout(function() {
         $('.cff-admin-message').trigger('click');
-    }, 4000);
+    }, 3000);
 
 	// Redirect to the admin list sections
 	function cff_jump_to_section() {

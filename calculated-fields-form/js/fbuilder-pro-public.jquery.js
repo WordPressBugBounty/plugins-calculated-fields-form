@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.1.8';
+	$.fbuilder['version'] = '5.5.1.9';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -508,7 +508,15 @@
 							! ( 'isDatasource' in item ) &&
 							'setVal' in item &&
 							JSON.stringify(item.val('vt', true)) != JSON.stringify(data[fieldId])
-						) item.setVal(data[fieldId], false, true);
+						) {
+							item.setVal(data[fieldId], false, true);
+							if (
+								fieldId+'_url' in data &&
+								'_prefill' in item
+							) {
+								item._prefill(data[fieldId+'_url']);
+							}
+						}
 					} catch(err){}
 				}
 

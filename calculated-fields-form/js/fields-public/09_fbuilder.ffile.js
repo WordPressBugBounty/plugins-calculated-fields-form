@@ -41,6 +41,7 @@
                         '<label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label>'+
                         '<div class="dfield">'+
                         '<div class="cff-file-field-container ' + cff_esc_attr(this.size) + '" style="' + cff_esc_attr(this.getCSSComponent('files_container')) +'">'+
+								'<input type="hidden" id="'+this.name+'_position" name="'+this.name+'" value="1" />'+
                                 '<input aria-label="'+cff_esc_attr(this.title)+'" type="file" id="'+this.name+'" name="'+this.name+'[]"'+((this.accept.length) ? ' accept="'+this.accept+'"' : '')+((this.upload_size.length) ? ' upload_size="'+this.upload_size+'"' : '')+' class="field '+((this.required)?" required":"")+'" '+((this.multiple) ? 'multiple' : '')+' />'+
                                 '<div id="'+this.name+'_clearer" class="cff-file-clearer"></div>'+
                                 ((this._patch) ? '<input type="hidden" id="'+this.name+'_patch" name="'+this.name+'_patch" value="1" />' : '')+
@@ -166,6 +167,29 @@
                     }
                 }
 				return result;
-			}
+			},
+			_prefill: function(_urls) {
+				let me = this;
+
+				_urls = Array.isArray(_urls) ? _urls : [_urls];
+				if(!_urls.length) return;
+
+				let filesContainer = $('<span class="files-list"></span>');
+				for (let i = 0; i < _urls.length; i++) {
+					let _url = String(_urls[i]).split('?')[0].trim();
+					if ( ! _url ) continue;
+					if (me.preview && _url.match(/\.(jpe?g|png|gif)$/i)) {
+						let img = $('<img style="'+cff_esc_attr(me.getCSSComponent('thumbnail'))+'">');
+						img.attr('src', _url).css('maxWidth', '100%');
+						if(me.thumb_height != '') img.attr('height', me.thumb_height);
+						if(me.thumb_width  != '') img.attr('width', me.thumb_width);
+						filesContainer.append($('<span></span>').append(img));
+					} else {
+						filesContainer.append($('<span></span>').text(_url.split('/').pop()));
+					}
+				}
+				$('#'+me.name+'_clearer').after(filesContainer);
+			},
+			setVal:function( v, nochange){}
 		}
 	);

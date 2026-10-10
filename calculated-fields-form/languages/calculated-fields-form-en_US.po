@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-10-05 23:02+0200\n"
-"PO-Revision-Date: 2026-10-05 23:03+0200\n"
+"POT-Creation-Date: 2026-10-10 00:16+0200\n"
+"PO-Revision-Date: 2026-10-10 00:16+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -41,23 +41,23 @@ msgstr ""
 msgid "is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:763
+#: cp_calculatedfieldsf_free.php:767
 msgid "The form is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:798
+#: cp_calculatedfieldsf_free.php:802
 msgid "Error saving data! Please try again."
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:800
+#: cp_calculatedfieldsf_free.php:804
 msgid "Error debug information: "
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:858
+#: cp_calculatedfieldsf_free.php:862
 msgid "Failed security check"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:898
+#: cp_calculatedfieldsf_free.php:902
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the database structure. Please, go to the plugins "
@@ -66,7 +66,7 @@ msgid ""
 "please <a href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:909
+#: cp_calculatedfieldsf_free.php:913
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the form structure. Please, try to save the data "
@@ -1501,7 +1501,7 @@ msgid "Category"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:545
-msgid "Blank Form"
+msgid "From Scratch"
 msgstr ""
 
 #: inc/cpcff_admin_int_list.inc.php:546
@@ -2537,7 +2537,7 @@ msgstr ""
 msgid "Invalid API key"
 msgstr ""
 
-#: inc/cpcff_akismet.inc.php:422
+#: inc/cpcff_akismet.inc.php:425
 msgid "[POSSIBLE SPAM]"
 msgstr ""
 
@@ -2961,7 +2961,7 @@ msgid ""
 msgstr ""
 
 #: inc/cpcff_main.inc.php:507
-msgid "Create Blank Form"
+msgid "Create From Scratch"
 msgstr ""
 
 #: inc/cpcff_main.inc.php:509

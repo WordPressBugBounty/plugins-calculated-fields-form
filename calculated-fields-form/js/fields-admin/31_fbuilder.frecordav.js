@@ -17,7 +17,7 @@
 			exclude:false,
 			size:"medium",
 			to_record:"video",
-			max_time:0,
+			max_time:60,
 			beep:0,
 			preview:false,
 			video_width:320,
@@ -73,7 +73,7 @@
 				{
 					return '<hr><label>To record</label><label><input type="radio" name="sToRecord" value="audio" '+(this.to_record == 'audio' ? 'CHECKED' : '')+' /> Audio</label><label><input type="radio" name="sToRecord" value="video" '+(this.to_record == 'video' ? 'CHECKED' : '')+' /> Video</label><label><input type="radio" name="sToRecord" value="audio-video" '+(this.to_record == 'audio-video' ? 'CHECKED' : '')+' /> Audio and video</label><hr>'+
 
-					'<label><input type="checkbox" id="sPreview" name="sPreview" '+((typeof this.preview != 'undefined' && this.preview) ? 'CHECKED' : '')+'" /> Audio and video preview</label>'+
+					'<label><input type="checkbox" id="sPreview" name="sPreview" '+((typeof this.preview != 'undefined' && this.preview) ? 'CHECKED' : '')+' /> Audio and video preview</label>'+
 
 					'<div class="column width50"><label for="sVideoWidth">Video Width</label><input type="text" name="sVideoWidth" id="sVideoWidth" value="'+cff_esc_attr(this.video_width)+'"  class="large" /></div>'+
 

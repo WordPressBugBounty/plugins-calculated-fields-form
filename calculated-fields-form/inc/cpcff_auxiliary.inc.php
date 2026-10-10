@@ -234,7 +234,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 * @since Pro 5.0.235, Dev 5.0.279, Plat 10.0.318
 		 *
 		 * @params mixed $v.
-		 * @return sanitized value.
+		 * @return mixed value.
 		 */
 		public static function sanitize( $v, $allow_cff_fields_tags = false, $no_trim = false, $allow_style_tags = false ) {
 
