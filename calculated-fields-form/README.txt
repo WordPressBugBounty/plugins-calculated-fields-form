@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.1.9
+Stable tag: 5.5.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.2.0 =
+
+* Updates the list of supported AI models, adding new models from existing providers and removing deprecated ones.
+* Modifies the LiteSpeed Cache integration module.
+
 = 5.5.1.9 =
 
 * Enhances the repeater, file upload, and recording controls to support field pre-filling.
@@ -504,9 +509,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Enhances the equation evaluation module to prevent nested replacements, improving plugin security. Special thanks to UKO - Korea University and Wordfence.
 * Adjusts the module responsible for registering the form height.
-
-= 5.5.1.5 =
-
-* Updates the schema used by AI models to generate form structures, adding support for the remaining controls.
-* Improves the AI Form Generation module in the form creation dialog.
-* Enhances the Checkbox control.

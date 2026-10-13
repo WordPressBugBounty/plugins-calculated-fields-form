@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-10-10 00:16+0200\n"
-"PO-Revision-Date: 2026-10-10 00:16+0200\n"
+"POT-Creation-Date: 2026-10-13 22:14+0200\n"
+"PO-Revision-Date: 2026-10-13 22:15+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -2310,47 +2310,47 @@ msgid "GPT-6 Astra (Most Capable)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:70
-msgid "GPT-6 Sol (Coding and Agentic)"
+msgid "GPT-6.1 Sol (Advanced Coding and Reasoning)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:76
-msgid "GPT-6 Luna (Efficient)"
+msgid "GPT-6 Sol (Coding and Agentic)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:82
-msgid "GPT-5.6 Sol (Flagship)"
+msgid "GPT-6 Luna (Efficient)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:88
-msgid "GPT-5.6 Terra (Balanced)"
+msgid "GPT-5.6 Sol (Flagship)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:94
-msgid "GPT-5.6 Luna (Fast and Cheap)"
+msgid "GPT-5.6 Terra (Balanced)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:100
-msgid "GPT-5.5 Pro"
+msgid "GPT-5.6 Luna (Fast and Cheap)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:106
-msgid "GPT-5.5"
+msgid "GPT-5.5 Pro"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:112
-msgid "GPT-5.4 Pro"
+msgid "GPT-5.5"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:118
-msgid "GPT-5.4"
+msgid "GPT-5.4 Pro"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:124
-msgid "GPT-5.4 Mini"
+msgid "GPT-5.4"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:130
-msgid "GPT-5.4 Nano"
+msgid "GPT-5.4 Mini"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:138
@@ -2366,35 +2366,35 @@ msgid "Claude Opus 5.5 (Most Capable)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:155
-msgid "Claude Opus 5 (Legacy)"
+msgid "Claude Sonnet 5.5 (Recommended)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:161
-msgid "Claude Sonnet 5 (Recommended)"
+msgid "Claude Haiku 5.5 (Fast)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:167
-msgid "Claude Haiku 4.5 (Fast)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:173
 msgid "Claude Fable 5 (Legacy)"
 msgstr ""
 
+#: inc/cpcff_ai_requests.inc.php:173
+msgid "Claude Opus 5 (Legacy)"
+msgstr ""
+
 #: inc/cpcff_ai_requests.inc.php:179
-msgid "Claude Opus 4.8 (Legacy)"
+msgid "Claude Sonnet 5 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:185
-msgid "Claude Opus 4.7 (Legacy)"
+msgid "Claude Opus 4.8 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:191
-msgid "Claude Opus 4.6 (Legacy)"
+msgid "Claude Opus 4.7 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:197
-msgid "Claude Opus 4.5 (Legacy)"
+msgid "Claude Opus 4.6 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:203
@@ -2402,19 +2402,19 @@ msgid "Claude Sonnet 4.6 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:209
-msgid "Claude Sonnet 4.5 (Legacy)"
+msgid "Claude Opus 4.5 (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:217
+#: inc/cpcff_ai_requests.inc.php:215
+msgid "Claude Haiku 4.5 (Legacy)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:223
 msgid "Google (Gemini)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:222
-msgid "Gemini 3.8 Flash (Most Powerful)"
-msgstr ""
-
 #: inc/cpcff_ai_requests.inc.php:228
-msgid "Gemini 3.7 Flash (Advanced Coding)"
+msgid "Gemini 3.8 Flash (Most Powerful)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:234
@@ -2422,59 +2422,59 @@ msgid "Gemini 3.6 Flash (Balanced)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:240
-msgid "Gemini 3.5 Flash (Fast)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:246
 msgid "Gemini 3.5 Flash-Lite (Ultra Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:252
+#: inc/cpcff_ai_requests.inc.php:246
 msgid "Gemini 3.1 Flash-Lite (Fast & Efficient)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:258
+#: inc/cpcff_ai_requests.inc.php:252
 msgid "Gemini 3.1 Pro Preview (Most Capable)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:264
+#: inc/cpcff_ai_requests.inc.php:258
 msgid "Gemini 3 Flash Preview (Balanced)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:270
+#: inc/cpcff_ai_requests.inc.php:264
 msgid "Gemini 2.5 Pro (Advanced Reasoning)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:276
+#: inc/cpcff_ai_requests.inc.php:270
 msgid "Gemini 2.5 Flash (Stable)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:282
+#: inc/cpcff_ai_requests.inc.php:276
 msgid "Gemini 2.5 Flash-Lite (Efficient)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:290
+#: inc/cpcff_ai_requests.inc.php:284
 msgid "MiniMax"
 msgstr ""
 
+#: inc/cpcff_ai_requests.inc.php:289
+msgid "MiniMax M3.1 Flash Preview (Advanced Coding)"
+msgstr ""
+
 #: inc/cpcff_ai_requests.inc.php:295
-msgid "MiniMax M3 (Latest)"
+msgid "MiniMax M3"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:301
-msgid "MiniMax M2.7 Highspeed"
+msgid "MiniMax M2.7 Highspeed (retiring Nov 18, 2026)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:307
-msgid "MiniMax M2.7"
+msgid "MiniMax M2.7 (retiring Nov 18, 2026)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:313
-msgid "MiniMax M2.5 Highspeed (Legacy)"
+msgid "MiniMax M2.5 Highspeed  (retiring Nov 18, 2026)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:319
-msgid "MiniMax M2.5 (Legacy)"
+msgid "MiniMax M2.5  (retiring Nov 18, 2026)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:325

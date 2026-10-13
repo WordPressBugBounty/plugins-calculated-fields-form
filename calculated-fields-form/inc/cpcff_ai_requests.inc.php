@@ -57,7 +57,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 self::$models = [
                     'openai' => [
                         'title' => esc_html__('OpenAI', 'calculated-fields-form'),
-                        'default_model' => 'gpt-5.4-mini',
+                        'default_model' => 'gpt-5.6-luna',
                         'api_key_url' => 'https://platform.openai.com/api-keys',
 						'models' => [
 							'gpt-6-astra' => [
@@ -65,6 +65,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'form-generation' => true,
 								'ai-assistant' => true,
 								'max_tokens' => 128000
+							],
+							'gpt-6.1-sol' => [
+								'title'           => esc_html__('GPT-6.1 Sol (Advanced Coding and Reasoning)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
 							],
 							'gpt-6-sol' => [
 								'title' => esc_html__('GPT-6 Sol (Coding and Agentic)', 'calculated-fields-form'),
@@ -74,7 +80,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 							],
 							'gpt-6-luna' => [
 								'title' => esc_html__('GPT-6 Luna (Efficient)', 'calculated-fields-form'),
-								'form-generation' => false,
+								'form-generation' => true,
 								'ai-assistant' => true,
 								'max_tokens' => 128000
 							],
@@ -92,7 +98,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 							],
 							'gpt-5.6-luna' => [
 								'title' => esc_html__('GPT-5.6 Luna (Fast and Cheap)', 'calculated-fields-form'),
-								'form-generation' => false,
+								'form-generation' => true,
 								'ai-assistant' => true,
 								'max_tokens' => 120000
 							],
@@ -125,18 +131,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'form-generation' => true,
 								'ai-assistant' => true,
 								'max_tokens' => 128000
-							],
-							'gpt-5.4-nano' => [
-								'title' => esc_html__('GPT-5.4 Nano', 'calculated-fields-form'),
-								'form-generation' => false,
-								'ai-assistant' => true,
-								'max_tokens' => 128000
 							]
 						]
                     ],
                     'claude' => [
                         'title'         => esc_html__('Anthropic (Claude)', 'calculated-fields-form'),
-                        'default_model' => 'claude-haiku-4-5-20251001',
+                        'default_model' => 'claude-sonnet-5-5',
                         'api_key_url'   => 'https://console.anthropic.com/settings/keys',
 						'models'        => [
 							'claude-fable-5-1' => [
@@ -151,6 +151,24 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'ai-assistant'    => true,
 								'max_tokens'      => 128000
 							],
+							'claude-sonnet-5-5' => [
+								'title'           => esc_html__('Claude Sonnet 5.5 (Recommended)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
+							'claude-haiku-5-5' => [
+								'title'           => esc_html__('Claude Haiku 5.5 (Fast)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
+							'claude-fable-5' => [
+								'title'           => esc_html__('Claude Fable 5 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
 							'claude-opus-5' => [
 								'title'           => esc_html__('Claude Opus 5 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
@@ -158,55 +176,43 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'max_tokens'      => 128000
 							],
 							'claude-sonnet-5' => [
-								'title' => esc_html__('Claude Sonnet 5 (Recommended)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant' => true,
-								'max_tokens' => 64000
-							],
-							'claude-haiku-4-5-20251001' => [
-								'title' => esc_html__('Claude Haiku 4.5 (Fast)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant' => true,
-								'max_tokens' => 64000
-							],
-							'claude-fable-5' => [
-								'title'           => esc_html__('Claude Fable 5 (Legacy)', 'calculated-fields-form'),
+								'title'           => esc_html__('Claude Sonnet 5 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
-								'max_tokens'      => 96000
+								'max_tokens'      => 128000
 							],
 							'claude-opus-4-8' => [
-								'title' => esc_html__('Claude Opus 4.8 (Legacy)', 'calculated-fields-form'),
+								'title'           => esc_html__('Claude Opus 4.8 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
-								'ai-assistant' => true,
-								'max_tokens' => 64000
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
 							],
 							'claude-opus-4-7' => [
-								'title' => esc_html__('Claude Opus 4.7 (Legacy)', 'calculated-fields-form'),
+								'title'           => esc_html__('Claude Opus 4.7 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
-								'ai-assistant' => true,
-								'max_tokens' => 64000
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
 							],
 							'claude-opus-4-6' => [
-								'title' => esc_html__('Claude Opus 4.6 (Legacy)', 'calculated-fields-form'),
+								'title'           => esc_html__('Claude Opus 4.6 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
-								'ai-assistant' => true,
-								'max_tokens' => 64000
-							],
-							'claude-opus-4-5-20251101' => [
-								'title' => esc_html__('Claude Opus 4.5 (Legacy)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant' => true,
-								'max_tokens' => 64000
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
 							],
 							'claude-sonnet-4-6' => [
-								'title' => esc_html__('Claude Sonnet 4.6 (Legacy)', 'calculated-fields-form'),
+								'title'           => esc_html__('Claude Sonnet 4.6 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
-								'ai-assistant' => true,
-								'max_tokens' => 64000
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
 							],
-							'claude-sonnet-4-5-20250929' => [
-								'title'           => esc_html__('Claude Sonnet 4.5 (Legacy)', 'calculated-fields-form'),
+							'claude-opus-4-5-20251101' => [
+								'title'           => esc_html__('Claude Opus 4.5 (Legacy)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'claude-haiku-4-5-20251001' => [
+								'title'           => esc_html__('Claude Haiku 4.5 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
@@ -215,7 +221,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                     ],
                     'gemini' => [
                         'title'         => esc_html__('Google (Gemini)', 'calculated-fields-form'),
-                        'default_model' => 'gemini-3.5-flash',
+                        'default_model' => 'gemini-3.8-flash',
                         'api_key_url'   => 'https://aistudio.google.com/app/api-keys',
 						'models' => [
 							'gemini-3.8-flash' => [
@@ -224,20 +230,8 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
-							'gemini-3.7-flash' => [
-								'title'           => esc_html__('Gemini 3.7 Flash (Advanced Coding)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 64000
-							],
 							'gemini-3.6-flash' => [
 								'title'           => esc_html__('Gemini 3.6 Flash (Balanced)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 64000
-							],
-							'gemini-3.5-flash' => [
-								'title'           => esc_html__('Gemini 3.5 Flash (Fast)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
@@ -288,35 +282,41 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                     ],
                     'minimax' => [
                         'title'         => esc_html__('MiniMax', 'calculated-fields-form'),
-                        'default_model' => 'MiniMax-M2.7',
+                        'default_model' => 'MiniMax-M3',
                         'api_key_url'   => 'https://platform.minimax.io/user-center/basic-information',
                         'models'        => [
+							'MiniMax-M3.1-Flash-Preview' => [
+								'title'           => esc_html__('MiniMax M3.1 Flash Preview (Advanced Coding)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
                             'MiniMax-M3' => [
-                                'title'           => esc_html__('MiniMax M3 (Latest)', 'calculated-fields-form'),
+                                'title'           => esc_html__('MiniMax M3', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant'    => true,
                                 'max_tokens'      => 64000
                             ],
                             'MiniMax-M2.7-highspeed' => [
-                                'title' => esc_html__('MiniMax M2.7 Highspeed', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2.7 Highspeed (retiring Nov 18, 2026)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'MiniMax-M2.7' => [
-                                'title' => esc_html__('MiniMax M2.7', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2.7 (retiring Nov 18, 2026)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'MiniMax-M2.5-highspeed' => [
-                                'title' => esc_html__('MiniMax M2.5 Highspeed (Legacy)', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2.5 Highspeed  (retiring Nov 18, 2026)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
                             ],
                             'MiniMax-M2.5' => [
-                                'title' => esc_html__('MiniMax M2.5 (Legacy)', 'calculated-fields-form'),
+                                'title' => esc_html__('MiniMax M2.5  (retiring Nov 18, 2026)', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000

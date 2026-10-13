@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.5.2.0 =
+
+* Updates the list of supported AI models, adding new models from existing providers and removing deprecated ones.
+* Modifies the LiteSpeed Cache integration module.
+
 = 5.5.1.9 =
 
 * Enhances the repeater, file upload, and recording controls to support field pre-filling.
@@ -831,43 +836,3 @@ Since most users do not have devices with sufficient resources to run local infe
 = 5.3.70 =
 
 * Support customizing the appearance of notifications with CSS in the free plugin distribution.
-
-= 5.3.69 =
-
-* It implements the SUMIF operation due to its popularity among Excel users.
-* Eliminates the frame for promoting complementary plugins to simplify the interface.
-
-= 5.3.68 =
-= 5.3.67 =
-
-* The plugin update modifies the Phone control. It includes the country name and flag alongside the prefix. Additionally, it adds a search box for quick code selection.
-
-= 5.3.66 =
-
-* Enhanced accessibility in the Default Form Settings section.
-
-= 5.3.65 =
-
-* Adds a new section under 'Form Settings / Advanced Settings', giving you full control over how asterisk symbols appear on required fields.
-
-= 5.3.64 =
-
-* Enhances the form builder's interface.
-
-= 5.3.63 =
-
-* Fixed a minor issue in the timeslots control.
-
-= 5.3.62 =
-
-* Explicitly include a .htaccess file in the wp-content/uploads/calculated-fields-form directory to prevent directory indexing on misconfigured servers. Special thanks to Dmitrii from CleanTalk inc.
-
-= 5.3.61 =
-
-* Introduced new Timeslot and Timeslot DS controls.
-* Updated the RecordSet DS field to automatically reload records after submission.
-* Refined the built-in Form design templates.
-
-= 5.3.60 =
-
-* Enhances the module responsible for replacing fields and informative tags in notification emails and thank-you pages, resolving an issue with nested block/endblock tags.

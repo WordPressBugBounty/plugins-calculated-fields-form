@@ -233,6 +233,14 @@ if(!class_exists('CPCFF_COMPATIBILITY'))
         public static function litespeed_control_set_nocache(&$post)
         {
             try {
+				if (!is_main_query() || !in_the_loop()) {
+					return $post;
+				}
+
+				if (is_singular() && (int) $post->ID !== (int) get_queried_object_id()) {
+					return $post;
+				}
+
                 if (
                     is_object($post) &&
                     isset($post->post_content) &&
