@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.2.0
+Stable tag: 5.5.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,8 +116,8 @@ For any other editor, use the shortcode to insert forms anywhere:
 * Form version control to recover previous versions.
 
 > **Free vs. Commercial Versions**
-> The free version includes the complete visual form builder, notification emails to the site owner, basic calculation operations, conditional logic, design customization, multi-column layout, submission storage on the website for review, Math CAPTCHA for spam protection, Akismet integration for advanced spam filtering, AI-powered form generation with an integrated AI Assistant for equations and emails, AI-powered entries search, MCP integration for external AI agents such as Claude Code and OpenCode, a Repeater container for dynamic row-based data, and a Map location picker powered by OpenStreetMap.
-> The commercial versions (Professional, Developer, and Platinum) add Math and Classic CAPTCHA options alongside the free Math CAPTCHA, payment gateway integration, confirmation emails to users, advanced data source controls, financial and distance operation modules, chart generation, CRM integrations, PDF generation, e-signatures, and more.
+> The free version includes the complete visual form builder, notification emails to the site owner, Stripe Checkout (for one-time payments), calculation operations, conditional logic, design customization, multi-column layout, submission storage on the website for review, Math CAPTCHA for spam protection, Akismet integration for advanced spam filtering, AI-powered form generation with an integrated AI Assistant for equations and emails, AI-powered entries search, MCP integration for external AI agents such as Claude Code and OpenCode, a Repeater container for dynamic row-based data, and a Map location picker powered by OpenStreetMap.
+> The commercial versions (Professional, Developer, and Platinum) add Math and Classic CAPTCHA options alongside the free Math CAPTCHA, additional payment gateways (Stripe (additional integrations, including subscriptions), PayPal, PayPal Pro, Revolut, Authorize.Net, Skrill, and many others), confirmation emails to users, advanced data source controls, financial and distance operation modules, chart generation, CRM integrations, PDF generation, e-signatures, and more.
 > All commercial versions are available as a **one-time purchase** with **lifetime access** to plugin updates. Visit https://cff.dwbooster.com/download for details.
 
 [youtube https://www.youtube.com/watch?v=ZF5SoaKVmOg]
@@ -126,7 +126,7 @@ For any other editor, use the shortcode to insert forms anywhere:
 
 * All features of the free version.
 * [Send confirmation emails](https://cff.dwbooster.com/documentation#copy-user) to users with their submitted data.
-* [PayPal integration](https://cff.dwbooster.com/documentation#paypal-settings) and [Stripe integration](https://cff.dwbooster.com/documentation#stripe-checkout-addon) — dynamically compute the charge amount using a calculated field. SCA (Strong Customer Authentication) compatible with PSD2 (EU Payment Services Directive).
+* [PayPal integration](https://cff.dwbooster.com/documentation#paypal-settings) and [Stripe integration](https://cff.dwbooster.com/documentation#stripe-checkout-addon), including recurring subscriptions — dynamically compute the charge amount using a calculated field. SCA (Strong Customer Authentication) compatible with PSD2 (EU Payment Services Directive).
 * [Import and export forms](https://cff.dwbooster.com/documentation#import-export-form) between WordPress sites.
 * Form protection: [Math and Classic CAPTCHA](https://cff.dwbooster.com/documentation#captcha-settings), WordPress nonces, and honeypot fields.
 * "Thank You" page with a summary of the form submission.
@@ -175,8 +175,8 @@ For any other editor, use the shortcode to insert forms anywhere:
 * [PayPal Checkout add-on](https://cff.dwbooster.com/add-ons/paypal-checkout): Integrates PayPal Checkout with support for additional payment methods.
 * [Revolut add-on](https://cff.dwbooster.com/add-ons/revolut): Accept payments through Revolut.
 * [Authorize.Net add-on](https://cff.dwbooster.com/add-ons/authorize): Accept payments through Authorize.Net.
-* [Stripe add-on](https://cff.dwbooster.com/add-ons/stripe): Accept payments using the Stripe payment gateway.
-* [Stripe Checkout add-on](https://cff.dwbooster.com/add-ons/stripe-checkout): Use Stripe Checkout for secure, form-based payments.
+* [Stripe add-on](https://cff.dwbooster.com/add-ons/stripe): Accept payments using the Stripe payment gateway without leaving your website.
+* [Stripe Checkout add-on](https://cff.dwbooster.com/add-ons/stripe-checkout): Use Stripe Checkout to pay on Stripe website.
 * [Skrill Payments Integration add-on](https://cff.dwbooster.com/add-ons/skrill): Integrate with Skrill Moneybookers for payment processing.
 * [TargetPay (iDeal) add-on](https://cff.dwbooster.com/add-ons/targetpay): Support payments via iDeal through TargetPay.
 * [Mollie (iDeal) add-on](https://cff.dwbooster.com/add-ons/mollie): Accept iDeal payments using Mollie.
@@ -337,7 +337,7 @@ Yes. Starting with version 5.4.8.4, every form entry is saved to the WordPress d
 
 = Can I charge users the calculated price through the form? =
 
-Yes. Payment gateway integrations (PayPal, Stripe, and many others) are available in the commercial versions. The charge amount is dynamically computed using a calculated field. [PayPal configuration](https://cff.dwbooster.com/documentation#paypal-settings) | [Stripe configuration](https://cff.dwbooster.com/documentation#stripe-checkout-addon)
+Yes. Stripe Checkout for one-time payments is included in the free version. Recurring/subscription payments and additional payment gateways (PayPal, Stripe (additional integrations, including subscriptions), Revolut, Authorize.Net, Skrill, and many others) are available in the commercial versions. The charge amount is dynamically computed using a calculated field. [PayPal configuration](https://cff.dwbooster.com/documentation#paypal-settings) | [Stripe configuration](https://cff.dwbooster.com/documentation#stripe-checkout-addon)
 
 = What date and time operations does the plugin support? =
 
@@ -478,6 +478,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.2.1 =
+
+* Adds Stripe Checkout payment gateway integration to the free plugin distribution.
+* Updates the Stripe SDK to the latest version.
+
 = 5.5.2.0 =
 
 * Updates the list of supported AI models, adding new models from existing providers and removing deprecated ones.
@@ -504,8 +509,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Resolves an issue affecting delayed equation evaluation.
 * Updates deprecated PHP code.
 * Introduces an option to enable or disable nonce protection for server-side equations (Developer and Platinum versions)
-
-= 5.5.1.6 =
-
-* Enhances the equation evaluation module to prevent nested replacements, improving plugin security. Special thanks to UKO - Korea University and Wordfence.
-* Adjusts the module responsible for registering the form height.

@@ -170,7 +170,24 @@ if ( !empty($form_settings['direction']) ) {
 	</div>
 	<div id="cpcaptchalayer_<?php echo CPCFF_MAIN::$form_counter; ?>" class="cpcaptchalayer" style="display:none;">
 		<?php
-			$cpcff_texts_array = $form_obj->get_option('vs_all_texts', []);
+		$cpcff_texts_array = $form_obj->get_option('vs_all_texts', []);
+		$pay_later_enabled = $form_obj->get_option('enable_pay_later',0);
+		$paypal_enabled = $form_obj->get_option('enable_paypal', CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL);
+		if(is_numeric($paypal_enabled)) $paypal_enabled = intval($paypal_enabled);
+		?>
+		<div class="fields" id="field-c0" style="display:<?php
+			print (($pay_later_enabled && $paypal_enabled) || $paypal_enabled == 2) ? 'block' : 'none';
+		?>">
+			<label><?php echo( $cpcff_texts_array[ 'payment_options_text' ][ 'text' ] ); ?></label>
+			<div class="dfield">
+				<?php if ($paypal_enabled) { ?><div><label><input type="radio" name="bccf_payment_option_paypal" vt="1" value="1" checked class="required"> <?php _e( $form_obj->get_option('enable_paypal_option_yes',CP_CALCULATEDFIELDSF_PAYPAL_OPTION_YES), 'calculated-fields-form') ; ?></label></div><?php } ?>
+				<!--addons-payment-options-->
+				<?php if (($pay_later_enabled && $paypal_enabled) || $paypal_enabled == 2) { ?><div><label><input type="radio" name="bccf_payment_option_paypal" vt="0" value="0" class="required"> <?php _e( $form_obj->get_option('enable_paypal_option_no',CP_CALCULATEDFIELDSF_PAYPAL_OPTION_NO), 'calculated-fields-form') ; ?></label></div><?php } ?>
+			</div>
+			<div class="clearer"></div>
+		</div>
+		<!--addons-payment-fields-->
+		<?php
 			CPCFF_CAPTCHA::display_captcha($form_obj, CPCFF_MAIN::$form_counter, $cpcff_texts_array);
 		?>
 	</div>

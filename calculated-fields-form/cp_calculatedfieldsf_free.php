@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.5.2.0
+ * Version: 5.5.2.1
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.2.0' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.2.1' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -769,6 +769,50 @@ function cp_calculated_fields_form_check_posted_data() {
 						exit;
 					}
 
+					$find_arr = array( ',', '.');
+					$replace_arr = array( '', '.');
+					$prefix = '';
+					$suffix = '';
+
+					// get base price
+					$request_cost = $form_obj->get_option('request_cost', CP_CALCULATEDFIELDSF_DEFAULT_COST);
+					if (
+						!empty($request_cost) &&
+						!empty($fields) &&
+						!empty($fields[$request_cost])
+					) {
+						$price_item = $fields[$request_cost];
+
+						if ($price_item->ftype == 'fCalculated') {
+							if (!empty($price_item->prefix)) $prefix = $price_item->prefix;
+							if (!empty($price_item->suffix)) $suffix = $price_item->suffix;
+							if (isset($price_item->groupingsymbol)) $find_arr[0] = $price_item->groupingsymbol;
+							if (isset($price_item->decimalsymbol)) $find_arr[1] = $price_item->decimalsymbol;
+						} elseif ($price_item->ftype == 'fcurrency') {
+							if (!empty($price_item->currencySymbol)) $prefix = $price_item->currencySymbol;
+							if (!empty($price_item->currencyText)) $suffix = $price_item->currencyText;
+							if (isset($price_item->thousandSeparator)) $find_arr[0] = $price_item->thousandSeparator;
+							if (isset($price_item->centSeparator)) $find_arr[1] = $price_item->centSeparator;
+						} elseif ($price_item->ftype == 'fnumber' || $price_item->ftype == 'fnumberds') {
+							if (isset($price_item->thousandSeparator)) $find_arr[0] = $price_item->thousandSeparator;
+							if (isset($price_item->decimalSymbol)) $find_arr[1] = $price_item->decimalSymbol;
+						} elseif ($price_item->ftype == 'fslider') {
+							if (isset($price_item->thousandSeparator)) $find_arr[0] = $price_item->thousandSeparator;
+							if (isset($price_item->centSeparator)) $find_arr[1] = $price_item->centSeparator;
+						}
+					}
+
+					$price = ! empty( $params[ $request_cost ] ) && is_scalar( $params[ $request_cost ] ) ? $params[ $request_cost ] : 0;
+					$price = preg_replace(array('/^' . preg_quote($prefix) . '/', '/' . preg_quote($suffix) . '$/', '/[^\d\.\,]/'), '', $price);
+					$price = str_replace($find_arr, $replace_arr, $price);
+					$price = apply_filters('cpcff_price', $price, $params);
+					$paypal_base_amount = preg_replace('/[^\d\.\,]/', '', $form_obj->get_option('paypal_base_amount', 0));
+					$paypal_base_amount = str_replace($find_arr, $replace_arr, $paypal_base_amount);
+					$price = max($price, $paypal_base_amount);
+
+					$params["final_price"] = $price;
+					$params["final_price_formatted"] = $prefix . (is_numeric($price) ? number_format($price, 2, $find_arr[1], $find_arr[0]) : $price) . $suffix;
+
 					$ipaddr                            = ( 'true' == $form_obj->get_option( 'fp_inc_additional_info', CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info ) && ! empty( $_SERVER['REMOTE_ADDR'] ) ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 					$params['ipaddress']               = $ipaddr;
 					$params['from_page']               = ((! empty( $_POST['cp_ref_page'] )) ? sanitize_text_field( wp_unslash( $_POST['cp_ref_page'] ) ) : ( (! empty( $_SERVER['HTTP_REFERER'] )) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '' ));
@@ -841,10 +885,7 @@ function cp_calculated_fields_form_check_posted_data() {
                         CPCFF_SUBMISSIONS::update($params['itemnumber'], ['paypal_post' => $params]);
                     }
 
-                    require_once __DIR__ . '/inc/cpcff_mail.inc.php';
-
-					$cpcff_mail = new CPCFF_MAIL();
-					$cpcff_mail->send_notification_email( $form_obj, $params, $buffer );
+                    $cpcff_main->send_mails( $params['itemnumber'] );
 
 					$location = $form_obj->get_option( 'fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page, $params['itemnumber'] );
 					$location = esc_url( CPCFF_AUXILIARY::replace_params_into_url( $location, $params ), null, null );

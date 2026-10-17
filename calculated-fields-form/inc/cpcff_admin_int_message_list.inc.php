@@ -59,6 +59,21 @@ if (
     }
     error_log('Calculated Fields Form: All submissions deleted by user ' . get_current_user_id());
     $message = __('Item(s) deleted', 'calculated-fields-form');
+}  elseif(
+	isset($_GET['lu']) &&
+	is_numeric($_GET['lu']) &&
+	( $lu = intval($_GET['lu']) ) !== 0 &&
+	check_admin_referer('cff-paid-status', '_cpcff_nonce')
+) {
+	$status = (! empty($_GET["status"]) && is_numeric($_GET["status"]) && intval($_GET["status"])) ? 1 : 0;
+	if (CPCFF_SUBMISSIONS::update($lu, array('paid' => $status))) {
+		/**
+		 * Action called after change the payment status of event
+		 * The event's id and new payment's status are passed as parameters
+		 */
+		do_action('cpcff_change_payment_status', $lu, $status);
+		$message = __("Item updated", 'calculated-fields-form');
+	}
 } else {
     check_admin_referer('cff-submissions-list', '_cpcff_nonce');
 }
@@ -109,6 +124,10 @@ if ( ! isset($_GET['cff-ai-searcher-active']) ):
 		strtotime($to_date)
 	) {
 		$cond .= $wpdb->prepare(" AND (`time` <= %s)", $to_date . ' 23:59:59');
+	}
+
+	if ( isset($_GET['paid']) ) {
+		$cond .= " AND `paid`=1";
 	}
 
 	// If there is not selected a form, get only the entries corresponding to existing forms
@@ -198,6 +217,9 @@ if ($message) {
 							<option value="0"><?php esc_html_e('All forms', 'calculated-fields-form'); ?></option><?php echo $form_list_opts; ?>
 						</select>
 					</div>
+					<div style="display:inline-block; white-space:nowrap;">
+						<label for="paid"><input type="checkbox" id="paid" name="paid" <?php if(isset($_GET['paid'])) print 'CHECKED'; ?> /><?php esc_html_e( 'Paid Only', 'calculated-fields-form' ); ?></label>
+					</div>
 					<?php
 					/**
 					 * Additional filtering options, allows to add new fields for filtering the results
@@ -270,7 +292,7 @@ if ($message) {
                     <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Date', 'calculated-fields-form'); ?></th>
                     <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('IP Address', 'calculated-fields-form'); ?></th>
                     <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Email', 'calculated-fields-form'); ?><a href="javascript:void(0);" onclick="cff_open_upgrade_confirm();" style="text-decoration:none;margin-left:5px;">&#128712;</a></th>
-                    <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Payment info', 'calculated-fields-form'); ?><a href="javascript:void(0);" onclick="cff_open_upgrade_confirm();" style="text-decoration:none;margin-left:5px;">&#128712;</a></th>
+                    <th style="padding-left:7px;font-weight:bold;"><?php esc_html_e('Payment info', 'calculated-fields-form'); ?></th>
                     <?php
                     /**
                      * Action called to include new headers in the table of messages
@@ -299,7 +321,19 @@ if ($message) {
                         <td><?php echo esc_html(date('Y-m-d H:i', $time)); ?></td>
                         <td><?php echo '<a href="' . esc_url('http://whatismyipaddress.com/ip/' . $event->ipaddr) . '" target="_blank">' . esc_html($event->ipaddr) . '</a>'; ?></td>
                         <td>-</td>
-                        <td>-</td>
+                        <td>
+						<?php
+							if ($event->paid) {
+								if ( $entry_details !== false && !empty( $entry_details[ 'paypal_data' ] ) ) {
+									echo '<span style="color:#00aa00;font-weight:bold"><a href="javascript:void(0);" onclick="cp_moreInfo(this);">'.esc_html__("Paid", 'calculated-fields-form' ).'[+]</a></span><div class="paypal_data" style="display:none;">'.str_replace("\n", "<br>", esc_html($entry_details[ 'paypal_data' ])).'</div>';
+								} else {
+									echo '<span style="color:#00aa00;font-weight:bold">'.esc_html__("Paid", 'calculated-fields-form' ).'</span>';
+								}
+							} else {
+								echo '<span style="color:#ff0000;font-weight:bold">'.esc_html__("Not Paid", 'calculated-fields-form' ).'</span>';
+							}
+						?>
+						</td>
                         <?php
                         /**
                          * Action called to add related data to the message
@@ -311,6 +345,12 @@ if ($message) {
                             <?php
                             $buttons = '';
                             $buttons .= '<input type="button" name="caldelete_' . esc_attr($event->id) . '" value="' . esc_attr__('Delete', 'calculated-fields-form') . '" onclick="cp_deleteMessageItem(' . esc_attr($event->id) . ', ' . esc_attr($event->formid) . ');" class="button-secondary" />' .
+
+								(($event->paid)
+									? '<input type="button" name="calmanage_' . esc_attr($event->id) . '" value="' . esc_attr__('Change to NOT PAID', 'calculated-fields-form') . '" onclick="cp_updateMessageItem(' . esc_attr($event->id) . ',0);" class="button-secondary" />'
+									: '<input type="button" name="calmanage_' . esc_attr($event->id) . '" value="' . esc_attr__('Change to PAID', 'calculated-fields-form') . '" onclick="cp_updateMessageItem(' . esc_attr($event->id) . ',1);" class="button-secondary" />'
+                                ) .
+
                                 '<input type="button" value="' . esc_attr__('Change Payment Status', 'calculated-fields-form') . '" onclick="cff_open_upgrade_confirm();" class="button-secondary cff-upgrade-button" />' .
                                 '<input type="button" value="' . esc_attr__('Edit (Raw)', 'calculated-fields-form') . '" onclick="cff_open_upgrade_confirm();" class="button-secondary cff-upgrade-button" />' .
                                 '<input type="button" value="' . esc_attr__('Send Mails', 'calculated-fields-form') . '" onclick="cff_open_upgrade_confirm();" class="button-secondary cff-upgrade-button" />';
@@ -529,6 +569,17 @@ if ($message) {
                 });
             } catch (err) {}
         }
+
+		function cp_updateMessageItem(id,status) {
+		    document.location = cff_buildActionURL({
+		        cal: <?php echo esc_js(CP_CALCULATEDFIELDSF_ID); ?>,
+		        list: 1,
+		        status: status,
+		        lu: id,
+		        r: Math.random(),
+		        _cpcff_nonce: '<?php echo esc_js(wp_create_nonce( 'cff-paid-status' )); ?>'
+		    }, { preserveScroll: true });
+	    }
 
         function cp_do_dexapp_print() {
             w = window.open('', '_blank', 'noopener,noreferrer');

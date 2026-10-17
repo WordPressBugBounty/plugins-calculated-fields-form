@@ -52,12 +52,12 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="#metabox_submit_thank">' . esc_html__('Submit button and thank you page', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_define_texts">' . esc_html__('Texts definition', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_define_validation_texts">' . esc_html__('Error texts', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
+	<a href="#metabox_payment_settings">' . esc_html__('Payment settings', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_notification_email">' . esc_html__('Notification email', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>' .
 	'<a href="#metabox_captcha_settings">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a>' .
     '<span class="cff-addon-menu-option" style="display:none;"><span>&nbsp;|&nbsp;</span>
 	<a href="#metabox_addons_section">' . esc_html__('Add ons', 'calculated-fields-form') . '</a></span>' .
     '&nbsp;<span>[</span><b>' . esc_html__('Commercial Features', 'calculated-fields-form') . ':</b>
-	<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#fc6756;">' . esc_html__('Payment settings', 'calculated-fields-form') . '</a><span>&nbsp;|&nbsp;</span>
 	<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#fc6756;">' . esc_html__('Email copy to user', 'calculated-fields-form') . '</a><span>]</span>
  </div>';
 ?>
@@ -340,6 +340,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                     <a href="#metabox_define_validation_texts"><img src="<?php print esc_attr(plugins_url('../images/icons/error.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Validation Texts', 'calculated-fields-form'); ?>"></a>
                 </div>
                 <div class="cff-popup-icon">
+                    <div class="cff-popup-bubble"><?php esc_html_e('Payment Settings', 'calculated-fields-form'); ?></div>
+                    <a href="#metabox_payment_settings"><img src="<?php print esc_attr(plugins_url('../images/icons/payment.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Payment Settings', 'calculated-fields-form'); ?>"></a>
+                </div>
+                <div class="cff-popup-icon">
                     <div class="cff-popup-bubble"><?php esc_html_e('Notification Email', 'calculated-fields-form'); ?></div>
                     <a href="#metabox_notification_email"><img src="<?php print esc_attr(plugins_url('../images/icons/email.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Notification Email', 'calculated-fields-form'); ?>"></a>
                 </div>
@@ -352,10 +356,6 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                     <a href="#metabox_addons_section"><img src="<?php print esc_attr(plugins_url('../images/icons/addons.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Add Ons', 'calculated-fields-form'); ?>"></a>
                 </div>
                 <div class="cff-popup-icon-separator"></div>
-                <div class="cff-popup-icon cff-popup-icon-disabled">
-                    <div class="cff-popup-bubble"><?php esc_html_e('Payment Settings', 'calculated-fields-form'); ?></div>
-                    <a href="#metabox_payment_settings"><img src="<?php print esc_attr(plugins_url('../images/icons/payment.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Payment Settings', 'calculated-fields-form'); ?>"></a>
-                </div>
                 <div class="cff-popup-icon cff-popup-icon-disabled">
                     <div class="cff-popup-bubble"><?php esc_html_e('Email Copy to User', 'calculated-fields-form'); ?></div>
                     <a href="#metabox_email_copy_to_user"><img src="<?php print esc_attr(plugins_url('../images/icons/usercopy.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Email Copy to User', 'calculated-fields-form'); ?>"></a>
@@ -567,6 +567,138 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
             <h2><?php esc_html_e('Form Processing', 'calculated-fields-form'); ?>:</h2>
             <hr />
 
+			<div id="metabox_payment_settings" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_payment_settings')); ?>" style="position:relative;">
+                <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Payment Settings', 'calculated-fields-form'); ?></span></h3>
+                <div class="inside">
+					<table class="form-table">
+						<tr valign="top">
+							<th scope="row"><?php _e( 'Request cost', 'calculated-fields-form' ); ?></th>
+							<td><select name="request_cost" id="request_cost" def="<?php echo esc_attr($form_obj->get_option('request_cost', '')); ?>" class="width75"></select></td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e( 'Currency', 'calculated-fields-form' ); ?></th>
+							<td><input type="text" name="currency" value="<?php echo esc_attr($form_obj->get_option('currency',CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY)); ?>" class="width50" /><br>
+							<b>USD</b> (<?php esc_html_e('United States dollar', 'calculated-fields-form'); ?>), <b>EUR</b> (Euro), <b>GBP</b> (<?php esc_html_e('Pound sterling', 'calculated-fields-form'); ?>), ... (<a href="https://developer.paypal.com/docs/api/reference/currency-codes/" target="_blank"><?php esc_html_e('Currency Codes', 'calculated-fields-form');?></a>)
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e( 'Base amount', 'calculated-fields-form' ); ?>:</th>
+							<td><input type="text" name="paypal_base_amount" value="<?php echo esc_attr($form_obj->get_option( 'paypal_base_amount', '0.01' ) ); ?>" class="width50" /><br><i style="font-size:11px;"><?php _e( 'Minimum amount to charge. If the final price is lesser than this number, the base amount will be applied.', 'calculated-fields-form' ); ?></i>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e( 'Product name', 'calculated-fields-form' ); ?></th>
+							<td><input type="text" name="paypal_product_name" class="width75" value="<?php echo esc_attr($form_obj->get_option('paypal_product_name',CP_CALCULATEDFIELDSF_DEFAULT_PRODUCT_NAME)); ?>" /></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2" class="cff-settings-hint-yellow">
+								<strong><?php _e( 'Discount Codes', 'calculated-fields-form' ); ?></strong><br /><br />
+								<div><?php
+									esc_html_e(
+										'Discount coupon management is an advanced feature available in the commercial version of the plugin.', 'calculated-fields-form'
+									);
+									print '[<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="font-weight:600;">' . esc_html__('Upgrade', 'calculated-fields-form') . '</a>]';
+								?></div>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e( 'When should be sent the notification-confirmation emails?', 'calculated-fields-form' ); ?></th>
+							<td><select name="paypal_notiemails" class="width75">
+								 <option value="0" <?php if ($form_obj->get_option('paypal_notiemails','0') != '0') echo 'selected'; ?>><?php _e( 'When paid: AFTER receiving the payment notification', 'calculated-fields-form' ); ?></option>
+								 <option value="1" <?php if ($form_obj->get_option('paypal_notiemails','1') == '1') echo 'selected'; ?>><?php _e( 'Always: BEFORE receiving the payment notification', 'calculated-fields-form' ); ?></option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<!-- PAYMENT GATEWAYS -->
+					<hr />
+					<h3>&#128176; <?php esc_html_e( 'Payment Methods', 'calculated-fields-form' ); ?></h3>
+					<div id="cff-payment-gateways-accordion">
+						<!-- PAY LATER -->
+						<div id="metabox_pay_later" class="postbox cff-metabox <?php print ! empty( $form_obj->get_option('enable_pay_later', 0) ) ? ' cff-payment-gateway-enabled ' : '';  ?>">
+							<div class="inside">
+								<table class="form-table">
+									<tr valign="top">
+										<th scope="row"><?php _e( 'Enable "Pay Later" option?', 'calculated-fields-form' ); ?></th>
+										<td>
+											<select name="enable_pay_later">
+												<option value="0" <?php if (!$form_obj->get_option('enable_pay_later',0)) echo 'selected'; ?> ><?php _e( 'No', 'calculated-fields-form' ); ?></option>
+												<option value="1" <?php if ($form_obj->get_option('enable_pay_later',0)) echo 'selected'; ?> ><?php _e( 'Yes', 'calculated-fields-form' ); ?></option>
+											</select>
+											<br /><i style="font-size:11px;"><?php esc_html_e( 'Note: When "multiple" payment methods are active, a radio button appears in the form for selection.', 'calculated-fields-form' ); ?></i>
+											<div id="cff_paypal_options_label" class="width75 cff-settings-hint-blue">
+												<?php _e( 'Label for the "<strong>Pay later</strong>" option (for optional payments)', 'calculated-fields-form' ); ?>:<br />
+												<input type="text" name="enable_paypal_option_no" size="70" style="width:100%;" value="<?php echo esc_attr($form_obj->get_option('enable_paypal_option_no',CP_CALCULATEDFIELDSF_PAYPAL_OPTION_NO)); ?>" />
+											</div>
+										</td>
+									</tr>
+								</table>
+								<script data-category="functional">
+								jQuery(document).on('change', '[name="enable_pay_later"]', function(){
+									jQuery('#metabox_pay_later')[( this.tagName == 'INPUT' && this.checked ) || this.value*1 ? 'addClass' : 'removeClass' ]('cff-payment-gateway-enabled');
+								});
+								</script>
+							</div>
+						</div>
+						<!-- END PAY LATER -->
+						<?php
+							// Prints the payment gateway settings.
+							do_action('cpcff_form_payment_gateways_settings', CP_CALCULATEDFIELDSF_ID);
+						?>
+					</div> <!-- PAYMENT GATEWAYS ACCORDION -->
+                    <!-- Payment Integrations -->
+                    <p><?php esc_html_e('Turn your forms into powerful revenue engines. Calculated Fields Form integrates seamlessly with the world\'s leading payment gateways - PayPal, Stripe, Square, and many more - so you can quote, calculate, and charge in a single, frictionless flow. The amount is computed live from your form fields, eliminating manual errors and giving customers instant, transparent pricing. Reach global buyers, accept cards and digital wallets, and get paid faster than ever.', 'calculated-fields-form'); ?></p>
+
+                    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px; border-top:1px solid #eaeaea;margin-top:15px;padding-top:15px;">
+                        <?php
+                        echo '<b>' . esc_html__('Payment Gateways:', 'calculated-fields-form') . '</b>';
+						echo implode(
+                            '|',
+                            [
+                                $cpcff_main->check_feature(['feature' => esc_html__('PayPal Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/paypal-checkout', 'title' => esc_html__('Global online payments with digital wallet support', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('PayPal Pro Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/paypal-pro', 'title' => esc_html__('Direct credit card processing via the PayPal API', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Stripe Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/stripe-checkout', 'title' => esc_html__('Modern payment platform for online businesses', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Square Integration', 'calculated-fields-form'), 'link' => 'https://cff-bundles.dwbooster.com/product/square-checkout-payment-gateway', 'title' => esc_html__('All-in-one payments for in-person and online sales', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Authorize.Net Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/authorize', 'title' => esc_html__('Established gateway for credit card acceptance', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Revolut Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/revolut', 'title' => esc_html__('Digital banking payments for global online businesses', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Skrill Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/skrill', 'title' => esc_html__('Digital wallet for instant online payments and transfers', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('iDeal TargetPay Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/targetpay', 'title' => esc_html__('Dutch iDEAL payments through the TargetPay processor', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Mollie (iDeal) Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/mollie', 'title' => esc_html__('Multi-method European gateway with iDEAL support', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('RedSys Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/redsys', 'title' => esc_html__('Spanish gateway for cards and local payment methods', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('RedSys Bizum Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/bizum', 'title' => esc_html__('Instant mobile bank payments via RedSys in Spain', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Paycomet Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/paycomet', 'title' => esc_html__('Spanish gateway with fraud prevention and tokenization', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Opayo Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/sagepay', 'title' => esc_html__('UK payment gateway for online merchants (formerly SagePay)', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Sage Payment Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/sagepayment', 'title' => esc_html__('Secure UK gateway for online credit card processing', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('PayTM Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/paytm', 'title' => esc_html__('Leading Indian digital payments and mobile wallet platform', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('eWay Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/eway', 'title' => esc_html__('Australian online gateway for global card processing', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('Payrexx Integration', 'calculated-fields-form'), 'link' => 'https://cff-bundles.dwbooster.com/product/payrexx-payment-gateway', 'title' => esc_html__('Swiss all-in-one payment solution for online businesses', 'calculated-fields-form')]),
+
+                                $cpcff_main->check_feature(['feature' => esc_html__('(All Payment Gateways supported by WooCommerce)', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/woocommerce', 'title' => esc_html__('Delegate payment processing to WooCommerce', 'calculated-fields-form')]),
+                            ]
+                        );
+                        ?>
+						<a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-secondary">Upgrade</a>
+                    </div>
+                    <div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e('Up to form structure', 'calculated-fields-form'); ?></a></div>
+                </div>
+            </div>
+
             <div id="metabox_notification_email" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_notification_email')); ?>">
                 <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Form Processing / Email Settings', 'calculated-fields-form'); ?></span></h3>
                 <div class="inside">
@@ -727,60 +859,6 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                         <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-primary"><?php esc_html_e('Go Professional', 'calculated-fields-form'); ?></a>
                         <a href="admin.php?page=cp_calculated_fields_form&cal=7&_cpcff_nonce=9f6fe85ce5&cff-install-trial=1#cff-upgrade-frame" class="button-secondary"><?php esc_html_e('Try the trial version', 'calculated-fields-form'); ?></a>
                     </div>
-                </div>
-            </div>
-            <div id="metabox_payment_settings" class="postbox cff-metabox <?php print esc_attr($cpcff_main->metabox_status('metabox_payment_settings')); ?>" style="position:relative;">
-                <h3 class='hndle' style="padding:5px;"><span><?php esc_html_e('Payment Settings (Pro)', 'calculated-fields-form'); ?></span></h3>
-                <div class="inside">
-                    <!-- Payment Integrations -->
-                    <p><?php esc_html_e('Turn your forms into powerful revenue engines. Calculated Fields Form integrates seamlessly with the world\'s leading payment gateways - PayPal, Stripe, Square, and many more - so you can quote, calculate, and charge in a single, frictionless flow. The amount is computed live from your form fields, eliminating manual errors and giving customers instant, transparent pricing. Reach global buyers, accept cards and digital wallets, and get paid faster than ever.', 'calculated-fields-form'); ?> [<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="font-weight:600;">Upgrade</a>]</p>
-
-                    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px; border-top:1px solid #eaeaea;margin-top:15px;padding-top:15px;">
-                        <?php
-                        echo '<b>' . esc_html__('Payment Gateways:', 'calculated-fields-form') . '</b>';
-                        echo implode(
-                            '|',
-                            [
-                                $cpcff_main->check_feature(['feature' => esc_html__('PayPal Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/paypal-checkout', 'title' => esc_html__('Global online payments with digital wallet support', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('PayPal Pro Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/paypal-pro', 'title' => esc_html__('Direct credit card processing via the PayPal API', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Stripe Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/stripe-checkout', 'title' => esc_html__('Modern payment platform for online businesses', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Square Integration', 'calculated-fields-form'), 'link' => 'https://cff-bundles.dwbooster.com/product/square-checkout-payment-gateway', 'title' => esc_html__('All-in-one payments for in-person and online sales', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Authorize.Net Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/authorize', 'title' => esc_html__('Established gateway for credit card acceptance', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Revolut Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/revolut', 'title' => esc_html__('Digital banking payments for global online businesses', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Skrill Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/skrill', 'title' => esc_html__('Digital wallet for instant online payments and transfers', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('iDeal TargetPay Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/targetpay', 'title' => esc_html__('Dutch iDEAL payments through the TargetPay processor', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Mollie (iDeal) Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/mollie', 'title' => esc_html__('Multi-method European gateway with iDEAL support', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('RedSys Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/redsys', 'title' => esc_html__('Spanish gateway for cards and local payment methods', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('RedSys Bizum Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/bizum', 'title' => esc_html__('Instant mobile bank payments via RedSys in Spain', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Paycomet Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/paycomet', 'title' => esc_html__('Spanish gateway with fraud prevention and tokenization', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Opayo Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/sagepay', 'title' => esc_html__('UK payment gateway for online merchants (formerly SagePay)', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Sage Payment Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/sagepayment', 'title' => esc_html__('Secure UK gateway for online credit card processing', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('PayTM Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/paytm', 'title' => esc_html__('Leading Indian digital payments and mobile wallet platform', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('eWay Integration', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/eway', 'title' => esc_html__('Australian online gateway for global card processing', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('Payrexx Integration', 'calculated-fields-form'), 'link' => 'https://cff-bundles.dwbooster.com/product/payrexx-payment-gateway', 'title' => esc_html__('Swiss all-in-one payment solution for online businesses', 'calculated-fields-form')]),
-
-                                $cpcff_main->check_feature(['feature' => esc_html__('(All Payment Gateways supported by WooCommerce)', 'calculated-fields-form'), 'link' => 'https://cff.dwbooster.com/add-ons/woocommerce', 'title' => esc_html__('Delegate payment processing to WooCommerce', 'calculated-fields-form')]),
-                            ]
-                        );
-                        ?>
-                    </div>
-                    <div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e('Up to form structure', 'calculated-fields-form'); ?></a></div>
                 </div>
             </div>
 

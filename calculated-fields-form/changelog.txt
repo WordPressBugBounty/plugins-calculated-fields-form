@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.5.2.1 =
+
+* Adds Stripe Checkout payment gateway integration to the free plugin distribution.
+* Updates the Stripe SDK to the latest version.
+
 = 5.5.2.0 =
 
 * Updates the list of supported AI models, adding new models from existing providers and removing deprecated ones.

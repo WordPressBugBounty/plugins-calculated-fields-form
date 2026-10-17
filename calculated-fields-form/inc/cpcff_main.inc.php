@@ -173,6 +173,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
             require_once CP_CALCULATEDFIELDSF_BASE_PATH.'/inc/cpcff_compatibility.inc.php';
             CPCFF_COMPATIBILITY::troubleshoots();
 
+            // Load the add ons
+			require_once CP_CALCULATEDFIELDSF_BASE_PATH.'/inc/cpcff_addons.inc.php'; // Loads the addons.
+			CPCFF_ADDONS::load();
+
             // Load the widgets
             require_once CP_CALCULATEDFIELDSF_BASE_PATH.'/widgets/cff_widgets.mngr.php'; // Loads the widgets.
             CPCFF_WIDGETS_MANAGER::init();
@@ -1080,6 +1084,20 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			}
 			return $cloned_form;
 		} // End clone_form.
+
+		public function send_mails($submission_id, $payer_email = '')
+		{
+			require_once CP_CALCULATEDFIELDSF_BASE_PATH.'/inc/cpcff_mail.inc.php';
+			if(empty($this->mail_obj)) {
+				$this->mail_obj = new CPCFF_MAIL();
+			}
+			if(method_exists($this->mail_obj, 'send_notification_email')) {
+				$this->mail_obj->send_notification_email($submission_id);
+			}
+			if(method_exists($this->mail_obj, 'send_confirmation_email')) {
+				$this->mail_obj->send_confirmation_email($submission_id, $payer_email);
+			}
+		} // End get_email_sender
 
 		/*********************************** PRIVATE METHODS  ********************************************/
 

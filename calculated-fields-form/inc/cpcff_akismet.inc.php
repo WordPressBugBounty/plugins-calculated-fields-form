@@ -73,7 +73,7 @@ class CPCFF_Akismet {
     /**
      * Registers all WordPress action and filter hooks consumed by the integration:
      *  - cpcff_process_data_before_insert      -> handle_submission
-     *  - cpcff_free_notification_email_subject -> mark_email_as_spam
+     *  - cpcff_notification_email_subject -> mark_email_as_spam
      *
      * @return void
      */
@@ -83,7 +83,7 @@ class CPCFF_Akismet {
         add_action( 'cpcff_free_process_data_before_insert', [ $this, 'handle_submission' ], 10, 3 );
 
         // Mark notification emails as spam/ham based on Akismet result
-        add_filter( 'cpcff_free_notification_email_subject', [ $this, 'mark_email_as_spam' ], 10, 2 );
+        add_filter( 'cpcff_notification_email_subject', [ $this, 'mark_email_as_spam' ], 10, 2 );
 
     }
 

@@ -534,6 +534,8 @@ textarea {resize: none}
 .cff-metabox.cff-metabox-closed:not(:has(.cff-action-required)){background-color:#F6F6F6;}
 .cff-metabox.cff-metabox-closed:not(:has(.cff-action-required)) .inside{display:none;}
 #metabox_addons_area .cff-add-on-settings {margin: 10px;}
+.cff-metabox.cff-payment-gateway-enabled{border:2px solid var(--wp-admin-theme-color) !important;}
+.cff-metabox.cff-metabox-closed:not(:has(.cff-action-required)).cff-payment-gateway-enabled{background:#e3f2fd;}
 
 /* METABOX ANIMATION */
 @supports (animation-timeline: view()) {

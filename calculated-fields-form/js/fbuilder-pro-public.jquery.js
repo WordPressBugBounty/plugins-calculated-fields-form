@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.2.0';
+	$.fbuilder['version'] = '5.5.2.1';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1460,7 +1460,13 @@
 				form.find('.cpcff-recordset,.cff-exclude :input,[id^="form_structure_"]')
 					.add(form.find('.ignore')).attr('cff-disabled', 1).prop('disabled', true);
 				disabling_form();
-				if ($('#cff_iframe_for_submission'+form_identifier).length) {
+				if (
+					$('#cff_iframe_for_submission'+form_identifier).length &&
+					(
+						!form.find('[name="bccf_payment_option'+'_paypal"]').length ||
+						form.find('[name="bccf_payment_option'+'_paypal"][value="0"]').is(':checked')
+					)
+				) {
 					form.attr('target', 'cff_iframe_for_submission'+form_identifier);
 					$(document).one('cff-form-submitted', function(){
 						form.find( '.cff-thanks-message' ).fadeIn(400);

@@ -87,24 +87,37 @@ if ( ! class_exists( 'CPCFF_MAIL' ) ) {
 		 *
 		 * @return boolean.
 		 */
-		public function send_notification_email( $form_obj, $params, $summary ) {
-			$fields                        = $form_obj->get_fields();
-			$fields['ipaddr']              = $params['ipaddress'];
-			$fields['submission_datetime'] = current_time( 'Y/m/d H:i:s' );
-			$fields['paid']                = 0;
+		public function send_notification_email( $submission_id ) {
+
+			$submission_obj = CPCFF_SUBMISSIONS::get( $submission_id );
+			if ( empty( $submission_obj ) ) {
+				return false;
+			}
+
+			$form_obj = CPCFF_SUBMISSIONS::get_form( $submission_id );
+			if ( empty( $form_obj ) ) {
+				return false;
+			}
+
+			$send_notification_email = apply_filters(
+                'cpcff_send_notification_email',
+                true,
+                $submission_obj,
+                $form_obj
+            );
+			if ( ! $send_notification_email ) {
+				return false;
+			}
 
 			// Checks if the notification email includes a content.
 			$email_message = $this->_default_if_empty( $form_obj->get_option( 'fp_message', CP_CALCULATEDFIELDSF_DEFAULT_fp_message ), CP_CALCULATEDFIELDSF_DEFAULT_fp_message );
 
 			$email_format = $form_obj->get_option( 'fp_emailformat', CP_CALCULATEDFIELDSF_DEFAULT_email_format );
 
-			$email_data = CPCFF_AUXILIARY::parsing_fields_on_text(
-				$fields,
-				$params,
+			$email_data = CPCFF_SUBMISSIONS::parsing_fields_on_text(
 				$email_message,
-				$summary,
-				$email_format,
-				$params['itemnumber']
+				$form_obj->get_option('fp_emailformat', CP_CALCULATEDFIELDSF_DEFAULT_email_format),
+				$submission_id
 			);
 
 			if ( 'true' == $form_obj->get_option( 'fp_inc_additional_info', CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info ) ) {
@@ -113,34 +126,28 @@ if ( ! class_exists( 'CPCFF_MAIL' ) ) {
 					$chln = '<br>';
 				}
 
-				$basic_data          = 'IP: ' . $params['ipaddress'] . "{$chln}Server Time:  " . gmdate( 'Y-m-d H:i:s' ) . $chln;
+				$basic_data          = 'IP: ' . $submission_obj->ipaddr . "{$chln}Server Time:  " . gmdate( 'Y-m-d H:i:s' ) . $chln;
 				$email_data['text'] .= "{$chln}ADDITIONAL INFORMATION{$chln}*********************************{$chln}" . $basic_data;
 			}
 
 			$subject = $form_obj->get_option( 'fp_subject', CP_CALCULATEDFIELDSF_DEFAULT_fp_subject );
-			$subject = CPCFF_AUXILIARY::parsing_fields_on_text(
-				$fields,
-				$params,
+			$subject = CPCFF_SUBMISSIONS::parsing_fields_on_text(
 				$subject,
-				'',
 				'plain text',
-				$params['itemnumber']
+				$submission_id
 			);
 
-			$to = preg_replace( '/<%fieldname[^>]*>/i', '', $form_obj->get_option( 'fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails ) );
-			$to = explode( ',', $to );
-
-			$from = CPCFF_AUXILIARY::parsing_fields_on_text(
-				$fields,
-				$params,
-				preg_replace(
-					'/(fieldname\d+)\s*%>/i',
-					'$1_value%>',
-					$form_obj->get_option( 'fp_from_email', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email )
-				),
-				'',
+			$to = CPCFF_SUBMISSIONS::parsing_fields_on_text(
+				preg_replace("/(fieldname\d+)\s*%>/i", "$1_value%>", $form_obj->get_option('fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails)),
 				'plain text',
-				$params['itemnumber']
+				$submission_id
+			);
+			$to = explode( ',', trim( $to['text'] ) );
+
+			$from = CPCFF_SUBMISSIONS::parsing_fields_on_text(
+				preg_replace('/(fieldname\d+)\s*%>/i', '$1_value%>', $form_obj->get_option( 'fp_from_email', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email)),
+				'plain text',
+				$submission_id
 			);
 			$from = trim( $from['text'] );
 			if ( ! empty( $from ) && strpos( $from, '>' ) === false ) {
@@ -163,17 +170,10 @@ if ( ! class_exists( 'CPCFF_MAIL' ) ) {
 			}
 
 			try {
-				$replyto = CPCFF_AUXILIARY::parsing_fields_on_text(
-					$fields,
-					$params,
-					preg_replace(
-						"/(fieldname\d+)\s*%>/i",
-						"$1_value%>",
-						$form_obj->get_option( 'fp_reply_to_emails', '' )
-					),
-					'',
+				$replyto = CPCFF_SUBMISSIONS::parsing_fields_on_text(
+					preg_replace("/(fieldname\d+)\s*%>/i", "$1_value%>", $form_obj->get_option( 'fp_reply_to_emails', '' )),
 					'plain text',
-					$params['itemnumber']
+					$submission_id
 				)['text'];
 
 				$replyto = explode( ',', preg_replace( ['/\s/', '/\,+/'], ['', ','], $replyto ) );
@@ -198,8 +198,8 @@ if ( ! class_exists( 'CPCFF_MAIL' ) ) {
 					try {
 						wp_mail(
 							$email,
-							apply_filters('cpcff_free_notification_email_subject', $subject[ 'text' ], $params),
-							apply_filters('cpcff_free_notification_email_message', $email_data[ 'text' ], $params),
+							apply_filters('cpcff_notification_email_subject', $subject[ 'text' ], $submission_id),
+							apply_filters('cpcff_notification_email_message', $email_data[ 'text' ], $submission_id),
 							$headers,
 							$email_data['files']
 						);

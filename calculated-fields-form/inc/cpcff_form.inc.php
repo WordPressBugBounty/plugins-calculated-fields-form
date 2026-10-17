@@ -629,6 +629,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				'paypal_identify_prices'      => ( isset( $params['paypal_identify_prices'] ) ) ? $params['paypal_identify_prices'] : '0',
 				'paypal_zero_payment'         => ( isset( $params['paypal_zero_payment'] ) ) ? $params['paypal_zero_payment'] : 0,
 
+				'enable_paypal_option_no' 	  => (isset($params['enable_paypal_option_no'])) ? $params['enable_paypal_option_no'] : CP_CALCULATEDFIELDSF_PAYPAL_OPTION_NO,
+
 				// Texts.
 				'vs_use_validation'           => CP_CALCULATEDFIELDSF_DEFAULT_vs_use_validation,
 				'vs_text_is_required'         => ( isset( $params['vs_text_is_required'] ) ) ? $params['vs_text_is_required'] : CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required,
