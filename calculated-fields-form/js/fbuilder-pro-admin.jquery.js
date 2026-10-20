@@ -518,6 +518,15 @@
 				$.fbuilder['deletedFields'][name] = 0;
 				if( typeof items[ index ][ 'remove' ] != 'undefined' ) items[ index ][ 'remove' ]();
 				items[ index ] = 0;
+				// Free the design-groups state for the deleted field (and its sub-fields, if container)
+				fbuilderjQuery.fbuilder['cleanupDesignGroupsState']( name );
+				if ( 'fields' in itemToDelete && Array.isArray( itemToDelete['fields'] ) ) {
+					let fieldsIndex = $.fbuilder['fieldsIndex'] || {};
+					for ( let fi = 0; fi < itemToDelete['fields'].length; fi++ ) {
+						let sub = fieldsIndex[ itemToDelete['fields'][ fi ] ];
+						if ( sub && sub.name ) fbuilderjQuery.fbuilder['cleanupDesignGroupsState']( sub.name );
+					}
+				}
 
                 if( reload ) { // Do not load the deleted fields when it is being deleted from an container field.
                     items = $.grep(items, function (e) { return (e != 0); });
@@ -770,6 +779,21 @@
 					$.fbuilder['updateAdvancedSettings'](theForm, $(this).attr('data-cff-css-component'));
 					$.fbuilder.reloadItems({'form':1});
 				});
+				// Visual design controls (form-level)
+				$(document).off("input change", '[data-cff-component]');
+				$(document).on("input change", '[data-cff-component]', function(e) {
+					$.fbuilder['updateAdvancedSettings'](theForm, $(this).attr('data-cff-component'));
+					$.fbuilder.reloadItems({'form':1});
+				});
+				$(document).off('click', '.cff-design-button-group__btn');
+				$(document).on('click', '.cff-design-button-group__btn', function(e) {
+					e.preventDefault();
+					let $btn = $(this);
+					$btn.siblings('.cff-design-button-group__btn').removeClass('button-primary');
+					$btn.addClass('button-primary');
+					$.fbuilder['updateAdvancedSettings'](theForm, $btn.attr('data-cff-component'));
+					$.fbuilder.reloadItems({'form':1});
+				});
 			};
 
 		$.fbuilder[ 'defineGeneralEvents' ] = function()
@@ -822,6 +846,18 @@
 					$.fbuilder[ 'duplicateItem' ]($(this).closest('.fields').attr("id").replace("field-",""));
 					// $('#tabs').tabs("option", "active", 0);
 					$.fbuilder.reloadItems();
+				});
+
+				$(document).on('click', '.fields .open-design', function(evt){
+					evt.stopPropagation();
+					$.fbuilder['editItem']($(this).closest('.fields').attr("id").replace("field-",""));
+					$('#tabs-2 .cff-field-settings-tab-header-advanced').trigger('click');
+				});
+
+				$(document).on('click', '.fform .open-form-design', function(evt){
+					evt.stopPropagation();
+					$.fbuilder['editForm']();
+					$('.cff-form-settings-tabs-headers .cff-field-settings-tab-header-advanced').trigger('click');
 				});
 
 				$(document).on('click', '.fields .collapse', function(evt){
@@ -1169,7 +1205,7 @@
 						title = '{ Form Title and Description Here }';
 					}
 
-					return '<div class="fform '+empty_class+'" id="field"><div class="arrow ui-icon ui-icon-play "></div><'+this.titletag+' style="'+css+'">'+cff_sanitize(title, true)+'</'+this.titletag+'><span style="display:block;'+css+'">'+cff_sanitize(description, true)+'</span></div>';
+					return '<div class="fform '+empty_class+'" id="field"><div class="cff-field-controls"><div title="Open form design settings" class="open-form-design ui-icon ui-icon-pencil"></div></div><div class="arrow ui-icon ui-icon-play "></div><'+this.titletag+' style="'+css+'">'+cff_sanitize(title, true)+'</'+this.titletag+'><span style="display:block;'+css+'">'+cff_sanitize(description, true)+'</span></div>';
 				},
 
 				showAllSettings:function()
@@ -1795,6 +1831,226 @@
         return css_color_rules.indexOf(rule) !== -1;
     };
 
+	// ============================================================
+	// Visual design controls system
+	// Each control is a typed UI element that writes a CSS rule
+	// internally. The user never sees the CSS property name or value.
+	// ============================================================
+
+	$.fbuilder['designControls'] = {
+		text_color:      { label: 'Text color',        type: 'color',          css: 'color' },
+		bg_color:        { label: 'Background color',  type: 'color',          css: 'background-color' },
+		border_color:    { label: 'Border color',      type: 'color',          css: 'border-color' },
+		border_width:    { label: 'Border width',      type: 'length',         css: 'border-width' },
+		border_radius:   { label: 'Border radius',     type: 'length',         css: 'border-radius' },
+		border_style:    { label: 'Border style',      type: 'border-style',   css: 'border-style' },
+		font_family:     { label: 'Font family',       type: 'font-family',    css: 'font-family' },
+		font_size:       { label: 'Font size',         type: 'length',         css: 'font-size' },
+		font_weight:     { label: 'Font weight',       type: 'font-weight',    css: 'font-weight' },
+		text_align:      { label: 'Text align',        type: 'text-align',     css: 'text-align' },
+		text_transform:  { label: 'Text transform',    type: 'text-transform', css: 'text-transform' },
+		padding_top:     { label: 'Padding top',       type: 'length',         css: 'padding-top' },
+		padding_right:   { label: 'Padding right',     type: 'length',         css: 'padding-right' },
+		padding_bottom:  { label: 'Padding bottom',    type: 'length',         css: 'padding-bottom' },
+		padding_left:    { label: 'Padding left',      type: 'length',         css: 'padding-left' },
+		margin_top:      { label: 'Margin top',        type: 'length',         css: 'margin-top' },
+		margin_right:    { label: 'Margin right',      type: 'length',         css: 'margin-right' },
+		margin_bottom:   { label: 'Margin bottom',     type: 'length',         css: 'margin-bottom' },
+		margin_left:     { label: 'Margin left',       type: 'length',         css: 'margin-left' },
+		width:           { label: 'Width',             type: 'length',         css: 'width' },
+		min_height:      { label: 'Min height',        type: 'length',         css: 'min-height' }
+	};
+
+	// Shared group definitions to avoid repetition across components.
+	const CFF_G_BG       = [{ name: 'Background', controls: ['bg_color'] }];
+	const CFF_G_BORDER  = [{ name: 'Border',     controls: ['border_color','border_width','border_radius','border_style'] }];
+	const CFF_G_SPACING = [{ name: 'Spacing',    controls: ['padding_top','padding_right','padding_bottom','padding_left','margin_top','margin_right','margin_bottom','margin_left'] }];
+	const CFF_G_SIZING2 = [{ name: 'Sizing',     controls: ['width','min_height'] }];
+
+	$.fbuilder['componentControls'] = {
+		container: { groups: [ ...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING, ...CFF_G_SIZING2 ] },
+		label:     { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight','text_align','text_transform'] },
+			...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING,
+			{ name: 'Sizing', controls: ['width'] }
+		] },
+		input:     { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight'] },
+			...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING,
+			{ name: 'Sizing', controls: ['width'] }
+		] },
+		help: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_size'] },
+			{ name: 'Spacing',    controls: ['margin_top','margin_right','margin_bottom','margin_left'] }
+		] },
+
+		header:        { groups: [ ...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING ] },
+		title:         { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight','text_align','text_transform'] },
+			...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING
+		] },
+		description:   { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight','text_align','text_transform'] },
+			...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING
+		] },
+		form:          { groups: [ ...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING ] },
+		buttons:       { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight','text_align','text_transform'] },
+			...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING
+		] },
+		buttons_hover: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight','text_align','text_transform'] },
+			...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING
+		] },
+		required_field_asterisk: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_size','font_weight'] }
+		] },
+		tooltips_icons: { groups: [ ...CFF_G_BG, ...CFF_G_BORDER ] },
+		tooltips: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight'] },
+			...CFF_G_BG, ...CFF_G_BORDER
+		] },
+		thanks_popup: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight','text_align'] },
+			...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING
+		] },
+		close_thanks_popup: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_size'] }
+		] },
+		error_popup: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size','font_weight'] },
+			...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING
+		] },
+		close_error_popup: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_size'] }
+		] },
+		error_bubble: { groups: [
+			{ name: 'Typography', controls: ['text_color','font_family','font_size'] },
+			...CFF_G_BG, ...CFF_G_BORDER
+		] },
+		error_bubble_arrow: { groups: [
+			{ name: 'Border',     controls: ['border_color'] }
+		] },
+
+		_default: { groups: [ ...CFF_G_BG, ...CFF_G_BORDER, ...CFF_G_SPACING, ...CFF_G_SIZING2 ] }
+	};
+
+	$.fbuilder['getComponentControls'] = function( componentKey ) {
+		return $.fbuilder['componentControls'][ componentKey ] || $.fbuilder['componentControls']['_default'];
+	};
+
+	$.fbuilder['reverseControlMap'] = function() {
+		if ( ! $.fbuilder['_reverseControlMap'] ) {
+			$.fbuilder['_reverseControlMap'] = {};
+			for ( let key in $.fbuilder['designControls'] ) {
+				if ( $.fbuilder['designControls'].hasOwnProperty( key ) ) {
+					$.fbuilder['_reverseControlMap'][ $.fbuilder['designControls'][ key ].css ] = key;
+				}
+			}
+		}
+		return $.fbuilder['_reverseControlMap'];
+	};
+
+	$.fbuilder['renderDesignControl'] = function( componentKey, controlKey, value ) {
+		let def = $.fbuilder['designControls'][ controlKey ];
+		if ( ! def ) return '';
+
+		let controlId = 'cff-control-' + componentKey + '-' + controlKey,
+			nameAttr  = componentKey + '[' + controlKey + ']',
+			valueSafe = cff_esc_attr( value || '' ),
+			compAttr  = 'data-cff-component="' + cff_esc_attr( componentKey ) + '"',
+			ctrlAttr  = 'data-cff-control="'  + cff_esc_attr( controlKey  ) + '"',
+			cssAttr   = 'data-cff-css="'      + cff_esc_attr( def.css     ) + '"',
+			labelHtml = '<label for="' + controlId + '">' + cff_sanitize( def.label, true ) + '</label>';
+
+		// Button group helper (used by text-align, text-transform, border-style).
+		function buttonGroup( opts ) {
+			return '<div class="cff-design-control">' + labelHtml +
+				'<div class="cff-design-control__button-group" role="group">' +
+				opts.map( function( o ){
+					return '<button type="button" class="button cff-design-button-group__btn' + ( o[0] === value ? ' button-primary' : '' ) + '" ' +
+						compAttr + ' ' + ctrlAttr + ' ' + cssAttr + ' ' +
+						'data-cff-value="' + o[0] + '" data-cff-role="bg-btn" title="' + o[0] + '">' + o[1] + '</button>';
+				}).join('') +
+				'</div></div>';
+		}
+
+		switch ( def.type ) {
+			case 'color':
+				return '<div class="cff-design-control">' + labelHtml +
+					'<input type="text" id="' + controlId + '" name="' + nameAttr + '" ' +
+					compAttr + ' ' + ctrlAttr + ' ' + cssAttr + ' ' +
+					'class="cff-coloris" value="' + valueSafe + '" autocomplete="off"></div>';
+
+			case 'length': {
+				let m = String( value || '' ).match( /^(-?\d*\.?\d+)(px|rem|em|%|vw|vh|pt)?$/ ),
+					num  = m ? m[1] : '',
+					unit = m ? ( m[2] || 'px' ) : 'px',
+					units = ['px','rem','em','%','vw','vh','pt'];
+				return '<div class="cff-design-control cff-design-control--length">' + labelHtml +
+					'<div class="cff-design-control__input-group">' +
+					'<input type="number" id="' + controlId + '" name="' + nameAttr + '_num" ' +
+					compAttr + ' ' + ctrlAttr + ' ' + cssAttr + ' data-cff-role="num" ' +
+					'class="small" step="0.01" value="' + cff_esc_attr( num ) + '">' +
+					// Unit select has no data-cff-control so updateAdvancedSettings ignores it and looks it up by DOM.
+					'<select name="' + nameAttr + '_unit" ' + compAttr + ' ' + cssAttr + ' data-cff-role="unit" class="small">' +
+					units.map( function( u ){ return '<option value="' + u + '"' + ( u === unit ? ' selected' : '' ) + '>' + u + '</option>'; } ).join('') +
+					'</select></div></div>';
+			}
+
+			case 'font-family': {
+				let fonts = ['inherit','Arial','Helvetica','Times New Roman','Georgia','Verdana','Tahoma','Trebuchet MS','Courier New','system-ui','sans-serif','serif','monospace'];
+				return '<div class="cff-design-control">' + labelHtml +
+					'<select id="' + controlId + '" name="' + nameAttr + '" ' +
+					compAttr + ' ' + ctrlAttr + ' ' + cssAttr + '>' +
+					fonts.map( function( f ){ return '<option value="' + cff_esc_attr( f ) + '"' + ( f === value ? ' selected' : '' ) + '>' + cff_esc_attr( f ) + '</option>'; } ).join('') +
+					'</select></div>';
+			}
+
+			case 'font-weight': {
+				let weights = ['normal','bold','100','200','300','400','500','600','700','800','900'];
+				return '<div class="cff-design-control">' + labelHtml +
+					'<select id="' + controlId + '" name="' + nameAttr + '" ' +
+					compAttr + ' ' + ctrlAttr + ' ' + cssAttr + '>' +
+					weights.map( function( w ){ return '<option value="' + w + '"' + ( w === value ? ' selected' : '' ) + '>' + w + '</option>'; } ).join('') +
+					'</select></div>';
+			}
+
+			case 'text-align':
+				return buttonGroup( [['left','\u2B05'],['center','\u2B0C'],['right','\u27A1'],['justify','\u2261']] );
+			case 'text-transform':
+				return buttonGroup( [['none','Aa'],['uppercase','AA'],['lowercase','aa'],['capitalize','Aa']] );
+			case 'border-style':
+				return buttonGroup( [['none','none'],['solid','\u25AC'],['dashed','\u2010\u2010'],['dotted','\u22EF']] );
+
+			default:
+				return '<div class="cff-design-control">' + labelHtml +
+					'<input type="text" id="' + controlId + '" name="' + nameAttr + '" ' +
+					compAttr + ' ' + ctrlAttr + ' ' + cssAttr + ' value="' + valueSafe + '"></div>';
+		}
+	};
+
+	// Collapsed/expanded state for design groups.
+	// Plain object, no string keys. Only expanded groups are stored.
+	// Resets on page reload (in-memory only).
+	$.fbuilder['_designGroupsState'] = {};
+
+	$.fbuilder['setDesignGroupExpanded'] = function( origin, component, group, expanded ) {
+		let s = $.fbuilder['_designGroupsState'];
+		if ( expanded ) {
+			( s[ origin ] ||= {} )[ component ] ||= {};
+			s[ origin ][ component ][ group ] = true;
+		} else if ( s[ origin ] && s[ origin ][ component ] ) {
+			delete s[ origin ][ component ][ group ];
+		}
+	};
+
+	$.fbuilder['cleanupDesignGroupsState'] = function( fieldName ) {
+		delete $.fbuilder['_designGroupsState'][ fieldName ];
+	};
+
+	// ============================================================
+
 	$.fbuilder['showAdvancedSettings'] = function( arg ) {
 		function css_rules_datalist() {
             let css_rules = ['align-content', 'align-items', 'align-self', 'all', 'animation', 'animation-delay', 'animation-direction', 'animation-duration', 'animation-fill-mode', 'animation-iteration-count', 'animation-name', 'animation-play-state', 'animation-timing-function', 'backface-visibility', 'background', 'background-attachment', 'background-blend-mode', 'background-clip', 'background-color', 'background-image', 'background-origin', 'background-position', 'background-repeat', 'background-size', 'border', 'border-bottom', 'border-bottom-color', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-bottom-style', 'border-bottom-width', 'border-collapse', 'border-color', 'border-image', 'border-image-outset', 'border-image-repeat', 'border-image-slice', 'border-image-source', 'border-image-width', 'border-left', 'border-left-color', 'border-left-style', 'border-left-width', 'border-radius', 'border-right', 'border-right-color', 'border-right-style', 'border-right-width', 'border-spacing', 'border-style', 'border-top', 'border-top-color', 'border-top-left-radius', 'border-top-right-radius', 'border-top-style', 'border-top-width', 'border-width', 'bottom', 'box-shadow', 'box-sizing', 'caption-side', 'caret-color', 'clear', 'clip', 'clip-path', 'color', 'column-count', 'column-fill', 'column-gap', 'column-rule', 'column-rule-color', 'column-rule-style', 'column-rule-width', 'column-span', 'column-width', 'columns', 'content', 'counter-increment', 'counter-reset', 'cursor', 'direction', 'display', 'empty-cells', 'filter', 'flex', 'flex-basis', 'flex-direction', 'flex-flow', 'flex-grow', 'flex-shrink', 'flex-wrap', 'float', 'font', 'font-family', 'font-kerning', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'grid', 'grid-area', 'grid-auto-columns', 'grid-auto-flow', 'grid-auto-rows', 'grid-column', 'grid-column-end', 'grid-column-gap', 'grid-column-start', 'grid-gap', 'grid-row', 'grid-row-end', 'grid-row-gap', 'grid-row-start', 'grid-template', 'grid-template-areas', 'grid-template-columns', 'grid-template-rows', 'height', 'hyphens', 'justify-content', 'left', 'letter-spacing', 'line-height', 'list-style', 'list-style-image', 'list-style-position', 'list-style-type', 'margin', 'margin-bottom', 'margin-left', 'margin-right', 'margin-top', 'max-height', 'max-width', 'min-height', 'min-width', 'object-fit', 'object-position', 'opacity', 'order', 'outline', 'outline-color', 'outline-offset', 'outline-style', 'outline-width', 'overflow', 'overflow-x', 'overflow-y', 'padding', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'page-break-after', 'page-break-before', 'page-break-inside', 'perspective', 'perspective-origin', 'pointer-events', 'position', 'quotes', 'right', 'scroll-behavior', 'table-layout', 'text-align', 'text-align-last', 'text-decoration', 'text-decoration-color', 'text-decoration-line', 'text-decoration-style', 'text-indent', 'text-justify', 'text-overflow', 'text-shadow', 'text-transform', 'top', 'transform', 'transform-origin', 'transform-style', 'transition', 'transition-delay', 'transition-duration', 'transition-property', 'transition-timing-function', 'user-select', 'vertical-align', 'visibility', 'white-space', 'width', 'word-break', 'word-spacing', 'word-wrap', 'writing-mode', 'z-index'],
@@ -1846,25 +2102,93 @@
 				}
 
 				let components = arg.advanced.css,
-					c;
+					c,
+					reverseMap  = fbuilderjQuery.fbuilder['reverseControlMap'](),
+					designState = fbuilderjQuery.fbuilder['_designGroupsState'],
+					origin      = ( 'ftype' in arg ) ? arg.name : 'form';
+
 				for ( let i in components ) {
 					c = components[i];
-					if ( 'label' in c ) {
-						output += '<div style="margin-top:8px;">' + cff_sanitize(c['label'], true) + '</div>';
-					}
-					output += '<hr><div id="cff-css-rules-container-'+i+'">';
-					if ( 'rules' in c ) {
-						for ( let j in c['rules'] ) {
-							output += fbuilderjQuery.fbuilder['css_rule_pair']( i, j, c['rules'][j], 'restrict' in c );
+
+					output += '<fieldset class="cff-design-component" data-cff-component-key="' + cff_esc_attr(i) + '">';
+					output += '<legend>' + ( 'label' in c ? cff_sanitize(c['label'], true) : cff_esc_attr(i) ) + '</legend>';
+
+					if ( 'restrict' in c ) {
+						// Restricted component: render the predefined rule(s) as read-only text input pair(s)
+						output += '<div id="cff-css-rules-container-' + cff_esc_attr(i) + '">';
+						if ( 'rules' in c ) {
+							for ( let j in c['rules'] ) {
+								output += fbuilderjQuery.fbuilder['css_rule_pair']( i, j, c['rules'][j], true );
+							}
 						}
-					}
-					if ( ! ('restrict' in c) ) {
+						output += '</div>';
+					} else {
+						// Render visual design controls grouped by category
+						let compControls = fbuilderjQuery.fbuilder['getComponentControls']( i );
+						if ( compControls && compControls.groups ) {
+							for ( let g = 0; g < compControls.groups.length; g++ ) {
+								let group = compControls.groups[g];
+
+								// Determine if the group should be initially expanded.
+								// Expanded if: (a) the user previously expanded it (in-memory state), OR
+								// (b) any control in the group has a value already set.
+								let hasValue = false;
+								if ( 'rules' in c ) {
+									let rules = c['rules'];
+									for ( let k = 0; k < group.controls.length; k++ ) {
+										let def = fbuilderjQuery.fbuilder['designControls'][ group.controls[k] ];
+										if ( def && def.css in rules && rules[ def.css ] !== '' ) {
+											hasValue = true;
+											break;
+										}
+									}
+								}
+								let remembered = !!( designState[ origin ] && designState[ origin ][ i ] && designState[ origin ][ i ][ group.name ] );
+								let collapsed  = !( remembered || hasValue );
+
+								output += '<fieldset class="cff-design-group' + ( collapsed ? ' cff-design-group--collapsed' : '' ) + '" ' +
+									'data-cff-group="' + cff_esc_attr(group.name) + '" ' +
+									'data-cff-origin="' + cff_esc_attr(origin) + '" ' +
+									'data-cff-component="' + cff_esc_attr(i) + '">';
+								output += '<legend class="cff-design-group__legend" role="button" tabindex="0" aria-expanded="' + ( collapsed ? 'false' : 'true' ) + '"><span class="cff-design-group__chevron" aria-hidden="true">\u25B6</span> ' + cff_esc_attr(group.name) + '</legend>';
+								output += '<div class="cff-design-group__body">';
+								for ( let k = 0; k < group.controls.length; k++ ) {
+									let controlKey = group.controls[k],
+										def = fbuilderjQuery.fbuilder['designControls'][ controlKey ];
+									if ( def ) {
+										let cssProp = def.css,
+											value   = ( 'rules' in c && cssProp in c['rules'] ) ? c['rules'][ cssProp ] : '';
+										output += fbuilderjQuery.fbuilder['renderDesignControl']( i, controlKey, value );
+									}
+								}
+								output += '</div></fieldset>';
+							}
+						}
+
+						// Custom rules section for any rule whose CSS property is not covered by the curated controls
+						let unmappedRules = {};
+						if ( 'rules' in c ) {
+							for ( let j in c['rules'] ) {
+								if ( ! reverseMap[ j ] ) {
+									unmappedRules[ j ] = c['rules'][ j ];
+								}
+							}
+						}
+
+						output += '<div class="cff-design-custom-rules">';
+						output += '<div class="cff-design-custom-rules__header">Custom rules (advanced)</div>';
+						output += '<div class="cff-design-custom-rules__body" id="cff-css-rules-container-' + cff_esc_attr(i) + '">';
+						for ( let j in unmappedRules ) {
+							output += fbuilderjQuery.fbuilder['css_rule_pair']( i, j, unmappedRules[ j ], false );
+						}
+						// Always show one empty row so the user can add a new custom rule
 						output += fbuilderjQuery.fbuilder['css_rule_pair']( i );
+						output += '</div>';
+						output += '<div style="text-align:right;margin-top:4px;"><input type="button" class="button-secondary" value="Add custom rule" onclick="fbuilderjQuery(\'#cff-css-rules-container-' + cff_esc_attr(i) + '\').append(fbuilderjQuery.fbuilder.css_rule_pair(\'' + cff_esc_attr(i) + '\'));"></div>';
+						output += '</div>';
 					}
-					output += '</div>';
-					if ( ! ('restrict' in c) ) {
-						output += '<div style="text-align:right;margin-top:4px;"><input type="button" class="button-secondary" value="Add rule" onclick="fbuilderjQuery(\'#cff-css-rules-container-'+i+'\').append(fbuilderjQuery.fbuilder.css_rule_pair(\''+i+'\'));"></div>';
-					}
+
+					output += '</fieldset>';
 				}
 			}
 		}
@@ -1873,15 +2197,47 @@
 
 	$.fbuilder['updateAdvancedSettings'] = function( e, c ) {
 		let css = e.advanced.css;
+		let rules = {};
+		let reverseMap = fbuilderjQuery.fbuilder['reverseControlMap']();
 
-		css[c]['rules'] = {};
-		$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(i, e){
-			let css_rule = cff_esc_attr( String(this.value).trim() ), v;
-			if ( css_rule == '' ) return;
-			v = String( $('[data-cff-css-component="'+c+'"][name^="advanced[css][css_value]"]:eq('+i+')').val() ).trim();
-			v = cff_esc_attr( v.replace(/[\{\}]/g, '') );
-			css[c]['rules'][css_rule] = v;
+		// 1) Read visual design controls (color, length, font-family, font-weight, button groups, text inputs)
+		$('[data-cff-component="' + c + '"][data-cff-control]').each( function() {
+			let $this     = $(this),
+				cssProp   = $this.attr('data-cff-css'),
+				controlKey = $this.attr('data-cff-control'),
+				def       = fbuilderjQuery.fbuilder['designControls'][ controlKey ];
+			if ( ! def || ! cssProp ) return;
+
+			let value = '';
+			if ( def.type === 'length' ) {
+				// Combine number + unit (unit is looked up by DOM, not iterated).
+				let num  = String( $this.val() || '' ).trim(),
+					unit = String( $this.closest('.cff-design-control').find('[data-cff-role="unit"]').val() || 'px' ).trim();
+				if ( num !== '' ) value = num + unit;
+			} else if ( $this.is('button') ) {
+				// Button group: only the active button sets the value
+				if ( $this.hasClass('button-primary') ) {
+					value = String( $this.attr('data-cff-value') || '' ).trim();
+				}
+			} else {
+				value = String( $this.val() || '' ).trim();
+			}
+
+			value = cff_esc_attr( value.replace(/[\{\}]/g, '') );
+			if ( value !== '' ) rules[ cssProp ] = value;
 		});
+
+		// 2) Read custom rules (legacy text input pairs) - rules whose CSS property is not in the curated controls
+		$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(i, el) {
+			let css_rule = cff_esc_attr( String(this.value).trim() );
+			if ( css_rule === '' ) return;
+			if ( reverseMap[ css_rule ] ) return; // Already handled by a design control
+			let v = String( $('[data-cff-css-component="'+c+'"][name^="advanced[css][css_value]"]:eq('+i+')').val() || '' ).trim();
+			v = cff_esc_attr( v.replace(/[\{\}]/g, '') );
+			if ( v !== '' ) rules[ css_rule ] = v;
+		});
+
+		css[c]['rules'] = rules;
 		e.advanced.css = css;
 	};
 
@@ -1930,6 +2286,24 @@
         $(document).off("change", '[name^="advanced[css][css_rule]"],[name^="advanced[css][css_value]"]', cssValidation);
         $(document).on("change", '[name^="advanced[css][css_rule]"],[name^="advanced[css][css_value]"]', cssValidation);
 
+		// Design group collapse/expand toggle
+		function designGroupToggle( e ) {
+			if ( e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ' ) return;
+			e.preventDefault();
+			let $legend = $( this );
+			let $group  = $legend.closest( '.cff-design-group' );
+			if ( ! $group.length ) return;
+			let origin    = $group.attr( 'data-cff-origin' ),
+				component = $group.attr( 'data-cff-component' ),
+				group     = $group.attr( 'data-cff-group' ),
+				nowOpen   = $group.hasClass( 'cff-design-group--collapsed' );
+			$group.toggleClass( 'cff-design-group--collapsed' );
+			$legend.attr( 'aria-expanded', nowOpen ? 'true' : 'false' );
+			fbuilderjQuery.fbuilder['setDesignGroupExpanded']( origin, component, group, nowOpen );
+		}
+		$(document).off( 'click keydown', '.cff-design-group__legend' );
+		$(document).on( 'click keydown', '.cff-design-group__legend', designGroupToggle );
+
         initializeColoris();
     };
 
@@ -1972,7 +2346,11 @@
 			iconsContainer: function( i, d ){
 				i = i || '';
 				d = d || true;
-                return '<div class="cff-field-controls">' + i + (d ? '<div title="Duplicate (Ctrl+D)" class="copy ui-icon ui-icon-copy "></div>' : '')+'<div title="Remove (Ctrl+M)" class="remove ui-icon ui-icon-trash "></div></div>';
+                return '<div class="cff-field-controls">' +
+                    '<div title="Open design settings (Design tab)" class="open-design ui-icon ui-icon-pencil"></div>' +
+                    i +
+                    (d ? '<div title="Duplicate (Ctrl+D)" class="copy ui-icon ui-icon-copy "></div>' : '')+
+                    '<div title="Remove (Ctrl+M)" class="remove ui-icon ui-icon-trash "></div></div>';
 			},
 			init:function(){},
 			initAdv:function(){},
@@ -2168,6 +2546,21 @@
 				$(document).on('click', '.cff-css-rule-delete', {obj: this}, function(e) {
 					$(this).closest('.css-rule').remove();
 					$.fbuilder['updateAdvancedSettings'](e.data.obj, $(this).attr('data-cff-css-component'));
+					$.fbuilder.reloadItems({'field':e.data.obj});
+				});
+				// Visual design controls (field-level)
+				$(document).off("input change", '[data-cff-component]');
+				$(document).on("input change", '[data-cff-component]', {obj: this}, function(e) {
+					$.fbuilder['updateAdvancedSettings'](e.data.obj, $(this).attr('data-cff-component'));
+					$.fbuilder.reloadItems({'field':e.data.obj});
+				});
+				$(document).off('click', '.cff-design-button-group__btn');
+				$(document).on('click', '.cff-design-button-group__btn', {obj: this}, function(e) {
+					e.preventDefault();
+					let $btn = $(this);
+					$btn.siblings('.cff-design-button-group__btn').removeClass('button-primary');
+					$btn.addClass('button-primary');
+					$.fbuilder['updateAdvancedSettings'](e.data.obj, $btn.attr('data-cff-component'));
 					$.fbuilder.reloadItems({'field':e.data.obj});
 				});
 			},

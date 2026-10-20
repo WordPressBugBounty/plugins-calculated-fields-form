@@ -3,6 +3,7 @@
 Documentation: https://stripe.com/docs/quickstart
 */
 require_once dirname( __FILE__ ) . '/base.addon.php';
+require_once dirname( __FILE__ ) . '/stripe-php.addon/stripe_http_helper.php';
 
 if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 	class CPCFF_Stripe_Checkout extends CPCFF_BaseAddon {
@@ -599,11 +600,7 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 				$this->_cpcff_main->send_mails( $params['itemnumber'] );
 			}
 
-			if ( ! class_exists( '\Stripe\Stripe' ) ) {
-				require_once dirname( __FILE__ ) . '/stripe-php.addon/vendor/autoload.php';
-			}
-
-			\Stripe\Stripe::setApiKey( empty( $settings['stripe_mode'] ) ? $settings['stripe_testsecretkey'] : $settings['stripe_secretkey'] );
+			$stripe = new CPCFF_Stripe_HTTP( empty( $settings['stripe_mode'] ) ? $settings['stripe_testsecretkey'] : $settings['stripe_secretkey'] );
 
 			$currency = $form_obj->get_option( 'currency', CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY );
 			$amount   = ceil( $this->fix_price( $params['final_price'], $currency ) );
@@ -675,9 +672,13 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 			}
 
 			try {
-				$session = \Stripe\Checkout\Session::create( $stripe_arguments );
+				$session = $stripe->post( 'checkout/sessions', $stripe_arguments );
+				if ( is_wp_error( $session ) ) {
+					echo wp_kses_post( $session->get_error_message() );
+					exit;
+				}
 				set_transient(
-					'cpcff_stripe_session_' . $session->id,
+					'cpcff_stripe_session_' . $session['id'],
 					array(
 						'itemnumber' => (int) $params['itemnumber'],
 						'formid'     => (int) $params['formid'],
@@ -686,13 +687,14 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 					7 * DAY_IN_SECONDS
 				);
 			} catch ( Exception $e ) {
+                        // API failures are handled inline with is_wp_error().
 				echo wp_kses_post( $e->getMessage() );
 				exit;
 			}
 			?>
 <html><head><title>Redirecting to Stripe Checkout</title><body>
 <script data-category="functional" src="https://js.stripe.com/v3"></script>
-<script data-category="functional"> var stripe = Stripe('<?php echo esc_js( empty( $settings['stripe_mode'] ) ? $settings['stripe_testkey'] : $settings['stripe_key'] ); ?>'); stripe.redirectToCheckout({sessionId: '<?php echo esc_js( $session->id ); ?>'}).then(function (result) {alert(result.error.message);});</script>
+<script data-category="functional"> var stripe = Stripe('<?php echo esc_js( empty( $settings['stripe_mode'] ) ? $settings['stripe_testkey'] : $settings['stripe_key'] ); ?>'); stripe.redirectToCheckout({sessionId: '<?php echo esc_js( $session['id'] ); ?>'}).then(function (result) {alert(result.error.message);});</script>
 </body>
 </html>
 			<?php
@@ -708,6 +710,12 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 			if (
 				! empty( $_REQUEST['cff_stripe_checkout_sessionid'] ) &&
 				'' != ( $sessionid = sanitize_text_field( wp_unslash( $_REQUEST['cff_stripe_checkout_sessionid'] ) ) ) &&
+				/*
+				 * Client-supplied id reaching the API path. Charset allowlist rather than the
+				 * documented id shape, so a Stripe prefix rename cannot silently break
+				 * payments. \A and \z because PCRE lets $ match before a trailing newline.
+				 */
+				preg_match( '/\A[A-Za-z0-9_]+\z/', $sessionid ) &&
 				! empty( $_REQUEST['cff_formid'] ) &&
 				is_numeric( $_REQUEST['cff_formid'] ) &&
 				! empty( $_REQUEST['itemnumber'] ) &&
@@ -722,12 +730,9 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 				if ( ! empty( $row ) ) {
 					try {
 						$settings = $this->initialize_settings( $row->settings );
-						if ( ! class_exists( '\Stripe\Stripe' ) ) {
-							require_once dirname( __FILE__ ) . '/stripe-php.addon/vendor/autoload.php';
-						}
-						$stripe_secretkey = empty( $settings['stripe_mode'] ) ? $settings['stripe_testsecretkey'] : $settings['stripe_secretkey'];
-						\Stripe\Stripe::setApiKey( $stripe_secretkey );
-						$session = \Stripe\Checkout\Session::retrieve( $sessionid );
+						$stripe  = new CPCFF_Stripe_HTTP( empty( $settings['stripe_mode'] ) ? $settings['stripe_testsecretkey'] : $settings['stripe_secretkey'] );
+						$session = $stripe->get( 'checkout/sessions/' . $sessionid );
+						if ( is_wp_error( $session ) ) $this->verification_error( $session->get_error_message() );
 						$binding = get_transient( 'cpcff_stripe_session_' . $sessionid );
 						if (
 							! is_array($binding)
@@ -736,11 +741,14 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 						) {
 							return;
 						}
-						if ( ! empty( $session->payment_intent ) ) {
-							$object = \Stripe\PaymentIntent::retrieve( $session->payment_intent );
+						$object = null;
+						if ( ! empty( $session['payment_intent'] ) ) {
+							$object = $stripe->get( 'payment_intents/' . $session['payment_intent'] );
 						}
 
-						if ( ! empty( $object ) && ! empty( $object->status ) && $object->status === 'succeeded' ) {
+						if ( is_wp_error( $object ) ) $this->verification_error( $object->get_error_message() );
+
+						if ( ! empty( $object ) && ! empty( $object['status'] ) && $object['status'] === 'succeeded' ) {
 							$submission = CPCFF_SUBMISSIONS::get( $itemnumber );
 							if ( empty( $submission ) ) {
 								return;
@@ -750,7 +758,7 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 
 							// mark item as paid
 							$args = array( 'paid' => 1 );
-							if ( property_exists( $object, 'id' ) ) $args['txn_id'] = $object->id;
+							if ( isset( $object['id'] ) ) $args['txn_id'] = $object['id'];
 
 							CPCFF_SUBMISSIONS::update( $itemnumber,  $args );
 							do_action( 'cpcff_payment_processed', $params );
@@ -778,14 +786,25 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 							exit;
 						}
 					} catch ( Exception $e ) {
-						print 'Error: Purchase cannot be verified. Please contact the seller. Error code: <strong>' . wp_kses_post( $e->getMessage() ) . '</strong>';
-						exit;
+                        // API failures are handled inline with is_wp_error().
+						$this->verification_error( $e->getMessage() );
 					}
 				}
 				print 'Error: Invalid data. Please contact the seller.';
 				exit;
 			}
 		} // End stripe_check_payment
+
+		/**
+		 * Reports that the purchase could not be verified. It does not return.
+		 *
+		 * @param string $message Optional detail about the Stripe API failure.
+		 */
+		private function verification_error( $message = '' ) {
+			print 'Error: Purchase cannot be verified. Please contact the seller.'
+				. ( '' !== $message ? ' Error code: <strong>' . wp_kses_post( $message ) . '</strong>' : '' );
+			exit;
+		} // End verification_error
 
 		/**
 		 *  Delete the form from the addon's table

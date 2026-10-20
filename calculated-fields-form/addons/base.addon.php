@@ -39,6 +39,10 @@ if( !class_exists( 'CPCFF_BaseAddon' ) )
 
 		protected function _run_update_database($db_queries)
 		{
+			if ( !empty($this->addonID) ) {
+				if ( get_option($this->addonID . '_update_database_record', '') == CP_CALCULATEDFIELDSF_VERSION ) return;
+				update_option($this->addonID . '_update_database_record', CP_CALCULATEDFIELDSF_VERSION);
+			}
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 			dbDelta($db_queries); // Running the queries
 		}

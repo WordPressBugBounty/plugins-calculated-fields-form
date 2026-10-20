@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.5.2.2 =
+
+* Improved the Custom Design tabs for fields and forms to streamline and simplify the customization process.
+* Removed the Stripe SDK dependency by calling the Stripe APIs directly.
+
 = 5.5.2.1 =
 
 * Adds Stripe Checkout payment gateway integration to the free plugin distribution.
