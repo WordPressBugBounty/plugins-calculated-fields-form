@@ -414,13 +414,18 @@ class CPCFF_Akismet {
      * when the linked submission was flagged as spam by Akismet.
      *
      * @param  string $subject       Original email subject.
-     * @param  array  $submission_data Submission data.
+     * @param  int    $submission_id Submission Id.
      * @return string                Possibly prefixed subject.
      */
-    public function mark_email_as_spam( string $subject, array $submission_data ): string {
+    public function mark_email_as_spam( string $subject, int $submission_id ): string {
+		$submission_obj = CPCFF_SUBMISSIONS::get( $submission_id );
+        if ( ! $submission_obj ) {
+            return $subject; // Submission not found
+        }
+
         if (
-            isset( $submission_data['spam_status'] ) &&
-            $submission_data['spam_status'] === self::RESULT_SPAM
+            isset( $submission_obj->paypal_post['spam_status'] ) &&
+            $submission_obj->paypal_post['spam_status'] === self::RESULT_SPAM
         ) {
             $subject = esc_html__( '[POSSIBLE SPAM]', 'calculated-fields-form' ) . ' ' . $subject;
         }

@@ -367,7 +367,7 @@ if ($message) {
                                 </div>
                                 <div class="cff-event-data-details">
                                     <?php
-                                    echo str_replace("\n", "<br />", wp_kses_post(wp_unslash($event->data)));
+                                    echo '<template shadowrootmode="open">'.str_replace("\n", "<br />", wp_kses_post(wp_unslash($event->data))).'</template>';
 
 									// Support reapeaters.
 									$print_links = function($_field_name, $_field_value) use (&$print_links){

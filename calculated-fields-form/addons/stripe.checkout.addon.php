@@ -602,7 +602,7 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 
 			$stripe = new CPCFF_Stripe_HTTP( empty( $settings['stripe_mode'] ) ? $settings['stripe_testsecretkey'] : $settings['stripe_secretkey'] );
 
-			$currency = $form_obj->get_option( 'currency', CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY );
+			$currency = trim($form_obj->get_option( 'currency', CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY ));
 			$amount   = ceil( $this->fix_price( $params['final_price'], $currency ) );
 
 			// Stripe common settings
@@ -682,6 +682,8 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 					array(
 						'itemnumber' => (int) $params['itemnumber'],
 						'formid'     => (int) $params['formid'],
+						'amount'     => (int) $amount,
+						'currency'   => (string) $currency,
 						'created'    => time(),
 					),
 					7 * DAY_IN_SECONDS
@@ -734,6 +736,7 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 						$session = $stripe->get( 'checkout/sessions/' . $sessionid );
 						if ( is_wp_error( $session ) ) $this->verification_error( $session->get_error_message() );
 						$binding = get_transient( 'cpcff_stripe_session_' . $sessionid );
+
 						if (
 							! is_array($binding)
 							|| (int) $binding['itemnumber'] !== (int) $itemnumber
@@ -741,6 +744,7 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 						) {
 							return;
 						}
+
 						$object = null;
 						if ( ! empty( $session['payment_intent'] ) ) {
 							$object = $stripe->get( 'payment_intents/' . $session['payment_intent'] );
@@ -749,6 +753,21 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 						if ( is_wp_error( $object ) ) $this->verification_error( $object->get_error_message() );
 
 						if ( ! empty( $object ) && ! empty( $object['status'] ) && $object['status'] === 'succeeded' ) {
+							$approved          = isset($binding['amount']) ? (int) $binding['amount'] : 0;
+							$approved_currency = isset($binding['currency']) ? strtoupper((string) $binding['currency']) : '';
+
+							if ($approved > 0) {
+								$session_amount   = isset($session['amount_total']) ? (int) $session['amount_total'] : 0;
+								$session_currency = isset($session['currency']) ? strtoupper((string) $session['currency']) : '';
+
+								if (
+									$session_amount < $approved ||
+									('' !== $approved_currency && $session_currency !== $approved_currency)
+								) {
+									$this->verification_error('The amount charged does not match the amount approved for this submission.');
+								}
+							}
+
 							$submission = CPCFF_SUBMISSIONS::get( $itemnumber );
 							if ( empty( $submission ) ) {
 								return;

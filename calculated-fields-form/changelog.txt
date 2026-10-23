@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.5.2.3 =
+
+* Fixes an issue with the Akismet integration.
+* Includes additional verification rules in the Stripe integration.
+* Modifies the forms submissions to enclose each submission data in its own context.
+
 = 5.5.2.2 =
 
 * Improved the Custom Design tabs for fields and forms to streamline and simplify the customization process.
