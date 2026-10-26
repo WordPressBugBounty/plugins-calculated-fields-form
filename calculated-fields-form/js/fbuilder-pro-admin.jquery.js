@@ -1024,6 +1024,8 @@
 						let text = cff_esc_attr(args[ 'field' ].name+' ('+cff_sanitize(args[ 'field' ].title, true)+')');
 						$('#request_cost option[value="'+args[ 'field' ]['name']+'"]').text(text);
 						$('[name="paypal_recurrent_field"] option[value="'+args[ 'field' ]['name']+'"]').text(text);
+						$('#request_cost_sum option[value="'+args[ 'field' ]['name']+'"]').text(text);
+						if ($.fn.select2) $('#request_cost_sum').select2();
 					}
 				}
 				else if( args['form'] )
@@ -1036,14 +1038,20 @@
 						cu_user_email_field = $('#cu_user_email_field'),
 						cu_user_email_fields_list = (cu_user_email_field.val() || cu_user_email_field.attr("def") || '').split( ',' ),
 
-						cost_str = '', // fields list for paypal request
+						cost_str = '', 		// fields list for paypal request
+						cost_sum_str = '',  // fields list for paypal request
 						request_cost = $('#request_cost').attr("def"),
+						request_cost_sum = $('#request_cost_sum').attr("def"),
 
 						recurrent_str = '', // fields list for recurrent payments
 						paypal_recurrent_field = $('[name="paypal_recurrent_field"]').attr("def"),
 
 						paypal_price_field = $('#paypal_price_field').attr("def"), // fields for times intervals in recurrent payments
 						interval_fields_str = '<option value="" '+( ('' == paypal_price_field ) ? "selected" : "" )+'> ---- No ---- </option>';
+
+					request_cost_sum = request_cost_sum.split(',').filter(function(item) {
+						return /fieldname\d+/i.test(item);
+					});
 
 					// Set the correct fields alignment class
 					for ( var i=0, h = $.fbuilder.showSettings.formlayoutList.length; i < h; i++ )
@@ -1090,20 +1098,32 @@
 						}
 						else
 						{
-							// Request cost fields
-                            if(!/(femail)|(fdate)|(ffile)|(fpassword)|(fphone)|(fsectionbreak)|(fpagebreak)|(fsummary)|(fcontainer)|(ffieldset)|(fdiv)|(fmedia)|(fbutton)|(fhtml)|(frecordsetds)|(fcommentarea)/i.test(item.ftype))
-							{
-                                cost_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == request_cost ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+'('+cff_sanitize(item.title, true)+')')+'</option>'
-							}
+							const costTypes = ['fnumber', 'fnumberds', 'fcurrency', 'fcurrencyds', 'fcalculated', 'fslider', 'fradio', 'fradiods', 'fdropdown', 'fdropdownds', 'ftext', 'ftextds', 'fhidden', 'fhiddends'];
+							const sumTypes = costTypes.concat(['fcheck', 'fcheckds']);
+							const ftype = String(item.ftype).toLowerCase();
+							const toExclude = item?.exclude || false;
+							const isCost = costTypes.indexOf(ftype) !== -1 || item.name == request_cost;
+							const isSum = sumTypes.indexOf(ftype) !== -1 || (request_cost_sum.indexOf(item.name) != -1 && item.name != request_cost);
 
-							// Recurrent Payments
-                            if (item.ftype=="fradio" || item.ftype=="fdropdown" || item.ftype=="fCalculated")
-							{
-                                recurrent_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == paypal_recurrent_field ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+' ('+cff_sanitize(item.title, true)+')')+'</option>';
-							}
+							if (!toExclude) {
+								// Request cost fields
+								let option_text = cff_esc_attr(item.name+'('+cff_sanitize(item.title, true)+')');
+								if(isCost) {
+									cost_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == request_cost ) ? "selected" : "" )+'>'+option_text+'</option>';
+								}
+								if(isSum) {
+									cost_sum_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( request_cost_sum.indexOf( item.name ) != -1 ) ? "selected" : "" )+'>'+option_text+'</option>';
+								}
 
-							// Times Intervals
-                            interval_fields_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == paypal_price_field ) ? "selected" : "" )+'>'+cff_esc_attr(cff_sanitize(item.title, true))+'</option>';
+								// Recurrent Payments
+								if (item.ftype=="fradio" || item.ftype=="fdropdown" || item.ftype=="fCalculated")
+								{
+									recurrent_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == paypal_recurrent_field ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+' ('+cff_sanitize(item.title, true)+')')+'</option>';
+								}
+
+								// Times Intervals
+								interval_fields_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( item.name == paypal_price_field ) ? "selected" : "" )+'>'+cff_esc_attr(cff_sanitize(item.title, true))+'</option>';
+							}
 						}
 					}
 					$("#fieldlist").html( playlist_html );
@@ -1113,7 +1133,9 @@
 					cu_user_email_field.html(email_str);
 
 					// Assign the fields to the "request_cost" list
-					$('#request_cost').html(cost_str);
+					$('#request_cost').html(cost_str).trigger('change');
+					$('#request_cost_sum').html(cost_sum_str);
+					if ($.fn.select2) $('#request_cost_sum').select2();
 
 					// Assign the fields to the "paypal_recurrent_field" list
 					$('[name="paypal_recurrent_field"]').html(recurrent_str);

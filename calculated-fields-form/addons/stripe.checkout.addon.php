@@ -538,7 +538,7 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 			$settings = $this->initialize_settings( $row->settings );
 
 			// output radio-buttons here
-			$form_code = preg_replace( '/<!--addons-payment-options-->/i', '<!--addons-payment-options--><div><label><input type="radio" name="bccf_payment_option_paypal" id="cffaddonidtp' . esc_attr( $id ) . '" vt="' . esc_attr( $this->addonID ) . '" value="' . esc_attr( $this->addonID ) . '" checked class="required"> ' . esc_html__( ( ! empty( $settings['enable_option_yes'] ) ? $settings['enable_option_yes'] : $this->default_pay_label ), 'calculated-fields-form' ) . '</label></div>', $form_code );
+			$form_code = preg_replace( '/<!--addons-payment-options-->/i', '<div><label><input type="radio" name="bccf_payment_option_paypal" id="cffaddonidtp' . esc_attr( $id ) . '" vt="' . esc_attr( $this->addonID ) . '" value="' . esc_attr( $this->addonID ) . '" checked class="required"> ' . esc_html__( ( ! empty( $settings['enable_option_yes'] ) ? $settings['enable_option_yes'] : $this->default_pay_label ), 'calculated-fields-form' ) . '</label></div><!--addons-payment-options-->', $form_code );
 
 			if ( ( $this->_cpcff_main->get_form($id)->get_option('enable_pay_later',0) || 2 == $row->enabled || 4 == $row->enabled ) && ! strpos( $form_code, 'bccf_payment_option_paypal" vt="0' ) ) {
 				$form_code = preg_replace( '/<!--addons-payment-options-->/i', '<!--addons-payment-options--><div><label><input type="radio" name="bccf_payment_option_paypal" vt="0" value="0" class="required"> ' . esc_html__( $this->_cpcff_main->get_form( $id )->get_option( 'enable_paypal_option_no', CP_CALCULATEDFIELDSF_PAYPAL_OPTION_NO ), 'calculated-fields-form' ) . '</label></div>', $form_code );

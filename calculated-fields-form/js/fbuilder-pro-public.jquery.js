@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.2.3';
+	$.fbuilder['version'] = '5.5.2.4';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1415,6 +1415,24 @@
 				return ('undefined' != typeof form.data('being-submitted'));
 			},
 			processing_form = function () {
+				const sumInput = form.find('input[name="cff_sum_values"]');
+				if (sumInput.length) {
+					const snapshot = {};
+					const fieldNames = String(sumInput.attr('data-fields') || '')
+						.split(',')
+						.map(name => name.trim())
+						.filter(Boolean);
+
+					for (const fieldName of fieldNames) {
+						const field = getField(
+							fieldName + form_identifier,
+							form[0]
+						);
+						if (!field) continue;
+						snapshot[fieldName] = SUM(field.val(false, true, false));
+					}
+					sumInput.val(JSON.stringify(snapshot));
+				}
 				if (
 					'extra_validations' in $.fbuilder &&
 					Object.prototype.toString.call($.fbuilder.extra_validations) === '[object Object]'
@@ -1481,7 +1499,31 @@
 					form.attr( 'target', '_top' );
 				}
 				if (form.attr('target') != undefined && NOT(IN(form.attr('target').toLowerCase(), ['_blank', '_self', '_top', '']))) {
+					const thanksMessageBox = form.find('.cff-thanks-message');
+					const originalThanksHtml = thanksMessageBox.data('original-html') || form.find('.cff-thanks-message').html();
+					thanksMessageBox.data('original-html', originalThanksHtml);
+					thanksMessageBox.html(originalThanksHtml);
+					const applyServerMessage = function () {
+						let errorText = '';
+						try {
+							const doc = $iframe[0].contentDocument;
+							if (doc) {
+								const box = doc.querySelector('.cff-error-message');
+								if (box) errorText = box.textContent || '';
+							}
+						} catch (err) {
+							errorText = '';
+						}
+
+						const thanksBox = form.find('.cff-thanks-message');
+						if (errorText !== '') {
+							thanksBox.addClass('cff-error-message').text(errorText);
+						} else {
+							thanksBox.removeClass('cff-error-message').html(originalThanksHtml);
+						}
+					};
 					let loadHandler = function() {
+							applyServerMessage();
 							if ( $processed_flag ) return;
 							$processed_flag = true;
 							form.find('[cff-val-bk]').each(function () {
@@ -1500,7 +1542,7 @@
 					if ( $iframe.length ) {
 						$iframe.off('load.cff-form-submission').on('load.cff-form-submission', loadHandler);
 						setTimeout(function() {
-							$iframe.off('load.cff-form-submission');
+							/* $iframe.off('load.cff-form-submission'); */
 							loadHandler();
 						}, 3000);
 					}

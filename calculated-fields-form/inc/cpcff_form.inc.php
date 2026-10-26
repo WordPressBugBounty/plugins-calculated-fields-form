@@ -462,7 +462,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
                     $option,
                     apply_filters(
                         'cpcff_get_extra_form_settings',
-                        [ 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions', 'cv_captcha_method', 'cv_captcha_math_complexity' ],
+                        [ 'request_cost_check_by_sum', 'request_cost_sum', 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions', 'cv_captcha_method', 'cv_captcha_math_complexity' ],
                         $this->_id
                     )
                 )
@@ -570,6 +570,14 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			$extra = array( 'form_height' => array() );
 
             // Form options
+			$extra['request_cost_check_by_sum'] = isset( $params['request_cost_check_by_sum'] ) ? 1 : 0;
+			$extra['request_cost_sum'] = '';
+			if ( isset( $params['request_cost_sum'] ) && is_array( $params['request_cost_sum'] ) ) {
+				$fields_names_for_sum = array_values(array_map('strtolower', preg_grep('/^fieldname\d+$/i', $params['request_cost_sum'])));
+				if ( ! empty( $fields_names_for_sum ) ) {
+					$extra['request_cost_sum'] = implode(',', $fields_names_for_sum);
+				}
+			}
 			if( isset( $params['enable_pay_later'] ) ) {
 				$extra['enable_pay_later'] = $params['enable_pay_later'] == 1 ? 1 : 0;
 			}

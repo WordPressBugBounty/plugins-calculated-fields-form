@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.5.2.3
+ * Version: 5.5.2.4
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.2.3' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.2.4' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -809,6 +809,100 @@ function cp_calculated_fields_form_check_posted_data() {
 					$paypal_base_amount = preg_replace('/[^\d\.\,]/', '', $form_obj->get_option('paypal_base_amount', 0));
 					$paypal_base_amount = str_replace($find_arr, $replace_arr, $paypal_base_amount);
 					$price = max($price, $paypal_base_amount);
+
+					if (
+						$form_obj->get_option('request_cost_check_by_sum', 0) &&
+						!empty($form_obj->get_option('request_cost_sum', ''))
+					) {
+						$reject = function () {
+							$message = esc_html__(
+								'The submitted price could not be validated.',
+								'calculated-fields-form'
+							);
+							if ( ! headers_sent() ) {
+								status_header( 400 );
+								header( 'Content-Type: text/html; charset=utf-8' );
+							}
+							echo '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>' . $message . '</title><style>body {margin: 0;padding: 40px 20px;background: #f7f8fc;color: #242936;font-family: sans-serif;text-align: center;}.cff-error-message {max-width: 560px;margin: 0 auto 24px;padding: 24px;border: 1px solid #e4e7ec;border-radius: 12px;background: #fff;box-shadow: 0 8px 24px rgba(0, 0, 0, .06);font-size: 18px;}.cff-error-back {display: inline-block;padding: 11px 18px;border-radius: 8px;background: #b42318;color: #fff;font-weight: 600;text-decoration: none;}</style></head><body><div class="cff-error-message">' . $message . '</div><a class="cff-error-back" href="#" onclick="history.back(); return false;">' . esc_html__('Back to the form', 'calculated-fields-form') . '</a></body></html>';
+							exit;
+						};
+
+						// Retrieve the subtotals submitted by JavaScript.
+						if (
+							!isset($_POST['cff_sum_values']) ||
+							!is_string($_POST['cff_sum_values'])
+						) {
+							$reject();
+						}
+
+						$snapshot = json_decode(
+							wp_unslash($_POST['cff_sum_values']),
+							true
+						);
+
+						if (
+							json_last_error() !== JSON_ERROR_NONE ||
+							!is_array($snapshot)
+						) {
+							$reject();
+						}
+
+						// Use only the fields configured on the server.
+						$sum_fields = array_values(array_filter(
+							array_map(
+								'trim',
+								explode(',', $form_obj->get_option('request_cost_sum', ''))
+							),
+							function ($fieldname) {
+								return preg_match('/\Afieldname\d+\z/', $fieldname) === 1;
+							}
+						));
+
+						if (!$sum_fields) {
+							$reject();
+						}
+
+						$sum = 0.0;
+
+						foreach ($sum_fields as $fieldname) {
+							if ($fieldname === $request_cost) {
+								continue;
+							}
+							if (
+								!isset($fields[$fieldname]) ||
+								// !isset($params[$fieldname]) || // I commended this line because the field might be excluded intentionally
+								!array_key_exists($fieldname, $snapshot)
+							) {
+								$reject();
+							}
+
+							$value = $snapshot[$fieldname];
+
+							if (
+								(!is_int($value) && !is_float($value)) ||
+								!is_finite((float) $value)
+							) {
+								$reject();
+							}
+
+							$sum += $value;
+						}
+
+						if (
+							!is_finite($sum) ||
+							!is_numeric($price) ||
+							!is_finite((float) $price)
+						) {
+							$reject();
+						}
+
+						// Allow a small tolerance for floating-point arithmetic.
+						$tolerance = 0.0000001;
+
+						if ($sum > (float) $price + $tolerance) {
+							$reject();
+						}
+					}
 
 					$params["final_price"] = $price;
 					$params["final_price_formatted"] = $prefix . (is_numeric($price) ? number_format($price, 2, $find_arr[1], $find_arr[0]) : $price) . $suffix;

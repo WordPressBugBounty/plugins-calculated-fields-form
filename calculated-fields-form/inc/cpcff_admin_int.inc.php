@@ -572,27 +572,43 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                 <div class="inside">
 					<table class="form-table">
 						<tr valign="top">
-							<th scope="row"><?php _e( 'Request cost', 'calculated-fields-form' ); ?></th>
-							<td><select name="request_cost" id="request_cost" def="<?php echo esc_attr($form_obj->get_option('request_cost', '')); ?>" class="width75"></select></td>
+							<th scope="row"><?php esc_html_e( 'Request cost', 'calculated-fields-form' ); ?></th>
+							<td>
+								<div class="width75" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+									<select name="request_cost" id="request_cost" def="<?php echo esc_attr($form_obj->get_option('request_cost', '')); ?>" style="flex-grow: 1;"></select>
+
+									<?php
+										$request_cost_check_by_sum = $form_obj->get_option('request_cost_check_by_sum', 0);
+									?>
+									<label><input type="checkbox" name="request_cost_check_by_sum" id="request_cost_check_by_sum" value="1" <?php echo ($request_cost_check_by_sum ? 'checked' : ''); ?> /> <?php esc_html_e( 'Check by sum', 'calculated-fields-form' ); ?></label>
+
+									<div id="request_cost_sum_contanier" style="width:100%;display: <?php echo ($request_cost_check_by_sum ? 'block' : 'none'); ?>" class="cff-settings-hint-blue">
+										<select name="request_cost_sum[]" id="request_cost_sum" def="<?php echo esc_attr($form_obj->get_option('request_cost_sum', '')); ?>" style="width: 100%;" multiple></select>
+										<p>
+											<?php esc_html_e( 'The request cost value is validated by the sum of the selected fields. All selected fields must be numeric, and be submitted with the form. The sum must be less than or equal to the request cost value.', 'calculated-fields-form' ); ?>
+										</p>
+									</div>
+								</div>
+							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php _e( 'Currency', 'calculated-fields-form' ); ?></th>
+							<th scope="row"><?php esc_html_e( 'Currency', 'calculated-fields-form' ); ?></th>
 							<td><input type="text" name="currency" value="<?php echo esc_attr($form_obj->get_option('currency',CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY)); ?>" class="width50" /><br>
 							<b>USD</b> (<?php esc_html_e('United States dollar', 'calculated-fields-form'); ?>), <b>EUR</b> (Euro), <b>GBP</b> (<?php esc_html_e('Pound sterling', 'calculated-fields-form'); ?>), ... (<a href="https://developer.paypal.com/docs/api/reference/currency-codes/" target="_blank"><?php esc_html_e('Currency Codes', 'calculated-fields-form');?></a>)
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php _e( 'Base amount', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="paypal_base_amount" value="<?php echo esc_attr($form_obj->get_option( 'paypal_base_amount', '0.01' ) ); ?>" class="width50" /><br><i style="font-size:11px;"><?php _e( 'Minimum amount to charge. If the final price is lesser than this number, the base amount will be applied.', 'calculated-fields-form' ); ?></i>
+							<th scope="row"><?php esc_html_e( 'Base amount', 'calculated-fields-form' ); ?>:</th>
+							<td><input type="text" name="paypal_base_amount" value="<?php echo esc_attr($form_obj->get_option( 'paypal_base_amount', '0.01' ) ); ?>" class="width50" /><br><i style="font-size:11px;"><?php esc_html_e( 'Minimum amount to charge. If the final price is lesser than this number, the base amount will be applied.', 'calculated-fields-form' ); ?></i>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php _e( 'Product name', 'calculated-fields-form' ); ?></th>
+							<th scope="row"><?php esc_html_e( 'Product name', 'calculated-fields-form' ); ?></th>
 							<td><input type="text" name="paypal_product_name" class="width75" value="<?php echo esc_attr($form_obj->get_option('paypal_product_name',CP_CALCULATEDFIELDSF_DEFAULT_PRODUCT_NAME)); ?>" /></td>
 						</tr>
 						<tr valign="top">
 							<td colspan="2" class="cff-settings-hint-yellow">
-								<strong><?php _e( 'Discount Codes', 'calculated-fields-form' ); ?></strong><br /><br />
+								<strong><?php esc_html_e( 'Discount Codes', 'calculated-fields-form' ); ?></strong><br /><br />
 								<div><?php
 									esc_html_e(
 										'Discount coupon management is an advanced feature available in the commercial version of the plugin.', 'calculated-fields-form'
@@ -602,10 +618,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php _e( 'When should be sent the notification-confirmation emails?', 'calculated-fields-form' ); ?></th>
+							<th scope="row"><?php esc_html_e( 'When should be sent the notification-confirmation emails?', 'calculated-fields-form' ); ?></th>
 							<td><select name="paypal_notiemails" class="width75">
-								 <option value="0" <?php if ($form_obj->get_option('paypal_notiemails','0') != '0') echo 'selected'; ?>><?php _e( 'When paid: AFTER receiving the payment notification', 'calculated-fields-form' ); ?></option>
-								 <option value="1" <?php if ($form_obj->get_option('paypal_notiemails','1') == '1') echo 'selected'; ?>><?php _e( 'Always: BEFORE receiving the payment notification', 'calculated-fields-form' ); ?></option>
+								 <option value="0" <?php if ($form_obj->get_option('paypal_notiemails','0') != '0') echo 'selected'; ?>><?php esc_html_e( 'When paid: AFTER receiving the payment notification', 'calculated-fields-form' ); ?></option>
+								 <option value="1" <?php if ($form_obj->get_option('paypal_notiemails','1') == '1') echo 'selected'; ?>><?php esc_html_e( 'Always: BEFORE receiving the payment notification', 'calculated-fields-form' ); ?></option>
 								</select>
 							</td>
 						</tr>
@@ -619,11 +635,11 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							<div class="inside">
 								<table class="form-table">
 									<tr valign="top">
-										<th scope="row"><?php _e( 'Enable "Pay Later" option?', 'calculated-fields-form' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Enable "Pay Later" option?', 'calculated-fields-form' ); ?></th>
 										<td>
 											<select name="enable_pay_later">
-												<option value="0" <?php if (!$form_obj->get_option('enable_pay_later',0)) echo 'selected'; ?> ><?php _e( 'No', 'calculated-fields-form' ); ?></option>
-												<option value="1" <?php if ($form_obj->get_option('enable_pay_later',0)) echo 'selected'; ?> ><?php _e( 'Yes', 'calculated-fields-form' ); ?></option>
+												<option value="0" <?php if (!$form_obj->get_option('enable_pay_later',0)) echo 'selected'; ?> ><?php esc_html_e( 'No', 'calculated-fields-form' ); ?></option>
+												<option value="1" <?php if ($form_obj->get_option('enable_pay_later',0)) echo 'selected'; ?> ><?php esc_html_e( 'Yes', 'calculated-fields-form' ); ?></option>
 											</select>
 											<br /><i style="font-size:11px;"><?php esc_html_e( 'Note: When "multiple" payment methods are active, a radio button appears in the form for selection.', 'calculated-fields-form' ); ?></i>
 											<div id="cff_paypal_options_label" class="width75 cff-settings-hint-blue">
@@ -634,9 +650,24 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 									</tr>
 								</table>
 								<script data-category="functional">
-								jQuery(document).on('change', '[name="enable_pay_later"]', function(){
-									jQuery('#metabox_pay_later')[( this.tagName == 'INPUT' && this.checked ) || this.value*1 ? 'addClass' : 'removeClass' ]('cff-payment-gateway-enabled');
-								});
+								(function(){
+									let $ = jQuery;
+									$(document).on('change', '[name="request_cost"]', function(){
+										let d = $(this).val() || '';
+										$(this).attr('def', d);
+									});
+									$(document).on('change', '[name="request_cost_check_by_sum"]', function(){
+										$('#request_cost_sum_contanier')[this.checked ? 'show' : 'hide']();
+									});
+									$(document).on('change', '#request_cost_sum', function(){
+										let v = $(this).val(), d = '';
+										if(v.length)  d = v.join(',');
+										$(this).attr('def', d);
+									});
+									$(document).on('change', '[name="enable_pay_later"]', function(){
+										$('#metabox_pay_later')[( this.tagName == 'INPUT' && this.checked ) || this.value*1 ? 'addClass' : 'removeClass' ]('cff-payment-gateway-enabled');
+									});
+								})();
 								</script>
 							</div>
 						</div>
@@ -707,7 +738,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                             <th scope="row"><?php esc_html_e('"From" email', 'calculated-fields-form'); ?></th>
                             <td>
                                 <input type="text" name="fp_from_email" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_from_email', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email)); ?>" placeholder="<?php print esc_attr('Ex. admin@' . str_replace('www.', '', $_SERVER["HTTP_HOST"])); ?>" />
-                                <p class="width75"><b><em style="font-size:11px;">Ex. admin@<?php echo str_replace('www.', '', sanitize_text_field(wp_unslash($_SERVER["HTTP_HOST"]))); ?></em></b><br><em style="font-size:11px;"><?php _e('This email is required if the "From fixed email address" option is selected, or it is enabled the email copy to the user.', 'calculated-fields-form'); ?></em></p>
+                                <p class="width75"><b><em style="font-size:11px;">Ex. admin@<?php echo str_replace('www.', '', sanitize_text_field(wp_unslash($_SERVER["HTTP_HOST"]))); ?></em></b><br><em style="font-size:11px;"><?php esc_html_e('This email is required if the "From fixed email address" option is selected, or it is enabled the email copy to the user.', 'calculated-fields-form'); ?></em></p>
                             </td>
                         </tr>
                         <tr valign="top">
@@ -718,7 +749,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php _e('Reply-To (comma separated)', 'calculated-fields-form'); ?></th>
+                            <th scope="row"><?php esc_html_e('Reply-To (comma separated)', 'calculated-fields-form'); ?></th>
                             <td>
                                 <input type="text" name="fp_reply_to_emails" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_reply_to_emails', '')); ?>" placeholder="Ex. reply-to-email@domain.com" />
                                 <p class="width75"><em style="font-size:11px;"><?php esc_html_e('Please enter the email fields\' tags separated by commas (e.g., <%fieldname1%>,<%fieldname2%>). If the attribute is left empty, the plugin will utilize the email fields selected from the "Email field on the form" attribute in the "Email Copy to User" section.', 'calculated-fields-form'); ?></em></p>

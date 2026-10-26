@@ -478,6 +478,7 @@ body{
 .cff-thanks-message:hover:before,
 .cff-error-dlg:hover:before{opacity:1;}
 .cff-thanks-message{display:none;color:#155724;background-color:#d4edda;border-color:#ADDCB9;}
+.cff-thanks-message.cff-error-message{color:#a94442;background-color:#f2dede;border-color:#ebccd1;}
 
 .ui-datepicker{z-index:99999 !important;min-width:280px;max-width:320px;}
 .ui-datepicker *{font-size:14px !important;}

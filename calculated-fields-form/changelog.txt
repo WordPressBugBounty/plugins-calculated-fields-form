@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.5.2.4 =
+
+* Ensures the 'Pay Later' option appears last in the list of payment options.
+* Updates the Signature add-on to support pages with deferred scripts.
+* Adds a mechanism to validate the submitted price.
+* Improves the Stripe integration module.
+
 = 5.5.2.3 =
 
 * Fixes an issue with the Akismet integration.
