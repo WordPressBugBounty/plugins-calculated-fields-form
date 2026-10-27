@@ -1961,18 +1961,6 @@
 		return $.fbuilder['componentControls'][ componentKey ] || $.fbuilder['componentControls']['_default'];
 	};
 
-	$.fbuilder['reverseControlMap'] = function() {
-		if ( ! $.fbuilder['_reverseControlMap'] ) {
-			$.fbuilder['_reverseControlMap'] = {};
-			for ( let key in $.fbuilder['designControls'] ) {
-				if ( $.fbuilder['designControls'].hasOwnProperty( key ) ) {
-					$.fbuilder['_reverseControlMap'][ $.fbuilder['designControls'][ key ].css ] = key;
-				}
-			}
-		}
-		return $.fbuilder['_reverseControlMap'];
-	};
-
 	$.fbuilder['renderDesignControl'] = function( componentKey, controlKey, value ) {
 		let def = $.fbuilder['designControls'][ controlKey ];
 		if ( ! def ) return '';
@@ -2125,13 +2113,12 @@
 
 				let components = arg.advanced.css,
 					c,
-					reverseMap  = fbuilderjQuery.fbuilder['reverseControlMap'](),
 					designState = fbuilderjQuery.fbuilder['_designGroupsState'],
 					origin      = ( 'ftype' in arg ) ? arg.name : 'form';
 
 				for ( let i in components ) {
 					c = components[i];
-
+					let used_rules = {};
 					output += '<fieldset class="cff-design-component" data-cff-component-key="' + cff_esc_attr(i) + '">';
 					output += '<legend>' + ( 'label' in c ? cff_sanitize(c['label'], true) : cff_esc_attr(i) ) + '</legend>';
 
@@ -2140,6 +2127,7 @@
 						output += '<div id="cff-css-rules-container-' + cff_esc_attr(i) + '">';
 						if ( 'rules' in c ) {
 							for ( let j in c['rules'] ) {
+								used_rules[ j ] = true;
 								output += fbuilderjQuery.fbuilder['css_rule_pair']( i, j, c['rules'][j], true );
 							}
 						}
@@ -2159,9 +2147,10 @@
 									let rules = c['rules'];
 									for ( let k = 0; k < group.controls.length; k++ ) {
 										let def = fbuilderjQuery.fbuilder['designControls'][ group.controls[k] ];
-										if ( def && def.css in rules && rules[ def.css ] !== '' ) {
+										if ( ! def || ! def.css ) continue;
+										used_rules[ def.css ] = true;
+										if ( def.css in rules && rules[ def.css ] !== '' ) {
 											hasValue = true;
-											break;
 										}
 									}
 								}
@@ -2180,6 +2169,7 @@
 									if ( def ) {
 										let cssProp = def.css,
 											value   = ( 'rules' in c && cssProp in c['rules'] ) ? c['rules'][ cssProp ] : '';
+										used_rules[ cssProp ] = true;
 										output += fbuilderjQuery.fbuilder['renderDesignControl']( i, controlKey, value );
 									}
 								}
@@ -2191,7 +2181,7 @@
 						let unmappedRules = {};
 						if ( 'rules' in c ) {
 							for ( let j in c['rules'] ) {
-								if ( ! reverseMap[ j ] ) {
+								if ( ! used_rules[ j ] ) {
 									unmappedRules[ j ] = c['rules'][ j ];
 								}
 							}
@@ -2220,7 +2210,6 @@
 	$.fbuilder['updateAdvancedSettings'] = function( e, c ) {
 		let css = e.advanced.css;
 		let rules = {};
-		let reverseMap = fbuilderjQuery.fbuilder['reverseControlMap']();
 
 		// 1) Read visual design controls (color, length, font-family, font-weight, button groups, text inputs)
 		$('[data-cff-component="' + c + '"][data-cff-control]').each( function() {
@@ -2250,11 +2239,11 @@
 		});
 
 		// 2) Read custom rules (legacy text input pairs) - rules whose CSS property is not in the curated controls
-		$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(i, el) {
+		$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(el) {
 			let css_rule = cff_esc_attr( String(this.value).trim() );
 			if ( css_rule === '' ) return;
-			if ( reverseMap[ css_rule ] ) return; // Already handled by a design control
-			let v = String( $('[data-cff-css-component="'+c+'"][name^="advanced[css][css_value]"]:eq('+i+')').val() || '' ).trim();
+			let $row = $( el ).closest( '.css-rule' );
+			let v = String( $row.find('[name^="advanced[css][css_value]"]').val() || '' ).trim();
 			v = cff_esc_attr( v.replace(/[\{\}]/g, '') );
 			if ( v !== '' ) rules[ css_rule ] = v;
 		});

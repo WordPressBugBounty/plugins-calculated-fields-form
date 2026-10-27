@@ -57,7 +57,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 self::$models = [
                     'openai' => [
                         'title' => esc_html__('OpenAI', 'calculated-fields-form'),
-                        'default_model' => 'gpt-5.6-luna',
+                        'default_model' => 'gpt-6-luna',
                         'api_key_url' => 'https://platform.openai.com/api-keys',
 						'models' => [
 							'gpt-6-astra' => [
@@ -68,6 +68,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 							],
 							'gpt-6.1-sol' => [
 								'title'           => esc_html__('GPT-6.1 Sol (Advanced Coding and Reasoning)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
+							'gpt-6.1-terra' => [
+								'title'           => esc_html__('GPT-6.1 Terra (Balanced)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 128000
@@ -219,74 +225,44 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 							]
 						]
                     ],
-                    'gemini' => [
-                        'title'         => esc_html__('Google (Gemini)', 'calculated-fields-form'),
-                        'default_model' => 'gemini-3.8-flash',
-                        'api_key_url'   => 'https://aistudio.google.com/app/api-keys',
-						'models' => [
-							'gemini-3.8-flash' => [
-								'title'           => esc_html__('Gemini 3.8 Flash (Most Powerful)', 'calculated-fields-form'),
+					'gemini' => [
+						'title'         => esc_html__('Google (Gemini)', 'calculated-fields-form'),
+						'default_model' => 'gemini-3.8-flash',
+						'api_key_url'   => 'https://aistudio.google.com/app/api-keys',
+						'models'        => [
+							'gemini-4-argon' => [
+								'title'           => esc_html__('Gemini 4 Argon (Advanced Reasoning)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
-							'gemini-3.6-flash' => [
-								'title'           => esc_html__('Gemini 3.6 Flash (Balanced)', 'calculated-fields-form'),
+							'gemini-3.8-flash' => [
+								'title'           => esc_html__('Gemini 3.8 Flash (Advanced Coding)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
 							'gemini-3.5-flash-lite' => [
-								'title'           => esc_html__('Gemini 3.5 Flash-Lite (Ultra Fast)', 'calculated-fields-form'),
+								'title'           => esc_html__('Gemini 3.5 Flash-Lite (Fast & Efficient)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
 							'gemini-3.1-flash-lite' => [
-								'title'           => esc_html__('Gemini 3.1 Flash-Lite (Fast & Efficient)', 'calculated-fields-form'),
+								'title'           => esc_html__('Gemini 3.1 Flash-Lite (Lowest Cost)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
-							],
-							'gemini-3.1-pro-preview' => [
-								'title'           => esc_html__('Gemini 3.1 Pro Preview (Most Capable)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 64000
-							],
-							'gemini-3-flash-preview' => [
-								'title'           => esc_html__('Gemini 3 Flash Preview (Balanced)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 64000
-							],
-							'gemini-2.5-pro' => [
-								'title'           => esc_html__('Gemini 2.5 Pro (Advanced Reasoning)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 64000
-							],
-							'gemini-2.5-flash' => [
-								'title'           => esc_html__('Gemini 2.5 Flash (Stable)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 8192
-							],
-							'gemini-2.5-flash-lite' => [
-								'title'           => esc_html__('Gemini 2.5 Flash-Lite (Efficient)', 'calculated-fields-form'),
-								'form-generation' => true,
-								'ai-assistant'    => true,
-								'max_tokens'      => 8192
 							]
 						]
-                    ],
+					],
                     'minimax' => [
                         'title'         => esc_html__('MiniMax', 'calculated-fields-form'),
-                        'default_model' => 'MiniMax-M3',
+                        'default_model' => 'MiniMax-M3.1-Flash',
                         'api_key_url'   => 'https://platform.minimax.io/user-center/basic-information',
                         'models'        => [
-							'MiniMax-M3.1-Flash-Preview' => [
-								'title'           => esc_html__('MiniMax M3.1 Flash Preview (Advanced Coding)', 'calculated-fields-form'),
+							'MiniMax-M3.1-Flash' => [
+								'title'           => esc_html__('MiniMax M3.1 Flash (Advanced Coding)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
@@ -320,52 +296,28 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
-                            ],
-                            'MiniMax-M2.1-highspeed' => [
-                                'title' => esc_html__('MiniMax M2.1 Highspeed (Legacy)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'MiniMax-M2.1' => [
-                                'title' => esc_html__('MiniMax M2.1 (Legacy)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'MiniMax-M2' => [
-                                'title' => esc_html__('MiniMax M2 (Legacy)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
                             ]
                         ]
                     ],
                     'kimi' => [
                         'title'         => esc_html__('Kimi (Moonshot AI)', 'calculated-fields-form'),
-                        'default_model' => 'kimi-k2.6',
+                        'default_model' => 'kimi-k3.1-pro',
                         'api_key_url'   => 'https://platform.moonshot.ai/console/api-keys',
                         'models'        => [
+							'kimi-k3.1-pro' => [
+								'title' => esc_html__('Kimi K3.1 Pro (Latest)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
+							'kimi-k3.1-pro-highspeed' => [
+								'title' => esc_html__('Kimi K3.1 Pro Highspeed (Fast)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant' => true,
+								'max_tokens' => 64000
+							],
                             'kimi-k3' => [
-                                'title' => esc_html__('Kimi K3 (Latest)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'kimi-k2.7-code' => [
-                                'title' => esc_html__('Kimi K2.7 Code', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'kimi-k2.7-code-highspeed' => [
-                                'title' => esc_html__('Kimi K2.7 Code Highspeed (Fast)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'kimi-k2.6' => [
-                                'title' => esc_html__('Kimi K2.6', 'calculated-fields-form'),
+                                'title' => esc_html__('Kimi K3', 'calculated-fields-form'),
                                 'form-generation' => true,
                                 'ai-assistant' => true,
                                 'max_tokens' => 64000
@@ -374,7 +326,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                     ],
                     'deepseek' => [
                         'title'         => esc_html__('DeepSeek', 'calculated-fields-form'),
-                        'default_model' => 'deepseek-v4-flash',
+                        'default_model' => 'deepseek-flash',
                         'api_key_url'   => 'https://platform.deepseek.com/api_keys',
 						'models' => [
 							'deepseek-flash' => [
@@ -529,7 +481,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 case 'wordpress-ai':
                     return $this->call_wordpress_ai($prompt, $context);
                 default:
-                    return ['error' => 'Unknown provider'];
+                    return ['error' => esc_html__('Unknown provider', 'calculated-fields-form')];
             }
         }
 
@@ -574,29 +526,54 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
          * Call OpenAI API with automatic continuation handling
          */
         private function call_openai($prompt, $context) {
-            $url = 'https://api.openai.com/v1/chat/completions';
-
             // Use specified model or default
             $model = $this->model ?: self::$models['openai']['default_model'];
 
-            // Build messages array
-            $messages = [
-                [
-                    'role' => 'system',
-                    'content' => $context
-                ],
-                [
-                    'role' => 'user',
-                    'content' => $prompt
-                ]
-            ];
+			// Models that require the Responses API.
+			$use_responses = in_array(
+				$model,
+				['gpt-5.4-pro', 'gpt-5.5-pro'],
+				true
+			);
 
-            $data = [
-                'model' => $model,
-                'messages' => $messages,
-                'max_completion_tokens' => $this->max_tokens,
-                'response_format' => ['type' => 'json_object']
-            ];
+			$max_output_tokens = 128000;
+			$token_budget = max(
+				1,
+				min((int) $this->max_tokens, $max_output_tokens)
+			);
+
+			if ($use_responses) {
+				$url = 'https://api.openai.com/v1/responses';
+
+				$data = [
+					'model'             => $model,
+					'instructions'      => $context,
+					'input'             => $prompt,
+					'max_output_tokens' => $token_budget,
+					'store'             => false,
+					'text'              => [
+						'format' => ['type' => 'json_object']
+					]
+				];
+			} else {
+				$url = 'https://api.openai.com/v1/chat/completions';
+
+				$data = [
+					'model' => $model,
+					'messages' => [
+						[
+							'role'    => 'system',
+							'content' => $context
+						],
+						[
+							'role'    => 'user',
+							'content' => $prompt
+						]
+					],
+					'max_completion_tokens' => $token_budget,
+					'response_format' => ['type' => 'json_object']
+				];
+			}
 
             // Send request to OpenAI API.
             $response = wp_remote_post($url, [
@@ -614,34 +591,95 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 
             $body = json_decode(wp_remote_retrieve_body($response), true);
 
-            if (isset($body['choices'][0]['message']['content'])) {
-                $response_content = $body['choices'][0]['message']['content'];
-                $finish_reason = $body['choices'][0]['finish_reason'] ?? 'unknown';
+			if (!is_array($body)) {
+				return ['error' => esc_html__('Invalid OpenAI response', 'calculated-fields-form')];
+			}
 
-                // Check if response was cut off due to token limit
-                if ($finish_reason === 'length') {
-                    // First, check if we got substantial output
-                    if ($this->retry_flag) {
-                        $this->retry_flag = false;
-                        $this->max_tokens *= 2;
-                        return $this->call_openai($prompt, $context);
-                    } else {
-                        // Token limit hit but no useful output - likely spent on reasoning/processing
-                        return [
-                            'error' => sprintf($this->error_mssgs['insufficientTokens'], $this->max_tokens)
-                        ];
-                    }
-                }
+			if (isset($body['error']['message'])) {
+				return ['error' => $body['error']['message']];
+			}
 
-                return ['response' => $response_content];
-            }
+			$response_content = null;
+			$refusal = null;
+			$token_limit_reached = false;
 
-            if (isset($body['error']['message'])) {
-                return ['error' => $body['error']['message']];
-            }
+			if ($use_responses) {
+				$status = $body['status'] ?? 'unknown';
 
-            return ['error' => 'Failed OpenAI request'];
-        }
+				$token_limit_reached = (
+					$status === 'incomplete' &&
+					($body['incomplete_details']['reason'] ?? '') ===
+					'max_output_tokens'
+				);
+
+				foreach (($body['output'] ?? []) as $item) {
+					if (($item['type'] ?? '') !== 'message') {
+						continue;
+					}
+
+					foreach (($item['content'] ?? []) as $block) {
+						if (($block['type'] ?? '') === 'refusal') {
+							$refusal = $block['refusal'] ?? esc_html__('OpenAI refused the request', 'calculated-fields-form');
+							break 2;
+						}
+
+						if (
+							($block['type'] ?? '') === 'output_text' &&
+							isset($block['text'])
+						) {
+							$response_content = $block['text'];
+							break 2;
+						}
+					}
+				}
+
+				// Do not return partial responses interrupted for other reasons.
+				if (!$token_limit_reached && $status !== 'completed') {
+					return [
+						'error' => esc_html__('OpenAI response was not completed: ', 'calculated-fields-form') .
+							($body['incomplete_details']['reason'] ?? $status)
+					];
+				}
+			} else {
+				$message = $body['choices'][0]['message'] ?? [];
+
+				$response_content = $message['content'] ?? null;
+				$refusal = $message['refusal'] ?? null;
+
+				$token_limit_reached = (
+					($body['choices'][0]['finish_reason'] ?? '') === 'length'
+				);
+			}
+
+			if ($refusal !== null && $refusal !== '') {
+				return ['error' => $refusal];
+			}
+
+			if ($token_limit_reached) {
+				if ($this->retry_flag && $token_budget < $max_output_tokens) {
+					$this->retry_flag = false;
+					$this->max_tokens = min(
+						$token_budget * 2,
+						$max_output_tokens
+					);
+
+					return $this->call_openai($prompt, $context);
+				}
+
+				return [
+					'error' => sprintf(
+						$this->error_mssgs['insufficientTokens'],
+						$token_budget
+					)
+				];
+			}
+
+			if (is_string($response_content) && $response_content !== '') {
+				return ['response' => $response_content];
+			}
+
+			return ['error' => esc_html__('Failed OpenAI request', 'calculated-fields-form')];
+		}
 
         /**
          * Call Google Gemini API with automatic continuation handling
@@ -692,9 +730,9 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 if ($finish_reason === 'MAX_TOKENS') {
                     // First, check if we got substantial output
                     if (!$this->has_substantial_output($response_content)) {
-                        if ($this->retry_flag) {
+						if ($this->retry_flag && $this->max_tokens < 65536) {
                             $this->retry_flag = false;
-                            $this->max_tokens *= 2;
+                            $this->max_tokens = min($this->max_tokens * 2, 65536);
                             return $this->call_gemini($prompt, $context);
                         } else {
                             // Token limit hit but no useful output - likely spent on reasoning/processing
@@ -712,7 +750,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 return ['error' => $body['error']['message']];
             }
 
-            return ['error' => 'Failed Gemini request'];
+            return ['error' => esc_html__('Failed Gemini request', 'calculated-fields-form')];
         }
 
         /**
@@ -777,7 +815,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 return ['error' => $body['error']['message']];
             }
 
-            return ['error' => 'Failed MiniMax request'];
+            return ['error' => esc_html__('Failed MiniMax request', 'calculated-fields-form')];
         }
 
         /**
@@ -817,8 +855,19 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 
             $body = json_decode(wp_remote_retrieve_body($response), true);
 
-            if (isset($body['content'][0]['text'])) {
-                $response_content = $body['content'][0]['text'];
+			$response_content = null;
+
+			foreach (($body['content'] ?? []) as $block) {
+				if (
+					($block['type'] ?? '') === 'text' &&
+					isset($block['text'])
+				) {
+					$response_content = $block['text'];
+					break;
+				}
+			}
+
+			if ($response_content !== null) {
                 $stop_reason = $body['stop_reason'] ?? 'unknown';
 
                 // Check if response was cut off due to token limit
@@ -845,7 +894,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 return ['error' => $body['error']['message']];
             }
 
-            return ['error' => 'Failed Claude request'];
+            return ['error' => esc_html__('Failed Claude request', 'calculated-fields-form')];
         }
 
         /**
@@ -869,7 +918,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
             $data = [
                 'model' => $model,
                 'messages' => $messages,
-                'max_tokens' => $this->max_tokens
+                'max_completion_tokens' => $this->max_tokens
             ];
 
             $response = wp_remote_post($url, [
@@ -910,7 +959,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 return ['error' => $body['error']['message']];
             }
 
-            return ['error' => 'Failed Kimi request'];
+            return ['error' => esc_html__('Failed Kimi request', 'calculated-fields-form')];
         }
 
         /**
@@ -975,7 +1024,7 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                 return ['error' => $body['error']['message']];
             }
 
-            return ['error' => 'Failed DeepSeek request'];
+            return ['error' => esc_html__('Failed DeepSeek request', 'calculated-fields-form')];
         }
     }
 }
