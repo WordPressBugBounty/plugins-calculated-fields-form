@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.2.5
+Stable tag: 5.5.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.2.6 =
+
+* Fixes an error for undeclared constants.
+
 = 5.5.2.5 =
 
 * Updates the list of supported AI models.
@@ -500,8 +504,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Improved the Custom Design tabs for fields and forms to streamline and simplify the customization process.
 * Removed the Stripe SDK dependency by calling the Stripe APIs directly.
-
-= 5.5.2.1 =
-
-* Adds Stripe Checkout payment gateway integration to the free plugin distribution.
-* Updates the Stripe SDK to the latest version.

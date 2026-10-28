@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.5.2.6 =
+
+* Fixes an error for undeclared constants.
+
 = 5.5.2.5 =
 
 * Updates the list of supported AI models.

@@ -73,7 +73,8 @@ define( 'CP_CALCULATEDFIELDSF_EUR_CURRENCY_SYMBOL_A', 'EUR ' );
 define( 'CP_CALCULATEDFIELDSF_EUR_CURRENCY_SYMBOL_B', chr( 128 ) );
 
 // PayPal constants.
-define('CP_CALCULATEDFIELDSF_PAYPAL_OPTION_NO', 'Pay later.');
+define( 'CP_CALCULATEDFIELDSF_PAYPAL_OPTION_YES', 'Pay with PayPal.' );
+define( 'CP_CALCULATEDFIELDSF_PAYPAL_OPTION_NO', 'Pay later.' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL', 0 );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_MODE', 'production' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT', '0' );
@@ -131,6 +132,10 @@ $cpcff_default_texts_array = array(
     'incorrect_captcha_text' => array(
 		'label' => 'Captcha error (text)',
 		'text' => 'Incorrect captcha code. Please try again.'
+	),
+	'payment_options_text' => array(
+		'label' => 'Payment options (text)',
+		'text' => 'Payment options'
 	),
     'audio_tutorial_text' => array(
 		'label' => 'Audio tutorial (text)',
