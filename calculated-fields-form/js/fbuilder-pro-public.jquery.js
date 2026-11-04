@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.2.5';
+	$.fbuilder['version'] = '5.5.2.7';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1416,22 +1416,80 @@
 			},
 			processing_form = function () {
 				const sumInput = form.find('input[name="cff_sum_values"]');
+				const priceSumSubmission = [];
 				if (sumInput.length) {
-					const snapshot = {};
+					const payload = { v: 1, f: {} };
 					const fieldNames = String(sumInput.attr('data-fields') || '')
 						.split(',')
 						.map(name => name.trim())
 						.filter(Boolean);
 
 					for (const fieldName of fieldNames) {
-						const field = getField(
+						const control = getField(
 							fieldName + form_identifier,
 							form[0]
 						);
-						if (!field) continue;
-						snapshot[fieldName] = SUM(field.val(false, true, false));
+						if (!control) continue;
+
+						// Use successful controls, not merely a matching field ID. A group
+						// can contain both ignored and submitted options.
+						const submitted = form.find(':input[name]').filter(function(){
+							return (this.name === control.name || this.name === control.name+'[]') &&
+								!$(this).is(':disabled,.ignore') && !$(this).closest('.cff-exclude,.ignore').length;
+						});
+						const successful = submitted.serializeArray();
+						if (!successful.length) continue;
+
+						const type = String(control.ftype || '').toLowerCase();
+						const entry = { opts: [], qty: {}, vals: [] };
+
+						if (['fcheck','fradio','fdropdown','fcheckds','fradiods','fdropdownds'].indexOf(type) > -1) {
+							if (type === 'fdropdown' || type === 'fdropdownds') {
+								submitted.find('option:selected:not(:disabled)').each(function(){
+									const dataIndex = this.getAttribute('data-i');
+									if ((dataIndex === null || dataIndex === '') && this.value === '') return;
+									entry.opts.push((dataIndex !== null && dataIndex !== '') ? parseInt(dataIndex, 10) : this.index);
+									entry.vals.push($.fbuilder.parseValStr(this.value, false, true));
+								});
+							} else if (type === 'fcheck' || type === 'fcheckds') {
+								form.find('input[type="checkbox"]').filter(function(){ return this.name === control.name || this.name === control.name+'[]'; }).each(function(j){
+									if (!this.checked || !submitted.is(this)) return;
+									entry.opts.push(j);
+									entry.vals.push(control.merge ? $.fbuilder.parseVal(this.value) : $.fbuilder.parseValStr(this.value, false, true));
+									const q = form.find('#'+this.id+'_quantity');
+									if (control.quantity && q.length) entry.qty[String(j)] = Math.max(1, Number(q.val()) || 1);
+								});
+							} else {
+								form.find('input[name="'+control.name+'"]').each(function(j){
+									if (!this.checked || !submitted.is(this)) return;
+									entry.opts.push(j);
+									entry.vals.push($.fbuilder.parseValStr(this.value, false, true));
+								});
+							}
+						} else {
+							const value = control.val(false, true, false);
+							entry.vals = Array.isArray(value) ? value : [value];
+						}
+
+						payload.f[fieldName] = entry;
+
+						// Stripe receives the same selected submitted fields as the final
+						// form. These are ordinary POST data, never raw values in vals.
+						submitted.each(function(){
+							const element = this;
+							if ($(element).is(':checkbox,:radio') && !element.checked) return;
+							const append = function(option){
+								let value = option.hasAttribute('vt') ? cff_sanitize(option.getAttribute('vt'), true) : option.value;
+								const q = form.find('#'+element.id+'_quantity');
+								if (option.hasAttribute('vt') && q.length) value += ' ('+Math.max(1, Number(q.val()) || 1)+')';
+								priceSumSubmission.push({name: element.name, value: value});
+							};
+							if (element.tagName === 'SELECT') $(element).find('option:selected:not(:disabled)').each(function(){ append(this); });
+							else append(element);
+						});
 					}
-					sumInput.val(JSON.stringify(snapshot));
+
+					sumInput.val(JSON.stringify(payload));
 				}
 				if (
 					'extra_validations' in $.fbuilder &&

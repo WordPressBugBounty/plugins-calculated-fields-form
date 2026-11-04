@@ -18,6 +18,71 @@
 
 	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
 
+	// Price verification settings helpers.
+	$.fbuilder.priceValidationEligible = function(item, cost) {
+		const type = String(item.ftype || '').toLowerCase();
+		const types = ['fnumber','fnumberds','fcurrency','fcurrencyds','fcalculated','fslider','fradio','fradiods','fdropdown','fdropdownds','ftext','ftextds','fhidden','fhiddends','fcheck','fcheckds'];
+		return types.indexOf(type) !== -1 && !item.exclude && item.name !== cost &&
+			!(type === 'fslider' && item.range) &&
+			!(typeof $.fbuilder.inRepeater === 'function' && $.fbuilder.inRepeater(item.name));
+	};
+	$.fbuilder.updatePriceValidationSettings = function(fields, selected) {
+		const select = $('#request_cost_sum');
+		if (!select.length) return;
+		const mode = $('[name="check_request_cost"]:checked').val()*1;
+		const cost = $('#request_cost').val();
+		const warnings = [];
+		const check_sum_selected_fields = selected || select.val() || [];
+		let   server_side_equation_fields = (($('#request_cost_equation').val() || '').toLowerCase().match(/fieldname\d+/g) || []).filter(function(item, index, arr) { return arr.indexOf(item) === index; });
+		// Validation dependencies do not become checksum contributors.
+		const validation_fields = new Set(mode === 1 ? check_sum_selected_fields : (mode === 2 ? server_side_equation_fields : []));
+		const pending = Array.from(validation_fields);
+		const fields_by_name = new Map(fields.map(field => [field.name, field]));
+		for (let i = 0; i < pending.length; i++) {
+			const field = fields_by_name.get(pending[i]);
+			if (!field || !$.fbuilder.priceValidationEligible(field, cost)) continue;
+			for (const property of ['min', 'max']) {
+				if (typeof field[property] !== 'string') continue;
+				const reference = field[property].trim().toLowerCase();
+				if (/^fieldname\d+$/.test(reference) && fields_by_name.has(reference) && !validation_fields.has(reference)) {
+					validation_fields.add(reference);
+					pending.push(reference);
+				}
+			}
+		}
+
+		select.empty();
+		for (const field of fields) {
+			if (!$.fbuilder.priceValidationEligible(field, cost)) continue;
+			const check_sum_fields_chosen = check_sum_selected_fields.indexOf(field.name) !== -1;
+			const server_side_equation_fields_chosen = server_side_equation_fields.indexOf(field.name);
+			if (server_side_equation_fields_chosen !== -1) {
+    			server_side_equation_fields.splice(server_side_equation_fields_chosen, 1);
+			}
+			$('<option/>').val(field.name).text(field.name+' ('+cff_sanitize(field.title || '', true)+')').prop('selected', check_sum_fields_chosen).appendTo(select);
+			const type = String(field.ftype).toLowerCase();
+			const staticHidden = type === 'fhidden' &&
+				(typeof field.predefined === 'number' || typeof field.predefined === 'string') &&
+				/^[+-]?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?$/i.test(String(field.predefined).trim()) &&
+				Number.isFinite(Number(field.predefined));
+			const browserSourced = type === 'fcalculated' || /ds$/.test(type) ||
+				(type === 'fhidden' && !staticHidden) ||
+				(!!field.readonly && ['fnumber','fcurrency','ftext','fslider'].indexOf(type) !== -1);
+			if (
+				validation_fields.has(field.name)
+				&& browserSourced
+			) warnings.push(field.name);
+		}
+		select.trigger('change.select2');
+		$('#request_cost_validation_warning .cff-price-validation-fields').text(warnings.join(', '));
+		$('#request_cost_validation_warning').toggle(mode && warnings.length > 0);
+
+		// The server side equation will fail if there are unknown fields or contain fields that won't be submitted.
+		$('#request_cost_validation_danger .cff-price-validation-fields').text(server_side_equation_fields.join(', '));
+		$('#request_cost_validation_danger').toggle(mode == 2 && server_side_equation_fields.length > 0);
+	};
+	// End price verification settings helpers.
+
 	$.fbuilder[ 'intializeDeletedFields' ] = function(){
 		for(let i in $.fbuilder[ 'deletedFields' ] ) {
 			$.fbuilder['deletedFields'][i] = 0;
@@ -798,6 +863,9 @@
 
 		$.fbuilder[ 'defineGeneralEvents' ] = function()
 			{
+				$(document).off('change.cffPriceValidation', '#request_cost_sum, [name="check_request_cost"], #request_cost_equation').on('change.cffPriceValidation', '#request_cost_sum, [name="check_request_cost"], #request_cost_equation', function(){
+						$.fbuilder.updatePriceValidationSettings(items);
+					});
 				// Fields settings tabs
 				$( document ).on( 'click', '.cff-field-settings-tab-header-basic:not(.cff-field-settings-tab-active), .cff-field-settings-tab-header-advanced:not(.cff-field-settings-tab-active)' , function(){
 					$('.cff-field-settings-tab-active').removeClass('cff-field-settings-tab-active');
@@ -1099,11 +1167,10 @@
 						else
 						{
 							const costTypes = ['fnumber', 'fnumberds', 'fcurrency', 'fcurrencyds', 'fcalculated', 'fslider', 'fradio', 'fradiods', 'fdropdown', 'fdropdownds', 'ftext', 'ftextds', 'fhidden', 'fhiddends'];
-							const sumTypes = costTypes.concat(['fcheck', 'fcheckds']);
 							const ftype = String(item.ftype).toLowerCase();
 							const toExclude = item?.exclude || false;
 							const isCost = costTypes.indexOf(ftype) !== -1 || item.name == request_cost;
-							const isSum = sumTypes.indexOf(ftype) !== -1 || (request_cost_sum.indexOf(item.name) != -1 && item.name != request_cost);
+							const isSum = $.fbuilder.priceValidationEligible(item, request_cost);
 
 							if (!toExclude) {
 								// Request cost fields
@@ -1149,6 +1216,7 @@
 					}
 				}
 
+				$.fbuilder.updatePriceValidationSettings(items);
 				ffunct.saveData("form_structure");
 // console.timeEnd('debugging');
                 $(document).trigger('cff_reloadItems', [items]);
@@ -2239,7 +2307,7 @@
 		});
 
 		// 2) Read custom rules (legacy text input pairs) - rules whose CSS property is not in the curated controls
-		$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(el) {
+		$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(i, el) {
 			let css_rule = cff_esc_attr( String(this.value).trim() );
 			if ( css_rule === '' ) return;
 			let $row = $( el ).closest( '.css-rule' );

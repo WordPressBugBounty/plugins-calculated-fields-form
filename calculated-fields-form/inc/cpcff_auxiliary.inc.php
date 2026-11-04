@@ -516,10 +516,11 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 				$parts = parse_url( $url );
 				if ( ! empty( $parts['query'] ) ) {
+					$parts['query'] = html_entity_decode( $parts['query'], ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 					parse_str( $parts['query'], $query_params );
 					if ( ! empty( $query_params ) ) {
 						foreach ( $query_params as $param_name => $param_value ) {
-							if ( preg_match_all( '/<%([^%]+)%>/i', $param_value, $matches ) ) {
+							if ( is_string( $param_value ) && preg_match_all( '/<%([^%]+)%>/i', $param_value, $matches ) ) {
 								foreach ( $matches[1] as $index => $fieldname ) {
 									if ( isset( $params[ $fieldname . '_urls' ] ) ) {
 										$replacement = $params[ $fieldname . '_url' ];

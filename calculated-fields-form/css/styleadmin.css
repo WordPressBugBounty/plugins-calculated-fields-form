@@ -1122,6 +1122,15 @@ a.helpfbuilder{/* font-size:80%; */text-decoration:underline;color:#00f;cursor:p
 .cff-warning {margin-top: 10px;color:#fc6756;}
 @keyframes cp_blinker{50% {opacity: 0;}}
 
+/* SERVER SIDE EQUATIONS */
+.cff-server-side-equation-controls{margin-top:10px;margin-bottom:10px;}
+.cff-server-side-equation-controls button{margin: 0 2px 2px 0 !important; padding-top: 0px !important; padding-bottom:0px !important;min-height: 30px !important; line-height: 30px !important; height: 30px !important;font-size: 12px !important;}
+.cff-settings-hint-red,
+#request_cost_equation:placeholder-shown{border:2px solid #d9534f;}
+#request_cost_validation_danger{color:#d9534f;}
+#request_cost_equation_invalid_warning{color:#d9534f;}
+#request_cost_equation_empty_notice{border: 1px dotted #888888;padding:10px;margin-top:10px;}
+
 /**** Market Place ****/
 .cff-bundles-plugin-list{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;justify-content:space-around;margin:0 -10px 0 -10px;}
 .cff-bundles-plugin-item{border:1px solid #e6e6e6;border-radius:3px;-webkit-box-flex:1;flex:1;margin:1em;min-width:200px;width:30%;position:relative;}

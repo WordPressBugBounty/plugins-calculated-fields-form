@@ -41,7 +41,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && 'POST' == $_SERVER['REQUEST_METHOD'] &&
 }
 
 $message = '';
-if ('POST' == $_SERVER['REQUEST_METHOD'] && isset($_POST['cp_calculatedfieldsf_post_options'])) {
+if ('POST' == $_SERVER['REQUEST_METHOD'] && isset($_POST['cp_calculatedfieldsf_post_options']) && !empty($GLOBALS['cpcff_form_settings_save_results'][(int) CP_CALCULATEDFIELDSF_ID])) {
     $message = esc_html__('Settings saved', 'calculated-fields-form');
     echo "<div id='setting-error-settings_updated' class='updated settings-error cff-admin-message'> <p><strong>" . $message . '</strong></p></div>';
 }
@@ -574,32 +574,115 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Request cost', 'calculated-fields-form' ); ?></th>
 							<td>
-								<div class="width75" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-									<select name="request_cost" id="request_cost" def="<?php echo esc_attr($form_obj->get_option('request_cost', '')); ?>" style="flex-grow: 1;"></select>
+								<div class="width75">
+									<select name="request_cost" id="request_cost" def="<?php echo esc_attr($form_obj->get_option('request_cost', '')); ?>" style="width:100%;"></select>
 
 									<?php
-										$request_cost_check_by_sum = $form_obj->get_option('request_cost_check_by_sum', 0);
+										$check_request_cost = (int) $form_obj->get_option('check_request_cost', 0);
 									?>
-									<label><input type="checkbox" name="request_cost_check_by_sum" id="request_cost_check_by_sum" value="1" <?php echo ($request_cost_check_by_sum ? 'checked' : ''); ?> /> <?php esc_html_e( 'Check by sum', 'calculated-fields-form' ); ?></label>
+									<div style="margin-top:10px;">
+                        				<label style="display:block;margin-bottom:10px;">
+											<input type="radio" name="check_request_cost" value="0" <?php if (!$check_request_cost) print 'CHECKED'; ?>>
+											<span>
+												<?php
+												echo esc_html__('Trust whatever comes from the browser', 'calculated-fields-form') . ' (<b>' .
+												esc_html__('Discouraged', 'calculated-fields-form') . '</b>)';
+												?>
+											</span>
+										</label>
+										<div id="request_cost_no_validation_container" style="width:100%;margin-top:10px;margin-bottom:10px;display: <?php echo (!$check_request_cost ? 'block' : 'none'); ?>" class="cff-settings-hint-blue">
+											<?php
+												echo esc_html__('It is recommended to set a value for the', 'calculated-fields-form') . ' <b>"' .  esc_html__('Base amount', 'calculated-fields-form'). '"</b> ' . esc_html__('attribute to ensure that the amount payable never falls below that value.', 'calculated-fields-form');
+												echo ' ' . esc_html__('Enable a price check when the price depends on form fields. A base amount sets a minimum; it does not verify the calculated price.', 'calculated-fields-form');
+											?>
+										</div>
+										<label style="display:block;margin-bottom:10px;">
+											<input type="radio" name="check_request_cost" value="1" <?php if ($check_request_cost === 1) print 'CHECKED'; ?>>
+											<span>
+												<?php
+												esc_html_e('Verify against a checksum', 'calculated-fields-form');
+												?>
+											</span>
+										</label>
+                        				<label style="display:block;margin-bottom:10px;">
+											<input type="radio" name="check_request_cost" value="2" <?php if ($check_request_cost === 2) print 'CHECKED'; ?>>
+											<span>
+												<?php
+												echo esc_html__('Recalculate on the server', 'calculated-fields-form') . ' (<b>' . esc_html__('It overwrites the value sent by the browser', 'calculated-fields-form') . '</b>)';
+												?>
+											</span>
+										</label>
+                    				</div>
+									<div id="request_cost_validation_container" style="width:100%;display: <?php echo ($check_request_cost ? 'block' : 'none'); ?>" class="cff-settings-hint-blue">
+										<div id="request_cost_sum_contanier" style="width:100%;display: <?php echo ($check_request_cost === 1 ? 'block' : 'none'); ?>">
+											<p>
+												<?php esc_html_e( 'The request cost value is validated by the sum of the selected fields. All selected fields must be numeric, and be submitted with the form. The sum must be less than or equal to the request cost value.', 'calculated-fields-form' ); ?>
+											</p>
+											<select name="request_cost_sum[]" id="request_cost_sum" def="<?php echo esc_attr($form_obj->get_option('request_cost_sum', '')); ?>" style="width: 100%;" multiple></select>
+										</div>
 
-									<div id="request_cost_sum_contanier" style="width:100%;display: <?php echo ($request_cost_check_by_sum ? 'block' : 'none'); ?>" class="cff-settings-hint-blue">
-										<select name="request_cost_sum[]" id="request_cost_sum" def="<?php echo esc_attr($form_obj->get_option('request_cost_sum', '')); ?>" style="width: 100%;" multiple></select>
-										<p>
-											<?php esc_html_e( 'The request cost value is validated by the sum of the selected fields. All selected fields must be numeric, and be submitted with the form. The sum must be less than or equal to the request cost value.', 'calculated-fields-form' ); ?>
+										<div id="request_cost_equation_contanier" style="width:100%;display: <?php echo ($check_request_cost === 2 ? 'block' : 'none'); ?>">
+											<?php
+												$is_cost_equation_invalid = (!$form_obj->get_option('is_cost_equation_valid', false) && $form_obj->get_option('request_cost_equation', ''));
+											?>
+											<p>
+												<?php esc_html_e( 'The price is recalculated using a server-side equation. The price sent by the browser is overwritten by the server-side equation\'s result. All fields that are included in the equation must be submitted with the form.', 'calculated-fields-form' ); ?>
+											</p>
+											<p id="request_cost_equation_empty_notice"><?php
+											print '<b>' . esc_html__('Pay attention:', 'calculated-fields-form') . '</b> ';
+											esc_html_e( 'If the server-side equation is empty, the price sent by the browser is accepted without recalculation, subject to the Base amount minimum. A nonempty invalid equation rejects the submission.', 'calculated-fields-form' );
+											?></p>
+											<p id="request_cost_equation_invalid_warning" style="display:<?php echo ($is_cost_equation_invalid ? 'block' : 'none'); ?>" >
+											<?php
+												esc_html_e( 'The equation is not valid. Submissions are rejected until you save a valid equation or explicitly clear it to accept the browser price.', 'calculated-fields-form' );
+											?>
+											</p>
+											<div class="cff-server-side-equation-controls">
+												<button type="button" value="+" class="button-secondary">+</button>
+												<button type="button" value="-" class="button-secondary">-</button>
+												<button type="button" value="*" class="button-secondary">*</button>
+												<button type="button" value="/" class="button-secondary">/</button>
+												<button type="button" value="ABS(" class="button-secondary">ABS</button>
+												<button type="button" value="SQRT(" class="button-secondary">SQRT</button>
+												<button type="button" value="POW(" class="button-secondary">POW</button>
+												<button type="button" value="REMAINDER(" class="button-secondary">REMAINDER</button>
+												<button type="button" value="MIN(" class="button-secondary">MIN</button>
+												<button type="button" value="MAX(" class="button-secondary">MAX</button>
+												<button type="button" value="SUM(" class="button-secondary">SUM</button>
+												<button type="button" value="AVERAGE(" class="button-secondary">AVERAGE</button>
+												<button type="button" value="ROUND(" class="button-secondary">ROUND</button>
+												<button type="button" value="FLOOR(" class="button-secondary">FLOOR</button>
+												<button type="button" value="CEIL(" class="button-secondary">CEIL</button>
+												<button type="button" value="PREC(" class="button-secondary">PREC</button>
+												<button type="button" value="IF(" class="button-secondary">IF</button>
+											</div>
+											<textarea name="request_cost_equation" id="request_cost_equation" style="width: 100%;margin-bottom:10px;" class="<?php echo ($is_cost_equation_invalid ? 'cff-settings-hint-red' : '');?>" placeholder="<?php esc_attr_e('Enter the equation' , 'calculated-fields-form'); ?>"><?php
+												print esc_textarea( $form_obj->get_option('request_cost_equation', '') );
+											?></textarea>
+											<div><b><?php esc_html_e('e.g.', 'calculated-fields-form'); ?></b> <i>fieldname1+fieldname2</i></div>
+											<button type="submit" name="request_cost_equation_validate" class="button-secondary" style="margin-top:10px;" onclick="this.form.action=this.form.action.split('#')[0]+'#request_cost_validation_container';fbuilderjQuery.fbuilder.delete_form_preview_window();"><?php esc_html_e( 'Save and Validate Equation', 'calculated-fields-form' ); ?></button>
+										</div>
+										<p id="request_cost_validation_danger" role="status" style="display:none">
+											<?php esc_html_e( 'Some fields used in the equation do not exist in the form, their values are not submitted, or they are not numeric.', 'calculated-fields-form' ); ?>
+											<strong class="cff-price-validation-fields"></strong>
+										</p>
+										<p id="request_cost_validation_warning" role="status" style="display:none">
+											<?php esc_html_e( 'Calculated fields, data-source fields, dynamic hidden fields, and read-only number, currency, text or slider fields cannot be independently recalculated by the server. Their submitted or parsed values are accepted when included in this check; this does not guarantee authenticity. Static numeric hidden fields use their configured values instead. Numeric min/max limits, including limits from static numeric hidden fields, are enforced by the server. Affected fields (including min/max dependencies):', 'calculated-fields-form' ); ?>
+											<strong class="cff-price-validation-fields"></strong>
 										</p>
 									</div>
 								</div>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Currency', 'calculated-fields-form' ); ?></th>
-							<td><input type="text" name="currency" value="<?php echo esc_attr($form_obj->get_option('currency',CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY)); ?>" class="width50" /><br>
-							<b>USD</b> (<?php esc_html_e('United States dollar', 'calculated-fields-form'); ?>), <b>EUR</b> (Euro), <b>GBP</b> (<?php esc_html_e('Pound sterling', 'calculated-fields-form'); ?>), ... (<a href="https://developer.paypal.com/docs/api/reference/currency-codes/" target="_blank"><?php esc_html_e('Currency Codes', 'calculated-fields-form');?></a>)
+							<th scope="row"><?php esc_html_e( 'Base amount', 'calculated-fields-form' ); ?>:</th>
+							<td><input type="text" name="paypal_base_amount" value="<?php echo esc_attr($form_obj->get_option( 'paypal_base_amount', '0.01' ) ); ?>" class="width50" /><br><i style="font-size:11px;"><?php esc_html_e( 'Minimum amount to charge. If the final price is lesser than this number, the base amount will be applied.', 'calculated-fields-form' ); ?></i>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Base amount', 'calculated-fields-form' ); ?>:</th>
-							<td><input type="text" name="paypal_base_amount" value="<?php echo esc_attr($form_obj->get_option( 'paypal_base_amount', '0.01' ) ); ?>" class="width50" /><br><i style="font-size:11px;"><?php esc_html_e( 'Minimum amount to charge. If the final price is lesser than this number, the base amount will be applied.', 'calculated-fields-form' ); ?></i>
+							<th scope="row"><?php esc_html_e( 'Currency', 'calculated-fields-form' ); ?></th>
+							<td><input type="text" name="currency" value="<?php echo esc_attr($form_obj->get_option('currency',CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY)); ?>" class="width50" /><br>
+							<b>USD</b> (<?php esc_html_e('United States dollar', 'calculated-fields-form'); ?>), <b>EUR</b> (Euro), <b>GBP</b> (<?php esc_html_e('Pound sterling', 'calculated-fields-form'); ?>), ... (<a href="https://developer.paypal.com/docs/api/reference/currency-codes/" target="_blank"><?php esc_html_e('Currency Codes', 'calculated-fields-form');?></a>)
 							</td>
 						</tr>
 						<tr valign="top">
@@ -637,7 +720,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 									<tr valign="top">
 										<th scope="row"><?php esc_html_e( 'Enable "Pay Later" option?', 'calculated-fields-form' ); ?></th>
 										<td>
-											<select name="enable_pay_later">
+											<select name="enable_pay_later" class="cff-payment-gateway-enabled">
 												<option value="0" <?php if (!$form_obj->get_option('enable_pay_later',0)) echo 'selected'; ?> ><?php esc_html_e( 'No', 'calculated-fields-form' ); ?></option>
 												<option value="1" <?php if ($form_obj->get_option('enable_pay_later',0)) echo 'selected'; ?> ><?php esc_html_e( 'Yes', 'calculated-fields-form' ); ?></option>
 											</select>
@@ -656,8 +739,22 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 										let d = $(this).val() || '';
 										$(this).attr('def', d);
 									});
-									$(document).on('change', '[name="request_cost_check_by_sum"]', function(){
-										$('#request_cost_sum_contanier')[this.checked ? 'show' : 'hide']();
+									$(document).on('change', '[name="check_request_cost"]', function(){
+										let v = $('[name="check_request_cost"]:checked').val()*1;
+										$('#request_cost_no_validation_container')[v ? 'hide' : 'show']();
+										$('#request_cost_validation_container')[v ? 'show' : 'hide']();
+										$('#request_cost_sum_contanier')[v === 1 ? 'show' : 'hide']();
+										$('#request_cost_equation_contanier')[v === 2 ? 'show' : 'hide']();
+									});
+									$(document).on('click', '.cff-server-side-equation-controls button', function(){
+										let eq = $('#request_cost_equation'),
+											s = $(this).val(),
+											p = eq.caret(),
+											v = eq.val(),
+											nv;
+
+										eq.val(v.substr(0,p)+s+v.substr(p));
+										eq.caret(p+s.length);
 									});
 									$(document).on('change', '#request_cost_sum', function(){
 										let v = $(this).val(), d = '';
@@ -666,6 +763,49 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 									});
 									$(document).on('change', '[name="enable_pay_later"]', function(){
 										$('#metabox_pay_later')[( this.tagName == 'INPUT' && this.checked ) || this.value*1 ? 'addClass' : 'removeClass' ]('cff-payment-gateway-enabled');
+									});
+									$(document).on('change', '.cff-payment-gateway-enabled', function(){
+										let v = $(this).val()*1;
+										if(!isNaN(v) && v == 1) {
+											let mssg = '';
+											let base_amount = $('[name="paypal_base_amount"]').val() * 1;
+											if (isNaN(base_amount) || base_amount <= 0) {
+												mssg += '<p><?php echo esc_js(__( 'Please enter a valid', 'calculated-fields-form' )) . ' <b>"' . esc_js(__('Base amount', 'calculated-fields-form' )) . '"</b> ' . esc_js(__( 'in the attribute above to ensure that the payment amount is greater than zero.', 'calculated-fields-form' )); ?></p>';
+											}
+											let check_price = $('[name="check_request_cost"]:checked').val()*1;
+
+											if(
+												! check_price
+											) {
+												mssg += '<p><?php
+													echo
+													esc_js(__( 'It is recommended to check the request cost on the server: ', 'calculated-fields-form' )) . ' <b>' .
+													esc_js(__( 'verify it against a checksum', 'calculated-fields-form' )) . '</b> ' .
+													esc_js(__( 'of the selected fields, or ', 'calculated-fields-form' )) . ' <b>' .
+													esc_js(__( 'recalculate the amount with a server-side equation', 'calculated-fields-form' )) . '</b>.';
+												?></p>';
+											}
+											if(
+												(check_price === 1 && $('[name="request_cost_sum[]"]').val().length == 0)
+											) {
+												mssg += '<p><?php echo esc_js(__( 'Please select the fields to sum for the amount validation.', 'calculated-fields-form' )); ?></p>';
+											}
+											if(
+												(check_price === 2 && $('[name="request_cost_equation"]').val().trim().length == 0)
+											) {
+												mssg += '<p><?php echo esc_js(__( 'Please enter the equation to recalculate the amount on the server.', 'calculated-fields-form' )); ?></p>';
+											}
+
+											if(mssg.length && typeof cff_request_cost_confirmationDialog == 'undefined') {
+												cff_request_cost_confirmationDialog = true; // It prevents to display the dialog multiple times.
+												$.fbuilder.confirmationDialog(
+													false,
+													mssg,
+													'Ok',
+													false
+												);
+											}
+										}
 									});
 								})();
 								</script>

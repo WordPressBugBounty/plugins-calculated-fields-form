@@ -307,6 +307,8 @@ if ($message) {
                 if (empty($events)) echo '<tr><td colspan="100%" style="text-align:center;">' . esc_html__('No events found.', 'calculated-fields-form') . '</td></tr>';
                 $year_month = '';
                 foreach ($events as $event) if (isset($event)) {
+					$serialized_entry_details = $event->paypal_post;
+					$entry_details = unserialize($serialized_entry_details, ['allowed_classes' => false]);
                     $time = strtotime($event->time);
                     $current_year_month = date('Y-m', $time);
                     if ($year_month !== $current_year_month) {
@@ -323,6 +325,9 @@ if ($message) {
                         <td>-</td>
                         <td>
 						<?php
+							if ( $entry_details !== false && !empty($entry_details['final_price']) ) {
+								echo '<div style="margin-bottom:10px;"><span style="font-weight:600;">' . esc_html__('Final price:', 'calculated-fields-form') . '</span><br>' . esc_html($entry_details['final_price']) . '</div>';
+							}
 							if ($event->paid) {
 								if ( $entry_details !== false && !empty( $entry_details[ 'paypal_data' ] ) ) {
 									echo '<span style="color:#00aa00;font-weight:bold"><a href="javascript:void(0);" onclick="cp_moreInfo(this);">'.esc_html__("Paid", 'calculated-fields-form' ).'[+]</a></span><div class="paypal_data" style="display:none;">'.str_replace("\n", "<br>", esc_html($entry_details[ 'paypal_data' ])).'</div>';
@@ -389,8 +394,6 @@ if ($message) {
 									};
 
                                     // Add links
-                                    $serialized_entry_details = $event->paypal_post;
-                                    $entry_details = unserialize($serialized_entry_details, ['allowed_classes' => false]);
                                     if ($entry_details !== false) {
                                         if (preg_match('/fieldname\d+_url/', $serialized_entry_details)) {
                                             foreach ($entry_details as $_key => $_value) {

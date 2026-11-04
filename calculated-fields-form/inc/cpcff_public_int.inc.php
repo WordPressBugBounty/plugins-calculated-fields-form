@@ -153,16 +153,14 @@ if ( !empty($form_settings['direction']) ) {
 <input type="hidden" name="cp_calculatedfieldsf_id" value="<?php echo esc_attr( $id ); ?>" />
 <input type="hidden" name="cp_ref_page" value="<?php echo esc_attr( CPCFF_AUXILIARY::site_url() ); ?>" />
 <?php if (
-	$form_obj->get_option('request_cost_check_by_sum', 0) &&
-	!empty($form_obj->get_option('request_cost_sum', ''))
+	CPCFF_PRICE_CHECK::is_enabled($form_obj) &&
+	! empty( $cff_price_check_fields = CPCFF_PRICE_CHECK::get_fields( $form_obj ) )
 ) : ?>
 <input
     type="hidden"
     name="cff_sum_values"
     value=""
-    data-fields="<?php
-        echo esc_attr($form_obj->get_option('request_cost_sum', ''));
-    ?>"
+	data-fields="<?php echo esc_attr( implode( ',', $cff_price_check_fields ) ); ?>"
 />
 <?php endif; ?>
 <pre style="display:none !important;"><script data-category="functional" type="text/javascript"><?php echo $eval_blocked_variable; ?>form_structure_<?php echo esc_js( CPCFF_MAIN::$form_counter ); ?>=<?php print str_replace( array( "\n", "\r" ), ' ', ( ( version_compare( CP_CFF_PHPVERSION, '5.3.0' ) >= 0 ) ? json_encode( $form_data, JSON_HEX_QUOT | JSON_HEX_TAG ) : json_encode( $form_data ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput

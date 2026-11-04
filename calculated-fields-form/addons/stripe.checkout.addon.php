@@ -27,7 +27,8 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 
 			// Insertion in database
 			if (
-				isset( $_REQUEST['cpcff_stripe_checkout_id'] )
+				isset( $_REQUEST['cpcff_stripe_checkout_id'] ) &&
+				( ! isset( $_POST['cp_calculatedfieldsf_post_options'] ) || ! empty( $GLOBALS['cpcff_form_settings_save_results'][ (int) $form_id ] ) )
 			) {
 				$wpdb->delete( $table, array( 'formid' => $form_id ), array( '%d' ) );
 				$settings = array(
@@ -92,7 +93,7 @@ if ( ! class_exists( 'CPCFF_Stripe_Checkout' ) ) {
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Enable Stripe checkout?', 'calculated-fields-form' ); ?></th>
 							<td>
-								<select name="stripe_checkout_enabled">
+								<select name="stripe_checkout_enabled" class="cff-payment-gateway-enabled">
 									<option value="0" <?php if (!$enabled) {echo 'selected';} ?>><?php esc_html_e( 'No', 'calculated-fields-form' ); ?></option>
 									<option value="1" <?php if ($enabled) {echo 'selected';} ?>><?php esc_html_e( 'Yes', 'calculated-fields-form' ); ?></option>
 								</select>

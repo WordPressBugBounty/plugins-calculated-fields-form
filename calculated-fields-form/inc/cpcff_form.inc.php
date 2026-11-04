@@ -273,8 +273,10 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						'category'                    => $category_name,
 
 						'cu_user_email_bcc_field'     => '',
+						'extra'                       => json_encode( array( 'check_request_cost' => 2, 'request_cost_equation' => '', 'is_cost_equation_valid' => false ) ),
 					),
 					array(
+						'%s',
 						'%s',
 						'%s',
 						'%s',
@@ -462,11 +464,15 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
                     $option,
                     apply_filters(
                         'cpcff_get_extra_form_settings',
-                        [ 'request_cost_check_by_sum', 'request_cost_sum', 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions', 'cv_captcha_method', 'cv_captcha_math_complexity' ],
+                        [ 'check_request_cost', 'request_cost_check_by_sum', 'request_cost_sum', 'request_cost_equation', 'is_cost_equation_valid', 'enable_pay_later', 'fp_attach_static', 'fp_reply_to_emails', 'cu_attach_static', 'cu_reply_to_emails', 'form_height', 'fp_ajax', 'fp_ajax_reset_form', 'fp_thanks_mssg', 'fp_disable_submissions', 'cv_captcha_method', 'cv_captcha_math_complexity' ],
                         $this->_id
                     )
                 )
 			) {
+				if ( $option == 'check_request_cost' && ! isset( $this->_settings['extra']['check_request_cost'] ) ) {
+					$option = 'request_cost_check_by_sum'; // Backward compatibility
+				}
+
 				if ( isset( $this->_settings['extra'][ $option ] ) ) {
 					$value = $this->_settings['extra'][ $option ];
 				} else {
@@ -556,10 +562,46 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			print $output;
 		} // End get_page_header.
 
+		/**
+		 * The fields of the form that is being saved, indexed by name.
+		 *
+		 * The structure that the form builder posts is the one the settings are saved
+		 * with, so the equation can be validated against the fields it is going to have.
+		 *
+		 * @param array $params The posted settings.
+		 * @return array The fields, indexed by name.
+		 */
+		private function posted_fields( $params )
+		{
+			$fields = array();
+			if ( empty( $params['form_structure'] ) || ! is_string( $params['form_structure'] ) ) return $fields;
+			$structure = json_decode( $params['form_structure'] );
+			if ( ! is_array( $structure ) || ! isset( $structure[0] ) || ! is_array( $structure[0] ) ) return $fields;
+			foreach ( $structure[0] as $field ) {
+				if ( is_array( $field ) ) $field = (object) $field;
+				if ( ! is_object( $field ) || ! isset( $field->name ) || $field->name === '' ) continue;
+				$fields[ $field->name ] = $field;
+			}
+			return $fields;
+		}
+
 		public function save_settings( $params ) {
 			global $wpdb, $cpcff_default_texts_array;
 
+			// Keep expression operators intact and validate without blocking configuration saves.
+			$equation = $params['request_cost_equation'] ?? '';
+			if ( ! is_string( $equation ) ) {
+				global $cff_structure_error;
+				$cff_structure_error = '<div class="error-text">' . esc_html__( 'Settings were not saved. The server-side equation is invalid or exceeds its limits. Use only supported numeric expressions and form fields, or leave it empty to accept the browser price.', 'calculated-fields-form' ) . '</div>';
+				return false;
+			}
+			$equation = trim( $equation );
+			$equation_valid = $equation !== '' && CPCFF_PRICE_CHECK::validate_equation(
+				$equation, $this->posted_fields( $params ), $params['request_cost'] ?? '', $this
+			);
+
 			foreach ( $params as $i => $v ) {
+				if ( 'request_cost_equation' === $i ) continue;
 				if ( 'form_structure' != $i && 'fp_message' != $i && 'cu_message' != $i ) {
 					$params[ $i ] = CPCFF_AUXILIARY::sanitize( $v, true );
 				} else if ( 'fp_message' == $i || 'cu_message' == $i ) {
@@ -570,7 +612,11 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			$extra = array( 'form_height' => array() );
 
             // Form options
-			$extra['request_cost_check_by_sum'] = isset( $params['request_cost_check_by_sum'] ) ? 1 : 0;
+			$extra['check_request_cost'] = (
+				isset( $params['check_request_cost'] ) &&
+				is_numeric( $params['check_request_cost'] )
+			) ? absint( $params['check_request_cost'] ) : 0;
+			$extra['check_request_cost'] = min( $extra['check_request_cost'], 2 );
 			$extra['request_cost_sum'] = '';
 			if ( isset( $params['request_cost_sum'] ) && is_array( $params['request_cost_sum'] ) ) {
 				$fields_names_for_sum = array_values(array_map('strtolower', preg_grep('/^fieldname\d+$/i', $params['request_cost_sum'])));
@@ -578,6 +624,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 					$extra['request_cost_sum'] = implode(',', $fields_names_for_sum);
 				}
 			}
+			$extra['request_cost_equation'] = $equation;
+			$extra['is_cost_equation_valid'] = $equation_valid;
 			if( isset( $params['enable_pay_later'] ) ) {
 				$extra['enable_pay_later'] = $params['enable_pay_later'] == 1 ? 1 : 0;
 			}
@@ -636,6 +684,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				'paypal_recurrent'            => ( isset( $params['paypal_recurrent'] ) ) ? $params['paypal_recurrent'] : 0,
 				'paypal_identify_prices'      => ( isset( $params['paypal_identify_prices'] ) ) ? $params['paypal_identify_prices'] : '0',
 				'paypal_zero_payment'         => ( isset( $params['paypal_zero_payment'] ) ) ? $params['paypal_zero_payment'] : 0,
+				'paypal_base_amount' 		  => ( isset( $params["paypal_base_amount"] ) ) ? (float) trim($params["paypal_base_amount"]) : '',
 
 				'enable_paypal_option_no' 	  => (isset($params['enable_paypal_option_no'])) ? $params['enable_paypal_option_no'] : CP_CALCULATEDFIELDSF_PAYPAL_OPTION_NO,
 
@@ -677,9 +726,14 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				$wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE,
 				$data,
 				array( 'id' => $this->_id ),
-				array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ),
+				array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ),
 				array( '%d' )
 			);
+
+			if ( false !== $updated_rows ) {
+				$this->_settings = array();
+				$this->_fields = array();
+			}
 
 			// Revisions.
 			update_option( 'CP_CALCULATEDFIELDSF_REVISIONS_IN_PREVIEW', isset( $params['cff-revisions-in-preview'] ) ? true : false );

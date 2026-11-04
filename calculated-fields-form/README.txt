@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.2.6
+Stable tag: 5.5.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,11 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.2.7 =
+
+* Fixes an issue with custom css rules in fields and form.
+* Enhances the mechanism that verifies and validates calculated prices. We would like to extend special thanks to Zackary Loevseth (security researcher at HayosoAi) for his contribution in identifying and validating the weakness in the plugin's original method.
+
 = 5.5.2.6 =
 
 * Fixes an error for undeclared constants.
@@ -499,8 +504,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 * Fixes an issue with the Akismet integration.
 * Includes additional verification rules in the Stripe integration.
 * Modifies the forms submissions to enclose each submission data in its own context.
-
-= 5.5.2.2 =
-
-* Improved the Custom Design tabs for fields and forms to streamline and simplify the customization process.
-* Removed the Stripe SDK dependency by calling the Stripe APIs directly.

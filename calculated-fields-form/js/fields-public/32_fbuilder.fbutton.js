@@ -68,7 +68,7 @@
 												$(document).off('equationsQueueEmpty');
 												for(var i = 0, h = items.length; i < h; i++)
 												{
-													if(items[i].ftype == 'fsummary')
+													if(items[i] && items[i].ftype == 'fsummary')
 													{
 														items[i].update();
 													}

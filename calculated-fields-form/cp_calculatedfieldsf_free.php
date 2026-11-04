@@ -3,7 +3,7 @@
  * Plugin Name: Calculated Fields Form
  * Plugin URI: https://cff.dwbooster.com
  * Description: Create forms with field values calculated based in other form field values.
- * Version: 5.5.2.6
+ * Version: 5.5.2.7
  * Text Domain: calculated-fields-form
  * Author: CodePeople
  * Author URI: https://cff.dwbooster.com
@@ -25,7 +25,7 @@ if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 }
 
 // Defining main constants.
-define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.2.6' );
+define( 'CP_CALCULATEDFIELDSF_VERSION', '5.5.2.7' );
 define( 'CP_CALCULATEDFIELDSF_TIMEOUT', 30 );
 define( 'CP_CALCULATEDFIELDSF_MAIN_FILE_PATH', __FILE__ );
 define( 'CP_CALCULATEDFIELDSF_BASE_PATH', dirname( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) );
@@ -51,6 +51,7 @@ require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_akismet.inc.php';
 
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/captcha/cpcff_captcha.inc.php'; // Captcha
 
+require_once 'inc/cpcff_price_check.inc.php';
 require_once 'inc/cpcff_connector_api.inc.php'; // WordPress ability
 require_once 'inc/cpcff_mcp_server.inc.php'; // WordPress MCP
 
@@ -527,41 +528,41 @@ function cp_calculated_fields_form_check_posted_data() {
 										break;
 									case 'fphone':
 									case 'fPhoneds':
-										if (! preg_match('/^\+?[\.\s\-\d]+$/', $value)) {
+										if (! is_scalar($value) || ! preg_match('/^\+?[\.\s\-\d]+$/', $value)) {
 											$invalid_format = true;
 										}
 										break;
 									case 'fnumber':
 									case 'fnumberds':
 										if ('digits' === $current_field->dformat) {
-											if (preg_match('/[^\d]/', $value)) {
+											if (! is_scalar($value) || preg_match('/[^\d]/', $value)) {
 												$invalid_format = true;
 											}
-										} elseif (preg_match('/^[^\d]*$/', $value)) {
+										} elseif (! is_scalar($value) || preg_match('/^[^\d]*$/', $value)) {
 											$invalid_format = true;
 										}
 										break;
 									case 'fcurrency':
 									case 'fcurrencyds':
 									case 'fslider':
-										if (preg_match('/^[^\d]*$/', $value)) {
+										if (! is_scalar($value) || preg_match('/^[^\d]*$/', $value)) {
 											$invalid_format = true;
 										}
 										break;
 									case 'fcolor':
-										if (! preg_match('/#?[0-9,a-f]{6,9}/i', $value)) {
+										if (! is_scalar($value) || ! preg_match('/#?[0-9,a-f]{6,9}/i', $value)) {
 											$invalid_format = true;
 										}
 										break;
 									case 'fdate':
 									case 'fdateds':
-										if (! preg_match('/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4}))?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value)) {
+										if (! is_scalar($value) || ! preg_match('/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4}))?\s*(\d{1,2}\:\d{1,2}\s*([ap]m)?)?$/i', $value)) {
 											$invalid_format = true;
 										}
 										break;
 									case 'ftimeslots':
 									case 'ftimeslotsds':
-										if (! preg_match('/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4})\s*\:\s*\d{1,2}\:\d{1,2}\s*\-\s*\d{1,2}\:\d{1,2}(\,\s*)?)*$/i', $value)) {
+										if (! is_scalar($value) || ! preg_match('/^((\d{1,2}|\d{4})[^\d]\d{1,2}[^\d](\d{1,2}|\d{4})\s*\:\s*\d{1,2}\:\d{1,2}\s*\-\s*\d{1,2}\:\d{1,2}(\,\s*)?)*$/i', $value)) {
 											$invalid_format = true;
 										}
 										break;
@@ -575,6 +576,11 @@ function cp_calculated_fields_form_check_posted_data() {
 								exit;
 							}
 						}
+
+						// Rebuild selected price fields before required checks and summary/storage.
+						$was_empty = $value === '' || $value === array();
+						$value = CPCFF_PRICE_CHECK::validate_field( $fieldname, $current_field, $value );
+						if ($was_empty && $value !== '' && $value !== array()) $count_of_non_empty_fields++;
 
 						// Check if the field is required and it is empty
 						if (
@@ -711,6 +717,9 @@ function cp_calculated_fields_form_check_posted_data() {
 						$preprocess_repeater_matrix($item->name, $item);
 					}
 
+					// Prepare the request cost verification.
+					CPCFF_PRICE_CHECK::init( $form_obj, $fields, CPCFF_PRICE_CHECK::OUTPUT_PAGE );
+
 					// Process the form data.
 					foreach ($_POST as $item => $value)
 					{
@@ -720,6 +729,7 @@ function cp_calculated_fields_form_check_posted_data() {
 						}
 
 						if (array_key_exists($fieldname, $fields)) {
+							CPCFF_PRICE_CHECK::validate_submission_key($fieldname, $item, $sequence);
 							$current_field = $fields[$fieldname];
 
 							if ($current_field->ftype == 'frepeater') {
@@ -808,101 +818,12 @@ function cp_calculated_fields_form_check_posted_data() {
 					$price = apply_filters('cpcff_price', $price, $params);
 					$paypal_base_amount = preg_replace('/[^\d\.\,]/', '', $form_obj->get_option('paypal_base_amount', 0));
 					$paypal_base_amount = str_replace($find_arr, $replace_arr, $paypal_base_amount);
-					$price = max($price, $paypal_base_amount);
 
-					if (
-						$form_obj->get_option('request_cost_check_by_sum', 0) &&
-						!empty($form_obj->get_option('request_cost_sum', ''))
-					) {
-						$reject = function () {
-							$message = esc_html__(
-								'The submitted price could not be validated.',
-								'calculated-fields-form'
-							);
-							if ( ! headers_sent() ) {
-								status_header( 400 );
-								header( 'Content-Type: text/html; charset=utf-8' );
-							}
-							echo '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>' . $message . '</title><style>body {margin: 0;padding: 40px 20px;background: #f7f8fc;color: #242936;font-family: sans-serif;text-align: center;}.cff-error-message {max-width: 560px;margin: 0 auto 24px;padding: 24px;border: 1px solid #e4e7ec;border-radius: 12px;background: #fff;box-shadow: 0 8px 24px rgba(0, 0, 0, .06);font-size: 18px;}.cff-error-back {display: inline-block;padding: 11px 18px;border-radius: 8px;background: #b42318;color: #fff;font-weight: 600;text-decoration: none;}</style></head><body><div class="cff-error-message">' . $message . '</div><a class="cff-error-back" href="#" onclick="history.back(); return false;">' . esc_html__('Back to the form', 'calculated-fields-form') . '</a></body></html>';
-							exit;
-						};
-
-						// Retrieve the subtotals submitted by JavaScript.
-						if (
-							!isset($_POST['cff_sum_values']) ||
-							!is_string($_POST['cff_sum_values'])
-						) {
-							$reject();
-						}
-
-						$snapshot = json_decode(
-							wp_unslash($_POST['cff_sum_values']),
-							true
-						);
-
-						if (
-							json_last_error() !== JSON_ERROR_NONE ||
-							!is_array($snapshot)
-						) {
-							$reject();
-						}
-
-						// Use only the fields configured on the server.
-						$sum_fields = array_values(array_filter(
-							array_map(
-								'trim',
-								explode(',', $form_obj->get_option('request_cost_sum', ''))
-							),
-							function ($fieldname) {
-								return preg_match('/\Afieldname\d+\z/', $fieldname) === 1;
-							}
-						));
-
-						if (!$sum_fields) {
-							$reject();
-						}
-
-						$sum = 0.0;
-
-						foreach ($sum_fields as $fieldname) {
-							if ($fieldname === $request_cost) {
-								continue;
-							}
-							if (
-								!isset($fields[$fieldname]) ||
-								// !isset($params[$fieldname]) || // I commended this line because the field might be excluded intentionally
-								!array_key_exists($fieldname, $snapshot)
-							) {
-								$reject();
-							}
-
-							$value = $snapshot[$fieldname];
-
-							if (
-								(!is_int($value) && !is_float($value)) ||
-								!is_finite((float) $value)
-							) {
-								$reject();
-							}
-
-							$sum += $value;
-						}
-
-						if (
-							!is_finite($sum) ||
-							!is_numeric($price) ||
-							!is_finite((float) $price)
-						) {
-							$reject();
-						}
-
-						// Allow a small tolerance for floating-point arithmetic.
-						$tolerance = 0.0000001;
-
-						if ($sum > (float) $price + $tolerance) {
-							$reject();
-						}
+					if ( CPCFF_PRICE_CHECK::is_enabled( $form_obj ) ) {
+						CPCFF_PRICE_CHECK::validate_pending();
+						$price = CPCFF_PRICE_CHECK::check_price( $price );
 					}
+					$price = max($price, $paypal_base_amount);
 
 					$params["final_price"] = $price;
 					$params["final_price_formatted"] = $prefix . (is_numeric($price) ? number_format($price, 2, $find_arr[1], $find_arr[0]) : $price) . $suffix;
@@ -1003,7 +924,10 @@ function cp_calculated_fields_form_check_posted_data() {
 
 function cp_calculatedfieldsf_save_options() {
 	check_admin_referer( 'cff-form-settings', '_cpcff_nonce' );
-	global $wpdb;
+	global $wpdb, $cpcff_form_settings_save_results;
+	// Request-local, form-scoped outcome: malformed attempts must also clear prior success.
+	$request_form_id = isset( $_POST['cp_calculatedfieldsf_id'] ) && is_numeric( wp_unslash( $_POST['cp_calculatedfieldsf_id'] ) ) ? intval( wp_unslash( $_POST['cp_calculatedfieldsf_id'] ) ) : 0;
+	$cpcff_form_settings_save_results[ $request_form_id ] = false;
 	if ( ! defined( 'CP_CALCULATEDFIELDSF_ID' ) && isset( $_POST['cp_calculatedfieldsf_id'] ) ) {
 		define( 'CP_CALCULATEDFIELDSF_ID', sanitize_text_field( wp_unslash( $_POST['cp_calculatedfieldsf_id'] ) ) );
 	}
@@ -1031,10 +955,13 @@ function cp_calculatedfieldsf_save_options() {
 			}
 
 			$cpcff_main                = CPCFF_MAIN::instance();
-			$_cff_calculatedfieldsf_id = isset( $_cff_POST['cp_calculatedfieldsf_id'] ) && is_numeric( $_cff_POST['cp_calculatedfieldsf_id'] ) ? intval( $_cff_POST['cp_calculatedfieldsf_id'] ) : 0;
-			if ( $cpcff_main->get_form( $_cff_calculatedfieldsf_id )->save_settings( $_cff_POST ) === false ) {
+			$save_result = $cpcff_main->get_form( $request_form_id )->save_settings( $_cff_POST );
+			$cpcff_form_settings_save_results[ $request_form_id ] = $save_result !== false;
+			if ( $save_result === false ) {
 				global $cff_structure_error;
-				$cff_structure_error = __( '<div class="error-text">The data cannot be stored in database because has occurred an error with the database structure. Please, go to the plugins section and Deactivate/Activate the plugin to be sure the structure of database has been checked, and corrected if needed. If the issue persist, please <a href="https://cff.dwbooster.com/contact-us">contact us</a></div>', 'calculated-fields-form' );
+				if ( empty( $cff_structure_error ) ) {
+					$cff_structure_error = __( '<div class="error-text">The data cannot be stored in database because has occurred an error with the database structure. Please, go to the plugins section and Deactivate/Activate the plugin to be sure the structure of database has been checked, and corrected if needed. If the issue persist, please <a href="https://cff.dwbooster.com/contact-us">contact us</a></div>', 'calculated-fields-form' );
+				}
 			}
 		} else {
 			$error_occur = true;

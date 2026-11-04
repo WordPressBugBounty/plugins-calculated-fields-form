@@ -176,9 +176,10 @@ if(!class_exists('CPCFF_SUBMISSIONS'))
 		 *
 		 * @param integer, the submission's id.
 		 * @param mixed, associative array with the submission data or a stdClass.
+		 * @param int|null $expected_paid Optional atomic paid-state precondition.
 		 * @return mixed, the submission' id or false.
 		 */
-		static public function update($submission_id, $data)
+		static public function update($submission_id, $data, $expected_paid = null)
 		{
 			global $wpdb;
 			self::_init();
@@ -198,14 +199,20 @@ if(!class_exists('CPCFF_SUBMISSIONS'))
 				$format = self::_format($data);
 
 				unset(self::$_submissions_cache[$submission_id]);
+				$where = array('id'=>$submission_id);
+				$where_format = array('%d');
+				if ($expected_paid !== null) {
+					$where['paid'] = (int)$expected_paid;
+					$where_format[] = '%d';
+				}
 
 				if(
 					$wpdb->update(
 						CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME,
 						$data,
-						array('id'=>$submission_id),
+						$where,
 						$format,
-						array('%d')
+						$where_format
 					)
 				)
 				{

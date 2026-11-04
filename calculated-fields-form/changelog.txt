@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.5.2.7 =
+
+* Fixes an issue with custom css rules in fields and form.
+* Enhances the mechanism that verifies and validates calculated prices. We would like to extend special thanks to Zackary Loevseth (security researcher at HayosoAi) for his contribution in identifying and validating the weakness in the plugin's original method.
+
 = 5.5.2.6 =
 
 * Fixes an error for undeclared constants.
