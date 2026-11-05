@@ -302,26 +302,6 @@ if(!class_exists('CPCFF_SUBMISSIONS'))
 					$data = $submission_obj->paypal_post;
 				}
 
-				$_resolve_title = static function ( $key ) use ( &$fields_list ) {
-					if (
-						! empty( $fields_list[ $key ] ) &&
-						property_exists( $fields_list[ $key ], 'title' ) &&
-						! empty( $fields_list[ $key ]->title )
-					) {
-						return preg_replace( array( '/^\s+/', '/\s*\:*\s*$/' ), '', $fields_list[ $key ]->title );
-					}
-					return $key;
-				};
-
-				$_format_value = static function ( $value ) {
-					if ( is_array( $value ) ) $value = implode( ', ', $value );
-					return preg_replace( '/^\s*\:*\s*/', '', $value );
-				};
-
-				$_emit = static function ( $title, $value ) use ( &$summary, $chln ) {
-					$summary .= ( $title !== '' ? $title . ": " : '' ) . $value . $chln;
-				};
-
 				foreach ( $data as $field_name => $field_value ) {
 					$field_name = strtolower( $field_name );
 					if ( ! preg_match( '/^fieldname\d+$/', $field_name ) ) continue;
@@ -333,11 +313,11 @@ if(!class_exists('CPCFF_SUBMISSIONS'))
 								$sub_key = strtolower( $sub_key );
 								// Skip file-companion sub-keys; the file field itself emits one line via its joined filenames (cp_calculatedfieldsf_platinum.php:654).
 								if ( preg_match( '/^fieldname\d+_(url|path|link|paths|urls|links|name)$/', $sub_key ) ) continue;
-								$_emit( $_resolve_title( $sub_key ), $_format_value( $sub_value ) );
+								$summary .= self::_summary_line( $sub_key, $sub_value, $fields_list, $chln );
 							}
 						}
 					} else {
-						$_emit( $_resolve_title( $field_name ), $_format_value( $field_value ) );
+						$summary .= self::_summary_line( $field_name, $field_value, $fields_list, $chln );
 					}
 				}
 			} catch ( Exception $err ) {
@@ -399,6 +379,37 @@ if(!class_exists('CPCFF_SUBMISSIONS'))
 		} // End parsing_fields_on_text
 
 		/*********************************** PRIVATE METHODS  ********************************************/
+
+		/**
+		 * Resolves a summary label from the form fields, falling back to the field name.
+		 */
+		static private function _summary_title( $key, $fields_list ) {
+			if (
+				! empty( $fields_list[ $key ] ) &&
+				property_exists( $fields_list[ $key ], 'title' ) &&
+				! empty( $fields_list[ $key ]->title )
+			) {
+				return preg_replace( array( '/^\s+/', '/\s*\:*\s*$/' ), '', $fields_list[ $key ]->title );
+			}
+			return $key;
+		}
+
+		/**
+		 * Formats a submitted value for the summary.
+		 */
+		static private function _summary_value( $value ) {
+			if ( is_array( $value ) ) $value = implode( ', ', $value );
+			return preg_replace( '/^\s*\:*\s*/', '', $value );
+		}
+
+		/**
+		 * Builds a summary line using named methods instead of variable function calls.
+		 */
+		static private function _summary_line( $key, $value, $fields_list, $chln ) {
+			$title = self::_summary_title( $key, $fields_list );
+			$value = self::_summary_value( $value );
+			return ( $title !== '' ? $title . ": " : '' ) . $value . $chln;
+		}
 
 		/**
 		 * Initializes the $_structure property with the names of columns and datatype in the submissions database's table.

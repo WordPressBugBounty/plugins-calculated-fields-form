@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.5.2.8 =
+
+* Replaces PHP closures with private static methods.
+
 = 5.5.2.7 =
 
 * Fixes an issue with custom css rules in fields and form.
