@@ -30,6 +30,10 @@ if(!class_exists('CPCFF_ADDONS'))
 				if( file_exists( $path ) )
 				{
 					$addons = dir( $path );
+					if( $addons === false )
+					{
+						return;
+					}
 					while( false !== ( $entry = $addons->read() ) )
 					{
 						if( strlen( $entry ) > 3 && strtolower( pathinfo( $entry, PATHINFO_EXTENSION) ) == 'php' )
@@ -37,6 +41,7 @@ if(!class_exists('CPCFF_ADDONS'))
 							require_once $addons->path.'/'.$entry;
 						}
 					}
+					$addons->close();
 				}
 			}
 

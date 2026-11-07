@@ -513,10 +513,9 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 						$url .= '?' . implode( '&', $parts );
 					}
 				}
-
+				$url = str_ireplace( array( '&amp;', '&#038;', '&#38;', '&#x26;' ), '&', $url );
 				$parts = parse_url( $url );
 				if ( ! empty( $parts['query'] ) ) {
-					$parts['query'] = html_entity_decode( $parts['query'], ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 					parse_str( $parts['query'], $query_params );
 					if ( ! empty( $query_params ) ) {
 						foreach ( $query_params as $param_name => $param_value ) {

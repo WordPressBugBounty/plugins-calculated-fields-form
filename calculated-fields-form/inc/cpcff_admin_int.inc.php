@@ -1028,7 +1028,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                     </div>
                     <div class="cff-premium-actions">
                         <a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="button-primary"><?php esc_html_e('Go Professional', 'calculated-fields-form'); ?></a>
-                        <a href="admin.php?page=cp_calculated_fields_form&cal=7&_cpcff_nonce=9f6fe85ce5&cff-install-trial=1#cff-upgrade-frame" class="button-secondary"><?php esc_html_e('Try the trial version', 'calculated-fields-form'); ?></a>
+                        <a href="<?php echo esc_url( 'admin.php?page=cp_calculated_fields_form&cal=' . CP_CALCULATEDFIELDSF_ID . '&_cpcff_nonce=' . wp_create_nonce( 'cff-form-settings' ) . '&cff-install-trial=1#cff-upgrade-frame' ); ?>" class="button-secondary"><?php esc_html_e('Try the trial version', 'calculated-fields-form'); ?></a>
                     </div>
                 </div>
             </div>
