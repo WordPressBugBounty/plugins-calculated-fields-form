@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.5.2.9 =
+
+* Preprocess default field values received through URL parameters to prevent their execution as JavaScript when calculated field equations access them as raw values. Special thanks to Peter Tang and Patchstack for reporting this issue.
+
 = 5.5.2.8 =
 
 * Replaces PHP closures with private static methods.

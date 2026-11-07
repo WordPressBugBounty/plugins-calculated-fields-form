@@ -40,9 +40,7 @@
                     no_quotes = no_quotes || false;
 					var e = (disable_ignore_check) ? $('[id="'+this.name+'"]') : $('[id="'+this.name+'"]:not(.ignore)'),
 						v = e.length ? e.val() : (raw ? '' : 0);
-					v = $.fbuilder.parseValStr(v, raw, no_quotes);
-					if(!raw) v = String(v).replace(/[\n\r]+/g, ' ');
-					else if(!no_quotes) v = String(v).replace(/^"/, "`").replace(/"$/, "`");
+					v = $.fbuilder.parseValStr(v, raw, no_quotes, true);
 					return v;
 				},
 			setVal:function( v, nochange )

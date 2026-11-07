@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.2.8
+Stable tag: 5.5.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.5.2.9 =
+
+* Preprocess default field values received through URL parameters to prevent their execution as JavaScript when calculated field equations access them as raw values. Special thanks to Peter Tang and Patchstack for reporting this issue.
+
 = 5.5.2.8 =
 
 * Replaces PHP closures with private static methods.
@@ -495,10 +499,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 * Updates the list of supported AI models.
 * Fixes an issue with custom CSS rules in the Advanced Settings tab.
-
-= 5.5.2.4 =
-
-* Ensures the 'Pay Later' option appears last in the list of payment options.
-* Updates the Signature add-on to support pages with deferred scripts.
-* Adds a mechanism to validate the submitted price.
-* Improves the Stripe integration module.

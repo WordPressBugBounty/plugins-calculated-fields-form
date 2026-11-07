@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.5.2.8';
+	$.fbuilder['version'] = '5.5.2.9';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -12,14 +12,18 @@
 			context = context || {};
 			const unique = 'cff_code_'+Math.random().toString(36).replace(/[^a-z]+/g, '').slice(0, 6);
 			const unique_error = unique+'_error';
-			let str = '<script id="'+unique+'">try{';
+			let str = 'try{';
 			for (let key in context) {
 				if (context.hasOwnProperty(key)) {
 					str += 'let '+key+'='+JSON.stringify(context[key])+';';
 				}
 			}
-			str += unique+'='+toEval+'}catch(err){'+unique_error+'=err;}</script>';
-			$('body').append(str);
+			str += unique + '=' + toEval + '}catch(err){' + unique_error + '=err;}';
+
+			const script = document.createElement('script');
+			script.id = unique;
+			script.textContent = str;
+			document.body.appendChild(script);
 			$('[id="'+unique+'"]').remove();
 
 			if ( unique_error in window ) {
@@ -159,14 +163,30 @@
 		return (typeof value == 'string') ? value.replace(/([\^\$\-\.\,\[\]\(\)\/\\\*\?\+\!\{\}])/g, "\\$1") : value;
 	};
 
-	$.fbuilder[ 'parseValStr' ] = function( value, raw, no_quotes )
+	$.fbuilder['jsStringLiteral'] = function (value) {
+		if (value === null || typeof value == 'undefined') value = '';
+		value = String(value);
+		return (typeof JSON != 'undefined' && typeof JSON.stringify == 'function')
+			? JSON.stringify(value)
+			: '"' + value.replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
+	};
+
+	$.fbuilder[ 'parseValStr' ] = function( value, raw, no_quotes, collapse_newlines )
 	{
 		raw = raw || false;
         no_quotes = no_quotes || false;
+		collapse_newlines = collapse_newlines || false;
 		value = String(value || '').trim();
-		value = value.replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/"/g, '\\"');
-		var r = ($.fbuilder.isNumeric(value)) ? ((raw) ? value : value*1) : ((no_quotes) ? value : '"' + value + '"');
-		return raw ? r : ( window.cffsanitize != undefined ? cffsanitize( r, true ) : r );
+		var v = ( !raw && window.cffsanitize != undefined ) ? cffsanitize( value, true ) : value;
+		if ( !raw && collapse_newlines ) v = String(v).replace(/[\n\r]+/g, ' ');
+		if ( $.fbuilder.isNumeric(value) ) return (raw) ? value : value*1;
+		if ( no_quotes )
+		{
+			// Unquoted token: it is spliced into the equation as a bare token, so
+			// quotes and backslashes keep the legacy escaping.
+			return v.replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/"/g, '\\"');
+		}
+		return $.fbuilder[ 'jsStringLiteral' ]( v );
 	};
 
 	$.fbuilder[ 'parseVal' ] = function( value, thousand, decimal, no_quotes )
