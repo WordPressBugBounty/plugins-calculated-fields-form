@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-11-04 04:45+0100\n"
-"PO-Revision-Date: 2026-11-04 04:46+0100\n"
+"POT-Creation-Date: 2026-11-09 22:02+0100\n"
+"PO-Revision-Date: 2026-11-09 22:03+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -306,8 +306,9 @@ msgstr ""
 msgid "Copy message"
 msgstr ""
 
-#: inc/cpcff_admin_ai_assistant.inc.php:129 inc/cpcff_mcp_server.inc.php:183
-#: inc/cpcff_mcp_server.inc.php:210 inc/cpcff_mcp_server.inc.php:237
+#: inc/cpcff_admin_ai_assistant.inc.php:129 inc/cpcff_mcp_server.inc.php:133
+#: inc/cpcff_mcp_server.inc.php:334 inc/cpcff_mcp_server.inc.php:361
+#: inc/cpcff_mcp_server.inc.php:387
 msgid "Copied !!!"
 msgstr ""
 
@@ -1850,7 +1851,7 @@ msgstr ""
 msgid "Delete selected"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:611 inc/cpcff_mcp_server.inc.php:164
+#: inc/cpcff_admin_int_list.inc.php:611 inc/cpcff_mcp_server.inc.php:298
 msgid "Apply"
 msgstr ""
 
@@ -2230,12 +2231,12 @@ msgstr ""
 
 #: inc/cpcff_admin_int_message_list.inc.php:333
 #: inc/cpcff_admin_int_message_list.inc.php:335
-#: inc/cpcff_auxiliary.inc.php:1318
+#: inc/cpcff_auxiliary.inc.php:1317
 msgid "Paid"
 msgstr ""
 
 #: inc/cpcff_admin_int_message_list.inc.php:338
-#: inc/cpcff_auxiliary.inc.php:1318
+#: inc/cpcff_auxiliary.inc.php:1317
 msgid "Not Paid"
 msgstr ""
 
@@ -3216,7 +3217,7 @@ msgid ""
 "email functionality."
 msgstr ""
 
-#: inc/cpcff_form.inc.php:603
+#: inc/cpcff_form.inc.php:595
 msgid ""
 "Settings were not saved. The server-side equation is invalid or exceeds its "
 "limits. Use only supported numeric expressions and form fields, or leave it "
@@ -3385,137 +3386,252 @@ msgid ""
 "with the iframe attribute set to 1, e.g.:"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:116
-msgid "Connecting AI Agent to the WordPress site via MCP"
+#: inc/cpcff_mcp_server.inc.php:89
+msgid "You do not have permission to do this."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:125
+#: inc/cpcff_mcp_server.inc.php:93 inc/cpcff_mcp_server.inc.php:278
+msgid ""
+"Application passwords are not available on this site. They need a secure "
+"(https) address."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:97 inc/cpcff_mcp_server.inc.php:280
+msgid ""
+"This site is protected by a basic authentication password, so application "
+"passwords cannot be used."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:129
+msgid "Step 2 - Run this command"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:131
+msgid ""
+"Copy the command below and paste it in the terminal of your computer (the "
+"window where you type commands: on Windows press Win + R, type cmd and press "
+"Enter; on macOS open the Terminal application). Then press Enter."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:133
+msgid "Copy the following command:"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:133 inc/cpcff_mcp_server.inc.php:334
+#: inc/cpcff_mcp_server.inc.php:361 inc/cpcff_mcp_server.inc.php:387
+msgid "Copy to clipboard"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:145
+msgid "Create a password for me"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:209 inc/cpcff_mcp_server.inc.php:215
+msgid ""
+"You can run the command from any folder: the connection is saved in your "
+"user account, so the assistant finds it wherever you work."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:223
+msgid "Connect your AI assistant to this site"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:232
 msgid "Video tutorial"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:125
-msgid "Analizing forms submissions"
+#: inc/cpcff_mcp_server.inc.php:232
+msgid "Analyzing form submissions"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:128
+#: inc/cpcff_mcp_server.inc.php:235
 #: widgets/widget.cff-form/cff-form.widget.php:100
 msgid "Close"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:132
+#: inc/cpcff_mcp_server.inc.php:239
 msgid ""
-"The instructions below use <strong>OpenCode</strong> as an example, but the "
-"same endpoint and credentials work with <strong>Claude Desktop</strong>, "
-"<strong>Cursor</strong>, <strong>Windsurf</strong>, <strong>Cline</strong>, "
-"and any other MCP-compatible tool, only the configuration file format may "
-"differ slightly."
+"Three steps and about two minutes: <strong>1)</strong> create a password for "
+"the assistant, <strong>2)</strong> run one command in the terminal, "
+"<strong>3)</strong> check that the assistant can read the forms and the "
+"submissions of this site. Choose below the tool you use to talk with the AI. "
+"<strong>Claude Desktop</strong>, <strong>Cursor</strong>, <strong>Windsurf</"
+"strong> and <strong>Cline</strong> also work with this site: they use the "
+"same configuration format shown below, but each one keeps it in its own "
+"settings file."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:135
+#: inc/cpcff_mcp_server.inc.php:242
 msgid "Step 1 - Create an Application Password"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:142
+#: inc/cpcff_mcp_server.inc.php:243
+msgid "The assistant needs a password to connect to this site."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:250
 #, php-format
 msgid ""
-"✅ User <b>%s</b> already has an application password named <b>%s</b>."
-"<br>Use its value for <code>WP_PASSWORD</code> below. If you no longer have "
-"it, delete it and create a new one in <a href=\"%s\" target=\"_blank\">your "
-"profile → Application Passwords</a>."
+"✅ You already have an application password.<br>If you still have its value, "
+"type it in the field and press Apply. If you do not have it, press the "
+"\"%1$s\" button and the site will create a new one for you."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:155
+#: inc/cpcff_mcp_server.inc.php:261
 #, php-format
 msgid ""
-"⚠️ User <b>%s</b> has no application password yet. <a href=\"%s\" "
-"target=\"_blank\">Go to your profile → Application Passwords</a>, enter a "
-"name (e.g. <i>AI Agent</i>), click <strong>Add New Application Password</"
-"strong>, and copy the generated value - it will only be shown once."
+"⚠️ You do not have an application password yet.<br>The site can create one "
+"for you by pressing the \"%1$s\" button, or you can create one yourself in "
+"<a href=\"%2$s\" target=\"_blank\" rel=\"noopener\">your profile → "
+"Application Passwords</a>."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:164
-msgid "Enter the application password"
+#: inc/cpcff_mcp_server.inc.php:276
+msgid "Application passwords are not available on this site."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:177
-msgid "Step 2 - Create the <code>opencode.json</code> file"
+#: inc/cpcff_mcp_server.inc.php:288
+msgid "Create a new password"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:179
+#: inc/cpcff_mcp_server.inc.php:289
+msgid "The site creates it for you and fills it in automatically."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:297
+msgid "Use a password you already have"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:298
+msgid "Paste the application password"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:299
+msgid "Paste your password and press Apply. Steps 2 and 3 appear after that."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:310
+#, php-format
 msgid ""
-"Create a file named <code>opencode.json</code> inside your project root "
-"folder (affects only that project):"
+"Do you want to revoke a password? You can remove your application passwords "
+"in <a href=\"%s\" target=\"_blank\" rel=\"noopener\">your profile → "
+"Application Passwords</a>."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:183 inc/cpcff_mcp_server.inc.php:210
-#: inc/cpcff_mcp_server.inc.php:237
+#: inc/cpcff_mcp_server.inc.php:317
+msgid "Which tool do you use to talk with the AI?"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:328
+msgid ""
+"Only if you prefer to do it by hand - the <code>opencode.json</code> file"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:330
+msgid ""
+"Open the file <code>opencode.json</code> in your user settings folder with "
+"any text editor and paste the content below. If the file already exists, add "
+"the block at the end and keep the rest of the content:"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:334 inc/cpcff_mcp_server.inc.php:361
+#: inc/cpcff_mcp_server.inc.php:387
 msgid "Copy the following content into the file:"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:183 inc/cpcff_mcp_server.inc.php:210
-#: inc/cpcff_mcp_server.inc.php:237
-msgid "Copy to clipboard"
-msgstr ""
-
-#: inc/cpcff_mcp_server.inc.php:187 inc/cpcff_mcp_server.inc.php:214
-#: inc/cpcff_mcp_server.inc.php:241
+#: inc/cpcff_mcp_server.inc.php:338 inc/cpcff_mcp_server.inc.php:365
+#: inc/cpcff_mcp_server.inc.php:391
 msgid ""
-"Replace the <code>WP_PASSWORD</code> placeholders with the Application "
-"Password copied previously."
+"The password has already been filled in for you. Save the file and you are "
+"done."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:191 inc/cpcff_mcp_server.inc.php:218
-#: inc/cpcff_mcp_server.inc.php:245
-msgid "Step 3 - Verify the connection"
+#: inc/cpcff_mcp_server.inc.php:342 inc/cpcff_mcp_server.inc.php:369
+#: inc/cpcff_mcp_server.inc.php:395
+msgid "Step 3 - Check the connection"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:193
+#: inc/cpcff_mcp_server.inc.php:344
 msgid ""
-"Launch OpenCode inside your project folder. You can verify the MCP server is "
-"reachable by running \"List tools\" command"
+"Now start your assistant as usual: type opencode in the terminal. You must "
+"see three tools named get-entries, ai-form-bootstrap and issue-preview-url."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:196
+#: inc/cpcff_mcp_server.inc.php:347
 msgid ""
-"A successful response lists all available tools in JSON format. If you see "
-"an error, double-check your application password."
+"If you do not see them, repeat the command with the correct application "
+"password."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:204
-msgid "Step 2 - Create the <code>.mcp.json</code> file"
-msgstr ""
-
-#: inc/cpcff_mcp_server.inc.php:206
+#: inc/cpcff_mcp_server.inc.php:355
 msgid ""
-"Create a file named <code>.mcp.json</code> inside your project root folder "
-"(affects only that project):"
+"Only if you prefer to do it by hand - the <code>.claude.json</code> file"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:220
+#: inc/cpcff_mcp_server.inc.php:357
 msgid ""
-"Launch Claude Code inside your project folder. You can verify the MCP server "
-"is reachable by running \"/mcp\" command"
+"Open the file <code>.claude.json</code> in your user settings folder with "
+"any text editor and paste the content below. If the file already exists, add "
+"the block at the end and keep the rest of the content. Claude Desktop, "
+"Cursor, Windsurf and Cline use this same format from their own settings file:"
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:223
+#: inc/cpcff_mcp_server.inc.php:371
 msgid ""
-"There, you’ll see the status (Connected, Pending approval, Failed to "
-"connect) and the number of exposed tools. If you see an error, double-check "
-"your application password."
+"Now start Claude Code as usual: type claude in the terminal and then type /"
+"mcp. The status of this site must be Connected."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:231
-msgid "Step 2 - Create the <code>config.toml</code> file"
-msgstr ""
-
-#: inc/cpcff_mcp_server.inc.php:233
+#: inc/cpcff_mcp_server.inc.php:374
 msgid ""
-"Create a file named <code>config.toml</code> inside your project root folder "
-"(affects only that project):"
+"If the status is not connected, repeat the command with the correct "
+"application password."
 msgstr ""
 
-#: inc/cpcff_mcp_server.inc.php:247
-msgid "Execute the following batch into the project folder:"
+#: inc/cpcff_mcp_server.inc.php:381
+msgid "Step 2 - Add the server to the Codex settings file"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:383
+msgid ""
+"Codex cannot register a server with a password from the command line, so it "
+"needs a settings file instead. Open the file <code>config.toml</code> in "
+"your user settings folder with any text editor, add the block below at the "
+"end of the file and save it. If the file does not exist, create it:"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:396
+msgid "Now type this command in the terminal:"
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:399
+msgid ""
+"You must see wordpress-cff-mcp in the list. If it does not appear, repeat "
+"the command with the correct application password."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:412
+msgid ""
+"The password was created and filled in for you. You can copy the command "
+"below."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:413
+msgid "The site could not create the password. Reload the page and try again."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:414
+msgid "The site did not answer in time. Try again."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:625
+msgid "Too many failed attempts. Wait a few minutes and try again."
+msgstr ""
+
+#: inc/cpcff_mcp_server.inc.php:636 inc/cpcff_mcp_server.inc.php:643
+#: inc/cpcff_mcp_server.inc.php:649 inc/cpcff_mcp_server.inc.php:674
+#: inc/cpcff_mcp_server.inc.php:718
+msgid "Unauthorized"
 msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:177

@@ -68,10 +68,6 @@
 			init:function()
 				{
 					$.fbuilder.controls[ 'ffields' ].prototype.init.call(this);
-					if(this.timeslotsDuration === '') {
-						this.timeslotsDuration = 30;
-						this.generateTimeslots();
-					}
 				},
 			display:function( css_class )
 				{
@@ -190,6 +186,18 @@
 					});
 
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this, evt);
+					let reload = false;
+					if(this.timeslotsDuration === '') {
+						this.timeslotsDuration = 30;
+						reload = true;
+					}
+					if(me.timeslots.length === 0) {
+						me.generateTimeslots();
+						reload = true;
+					}
+					if(reload) {
+						$.fbuilder.reloadItems({'field':me});
+					}
 				},
 			generateTimeslots: function()
 				{

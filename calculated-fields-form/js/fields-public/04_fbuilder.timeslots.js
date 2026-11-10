@@ -36,6 +36,7 @@
 			minMinute:0,
 			maxMinute:59,
 			timeslotsDuration:"",
+			betweenDuration:0,
 			sameForAllDays:true,
 			preventEarlierSlots:true,
 			maxSlotsPerSubmission:"",
@@ -52,6 +53,62 @@
 						if (v < 10) return '0'+v;
 					}
 					return v;
+				},
+			_generateTimeslots: function()
+				{
+					if ( this.timeslots.length ) return;
+					if ( this.timeslotsDuration === '' ) this.timeslotsDuration = 30;
+					let duration 	= parseInt(this.timeslotsDuration) || 0;
+					let between 	= parseInt(this.betweenDuration) || 0;
+					let week_days   = this.working_dates;
+					let all_days    = this.sameForAllDays;
+					let bk_timeslots= this.timeslots;
+					let timeslots 	= [];
+
+					if ( duration ) {
+						for ( let i = 0, h = week_days.length; i < h; i++ ) {
+							let timeslots_day = [];
+							let start = this.minHour * 60 + this.minMinute * 1;
+							let end = this.maxHour * 60 + this.maxMinute * 1;
+							let bk_index = 0;
+							let bk_length = i in bk_timeslots ? bk_timeslots[i].length : 0;
+
+							while ( start < end ) {
+								let _start 		= start;
+								let _end   		= Math.min(_start+duration, end);
+								let _active     = true;
+								while ( bk_index < bk_length ) {
+									if (
+										bk_timeslots[i][bk_index]['start'] <= _start && _start < bk_timeslots[i][bk_index]['end'] ||
+										_start <= bk_timeslots[i][bk_index]['start'] && bk_timeslots[i][bk_index]['end'] <= _end ||
+										bk_timeslots[i][bk_index]['start'] < _end && _end <= bk_timeslots[i][bk_index]['end']
+									) {
+										_active = bk_timeslots[i][bk_index]['active'];
+										break;
+									}
+
+									bk_index++;
+								}
+
+								let _timeslot 	= {start: _start, end : _end, duration: _end - _start, active: _active };
+
+								timeslots_day.push( _timeslot );
+								start = _end+between;
+							}
+							timeslots.push( timeslots_day );
+							if ( all_days ) {
+								timeslots.push( timeslots_day );
+								timeslots.push( timeslots_day );
+								timeslots.push( timeslots_day );
+								timeslots.push( timeslots_day );
+								timeslots.push( timeslots_day );
+								timeslots.push( timeslots_day );
+								break;
+							}
+						} // End timeslots generation.
+					}
+
+					this.timeslots = timeslots;
 				},
 			_slot_components : function( slot )
 				{
@@ -332,13 +389,6 @@
 							return result;
 						};
 
-					// Timeslots.
-					for ( let d in me.timeslots ) {
-						for (  let s in me.timeslots[d] ) {
-							me.timeslots[d][s]['slot'] = me._two_digits(me.timeslots[d][s]['start']/60)+':'+me._two_digits(me.timeslots[d][s]['start']%60)+' - '+me._two_digits(me.timeslots[d][s]['end']/60)+':'+me._two_digits(me.timeslots[d][s]['end']%60);
-						}
-					}
-
 					// Date
 					me.dformat		= me.dformat.replace(/\//g, me.dseparator);
 					if( typeof me.invalidDates == 'string' ) me.invalidDates = _preprocessDates(me.invalidDates.replace(/\s+/g, ''));
@@ -355,6 +405,14 @@
 					// Set handles
 					me._setHndl('minDate');
 					me._setHndl('maxDate');
+
+					// Timeslots.
+					me._generateTimeslots();
+					for ( let d in me.timeslots ) {
+						for (  let s in me.timeslots[d] ) {
+							me.timeslots[d][s]['slot'] = me._two_digits(me.timeslots[d][s]['start']/60)+':'+me._two_digits(me.timeslots[d][s]['start']%60)+' - '+me._two_digits(me.timeslots[d][s]['end']/60)+':'+me._two_digits(me.timeslots[d][s]['end']%60);
+						}
+					}
                 },
 			show_timeslots:function()
 				{
@@ -475,7 +533,7 @@
 			set_defaultDate : function(init)
 				{
 					var me  = this,
-						aux = function (v) { 
+						aux = function (v) {
 							if (v === null || v === undefined) return undefined;
 							if (typeof v === 'number' && isFinite(v)) return v;
 							if (v instanceof Date && !isNaN(v.getTime())) return v;
