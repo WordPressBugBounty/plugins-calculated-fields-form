@@ -23,12 +23,59 @@ wp_enqueue_style('cff-select2-css', plugins_url('/vendors/select2/select2.min.cs
 wp_enqueue_script('cff-select2-js', plugins_url('/vendors/select2/select2.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array("jquery"), CP_CALCULATEDFIELDSF_VERSION);
 wp_enqueue_style('cff-coloris-css', plugins_url('/vendors/coloris/coloris.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH));
 wp_enqueue_script('cff-coloris-js', plugins_url('/vendors/coloris/coloris.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH));
+$cff_modern_builder = CPCFF_BUILDER_DESIGN::modern();
+if ( $cff_modern_builder ) {
+wp_enqueue_script('cff-builder-workspace', plugins_url('/js/builder-workspace.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array('jquery'), CP_CALCULATEDFIELDSF_VERSION, true);
+wp_localize_script('cff-builder-workspace', 'cffBuilderWorkspace', array(
+    'fields' => __('Fields', 'calculated-fields-form'),
+    'appearance' => __('Form', 'calculated-fields-form'),
+    'settings' => __('Settings', 'calculated-fields-form'),
+    'payments' => __('Payments', 'calculated-fields-form'),
+    'addons' => __('Add-ons', 'calculated-fields-form'),
+    'generalSettings' => __('General settings', 'calculated-fields-form'),
+    'overview' => __('Overview', 'calculated-fields-form'),
+    'paymentMethods' => __('Payment methods', 'calculated-fields-form'),
+    'addonSettings' => __('Add-on settings', 'calculated-fields-form'),
+    'payLater' => __('Pay later', 'calculated-fields-form'),
+    'noAddonSettings' => __('There are no active add-on settings for this form.', 'calculated-fields-form'),
+    'manageAddons' => __('Marketplace', 'calculated-fields-form'),
+    'manageAddonsUrl' => 'https://cff-bundles.dwbooster.com',
+    'manageAddonsNewWindow' => true,
+    'upgrade' => __('Upgrade', 'calculated-fields-form'),
+    'tools' => __('Tools', 'calculated-fields-form'),
+    'revisions' => __('Revisions', 'calculated-fields-form'),
+    'formActions' => __('Form actions', 'calculated-fields-form'),
+    'resources' => __('Resources & support', 'calculated-fields-form'),
+    'more' => __('More', 'calculated-fields-form'),
+    'embed' => __('Embed', 'calculated-fields-form'),
+    'addFields' => __('Add Fields', 'calculated-fields-form'),
+    'fieldOptions' => __('Field Options', 'calculated-fields-form'),
+    'general' => __('Submission & confirmation', 'calculated-fields-form'),
+    'texts' => __('Button labels & texts', 'calculated-fields-form'),
+    'validation' => __('Validation', 'calculated-fields-form'),
+    'notifications' => __('Notifications', 'calculated-fields-form'),
+    'userEmail' => __('Confirmation email', 'calculated-fields-form'),
+    'captcha' => __('Spam protection', 'calculated-fields-form'),
+    'help' => __('Embed & help', 'calculated-fields-form'),
+    'other' => __('Other settings', 'calculated-fields-form'),
+    'selectField' => __('Select a field in the canvas to edit its options.', 'calculated-fields-form'),
+    'changes' => __('Unsaved changes', 'calculated-fields-form'),
+    'saved' => __('All changes saved', 'calculated-fields-form'),
+    'ready' => __('Ready to edit', 'calculated-fields-form'),
+    'navigation' => __('Form builder navigation', 'calculated-fields-form'),
+    'unavailable' => __('This section is not available in this edition or configuration.', 'calculated-fields-form'),
+    'fallbackUrl' => CPCFF_BUILDER_DESIGN::classic_url( absint( $_GET['cal'] ) ),
+));
+}
 
 if (! defined('CP_CALCULATEDFIELDSF_ID')) {
     define('CP_CALCULATEDFIELDSF_ID', isset($_GET['cal']) && is_numeric($_GET['cal']) ? intval($_GET['cal']) : 0);
 }
 
 $admin_url = 'admin.php?page=cp_calculated_fields_form&cal=' . CP_CALCULATEDFIELDSF_ID . '&_cpcff_nonce=' . urlencode($_cpcff_form_settings_nonce) . '&r=' . mt_rand();
+if ( CPCFF_BUILDER_DESIGN::classic_request() ) {
+    $admin_url = add_query_arg( 'cff_builder_design', 'classic', $admin_url );
+}
 
 $cpcff_main = CPCFF_MAIN::instance();
 $form_obj   = $cpcff_main->get_form(intval($_GET['cal']));
@@ -61,7 +108,8 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="color:#fc6756;">' . esc_html__('Email copy to user', 'calculated-fields-form') . '</a><span>]</span>
  </div>';
 ?>
-<div class="wrap cff-form-builder-backend">
+<?php if ( $cff_modern_builder ) : ?><div class="cff-builder-loading-message" role="status"><?php esc_html_e( 'Loading form builder...', 'calculated-fields-form' ); ?></div><?php endif; ?>
+<div class="wrap cff-form-builder-backend"<?php if ( $cff_modern_builder ) echo ' data-cff-workspace'; ?>>
     <div class="cff-navigation-main-menu" style="margin-bottom:10px;">
         <a href="admin.php?page=cp_calculated_fields_form_sub_new" class="button-primary"><?php esc_html_e('Add New', 'calculated-fields-form'); ?></a>
         <a href="admin.php?page=cp_calculated_fields_form" class="button-secondary"><?php esc_html_e('Back to forms list...', 'calculated-fields-form'); ?></a>
@@ -70,17 +118,22 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_using_ai_agents.inc.php';
 		?>
         <span><?php include_once dirname(__FILE__) . '/cpcff_video_tutorial.inc.php'; ?></span>
+        <?php CPCFF_BUILDER_DESIGN::render_switch( CP_CALCULATEDFIELDSF_ID ); ?>
     </div>
-    <h1 class="cff-form-name">
-        <?php
-        print esc_html__('Form', 'calculated-fields-form') . ' ' . esc_html(CP_CALCULATEDFIELDSF_ID) . ' - ' . esc_html($form_obj->get_option('form_name', '')) . ' | Shortcode: [CP_CALCULATED_FIELDS id="' . esc_html(CP_CALCULATEDFIELDSF_ID) . '"]';
+	<div class="cff-workspace-heading<?php if ( ! $cff_modern_builder ) echo ' cff-classic-heading'; ?>">
+		<?php if ( $cff_modern_builder ) : ?>
+		<div class="cff-workspace-brand"><span class="cff-workspace-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="8" y="8" width="48" height="48" rx="5" fill="#fff"/><g stroke="#1d2327" stroke-width="3" stroke-linecap="round"><path d="M14 24h16M22 16v16M34 40h16M48 16L16 48"/></g></svg></span><span>Calculated Fields Form<span class="cff-workspace-eyebrow"><?php esc_html_e('Form Builder', 'calculated-fields-form'); ?></span></span></div>
+		<?php endif; ?>
+    <h1 class="cff-form-name"><?php
+		print esc_html( $form_obj->get_option( 'form_name', '' ) );
+	?></h1>
+	<div class="cff-workspace-meta"><span class="cff-workspace-id"><?php print esc_html__('Form', 'calculated-fields-form') . ' ' . esc_html(CP_CALCULATEDFIELDSF_ID); ?></span><code><?php print '[CP_CALCULATED_FIELDS id="' . esc_html(CP_CALCULATEDFIELDSF_ID) . '"]'; ?></code><?php
 
 		$url  = CPCFF_AUXILIARY::site_url();
 		$url .= (strpos($url, '?') === false) ? '?' : '&';
 		$url .= 'cff-form=' . CP_CALCULATEDFIELDSF_ID;
-		print '<br><span style="font-size:14px;font-style:italic;">' . esc_html__('Direct form URL', 'calculated-fields-form') . ': <a href="' . esc_attr($url) . '" target="_blank">' . esc_html($url) . '</a></span>';
-        ?>
-    </h1>
+		print '<a href="'.esc_url($url).'" target="_blank" rel="noopener" title="'.esc_attr($url).'">'.esc_html__('Open form', 'calculated-fields-form').' <span aria-hidden="true">&#x2197;</span></a>';
+	?></div></div>
     <?php
     if (file_exists(dirname(__FILE__) . '/__countdown.php')) include dirname(__FILE__) . '/__countdown.php';
     ?>
@@ -201,6 +254,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 										f = $("#fbuilder").fbuilder();
 										window['cff_form'] = f;
 										f.fBuild.loadData( "form_structure", "templates" );
+										setTimeout(function(){ $(document).trigger('cff-builder-ready'); }, 0);
 									};
 
 									if(!('fbuilder' in $.fn))
@@ -215,7 +269,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 										run_fbuilder($);
 									}
 
-									$(".itemForm").on( 'click', function() {
+									$(".itemForm:not([disabled])").on( 'click', function() {
 										f.fBuild.addItem($(this).attr("id"));
 									})
 									.draggable({
@@ -278,11 +332,12 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                                     <li><a href="#tabs-2"><?php esc_html_e('Field Settings', 'calculated-fields-form'); ?></a></li>
                                     <li><a href="#tabs-3"><?php esc_html_e('Form Settings', 'calculated-fields-form'); ?></a></li>
                                 </ul>
-                                <div id="tabs-1"></div>
+								<div id="tabs-1"><?php if ( $cff_modern_builder ) : ?><div class="cff-palette-intro"><h2><?php esc_html_e('Field library', 'calculated-fields-form'); ?></h2><p><?php esc_html_e('Click or drag a field into your form.', 'calculated-fields-form'); ?></p><label class="cff-palette-search"><span class="dashicons dashicons-search" aria-hidden="true"></span><input type="search" id="cff-field-search" placeholder="<?php esc_attr_e('Search fields...', 'calculated-fields-form'); ?>" aria-label="<?php esc_attr_e('Search fields', 'calculated-fields-form'); ?>" /><kbd>/</kbd></label><p class="cff-palette-empty" role="status" hidden><?php esc_html_e('No fields found. Try another search.', 'calculated-fields-form'); ?></p></div><?php endif; ?></div>
                                 <div id="tabs-2"></div>
                                 <div id="tabs-3"></div>
                             </div>
                         </div>
+						<?php if ( $cff_modern_builder ) : ?><div class="cff-canvas-caption"><span><?php esc_html_e('Form canvas', 'calculated-fields-form'); ?></span><span class="cff-canvas-count" aria-label="<?php esc_attr_e('Number of fields', 'calculated-fields-form'); ?>"></span></div><?php endif; ?>
                         <div class="columnr dashboardColumn padding10" id="fbuilder">
                             <div id="formheader"></div>
                             <div id="fieldlist"></div>
@@ -325,7 +380,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                 <div class="cff-popup-icon-separator"></div>
                 <div class="cff-popup-icon">
                     <div class="cff-popup-bubble"><?php esc_html_e('Form Structure', 'calculated-fields-form'); ?></div>
-                    <a href="#cpformconf"><img src="<?php print esc_attr(plugins_url('../images/icons/form.svg', __FILE__)); ?>" alt="<?php esc_attr_e('Form Structure', 'calculated-fields-form'); ?>"></a>
+					<a href="#cpformconf" aria-label="<?php esc_attr_e( 'Form Structure', 'calculated-fields-form' ); ?>"><?php include plugin_dir_path(__FILE__) . '../images/icons/form.svg'; ?></a>
                 </div>
                 <div class="cff-popup-icon">
                     <div class="cff-popup-bubble"><?php esc_html_e('Submit Button and Thank You Page', 'calculated-fields-form'); ?></div>

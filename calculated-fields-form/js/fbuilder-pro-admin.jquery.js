@@ -460,33 +460,39 @@
 		categoryList[19] = categoryList[30];
 		categoryList.splice(30, 1);
 
-		let title_margin = '0';
 		for ( var i in categoryList )
 		{
-			$("#tabs-1").append('<div style="clear:both;"></div><div style="margin-top:' + title_margin + ';font-size:12px;font-weight:600;">'+cff_sanitize(categoryList[ i ].title, true)+'</div><hr />');
-
-			title_margin = '20px;';
-			let category_selector = '';
+			var modernPalette = !!document.querySelector('[data-cff-workspace]');
+			var paletteCategory = modernPalette ? $('<section class="cff-palette-category">').attr('data-category', i).attr('data-title', categoryList[i].title).appendTo('#tabs-1') : $('#tabs-1');
+			$('<h3>').attr('class', modernPalette ? 'cff-palette-category-title' : '').css('clear', 'both').text(categoryList[i].title).appendTo(paletteCategory);
+			var controlsTarget = paletteCategory;
+            if (i == 20) {
+                controlsTarget = $('<div class="data-source-controls-category" role="button" tabindex="0" style="cursor:pointer;">')
+                    .attr('aria-label', categoryList[i].title)
+                    .on('click', function () {
+                        $('#cff-video-tutorial-ds-modal').css({'opacity': 0, 'display': 'block'}).animate({'opacity': 1}, 'fast');
+                    })
+                    .on('keydown', function (event) {
+                        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }
+                    })
+                    .appendTo(paletteCategory);
+            }
 
 			if( typeof categoryList[ i ][ 'typeList' ]  != 'undefined' )
 			{
 				for( var j = 0, k = categoryList[ i ].typeList.length; j < k; j++ )
 				{
 					var index = categoryList[ i ].typeList[ j ];
-					$("#tabs-1"+category_selector).append('<div '+(i == 20 ? 'disabled style="pointer-events:none;"' : '')+' class="button itemForm width48" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'" tabindex="0">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
+                    controlsTarget.append('<div '+(i == 20 ? 'disabled style="pointer-events:none;"' : '')+' class="button itemForm width48" id="'+typeList[ index ].id+'" aria-label="'+cff_esc_attr(typeList[ index ].name)+'" title="'+cff_esc_attr(typeList[ index ].name)+'" tabindex="'+(i == 20 ? '-1' : '0')+'">'+cff_sanitize(typeList[ index ].name, true)+'</div>');
 				}
 			}
 
 			if( typeof categoryList[ i ][ 'description' ] != 'undefined' && !/^\s*$/.test( categoryList[ i ][ 'description' ] ) )
 			{
-				$("#tabs-1").append('<div class="category-description" style="display:block;clear:both;">'+categoryList[ i ].description+'</div>');
+				paletteCategory.append('<div class="category-description" style="display:block;clear:both;">'+categoryList[ i ].description+'</div>');
 			}
 
-			if ( i == 20 ) {
-				category_selector = ' .data-source-controls-category';
-				$("#tabs-1").append('<div class="data-source-controls-category" style="cursor:pointer;" onclick="fbuilderjQuery(\'#cff-video-tutorial-ds-modal\').css({\'opacity\':0,\'display\':\'block\'}).animate({\'opacity\':1}, \'fast\');"></div>');
-				$("#tabs-1 .data-source-controls-category").append('<div style="clear:both;"></div>');
-			}
+			if (i == 20 && !modernPalette) controlsTarget.append('<div style="clear:both;"></div>');
 		}
 
 		$("#tabs-1").append('<div class="clearer"></div>');
@@ -1596,6 +1602,7 @@
 						{
 							str = "["+ itemsStringified +",["+ theFormStringified +"]]";
 							$( "#"+f ).val( str );
+							$(document).trigger('cff-builder-data-updated');
 						}
 						else
 						{
@@ -1671,7 +1678,7 @@
 	    this.fBuild = ffunct;
 
 		// Adjust form builder height on desktop and events to prevent conflicts with page scroll.
-        if (768 <= window.innerWidth || 768 <= screen.width) {
+        if (!document.querySelector('[data-cff-workspace]') && (768 <= window.innerWidth || 768 <= screen.width)) {
             const TARGET_TOP = 45;
             const ESCAPE_THRESHOLD = 320;
             const POSITION_TOLERANCE = 5; // Tolerance to consider it's in position
@@ -2939,6 +2946,8 @@
 
 	// Scroll page if scrollx and scrolly parameters are availables in the URL
 	(function(){
+		// Modern panels are mounted after this legacy page-scroll restoration.
+		if (document.querySelector('[data-cff-workspace]')) return;
 		try {
 			const mssg = $('.form-builder-error-messages');
 			if ( mssg.length && ! mssg.filter(':empty').length ) return;

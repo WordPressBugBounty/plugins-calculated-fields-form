@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.5.3.1
+Stable tag: 5.6.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,10 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.6.0.0 =
+
+* Introduces a modern form builder with a more intuitive layout, better organized settings, and less scrolling. Users can switch between the modern and classic editors at any time.
+
 = 5.5.3.1 =
 
 * Simplified external AI agent configuration, avoiding in most cases manual config file edits or generating application passwords in the user profile.
@@ -495,8 +499,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.5.2.8 =
 
 * Replaces PHP closures with private static methods.
-
-= 5.5.2.7 =
-
-* Fixes an issue with custom css rules in fields and form.
-* Enhances the mechanism that verifies and validates calculated prices. We would like to extend special thanks to Zackary Loevseth (security researcher at HayosoAi) for his contribution in identifying and validating the weakness in the plugin's original method.
