@@ -785,7 +785,12 @@
 				root.classList.add('cff-workspace-ready');
 				schedulePaletteIcons();
 				var remembered;
-				try { remembered = sessionStorage.getItem(storageKey) || sessionStorage.getItem(legacyStorageKey); } catch (error) {}
+				// Resume the active section after saving; normal entries start at Fields.
+				try {
+					if (document.querySelector('#setting-error-settings_updated')) {
+						remembered = sessionStorage.getItem(storageKey) || sessionStorage.getItem(legacyStorageKey);
+					}
+				} catch (error) {}
 				showSection(remembered && (panels[remembered] || remembered === 'appearance') ? remembered : 'fields');
 				if (location.hash && location.hash !== '#cpformconf') openTarget(location.hash);
                 window.cffBuilderModernReady = true;

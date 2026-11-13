@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-11-12 18:43+0100\n"
-"PO-Revision-Date: 2026-11-12 18:43+0100\n"
+"POT-Creation-Date: 2026-11-13 01:18+0100\n"
+"PO-Revision-Date: 2026-11-13 01:18+0100\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -2852,7 +2852,7 @@ msgid "Anthropic (Claude)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:149
-msgid "Claude Fable 5.1 (Most Powerful)"
+msgid "Claude Fable 5.2 (Most Powerful)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:155
@@ -2868,162 +2868,158 @@ msgid "Claude Haiku 5.5 (Fast)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:173
-msgid "Claude Fable 5 (Legacy)"
+msgid "Claude Fable 5.1 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:179
-msgid "Claude Opus 5 (Legacy)"
+msgid "Claude Fable 5 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:185
-msgid "Claude Sonnet 5 (Legacy)"
+msgid "Claude Opus 5 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:191
-msgid "Claude Opus 4.8 (Legacy)"
+msgid "Claude Sonnet 5 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:197
-msgid "Claude Opus 4.7 (Legacy)"
+msgid "Claude Opus 4.8 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:203
-msgid "Claude Opus 4.6 (Legacy)"
+msgid "Claude Opus 4.7 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:209
-msgid "Claude Sonnet 4.6 (Legacy)"
+msgid "Claude Opus 4.6 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:215
-msgid "Claude Opus 4.5 (Legacy)"
+msgid "Claude Sonnet 4.6 (Legacy)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:221
+msgid "Claude Opus 4.5 (Legacy)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:227
 msgid "Claude Haiku 4.5 (Legacy)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:229
+#: inc/cpcff_ai_requests.inc.php:235
 msgid "Google (Gemini)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:234
-msgid "Gemini 4 Argon (Advanced Reasoning)"
-msgstr ""
-
 #: inc/cpcff_ai_requests.inc.php:240
-msgid "Gemini 3.8 Flash (Advanced Coding)"
+msgid "Gemini 4 Carbon (Most Powerful)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:246
-msgid "Gemini 3.5 Flash-Lite (Fast & Efficient)"
+msgid "Gemini 4 Argon (Advanced Reasoning)"
 msgstr ""
 
 #: inc/cpcff_ai_requests.inc.php:252
+msgid "Gemini 4 Hydrogen (Balanced)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:258
+msgid "Gemini 3.8 Flash (Previous Generation)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:264
+msgid "Gemini 3.5 Flash-Lite (Fast and Efficient)"
+msgstr ""
+
+#: inc/cpcff_ai_requests.inc.php:270
 msgid "Gemini 3.1 Flash-Lite (Lowest Cost)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:260
+#: inc/cpcff_ai_requests.inc.php:278
 msgid "MiniMax"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:265
+#: inc/cpcff_ai_requests.inc.php:283
 msgid "MiniMax M3.1 Flash (Advanced Coding)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:271
+#: inc/cpcff_ai_requests.inc.php:289
 msgid "MiniMax M3"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:277
-msgid "MiniMax M2.7 Highspeed (retiring Nov 18, 2026)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:283
-msgid "MiniMax M2.7 (retiring Nov 18, 2026)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:289
-msgid "MiniMax M2.5 Highspeed  (retiring Nov 18, 2026)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:295
-msgid "MiniMax M2.5  (retiring Nov 18, 2026)"
-msgstr ""
-
-#: inc/cpcff_ai_requests.inc.php:303
+#: inc/cpcff_ai_requests.inc.php:297
 msgid "Kimi (Moonshot AI)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:308
+#: inc/cpcff_ai_requests.inc.php:302
 msgid "Kimi K3.1 Pro (Latest)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:314
+#: inc/cpcff_ai_requests.inc.php:308
 msgid "Kimi K3.1 Pro Highspeed (Fast)"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:320
+#: inc/cpcff_ai_requests.inc.php:314
 msgid "Kimi K3"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:328
+#: inc/cpcff_ai_requests.inc.php:322
 msgid "DeepSeek"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:333
+#: inc/cpcff_ai_requests.inc.php:327
 msgid "DeepSeek V4.1 Flash"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:339
+#: inc/cpcff_ai_requests.inc.php:333
 msgid "DeepSeek V4 Pro"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:355
+#: inc/cpcff_ai_requests.inc.php:349
 msgid "WordPress AI Connector"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:484
+#: inc/cpcff_ai_requests.inc.php:478
 msgid "Unknown provider"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:510
+#: inc/cpcff_ai_requests.inc.php:504
 msgid "WordPress AI inference is not available"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:595
+#: inc/cpcff_ai_requests.inc.php:589
 msgid "Invalid OpenAI response"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:622
+#: inc/cpcff_ai_requests.inc.php:616
 msgid "OpenAI refused the request"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:639
+#: inc/cpcff_ai_requests.inc.php:633
 msgid "OpenAI response was not completed: "
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:681
+#: inc/cpcff_ai_requests.inc.php:675
 msgid "Failed OpenAI request"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:753
+#: inc/cpcff_ai_requests.inc.php:747
 msgid "Failed Gemini request"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:818
+#: inc/cpcff_ai_requests.inc.php:812
 msgid "Failed MiniMax request"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:897
+#: inc/cpcff_ai_requests.inc.php:891
 msgid "Failed Claude request"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:962
+#: inc/cpcff_ai_requests.inc.php:956
 msgid "Failed Kimi request"
 msgstr ""
 
-#: inc/cpcff_ai_requests.inc.php:1027
+#: inc/cpcff_ai_requests.inc.php:1021
 msgid "Failed DeepSeek request"
 msgstr ""
 

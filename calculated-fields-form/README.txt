@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.6.0.0
+Stable tag: 5.6.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -478,6 +478,7 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.6.0.1 =
 = 5.6.0.0 =
 
 * Introduces a modern form builder with a more intuitive layout, better organized settings, and less scrolling. Users can switch between the modern and classic editors at any time.

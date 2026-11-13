@@ -145,8 +145,8 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'claude-sonnet-5-5',
                         'api_key_url'   => 'https://console.anthropic.com/settings/keys',
 						'models'        => [
-							'claude-fable-5-1' => [
-								'title'           => esc_html__('Claude Fable 5.1 (Most Powerful)', 'calculated-fields-form'),
+							'claude-fable-5-2' => [
+								'title'           => esc_html__('Claude Fable 5.2 (Most Powerful)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 128000
@@ -165,6 +165,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 							],
 							'claude-haiku-5-5' => [
 								'title'           => esc_html__('Claude Haiku 5.5 (Fast)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
+							'claude-fable-5-1' => [
+								'title'           => esc_html__('Claude Fable 5.1 (Legacy)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 128000
@@ -230,20 +236,32 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 						'default_model' => 'gemini-3.8-flash',
 						'api_key_url'   => 'https://aistudio.google.com/app/api-keys',
 						'models'        => [
+							'gemini-4-carbon' => [
+								'title'           => esc_html__('Gemini 4 Carbon (Most Powerful)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
 							'gemini-4-argon' => [
 								'title'           => esc_html__('Gemini 4 Argon (Advanced Reasoning)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
+							'gemini-4-hydrogen' => [
+								'title'           => esc_html__('Gemini 4 Hydrogen (Balanced)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
 							'gemini-3.8-flash' => [
-								'title'           => esc_html__('Gemini 3.8 Flash (Advanced Coding)', 'calculated-fields-form'),
+								'title'           => esc_html__('Gemini 3.8 Flash (Previous Generation)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
 							'gemini-3.5-flash-lite' => [
-								'title'           => esc_html__('Gemini 3.5 Flash-Lite (Fast & Efficient)', 'calculated-fields-form'),
+								'title'           => esc_html__('Gemini 3.5 Flash-Lite (Fast and Efficient)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
@@ -272,30 +290,6 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                                 'form-generation' => true,
                                 'ai-assistant'    => true,
                                 'max_tokens'      => 64000
-                            ],
-                            'MiniMax-M2.7-highspeed' => [
-                                'title' => esc_html__('MiniMax M2.7 Highspeed (retiring Nov 18, 2026)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'MiniMax-M2.7' => [
-                                'title' => esc_html__('MiniMax M2.7 (retiring Nov 18, 2026)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'MiniMax-M2.5-highspeed' => [
-                                'title' => esc_html__('MiniMax M2.5 Highspeed  (retiring Nov 18, 2026)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
-                            ],
-                            'MiniMax-M2.5' => [
-                                'title' => esc_html__('MiniMax M2.5  (retiring Nov 18, 2026)', 'calculated-fields-form'),
-                                'form-generation' => true,
-                                'ai-assistant' => true,
-                                'max_tokens' => 64000
                             ]
                         ]
                     ],
