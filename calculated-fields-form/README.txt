@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form, contact form, quote form, calculator form, AI form builder
 Requires at least: 3.0.5
 Tested up to: 7.1
-Stable tag: 5.6.0.1
+Stable tag: 5.6.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,7 +49,7 @@ No. Despite its name, Calculated Fields Form is a complete, general-purpose Word
 
 > At the moment, the plugin supports multiple AI providers, including Anthropic Claude, OpenAI, Gemini, MiniMax, DeepSeek, Kimi, and any connector available through the WordPress AI Connector API exposed by WordPress 7.x.
 
-[youtube https://www.youtube.com/watch?v=R8hEbD8w2RM]
+[youtube https://www.youtube.com/watch?v=PNEA83V07zc]
 
 Or let the AI build the form from a plain-language description:
 
@@ -478,6 +478,13 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 
 == Changelog ==
 
+= 5.6.0.2 =
+
+* Enhances the landing page's design and usability.
+* Improves the modern form builder by providing clearer visual feedback when saving changes.
+* Updates country-specific phone number length validation using the latest data from phone number service providers.
+* Expands the supported styling options for HTML Content controls connected to Data Sources.
+
 = 5.6.0.1 =
 = 5.6.0.0 =
 
@@ -496,7 +503,3 @@ Yes. Use the shortcode for results on the Thank You page. [Details](https://cff.
 = 5.5.2.9 =
 
 * Preprocess default field values received through URL parameters to prevent their execution as JavaScript when calculated field equations access them as raw values. Special thanks to Peter Tang and Patchstack for reporting this issue.
-
-= 5.5.2.8 =
-
-* Replaces PHP closures with private static methods.

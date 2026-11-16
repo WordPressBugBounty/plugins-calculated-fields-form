@@ -89,8 +89,18 @@ if (isset($_SERVER['REQUEST_METHOD']) && 'POST' == $_SERVER['REQUEST_METHOD'] &&
 
 $message = '';
 if ('POST' == $_SERVER['REQUEST_METHOD'] && isset($_POST['cp_calculatedfieldsf_post_options']) && !empty($GLOBALS['cpcff_form_settings_save_results'][(int) CP_CALCULATEDFIELDSF_ID])) {
-    $message = esc_html__('Settings saved', 'calculated-fields-form');
-    echo "<div id='setting-error-settings_updated' class='updated settings-error cff-admin-message'> <p><strong>" . $message . '</strong></p></div>';
+	if ( $cff_modern_builder ) {
+		?>
+		<div id="setting-error-settings_updated" class="updated settings-error cff-admin-message inline cff-modern-save-notice" role="status">
+			<span class="dashicons dashicons-yes-alt" aria-hidden="true"></span>
+			<p><strong><?php esc_html_e( 'Changes saved', 'calculated-fields-form' ); ?></strong></p>
+			<button type="button" class="cff-save-notice-close" aria-label="<?php esc_attr_e( 'Dismiss this notice.', 'calculated-fields-form' ); ?>"><span class="dashicons dashicons-no-alt" aria-hidden="true"></span></button>
+		</div>
+		<?php
+	} else {
+		$message = esc_html__( 'Settings saved', 'calculated-fields-form' );
+		echo "<div id='setting-error-settings_updated' class='updated settings-error cff-admin-message'> <p><strong>" . $message . "</strong></p></div>";
+	}
 }
 
 $cpcff_texts_array = $form_obj->get_option('vs_all_texts', []);

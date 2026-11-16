@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.6.0.2 =
+
+* Enhances the landing page's design and usability.
+* Improves the modern form builder by providing clearer visual feedback when saving changes.
+* Updates country-specific phone number length validation using the latest data from phone number service providers.
+* Expands the supported styling options for HTML Content controls connected to Data Sources.
+
 = 5.6.0.1 =
 = 5.6.0.0 =
 

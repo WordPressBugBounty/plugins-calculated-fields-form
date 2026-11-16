@@ -177,8 +177,18 @@ body:has(.cff-workspace-ready) > .select2-container--open {z-index: 10010;}
 .cff-workspace-ready .cff-editor-shell .select2-search--inline {max-width: 100%;}
 .cff-workspace-ready .cff-editor-shell .select2-search--inline .select2-search__field {width: auto !important; max-width: 100%;}
 /* Reduced mode stays in the scrollable admin page, including notices above the editor. */
+.cff-admin-message.cff-modern-save-notice {display: flex; align-items: center; gap: 12px; top: auto !important; bottom: var(--cff-save-notice-bottom, 60px) !important; right: var(--cff-save-notice-right, 16px) !important; left: auto !important; transform: none !important; width: 300px !important; max-width: calc(100vw - 32px) !important; margin: 0 !important; padding: 14px 12px 14px 16px !important; color: #1d2327 !important; background: #fff !important; border: 1px solid #d4dae2 !important; border-radius: 10px !important; box-shadow: 0 4px 16px #1d232714; text-align: left !important; font-family: inherit !important; font-size: 13px; line-height: 1.5; cursor: default !important;}
+.cff-admin-message.cff-modern-save-notice::before {content: none;}
+.cff-modern-save-notice > .dashicons {flex: 0 0 22px; width: 22px; height: 22px; font-size: 22px; color: #16814b;}
+.cff-modern-save-notice p {flex: 1; margin: 0; padding: 0; font-size: inherit; line-height: inherit;}
+.cff-modern-save-notice strong {font-weight: 600;}
+.cff-modern-save-notice .cff-save-notice-close {display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 5px; background: transparent; color: #647080; cursor: pointer;}
+.cff-modern-save-notice .cff-save-notice-close:hover {background: #f0f2f5; color: #1d2327;}
+.cff-modern-save-notice .cff-save-notice-close:focus-visible {outline: 2px solid var(--wp-admin-theme-color, #3858e9); outline-offset: 2px;}
+html:not(.cff-builder-loading) .cff-modern-save-notice {animation: cff-save-notice-in 180ms ease-out;}
+@keyframes cff-save-notice-in {from {opacity: 0; translate: 0 -6px;} to {opacity: 1; translate: 0 0;}}
+@media (prefers-reduced-motion: reduce) {html:not(.cff-builder-loading) .cff-modern-save-notice {animation: none;}}
 body:has(.cff-workspace-ready .cff-editor-fullscreen) {overflow: hidden;}
-body:has(.cff-workspace-ready) .cff-admin-message {display: none;}
 html:has(.cff-editor-fullscreen) {margin-top: 0 !important;}
 body:has(.cff-editor-fullscreen) #wpadminbar,
 body:has(.cff-editor-fullscreen) #adminmenumain {display: none;}

@@ -10,10 +10,7 @@ if ( !is_admin() )
 .cff-landing-page table td{width:50%;}
 .cff-landing-page a{box-shadow:none !important;outline:none !important;}
 .cff-main-button,
-.cff-secondary-button{text-transform: capitalize;width: 260px;display: inline-block;text-decoration: none !important;color: white !important;height: 46px;line-height: 46px;font-size: 18px;border-radius: 5px;background: #2271b1;box-shadow:none !important;outline:none !important;}
-.cff-secondary-button{background: white;border: 1px solid #b2b5ba;color: #454647 !important}
-.cff-main-button:hover{background: #135e96;}
-.cff-secondary-button:hover{background: #f0f2f5;}
+.cff-secondary-button{text-transform: capitalize;width: 260px;text-decoration: none !important;border-radius: 8px;box-shadow:none !important;outline:none !important;}
 .cff-why-upgrade{color:white;}
 @media screen AND (min-width:710px) {
 	.cff-lading-page-advanced-columns{display:flex;flex-direction:row;flex-wrap:wrap;gap:20px;}
@@ -54,7 +51,7 @@ if ( !is_admin() )
 			<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: white;">
 			  <iframe
 				style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-				src="https://www.youtube.com/embed/R8hEbD8w2RM"
+				src="https://www.youtube.com/embed/PNEA83V07zc"
 				title="Build a Contact Form with the Calculated Fields Form"
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 				referrerpolicy="strict-origin-when-cross-origin"
@@ -63,7 +60,7 @@ if ( !is_admin() )
 			</div>
 			<div style="padding:20px;">
 				<div class="cff-video-tutorial-other-videos">
-					<div class="cff-video-tutorial-thumbnail"><a href="https://youtu.be/R8hEbD8w2RM" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/th-video-0.png', __FILE__) ); ?>" alt="<?php esc_attr_e('Basic contact form', 'calculated-fields-form'); ?>"></a><div class="cff-video-tutorial-thumbnail-title"><?php esc_html_e('Basic Form', 'calculated-fields-form'); ?></div></div>
+					<div class="cff-video-tutorial-thumbnail"><a href="https://youtu.be/PNEA83V07zc" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/th-video-0.png', __FILE__) ); ?>" alt="<?php esc_attr_e('Basic contact form', 'calculated-fields-form'); ?>"></a><div class="cff-video-tutorial-thumbnail-title"><?php esc_html_e('Basic Form', 'calculated-fields-form'); ?></div></div>
 					<div class="cff-video-tutorial-thumbnail"><a href="https://youtu.be/Ao9_raUeRR0" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/th-video-8.png', __FILE__) ); ?>" alt="<?php esc_attr_e('AI Assistant', 'calculated-fields-form'); ?>"></a><div class="cff-video-tutorial-thumbnail-title"><?php esc_html_e('AI Assistant', 'calculated-fields-form'); ?></div></div>
 					<div class="cff-video-tutorial-thumbnail"><a href="https://youtu.be/NSac2cAN8RE" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/th-video-1.png', __FILE__) ); ?>" alt="<?php esc_attr_e('Fields in columns', 'calculated-fields-form'); ?>"></a><div class="cff-video-tutorial-thumbnail-title"><?php esc_html_e('Columns', 'calculated-fields-form'); ?></div></div>
 					<div class="cff-video-tutorial-thumbnail"><a href="https://youtu.be/acZC-fVh3y8" target="_blank"><img src="<?php print esc_attr( plugins_url('../images/th-video-2.png', __FILE__) ); ?>" alt="<?php esc_attr_e('Personalize form design', 'calculated-fields-form'); ?>"></a><div class="cff-video-tutorial-thumbnail-title"><?php esc_html_e('Design', 'calculated-fields-form'); ?></div></div>
@@ -78,10 +75,10 @@ if ( !is_admin() )
 				<table border="0" style="width:100%;">
 					<tr style="border:0;">
 						<td style="border:0;text-align:center;">
-							<a href="admin.php?page=cp_calculated_fields_form_sub_new&from_landing_page=1" class="cff-main-button"><?php esc_html_e( 'Create your first form', 'calculated-fields-form' ); ?></a>
+							<a href="admin.php?page=cp_calculated_fields_form_sub_new&from_landing_page=1" class="cff-main-button button-primary"><?php esc_html_e( 'Create your first form', 'calculated-fields-form' ); ?></a>
 						</td>
 						<td style="border:0;text-align:center;">
-							<a href="https://youtube.com/playlist?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X&si=kUytVX7aF69GhKD" target="_blank" class="cff-secondary-button"><?php esc_html_e( 'More video tutorials', 'calculated-fields-form' ); ?></a>
+							<a href="https://youtube.com/playlist?list=PLY-AOoHciOKgZQsqWfkQlHJ21sm3qPF9X&si=kUytVX7aF69GhKD" target="_blank" class="cff-secondary-button button-secondary"><?php esc_html_e( 'More video tutorials', 'calculated-fields-form' ); ?></a>
 						</td>
 					</tr>
 				</table>
@@ -134,7 +131,7 @@ if ( !is_admin() )
 					</tr>
 				</table>
 				<div style="text-align:center;margin-top:30px;">
-					<a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="cff-secondary-button"><?php esc_html_e( 'Features List', 'calculated-fields-form' ); ?></a>
+					<a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="cff-secondary-button button-secondary"><?php esc_html_e( 'Features List', 'calculated-fields-form' ); ?></a>
 				</div>
 			</div>
 			<div style="padding:20px;background:#000000;" class="cff-why-upgrade">
@@ -179,14 +176,14 @@ if ( !is_admin() )
 						}
 						?>
 						<div style="font-size:14px;text-align:center;color:rgba(255,255,255,.5);"><?php esc_html_e( 'LIFETIME', 'calculated-fields-form' ); ?></div>
-						<div style="margin-top:30px;text-align:center;"><a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="cff-secondary-button" style="width:auto;padding-left:20px;padding-right:20px;"><?php esc_html_e( 'UPGRADE!', 'calculated-fields-form' ); ?></a></div>
+						<div style="margin-top:30px;text-align:center;"><a href="https://cff.dwbooster.com/download#comparison" target="_blank" class="cff-secondary-button button-secondary" style="width:auto;padding-left:20px;padding-right:20px;background:white;border:0;font-weight:600;color:black;outline: 1px dashed white !important;outline-offset: 5px;"><?php esc_html_e( 'UPGRADE!', 'calculated-fields-form' ); ?></a></div>
 					</div>
 				</div>
 			</div>
 			<table border="0" style="width:100%;margin-top:20px;">
 				<tr style="border:0;">
 					<td style="border:0;text-align:center;">
-						<a href="admin.php?page=cp_calculated_fields_form_sub_new&from_landing_page=1" class="cff-main-button"><?php esc_html_e( 'Create your first form', 'calculated-fields-form' ); ?></a>
+						<a href="admin.php?page=cp_calculated_fields_form_sub_new&from_landing_page=1" class="cff-main-button button-primary"><?php esc_html_e( 'Create your first form', 'calculated-fields-form' ); ?></a>
 					</td>
 					<td style="border:0;text-align:center;">
 						<a href="https://cff.dwbooster.com/download#comparison" target="_blank" style="font-size:16px;"><?php esc_html_e( 'Upgrade your plugin copy', 'calculated-fields-form' ); ?></a>

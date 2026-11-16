@@ -159,6 +159,13 @@
         updateCount();
 
 		function revealBuilder() {
+            var saveNotice = document.querySelector('.cff-modern-save-notice');
+            var editorFooter = root.querySelector('.cff-editor-footer');
+            if (saveNotice && editorFooter) {
+                var footerBounds = editorFooter.getBoundingClientRect();
+                saveNotice.style.setProperty('--cff-save-notice-bottom', Math.max(48, window.innerHeight - footerBounds.top + 12) + 'px');
+                saveNotice.style.setProperty('--cff-save-notice-right', Math.max(16, window.innerWidth - footerBounds.right + 16) + 'px');
+            }
             if (window.cffBuilderReveal) window.requestAnimationFrame(window.cffBuilderReveal);
         }
 

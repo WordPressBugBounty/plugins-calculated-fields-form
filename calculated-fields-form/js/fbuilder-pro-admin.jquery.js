@@ -2904,9 +2904,17 @@
 		});
     });
 
-    setTimeout(function() {
-        $('.cff-admin-message').trigger('click');
-    }, 3000);
+    function dismissAdminMessages() {
+        setTimeout(function() {
+            $('.cff-admin-message').trigger('click');
+        }, 3000);
+    }
+    // Modern starts the countdown after the builder has loaded its form data.
+    if (document.querySelector('[data-cff-workspace]') && document.documentElement.classList.contains('cff-builder-loading')) {
+        $(document).one('cff-builder-ready', dismissAdminMessages);
+    } else {
+        dismissAdminMessages();
+    }
 
 	// Redirect to the admin list sections
 	function cff_jump_to_section() {
