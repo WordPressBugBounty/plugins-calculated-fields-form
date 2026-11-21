@@ -203,7 +203,14 @@
 										me._setFieldValue(me.logarithmic ? v : null);
 									}, t);
 								});
-								return '<div class="slider-type-'+c+'-component"><input aria-label="'+cff_esc_attr(me.title)+'" id="'+me.name+'_component_'+c+'" class="large" type="text" value="'+cff_esc_attr(
+								return '<div class="slider-type-'+c+'-component"><input aria-label="'+cff_esc_attr(me.title)+'" '+
+								(c === 'left' && me.minCaption.trim()
+    								? ' aria-describedby="'+me.name+'_min_caption"'
+    								: c === 'right' && me.maxCaption.trim()
+        							? ' aria-describedby="'+me.name+'_max_caption"'
+        							: ''
+								)+
+								' id="'+me.name+'_component_'+c+'" class="large" type="text" value="'+cff_esc_attr(
 									/fieldname/.test(predefined) &&
 									getField(predefined) &&
 									'val' in getField(predefined)
@@ -229,8 +236,8 @@
 								'<div id="'+me.name+'_slider" class="slider large"></div>'+
 								'</div>'+
 								'<div class="corner-captions '+cff_esc_attr(me.size)+'">'+
-									'<span class="left-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_left'))+'">'+cff_sanitize(me.minCaption, true)+'</span>'+
-									'<span class="right-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_right'))+'">'+cff_sanitize(me.maxCaption, true)+'</span>'+
+									'<span id="'+me.name+'_min_caption" class="left-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_left'))+'">'+cff_sanitize(me.minCaption, true)+'</span>'+
+									'<span id="'+me.name+'_max_caption" class="right-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_right'))+'">'+cff_sanitize(me.maxCaption, true)+'</span>'+
 									'<div id="'+me.name+'_caption" class="slider-caption" style="'+cff_esc_attr(me.getCSSComponent('caption'))+'">'+cff_sanitize(me.caption, true)+'</div>'+
 									'<div class="clearer"></div>'+
 								'</div>'+

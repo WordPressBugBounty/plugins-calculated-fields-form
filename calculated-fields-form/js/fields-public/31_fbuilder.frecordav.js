@@ -48,7 +48,7 @@
 					'<input type="file" id="'+this.name+'" name="'+this.name+'[]" class="hide-strong" />' +
 					((this._patch) ? '<input type="hidden" id="'+this.name+'_patch" name="'+this.name+'_patch" value="1" />' : '') +
 					'<div class="cff-record-controls-container">' +
-					'<div class="cff-record-btn" id="'+this.name+'_record_btn">'+cff_sanitize(this.record_label, true)+'</div>' +
+					'<button type="button" class="cff-record-btn" id="'+this.name+'_record_btn">'+cff_sanitize(this.record_label, true)+'</button>' +
 					( this.preview ? '<div class="cff-record-play-btn hide-strong" id="'+this.name+'_play_btn"></div>' : '' ) +
 					( this.max_time ? '<div class="cff-record-time" id="'+this.name+'_record_time">'+cff_sanitize(time_formatted, true)+'</div><div class="cff-record-max-time">'+cff_sanitize(max_time_formatted, true)+'</div>' : '' ) +
 					'</div>' +
@@ -72,7 +72,7 @@
 					streamRecorder,
 					recording_flag = false,
 					_prev_url = '';
-
+				record_btn.attr('aria-label', record_btn.text().trim());
 				if (me._patch && media_ctrl.length) {
 					var _form_identifier = me.form_identifier.replace(/[^\d]/g, ''),
 						_field_name = me.name.match(/fieldname\d+/)[0],
@@ -146,6 +146,8 @@
 					} catch(err) {console.log(err);};
 
 					record_btn.removeClass('cff-record-btn-recording');
+					record_btn.html(cff_sanitize(me.record_label, true));
+					record_btn.attr('aria-label', record_btn.text().trim());
 					if(me._is_video() && media_ctrl.length)
 					{
 						media_ctrl[0].pause();
@@ -182,7 +184,8 @@
 								streamRecorder = new MediaRecorder(localMediaStream);
 								streamRecorder.ondataavailable = function(evt) {chunks.push(evt.data);};
 								streamRecorder.start();
-
+								record_btn.html(cff_sanitize(me.stop_label, true));
+								record_btn.attr('aria-label', record_btn.text().trim());
 								if(me._is_video() && media_ctrl.length)
 								{
 									media_ctrl[0].srcObject = localMediaStream;

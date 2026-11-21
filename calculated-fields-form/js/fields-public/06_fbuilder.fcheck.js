@@ -32,7 +32,8 @@
 					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null && this.choicesVal.length)?this.choicesVal:this.choices);
 					var str = "",
                         classDep,
-						n 	= this.name.match(/fieldname\d+/)[0];
+						n 	= this.name.match(/fieldname\d+/)[0],
+						required_flag = this.required || 0 < this.min;
 
 					if (typeof this.choiceSelected == "undefined" || this.choiceSelected == null)
 						this.choiceSelected = new Array();
@@ -47,17 +48,16 @@
 							this.choicesDep[i] = [];
 
 						classDep = (this.choicesDep[i].length) ? 'depItem': '';
-
-						str += '<div class="'+this.layout+(this.quantity_when_ticked ? ' cff-quantity-when-ticked' : '')+'"><label for="'+this.name+'_cb'+i+'" '+(!this.tooltipIcon && this.userhelpTooltip && this.userhelp && this.userhelp.length ? 'uh="'+cff_esc_attr(this.userhelp)+'"' : '')+'><input aria-label="'+cff_esc_attr(this.choices[i])+'" name="'+this.name+'[]" id="'+this.name+'_cb'+i+'" class="field '+classDep+' group '+((this.required || 0 < this.min)?" required":"")+'" value="'+cff_esc_attr(this.choicesVal[i])+'" vt="'+cff_esc_attr((this.toSubmit == 'text') ? this.choices[i] : this.choicesVal[i])+'" type="checkbox" '+(this.readonly ? ' onclick="return false;" ' : '')+((this.choiceSelected[i])?"checked":"")+'/> '+
+						str += '<div class="'+this.layout+(this.quantity_when_ticked ? ' cff-quantity-when-ticked' : '')+'"><label for="'+this.name+'_cb'+i+'" '+(!this.tooltipIcon && this.userhelpTooltip && this.userhelp && this.userhelp.length ? 'uh="'+cff_esc_attr(this.userhelp)+'"' : '')+'><input aria-labelledby="'+this.name+'_cb'+i+'_text" name="'+this.name+'[]" id="'+this.name+'_cb'+i+'" class="field '+classDep+' group '+((required_flag)?' required':'')+'"'+((required_flag)?' aria-required="true"':'')+' value="'+cff_esc_attr(this.choicesVal[i])+'" vt="'+cff_esc_attr((this.toSubmit == 'text') ? this.choices[i] : this.choicesVal[i])+'" type="checkbox" '+(this.readonly ? ' onclick="return false;" ' : '')+((this.choiceSelected[i])?"checked":"")+'/> '+
                         (this.onoff ? '<span class="cff-switch"></span>': '') +
-                        '<span>'+cff_html_decode(this.choices[i])+'</span>'+
+                        '<span id="'+this.name+'_cb'+i+'_text">'+cff_html_decode(this.choices[i])+'</span>'+
 						(
 						    this.quantity ?
-                                '<span class="cff-checkbox-field-quantity"><input type="number" min="' + cff_esc_attr(Math.max(1, this.minQuantity)) + '" ' + ((this.maxQuantity > 0) ? 'max="' + cff_esc_attr(Math.max(1, this.minQuantity, this.maxQuantity)) + '"' : '') + ' value="' + cff_esc_attr(Math.max(1, this.minQuantity)) +'" id="'+this.name+'_cb'+i+'_quantity" /></span>' : ''
+                                '<span class="cff-checkbox-field-quantity"><input type="number" aria-labelledby="'+this.name+'_cb'+i+'_text" min="' + cff_esc_attr(Math.max(1, this.minQuantity)) + '" ' + ((this.maxQuantity > 0) ? 'max="' + cff_esc_attr(Math.max(1, this.minQuantity, this.maxQuantity)) + '"' : '') + ' value="' + cff_esc_attr(Math.max(1, this.minQuantity)) +'" id="'+this.name+'_cb'+i+'_quantity" /></span>' : ''
 						) +
 						'</label></div>';
 					}
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+(this.onoff ? ' cff-switch-container' : '')+' '+this.name+' cff-checkbox-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required || 0 < this.min)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<div class="clearer"></div>'+(!this.userhelpTooltip ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span>' : '')+'</div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+(this.onoff ? ' cff-switch-container' : '')+' '+this.name+' cff-checkbox-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((required_flag)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<div class="clearer"></div>'+(!this.userhelpTooltip ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span>' : '')+'</div><div class="clearer"></div></div>';
 				},
             enable_disable:function( e )
                 {
@@ -158,7 +158,7 @@
 										{
                                             if (isField) {
 											    $('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').addClass('ignorefield').hide();
-											    $('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
+											    $('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').attr('aria-disabled','true').trigger('add-ignore');
                                             } else {
                                                 $(dep, formObj).hide();
                                             }
@@ -175,7 +175,7 @@
 										{
                                             if (isField) {
 											    $('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
-											    $('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
+											    $('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').removeAttr('aria-disabled').trigger('remove-ignore');
                                             } else {
                                                 $(dep, formObj).fadeIn(interval || 0);
                                             }

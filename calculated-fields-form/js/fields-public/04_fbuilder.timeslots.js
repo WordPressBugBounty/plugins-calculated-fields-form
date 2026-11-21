@@ -438,7 +438,7 @@
 								else if ( ! _selected ) _style='style="'+cff_esc_attr(me.getCSSComponent('activetimeslot'))+'"';
 								else _style='style="'+cff_esc_attr(me.getCSSComponent('selectedtimeslot'))+'"';
 
-								output += '<span class="cff-timeslot" data-active="' + _active + '" data-selected="' + _selected + '" data-day="' + d.valueOf() + '" data-slot="' + _timeslot['slot'] + '" ' + _style + ' tabindex="0">' + _timeslot['slot'] + '</span>';
+								output += '<span class="cff-timeslot" role="option" aria-selected="'+(_selected?'true':'false')+'" aria-disabled="'+(_active?'false':'true')+'" data-active="' + _active + '" data-selected="' + _selected + '" data-day="' + d.valueOf() + '" data-slot="' + _timeslot['slot'] + '" ' + _style + ' tabindex="0">' + _timeslot['slot'] + '</span>';
 							}
 						}
 					}
@@ -454,7 +454,7 @@
 
 					for ( let i in slots ) {
 						try {
-							output += '<span class="cff-timeslot-selected" data-day="' + i.split('|')[0] + '" data-slot="' + i.split('|')[1] + '" ' + _style + ' tabindex="0">' + slots[i] + '</span>';
+							output += '<span class="cff-timeslot-selected" role="button" data-day="' + i.split('|')[0] + '" data-slot="' + i.split('|')[1] + '" ' + _style + ' tabindex="0">' + slots[i] + '</span>';
 						} catch (err) { console.log(err); }
 					}
 
@@ -621,7 +621,7 @@
 					'<div class="cff-date-field-components '+me.size+'">'+
 						'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="field timeslots'+me.dformat.replace(/[^dmy]/ig,"")+' date-component" type="'+date_tag_type+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+'data-msg="'+cff_esc_attr(me.errorMssg)+'" style="'+cff_esc_attr(me.getCSSComponent('date'))+'" />'+
 						(me.alwaysVisible ? '<div id="'+n+'_datepicker_container" class="datepicker-container"></div>' : '')+
-						'<div class="timeslots-component"></div>'+
+						'<div class="timeslots-component" role="listbox" aria-multiselectable="true"'+((me.required)?' aria-required="true"':'')+' aria-label="'+cff_esc_attr(me.title)+'"></div>'+
 						'<div class="timeslots-selected-component"></div>'+
 					'</div>'+
 					'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+cff_sanitize(me.userhelp, true)+'</span></div><div class="clearer"></div></div>';

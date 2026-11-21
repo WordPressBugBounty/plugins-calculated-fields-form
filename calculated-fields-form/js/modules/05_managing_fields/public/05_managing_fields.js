@@ -188,7 +188,7 @@
                 j.add(j.find('.fields'))[_animate ? 'fadeIn' : 'show']();
 				if(f.name in $.fbuilder.forms[o].toHide) delete $.fbuilder.forms[o].toHide[f.name];
 				if(!(f.name in $.fbuilder.forms[o].toShow)) $.fbuilder.forms[o].toShow[f.name] = {'ref': {}};
-				k.removeClass('ignore').trigger('change');
+				k.removeClass('ignore').removeAttr('aria-disabled').trigger('change');
 				$.fbuilder.showHideDep({'formIdentifier':o,'fieldIdentifier':f.name});
             } else if(!k.length) {
                 j[_animate ? 'fadeIn' : 'show']();
@@ -209,7 +209,7 @@
 				j.add(j.find('.fields')).hide();
 				if(!(f.name in $.fbuilder.forms[o].toHide)) $.fbuilder.forms[o].toHide[f.name] = {};
 				if(f.name in $.fbuilder.forms[o].toShow) delete $.fbuilder.forms[o].toShow[f.name];
-				k.addClass('ignore').trigger('change');
+				k.addClass('ignore').attr('aria-disabled','true').trigger('change');
 				$.fbuilder.showHideDep({'formIdentifier':o,'fieldIdentifier':f.name});
             }
 		}
@@ -509,9 +509,11 @@
 									f.find(':data(manually)').removeData('manually');
 									$.fbuilder['showHideDep']({ 'formIdentifier' : fid });
 									$.fbuilder.forms[fid]['currentPage'] = 0;
-									$("#fieldlist"+fid+" .pbreak").css("display","none");
+									$("#fieldlist"+fid+" .pbreak").css("display","none")
+									 .find("legend.cff-page-legend").removeAttr("aria-current");
 									$("#fieldlist"+fid+" .pbreak").find(".field").addClass("ignorepb");
-									$("#fieldlist"+fid+" .pb0").css("display","block");
+									$("#fieldlist"+fid+" .pb0").css("display","block")
+									 .find("legend.cff-page-legend").attr("aria-current","page");
 
 									if ($("#fieldlist"+fid+" .pb0").find(".field").length>0)
 									{

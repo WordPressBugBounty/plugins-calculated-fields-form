@@ -23,7 +23,8 @@
 				{
 				let w = String(this.width).replace(/[^\d,p,x,\%,\.]/g, ''),
 					h = String(this.height).replace(/[^\d,p,x,\%,\.]/g, ''),
-					p = '';
+					p = '',
+					id = 'cff-popup-title-'+cff_esc_attr(this.form_identifier)+'-'+cff_esc_attr(this.index);
 
 				w = 'width:'+(w.length ? w : '90%')+';max-width:90%;'+
 					'min-width:'+(w.length ? w : '90%')+';';
@@ -48,8 +49,8 @@
 				}
 				return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+(this.open_onload ? '' : ' hide-strong ')+' cff-popup-field cff-container-field '+'" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'">'+
 				( this.modal ? '<div class="cff-popup-modal">' : '' )+
-					'<div class="cff-popup-container" style="' + w + h + p + (this.resizing ? 'overflow:auto;resize:both;' : '')+cff_esc_attr(this.getCSSComponent('content'))+'">'+
-					'<div class="cff-popup-header"  style="'+cff_esc_attr(this.getCSSComponent('header'))+'"><'+this.titletag+' class="cff-popup-title" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+(this.close_button ? '</'+this.titletag+'><div class="cff-popup-close ui-icon ui-icon-close" title="close" style="'+cff_esc_attr(this.getCSSComponent('close'))+'"></div>' : '')+'</div>'+
+					'<div class="cff-popup-container" role="group" aria-labelledby="'+id+'" style="' + w + h + p + (this.resizing ? 'overflow:auto;resize:both;' : '')+cff_esc_attr(this.getCSSComponent('content'))+'">'+
+					'<div class="cff-popup-header"  style="'+cff_esc_attr(this.getCSSComponent('header'))+'"><'+this.titletag+' id="'+id+'"  class="cff-popup-title" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+(this.close_button ? '</'+this.titletag+'><div class="cff-popup-close ui-icon ui-icon-close" title="close" style="'+cff_esc_attr(this.getCSSComponent('close'))+'"></div>' : '')+'</div>'+
 					'<div id="'+this.name+'" class="cff-popup-fields '+ ( this.align == 'bottom' ? 'cff-align-container-bottom' : '' ) +'"></div>'+
 					'<div class="clearer"></div>'+
 				'</div>'+

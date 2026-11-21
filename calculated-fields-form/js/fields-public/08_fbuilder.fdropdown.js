@@ -59,8 +59,16 @@
 						}
 					}
 					if(op_o) str += '</optgroup>';
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-dropdown-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label>'+
-					'<div class="dfield"><select aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+((this.multiple)? '[]':'')+'" class="field '+((classDep != '') ? ' depItemSel ' : '')+cff_esc_attr(this.size)+((this.required)?' required':'')+'" '+((this.multiple == true)?' multiple="multiple" size="'+((this.vChoices) ? cff_esc_attr(this.vChoices) : 1)+'"':'')+' style="'+cff_esc_attr(this.getCSSComponent('dropdown'))+'">'+str+'</select><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-dropdown-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label id="'+this.name+'_label" for="'+this.name+'" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label>'+
+					'<div class="dfield"><select aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+((this.multiple)? '[]':'')+'" class="field '+((classDep != '') ? ' depItemSel ' : '')+cff_esc_attr(this.size)+((this.required)?' required':'')+'"'+((this.required)?' aria-required="true"':'')+((this.multiple == true)?' multiple="multiple" size="'+((this.vChoices) ? cff_esc_attr(this.vChoices) : 1)+'"':'')+' style="'+cff_esc_attr(this.getCSSComponent('dropdown'))+'">'+str+'</select><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span></div><div class="clearer"></div></div>';
+				},
+			_setSelect2AccessibleName: function () {
+					const select2 = $('#' + this.name).data('select2');
+					if (!select2 || !select2.$selection) return;
+
+					const labelId = this.name + '_label';
+					select2.$selection.attr('aria-labelledby', labelId);
+					select2.$selection.find('.select2-search__field').attr('aria-labelledby', labelId);
 				},
             after_show:function()
                 {
@@ -99,12 +107,14 @@
                                 'dropdownParent':$('#'+me.name).next('.cff-select2-container')
                             });
 							$('#'+me.name).parent().find('.select2-container').addClass(me.size);
+							me._setSelect2AccessibleName();
 						}
                         else
                             $(document).ready(function(){
 								if('select2' in $.fn) {
 									$('#'+me.name).select2({'dropdownParent':$('#'+me.name).next('.cff-select2-container')});
 									$('#'+me.name).parent().find('.select2-container').addClass(cff_esc_attr(me.size));
+									me._setSelect2AccessibleName();
 								}
 							});
                     }
@@ -156,7 +166,7 @@
 											{
                                                 if (isField) {
 												    $('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').addClass('ignorefield').hide();
-												    $('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
+												    $('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').attr('aria-disabled','true').trigger('add-ignore');
                                                 } else {
                                                     $(dep, formObj).hide();
                                                 }
@@ -173,7 +183,7 @@
 											{
                                                 if (isField) {
 												    $('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
-												    $('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
+												    $('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').removeAttr('aria-disabled').trigger('remove-ignore');
                                                 } else {
                                                     $(dep, formObj).fadeIn(interval || 0);
                                                 }

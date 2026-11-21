@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.6.0.3 =
+
+* Enhances form accessibility by adding ARIA attributes to improve screen reader support and guide web-based AI agents through form completion and submission.
+* Updates the DOMPurify library.
+* Fixes an issue with button visibility when the Custom Form Design and HTML Content editors are in fullscreen mode.
+* Improves access to SMTP plugin installation.
+
 = 5.6.0.2 =
 
 * Enhances the landing page's design and usability.

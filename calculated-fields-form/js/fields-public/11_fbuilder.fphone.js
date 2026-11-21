@@ -88,14 +88,15 @@
 						for ( var i = 0, h = Math.floor( max/d ); i<h; i++ ) {
 							let w = d + ( ( max_r && h - i <= max_r ) ? 1 : 0 ),
 								n = Math.max( 0, Math.min( min, w ) ),
-								v = ( i == h-1 ) ? bk_number : bk_number.substring(0, w);
+								v = ( i == h-1 ) ? bk_number : bk_number.substring(0, w),
+								f = me.required && n;
 
 							bk_number = bk_number.substring(v.length);
 							min -= w;
 
 							output += '<div class="uh_phone" style="width:calc( ( 100% - '+cw+'px ) / '+max+' * '+w+');">'+
 
-							'<input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required && n) ? ' required ' : '')+'" size="'+w+'" maxlength="'+w+'" minlength="'+n+'" '+(me.readonly?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" value="'+cff_esc_attr(v)+'" '+
+							'<input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((f)?' required ':'')+'"'+((f)?' aria-required="true"':'')+' size="'+w+'" maxlength="'+w+'" minlength="'+n+'" '+(me.readonly?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" value="'+cff_esc_attr(v)+'" '+
 							(placeholder ? 'placeholder="'+cff_esc_attr( predefined.substring(0,w))+'" ' : '')
 							+' inputmode="tel" />'+
 							(
@@ -227,7 +228,7 @@
 
 						str += ''+
 						'<div class="uh_phone" style="width:'+ w +';">'+
-							'<input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+cff_esc_attr(l)+'" '+attr+'="'+cff_esc_attr(tmpv.substring(0,l))+'" maxlength="'+cff_esc_attr(l)+'" minlength="'+cff_esc_attr(mn)+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" />'+
+							'<input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'"'+((me.required)?' aria-required="true"':'')+' size="'+cff_esc_attr(l)+'" '+attr+'="'+cff_esc_attr(tmpv.substring(0,l))+'" maxlength="'+cff_esc_attr(l)+'" minlength="'+cff_esc_attr(mn)+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" />'+
 							( ! me.isFree && me.showFormatAsHint != false ? '<div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+cff_sanitize(tmp[i], true)+'</div>' : '' )+
 						'</div>';
 

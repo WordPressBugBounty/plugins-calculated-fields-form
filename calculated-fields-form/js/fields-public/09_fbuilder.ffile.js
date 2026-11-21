@@ -42,7 +42,7 @@
                         '<div class="dfield">'+
                         '<div class="cff-file-field-container ' + cff_esc_attr(this.size) + '" style="' + cff_esc_attr(this.getCSSComponent('files_container')) +'">'+
 								'<input type="hidden" id="'+this.name+'_position" name="'+this.name+'" value="1" />'+
-                                '<input aria-label="'+cff_esc_attr(this.title)+'" type="file" id="'+this.name+'" name="'+this.name+'[]"'+((this.accept.length) ? ' accept="'+this.accept+'"' : '')+((this.upload_size.length) ? ' upload_size="'+this.upload_size+'"' : '')+' class="field '+((this.required)?" required":"")+'" '+((this.multiple) ? 'multiple' : '')+' />'+
+                                '<input aria-label="'+cff_esc_attr(this.title)+'" type="file" id="'+this.name+'" name="'+this.name+'[]"'+((this.accept.length) ? ' accept="'+this.accept+'"' : '')+((this.upload_size.length) ? ' upload_size="'+this.upload_size+'"' : '')+' class="field '+((this.required)?' required':'')+'"'+((this.required)?' aria-required="true"':'')+((this.multiple) ? ' multiple' : '')+' />'+
                                 '<div id="'+this.name+'_clearer" class="cff-file-clearer"></div>'+
                                 ((this._patch) ? '<input type="hidden" id="'+this.name+'_patch" name="'+this.name+'_patch" value="1" />' : '')+
                                 '<div class="clearer"></div>'+

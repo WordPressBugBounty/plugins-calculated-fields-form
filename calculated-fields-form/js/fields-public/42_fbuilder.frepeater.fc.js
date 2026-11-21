@@ -23,6 +23,14 @@
 				$('[id="' + this.name + '"]').trigger('change');
 			},
 
+			_refresh_positions: function() {
+               let length = $('#'+this.name+'_fields .cff-repeater-row').length;
+               $('#'+this.name+'_fields .cff-repeater-row').each(function(i){
+                  $(this).attr('aria-posinset', i+1);
+                  $(this).attr('aria-setsize', length);
+               });
+            },
+
 			_addToMatrix: function(row) {
 				this.matrix.push(row);
 				$('[id="' + this.name + '"]').val(JSON.stringify(this.matrix));
@@ -44,7 +52,7 @@
 			_add_row: function (includeRemoveButton) {
 				includeRemoveButton = includeRemoveButton || false;
 				let row = '' +
-					'<div class="cff-repeater-row" style="' + cff_esc_attr(this.getCSSComponent('row')) + '">' +
+					'<div class="cff-repeater-row" role="listitem" style="' + cff_esc_attr(this.getCSSComponent('row')) + '">' +
 						'<div class="cff-repeater-fields-container ' + (this.align == 'bottom' ? 'cff-align-container-bottom' : '') + '" style="' + cff_esc_attr(this.getCSSComponent('container')) + '"></div>' +
 						'<div class="cff-repeater-row-controls">' +
 						'<div class="fields">' +
@@ -167,7 +175,7 @@
 			{
 				return '<div class="fields ' + cff_esc_attr(this.csslayout) + ' ' + this.name + ' cff-repeater-field cff-container-field" id="field' + this.form_identifier + '-' + this.index + '" style="' + cff_esc_attr(this.getCSSComponent('field')) + '">' +
 					'<input type="hidden" name="' + this.name + '" id="' + this.name + '" value="' + cff_esc_attr(JSON.stringify(this.matrix))+'" />' +
-					'<div id="' + this.name + '_fields" class="cff-repeater-rows-container">' +
+					'<div id="' + this.name + '_fields" class="cff-repeater-rows-container" role="list">' +
 					this._add_row() +
 					'</div>' +
 					'<div class="cff-repeater-controls">' +
@@ -212,6 +220,7 @@
 						);
 					});
 				}
+				me._refresh_positions();
 			},
 
 			val: function (raw, no_quotes, disable_ignore_check) {
@@ -299,7 +308,7 @@
 
 								if (typeof toHide[fId] == 'undefined') {
 									$('.' + fId + ' [id*="' + fId + '"],.' + fId).closest('.fields').addClass('ignorefield').hide();
-									$('.' + fId + ' [id*="' + fId + '"]:not(.ignore)').addClass('ignore').trigger('add-ignore');
+									$('.' + fId + ' [id*="' + fId + '"]:not(.ignore)').addClass('ignore').attr('aria-disabled', 'true').trigger('add-ignore');
 									result.push(fId);
 								}
 							}
@@ -311,7 +320,7 @@
 									delete hiddenByContainer[fId];
 									if (typeof toHide[fId] == 'undefined') {
 										$('.' + fId + ' [id*="' + fId + '"],.' + fId).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
-										$('.' + fId + ' [id*="' + fId + '"].ignore').removeClass('ignore').trigger('remove-ignore');
+										$('.' + fId + ' [id*="' + fId + '"].ignore').removeClass('ignore').removeAttr('aria-disabled').trigger('remove-ignore');
 										result.push(fId);
 									}
 								}
@@ -338,7 +347,7 @@
 						newRow = $(me._add_row(true));
 
 					newRow.appendTo('#' + me.name + '_fields');
-
+					me._refresh_positions();
 					for (let i in me.fields) {
 						let originalField = formObj.getItem(me.fields[i]);
 						if (originalField && originalField.ftype in $.fbuilder.controls) {
@@ -365,6 +374,7 @@
 					row = $('#'+me.name+'_fields .cff-repeater-row').eq(index);
 
 				if (row.length) row.remove();
+				me._refresh_positions();
 				me._removeFromMatrix(index);
 				me.n--;
 				if (me.n < me.maxRows) {

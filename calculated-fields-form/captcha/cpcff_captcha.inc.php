@@ -88,10 +88,10 @@ if (! class_exists('CPCFF_CAPTCHA_MATH')) {
             list($a, $b) = CPCFF_CAPTCHA_MATH::_get_operands($form, $sequence);
         ?>
             <div class="fields">
-                <label><?php echo ($cpcff_texts_array['captcha_text']['text']); ?></label>
+                <label for="hdcaptcha_cp_calculated_fields_form_post_<?php echo $sequence; ?>"><?php echo wp_kses_post($cpcff_texts_array['captcha_text']['text']); ?></label>
                 <div class="dfield">
                     <span id="cff_captcha_math_<?php echo $sequence; ?>" class="cff-captcha-math-label"><?php echo esc_html($a . ' + ' . $b . ' = '); ?></span>
-                    <input type="text" size="8" name="hdcaptcha_cp_calculated_fields_form_post" id="hdcaptcha_cp_calculated_fields_form_post_<?php echo $sequence; ?>" value="" autocomplete="off" />
+                    <input type="text" size="8" name="hdcaptcha_cp_calculated_fields_form_post" id="hdcaptcha_cp_calculated_fields_form_post_<?php echo $sequence; ?>" value="" autocomplete="off" aria-describedby="cff_captcha_math_<?php echo $sequence; ?>" />
                     <div class="error message" id="hdcaptcha_error_<?php echo $sequence; ?>" style="display:none;"></div>
                 </div>
                 <div class="clearer"></div>

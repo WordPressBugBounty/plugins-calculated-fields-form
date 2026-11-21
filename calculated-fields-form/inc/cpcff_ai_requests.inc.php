@@ -60,14 +60,26 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
                         'default_model' => 'gpt-6-luna',
                         'api_key_url' => 'https://platform.openai.com/api-keys',
 						'models' => [
+							'gpt-6.2-astra' => [
+								'title'           => esc_html__('GPT-6.2 Astra (Most Capable)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
+							'gpt-6.2-sol' => [
+								'title'           => esc_html__('GPT-6.2 Sol (Coding and Reasoning)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 128000
+							],
 							'gpt-6-astra' => [
-								'title' => esc_html__('GPT-6 Astra (Most Capable)', 'calculated-fields-form'),
+								'title' => esc_html__('GPT-6 Astra (Previous Generation)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant' => true,
 								'max_tokens' => 128000
 							],
 							'gpt-6.1-sol' => [
-								'title'           => esc_html__('GPT-6.1 Sol (Advanced Coding and Reasoning)', 'calculated-fields-form'),
+								'title'           => esc_html__('GPT-6.1 Sol (Coding and Reasoning)', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 128000
@@ -242,6 +254,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000
 							],
+							'gemini-4-neon' => [
+								'title'           => esc_html__('Gemini 4 Neon (Fast Advanced Reasoning)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
 							'gemini-4-argon' => [
 								'title'           => esc_html__('Gemini 4 Argon (Advanced Reasoning)', 'calculated-fields-form'),
 								'form-generation' => true,
@@ -256,6 +274,12 @@ if ( ! class_exists( 'CPCFF_AI_REQUESTS' ) ) {
 							],
 							'gemini-3.8-flash' => [
 								'title'           => esc_html__('Gemini 3.8 Flash (Previous Generation)', 'calculated-fields-form'),
+								'form-generation' => true,
+								'ai-assistant'    => true,
+								'max_tokens'      => 64000
+							],
+							'gemini-3.6-flash' => [
+								'title'           => esc_html__('Gemini 3.6 Flash', 'calculated-fields-form'),
 								'form-generation' => true,
 								'ai-assistant'    => true,
 								'max_tokens'      => 64000

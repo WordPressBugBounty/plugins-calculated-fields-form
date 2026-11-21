@@ -16,7 +16,7 @@
 			show:function()
 				{
 					let title = cff_sanitize(this.title, true);
-					if ( this.collapsible) title = '<span tabindex="0">' + title + '</span>';
+					if ( this.collapsible) title = '<span tabindex="0" role="button" aria-expanded="'+(this.defaultCollapsed?'false':'true')+'" aria-controls="'+this.name+'">' + title + '</span>';
                     return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-fieldset-field cff-container-field '+((this.collapsible) ? 'cff-collapsible'+((this.selfClosing) ? ' cff-selfclosing' : '')+((this.defaultCollapsed) ?  ' cff-collapsed' : '') : '')+'" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('field'))+'"><FIELDSET style="'+cff_esc_attr(this.getCSSComponent('container'))+'">'+((!/^\s*$/.test(this.title) || this.collapsible) ? '<LEGEND style="'+cff_esc_attr(this.getCSSComponent('legend'))+'">'+title+'</LEGEND>' : '')+'<div id="'+this.name+'" class="'+( this.align == 'bottom' ? 'cff-align-container-bottom' : '' )+'"></div></FIELDSET><div class="clearer"></div></div>';
 				},
 			after_show: function()
@@ -29,12 +29,19 @@
                             {
                                 p.toggleClass('cff-collapsed');
 								p.trigger('cff-collapsible', ! p.hasClass('cff-collapsed')); // Attribute is_open
+								p.children('fieldset').children('legend').children('[role="button"]')
+    							 .attr('aria-expanded', p.hasClass('cff-collapsed') ? 'false' : 'true');
                                 if(!p.hasClass('cff-collapsed'))
                                 {
                                     p.siblings('.cff-selfclosing').each(function(){
 										let e = $(this);
-										if ( ! e.hasClass('cff-collapsed') )
-											$(this).addClass('cff-collapsed').trigger('cff-collapsible', false);
+										if ( ! e.hasClass('cff-collapsed') ) {
+											e.addClass('cff-collapsed');
+											e.children('fieldset').children('legend').children('[role="button"]')
+											.attr('aria-expanded', 'false');
+											e.trigger('cff-collapsible', false);
+
+										}
 									});
                                 }
                             }
@@ -44,7 +51,7 @@
 							evt.preventDefault();
 							evt.stopPropagation();
                         }).on('keyup', function(evt){
-							if (evt.key === 'Enter') {
+							if (evt.key === 'Enter' || evt.key === ' ') {
 								$(this).trigger('click');
 							}
 						});

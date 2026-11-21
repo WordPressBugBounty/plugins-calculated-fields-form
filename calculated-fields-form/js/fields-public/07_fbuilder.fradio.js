@@ -46,9 +46,9 @@
 
 					for (var i=0;i<l;i++)
 					{
-						str += '<div class="'+this.layout+'"><label for="'+this.name+'_rb'+i+'" '+(!this.tooltipIcon && this.userhelpTooltip && this.userhelp && this.userhelp.length ? 'uh="'+cff_esc_attr(this.userhelp)+'"' : '')+'><input aria-label="'+cff_esc_attr(this.choices[i])+'" name="'+this.name+'" id="'+this.name+'_rb'+i+'" class="field '+classDep+' group '+((this.required)?" required":"")+'" value="'+cff_esc_attr(this.choicesVal[i])+'" vt="'+cff_esc_attr((this.toSubmit=='text') ? this.choices[i] : this.choicesVal[i])+'" type="radio" '+(this.readonly ? ' onclick="return false;" ' : '')+((this.choices[i]+' - '+this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> '+
+						str += '<div class="'+this.layout+'"><label for="'+this.name+'_rb'+i+'" '+(!this.tooltipIcon && this.userhelpTooltip && this.userhelp && this.userhelp.length ? 'uh="'+cff_esc_attr(this.userhelp)+'"' : '')+'><input aria-labelledby="'+this.name+'_rb'+i+'_text" name="'+this.name+'" id="'+this.name+'_rb'+i+'" class="field '+classDep+' group '+((this.required)?' required':'')+'"'+((this.required)?' aria-required="true"':'')+' value="'+cff_esc_attr(this.choicesVal[i])+'" vt="'+cff_esc_attr((this.toSubmit=='text') ? this.choices[i] : this.choicesVal[i])+'" type="radio" '+(this.readonly ? ' onclick="return false;" ' : '')+((this.choices[i]+' - '+this.choicesVal[i]==this.choiceSelected)?"checked":"")+'/> '+
                         (this.onoff ? '<span class="cff-switch"></span>': '') +
-                        '<span>'+cff_html_decode(this.choices[i])+'</span></label></div>';
+                        '<span id="'+this.name+'_rb'+i+'_text">'+cff_html_decode(this.choices[i])+'</span></label></div>';
 					}
 
 					return '<div class="fields '+cff_esc_attr(this.csslayout)+(this.onoff ? ' cff-switch-container' : '')+' '+this.name+' cff-radiobutton-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+cff_esc_attr(this.getCSSComponent('container'))+'"><label style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<div class="clearer"></div>'+(!this.userhelpTooltip ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span>' : '')+'</div><div class="clearer"></div></div>';
@@ -130,7 +130,7 @@
 										{
                                             if (isField) {
                                                 $('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').addClass('ignorefield').hide();
-                                                $('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
+                                                $('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').attr('aria-disabled','true').trigger('add-ignore');
                                             } else {
                                                 $(dep, formObj).hide();
                                             }
@@ -147,7 +147,7 @@
 										{
                                             if (isField) {
                                                 $('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
-                                                $('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
+                                                $('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').removeAttr('aria-disabled').trigger('remove-ignore');
                                             } else {
                                                 $(dep, formObj).fadeIn(interval || 0);
                                             }

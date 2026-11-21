@@ -1051,7 +1051,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
                             ), '<strong style="font-size:120%;">', '</strong>');
                             ?>
                         </p>
-                        <p><a href="https://wordpress.org/plugins/search/SMTP+Connection/" target="_blank" style="width:100%;display:block;overflow:hidden;text-overflow:ellipsis;font-size:120%;">https://wordpress.org/plugins/search/SMTP+Connection/</a></p>
+                        <p><a href="https://wordpress.org/plugins/smtp/" target="_blank" style="width:100%;display:block;overflow:hidden;text-overflow:ellipsis;font-size:120%;">https://wordpress.org/plugins/smtp/</a></p>
                         <?php
                         if (! class_exists('CPCFF_EMAIL_DIAGNOSTICS'))
                             require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_email_diagnostic.inc.php';

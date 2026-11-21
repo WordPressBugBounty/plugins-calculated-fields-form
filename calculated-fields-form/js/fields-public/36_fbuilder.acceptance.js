@@ -26,7 +26,7 @@
 						dlg += '<div class="cff-dialog hide"><span class="cff-close-dlg"></span><div class="cff-dialog-content" style="'+cff_esc_attr(me.getCSSComponent('text'))+'">'+cff_sanitize(me.message, true)+'</div></div>'
 					}
 					return '<div class="fields '+cff_esc_attr(me.csslayout)+(me.onoff ? ' cff-switch-container' : '')+' '+me.name+' cff-checkbox-field" id="field'+me.form_identifier+'-'+me.index+'" style="'+cff_esc_attr(me.getCSSComponent('container'))+'"><div class="dfield">'+
-					'<div class="one_column"><label for="'+me.name+'"><input aria-label="'+cff_esc_attr(me.title)+'" name="'+me.name+'" id="'+me.name+'" class="field required" value="'+cff_esc_attr(me.value)+'" vt="'+cff_esc_attr((/^\s*$/.test(me.value)) ? me.title : me.value)+'" type="checkbox" /> '+
+					'<div class="one_column"><label for="'+me.name+'"><input aria-label="'+cff_esc_attr(me.title)+'" name="'+me.name+'" id="'+me.name+'" class="field required" value="'+cff_esc_attr(me.value)+'" aria-required="true" vt="'+cff_esc_attr((/^\s*$/.test(me.value)) ? me.title : me.value)+'" type="checkbox" /> '+
                     (me.onoff ? '<span class="cff-switch"></span>': '') +
                     '<span>'+
 					label+''+((me.required)?'<span class="r">*</span>':'')+

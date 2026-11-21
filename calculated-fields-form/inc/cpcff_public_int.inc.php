@@ -108,7 +108,8 @@ if ( ! empty( $form_data ) ) {
 
 	// Form Heights
 	print $form_obj->get_height( '#' . $form_data[1]['formid'] );
-	?>
+	$cff_form_desc_attr = ! empty($form_settings['description']) ? ' aria-describedby="cff-form-description_'.$form_data[1]['formid'].'"' : '';
+?>
 <form name="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" id="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" action="<?php
 echo esc_attr( ( false !== ( $permalink = get_permalink() ) ) ? $permalink : '?' );
 ?>" method="post" enctype="multipart/form-data" onsubmit="return fbuilderjQuery.fbuilder.doValidate(this);" class="cff-form no-prefetch <?php
@@ -133,7 +134,7 @@ if ( !empty($form_settings['direction']) ) {
 		wp_enqueue_script( 'cpcff_slider_ui_rtl_js', plugins_url('/vendors/jquery-ui/jquery.ui.slider-rtl.pack.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array(), CP_CALCULATEDFIELDSF_VERSION, true );
 	}
 }
-?> data-nonce="<?php print esc_attr( CFF_AUXILIARY_NONCE ); ?>">
+?> data-nonce="<?php print esc_attr( CFF_AUXILIARY_NONCE ); ?>" role="form" aria-label="<?php echo esc_attr( ! empty($form_settings['title']) ? trim( html_entity_decode( wp_strip_all_tags( $form_settings['title'] ), ENT_QUOTES, 'UTF-8' ) ) : __('Form', 'calculated-fields-form') ); ?>" aria-busy="false"<?php echo $cff_form_desc_attr; ?>>
 <?php
 	// Submit form via AJAX.
 	if ( $form_obj->get_option('fp_ajax', 0) && ! $form_obj->get_option('fp_disable_submissions',0) ) {

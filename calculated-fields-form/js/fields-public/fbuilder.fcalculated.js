@@ -59,7 +59,7 @@
             show:function()
 				{
 					this.predefined = this._getAttr('predefined', true);
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-calculated-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+( this.hidefield ? 'padding:0;margin:0;border:0;opacity:0;width:0;height:0;overflow:hidden;' : cff_esc_attr(this.getCSSComponent('container')) )+'"><label '+( ! this.hidefield ? 'for="'+this.name+'"' : '' )+' style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required) ? '<span class="r">*</span>' : '')+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' '+((!/^\s*$/.test(this.min)) ? 'min="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('min'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+((!/^\s*$/.test(this.max)) ? ' max="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('max'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?" required":"")+'" type="'+((this.hidefield) ? 'hidden' : 'text')+'" value="'+cff_esc_attr(this.predefined)+'" style="'+cff_esc_attr(this.getCSSComponent('input'))+'" />'+((!this.hidefield) ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span>' : '')+'</div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-calculated-field" id="field'+this.form_identifier+'-'+this.index+'" style="'+( this.hidefield ? 'padding:0;margin:0;border:0;opacity:0;width:0;height:0;overflow:hidden;' : cff_esc_attr(this.getCSSComponent('container')) )+'"><label '+( ! this.hidefield ? 'for="'+this.name+'"' : '' )+' style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+cff_sanitize(this.title, true)+''+((this.required) ? '<span class="r">*</span>' : '')+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" aria-live="polite" aria-atomic="true" id="'+this.name+'" name="'+this.name+'" '+((this.readonly) ? ' readonly ' : '')+' '+((!/^\s*$/.test(this.min)) ? 'min="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('min'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+((!/^\s*$/.test(this.max)) ? ' max="'+cff_esc_attr($.fbuilder.parseVal(this._getAttr('max'), this.thousandSeparator, this.decimalSymbol))+'" ' : '')+' class="codepeoplecalculatedfield field '+this.size+((this.required)?' required':'')+'"'+((this.required && !this.readonly && !this.hidefield)?' aria-required="true"':'')+' type="'+((this.hidefield) ? 'hidden' : 'text')+'" value="'+cff_esc_attr(this.predefined)+'" style="'+cff_esc_attr(this.getCSSComponent('input'))+'" />'+((!this.hidefield) ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+cff_sanitize(this.userhelp, true)+'</span>' : '')+'</div><div class="clearer"></div></div>';
 				},
             after_show:function()
 				{
@@ -203,7 +203,7 @@
 							hideField = function(dep, isField){
                                 if (isField) {
 								    $('.'+dep+' [id*="'+dep+'"],.'+dep, formObj).closest('.fields').addClass('ignorefield').hide();
-								    $('.'+dep+' [id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
+								    $('.'+dep+' [id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').attr('aria-disabled','true').trigger('add-ignore');
                                 } else {
                                     $(dep, formObj).hide();
                                 }
@@ -247,7 +247,7 @@
 								{
                                     if (isField) {
 									    $('.'+dep+' [id*="'+dep+'"],.'+dep, formObj).closest('.fields').removeClass('ignorefield').fadeIn(interval || 0);
-									    $('.'+dep+' [id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
+									    $('.'+dep+' [id*="'+dep+'"].ignore', formObj).removeClass('ignore').removeAttr('aria-disabled').trigger('remove-ignore');
                                     } else {
                                         $(dep, formObj).fadeIn(interval || 0);
                                     }
@@ -534,6 +534,7 @@
 								if(j == k || f != -1)
 								{
 									queue.splice(j, 0, equations[i]);
+									if(equations[i].result) $('#'+equations[i].result).attr('aria-busy','true');
 								}
 							}
 						},
@@ -690,23 +691,33 @@
 								while(queue.length)
 								{
 									eq_obj = queue.shift();
-									$.fbuilder['currentEq'] = eq_obj;
 									var field = $('[id="'+eq_obj.result+'"]'),
-										result = _calculate(eq_obj.equation,  eq_obj.identifier,  eq_obj.result),
-										bk =  field.data('bk');
-									delete ( $.fbuilder['currentEq'] );
-									field.val((result !== false) ? me.format(result, eq_obj.resultField.configuration()) : '');
-									if(bk != field.val())
-									{
-										field.data('bk',field.val());
-										field.trigger('calcualtedfield_changed');
-										field.trigger('change');
+										result, bk;
+									$.fbuilder['currentEq'] = eq_obj;
+									try {
+										result = _calculate(eq_obj.equation,  eq_obj.identifier,  eq_obj.result);
+                                 		bk =  field.data('bk');
+                                 		field.val((result !== false) ? me.format(result, eq_obj.resultField.configuration()) : '');
+										if(bk != field.val())
+										{
+											field.data('bk',field.val());
+											field.trigger('calcualtedfield_changed');
+											field.trigger('change');
+										}
+									} catch(err) {
+										console.log(err);
+									} finally {
+										delete ( $.fbuilder['currentEq'] );
+										field.removeAttr('aria-busy');
 									}
 								}
 							}
 
 							me.processing_queue[fSec] = false;
-							if(!me.thereIsPending(fSec)) $(document).trigger('equationsQueueEmpty', [fSec]);
+							if (!me.thereIsPending(fSec)) {
+								$(document).trigger('equationsQueueEmpty', [fSec]);
+								$('#cp_calculatedfieldsf_pform' + fSec + ' .cff-calculated-field input').removeAttr('aria-busy');
+							}
 						},
                     format : function(value,  config)
 						{

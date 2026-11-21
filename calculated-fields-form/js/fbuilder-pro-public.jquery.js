@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.6.0.2';
+	$.fbuilder['version'] = '5.6.0.3';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -351,6 +351,8 @@
                         let f = $(this).closest('.cff-collapsed');
                         if (f.length > 0) {
                             f.removeClass('cff-collapsed');
+							f.children('fieldset').children('legend').children('[role="button"]')
+							 .attr('aria-expanded', 'true');
                         }
                     });
 
@@ -359,7 +361,9 @@
 				i += direction;
 			}
 			formObj['currentPage'] = i;
-			pageDom = $(".pbreak.pb"+i,formDom);
+            pageDom = $(".pbreak.pb"+i,formDom);
+            formDom.find('legend.cff-page-legend').removeAttr('aria-current');
+            pageDom.find('legend.cff-page-legend').attr('aria-current','page');
 
 			if(i != _from) {
 				swapPages(
@@ -405,7 +409,7 @@
 					});
 
 					if(mssg.length) {
-						$( 'body' ).append( '<div class="cff-error-dlg">'+cff_sanitize(mssg.join('<br>'), true)+'</div>' ).one('click', $.fbuilder.closeErrorDlg);
+						$( 'body' ).append( '<div class="cff-error-dlg" role="alert">'+cff_sanitize(mssg.join('<br>'), true)+'</div>' ).one('click', $.fbuilder.closeErrorDlg);
 					}
 				}
 
@@ -659,6 +663,7 @@
 						try{
 							if(_t.length) _arg['left'] = _t.first()[0].offsetLeft;
 						} catch (err) {}
+					e.attr('role','alert');
 					e.addClass( 'message' ).css( _arg ).appendTo( ( _uh.length ) ? _uh : _parent );
 				}
 		}).messages = opt.messages;
@@ -688,7 +693,7 @@
 							html = '';
 						if( submit_tag.length )
 						{
-							html += '<div class="pbSubmit" tabindex="0">'+submit_tag.html()+'</div>';
+							html += '<div class="pbSubmit" tabindex="0" role="button">'+submit_tag.html()+'</div>';
 							submit_tag.remove();
 						}
 						return html;
@@ -808,8 +813,8 @@
 
                             $(this).wrapInner('<fieldset></fieldset>')
                             .find('fieldset:eq(0)')
-                            .prepend('<legend>'+cff_sanitize(opt.messages.pageof.replace( /\{\s*\d+\s*\}/, (index+1) ).replace( /\{\s*\d+\s*\}/, (page+1) ), true)+'</legend>')
-                            .append(code+'<div class="cff-form-buttons-container"><div class="pbPrevious" tabindex="0">'+cff_sanitize(opt.messages.previous, true)+'</div><div class="pbNext" tabindex="0">'+cff_sanitize(opt.messages.next, true)+'</div>'+cff_sanitize(bSubmit, true)+'</div><div class="clearer"></div>');
+                            .prepend('<legend class="cff-page-legend"'+(index===0?' aria-current="page"':'')+'>'+cff_sanitize(opt.messages.pageof.replace( /\{\s*\d+\s*\}/, (index+1) ).replace( /\{\s*\d+\s*\}/, (page+1) ), true)+'</legend>')
+                            .append(code+'<div class="cff-form-buttons-container"><div class="pbPrevious" tabindex="0" role="button">'+cff_sanitize(opt.messages.previous, true)+'</div><div class="pbNext" tabindex="0" role="button">'+cff_sanitize(opt.messages.next, true)+'</div>'+cff_sanitize(bSubmit, true)+'</div><div class="clearer"></div>');
 						});
 					}
 
@@ -1016,7 +1021,7 @@
 					$.fbuilder['getCSSComponent'](this, 'required_field_asterisk', true, '#'+form_id+' .r', id);
 
 					return ( id in $.fbuilder.css ? '<style>' + cff_sanitize($.fbuilder.css[id].join(''), true) + '</style>' : '') + // Include the fields CSS
-					'<div class="fform" id="field" style="'+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'header'))+'">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'title'))+'">'+cff_sanitize(this.title, true)+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'description'))+'">'+cff_sanitize(this.description, true)+'</span>' : '' )+'</div>';
+					'<div class="fform" id="field" style="'+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'header'))+'">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'title'))+'">'+cff_sanitize(this.title, true)+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" id="cff-form-description_'+form_id+'" style="'+css+cff_esc_attr($.fbuilder['getCSSComponent'](this, 'description'))+'">'+cff_sanitize(this.description, true)+'</span>' : '' )+'</div>';
 				},
                 after_show:function( id ){
                     // Common validators
@@ -1342,7 +1347,7 @@
 						if($.fbuilder.isNumeric(v)) return;
 
 						// NEW: only treat non-fieldname values as selectors if they look like one
-						// (start with . # or contain [). Anything else is a literal value — no dependency wiring.
+						// (start with . # or contain [). Anything else is a literal value - no dependency wiring.
 						if (!/^fieldname\d+$/i.test(v) && !/^[.#\[]/.test(v)) return;
 						var s = (/^fieldname\d+$/i.test(v)) ? '.'+v+me.form_identifier+' [id*="'+v+me.form_identifier+'"]' : v,
 							i = (one) ? 'one' : 'on';
@@ -1424,12 +1429,14 @@
 				form.removeData('being-submitted');
 				form.find('.submitbtn-disabled').removeClass('submitbtn-disabled').prop('disabled', false);
 				form.find('.cff-processing-form').remove();
+				form.removeAttr('aria-busy');
 			},
 			disabling_form = function () {
 				if (form_disabled()) return;
 				form.find('.pbSubmit,:submit').addClass('submitbtn-disabled').prop('disabled', true);
 				form.data('being-submitted', 1);
 				form.find('#fbuilder').append('<div class="cff-processing-form"></div>');
+				form.attr('aria-busy','true');
 			},
 			form_disabled = function () {
 				return ('undefined' != typeof form.data('being-submitted'));
@@ -1673,6 +1680,8 @@
                 let f = $(this).closest('.cff-collapsed');
                 if(f.length > 0) {
                     f.removeClass('cff-collapsed');
+					f.children('fieldset').children('legend').children('[role="button"]')
+    				 .attr('aria-expanded', 'true');
                 }
             });
             form.trigger('cff-form-validation', false);
@@ -1904,7 +1913,7 @@
 			});
 
 			if ( mssg.length ) {
-				$( f ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' );
+				$( f ).append( '<div class="cff-error-dlg" role="alert">'+mssg.join('<br>')+'</div>' );
 			}
 		} catch ( err ) { console.log( err ); }
 	};
